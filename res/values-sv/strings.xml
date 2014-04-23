@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Den tomma händelsen sparades inte."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Inbjudningar kommer att skickas."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Uppdateringar kommer att skickas."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Svarade ja."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Svarade kanske."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Svarade nej."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Spara"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenderaviseringar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visa händelse"</string>
@@ -141,9 +144,9 @@
     <string name="delete_label" msgid="874742811918030739">"Ta bort"</string>
     <string name="save_label" msgid="2133599104834432589">"Färdig"</string>
     <string name="discard_label" msgid="2394623883289782541">"Avbryt"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Sätt alla på snooze"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Pausa alla"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Ta bort alla permanent"</string>
-    <string name="snooze_label" msgid="1515893621063224666">"Skjut upp"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"Pausa"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Engångshändelse"</string>
     <string name="endByDate" msgid="7654221304929538201">", till <xliff:g id="DATE">%s</xliff:g>"</string>
   <plurals name="endByCount">
@@ -232,7 +235,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Visa mig som"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Sekretess"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Kalendermeddelande"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Sätt meddelandet i viloläge"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Pausa avisering"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Skicka e-post till gäster"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ ny händelse"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Händelse <xliff:g id="ITEM_INDEX">%1$s</xliff:g> av <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>

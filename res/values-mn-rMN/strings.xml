@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Календарь"</string>
+    <string name="what_label" msgid="1933578391985810049">"Юу"</string>
+    <string name="where_label" msgid="3472482206065595118">"Хаана"</string>
+    <string name="when_label" msgid="894636567327261599">"Хэзээ"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Цагийн бүс"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Зочид"</string>
+    <string name="today" msgid="8577375020252453006">"Өнөөдөр"</string>
+    <string name="tomorrow" msgid="614434811813859237">"Маргааш"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"Өнөөдөр <xliff:g id="TIME_INTERVAL">%s</xliff:g>-д"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Маргааш <xliff:g id="TIME_INTERVAL">%s</xliff:g>-д"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Давталт"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Гарчиггүй)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 минут"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> минут"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 мин"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> мин"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 цаг"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> цаг"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 өдөр"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> өдөр"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"ДОЛОО ХОНОГ <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Дахин шинэчлэх"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Өдөр харуулах"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Хөтөлбөр"</string>
+    <string name="day_view" msgid="4467754504843584437">"Өдөр"</string>
+    <string name="week_view" msgid="6775043022159508060">"7 хоног"</string>
+    <string name="month_view" msgid="7287101431749285412">"Сар"</string>
+    <string name="event_view" msgid="7621353079385122317">"Үйл явдлыг харах"</string>
+    <string name="event_create" msgid="6941040556709110617">"Шинэ үйл явдал"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Үйл явдлыг засах"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Үйл явдлыг устгах"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Өнөөдөр"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Тохиргоо"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Харуулах календарь"</string>
+    <string name="search" msgid="550656004486017426">"Хайх"</string>
+    <string name="hide_controls" msgid="830320505938520882">"Контролыг далдлах"</string>
+    <string name="show_controls" msgid="715520586028062621">"Хяналтыг харуулах"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Харуулах календарь"</string>
+    <string name="synced" msgid="7913940305983383493">"синк хийгдсэн"</string>
+    <string name="not_synced" msgid="4275114941801829419">"Синк хийгдээгүй"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Энэ акаунт синк хийгдэхгүй байгаа учир таны календарь шинэчлэгдээгүй байж магадгүй."</string>
+    <string name="accounts" msgid="849401841083180306">"Акаунт &amp; синк"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Синк хийх календариуд"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Синк хийх календариуд"</string>
+    <string name="hint_what" msgid="709155115005044531">"Үйл явдлын нэр"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Байршил"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Тайлбар"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Зочид"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Үйл явдлыг үүсгэсэн."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Үйл явдал хадгалагдсан."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Хоосон үйл явдал үүсгэгдээгүй."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Урилга илгээх болно."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"Шинэчлэлтийг илгээх болно."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Тийм гэж хариулав."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Магадгүй гэж хариулав."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Үгүй гэж хариулав."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Хадгалах"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Календарийн мэдэгдэл"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Үйл явдлыг харах"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Уулзалтын урилга"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Хэнд"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Илгээгч"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Өдөржин"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Календарь"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"Бүгдийг харуулах"</string>
+    <string name="description_label" msgid="7193475046717505855">"Тайлбар"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Би"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Нууцлал"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Сануулагч нэмэх"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Календарь байхгүй"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Та үйл явдал нэмэхийн өмнө дор хаяж нэг Календарь акаунтыг төхөөрөмжид нэмж, календарийг харагддаг болгосон байх шаардлагатай. Акаунт нэмэхийн тулд Акаунт нэмэх гэсэнд хүрнэ үү (хэрэв та дөнгөж акаунт нэмсэн бол синк хийж дуустал хүлээгээд дахин оролдоно уу). Эсхүл Цуцлах гэсэнд хүрээд дор хаяж нэг календарь харагдахуйц болгоорой."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Календарь нь Google Акаунттай сайн ажиллана.\n\n• Та дурын хөтчөөр нэвтэрч болно\n• Өөрийн үйл явдлуудыг найдвартай нөөцлөөрэй"</string>
+    <string name="add_account" msgid="1669072099756774952">"Акаунт нэмэх"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Календарь"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Зохион байгуулагч:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Үйл явдлын өнгийг сонгох"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Үйл явдлын Өнгө"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Календарийн үндсэн өнгө болгох"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Календарийн Өнгө"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Өнгө сонгогч"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Оролцох уу?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"Тийм"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"Магадгүй"</string>
+    <string name="response_no" msgid="561911691884148136">"Үгүй"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Зочид руу имэйлдэх"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Зохион байгуулагч руу имэйлдэх"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"Хамт имэйлдэх"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Үйл явдал олдсонгүй."</string>
+    <string name="map_label" msgid="8795383535586556038">"Газрын зураг"</string>
+    <string name="call_label" msgid="2960328220008869083">"Залгах"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Шуурхай хариунууд"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Зочид руу имэйлдэхдээ үндсэн хариултуудыг ашиглах"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Шуурхай хариунуудыг засах"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Шуурхай хариу"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Шуурхай хариулт сонгох"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Имэйл програм олж чадсангүй"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"Хэдхэн минут хоцорч байна."</item>
+    <item msgid="6215158751728689832">"10 минут дараа тэнд очно уу."</item>
+    <item msgid="4485794001743679338">"Надгүйгээр эхлүүлж байна уу."</item>
+    <item msgid="8036557974294987511">"Уучлаарай, би амжихааргүй боллоо. Уулзалтаа дахин товлоё."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Өөрийн гэснийг бичээрэй..."</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Зохион байгуулагч:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Сануулагч"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"ӨНӨӨДӨР, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"ӨЧИГДӨР, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"МАРГААШ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Ачааллаж байна..."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>-с өмнөх үйл явдлуудыг харахын тулд хүрнэ үү"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>-с дараах үйл явдлуудыг харахын тулд хүрнэ үү"</string>
+    <string name="search_title" msgid="8898015280250716254">"Миний календариас хайх"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Дэлгэрэнгүй"</string>
+    <string name="edit_label" msgid="8934331258435656534">"Засах"</string>
+    <string name="delete_label" msgid="874742811918030739">"Устгах"</string>
+    <string name="save_label" msgid="2133599104834432589">"Дууссан"</string>
+    <string name="discard_label" msgid="2394623883289782541">"Цуцлах"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Бүгдийг түр хойшлуулах"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Бүгдийг алгасах"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"Түр хойшлуулагч"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Нэг удаагийн үйл явдал"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; хүртэл <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; нэг удаа"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> удаа"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Өдөр тутам"</item>
+    <item quantity="other" msgid="5455230727715859264">"<xliff:g id="NUMBER">%d</xliff:g> өдөр тутам"</item>
+  </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"Ажлын бүх өдрүүдэд (Дав–Баа)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Долоо хоног бүрийн <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g> долоо хоног тутмын <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
+    <string name="monthly" msgid="4587116285383048586">"Сар бүр"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Жил бүр"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Сар бүр (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> өдөр)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Жил бүр (<xliff:g id="DATES">%s</xliff:g> тутам)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Өөрийн (таблет дээр өөрийн тохиргоо хийх боломжгүй)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Өөрийн (утсан дээр өөрийн тохиргоо хийх боломжгүй)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Зөвхөн энэ үйл явдлыг өөрчлөх"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Дараалсан бүх үйл явдлыг өөрчлөх"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Энийг болон цаашдын бүх үйл явдлыг өөрчлөх"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Шинэ үйл явдал"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Шинэ үйл явдал"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Энэ үйл явдлыг устгах уу?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g>-г устгах уу?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Хариултыг өөрчлөх"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Ерөнхий тохиргоо"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Календарийн тухай"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Тохиргоо"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Календарийн харагдах тохиргоо"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Мэдэгдэл &amp; сануулагч"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Татгалзсан үйл явдлуудыг нуух"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Долоо хоногийн эхлэх өдөр"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Долоо хоногийн эхлэх өдөр"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Хайлтын түүхийг арилгах"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Өөрийн гүйцэтгэсэн бүх хайлтыг арилгах"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Хайлтын түүхийг арилгасан."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Мэдэгдэл"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Чичиргээ"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Дуу"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Попап мэдэгдэл"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Үндсэн сануулагчийн цаг"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Үндсэн сануулагчийн цаг"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Гэрийн цагийн бүсийг ашиглах"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Аялаж байгаа үед календарь болон үйл явдлын цагийг таны гэрийн цагийн бүсээр харуулна"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Гэрийн цагийн бүс"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Долоо хоногийн дугаарыг харуулах"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Тухай"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Хийгдсэн хувилбар"</string>
+    <string name="gadget_title" msgid="939918875331310945">"Календарь"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"Календарьт удахгүй болох үйл явдал алга байна"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Туршилтын"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Сануулагч"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Сануулагчийг алгасах"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Сануулагчийг алгасах"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Чимээгүй цагууд"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Заасан цагуудад үйл явдлын сануулагчийг чимээгүй болгох"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Чимээгүй цагууд эхлэх цаг"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Чимээгүй цагууд дуусах цаг"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Дебаг хийх"</string>
+    <string name="copy_db" msgid="437691290566699292">"Өгөгдлийг илгээх"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g>-г хайж байна …"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Оролцогчийг хасах"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Эхлэх огноо"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Эхлэх цаг"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Дуусах огноо"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Дуусах цаг"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Цагийн бүс"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Үйл явдлыг давтах"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Сануулагч нэмэх"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Сануулагчийг арилгах"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Оролцогч нэмэх"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Календарийг синк хийх"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Өдөржин үргэлжлэх үйл явдал"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Давталт"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Сануулагчийн цаг"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Сануулагчийн төрөл"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Би"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Нууцлал"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Календарийн Мэдэгдэл"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Мэдэгдлийг түр хойшлуулах"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Зочид руу имэйлдэх"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Шинэ үйл явдал"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_COUNT">%2$s</xliff:g> үйл явдлын <xliff:g id="ITEM_INDEX">%1$s</xliff:g> нь."</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"1 үйл явдал"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> үйл явдал"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 үйл явдал"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> үйл явдал"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Сонгогдсон үйл явдал"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"Сонгож БОЛОХГҮЙ -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Давтах"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Хэзээ ч давтахгүй"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> өдөр тутам"</item>
+    <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g> өдөр тутам"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> долоо хоног тутам"</item>
+    <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g> долоо хоног тутам"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> сар тутам"</item>
+    <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g> сар тутам"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> жил тутам"</item>
+    <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g> жил тутам"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"сар бүрийн ижил өдөр"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Үүрд"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Огноо хүртэл"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Хүртэл <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Нэлээн хэдэн үйл явдалд"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> үйл явдалд"</item>
+    <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> үйл явдалд"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"дуусах огноог өөрчлөх"</string>
+</resources>

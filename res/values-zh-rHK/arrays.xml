@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"通知"</item>
+    <item msgid="1751151680520784746">"電郵"</item>
+    <item msgid="2658001219380695677">"短訊"</item>
+    <item msgid="7926918288165444873">"鬧鐘"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 分鐘"</item>
+    <item msgid="6681865010714743948">"1 分鐘"</item>
+    <item msgid="2327505114623595779">"5 分鐘"</item>
+    <item msgid="1657410063332547113">"10 分鐘"</item>
+    <item msgid="366087535181197780">"15 分鐘"</item>
+    <item msgid="6252612791145061929">"20 分鐘"</item>
+    <item msgid="7896694531989090700">"25 分鐘"</item>
+    <item msgid="8754510169374808607">"30 分鐘"</item>
+    <item msgid="3113380274218454394">"45 分鐘"</item>
+    <item msgid="8546646645868526283">"1 小時"</item>
+    <item msgid="6467845211024768872">"2 小時"</item>
+    <item msgid="8201677619511076575">"3 小時"</item>
+    <item msgid="7172504281650128893">"12 小時"</item>
+    <item msgid="9114286702181482496">"24 小時"</item>
+    <item msgid="3107009344872997366">"2 天"</item>
+    <item msgid="6135563708172153696">"1 星期"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"無"</item>
+    <item msgid="5883344836499335043">"0 分鐘"</item>
+    <item msgid="4354350447805231188">"1 分鐘"</item>
+    <item msgid="265674592625309858">"5 分鐘"</item>
+    <item msgid="8011089417728419666">"10 分鐘"</item>
+    <item msgid="6177098581805412986">"15 分鐘"</item>
+    <item msgid="356346660503078923">"20 分鐘"</item>
+    <item msgid="992592434377054063">"25 分鐘"</item>
+    <item msgid="9191353668596201944">"30 分鐘"</item>
+    <item msgid="1192985682962908244">"45 分鐘"</item>
+    <item msgid="1694315499429259938">"1 小時"</item>
+    <item msgid="8281019320591769635">"2 小時"</item>
+    <item msgid="2062931719019287773">"3 小時"</item>
+    <item msgid="4086495711621133006">"12 小時"</item>
+    <item msgid="3172669681920709561">"24 小時"</item>
+    <item msgid="5557836606782821910">"2 天"</item>
+    <item msgid="8336577387266744930">"1 週"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"地區設定預設值"</item>
+    <item msgid="134027225275475280">"星期六"</item>
+    <item msgid="95029346069903091">"星期日"</item>
+    <item msgid="5840983116375063739">"星期一"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"忙碌"</item>
+    <item msgid="6228387173725732140">"有空"</item>
+    <item msgid="2064426942462573474">"暫定"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"[預設]"</item>
+    <item msgid="5200216103966973369">"私人"</item>
+    <item msgid="9182342638433672664">"公開"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"第一"</item>
+    <item msgid="5631923029483854900">"秒"</item>
+    <item msgid="148935502975250973">"第三"</item>
+    <item msgid="5124200797326669172">"第四個"</item>
+    <item msgid="7564374178324652137">"最後"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"沒有回應"</item>
+    <item msgid="3724434080904437698">"是"</item>
+    <item msgid="8854145743148992583">"不確定"</item>
+    <item msgid="6174292185978948873">"否"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"僅限此活動"</item>
+    <item msgid="1536401639805370405">"此活動及未來活動"</item>
+    <item msgid="7833229563617435430">"所有活動"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"此活動及未來活動"</item>
+    <item msgid="6315440193748139854">"所有活動"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"僅限此活動"</item>
+    <item msgid="140670561403965380">"系列中的所有活動"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"日"</item>
+    <item msgid="6248480754959562740">"週"</item>
+    <item msgid="4298472806133153766">"月"</item>
+    <item msgid="5033084974413793845">"待辦事項"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"只限拒絕時"</item>
+    <item msgid="6367412240524984286">"拒絕或未回應時"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"每天重複"</item>
+    <item msgid="6300824484048337842">"每星期重複"</item>
+    <item msgid="189361731610816256">"每月重複"</item>
+    <item msgid="8714177874112569158">"每年重複"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"逢每月第一個星期日"</item>
+    <item msgid="2557379346106451363">"逢每月第二個星期日"</item>
+    <item msgid="7622144489915654132">"逢每月第三個星期日"</item>
+    <item msgid="527152448137686021">"逢每月第四個星期日"</item>
+    <item msgid="5057483608824759350">"逢每月最後一個星期日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"逢每月第一個星期一"</item>
+    <item msgid="4484275849072423978">"逢每月第二個星期一"</item>
+    <item msgid="8956169860824371383">"逢每月第三個星期一"</item>
+    <item msgid="6924403357659569326">"逢每月第四個星期一"</item>
+    <item msgid="1379608815263472161">"逢每月最後一個星期一"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"逢每月第一個星期二"</item>
+    <item msgid="9063613547307760928">"逢每月第二個星期二"</item>
+    <item msgid="6688603328729208168">"逢每月第三個星期二"</item>
+    <item msgid="6695206006961533357">"逢每月第四個星期二"</item>
+    <item msgid="8619069174889809914">"逢每月最後一個星期二"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"逢每月第一個星期三"</item>
+    <item msgid="5059722045367799217">"逢每月第二個星期三"</item>
+    <item msgid="7986246648229272275">"逢每月第三個星期三"</item>
+    <item msgid="9068566169348980801">"逢每月第四個星期三"</item>
+    <item msgid="7976866743069062134">"逢每月最後一個星期三"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"逢每月第一個星期四"</item>
+    <item msgid="4857419136007543270">"逢每月第二個星期四"</item>
+    <item msgid="222044587450564839">"逢每月第三個星期四"</item>
+    <item msgid="6197927556533030945">"逢每月第四個星期四"</item>
+    <item msgid="1023326923033436905">"逢每月最後一個星期四"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"逢每月第一個星期五"</item>
+    <item msgid="1935608297230506940">"逢每月第二個星期五"</item>
+    <item msgid="4061877662049317599">"逢每月第三個星期五"</item>
+    <item msgid="6856646749131820614">"逢每月第四個星期五"</item>
+    <item msgid="6533513913914859794">"逢每月最後一個星期五"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"逢每月第一個星期六"</item>
+    <item msgid="9130198690512925355">"逢每月第二個星期六"</item>
+    <item msgid="4525736070844032405">"逢每月第三個星期六"</item>
+    <item msgid="422053689531707709">"逢每月第四個星期六"</item>
+    <item msgid="5499975799312474425">"逢每月最後一個星期六"</item>
+  </string-array>
+</resources>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Օրացույց"</string>
+    <string name="what_label" msgid="1933578391985810049">"Ինչ"</string>
+    <string name="where_label" msgid="3472482206065595118">"Որտեղ"</string>
+    <string name="when_label" msgid="894636567327261599">"Երբ"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Ժամային գոտի"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Հյուրեր"</string>
+    <string name="today" msgid="8577375020252453006">"Այսօր"</string>
+    <string name="tomorrow" msgid="614434811813859237">"Վաղը"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"Այսօր՝ <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Վաղը՝ <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Կրկնություն"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Անվերնագիր)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 րոպե"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> րոպե"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 րոպե"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> րոպե"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 ժամ"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ժամ"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 օր"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> օր"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g>-րդ շաբաթ"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Թարմացնել"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Ցուցադրել օրը"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Օրակարգ"</string>
+    <string name="day_view" msgid="4467754504843584437">"Օր"</string>
+    <string name="week_view" msgid="6775043022159508060">"Շաբաթ"</string>
+    <string name="month_view" msgid="7287101431749285412">"Ամիս"</string>
+    <string name="event_view" msgid="7621353079385122317">"Դիտել իրադարձությունը"</string>
+    <string name="event_create" msgid="6941040556709110617">"Նոր իրադարձություն"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Խմբագրել իրադարձությունը"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Ջնջել իրադարձությունը"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Այսօր"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Կարգավորումներ"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Օրացույցներ՝ ցուցադրման համար"</string>
+    <string name="search" msgid="550656004486017426">"Որոնել"</string>
+    <string name="hide_controls" msgid="830320505938520882">"Թաքցնել կարգավորիչները"</string>
+    <string name="show_controls" msgid="715520586028062621">"Ցուցադրել կարգավորիչները"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Օրացույցներ՝ ցուցադրման համար"</string>
+    <string name="synced" msgid="7913940305983383493">"համաժամեցված է"</string>
+    <string name="not_synced" msgid="4275114941801829419">"համաժամեցված չէ"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Այս հաշիվը չի համաժամեցվել, և ձեր օրացույցը կարող է թարմացված չլինել:"</string>
+    <string name="accounts" msgid="849401841083180306">"Հաշիվներ &amp; համաժամեցում"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Օրացույցներ՝ համաժամեցման համար"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Օրացույցներ՝ համաժամեցման համար"</string>
+    <string name="hint_what" msgid="709155115005044531">"Իրադարձության անունը"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Տեղադրությունը"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Նկարագրություն"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Հյուրեր"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Իրադարձությունը ստեղծված է:"</string>
+    <string name="saving_event" msgid="7694181017411177226">"Իրադարձությունը պահված է:"</string>
+    <string name="empty_event" msgid="9018699257414338634">"Անբովանդակ իրադարձությունը չի ստեղծվել:"</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Հրավերները կուղարկվեն"</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"Թարմացումները կուղարկվեն:"</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Պատասխանը՝ այո:"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Պատասխանը՝ գուցե:"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Պատասխանը՝ ոչ:"</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Պահել"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Օրացուցային ծանուցումներ"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Դիտել իրադարձությունը"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Հանդիպման հրավեր"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Ստացող"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Ուղարկող"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Ամբողջ օրը"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Օրացույց"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"Ցուցադրել բոլորը"</string>
+    <string name="description_label" msgid="7193475046717505855">"Նկարագրություն"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Ցուցադրել ինձ որպես"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Գաղտնիություն"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Ավելացնել հիշեցում"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Օրացույցներ չկան"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Նախքան դուք կարող եք ավելացնել իրադարձություն, դուք պետք է սարքում ավելացնեք նվազագույնը մեկ օրացուցային հաշիվ և այն դարձնեք տեսանելի: Հպեք Ավելացնել հաշիվ՝ հաշվի ավելացման համար (եթե քիչ առաջ ավելացրել եք հաշիվ, սպասեք, մինչ կավարտվի համաժամեցումը և կրկին փորձեք): Կամ հպեք Չեղարկել և համոզվեք, որ նվազագույնը մեկ օրացույց տեսանելի է:"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Օրացույցն ավելի լավ է աշխատում Google Հաշվով:\n\n• Օգտագործեք այն ցանցացած վեբ դիտարկչից\n• Անվտանգ պահուստավորեք ձեր իրադարձությունները"</string>
+    <string name="add_account" msgid="1669072099756774952">"Ավելացնել հաշիվ"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Օրացույց՝"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Կազմակերպիչ՝"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Ընտրել իրադարձության գույնը"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Իրադարձության գույնը"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Նշել օրացույցի լռելյայն գույնը"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Օրացույցի գույնը"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Գույնի ընտրիչ"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Մասնակցե՞լ"</string>
+    <string name="response_yes" msgid="2027484304899988350">"Այո"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"Գուցե"</string>
+    <string name="response_no" msgid="561911691884148136">"Ոչ"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Նամակագրել հյուրերին"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Նամակագրել կազմակերպչին"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"Նամակագրել"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Իրադարձությունը չի գտնվել:"</string>
+    <string name="map_label" msgid="8795383535586556038">"Քարտեզ"</string>
+    <string name="call_label" msgid="2960328220008869083">"Հեռախոսազանգ"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Արագ պատասխաններ"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Խմբագրել հյուրերին հաղորդագրվող լռելյայն պատասխանները"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Խմբագրել արագ պատասխանները"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Արագ պատասխան"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Ընտրեք արագ պատասխանը"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Էլփոստի ծրագրի որոնումը ձախողվել է"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"Ընդամենը մի քանի րոպե անց կլինեմ:"</item>
+    <item msgid="6215158751728689832">"Կլինեմ այնտեղ մոտ 10 րոպեից:"</item>
+    <item msgid="4485794001743679338">"Գնացեք և սկսեք առանց ինձ:"</item>
+    <item msgid="8036557974294987511">"Ներեցեք, ես չեմ կարող հասցնել: Մենք ստիպված կլինենք վերապլանավորել:"</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Գրեք ձեր սեփականը…"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Կազմակերպիչ՝"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Հիշեցումներ"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"Այսօր, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"Երեկ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"Վաղը, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Բեռնում..."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Հպեք՝ դիտելու իրադարձությունները նախքան <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>-ը"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Հպեք՝ դիտելու իրադարձությունները <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>-ից հետո"</string>
+    <string name="search_title" msgid="8898015280250716254">"Որոնել իմ օրացույցները"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Մանրամասներ"</string>
+    <string name="edit_label" msgid="8934331258435656534">"Խմբագրել"</string>
+    <string name="delete_label" msgid="874742811918030739">"Ջնջել"</string>
+    <string name="save_label" msgid="2133599104834432589">"Կատարված է"</string>
+    <string name="discard_label" msgid="2394623883289782541">"Չեղարկել"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Ննջել բոլորը"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Անտեսել բոլորը"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"Ննջել"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Մեկանգամյա իրադարձություն"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; մինչև <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; մեկ անգամ"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> անգամ"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Ամեն օր"</item>
+    <item quantity="other" msgid="5455230727715859264">"<xliff:g id="NUMBER">%d</xliff:g> օրը մեկ"</item>
+  </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"Յուրաքանչյուր աշխատանքային օր (երկ-ուրբ)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Շաբաթը մեկ՝ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g> շաբաթը մեկ՝ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
+    <string name="monthly" msgid="4587116285383048586">"Ամեն ամիս"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Ամեն տարի"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Ամեն ամիս (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>-րդ օրը)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Ամեն տարի (<xliff:g id="DATES">%s</xliff:g>-ին)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Հատուկ (հնարավոր չէ հարմարեցնել գրասալիկում)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Հատուկ (հնարավոր չէ հարմարեցնել հեռախոսում)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Փոխել միայն այս իրադարձությունը"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Փոխել շարքի բոլոր իրադարձությունները"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Փոխել այս և հետագա բոլոր իրադարձությունները"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Նոր իրադարձություն"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Նոր իրադարձություն"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Ջնջե՞լ այս իրադարձությունը:"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g>-ը ջնջե՞լ:"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Փոխել պատասխանը"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Հիմնական կարգավորումներ"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Օրացույցի մասին"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Կարգավորումներ"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Օրացույցի դիտման կարգավորում"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Ծանուցումներ &amp; հիշեցումներ"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Թաքցնել մերժված իրադարձությունները"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Շաբաթը սկսվում է"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Շաբաթը սկսվում է"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Մաքրել որոնման պատմությունը"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Հեռացնել բոլոր որոնումները, որոնք դուք կատարել եք"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Որոնման պատմությունը մաքրվել է:"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Ծանուցումներ"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Թրթռալ"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Ձայն"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Ելնող պատուհանով ծանուցում"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Լռելյայն հիշեցման ժամանակը"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Լռելյայն հիշեցման ժամանակը"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Օգտագործել տնային ժամային գոտին"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Ցուցադրում է օրացույցները և իրադարձությունների ժամանակը ձեր տնային ժամային գոտում ճամփորդելիս"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Տնային ժամային գոտի"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Ցուցադրել շաբաթվա համարը"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Տեղեկություններ"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Պատրաստման տարբերակ"</string>
+    <string name="gadget_title" msgid="939918875331310945">"Օրացույց"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"Առաջիկա օրացուցային իրադարձություններ չկան"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Փորձնական"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Հիշեցումներ"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Բաց թողնել հիշեցումները"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Բաց թողնել հիշեցումները"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Լռեցման ժամերը"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Լռեցնել իրադարձությունների հիշեցումները նշված ժամանակում:"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Լռեցման ժամերի մեկնարկի ժամանակը"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Լռեցման ժամերը և ժամանակը"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Կարգաբերում"</string>
+    <string name="copy_db" msgid="437691290566699292">"Ուղարկել տվյալների շտեմարանը"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"Որոնում է <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Հեռացնել մասնակցին"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Մեկնարկի ամսաթիվը"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Մեկնարկի ժամը"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Ավարտի ամսաթիվը"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Ավարտի ժամը"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Ժամային գոտին"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Կրկնել իրադարձությունը"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Ավելացնել հիշեցում"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Հեռացնել հիշեցումը"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Ավելացնել մասնակից"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Համաժամեցնել օրացույցը"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Ամբողջ օրվա իրադարձություն"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Կրկնություն"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Հիշեցման ժամանակը"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Հիշեցման տեսակը"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Ցուցադրել ինձ որպես"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Գաղտնիություն"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Օրացուցային ծանուցում"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Ննջել ծանուցումը"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Նամակագրել հյուրերին"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Նոր իրադարձություն"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Իրադարձւթյուն <xliff:g id="ITEM_INDEX">%1$s</xliff:g> <xliff:g id="ITEM_COUNT">%2$s</xliff:g>-ից:"</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"1 իրադարձություն"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> իրադարձություն"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 իրադարձություն"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> իրադարձություն"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Ընտրված իրադարձությունը"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"Չնշել -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Կրկնել"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Երբեք չի կրկնվում"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> օրը մեկ"</item>
+    <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g> օրը մեկ"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> շաբաթը մեկ"</item>
+    <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g> շաբաթը մեկ"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> ամիսը մեկ"</item>
+    <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g> ամիսը մեկ"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> տարին մեկ"</item>
+    <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g> տարին մեկ"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ամեն ամսվա նույն օրը"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Ընդմիշտ"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Մինչև ամսաթիվը"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Մինչև <xliff:g id="DATE">%s</xliff:g>-ը"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Իրադարձությունների քանակով"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> իրադարձության համար"</item>
+    <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> իրադարձության համար"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"փոխել ավարտի ամսաթիվը"</string>
+</resources>

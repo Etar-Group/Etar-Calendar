@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Esdeveniment buit no creat"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"S\'enviaran les invitacions."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"S\'enviaran les actualitzacions."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"S\'ha respost que sí."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"S\'ha respost que potser."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"S\'ha respost que no."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Desa"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificacions de calendari"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualitza l\'esdeveniment"</string>

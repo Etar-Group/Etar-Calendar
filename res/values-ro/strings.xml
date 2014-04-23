@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Evenimentul gol nu s-a creat."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Invitaţiile vor fi trimise."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Actualizările vor fi trimise."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"A răspuns „Da”."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"A răspuns „Poate”."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"A răspuns „Nu”."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Salvați"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificările calendarului"</string>
     <string name="event_info_title" msgid="56024222340421620">"Vizualizaţi evenimentul"</string>

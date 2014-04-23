@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Evento vacío no creado"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Se enviarán las invitaciones."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Se enviarán las actualizaciones."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Ha respondido que irá."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Ha respondido que tal vez vaya."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Ha respondido que no irá."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Guardar"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificaciones de Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ver evento"</string>
@@ -191,7 +194,7 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Antelación del recordatorio"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Antelación del recordatorio"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora local"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora de casa"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostrar calendarios y eventos en la hora local al viajar"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horaria local"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número de semana"</string>

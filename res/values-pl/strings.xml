@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Nie utworzono: puste wydarzenie."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Zaproszenia zostaną wysłane."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Aktualizacje zostaną wysłane."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Akceptujesz."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Odpowiadasz „być może”."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Odrzucasz."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Zapisz"</string>
     <string name="alert_title" msgid="7869592820853066853">"Powiadomienia kalendarza"</string>
     <string name="event_info_title" msgid="56024222340421620">"Wyświetl wydarzenie"</string>
@@ -157,7 +160,7 @@
     <string name="every_weekday" msgid="5896574838353902978">"Codziennie (pn-pt)"</string>
   <plurals name="weekly">
     <item quantity="one" msgid="5463021019301453273">"Co tydzień w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Co <xliff:g id="NUMBER">%1$d</xliff:g> tygodni(e) w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"Co <xliff:g id="NUMBER">%1$d</xliff:g> tyg. w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
   </plurals>
     <string name="monthly" msgid="4587116285383048586">"Co miesiąc"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Co rok"</string>

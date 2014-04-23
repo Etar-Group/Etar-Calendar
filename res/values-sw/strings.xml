@@ -56,7 +56,7 @@
     <string name="month_view" msgid="7287101431749285412">"Mwezi"</string>
     <string name="event_view" msgid="7621353079385122317">"Angalia tukio"</string>
     <string name="event_create" msgid="6941040556709110617">"Tukio jipya"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Hariri tukio"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Badilisha tukio"</string>
     <string name="event_delete" msgid="2386667193277770442">"Futa tukio"</string>
     <string name="goto_today" msgid="9162136434410891230">"Leo"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Mipangilio"</string>
@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Tukio tupu halikuundwa."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Mialiko itatumwa."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Visasisho vitatumwa."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Alijibu ndiyo."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Alijibu labda."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Alijibu la."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Hifadhi"</string>
     <string name="alert_title" msgid="7869592820853066853">"Arifa za kalenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Tazama tukio"</string>
@@ -92,7 +95,7 @@
     <string name="description_label" msgid="7193475046717505855">"Maelezo"</string>
     <string name="presence_label" msgid="6169724148441175862">"Onyesha kuwa"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Faragha"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Ongeza kumbusho"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Ongeza kikumbusho"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Hakuna kalenda"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Kabla ya kuongeza tukio, sharti uongeze angalau akaunti moja ya Kalenda kwenye kifaa chako na ufanye kalenda ionekane. Gusa Ongeza Akaunti ili uongeze akaunti (kama umeongeza akaunti sasa hivi, subiri imalize kusawazishwa na ujaribu tena). Au gusa Ghairi na uhakikishe kuwa angalau kalenda moja inaonekana."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalenda inafanya kazi vizuri ukiwa na Akaunti ya Google. \n \n • Iangalie kwa kutumia kivinjari chochote \n • Tunza matukio yako kwa usalama."</string>
@@ -128,7 +131,7 @@
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Andika yako binafsi…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Mwandalizi:"</string>
-    <string name="event_info_reminders_label" msgid="8913097552956388972">"Makumbusho"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Vikumbusho"</string>
     <string name="agenda_today" msgid="5965841338467422191">"LEO, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"JANA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"KESHO, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -141,7 +144,7 @@
     <string name="delete_label" msgid="874742811918030739">"Futa"</string>
     <string name="save_label" msgid="2133599104834432589">"Kwisha"</string>
     <string name="discard_label" msgid="2394623883289782541">"Ghairi"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Sinzisha zote"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Ahirisha zote"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Kataa zote"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Baadaye"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Tukio la wakati mmoja"</string>
@@ -182,17 +185,17 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Juma linaanza"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Juma linaanza"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Futa historia ya utafutaji"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ondoa utafutaji wote uliotekeleza"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ondoa utafutaji wote uliofanywa"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Historia ya utafutaji imefutwa."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Taarifa"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Tikisika"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Sauti"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Arifa ibukizi"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Muda chaguo-msingi wa ukumbusho"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Muda chaguo-msingi wa ukumbusho"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Muda chaguo-msingi wa kikumbusho"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Muda chaguo-msingi wa kikumbusho"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Tumia saa za eneo za nyumbani"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Inaonyesha kalenda na muda wa mtukio ndani ya ukanda wa saa wa nyumba yako unaposafiri"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Huonyesha kalenda na saa za matukio katika saa za eneo utokalo wakati unasafiri"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Saa za eneo nyumbani"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Onyesha nambari ya wiki"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Kuhusu"</string>
@@ -221,18 +224,18 @@
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Wakati wa kuisha"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Saa za eneo"</string>
     <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Rudia tukio"</string>
-    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Ongesha kumbusho"</string>
-    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Ondoa kumbusho"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Ongeza kikumbusho"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Ondoa kikumbusho"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Ongeza mhudhuriaji"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Sawazisha kalenda"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Tukio la mchana kutwa"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"Kurudia"</string>
-    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Saa ya kumbusho"</string>
-    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Aina ya kumbusho"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Saa ya kikumbusho"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Aina ya kikumbusho"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Onyesha kuwa"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Faragha"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Arifa ya Kalenda"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Arifa ya Pumzisha"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Sitisha Arifa"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Watumie wageni barua pepe"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Tukio jipya"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Tukio <xliff:g id="ITEM_INDEX">%1$s</xliff:g> la <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>

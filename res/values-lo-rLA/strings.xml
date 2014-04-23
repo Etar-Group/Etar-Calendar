@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"ປະຕິທິນ"</string>
+    <string name="what_label" msgid="1933578391985810049">"ແມ່ນຫຍັງ"</string>
+    <string name="where_label" msgid="3472482206065595118">"ຢູ່ໃສ"</string>
+    <string name="when_label" msgid="894636567327261599">"ຕອນໃດ"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"ເຂດເວລາ"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"ຜູ່ເຂົ້າຮ່ວມ"</string>
+    <string name="today" msgid="8577375020252453006">"ມື້ນີ້"</string>
+    <string name="tomorrow" msgid="614434811813859237">"ມື້ອື່ນ"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"ມື້ນີ້ໃນເວລາ <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"ມື້ອື່ນໃນເວລາ <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"ການເກີດຊ້ຳ"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(ບໍ່ມີຫົວຂໍ້)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 ນາທີ"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> ນາທີ"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 ນາທີ"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> ນາທີ"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 ຊົ່ວໂມງ"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ຊົ່ວໂມງ"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 ມື້"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ມື້"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"ອາທິດທີ <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"ໂຫຼດຂໍ້ມູນໃໝ່"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"ສະແດງມື້"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"ຕາຕາລາງນັດໝາຍ"</string>
+    <string name="day_view" msgid="4467754504843584437">"ມື້"</string>
+    <string name="week_view" msgid="6775043022159508060">"ອາທິດ"</string>
+    <string name="month_view" msgid="7287101431749285412">"ເດືອນ"</string>
+    <string name="event_view" msgid="7621353079385122317">"ເບິ່ງນັດໝາຍ"</string>
+    <string name="event_create" msgid="6941040556709110617">"ນັດໝາຍໃໝ່"</string>
+    <string name="event_edit" msgid="4006961928830064662">"ແກ້ໄຂນັດໝາຍ"</string>
+    <string name="event_delete" msgid="2386667193277770442">"ລຶບນັດໝາຍ"</string>
+    <string name="goto_today" msgid="9162136434410891230">"ມື້ນີ້"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"ຕັ້ງຄ່າ"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"ປະຕິທິນທີ່ຈະສະແດງ"</string>
+    <string name="search" msgid="550656004486017426">"ຊອກຫາ"</string>
+    <string name="hide_controls" msgid="830320505938520882">"ເຊື່ອງແຜງຄວບຄຸມ"</string>
+    <string name="show_controls" msgid="715520586028062621">"ສະແດງແຜງຄວບຄຸມ"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"ປະຕິທິນທີ່ຈະສະແດງ"</string>
+    <string name="synced" msgid="7913940305983383493">"ຊິ້ງຂໍ້ມູນແລ້ວ"</string>
+    <string name="not_synced" msgid="4275114941801829419">"ບໍ່ໄດ້ຊິ"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"ບັນຊີນີ້ບໍ່ໄດ້ຖືກຊິ້ງຂໍ້ມູນເທືື່ອ ດັ່ງນັ້ນປະຕິທິນຂອງທ່ານອາດບໍ່ໄດ້ຮັບການອັບເດດ."</string>
+    <string name="accounts" msgid="849401841083180306">"ບັນຊີ ແລະ ຊິ້ງຂໍ້ມູນ"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"ປະຕິທິນທີ່ຈະຊິ້ງຂໍ້ມູນ"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"ປະຕິທິນທີ່ຈະຊິ້ງຂໍ້ມູນ"</string>
+    <string name="hint_what" msgid="709155115005044531">"ຊື່ນັດໝາຍ"</string>
+    <string name="hint_where" msgid="4972598001033801974">"ສະຖານທີ່"</string>
+    <string name="hint_description" msgid="1910143586169033232">"ລາຍລະອຽດ"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"ຜູ່ເຂົ້າຮ່ວມ"</string>
+    <string name="creating_event" msgid="7516249252554059980">"ນັດໝາຍຖືກສ້າງແລ້ວ."</string>
+    <string name="saving_event" msgid="7694181017411177226">"ບັນທຶກນັດໝາຍແລ້ວ."</string>
+    <string name="empty_event" msgid="9018699257414338634">"ນັດໝາຍເປົ່າບໍ່ຖືກສ້າງຂຶ້ນ."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"ການເຊື້ອເຊີນຈະຖືກສົ່ງໄປ."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"ການອັບເດດຈະຖືກສົ່ງໄປ."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"ໄດ້ຕອບກັບວ່າຕົກລົງ."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"ໄດ້ຕອບກັບວ່າບາງເທື່ອ."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"ໄດ້ຕອບກັບວ່າບໍ່."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"ບັນທຶກ"</string>
+    <string name="alert_title" msgid="7869592820853066853">"ການແຈ້ງເຕືອນປະຕິທິນ"</string>
+    <string name="event_info_title" msgid="56024222340421620">"ເບິ່ງນັດໝາຍ"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"ຄໍາເຊີນເຂົ້າຮ່ວມປະຊຸມ"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"ຮອດ"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"ຈາກ"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"ໝົດມື້"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"ປະຕິທິນ"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"ສະແດງທັງຫມົດ"</string>
+    <string name="description_label" msgid="7193475046717505855">"ລາຍລະອຽດ"</string>
+    <string name="presence_label" msgid="6169724148441175862">"ສະແດງຂ້ອຍເປັນ"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"ຄວາມເປັນສ່ວນຕົວ"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"ເພີ່ມການເຕືອນ"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"ບໍ່ມີປະຕິທິນ"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"ກ່ອນທີ່ທ່ານຈະສາມາດເພີ່ມນັດໝາຍ, ທ່ານຕ້ອງເພີ່ມບັນຊີປະຕິທິນໃສ່ອຸປະກອນ ຢ່າງໜ້ອຍນຶ່ງບັນຊີ ແລະ ເປີດປະຕິທິນສາມາດເບິ່ງເຫັນໄດ້. ແຕະທີ່ \"ເພີ່ມບັນຊີ\" ເພື່ອເພີ່ມບັນຊີ (ຖ້າຫາກທ່ານຫາກໍເພີ່ມບັນຊີ, ໃຫ້ລໍຖ້າຈົນກວ່າມັນຈະສຳເລັດການຊິ້ງຂໍ້ມູນ ແລ້ວລອງໃໝ່) ຫຼື ແຕະປຸ່ມຍົກເລີກ ແລະກວດໃຫ້ແນ່ໃຈວ່າມີປະຕິທິນຢ່າງໜ້ອຍນຶ່ງອັນ ທີ່ສາມາດເບິ່ງເຫັນໄດ້."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"{ປະຕິທິນຈະເຮັດວຽກດີຂຶ້ນ ຫາກໃຊ້ກັບບັນຊີ Google.\n\n• ເຂົ້າເຖິງຜ່ານໂປຣແກຣມທ່ອງເວັບໃດກໍໄດ້\n• ສຳຮອງນັດໝາຍຂອງທ່ານໄວ້ຢ່າງປອດໄພ"</string>
+    <string name="add_account" msgid="1669072099756774952">"ເພີ່ມບັນຊີ"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"ປະຕິທິນ:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"ຜູ່ຈັດງານ:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"ເລືອກສີນັດໝາຍ"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"ສີນັດໝາຍ"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"ຕັ້ງເປັນສີເລີ່ມຕົ້ນຂອງປະຕິທິນ"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"ສີປະຕິທິນ"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"ໂຕເລືອກສີ"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"ເຂົ້າຮ່ວມບໍ່?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"ຕົກລົງ"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"ອາດຈະໄປ"</string>
+    <string name="response_no" msgid="561911691884148136">"ບໍ່"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"ອີເມວຫາຜູ່ເຂົ້າຮ່ວມ"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"ອີເມວຫາຜູ່ຈັດງານ"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"ອີເມວດ້ວຍ"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"ບໍ່ພົບນັດໝາຍ."</string>
+    <string name="map_label" msgid="8795383535586556038">"ແຜນທີ່"</string>
+    <string name="call_label" msgid="2960328220008869083">"ໂທຫາ"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"ການຕອບດ່ວນ"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ແກ້ໄຂການຕອບເລີ່ມຕົ້ນເມື່ອສົ່ງອີເມວເຖິງຜູ່ເຂົ້າຮ່ວມ"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"ແກ້ໄຂການຕອບດ່ວນ"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"ການຕອບດ່ວນ"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"ເລືອກການຕອບກັບດ່ວນ"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"ການຊອກຫາໂປຣແກຣມອີເມວລົ້ມເຫຼວ"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"ຈະໄປຊ້າພຽງແຕ່ສອງສາມນາທີ."</item>
+    <item msgid="6215158751728689832">"ຈະໄປຮອດໃນ 10 ນາທີ."</item>
+    <item msgid="4485794001743679338">"ເລີ່ມກ່ອນໂລດ ບໍ່ຕ້ອງຖ້າຂ້ອຍ."</item>
+    <item msgid="8036557974294987511">"ຂໍໂທດນຳ, ຂ້ອຍໄປບໍ່ໄດ້. ເຮົາຕ້ອງນັດກັນໃໝ່ແລ້ວລະ."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"ຂຽນຂໍ້ຄວາມຂອງທ່ານເອງ..."</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"ຜູ່ຈັດງານ:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"ການເຕືອນ"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"ມື້ນີ້, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"ມື້ວານນີ້, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"ມື້ອື່ນ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"ກຳລັງໂຫລດ..."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"ແຕະເພື່ອເບິ່ງນັດໝາຍກ່ອນ <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"ແຕະເພື່ອເບິ່ງນັດໝາຍຫຼັງຈາກ <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="search_title" msgid="8898015280250716254">"ຊອກຫາປະຕິທິນຂອງຂ້ອຍ"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"ລາຍລະອຽດ"</string>
+    <string name="edit_label" msgid="8934331258435656534">"ແກ້ໄຂ"</string>
+    <string name="delete_label" msgid="874742811918030739">"ລຶບ"</string>
+    <string name="save_label" msgid="2133599104834432589">"ແລ້ວໆ"</string>
+    <string name="discard_label" msgid="2394623883289782541">"ຍົກເລີກ"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"ປິດສຽງເຕືອນຊົ່ວຄາວທັງໝົດ"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"ປິດທັງໝົດ"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"ປິດສຽງເຕືອນຊົ່ວຄາວ"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"ນັດໝາຍແບບຄັ້ງດຽວ"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; ຈົນຮອດ <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; ເທື່ອດຽວ"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> ເທື່ອ"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"ປະຈໍາວັນ"</item>
+    <item quantity="other" msgid="5455230727715859264">"ທຸກໆ <xliff:g id="NUMBER">%d</xliff:g> ມື້"</item>
+  </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"ທຸກໆມື້ເຮັດວຽກ (ຈັນ–ສຸກ)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"ປະຈຳອາທິດໃນມື້ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"ທຸກໆ <xliff:g id="NUMBER">%1$d</xliff:g> ອາທິດໃນມື້ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
+    <string name="monthly" msgid="4587116285383048586">"ທຸກເດືອນ"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"ປະຈໍາປີ"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"ທຸກເດືອນ (ໃນວັນທີ <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"ປະຈໍາປີ (ໃນວັນທີ <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"ກຳນົດເອງ (ບໍ່ສາມາດກຳນົດໃນແທັບເລັດໄດ້)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"ກຳນົດເອງ (ບໍ່ສາມາດກຳນົດໃນໂທລະສັບໄດ້)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"ປ່ຽນແປງສະເພາະນັດໝາຍນີ້"</string>
+    <string name="modify_all" msgid="4421657265864209041">"ປ່ຽນແປງທຸກການນັດໝາຍແບບດຽວກັນ"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"ປ່ຽນແປງນັດໝາຍນີ້ ແລະນັດໝາຍອື່ນໃນອະນາຄົດ"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"ນັດໝາຍໃໝ່"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"ນັດໝາຍໃໝ່"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"ລຶບນັດໝາຍນີ້?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"ລຶບ <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"ປ່ຽນແປງການຕອບກັບ"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"ການຕັ້ງຄ່າທົ່ວໄປ"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"ກ່ຽວກັບປະຕິທິນ"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"ການຕັ້ງຄ່າ"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"ຕັ້ງຄ່າມຸມມອງປະຕິທິນ"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"ການແຈ້ງເຕືອນ &amp; ແຈ້ງເຕືອນ"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"ເຊື່ອງນັດໝາຍທີ່ປະຕິເສດໄປແລ້ວ"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"ຕົ້ນອາທິດເລີ່ມໃນ"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"ຕົ້ນອາທິດເລີ່ມໃນ"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"ລຶບປະຫວັດການຊອກຫາ"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"ລຶບການຊອກຫາທັງຫມົດທີ່ທ່ານໄດ້ປະຕິບັດມາ"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"ປະຫວັດການຊອກຫາຖືກລຶບລ້າງແລ້ວ."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"ການແຈ້ງເຕືອນ"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"ສັ່ນເຕືອນ"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"ສຽງ"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"ການແຈ້ງເຕືອນປັອບອັບ"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"ເວລາການແຈ້ງເຕືອນເລີ່ມຕົ້ນ"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"ເວລາການແຈ້ງເຕືອນເລີ່ມຕົ້ນ"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"ນຳໃຊ້ເວລາທ້ອງຖິ່ນ"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"ສະແດງປະຕິທິນ ແລະເວລານັດໝາຍໃນເຂດເວລາທ້ອງຖິ່ນຂອງທ່ານ ໃນເວລາເດີນທາງ"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"ເຂດເວລາທ້ອງຖິ່ນ"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"ສະແດງເລກອາທິດ"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"ກ່ຽວກັບ"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"ເວີຊັນທີ່ສ້າງ"</string>
+    <string name="gadget_title" msgid="939918875331310945">"ປະຕິທິນ"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"ບໍ່ມີກິດຈະກໍາທີ່ໃກ້ຈະຮອດໃນປະຕິທິນ"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"ຍັງຢູ່ໃນການທົດລອງ"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"ການເຕືອນ"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ຂ້າມການເຕືອນ"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ຂ້າມການເຕືອນ"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"ຊົ່ວໂມງປິດສຽງ"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"ຢຸດການເຕືອນໃນໄລຍະເວລາທີ່ລະບຸໄວ້."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"ເວລາເລີ່ມຊົ່ວໂມງປິດສຽງ"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"ເວລາສິ້ນສຸດຊົ່ວໂມງປິດສຽງ"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"ການດີບັ໊ກ"</string>
+    <string name="copy_db" msgid="437691290566699292">"ສົ່ງຖານຂໍ້ມູນ"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"ກຳລັງຊອກຫາ <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"ລຶບຜູ່ເຂົ້າຮ່ວມ"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"ເລີ່ມວັນທີ"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"ເວລາເລີ່ມ"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"ມື້ສິ້ນສຸດ"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"ເວລາສິ້ນສຸດ"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"ເຂດເວລາ"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ເຮັດນັດໝາຍຊ້ຳ"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"ເພີ່ມການເຕືອນ"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"ລຶບການເຕືອນ"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"ເພີ່ມຜູ່ເຂົ້າຮ່ວມ"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"ຊິ້ງຂໍ້ມູນປະຕິທິນ"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"ນັດໝາຍໝົດມື້"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"ການຈັດຊ້ຳ"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"ເວລາເຕືອນ"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"ປະເພດການເຕືອນ"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"ສະແດງຂ້ອຍເປັນ"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"ຄວາມເປັນສ່ວນຕົວ"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"ການແຈ້ງເຕືອນປະຕິທິນ"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"ປິດສຽງເຕືອນຊົ່ວຄາວ"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"ອີເມວຫາຜູ່ເຂົ້າຮ່ວມ"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ ນັດໝາຍໃໝ່"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"ນັດໝາຍທີ <xliff:g id="ITEM_INDEX">%1$s</xliff:g> ຈາກທັງໝົດ <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"1 ນັດໝາຍ"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ນັດໝາຍ"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 ນັດໝາຍ"</item>
+    <item quantity="other" msgid="3609243840882275136">"+ <xliff:g id="COUNT">%d</xliff:g> ນັດໝາຍ"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"ນັດໝາຍທີ່ຖືກເລືອກ"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"ຫ້າມໝາຍຖືກ -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"ເຮັດຊ້ຳ"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ບໍ່ເຮັດຊ້ຳ"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ມື້"</item>
+    <item quantity="other" msgid="707566499994398250">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ມື້"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ອາທິດ"</item>
+    <item quantity="other" msgid="7094801039989237061">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ອາທິດ"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ເດືອນ"</item>
+    <item quantity="other" msgid="5419723710346646523">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ເດືອນ"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ປີ"</item>
+    <item quantity="other" msgid="5678653649746562060">"ທຸກໆ <xliff:g id="COUNT">%d</xliff:g> ປີ"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ໃນມື້ດຽວກັນຂອງແຕ່ລະເດືອນ"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"ຕະຫຼອດໄປ"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"ຈົນຮອດວັນທີ"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"ຈົນຮອດ <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"ຕາມຈຳນວນເທື່ອຂອງການນັດໝາຍ"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"ສໍາລັບ <xliff:g id="EVENT_COUNT">%d</xliff:g> ນັດໝາຍ"</item>
+    <item quantity="other" msgid="8779598489398048259">"ສໍາລັບ <xliff:g id="EVENT_COUNT">%d</xliff:g> ນັດໝາຍ"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"ປ່ຽນວັນສິ້ນສຸດ"</string>
+</resources>

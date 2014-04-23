@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Événement vide non créé."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Les invitations vont être envoyées."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Les mises à jour vont être envoyées."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"A répondu \"Oui\"."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"A répondu \"Peut-être\"."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"A répondu \"Non\"."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Enregistrer"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notifications de l\'agenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Afficher l\'événement"</string>
@@ -118,7 +121,7 @@
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Modifier réponses par défaut lors d\'envoi d\'e-mails aux invités"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Modif. rép. rapides"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Réponse rapide"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Sélectionner une réponse rapide"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Sélectionner"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Impossible de trouver un programme de messagerie électronique."</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Désolé, j\'aurai quelques minutes de retard."</item>
@@ -226,7 +229,7 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Ajouter un participant"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synchroniser l\'agenda"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Toute la journée"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Récurrence"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Répétition"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Heure de rappel"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Type de rappel"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Ma disponibilité"</string>
@@ -253,7 +256,7 @@
     <item quantity="other" msgid="707566499994398250">"Tous les <xliff:g id="COUNT">%d</xliff:g> jours"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Toutes les <xliff:g id="COUNT">%d</xliff:g> semaine"</item>
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> fois par semaine"</item>
     <item quantity="other" msgid="7094801039989237061">"Toutes les <xliff:g id="COUNT">%d</xliff:g> semaines"</item>
   </plurals>
   <plurals name="recurrence_interval_monthly">
