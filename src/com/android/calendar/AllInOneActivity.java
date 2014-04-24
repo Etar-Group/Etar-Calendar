@@ -1433,8 +1433,10 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         return;
     }
 
-    public static class GoToDialogFragment extends DialogFragment {
+    public static class GoToDialogFragment extends DialogFragment implements
+            DatePickerDialog.OnDateSetListener {
         private static final String KEY_TIMEZONE = "timezone";
+        private static final String KEY_IS_CLICKED_DONE = "done";
 
         public static GoToDialogFragment newInstance(String timeZone) {
             GoToDialogFragment goToFrg = new GoToDialogFragment();
@@ -1446,36 +1448,41 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final String timeZone = getArguments().getString(KEY_TIMEZONE);
-            final CalendarController controller = CalendarController.getInstance(getActivity());
-            Time t = null;
-            t = new Time(timeZone);
+            String timeZone = getArguments().getString(KEY_TIMEZONE);
+            Time t = new Time(timeZone);
             Calendar calendar = Calendar.getInstance();
             t.year = calendar.get(Calendar.YEAR);
             t.month = calendar.get(Calendar.MONTH);
             t.monthDay = calendar.get(Calendar.DATE);
-            DatePickerDialog dialog = new DatePickerDialog(getActivity(), null,
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), this,
                     t.year, t.month, t.monthDay) {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which == DialogInterface.BUTTON_POSITIVE) {
+                        // Avoid touching dialog box outside cause it disappears also perform
+                        // actions. Limit perform only after the user confirms by click done.
+                        getArguments().putBoolean(KEY_IS_CLICKED_DONE, true);
+                    }
+                    super.onClick(dialog, which);
+                }
             };
-            final DatePicker datePicker = dialog.getDatePicker();
-            dialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                    getResources().getString(R.string.save_label),
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Time t = null;
-                            t = new Time(timeZone);
-                            int year = datePicker.getYear();
-                            int monthOfYear = datePicker.getMonth();
-                            int dayOfMonth = datePicker.getDayOfMonth();
-                            t.set(dayOfMonth, monthOfYear, year);
-                            t.set(t.toMillis(false));
-                            controller.sendEvent(this, EventType.GO_TO, null, null, t, -1,
-                                    ViewType.CURRENT, CalendarController.EXTRA_GOTO_TIME,
-                                    null, null);
-                        }
-                    });
+
             return dialog;
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            if (getArguments().getBoolean(KEY_IS_CLICKED_DONE)) {
+                CalendarController controller = CalendarController.getInstance(getActivity());
+                String timeZone = getArguments().getString(KEY_TIMEZONE);
+                Time t = new Time(timeZone);
+                t.set(dayOfMonth, monthOfYear, year);
+                t.set(t.toMillis(false));
+                controller.sendEvent(this, EventType.GO_TO, null, null, t, -1,
+                        ViewType.CURRENT, CalendarController.EXTRA_GOTO_TIME,
+                        null, null);
+            }
         }
     }
 }
