@@ -16,12 +16,12 @@
      limitations under the License.
 -->
 <resources>
-  <string name="preferences_alerts_custom_snooze_delay_title">Fråga efter snoozelängd</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Fråga efter snoozelängd vid snooze av påminnelser</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Använd alltid standardsnoozelängd</string>
-  <string name="snooze_delay_dialog_title">Välj snoozelängd</string>
-  <string name="preferences_default_snooze_delay_title">Standardsnoozelängd</string>
-  <string name="preferences_default_snooze_delay_dialog">Standardsnoozelängd</string>
-  <string name="default_start_title">Standardvisning</string>
-  <string name="default_start_last">Tidigare använd visning</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">要求提醒重響延遲</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">每當重響提醒時要求重響延遲</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">總是使用預設重響延遲</string>
+  <string name="snooze_delay_dialog_title">設定重響延遲</string>
+  <string name="preferences_default_snooze_delay_title">預設重響延遲時間</string>
+  <string name="preferences_default_snooze_delay_dialog">預設重響延遲</string>
+  <string name="default_start_title">預設視圖</string>
+  <string name="default_start_last">以前使用的視圖</string>
 </resources>

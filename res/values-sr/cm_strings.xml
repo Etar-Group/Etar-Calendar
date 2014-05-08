@@ -17,7 +17,7 @@
 -->
 <resources>
   <string name="preferences_alerts_custom_snooze_delay_title">Питај за подсећање одлагања</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Питај за привремено прекидање одлагања кад год дремаш</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Питај за привремено прекидање одлагања кад дрема</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Увек користите подразумевано одлагање</string>
   <string name="snooze_delay_dialog_title">Подесите кашњење одлагања</string>
   <string name="preferences_default_snooze_delay_title">Подразумевано време кашњења одлагања</string>
