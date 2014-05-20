@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Pýtať sa na dĺžku odloženia upomienky</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Pýtať sa na dĺžku odloženia pri odložení upomienky</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Vždy použiť predvolenú dĺžku odloženia</string>

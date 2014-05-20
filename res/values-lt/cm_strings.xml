@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Klausti dėl atidėjimo trukmės</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Klausti dėl snaudimo atidėjimo trukmės</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Visada naudoti numatytąją trukmę</string>

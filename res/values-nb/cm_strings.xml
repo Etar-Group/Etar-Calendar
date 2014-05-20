@@ -16,12 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="preferences_alerts_custom_snooze_delay_title">Pytaj o długość drzemki</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Pytaj o długość drzemki za każdym razem</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Zawsze używaj domyślnej długości drzemki</string>
-  <string name="snooze_delay_dialog_title">Ustaw długość drzemki</string>
-  <string name="preferences_default_snooze_delay_title">Domyślny czas trwania drzemki</string>
-  <string name="preferences_default_snooze_delay_dialog">Domyślna długość drzemki</string>
-  <string name="default_start_title">Domyślny widok</string>
-  <string name="default_start_last">Poprzednio używany widok</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Be om påminnelse for snooze forsinkelse</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Be om snooze forsinkelse når påminnelser settes på pause</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Bruk alltid standard snooze forsinkelse</string>
+  <string name="snooze_delay_dialog_title">Angi snooze forsinkelse</string>
+  <string name="preferences_default_snooze_delay_title">Standard snooze tidsforsinkelse</string>
+  <string name="preferences_default_snooze_delay_dialog">Standard snooze forsinkelse</string>
+  <string name="default_start_title">Standardvisning</string>
+  <string name="default_start_last">Tidligere visning</string>
 </resources>

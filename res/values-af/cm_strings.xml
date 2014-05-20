@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Vra vir herinnering vir sluimer herinnerings</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Vra vir sluimer vertraging wanneer sluimer vra vir herinnering</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Gebruik altyd standaard sluimer vertraging</string>

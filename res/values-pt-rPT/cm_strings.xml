@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Atraso na repetição do lembrete</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Pedir o tempo de atraso do lembrete sempre que este for adiado</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Utilizar sempre o atraso de repetição padrão</string>

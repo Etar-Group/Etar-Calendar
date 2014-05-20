@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">询问延迟提醒时长</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">延迟提醒时询问持续时长</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">总是使用默认的延迟提醒时长</string>

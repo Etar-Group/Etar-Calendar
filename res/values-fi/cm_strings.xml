@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Kysy muistutuksen torkkuajasta</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Kysy torkun ajasta kun muistutusta siirretään myöhemmäksi</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Käytä aina oletusaikaa</string>

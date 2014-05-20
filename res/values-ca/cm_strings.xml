@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Demana el retard entre repeticions en els recordatoris</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Demana el retard entre repeticions en cada recordatori</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Utilitza sempre el retard entre repeticions predefinit</string>

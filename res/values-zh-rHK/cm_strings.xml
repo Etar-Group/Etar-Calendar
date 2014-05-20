@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">要求提醒重響延遲</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">每當重響提醒時要求重響延遲</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">總是使用預設重響延遲</string>

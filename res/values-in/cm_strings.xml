@@ -16,12 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="preferences_alerts_custom_snooze_delay_title">Pytaj o długość drzemki</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Pytaj o długość drzemki za każdym razem</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Zawsze używaj domyślnej długości drzemki</string>
-  <string name="snooze_delay_dialog_title">Ustaw długość drzemki</string>
-  <string name="preferences_default_snooze_delay_title">Domyślny czas trwania drzemki</string>
-  <string name="preferences_default_snooze_delay_dialog">Domyślna długość drzemki</string>
-  <string name="default_start_title">Domyślny widok</string>
-  <string name="default_start_last">Poprzednio używany widok</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Minta pengingat jeda penundaan</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Minta jeda penundaan setiap kali menunda pengingat</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Selalu gunakan jeda penundaan baku</string>
+  <string name="snooze_delay_dialog_title">Atur jeda penundaan</string>
+  <string name="preferences_default_snooze_delay_title">Waktu jeda tunda default</string>
+  <string name="preferences_default_snooze_delay_dialog">Jeda tunda default</string>
+  <string name="default_start_title">Tampilan default</string>
+  <string name="default_start_last">Tampilan yang digunakan sebelumnya</string>
 </resources>

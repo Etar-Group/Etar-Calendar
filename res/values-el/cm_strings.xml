@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Καθυστέρηση αναβολής υπενθύμισης</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Ερώτηση για την καθυστέρηση αναβολής όποτε αναβάλλετε υπενθυμίσεις</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">Να χρησιμοποιείται πάντα η προεπιλεγμένη καθυστέρηση αναβολής</string>
