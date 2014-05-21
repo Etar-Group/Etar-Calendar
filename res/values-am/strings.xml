@@ -155,7 +155,7 @@
   </plurals>
   <plurals name="daily">
     <item quantity="one" msgid="5169052946627480942">"ዕለታዊ"</item>
-    <item quantity="other" msgid="5455230727715859264">"በየ<xliff:g id="NUMBER">%d</xliff:g> ቀናት"</item>
+    <item quantity="other" msgid="5455230727715859264">"በየ<xliff:g id="NUMBER">%d</xliff:g> ቀኖች"</item>
   </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"በአዘቦት ቀን(ሰኞ-አርብ)"</string>
   <plurals name="weekly">
@@ -182,8 +182,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"የቀን መቁጠሪያ ማያ ቅንብር"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"ማሳወቂያዎች እና አስታዋሾች"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"ውድቅ ክስተቶችን ደብቅ"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"ሣምንት በ ይጀምራል"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"ሣምንት በ ይጀምራል"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"ሳምንት በ ይጀምራል"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"ሳምንት በ ይጀምራል"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"የፍለጋ ታሪክ አጽዳ"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"ያከናወንካቸውን ፍለጋዎች ሁሉ አስወግድ"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"የፍለጋ ታሪክ ጠርቷል።"</string>
