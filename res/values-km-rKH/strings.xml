@@ -51,8 +51,8 @@
     <string name="calendar_refresh" msgid="6172731193680500025">"ផ្ទុក​ឡើងវិញ"</string>
     <string name="show_day_view" msgid="5782512782605466016">"បង្ហាញ​ថ្ងៃ"</string>
     <string name="agenda_view" msgid="5566084759423843245">"របៀបវារៈ"</string>
-    <string name="day_view" msgid="4467754504843584437">"ថ្ងៃ​"</string>
-    <string name="week_view" msgid="6775043022159508060">"សប្ដាហ៍​"</string>
+    <string name="day_view" msgid="4467754504843584437">"ថ្ងៃ"</string>
+    <string name="week_view" msgid="6775043022159508060">"សប្ដាហ៍"</string>
     <string name="month_view" msgid="7287101431749285412">"ខែ"</string>
     <string name="event_view" msgid="7621353079385122317">"មើល​ព្រឹត្តិការណ៍"</string>
     <string name="event_create" msgid="6941040556709110617">"ព្រឹត្តិការណ៍​ថ្មី"</string>
@@ -72,7 +72,7 @@
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"ប្រតិទិន​ដែល​ត្រូវ​ធ្វើ​សមកាលកម្ម"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"ប្រតិទិន​ដែល​ត្រូវ​ធ្វើ​សមកាលកម្ម"</string>
     <string name="hint_what" msgid="709155115005044531">"ឈ្មោះ​ព្រឹត្តិការណ៍"</string>
-    <string name="hint_where" msgid="4972598001033801974">"ទី​តាំង​"</string>
+    <string name="hint_where" msgid="4972598001033801974">"ទី​តាំង"</string>
     <string name="hint_description" msgid="1910143586169033232">"ពណ៌នា"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"ភ្ញៀវ"</string>
     <string name="creating_event" msgid="7516249252554059980">"បាន​បង្កើត​ព្រឹត្តិការណ៍។"</string>
@@ -93,7 +93,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"ប្រតិទិន"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"បង្ហាញ​ទាំងអស់"</string>
     <string name="description_label" msgid="7193475046717505855">"ពណ៌នា"</string>
-    <string name="presence_label" msgid="6169724148441175862">"បង្ហាញ​ថាខ្ញុំ​"</string>
+    <string name="presence_label" msgid="6169724148441175862">"បង្ហាញ​ថាខ្ញុំ"</string>
     <string name="privacy_label" msgid="9215031965259597335">"ភាព​ឯកជន"</string>
     <string name="reminders_label" msgid="7292389181815525676">"បន្ថែម​កម្មវិធី​រំលឹក"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"មិន​មានប្រតិទិន"</string>
@@ -143,7 +143,7 @@
     <string name="edit_label" msgid="8934331258435656534">"កែសម្រួល"</string>
     <string name="delete_label" msgid="874742811918030739">"លុប"</string>
     <string name="save_label" msgid="2133599104834432589">"ធ្វើ​រួច"</string>
-    <string name="discard_label" msgid="2394623883289782541">"បោះ​បង់​"</string>
+    <string name="discard_label" msgid="2394623883289782541">"បោះ​បង់"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"ផ្អាក​ទាំងអស់"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"បដិសេធ​ទាំងអស់"</string>
     <string name="snooze_label" msgid="1515893621063224666">"ផ្អាក"</string>
@@ -232,7 +232,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"ការ​ធ្វើ​ម្ដងទៀត"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"ម៉ោង​កម្មវិធី​ជូនដំណឹង"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"ប្រភេទ​កម្មវិធី​ជូនដំណឹង"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"បង្ហាញ​ថាខ្ញុំ​"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"បង្ហាញ​ថាខ្ញុំ"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"ភាព​ឯកជន"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"ការ​ជូនដំណឹង​ប្រតិទិន"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"ផ្អាក​ការ​ជូនដំណឹង"</string>
