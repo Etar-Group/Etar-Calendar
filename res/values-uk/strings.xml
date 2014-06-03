@@ -31,7 +31,7 @@
     <string name="no_title_label" msgid="302177118061368042">"(Без назви)"</string>
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"1 хв."</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> хв."</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> хв"</item>
   </plurals>
   <plurals name="Nmins">
     <item quantity="one" msgid="9191090668359663663">"1 хв."</item>
@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Порожню подію не створено."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Запрошення буде надіслано."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Оновлення буде надіслано."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Відповідь: \"Так\"."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Відповідь: \"Можливо\"."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Відповідь: \"Ні\"."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Зберегти"</string>
     <string name="alert_title" msgid="7869592820853066853">"Сповіщення календаря"</string>
     <string name="event_info_title" msgid="56024222340421620">"Перегл. подію"</string>

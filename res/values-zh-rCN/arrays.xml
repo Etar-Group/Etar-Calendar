@@ -72,7 +72,7 @@
   </string-array>
   <string-array name="visibility">
     <item msgid="3035788428581513163">"默认"</item>
-    <item msgid="5200216103966973369">"私人"</item>
+    <item msgid="5200216103966973369">"不公开"</item>
     <item msgid="9182342638433672664">"公开"</item>
   </string-array>
   <string-array name="ordinal_labels">

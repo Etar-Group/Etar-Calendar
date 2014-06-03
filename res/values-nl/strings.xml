@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Lege afspraak niet gemaakt."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Uitnodigingen worden verzonden."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Updates worden verzonden."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Gereageerd met ja."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Gereageerd met misschien."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Gereageerd met nee."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Opslaan"</string>
     <string name="alert_title" msgid="7869592820853066853">"Agenda-herinneringen"</string>
     <string name="event_info_title" msgid="56024222340421620">"Afspraak weergeven"</string>
@@ -99,8 +102,8 @@
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
-    <string name="choose_event_color_label" msgid="2192923501857428854">"Kleur voor evenement kiezen"</string>
-    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Kleur voor evenement"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Kleur voor afspraak kiezen"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Kleur voor afspraak"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Instellen als standaardkleur voor agenda"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Kleur voor agenda"</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Kleurenkiezer"</string>
@@ -111,7 +114,7 @@
     <string name="email_guests_label" msgid="8772030932155305903">"E-mailen aan gasten"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Organisator e-mailen"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-mail met"</string>
-    <string name="event_not_found" msgid="8356864185947582727">"Evenement niet gevonden."</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Afspraak niet gevonden."</string>
     <string name="map_label" msgid="8795383535586556038">"Kaart"</string>
     <string name="call_label" msgid="2960328220008869083">"Bellen"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Snelle reacties"</string>
@@ -192,7 +195,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Herinneringstijd"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Eigen tijdzone gebruiken"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Op reis agenda\'s en gebeurtenistijden weergeven in eigen tijdzone"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Op reis agenda\'s en afspraaktijden weergeven in tijdzone van thuis"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Eigen tijdzone"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Weeknummer weergeven"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Over"</string>
@@ -208,7 +211,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Herinneringen overslaan"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Herinneringen overslaan"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Stille uren"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Evenementherinneringen op stil zetten gedurende opgegeven tijd."</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Afspraakherinneringen op stil zetten gedurende opgegeven tijd."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Starttijd stille uren"</string>
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Eindtijd stille uren"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Foutopsporing"</string>
@@ -220,7 +223,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Einddatum"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Eindtijd"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Tijdzone"</string>
-    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Evenement herhalen"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Afspraak herhalen"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Herinnering toevoegen"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Herinnering verwijderen"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Deelnemer toevoegen"</string>
@@ -270,7 +273,7 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Tot <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Voor een aantal evenementen"</string>
   <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenement"</item>
+    <item quantity="one" msgid="1400782968090516215">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> afspraak"</item>
     <item quantity="other" msgid="8779598489398048259">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenementen"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"einddatum wijzigen"</string>

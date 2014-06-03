@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Անբովանդակ իրադարձությունը չի ստեղծվել:"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Հրավերները կուղարկվեն"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Թարմացումները կուղարկվեն:"</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Պատասխանը՝ այո:"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Պատասխանը՝ գուցե:"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Պատասխանը՝ ոչ:"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Պահել"</string>
     <string name="alert_title" msgid="7869592820853066853">"Օրացուցային ծանուցումներ"</string>
     <string name="event_info_title" msgid="56024222340421620">"Դիտել իրադարձությունը"</string>

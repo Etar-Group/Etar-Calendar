@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Prázdna udal. nebola vytvor."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Pozvánky budú odoslané."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Aktualizácie budú odoslané."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Odpovedali áno."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Odpovedali možno."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Odpovedali nie."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Uložiť"</string>
     <string name="alert_title" msgid="7869592820853066853">"Upozornenia v kalendári"</string>
     <string name="event_info_title" msgid="56024222340421620">"Zobraziť udalosť"</string>
@@ -142,7 +145,7 @@
     <string name="save_label" msgid="2133599104834432589">"Hotovo"</string>
     <string name="discard_label" msgid="2394623883289782541">"Zrušiť"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Odložiť všetky"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">"Zrušiť všetko"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Ignorovať všetko"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Odložiť"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Jednorazová udalosť"</string>
     <string name="endByDate" msgid="7654221304929538201">", do <xliff:g id="DATE">%s</xliff:g>"</string>

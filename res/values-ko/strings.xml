@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"빈 일정은 만들 수 없습니다."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"초대장이 전송됩니다."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"업데이트가 전송됩니다."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"참석으로 응답함"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"미정으로 응답함"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"참석 안함으로 응답함"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"저장"</string>
     <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>
     <string name="event_info_title" msgid="56024222340421620">"일정 보기"</string>
@@ -91,7 +94,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"모두 표시"</string>
     <string name="description_label" msgid="7193475046717505855">"일정 설명"</string>
     <string name="presence_label" msgid="6169724148441175862">"내 상태"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"공개여부"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"공개 설정"</string>
     <string name="reminders_label" msgid="7292389181815525676">"알림 추가"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"캘린더 없음"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"일정을 추가하기 전에 기기에 하나 이상의 캘린더 계정을 추가하고 캘린더를 표시해야 합니다. 계정 추가를 터치하여 계정을 추가합니다(계정을 추가한 다음 동기화가 완료될 때까지 기다렸다가 다시 시도합니다). 또는 취소를 터치하고 적어도 하나의 캘린더가 표시되도록 합니다."</string>
@@ -230,7 +233,7 @@
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"알림 시간"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"알림 유형"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"내 상태"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"개인정보 보호"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"공개 설정"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"캘린더 알림"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"알림 일시중지"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"참석자에게 이메일 보내기"</string>

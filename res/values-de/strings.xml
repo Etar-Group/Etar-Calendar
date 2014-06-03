@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Leerer Termin nicht erstellt"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Einladungen werden gesendet."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Updates werden gesendet."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Zugesagt"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Antwort: vielleicht"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Abgesagt"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Speichern"</string>
     <string name="alert_title" msgid="7869592820853066853">"Benachrichtigungen"</string>
     <string name="event_info_title" msgid="56024222340421620">"Termin anzeigen"</string>
@@ -218,7 +221,7 @@
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Startdatum"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Startzeit"</string>
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Enddatum"</string>
-    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Endzeit"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Ende"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Zeitzone"</string>
     <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Wiederkehrender Termin"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Erinnerung hinzufügen"</string>

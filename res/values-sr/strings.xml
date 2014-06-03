@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Празан догађај није направљен."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Позивнице ће бити послате."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ажурирања ће бити послата."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Одговор је Да."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Одговор је Можда."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Одговор је Не."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Сачувај"</string>
     <string name="alert_title" msgid="7869592820853066853">"Обавештења календара"</string>
     <string name="event_info_title" msgid="56024222340421620">"Приказ догађаја"</string>

@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Événement vide non créé."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Les invitations vont être envoyées."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Les mises à jour vont être envoyées."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"A répondu « Oui »."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"A répondu « Peut-être »."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"A répondu « Non »."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Enregistrer"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notifications de l\'agenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Afficher l\'événement"</string>
@@ -253,7 +256,7 @@
     <item quantity="other" msgid="707566499994398250">"Tous les <xliff:g id="COUNT">%d</xliff:g> jours"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Toutes les <xliff:g id="COUNT">%d</xliff:g> semaines"</item>
+    <item quantity="one" msgid="4948681635464488351">"Chaque <xliff:g id="COUNT">%d</xliff:g> semaine"</item>
     <item quantity="other" msgid="7094801039989237061">"Toutes les <xliff:g id="COUNT">%d</xliff:g> semaines"</item>
   </plurals>
   <plurals name="recurrence_interval_monthly">

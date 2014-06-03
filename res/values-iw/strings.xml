@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"האירוע הריק לא נוצר."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"הזמנות יישלחו."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"עדכונים יישלחו."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"השיבו \'כן\'"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"השיבו \'אולי\'."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"השיבו \'לא\'"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"שמור"</string>
     <string name="alert_title" msgid="7869592820853066853">"התראות של יומן"</string>
     <string name="event_info_title" msgid="56024222340421620">"הצג אירוע"</string>
@@ -179,8 +182,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"הגדרות תצוגה של יומן"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"התראות ותזכורות"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"הסתר אירועים שנדחו"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"השבוע מתחיל ביום"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"השבוע מתחיל ביום"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"השבוע מתחיל ב:"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"השבוע מתחיל ב:"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"נקה את היסטוריית החיפושים"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"הסר את כל החיפושים שביצעת"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"היסטוריית החיפושים נוקתה."</string>

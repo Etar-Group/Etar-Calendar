@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"មិន​បាន​បង្កើត​ព្រឹត្តិការណ៍​ទទេ។"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"នឹង​ផ្ញើ​ការ​អញ្ជើញ"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"នឹង​ផ្ញើ​បច្ចុប្បន្នភាព។"</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"បាន​ឆ្លើយ​តប​ បាទ​/ចាស។"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"បាន​ឆ្លើយតប ប្រហែល​​ជា​ទៅ។"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"បាន​ឆ្លើយ​តប​ ទេ​។"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"រក្សាទុក"</string>
     <string name="alert_title" msgid="7869592820853066853">"ការ​ជូនដំណឹង​ប្រតិទិន"</string>
     <string name="event_info_title" msgid="56024222340421620">"មើល​ព្រឹត្តិការណ៍"</string>

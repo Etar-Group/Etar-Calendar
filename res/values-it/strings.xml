@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Evento vuoto non creato."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gli inviti verranno inviati."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Gli aggiornamenti verranno inviati."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Ha risposto \"Sì\"."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Ha risposto \"Forse\"."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Ha risposto \"No\"."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Salva"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notifiche di Google Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualizza evento"</string>
@@ -121,10 +124,10 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Scegli risposta rapida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Reperimento di un programma di posta elettronica non riuscito"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Esecuzione con un paio di minuti di ritardo."</item>
-    <item msgid="6215158751728689832">"Disponibile tra circa 10 minuti."</item>
+    <item msgid="1524421198348168403">"Sono in ritardo di qualche minuto."</item>
+    <item msgid="6215158751728689832">"Arrivo tra circa 10 minuti."</item>
     <item msgid="4485794001743679338">"Continua e inizia senza di me."</item>
-    <item msgid="8036557974294987511">"Spiacenti, impossibile portare a termine l\'operazione. È necessario stabilire una nuova pianificazione."</item>
+    <item msgid="8036557974294987511">"Mi dispiace, non ce la faccio. Dovremo spostare l\'appuntamento."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Scrivi la tua risposta personale…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Agenda:"</string>
