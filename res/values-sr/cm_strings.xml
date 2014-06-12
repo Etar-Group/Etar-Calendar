@@ -18,10 +18,10 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Питај за подсећање одлагања</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_on">Питај за привремено прекидање одлагања кад дрема</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Увек користите подразумевано одлагање</string>
-  <string name="snooze_delay_dialog_title">Подесите кашњење одлагања</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Увек користи подразумевано одлагање</string>
+  <string name="snooze_delay_dialog_title">Подеси кашњење одлагања</string>
   <string name="preferences_default_snooze_delay_title">Подразумевано време кашњења одлагања</string>
   <string name="preferences_default_snooze_delay_dialog">Подразумевано кашњење одлагања</string>
-  <string name="default_start_title">Подразумеван преглед</string>
+  <string name="default_start_title">Подразумевани преглед</string>
   <string name="default_start_last">Претходно коришћен преглед</string>
 </resources>
