@@ -87,7 +87,7 @@
     <string name="alert_title" msgid="7869592820853066853">"ការ​ជូនដំណឹង​ប្រតិទិន"</string>
     <string name="event_info_title" msgid="56024222340421620">"មើល​ព្រឹត្តិការណ៍"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"ការ​អញ្ជើញ​ប្រជុំ"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"ជូន​ចំពោះ"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"ដល់"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"ពី"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"ពេញ​មួយ​ថ្ងៃ"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"ប្រតិទិន"</string>
