@@ -46,7 +46,11 @@
   <string name="event_delete">"Rendezvous läschen"</string>
   <string name="goto_today">"Haut"</string>
   <string name="menu_preferences">"Astellungen"</string>
+  <string name="menu_select_visible_calendars">"Kalenner déi ugewise ginn"</string>
   <string name="search">"Sichen"</string>
+  <string name="hide_controls">"Kontrollelementer verstoppen"</string>
+  <string name="show_controls">"Kontrollelementer uweisen"</string>
+  <string name="select_visible_calendars_title">"Kalenner déi ugewise ginn"</string>
   <string name="synced"> synchroniséiert</string>
   <string name="not_synced"> net synchroniséiert</string>
   <string name="hint_what">"Numm vum Rendezvous"</string>
@@ -60,6 +64,7 @@
   <string name="create_event_dialog_save">Späicheren</string>
   <string name="alert_title">Notifikatioune vum Kalenner</string>
   <string name="event_info_title">Rendezvous ukucken</string>
+  <string name="event_info_title_invite">Aluedung zu engem Meeting</string>
   <string name="edit_event_to_label">Fir</string>
   <string name="edit_event_from_label">Vun</string>
   <string name="edit_event_all_day_label">All Dag</string>
@@ -72,6 +77,7 @@
   <string name="no_syncable_calendars">Keng Kalenneren</string>
   <string name="add_account">Kont dobäisetzen</string>
   <string name="view_event_calendar_label">Kalenner:</string>
+  <string name="choose_event_color_label">Rendezvousfaarf auswielen</string>
   <string name="event_color_set_to_default">Als Standardfaarf fir de Kalenner benotzen</string>
   <string name="calendar_color_picker_dialog_title">Kalennerfaarf</string>
   <string name="calendar_square_color_picker_description">Faarfauswiel</string>
@@ -173,7 +179,7 @@
   </plurals>
   <plurals name="recurrence_interval_yearly">
     <item quantity="one">All <xliff:g id="count">%d</xliff:g> Joer</item>
-    <item quantity="other">All <xliff:g id="count">%d</xliff:g> Joren</item>
+    <item quantity="other">All <xliff:g id="count">%d</xliff:g> Joer</item>
   </plurals>
   <string name="recurrence_end_continously">Fir ëmmer</string>
   <string name="recurrence_end_date_label">Bis zu engem bestëmmten Datum</string>

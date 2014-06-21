@@ -50,7 +50,7 @@
     <item>25 Minutten</item>
     <item>30 Minutten</item>
     <item>45 Minutten</item>
-    <item>1 hour</item>
+    <item>1 Stonn</item>
     <item>2 hours</item>
     <item>3 hours</item>
     <item>12 hours</item>
@@ -87,11 +87,20 @@
     <item>Vläicht</item>
     <item>Nee</item>
   </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>Only this event</item>
+    <item>Dësen a méi spéit Rendezvousen</item>
+    <item>All Rendezvousen</item>
+  </string-array>
   <integer-array name="delete_repeating_values">
     <item>0</item>
     <item>1</item>
     <item>2</item>
   </integer-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>This &amp; future events</item>
+    <item>All Rendezvousen</item>
+  </string-array>
   <string-array name="buttons_list">
     <item>Dag</item>
     <item>Woch</item>
