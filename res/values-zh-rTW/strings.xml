@@ -93,7 +93,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"日曆"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"全部顯示"</string>
     <string name="description_label" msgid="7193475046717505855">"說明"</string>
-    <string name="presence_label" msgid="6169724148441175862">"將我的狀態顯示為"</string>
+    <string name="presence_label" msgid="6169724148441175862">"狀態顯示"</string>
     <string name="privacy_label" msgid="9215031965259597335">"隱私權"</string>
     <string name="reminders_label" msgid="7292389181815525676">"新增提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"無日曆"</string>
@@ -232,7 +232,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"顯示頻率"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"提醒時間"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"提醒類型"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"將我的狀態顯示為"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"狀態顯示"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"隱私權"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"日曆通知"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"延後通知"</string>
