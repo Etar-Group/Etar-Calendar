@@ -15,9 +15,132 @@
      limitations under the License.
 -->
 <resources>
+  <string-array name="reminder_methods_labels">
+    <item>ئاگادارکردنەوەکان</item>
+    <item>ئیمەیڵ</item>
+    <item>کورتەنامە</item>
+    <item>بیرخه‌ره‌وه‌</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item>0 خولەک</item>
+    <item>1 خولەک</item>
+    <item>٥ خولەک</item>
+    <item>10 خولەک</item>
+    <item>10 خوله‌ک</item>
+    <item>٢٠ خولەک</item>
+    <item>٢٥ خولەک</item>
+    <item>30 خوله‌ک</item>
+    <item>45 خوله‌ك</item>
+    <item>1 كاتژێر</item>
+    <item>٢ کاتژێر</item>
+    <item>٣ کاتژێر</item>
+    <item>١٢ کاتژێر</item>
+    <item>٢٤ کاتژێر</item>
+    <item>٢ ڕۆژ</item>
+    <item>١ هەفتە</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>هیچ</item>
+    <item>0 خولەک</item>
+    <item>1 خوله‌ک</item>
+    <item>5 خوله‌ک</item>
+    <item>10 خولەک</item>
+    <item>15 خولەک</item>
+    <item>٢٠ خولەک</item>
+    <item>٢٥ خولەک</item>
+    <item>30 خوله‌ک</item>
+    <item>45 خوله‌ك</item>
+    <item>1 كاتژێر</item>
+    <item>٢ کاتژێر</item>
+    <item>٣ کاتژێر</item>
+    <item>١٢ کاتژێر</item>
+    <item>٢٤ کاتژێر</item>
+    <item>٢ ڕۆژ</item>
+    <item>١ هەفتە</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item>ناوچەی بنەڕەتی</item>
+    <item>شەممە</item>
+    <item>یەکشەممە</item>
+    <item>دووشەممە</item>
+  </string-array>
+  <string-array name="availability">
+    <item>سەرقاڵ</item>
+    <item>له‌کاره‌</item>
+    <item>ديارىنەكراو</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>بنه‌ڕه‌ت</item>
+    <item>تایبەتی</item>
+    <item>گشتی</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>یەکەم</item>
+    <item>دوەم</item>
+    <item>سێیەم</item>
+    <item>چوارەم</item>
+    <item>کۆتای</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>وەڵام نیە</item>
+    <item>بەڵێ</item>
+    <item>لەوانەیە</item>
+    <item>نەخێر</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>تەنها ئەمە</item>
+    <item>ئەمەو دواتر</item>
+    <item>هەمووی</item>
+  </string-array>
   <integer-array name="delete_repeating_values">
     <item>0</item>
     <item>1</item>
     <item>2</item>
   </integer-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item> &amp; دواتر</item>
+    <item>هەموو داهێنانەکان</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>تەنها ئەمە</item>
+    <item>هەموو زنجیرە داهێنانەکان</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item>ڕۆژ</item>
+    <item>هەفتە</item>
+    <item>مانگ</item>
+    <item>بەرنامەی کار</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item>تەنها ئەگەر پوچەڵکرایەوە</item>
+    <item>ئەگەر پوچەڵکرایەوە یان وەڵام نەدرایەوە</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item>on every first Wednesday</item>
+    <item>on every second Wednesday</item>
+    <item>on every third Wednesday</item>
+    <item>on every fourth Wednesday</item>
+    <item>لە کۆتای هەموو چوارشەمەیەک</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item>لە کۆتای هەموو ٥ شەمەیەک</item>
+    <item>لە هەموو چرکەیە لە ٥ شەمە</item>
+    <item>لە هەموو ٣ یەک لە ٥ شەمە</item>
+    <item>لە هەموو چوارەمێک لە ٥ شەمە</item>
+    <item>لە هەموو کۆتایەکی ٥ شەمە</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item>لە هەموو یەکەم هەینیدا</item>
+    <item>لە هەموو چرکەیەکی هەینیدا</item>
+    <item>لە هەموو ٣ یەکی هەینیدا</item>
+    <item>لە هەموو چوارەمێکی هەینیدا</item>
+    <item>ل کۆتای هەموو هەینیەکدا</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item>لەهەموو یەکەمی شەمەیکدا</item>
+    <item>لە هەموو چرکەیەکی شەمەیەکدا</item>
+    <item>لە هەموو ٣ یەکی شەمەدا</item>
+    <item>لە هەموو چوارەمێکی شەمەدا</item>
+    <item>لە هەموو کۆتای شەمەیەکدا</item>
+  </string-array>
 </resources>

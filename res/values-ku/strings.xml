@@ -15,7 +15,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="app_label">ڕۆژمێر</string>
+  <string name="what_label">چی</string>
+  <string name="where_label">لە کوێ</string>
+  <string name="when_label">کەی</string>
+  <string name="timezone_label">کاتی ناوخۆ</string>
+  <string name="attendees_label">میوان</string>
+  <string name="today">ئەمڕۆ</string>
+  <string name="tomorrow">سبەینێ</string>
+  <string name="today_at_time_fmt">"ئەمڕۆ لە <xliff:g id="time_interval">%s</xliff:g>"</string>
+  <string name="tomorrow_at_time_fmt">"سبەینێ لە<xliff:g id="time_interval">%s</xliff:g>"</string>
+  <string name="date_time_fmt">"<xliff:g id="date">%s</xliff:g>, <xliff:g id="time_interval">%s</xliff:g>"</string>
+  <string name="repeats_label">دووبارەکردنەوە</string>
+  <string name="no_title_label">(بێ ناونیشان)</string>
+  <string name="calendar_refresh">\"سازگارکردن\"</string>
+  <string name="show_day_view">"پیشاندانی رۆژ"</string>
+  <string name="agenda_view">"بەرنامەی کار"</string>
+  <string name="day_view">"ڕۆژ"</string>
+  <string name="week_view">"هەفتە"</string>
+  <string name="month_view">"مانگ"</string>
+  <string name="event_view">"دەرخستنی بەسەرهات"</string>
+  <string name="event_create">"بەسەرهات نە"</string>
+  <string name="event_edit">"دەستکارکردنی روداو"</string>
+  <string name="goto_today">"ئەمڕۆ"</string>
+  <string name="menu_preferences">"ڕێکخستنه‌کان"</string>
+  <string name="search">"گەڕان"</string>
   <string name="hint_where">"ناوچه‌"</string>
+  <string name="hint_attendees">"میوان"</string>
   <string name="create_event_dialog_save">پاشەکەوتکردن</string>
+  <string name="event_info_title">دەرخستنی بەسەرهات</string>
+  <string name="edit_event_calendar_label">ڕۆژمێر</string>
+  <string name="add_account">دانانی هەژمار</string>
+  <string name="response_yes">بەڵێ</string>
+  <string name="response_no">نەخێر</string>
+  <string name="map_label">نەخشە</string>
+  <string name="loading">دامەزراندنی\u2026</string>
+  <string name="edit_label">"دەستکاری"</string>
+  <string name="delete_label">"سڕینه‌وه‌"</string>
+  <string name="save_label">ئه‌نجامدرا</string>
+  <string name="discard_label">هەڵوەشاندنەوە</string>
+  <string name="new_event_dialog_label">"بەسەرهات نە"</string>
+  <string name="new_event_dialog_option">"بەسەرهات نە"</string>
+  <string name="preferences_title">"ڕێکخستنه‌کان"</string>
   <string name="preferences_alerts_title">تێبینی</string>
+  <string name="gadget_title">ڕۆژمێر</string>
+  <string name="accessibility_pick_time_zone">کاتی ناوخۆ</string>
+  <string name="accessibility_repeats">دووبارەکردنەوە</string>
 </resources>

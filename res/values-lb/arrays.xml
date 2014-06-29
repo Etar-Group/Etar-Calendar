@@ -26,40 +26,40 @@
     <item>1 Minutt</item>
     <item>5 Minutten</item>
     <item>10 Minutten</item>
-    <item>15 minutes</item>
+    <item>15 Minutten</item>
     <item>20 Minutten</item>
     <item>25 Minutten</item>
     <item>30 Minutten</item>
     <item>45 Minutten</item>
     <item>1 Stonn</item>
-    <item>2 hours</item>
-    <item>3 hours</item>
-    <item>12 hours</item>
-    <item>24 hours</item>
+    <item>2 Stonnen</item>
+    <item>3 Stonnen</item>
+    <item>12 Stonnen</item>
+    <item>24 Stonnen</item>
     <item>2 Deeg</item>
     <item>1 Woch</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>Keen</item>
     <item>0 Minutten</item>
-    <item>1 minute</item>
+    <item>1 Minutt</item>
     <item>5 Minutten</item>
     <item>10 Minutten</item>
-    <item>15 minutes</item>
+    <item>15 Minutten</item>
     <item>20 Minutten</item>
     <item>25 Minutten</item>
     <item>30 Minutten</item>
     <item>45 Minutten</item>
     <item>1 Stonn</item>
-    <item>2 hours</item>
-    <item>3 hours</item>
-    <item>12 hours</item>
-    <item>24 hours</item>
+    <item>2 Stonnen</item>
+    <item>3 Stonnen</item>
+    <item>12 Stonnen</item>
+    <item>24 Stonnen</item>
     <item>2 Deeg</item>
     <item>1 Woch</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
-    <item>Locale default</item>
+    <item>Regional Standardastellung</item>
     <item>Samschdeg</item>
     <item>Sonndeg</item>
     <item>Méindeg</item>
@@ -67,7 +67,7 @@
   <string-array name="availability">
     <item>Beschäftegt</item>
     <item>Disponibel</item>
-    <item>Tentative</item>
+    <item>Net sécher</item>
   </string-array>
   <string-array name="visibility">
     <item>Standard</item>
@@ -88,7 +88,7 @@
     <item>Nee</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>Only this event</item>
+    <item>Nëmmen dëse Rendezvous</item>
     <item>Dësen a méi spéit Rendezvousen</item>
     <item>All Rendezvousen</item>
   </string-array>
@@ -98,14 +98,28 @@
     <item>2</item>
   </integer-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>This &amp; future events</item>
+    <item>Dësen a méi spéit Rendezvousen</item>
     <item>All Rendezvousen</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>Nëmmen dëse Rendezvous</item>
+    <item>All Rendezvousen an där Serie</item>
   </string-array>
   <string-array name="buttons_list">
     <item>Dag</item>
     <item>Woch</item>
     <item>Mount</item>
     <item>Agenda</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item>Nëmme bei Ofleenung</item>
+    <item>Bei Ofleenung oder keng Äntwert</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item>ALL DAG WIDDERHUELEN</item>
+    <item>ALL WOCH WIDDERHUELEN</item>
+    <item>ALL MOUNT WIDDERHUELEN</item>
+    <item>ALL JOER WIDDERHUELEN</item>
   </string-array>
   <string-array name="repeat_by_nth_sun">
     <item>all éischte Sonndeg</item>
