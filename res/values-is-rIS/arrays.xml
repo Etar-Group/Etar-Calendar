@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Tilkynningu"</item>
+    <item msgid="1751151680520784746">"Tölvupóst"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"Viðvörun"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 mínútum"</item>
+    <item msgid="6681865010714743948">"1 mínútu"</item>
+    <item msgid="2327505114623595779">"5 mínútum"</item>
+    <item msgid="1657410063332547113">"10 mínútum"</item>
+    <item msgid="366087535181197780">"15 mínútum"</item>
+    <item msgid="6252612791145061929">"20 mínútum"</item>
+    <item msgid="7896694531989090700">"25 mínútum"</item>
+    <item msgid="8754510169374808607">"30 mínútum"</item>
+    <item msgid="3113380274218454394">"45 mínútum"</item>
+    <item msgid="8546646645868526283">"1 klukkustund"</item>
+    <item msgid="6467845211024768872">"2 klukkustundum"</item>
+    <item msgid="8201677619511076575">"3 klukkustundum"</item>
+    <item msgid="7172504281650128893">"12 klukkustundum"</item>
+    <item msgid="9114286702181482496">"24 klukkustundum"</item>
+    <item msgid="3107009344872997366">"2 dögum"</item>
+    <item msgid="6135563708172153696">"1 viku"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"Ekkert"</item>
+    <item msgid="5883344836499335043">"0 mínútum"</item>
+    <item msgid="4354350447805231188">"1 mínútu"</item>
+    <item msgid="265674592625309858">"5 mínútum"</item>
+    <item msgid="8011089417728419666">"10 mínútum"</item>
+    <item msgid="6177098581805412986">"15 mínútum"</item>
+    <item msgid="356346660503078923">"20 mínútum"</item>
+    <item msgid="992592434377054063">"25 mínútum"</item>
+    <item msgid="9191353668596201944">"30 mínútum"</item>
+    <item msgid="1192985682962908244">"45 mínútum"</item>
+    <item msgid="1694315499429259938">"1 klukkustund"</item>
+    <item msgid="8281019320591769635">"2 klukkustundum"</item>
+    <item msgid="2062931719019287773">"3 klukkustundum"</item>
+    <item msgid="4086495711621133006">"12 klukkustundum"</item>
+    <item msgid="3172669681920709561">"24 klukkustundum"</item>
+    <item msgid="5557836606782821910">"2 dögum"</item>
+    <item msgid="8336577387266744930">"1 viku"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Sjálfgefinn tungumálskóði"</item>
+    <item msgid="134027225275475280">"laugardegi"</item>
+    <item msgid="95029346069903091">"sunnudegi"</item>
+    <item msgid="5840983116375063739">"mánudegi"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Upptekin(n)"</item>
+    <item msgid="6228387173725732140">"Viðlátin(n)"</item>
+    <item msgid="2064426942462573474">"Með fyrirvara"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"Sjálfgefið"</item>
+    <item msgid="5200216103966973369">"Lokaður"</item>
+    <item msgid="9182342638433672664">"Opinn"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"fyrsti"</item>
+    <item msgid="5631923029483854900">"annar"</item>
+    <item msgid="148935502975250973">"þriðji"</item>
+    <item msgid="5124200797326669172">"fjórði"</item>
+    <item msgid="7564374178324652137">"síðasti"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"Ekkert svar"</item>
+    <item msgid="3724434080904437698">"Já"</item>
+    <item msgid="8854145743148992583">"Kannski"</item>
+    <item msgid="6174292185978948873">"Nei"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Aðeins þessi viðburður"</item>
+    <item msgid="1536401639805370405">"Þessi viðburður og allir síðari viðburðir"</item>
+    <item msgid="7833229563617435430">"Allir viðburðir"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"Þessi viðburður og allir síðari viðburðir"</item>
+    <item msgid="6315440193748139854">"Allir viðburðir"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"Aðeins þessi viðburður"</item>
+    <item msgid="140670561403965380">"Allir viðburðir í þessari röð"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"Dagur"</item>
+    <item msgid="6248480754959562740">"Vika"</item>
+    <item msgid="4298472806133153766">"Mánuður"</item>
+    <item msgid="5033084974413793845">"Dagskrá"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Aðeins ef hafnað"</item>
+    <item msgid="6367412240524984286">"Ef hafnað eða ef ekkert svar berst"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"ENDURTAKA DAGLEGA"</item>
+    <item msgid="6300824484048337842">"ENDURTAKA VIKULEGA"</item>
+    <item msgid="189361731610816256">"ENDURTAKA MÁNAÐARLEGA"</item>
+    <item msgid="8714177874112569158">"ENDURTAKA ÁRLEGA"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"fyrsta sunnudag í hverjum mánuði"</item>
+    <item msgid="2557379346106451363">"annan hvern sunnudag"</item>
+    <item msgid="7622144489915654132">"þriðja hvern sunnudag"</item>
+    <item msgid="527152448137686021">"fjórða hvern sunnudag"</item>
+    <item msgid="5057483608824759350">"síðasta sunnudag í hverjum mánuði"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"fyrsta mánudag í hverjum mánuði"</item>
+    <item msgid="4484275849072423978">"annan hvern mánudag"</item>
+    <item msgid="8956169860824371383">"þriðja hvern mánudag"</item>
+    <item msgid="6924403357659569326">"fjórða hvern mánudag"</item>
+    <item msgid="1379608815263472161">"síðasta mánudag í hverjum mánuði"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"fyrsta þriðjudag í hverjum mánuði"</item>
+    <item msgid="9063613547307760928">"annan hvern þriðjudag"</item>
+    <item msgid="6688603328729208168">"þriðja hvern þriðjudag"</item>
+    <item msgid="6695206006961533357">"fjórða hvern þriðjudag"</item>
+    <item msgid="8619069174889809914">"síðasta þriðjudag í hverjum mánuði"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"fyrsta miðvikudag í hverjum mánuði"</item>
+    <item msgid="5059722045367799217">"annan hvern miðvikudag"</item>
+    <item msgid="7986246648229272275">"þriðja hvern miðvikudag"</item>
+    <item msgid="9068566169348980801">"fjórða hvern miðvikudag"</item>
+    <item msgid="7976866743069062134">"síðasta miðvikudag í hverjum mánuði"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"fyrsta fimmtudag í hverjum mánuði"</item>
+    <item msgid="4857419136007543270">"annan hvern fimmtudag"</item>
+    <item msgid="222044587450564839">"þriðja hvern fimmtudag"</item>
+    <item msgid="6197927556533030945">"fjórða hvern fimmtudag"</item>
+    <item msgid="1023326923033436905">"síðasta fimmtudag í hverjum mánuði"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"fyrsta föstudag í hverjum mánuði"</item>
+    <item msgid="1935608297230506940">"annan hvern föstudag"</item>
+    <item msgid="4061877662049317599">"þriðja hvern föstudag"</item>
+    <item msgid="6856646749131820614">"fjórða hvern föstudag"</item>
+    <item msgid="6533513913914859794">"síðasta föstudag í hverjum mánuði"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"fyrsta laugardag í hverjum mánuði"</item>
+    <item msgid="9130198690512925355">"annan hvern laugardag"</item>
+    <item msgid="4525736070844032405">"þriðja hvern laugardag"</item>
+    <item msgid="422053689531707709">"fjórða hvern laugardag"</item>
+    <item msgid="5499975799312474425">"síðasta laugardag í hverjum mánuði"</item>
+  </string-array>
+</resources>

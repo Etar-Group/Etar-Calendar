@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"കലണ്ടർ"</string>
+    <string name="what_label" msgid="1933578391985810049">"ഇവന്റ് പേര്"</string>
+    <string name="where_label" msgid="3472482206065595118">"എവിടെ"</string>
+    <string name="when_label" msgid="894636567327261599">"എപ്പോൾ"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"സമയ മേഖല"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"അതിഥികൾ"</string>
+    <string name="today" msgid="8577375020252453006">"ഇന്ന്"</string>
+    <string name="tomorrow" msgid="614434811813859237">"നാളെ"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"ഇന്ന് <xliff:g id="TIME_INTERVAL">%s</xliff:g> മണിയ്‌ക്ക്"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"നാളെ <xliff:g id="TIME_INTERVAL">%s</xliff:g> മണിയ്‌ക്ക്"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"ആവർത്തിക്കുക"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(ശീർഷകമൊന്നുമില്ല)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"ഒരു മിനിറ്റ്"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> മിനിറ്റ്"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"ഒരു മിനിറ്റ്"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> മിനിറ്റ്"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"ഒരു മണിക്കൂർ"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> മണിക്കൂർ"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"ഒരു ദിവസം"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ദിവസം"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"ആഴ്ച <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"പുതുക്കുക"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"ദിവസം കാണിക്കുക"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"അജൻഡ"</string>
+    <string name="day_view" msgid="4467754504843584437">"ദിവസം"</string>
+    <string name="week_view" msgid="6775043022159508060">"ആഴ്‌ച"</string>
+    <string name="month_view" msgid="7287101431749285412">"മാസം"</string>
+    <string name="event_view" msgid="7621353079385122317">"ഇവന്റ് കാണുക"</string>
+    <string name="event_create" msgid="6941040556709110617">"പുതിയ ഇവന്റ്"</string>
+    <string name="event_edit" msgid="4006961928830064662">"ഇവന്റ് എഡിറ്റുചെയ്യുക"</string>
+    <string name="event_delete" msgid="2386667193277770442">"ഇവന്റ് ഇല്ലാതാക്കുക"</string>
+    <string name="goto_today" msgid="9162136434410891230">"ഇന്ന്"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"ക്രമീകരണങ്ങൾ"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"പ്രദർശിപ്പിക്കുന്നതിനുള്ള കലണ്ടറുകൾ"</string>
+    <string name="search" msgid="550656004486017426">"തിരയൽ"</string>
+    <string name="hide_controls" msgid="830320505938520882">"നിയന്ത്രണങ്ങള്‍ മറയ്ക്കുക"</string>
+    <string name="show_controls" msgid="715520586028062621">"നിയന്ത്രണങ്ങൾ കാണിക്കുക"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"പ്രദർശിപ്പിക്കുന്നതിനുള്ള കലണ്ടറുകൾ"</string>
+    <string name="synced" msgid="7913940305983383493">"സമന്വയിപ്പിച്ചു"</string>
+    <string name="not_synced" msgid="4275114941801829419">"സമന്വയിപ്പിച്ചിട്ടില്ല"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"ഈ അക്കൗണ്ട് സമന്വയിപ്പിച്ചിട്ടില്ല അതുകൊണ്ട് നിങ്ങളുടെ കലണ്ടർ കാലികമായിരിക്കാനിടയില്ല."</string>
+    <string name="accounts" msgid="849401841083180306">"അക്കൗണ്ട് &amp; സമന്വയം"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"സമന്വയിപ്പിക്കുന്നതിനുള്ള കലണ്ടറുകൾ"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"സമന്വയിപ്പിക്കുന്നതിനുള്ള കലണ്ടറുകൾ"</string>
+    <string name="hint_what" msgid="709155115005044531">"ഇവന്റ് പേര്"</string>
+    <string name="hint_where" msgid="4972598001033801974">"ലൊക്കേഷന്‍"</string>
+    <string name="hint_description" msgid="1910143586169033232">"വിവരണം"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"അതിഥികൾ"</string>
+    <string name="creating_event" msgid="7516249252554059980">"ഇവന്റ് സൃഷ്ടിക്കുക."</string>
+    <string name="saving_event" msgid="7694181017411177226">"ഇവന്റ് സംരക്ഷിച്ചു."</string>
+    <string name="empty_event" msgid="9018699257414338634">"ശൂന്യമായ ഇവന്റ് സൃഷ്ടിക്കുക."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"ക്ഷണം അയയ്‌ക്കും."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"അപ്‌ഡേറ്റുകൾ അയയ്‌ക്കും."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"അതെ എന്ന് പ്രതികരിക്കുക."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"ചിലപ്പോൾ എന്ന് പ്രതികരിക്കുക."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"ഇല്ല എന്ന് പ്രതികരിക്കുക."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"സംരക്ഷിക്കുക"</string>
+    <string name="alert_title" msgid="7869592820853066853">"കലണ്ടർ അറിയിപ്പുകൾ"</string>
+    <string name="event_info_title" msgid="56024222340421620">"ഇവന്റ് കാണുക"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"മീറ്റിംഗ് ക്ഷണം"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"അവസാനിക്കുന്ന സമയം"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"ആരംഭിക്കുന്ന സമയം"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"എല്ലാ ദിവസവും"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"കലണ്ടർ"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"എല്ലാം കാണിക്കുക"</string>
+    <string name="description_label" msgid="7193475046717505855">"വിവരണം"</string>
+    <string name="presence_label" msgid="6169724148441175862">"എന്നെ ഇങ്ങനെ ദൃശ്യമാക്കുക"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"സ്വകാര്യത"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"കലണ്ടറുകളൊന്നുമില്ല"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"നിങ്ങൾക്ക് ഒരു അക്കൗണ്ട് ചേർക്കാനാകുന്നതിന് മുമ്പ്, നിങ്ങളുടെ ഉപകരണത്തിൽ കുറഞ്ഞത് ഒരു കലണ്ടർ അക്കൗണ്ടെങ്കിലും ചേർത്ത്, കലണ്ടർ ദൃശ്യമാക്കിയിരിക്കണം. ഒരു അക്കൗണ്ട് ചേർക്കുന്നതിന് അക്കൗണ്ട് ചേർക്കുക എന്നതിൽ സ്‌പർശിക്കുക (നിങ്ങൾ ഇപ്പോഴാണ് ഒരു അക്കൗണ്ട് ചേർത്തതെങ്കിൽ, അത് സമന്വയിപ്പിക്കുന്നത് വരെ കാത്തിരുന്നശേഷം വീണ്ടും ശ്രമിക്കുക). അല്ലെങ്കിൽ റദ്ദാക്കുക എന്നത് സ്‌പർശിച്ച ശേഷം കുറഞ്ഞത് ഒരു കലണ്ടറെങ്കിലും ദൃശ്യമാണെന്ന് ഉറപ്പുവരുത്തുക."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"ഒരു Google അക്കൗണ്ടിൽ കലണ്ടർ നന്നായി പ്രവർത്തിക്കുന്നു.\n\n. ഏതെങ്കിലും ഒരു വെബ് ബ്രൗസറിൽ നിന്ന് അത് ആക്സസ് ചെയ്യുക\n. നിങ്ങളുടെ ഇവന്റുകൾ സുരക്ഷിതമായി ബാക്കപ്പ് ചെയ്യുക"</string>
+    <string name="add_account" msgid="1669072099756774952">"അക്കൗണ്ട് ചേർക്കുക"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"കലണ്ടർ:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"ഓർഗനൈസർ:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"ഇവന്റ് വർണ്ണം തിരഞ്ഞെടുക്കുക"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"ഇവന്റ് വർണ്ണം"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"സ്ഥിരസ്ഥിതി കലണ്ടർ വർണ്ണത്തിലേക്ക് സജ്ജീകരിക്കുക"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"കലണ്ടറിന്റെ നിറം"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"വർണ്ണ പിക്കർ"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"പങ്കെടുക്കുന്നുണ്ടോ?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"അതെ"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"ചിലപ്പോൾ"</string>
+    <string name="response_no" msgid="561911691884148136">"ഇല്ല"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"അതിഥികൾക്ക് ഇമെയിൽ അയയ്‌ക്കുക"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"ഇമെയിൽ ഓർഗനൈസർ"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"ഇവർക്ക് ഇമെയിൽ അയയ്‌ക്കുക"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"ഇവന്റ് കണ്ടെത്തിയില്ല."</string>
+    <string name="map_label" msgid="8795383535586556038">"മാപ്പ്"</string>
+    <string name="call_label" msgid="2960328220008869083">"വിളിക്കുക"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"ദ്രുത പ്രതികരണം"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"അതിഥികൾക്ക് ഇമെയിൽ അയയ്ക്കുമ്പോൾ സ്ഥിര പ്രതികരണങ്ങൾ എഡിറ്റുചെയ്യുക"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"ദ്രുത പ്രതികരണങ്ങൾ എഡിറ്റുചെയ്യുക"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"ദ്രുത പ്രതികരണം"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"ദ്രുത പ്രതികരണം തിരഞ്ഞെടുക്കുക"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"ഒരു ഇമെയിൽ പോഗ്രാം കണ്ടെത്തുന്നത് പരാജയപ്പെട്ടു"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"ഏകദേശം രണ്ട് മിനിറ്റ് വൈകി പ്രവർത്തിക്കുന്നു."</item>
+    <item msgid="6215158751728689832">"ഏകദേശം 10 മിനിട്ടിനുള്ളിൽ എത്തുക."</item>
+    <item msgid="4485794001743679338">"മുന്നോട്ടു പോയി ഞാനില്ലാതെതന്നെ ആരംഭിക്കുക."</item>
+    <item msgid="8036557974294987511">"ക്ഷമിക്കണം, എനിക്കത് ചെയ്യാൻ കഴിഞ്ഞില്ല. ഞങ്ങൾക്ക് റീഷെഡ്യൂൾ ചെയ്യണം."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"നിങ്ങളുടേതായത് എഴുതുക…"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"ഓർഗനൈസർ:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"ഓർമ്മപ്പെടുത്തലുകൾ"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"ഇന്ന്, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"ഇന്നലെ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"നാളെ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"ലോഡുചെയ്യുന്നു..."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> എന്നതിന് മുമ്പുള്ള ഇവന്റുകൾ കാണുന്നതിന് സ്പർശിക്കുക"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> എന്നതിന് ശേഷമുള്ള ഇവന്റുകൾ കാണുന്നതിന് സ്പർശിക്കുക"</string>
+    <string name="search_title" msgid="8898015280250716254">"എന്റെ കലണ്ടറുകൾ തിരയുക"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"വിശദാംശങ്ങൾ"</string>
+    <string name="edit_label" msgid="8934331258435656534">"എഡിറ്റുചെയ്യുക"</string>
+    <string name="delete_label" msgid="874742811918030739">"ഇല്ലാതാക്കുക"</string>
+    <string name="save_label" msgid="2133599104834432589">"പൂർത്തിയാക്കി"</string>
+    <string name="discard_label" msgid="2394623883289782541">"റദ്ദാക്കുക"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"എല്ലാം സ്നൂസ് ചെയ്യുക"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"എല്ലാം നിരസിക്കുക"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"സ്നൂസ് ചെയ്യുക"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"ഒറ്റത്തവണയുള്ള ഇവന്റ്"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; <xliff:g id="DATE">%s</xliff:g> വരെ"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; ഒരു തവണ"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> തവണ"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"പ്രതിദിനം"</item>
+    <item quantity="other" msgid="5455230727715859264">"ഓരോ <xliff:g id="NUMBER">%d</xliff:g> ദിവസവും"</item>
+  </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"എല്ലാ പ്രവർത്തിദിനങ്ങളും (തിങ്കൾ–വെള്ളി)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"പ്രതിവാരം <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> ദിവസം"</item>
+    <item quantity="other" msgid="2857390143157377867">"ഓരോ <xliff:g id="NUMBER">%1$d</xliff:g> ആഴ്ച കൂടുമ്പോഴും <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
+    <string name="monthly" msgid="4587116285383048586">"പ്രതിമാസം"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"പ്രതിവർഷം"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"പ്രതിമാസം (ഈ ദിവസം <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"വർഷം തോറും (<xliff:g id="DATES">%s</xliff:g> തീയതിയിൽ)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"ഇഷ്‌ടാനുസൃതം (ടാബ്‌ലെറ്റിൽ ഇഷ്‌ടാനുസൃതമാക്കാൻ കഴിയില്ല)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"ഇഷ്‌ടാനുസൃതം (ഫോണിൽ ഇഷ്‌ടാനുസൃതമാക്കാൻ കഴിയില്ല)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"ഈ ഇവന്റ് മാത്രം മാറ്റുക"</string>
+    <string name="modify_all" msgid="4421657265864209041">"ഈ ശ്രേണിയിലെ എല്ലാ ഇവന്റുകളും മാറ്റുക"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"ഇതും ഭാവിയിലെ എല്ല്ലാ ഇവന്റുകളും മാറ്റുക"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"പുതിയ ഇവന്റ്"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"പുതിയ ഇവന്റ്"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"ഈ ഇവന്റ് ഇല്ലാതാക്കണോ?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g> ഇല്ലാതാക്കണോ?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"പ്രതികരണം മാറ്റുക"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"പൊതുവായ ക്രമീകരണങ്ങൾ"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"കലണ്ടറിനെക്കുറിച്ച്"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"ക്രമീകരണങ്ങൾ"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"കലണ്ടർ കാഴ്‌ച ക്രമീകരണം"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"അറിയിപ്പുകളും ഓർമ്മപ്പെടുത്തലുകളും"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"നിരസിച്ച ഇവന്റുകൾ മറയ്‌ക്കുക"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"ആഴ്ച ആരംഭിക്കുന്നത്"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"ആഴ്ച ആരംഭിക്കുന്നത്"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"തിരയൽ ചരിത്രം മായ്‌ക്കുക"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"നിങ്ങൾ നടത്തിയ എല്ലാ തിരയലുകളും നീക്കംചെയ്യുക"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"തിരയൽ ചരിത്രം മായ്‌ച്ചു."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"അറിയിപ്പുകൾ"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"വൈബ്രേറ്റുചെയ്യുക"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"ശബ്‌ദം"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"പോപ്പ്-അപ്പ് അറിയിപ്പ്"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"സ്ഥിരസ്ഥിതി ഓർമ്മപ്പെടുത്തൽ സമയം"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"സ്ഥിരസ്ഥിതി ഓർമ്മപ്പെടുത്തൽ സമയം"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"സ്വദേശ സമയ മേഖല ഉപയോഗിക്കുക"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"യാത്രയിലായിരിക്കുമ്പോൾ കലണ്ടറുകളും ഇവന്റ് സമയങ്ങളും നിങ്ങളുടെ സ്വദേശ സമയ മേഖലയിൽ പ്രദർശിപ്പിക്കുന്നു"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"സ്വദേശ സമയ സോൺ"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"ആഴ്‌ചകളുടെ എണ്ണം കാണിക്കുക"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"ആമുഖം"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"ബിൽഡ് പതിപ്പ്"</string>
+    <string name="gadget_title" msgid="939918875331310945">"കലണ്ടർ"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"വരാനിരിക്കുന്ന കലണ്ടർ ഇവന്റുകളൊന്നുമില്ല"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"പരീക്ഷണാത്മകം"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"ഓർമ്മപ്പെടുത്തലുകൾ"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ഓർമ്മപ്പെടുത്തലുകൾ ഒഴിവാക്കുക"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ഓർമ്മപ്പെടുത്തലുകൾ ഒഴിവാക്കുക"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"നിശബ്‌ദ സമയം"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"നിർദ്ദിഷ്‌ട സമയം ഇവന്റ് ഓർമ്മപ്പെടുത്തലുകൾ മ്യൂട്ടുചെയ്യുക."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"നിശബ്‌ദസമയം ആരംഭിക്കുന്ന സമയം"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"നിശബ്‌ദ സമയം അവസാനിക്കുന്ന സമയം"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"ഡീബഗ് ചെയ്യുന്നു"</string>
+    <string name="copy_db" msgid="437691290566699292">"ഡാറ്റ ബേസ് അയയ്ക്കുക"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> തിരയുന്നു…"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"പങ്കെടുത്തയാളെ നീക്കംചെയ്യുക"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"ആരംഭിക്കുന്ന തീയതി"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"ആരംഭ സമയം"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"അവസാനിക്കുന്ന തീയതി"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"അവസാനിക്കുന്ന സമയം"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"സമയ മേഖല"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ഇവന്റ് ആവർത്തിക്കുക"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"ഓർമ്മപ്പെടുത്തൽ നീക്കം ചെയ്യുക"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"പങ്കെടുക്കുന്നയാളെ ചേർക്കുക"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"കലണ്ടർ സമന്വയിപ്പിക്കുക"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"ദിവസം മുഴുവന്‍ നീണ്ടു നില്‍ക്കുന്ന ഇവന്റ്"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"ആവർത്തിക്കുക"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"ഓർമ്മപ്പെടുത്തലിനുള്ള സമയം"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"ഓർമ്മപ്പെടുത്തൽ തരം"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"എന്നെ ഇങ്ങനെ ദൃശ്യമാക്കുക"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"സ്വകാര്യത"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"കലണ്ടർ അറിയിപ്പുകൾ"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"അറിയിപ്പുകൾ സ്‌നൂസ് ചെയ്യുക"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"അതിഥികൾക്ക് ഇമെയിൽ അയയ്‌ക്കുക"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ പുതിയ ഇവന്റ്"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_INDEX">%1$s</xliff:g> / <xliff:g id="ITEM_COUNT">%2$s</xliff:g> ഇവന്റ്."</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"ഒരു ഇവന്റ്"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ഇവന്റുകൾ"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 ഇവന്റ്"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ഇവന്റുകൾ"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"തിരഞ്ഞെടുത്ത ഇവന്റ്"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"ഇത് പരിശോധിക്കരുത് -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"ആവർത്തിക്കുക"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ഒരിക്കലും ആവർത്തിക്കരുത്"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> ദിവസവും"</item>
+    <item quantity="other" msgid="707566499994398250">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> ദിവസവും"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> ആഴ്ച കൂടുമ്പോഴും"</item>
+    <item quantity="other" msgid="7094801039989237061">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> ആഴ്‌ച കൂടുമ്പോഴും"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> മാസം കൂടുമ്പോഴും"</item>
+    <item quantity="other" msgid="5419723710346646523">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> മാസം കൂടുമ്പോഴും"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> വർഷം കൂടുമ്പോഴും"</item>
+    <item quantity="other" msgid="5678653649746562060">"ഓരോ <xliff:g id="COUNT">%d</xliff:g> വർഷം കൂടുമ്പോഴും"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ഓരോ മാസവും ഒരേ ദിവസം"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"എന്നന്നേയ്‌ക്കും"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"ഒരു തീയതി വരെ"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"<xliff:g id="DATE">%s</xliff:g> വരെ"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"ഇവന്റുകൾ ആവർത്തിക്കേണ്ട എണ്ണം"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ഇവന്റിന്"</item>
+    <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ഇവന്റുകൾക്ക്"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"അവസാനിക്കുന്ന ദിവസം മാറ്റുക"</string>
+</resources>

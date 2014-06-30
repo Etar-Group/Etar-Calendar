@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"క్యాలెండర్"</string>
+    <string name="what_label" msgid="1933578391985810049">"ఏమిటి"</string>
+    <string name="where_label" msgid="3472482206065595118">"ఎక్కడ"</string>
+    <string name="when_label" msgid="894636567327261599">"ఎప్పుడు"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"సమయ మండలి"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"అతిథులు"</string>
+    <string name="today" msgid="8577375020252453006">"ఈ రోజు"</string>
+    <string name="tomorrow" msgid="614434811813859237">"రేపు"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"ఈ రోజు <xliff:g id="TIME_INTERVAL">%s</xliff:g>కి"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"రేపు <xliff:g id="TIME_INTERVAL">%s</xliff:g>కి"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"పునరావృతం"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(శీర్షిక లేదు)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 నిమిషం"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> నిమిషాలు"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 నిమి"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> నిమి"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 గంట"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> గంటలు"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 రోజు"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> రోజులు"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"వారం <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"రీఫ్రె. చే."</string>
+    <string name="show_day_view" msgid="5782512782605466016">"రోజుని చూపు"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"విషయ పట్టిక"</string>
+    <string name="day_view" msgid="4467754504843584437">"రోజు"</string>
+    <string name="week_view" msgid="6775043022159508060">"వారం"</string>
+    <string name="month_view" msgid="7287101431749285412">"నెల"</string>
+    <string name="event_view" msgid="7621353079385122317">"ఈవెంట్‌ను వీక్షించండి"</string>
+    <string name="event_create" msgid="6941040556709110617">"కొత్త ఈవెంట్"</string>
+    <string name="event_edit" msgid="4006961928830064662">"ఈవెంట్‌ను సవరించు"</string>
+    <string name="event_delete" msgid="2386667193277770442">"ఈవెంట్‌ను తొలగించు"</string>
+    <string name="goto_today" msgid="9162136434410891230">"ఈ రోజు"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"సెట్టింగ్‌లు"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"ప్రద. క్యాలెండర్‌లు"</string>
+    <string name="search" msgid="550656004486017426">"శోధించు"</string>
+    <string name="hide_controls" msgid="830320505938520882">"నియంత్రణలను దాచు"</string>
+    <string name="show_controls" msgid="715520586028062621">"నియంత్రణలను చూపు"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"ప్రదర్శించాల్సిన క్యాలెండర్‌లు"</string>
+    <string name="synced" msgid="7913940305983383493">"సమకాలీకరించబడింది"</string>
+    <string name="not_synced" msgid="4275114941801829419">"సమకాలీకరించబడలేదు"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"ఈ ఖాతా సమకాలీకరించబడటంలేదు కనుక మీ క్యాలెండర్‌లు తాజాగా ఉండకపోవచ్చు."</string>
+    <string name="accounts" msgid="849401841083180306">"ఖాతాలు &amp; సమకాలీకరణ"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"సమకాలీకరించాల్సిన క్యాలెండర్‌లు"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"సమకాలీకరించాల్సిన క్యాలెండర్‌లు"</string>
+    <string name="hint_what" msgid="709155115005044531">"ఈవెంట్ పేరు"</string>
+    <string name="hint_where" msgid="4972598001033801974">"స్థానం"</string>
+    <string name="hint_description" msgid="1910143586169033232">"వివరణ"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"అతిథులు"</string>
+    <string name="creating_event" msgid="7516249252554059980">"ఈవెంట్ సృష్టించబడింది."</string>
+    <string name="saving_event" msgid="7694181017411177226">"ఈవెంట్ సేవ్ చేయబడింది."</string>
+    <string name="empty_event" msgid="9018699257414338634">"ఖాళీ ఈవెంట్ సృష్టించబడదు."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"ఆహ్వానాలు పంపబడతాయి."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"నవీకరణలు పంపబడతాయి."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"హాజరవుతాను అని ప్రతిస్పందించారు."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"హాజరు కావడానికి అవకాశం ఉంది అని ప్రతిస్పందించారు."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"హాజరు కాను అని ప్రతిస్పందించారు."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"సేవ్ చేయి"</string>
+    <string name="alert_title" msgid="7869592820853066853">"క్యాలెండర్ నోటిఫికేషన్‌లు"</string>
+    <string name="event_info_title" msgid="56024222340421620">"ఈవెంట్‌ను వీక్షించండి"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"సమావేశ ఆహ్వానం"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"ఈ సమయం వరకు"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"ఈ సమయం నుండి"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"రోజు మొత్తం"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"క్యాలెండర్"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"అన్నీ చూపు"</string>
+    <string name="description_label" msgid="7193475046717505855">"వివరణ"</string>
+    <string name="presence_label" msgid="6169724148441175862">"నన్ను ఇలా చూపు"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"గోప్యత"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"రిమైండర్‌ను జోడించ."</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"క్యాలెండర్‌లు లేవు"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"మీరు ఈవెంట్‌ను జోడించడానికి ముందు, తప్పనిసరిగా మీ పరికరానికి కనీసం ఒక క్యాలెండర్ ఖాతాను జోడించాలి మరియు క్యాలెండర్‌ను కనిపించేలా ఉంచాలి. ఖాతాను జోడించడానికి ఖాతాను జోడించు నొక్కండి (మీరు ఖాతాను ఇప్పుడే జోడించినట్లయితే, దీని సమకాలీకరణ ముగిసేవరకు వేచి ఉండి మళ్లీ ప్రయత్నించండి). లేదా రద్దు చేయి నొక్కి, కనీసం ఒక క్యాలెండర్ కనిపిస్తోందని నిర్ధారించుకోండి."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"క్యాలెండర్ Google ఖాతాతో మెరుగ్గా పని చేస్తుంది.\n\n• ఏదైనా వెబ్ బ్రౌజర్ నుండి దీన్ని ప్రాప్యత చేయండి\n• మీ ఈవెంట్‌లను సురక్షితంగా బ్యాకప్ చేసుకోండి"</string>
+    <string name="add_account" msgid="1669072099756774952">"ఖాతాను జోడించు"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"క్యాలెండర్:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"నిర్వాహకుడు:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"ఈవెంట్ రంగుని ఎంచుకోండి"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"ఈవెంట్ రంగు"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"డిఫాల్ట్ క్యాలెండర్ రంగుకు సెట్ చేయి"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"క్యాలెండర్ రంగు"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"రంగు ఎంపిక"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"హాజరవుతున్నారా?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"హాజరవుతారు"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"హాజరు కావచ్చు"</string>
+    <string name="response_no" msgid="561911691884148136">"హాజరు కావడం లేదు"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"అతిథులకు ఇమెయిల్ చేయండి"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"నిర్వాహకునికి ఇమెయిల్ చేయండి"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"దీనితో ఇమెయిల్ చేయండి"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"ఈవెంట్ కనుగొనబడలేదు."</string>
+    <string name="map_label" msgid="8795383535586556038">"మ్యాప్‌"</string>
+    <string name="call_label" msgid="2960328220008869083">"కాల్ చేయండి"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"శీఘ్ర ప్రతిస్పందన."</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"అతిథులకు ఇమెయిల్ చేస్తున్నప్పుడు డిఫాల్ట్ ప్రతిస్పందనలను సవరించండి"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"శీఘ్ర ప్రతిస్పందనలను సవరి."</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"శీఘ్ర ప్రతిస్పందన"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"శీఘ్ర ప్రతిస్పందనను ఎంచుకోండి"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"ఇమెయిల్ ప్రోగ్రామ్‌ను కనుగొనడం విఫలమైంది"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"రెండు నిమిషాలు ఆలస్యంగా జరుగుతోంది."</item>
+    <item msgid="6215158751728689832">"10 నిమిషాల్లో అక్కడికి చేరుకోండి."</item>
+    <item msgid="4485794001743679338">"ప్రారంభించండి మరియు నేను లేకుండానే ప్రారంభించండి."</item>
+    <item msgid="8036557974294987511">"క్షమించండి, నేను హాజరు కాలేను. మనం మళ్లీ షెడ్యూల్ చేయాలి."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"మీరే స్వంతంగా వ్రాయండి…"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"నిర్వాహకుడు:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"రిమైండర్‌లు"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"ఈ రోజు, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"నిన్న, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"రేపు, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"లోడ్ చేస్తోంది…"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> మునుపటి ఈవెంట్‌లను వీక్షించడానికి నొక్కండి"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> తదుపరి ఈవెంట్‌లను వీక్షించడానికి నొక్కండి"</string>
+    <string name="search_title" msgid="8898015280250716254">"నా క్యాలెండర్‌లను శోధించండి"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"వివరాలు"</string>
+    <string name="edit_label" msgid="8934331258435656534">"సవరించు"</string>
+    <string name="delete_label" msgid="874742811918030739">"తొలగించు"</string>
+    <string name="save_label" msgid="2133599104834432589">"పూర్తయింది"</string>
+    <string name="discard_label" msgid="2394623883289782541">"రద్దు చేయి"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"అన్నింటినీ తాత్కాలికంగా ఆపివేయి"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"అన్నింటినీ తీసివేయి"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"తాత్కాలికంగా ఆపివేయి"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"ఏక పర్యాయ ఈవెంట్"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; <xliff:g id="DATE">%s</xliff:g> వరకు"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; ఒకసారి"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> సార్లు"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"ప్రతిరోజు"</item>
+    <item quantity="other" msgid="5455230727715859264">"ప్రతి <xliff:g id="NUMBER">%d</xliff:g> రోజులు"</item>
+  </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"ప్రతి వారపురోజు (సోమ–శుక్ర)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"ప్రతి వారం <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> నాడు"</item>
+    <item quantity="other" msgid="2857390143157377867">"ప్రతి <xliff:g id="NUMBER">%1$d</xliff:g> వారాలకు <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> నాడు"</item>
+  </plurals>
+    <string name="monthly" msgid="4587116285383048586">"ప్రతి నెల"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"ప్రతి సంవత్సరం"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"ప్రతి నెల (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>వ రోజున)"</string>
+    <string name="yearly" msgid="8576208380302949002">"ప్రతి సంవత్సరం (<xliff:g id="DATES">%s</xliff:g>న)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"అనుకూలం (టాబ్లెట్‌లో అనుకూలీకరించడం సాధ్యపడదు)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"అనుకూలం (ఫోన్‌లో అనుకూలీకరించడం సాధ్యపడదు)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"ఈ ఈవెంట్‌ను మాత్రమే మార్చండి"</string>
+    <string name="modify_all" msgid="4421657265864209041">"శ్రేణిలోని అన్ని ఈవెంట్‌లను మార్చండి"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"దీన్ని మరియు అన్ని భవిష్యత్తు ఈవెంట్‌లను మార్చండి"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"కొత్త ఈవెంట్"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"కొత్త ఈవెంట్"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"ఈ ఈవెంట్‌ను తొలగించాలా?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g>ని తొలగించాలా?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"ప్రతిస్పందనను మార్చండి"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"సాధారణ సెట్టింగ్‌లు"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"క్యాలెండర్ గురించి"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"సెట్టింగ్‌లు"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"క్యాలెండర్ వీక్షణ సెట్టింగ్"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"నోటిఫికేషన్‌లు &amp; రిమైండర్‌లు"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"తిరస్కరించబడిన ఈవెంట్‌లను దాచు"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"వారం ప్రారంభం"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"వారం ప్రారంభం"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"శోధన చరిత్రను క్లియర్ చేయండి"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"మీరు చేసిన అన్ని శోధనలను తీసివేయండి"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"శోధన చరిత్ర క్లియర్ చేయబడింది."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"నోటిఫికేషన్‌లు"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"వైబ్రేట్ చేయి"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"ధ్వని"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"పాప్-అప్ నోటిఫికేషన్"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"డిఫాల్ట్ రిమైండర్ సమయం"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"డిఫాల్ట్ రిమైండర్ సమయం"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"స్వస్థల సమయ మండలిని ఉపయోగించండి"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"ప్రయాణం చేసేటప్పుడు మీ స్వస్థల సమయ మండలిలో క్యాలెండర్‌లు మరియు ఈవెంట్ సమయాలను ప్రదర్శిస్తుంది"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"స్వస్థల సమయ మండలి"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"వారం సంఖ్యను చూపండి"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"పరిచయం"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"బిల్డ్ సంస్కరణ"</string>
+    <string name="gadget_title" msgid="939918875331310945">"క్యాలెండర్"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"రానున్న క్యాలెండర్ ఈవెంట్‌లు లేవు"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"ప్రయోగాత్మకం"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"రిమైండర్‌లు"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"రిమైండర్‌లను దాటవేయండి"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"రిమైండర్‌లను దాటవేయండి"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"నిశ్శబ్ద గంటలు"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"పేర్కొన్న సమయంలో ఈవెంట్ రిమైండర్‌లను నిశ్శబ్దం చేయండి."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"నిశ్శబ్ద గంటల ప్రారంభ సమయం"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"నిశ్శబ్ద గంటల ముగింపు సమయం"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"డీబగ్గింగ్"</string>
+    <string name="copy_db" msgid="437691290566699292">"డేటాబేస్‌ను పంపండి"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g>ని శోధిస్తోంది…"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"హాజరు కావలసిన వారిని తీసివేయి"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"ప్రారంభ తేదీ"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"ప్రారంభ సమయం"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"ముగింపు తేదీ"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"ముగింపు సమయం"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"సమయ మండలి"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ఈవెంట్‌ను పునరావృతం చేయండి"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"రిమైండర్‌ను జోడించండి"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"రిమైండర్‌ను తీసివేయండి"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"హాజరు కావలసిన వారిని జోడించండి"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"క్యాలెండర్‌ను సమకాలీకరించండి"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"రోజు మొత్తం ఈవెంట్"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"పునరావృతం"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"రిమైండర్ సమయం"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"రిమైండర్ రకం"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"నన్ను ఇలా చూపు"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"గోప్యత"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"క్యాలెండర్ నోటిఫికేషన్"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"నోటిఫికేషన్‌ను తాత్కాలికంగా ఆపివేయి"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"అతిథులకు ఇమెయిల్ చేయండి"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ కొత్త ఈవెంట్"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_COUNT">%2$s</xliff:g>లో <xliff:g id="ITEM_INDEX">%1$s</xliff:g>వ ఈవెంట్."</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"1 ఈవెంట్"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ఈవెంట్‌లు"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 ఈవెంట్"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ఈవెంట్‌లు"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"ఎంచుకున్న ఈవెంట్"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"ఎంపిక చేయవద్దు -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"పునరావృతం చేయి"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"పునరావృతం చేయవద్దు"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> రోజు"</item>
+    <item quantity="other" msgid="707566499994398250">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> రోజులు"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> వారం"</item>
+    <item quantity="other" msgid="7094801039989237061">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> వారాలు"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> నెల"</item>
+    <item quantity="other" msgid="5419723710346646523">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> నెలలు"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> సంవత్సరం"</item>
+    <item quantity="other" msgid="5678653649746562060">"ప్రతి <xliff:g id="COUNT">%d</xliff:g> సంవత్సరాలు"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ప్రతి నెల అదే రోజున"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"ఎప్పటికీ"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"ఒక తేదీ వరకు"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"<xliff:g id="DATE">%s</xliff:g> వరకు"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"ఇన్ని ఈవెంట్‌లకు"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ఈవెంట్‌కు"</item>
+    <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ఈవెంట్‌లకు"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"ముగింపు తేదీని మార్చండి"</string>
+</resources>

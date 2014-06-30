@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"ಅಧಿಸೂಚನೆ"</item>
+    <item msgid="1751151680520784746">"ಇಮೇಲ್"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"ಆಲಾರಾಂ"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 ನಿಮಿಷಗಳು"</item>
+    <item msgid="6681865010714743948">"1 ನಿಮಿಷ"</item>
+    <item msgid="2327505114623595779">"5 ನಿಮಿಷಗಳು"</item>
+    <item msgid="1657410063332547113">"10 ನಿಮಿಷಗಳು"</item>
+    <item msgid="366087535181197780">"15 ನಿಮಿಷಗಳು"</item>
+    <item msgid="6252612791145061929">"20 ನಿಮಿಷಗಳು"</item>
+    <item msgid="7896694531989090700">"25 ನಿಮಿಷಗಳು"</item>
+    <item msgid="8754510169374808607">"30 ನಿಮಿಷಗಳು"</item>
+    <item msgid="3113380274218454394">"45 ನಿಮಿಷಗಳು"</item>
+    <item msgid="8546646645868526283">"1 ಗಂಟೆ"</item>
+    <item msgid="6467845211024768872">"2 ಗಂಟೆಗಳು"</item>
+    <item msgid="8201677619511076575">"3 ಗಂಟೆಗಳು"</item>
+    <item msgid="7172504281650128893">"12 ಗಂಟೆಗಳು"</item>
+    <item msgid="9114286702181482496">"24 ಗಂಟೆಗಳು"</item>
+    <item msgid="3107009344872997366">"2 ದಿನಗಳು"</item>
+    <item msgid="6135563708172153696">"1 ವಾರ"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"ಯಾವುದೂ ಇಲ್ಲ"</item>
+    <item msgid="5883344836499335043">"0 ನಿಮಿಷಗಳು"</item>
+    <item msgid="4354350447805231188">"1 ನಿಮಿಷ"</item>
+    <item msgid="265674592625309858">"5 ನಿಮಿಷಗಳು"</item>
+    <item msgid="8011089417728419666">"10 ನಿಮಿಷಗಳು"</item>
+    <item msgid="6177098581805412986">"15 ನಿಮಿಷಗಳು"</item>
+    <item msgid="356346660503078923">"20 ನಿಮಿಷಗಳು"</item>
+    <item msgid="992592434377054063">"25 ನಿಮಿಷಗಳು"</item>
+    <item msgid="9191353668596201944">"30 ನಿಮಿಷಗಳು"</item>
+    <item msgid="1192985682962908244">"45 ನಿಮಿಷಗಳು"</item>
+    <item msgid="1694315499429259938">"1 ಗಂಟೆ"</item>
+    <item msgid="8281019320591769635">"2 ಗಂಟೆಗಳು"</item>
+    <item msgid="2062931719019287773">"3 ಗಂಟೆಗಳು"</item>
+    <item msgid="4086495711621133006">"12 ಗಂಟೆಗಳು"</item>
+    <item msgid="3172669681920709561">"24 ಗಂಟೆಗಳು"</item>
+    <item msgid="5557836606782821910">"2 ದಿನಗಳು"</item>
+    <item msgid="8336577387266744930">"1 ವಾರ"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"ಸ್ಥಳೀಯ ಡೀಫಾಲ್ಟ್‌‌"</item>
+    <item msgid="134027225275475280">"ಶನಿವಾರ"</item>
+    <item msgid="95029346069903091">"ಭಾನುವಾರ"</item>
+    <item msgid="5840983116375063739">"ಸೋಮವಾರ"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"ಕಾರ್ಯನಿರತ"</item>
+    <item msgid="6228387173725732140">"ಲಭ್ಯ"</item>
+    <item msgid="2064426942462573474">"ಪ್ರಾಯೋಗಿಕ"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"ಡೀಫಾಲ್ಟ್"</item>
+    <item msgid="5200216103966973369">"ಖಾಸಗಿ"</item>
+    <item msgid="9182342638433672664">"ಸಾರ್ವಜನಿಕ"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"ಮೊದಲು"</item>
+    <item msgid="5631923029483854900">"ಸೆಕೆಂಡು"</item>
+    <item msgid="148935502975250973">"ಮೂರನೇ"</item>
+    <item msgid="5124200797326669172">"ನಾಲ್ಕನೆಯ"</item>
+    <item msgid="7564374178324652137">"ಕೊನೆಯ"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"ಯಾವುದೇ ಪ್ರತಿಕ್ರಿಯೆ ಇಲ್ಲ"</item>
+    <item msgid="3724434080904437698">"ಹೌದು"</item>
+    <item msgid="8854145743148992583">"ಬಹುಶಃ"</item>
+    <item msgid="6174292185978948873">"ಇಲ್ಲ"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"ಈ ಈವೆಂಟ್ ಮಾತ್ರ"</item>
+    <item msgid="1536401639805370405">"ಇದು ಮತ್ತು ಭವಿಷ್ಯದ ಈವೆಂಟ್‌ಗಳು"</item>
+    <item msgid="7833229563617435430">"ಎಲ್ಲ ಈವೆಂಟ್‌ಗಳು"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"ಇದು &amp; ಭವಿಷ್ಯದ ಈವೆಂಟ್‌ಗಳು"</item>
+    <item msgid="6315440193748139854">"ಎಲ್ಲ ಈವೆಂಟ್‌ಗಳು"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"ಈ ಈವೆಂಟ್ ಮಾತ್ರ"</item>
+    <item msgid="140670561403965380">"ಸರಣಿಯಲ್ಲಿನ ಎಲ್ಲಾ ಈವೆಂಟ್‌ಗಳು"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"ದಿನ"</item>
+    <item msgid="6248480754959562740">"ವಾರ"</item>
+    <item msgid="4298472806133153766">"ತಿಂಗಳು"</item>
+    <item msgid="5033084974413793845">"ಕಾರ್ಯಸೂಚಿ"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"ನಿರಾಕರಿಸಿದರೆ ಮಾತ್ರ"</item>
+    <item msgid="6367412240524984286">"ಒಂದು ವೇಳೆ ನಿರಾಕರಿಸಿದರೆ ಅಥವಾ ಪ್ರತಿಕ್ರಿಯಿಸದಿದ್ದರೆ"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"ಪ್ರತಿದಿನ ಪುನರಾವರ್ತಿಸು"</item>
+    <item msgid="6300824484048337842">"ವಾರ ಪುನರಾವರ್ತಿಸು"</item>
+    <item msgid="189361731610816256">"ತಿಂಗಳು ಪುನರಾವರ್ತಿಸು"</item>
+    <item msgid="8714177874112569158">"ವಾರ್ಷಿಕ ಪುನರಾವರ್ತಿಸು"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"ಪ್ರತಿ ಮೊದಲ ಭಾನುವಾರ"</item>
+    <item msgid="2557379346106451363">"ಪ್ರತಿ ಎರಡನೇ ಭಾನುವಾರ"</item>
+    <item msgid="7622144489915654132">"ಪ್ರತಿ ಮೂರನೇ ಭಾನುವಾರ"</item>
+    <item msgid="527152448137686021">"ಪ್ರತಿ ನಾಲ್ಕನೇ ಭಾನುವಾರ"</item>
+    <item msgid="5057483608824759350">"ಪ್ರತಿ ಕೊನೆಯ ಭಾನುವಾರ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"ಪ್ರತಿ ಮೊದಲ ಸೋಮವಾರ"</item>
+    <item msgid="4484275849072423978">"ಪ್ರತಿ ಎರಡನೇ ಸೋಮವಾರ"</item>
+    <item msgid="8956169860824371383">"ಪ್ರತಿ ಮೂರನೇ ಸೋಮವಾರ"</item>
+    <item msgid="6924403357659569326">"ಪ್ರತಿ ನಾಲ್ಕನೇ ಸೋಮವಾರ"</item>
+    <item msgid="1379608815263472161">"ಪ್ರತಿ ಕೊನೆಯ ಸೋಮವಾರ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"ಪ್ರತಿ ಮೊದಲ ಮಂಗಳವಾರ"</item>
+    <item msgid="9063613547307760928">"ಪ್ರತಿ ಎರಡನೇ ಮಂಗಳವಾರ"</item>
+    <item msgid="6688603328729208168">"ಪ್ರತಿ ಮೂರನೇ ಮಂಗಳವಾರ"</item>
+    <item msgid="6695206006961533357">"ಪ್ರತಿ ನಾಲ್ಕನೇ ಮಂಗಳವಾರ"</item>
+    <item msgid="8619069174889809914">"ಪ್ರತಿ ಕೊನೆಯ ಮಂಗಳವಾರ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"ಪ್ರತಿ ಮೊದಲ ಬುಧವಾರ"</item>
+    <item msgid="5059722045367799217">"ಪ್ರತಿ ಎರಡನೇ ಬುಧವಾರ"</item>
+    <item msgid="7986246648229272275">"ಪ್ರತಿ ಮೂರನೇ ಬುಧವಾರ"</item>
+    <item msgid="9068566169348980801">"ಪ್ರತಿ ನಾಲ್ಕನೇ ಬುಧವಾರ"</item>
+    <item msgid="7976866743069062134">"ಪ್ರತಿ ಕೊನೆಯ ಬುಧವಾರ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"ಪ್ರತಿ ಮೊದಲ ಗುರುವಾರ"</item>
+    <item msgid="4857419136007543270">"ಪ್ರತಿ ಎರಡನೇ ಗುರುವಾರ"</item>
+    <item msgid="222044587450564839">"ಪ್ರತಿ ಮೂರನೇ ಗುರುವಾರ"</item>
+    <item msgid="6197927556533030945">"ಪ್ರತಿ ನಾಲ್ಕನೇ ಗುರುವಾರ"</item>
+    <item msgid="1023326923033436905">"ಪ್ರತಿ ಕೊನೆಯ ಗುರುವಾರ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"ಪ್ರತಿ ಮೊದಲ ಶುಕ್ರವಾರ"</item>
+    <item msgid="1935608297230506940">"ಪ್ರತಿ ಎರಡನೇ ಶುಕ್ರವಾರ"</item>
+    <item msgid="4061877662049317599">"ಪ್ರತಿ ಮೂರನೇ ಶುಕ್ರವಾರ"</item>
+    <item msgid="6856646749131820614">"ಪ್ರತಿ ನಾಲ್ಕನೇ ಶುಕ್ರವಾರ"</item>
+    <item msgid="6533513913914859794">"ಪ್ರತಿ ಕೊನೆಯ ಶುಕ್ರವಾರ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"ಪ್ರತಿ ಮೊದಲ ಶನಿವಾರ"</item>
+    <item msgid="9130198690512925355">"ಪ್ರತಿ ಎರಡನೇ ಶನಿವಾರ"</item>
+    <item msgid="4525736070844032405">"ಪ್ರತಿ ಮೂರನೇ ಶನಿವಾರ"</item>
+    <item msgid="422053689531707709">"ಪ್ರತಿ ನಾಲ್ಕನೇ ಶನಿವಾರ"</item>
+    <item msgid="5499975799312474425">"ಪ್ರತಿ ಕೊನೆಯ ಶನಿವಾರ"</item>
+  </string-array>
+</resources>

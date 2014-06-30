@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"বিজ্ঞপ্তি"</item>
+    <item msgid="1751151680520784746">"ইমেল"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"অ্যালার্ম"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"০ মিনিট"</item>
+    <item msgid="6681865010714743948">"১ মিনিট"</item>
+    <item msgid="2327505114623595779">"৫ মিনিট"</item>
+    <item msgid="1657410063332547113">"১০ মিনিট"</item>
+    <item msgid="366087535181197780">"১৫ মিনিট"</item>
+    <item msgid="6252612791145061929">"২০ মিনিট"</item>
+    <item msgid="7896694531989090700">"২৫ মিনিট"</item>
+    <item msgid="8754510169374808607">"৩০ মিনিট"</item>
+    <item msgid="3113380274218454394">"৪৫ মিনিট"</item>
+    <item msgid="8546646645868526283">"১ ঘন্টা"</item>
+    <item msgid="6467845211024768872">"২ ঘন্টা"</item>
+    <item msgid="8201677619511076575">"৩ ঘন্টা"</item>
+    <item msgid="7172504281650128893">"১২ ঘন্টা"</item>
+    <item msgid="9114286702181482496">"২৪ ঘন্টা"</item>
+    <item msgid="3107009344872997366">"২ দিন"</item>
+    <item msgid="6135563708172153696">"১ সপ্তাহ"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"কিছুই নয়"</item>
+    <item msgid="5883344836499335043">"০ মিনিট"</item>
+    <item msgid="4354350447805231188">"১ মিনিট"</item>
+    <item msgid="265674592625309858">"৫ মিনিট"</item>
+    <item msgid="8011089417728419666">"১০ মিনিট"</item>
+    <item msgid="6177098581805412986">"১৫ মিনিট"</item>
+    <item msgid="356346660503078923">"২০ মিনিট"</item>
+    <item msgid="992592434377054063">"২৫ মিনিট"</item>
+    <item msgid="9191353668596201944">"৩০ মিনিট"</item>
+    <item msgid="1192985682962908244">"৪৫ মিনিট"</item>
+    <item msgid="1694315499429259938">"১ ঘন্টা"</item>
+    <item msgid="8281019320591769635">"২ ঘন্টা"</item>
+    <item msgid="2062931719019287773">"৩ ঘন্টা"</item>
+    <item msgid="4086495711621133006">"১২ ঘন্টা"</item>
+    <item msgid="3172669681920709561">"২৪ ঘন্টা"</item>
+    <item msgid="5557836606782821910">"২ দিন"</item>
+    <item msgid="8336577387266744930">"১ সপ্তাহ"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"স্থানীয় ডিফল্ট"</item>
+    <item msgid="134027225275475280">"শনিবার"</item>
+    <item msgid="95029346069903091">"রবিবার"</item>
+    <item msgid="5840983116375063739">"সোমবার"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"ব্যস্ত"</item>
+    <item msgid="6228387173725732140">"উপলব্ধ"</item>
+    <item msgid="2064426942462573474">"সম্ভাব্য"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"ডিফল্ট"</item>
+    <item msgid="5200216103966973369">"ব্যক্তিগত"</item>
+    <item msgid="9182342638433672664">"সর্বজনীন"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"প্রথম"</item>
+    <item msgid="5631923029483854900">"সেকেন্ড"</item>
+    <item msgid="148935502975250973">"তৃতীয়"</item>
+    <item msgid="5124200797326669172">"চতুর্থ"</item>
+    <item msgid="7564374178324652137">"অন্তিম"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"কোনো প্রতিক্রিয়া নেই"</item>
+    <item msgid="3724434080904437698">"হ্যাঁ"</item>
+    <item msgid="8854145743148992583">"হয়তো"</item>
+    <item msgid="6174292185978948873">"না"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"শুধুমাত্র এই ইভেন্ট"</item>
+    <item msgid="1536401639805370405">"এটি এবং ভবিষ্যতের ইভেন্টগুলি"</item>
+    <item msgid="7833229563617435430">"সমস্ত ইভেন্ট"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"এটি &amp; ভবিষ্যতের ইভেন্টগুলি"</item>
+    <item msgid="6315440193748139854">"সমস্ত ইভেন্ট"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"শুধুমাত্র এই ইভেন্ট"</item>
+    <item msgid="140670561403965380">"এই সিরিজের প্রতিটি ইভেন্ট"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"দিন"</item>
+    <item msgid="6248480754959562740">"সপ্তাহ"</item>
+    <item msgid="4298472806133153766">"মাস"</item>
+    <item msgid="5033084974413793845">"আলোচ্যসূচি"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"শুধুমাত্র যদি অস্বীকৃত হয়"</item>
+    <item msgid="6367412240524984286">"অস্বীকৃত হলে বা প্রতিক্রিয়া না দিলে"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"দৈনিক পুনরাবৃত্তি"</item>
+    <item msgid="6300824484048337842">"সাপ্তাহিক পুনরাবৃত্তি"</item>
+    <item msgid="189361731610816256">"মাসিক পুনরাবৃত্তি"</item>
+    <item msgid="8714177874112569158">"পুনরাবৃত্তি বাৎসরিক"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"প্রতি মাসের প্রথম রবিবারে"</item>
+    <item msgid="2557379346106451363">"প্রতি মাসের দ্বিতীয় রবিবারে"</item>
+    <item msgid="7622144489915654132">"প্রতি মাসের তৃতীয় রবিবারে"</item>
+    <item msgid="527152448137686021">"প্রতি মাসের চতুর্থ রবিবারে"</item>
+    <item msgid="5057483608824759350">"প্রতি মাসের শেষ রবিবারে"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"প্রতি মাসের প্রথম সোমবারে"</item>
+    <item msgid="4484275849072423978">"প্রতি মাসের দ্বিতীয় সোমবারে"</item>
+    <item msgid="8956169860824371383">"প্রতি মাসের তৃতীয় সোমবারে"</item>
+    <item msgid="6924403357659569326">"প্রতি মাসের চতুর্থ সোমবারে"</item>
+    <item msgid="1379608815263472161">"প্রতি মাসের শেষ সোমবারে"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"প্রতি মাসের প্রথম মঙ্গলবারে"</item>
+    <item msgid="9063613547307760928">"প্রতি মাসের দ্বিতীয় মঙ্গলবারে"</item>
+    <item msgid="6688603328729208168">"প্রতি মাসের তৃতীয় মঙ্গলবারে"</item>
+    <item msgid="6695206006961533357">"প্রতি মাসের চতুর্থ মঙ্গলবারে"</item>
+    <item msgid="8619069174889809914">"প্রতি মাসের শেষ মঙ্গলবারে"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"প্রতি মাসের প্রথম বুধবারে"</item>
+    <item msgid="5059722045367799217">"প্রতি মাসের দ্বিতীয় বুধবারে"</item>
+    <item msgid="7986246648229272275">"প্রতি মাসের তৃতীয় বুধবারে"</item>
+    <item msgid="9068566169348980801">"প্রতি মাসের চতুর্থ বুধবারে"</item>
+    <item msgid="7976866743069062134">"প্রতি মাসের শেষ বুধবারে"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"প্রতি মাসের প্রথম বৃহস্পতিবারে"</item>
+    <item msgid="4857419136007543270">"প্রতি মাসের দ্বিতীয় বৃহস্পতিবারে"</item>
+    <item msgid="222044587450564839">"প্রতি মাসের তৃতীয় বৃহস্পতিবারে"</item>
+    <item msgid="6197927556533030945">"প্রতি মাসের চতুর্থ বৃহস্পতিবারে"</item>
+    <item msgid="1023326923033436905">"প্রতি মাসের শেষ বৃহস্পতিবারে"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"প্রতি মাসের প্রথম শুক্রবারে"</item>
+    <item msgid="1935608297230506940">"প্রতি মাসের দ্বিতীয় শুক্রবারে"</item>
+    <item msgid="4061877662049317599">"প্রতি মাসের তৃতীয় শুক্রবারে"</item>
+    <item msgid="6856646749131820614">"প্রতি মাসের চতুর্থ শুক্রবারে"</item>
+    <item msgid="6533513913914859794">"প্রতি মাসের শেষ শুক্রবারে"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"প্রতি মাসের প্রথম শনিবারে"</item>
+    <item msgid="9130198690512925355">"প্রতি মাসের দ্বিতীয় শনিবারে"</item>
+    <item msgid="4525736070844032405">"প্রতি মাসের তৃতীয় শনিবারে"</item>
+    <item msgid="422053689531707709">"প্রতি মাসের চতুর্থ শনিবারে"</item>
+    <item msgid="5499975799312474425">"প্রতি মাসের শেষ শনিবারে"</item>
+  </string-array>
+</resources>

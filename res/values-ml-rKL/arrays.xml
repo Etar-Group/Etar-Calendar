@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"അറിയിപ്പ്"</item>
+    <item msgid="1751151680520784746">"ഇമെയിൽ"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"അലാറം"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 മിനിറ്റ്"</item>
+    <item msgid="6681865010714743948">"ഒരു മിനിറ്റ്"</item>
+    <item msgid="2327505114623595779">"5 മിനിറ്റ്"</item>
+    <item msgid="1657410063332547113">"10 മിനിറ്റ്"</item>
+    <item msgid="366087535181197780">"15 മിനിറ്റ്"</item>
+    <item msgid="6252612791145061929">"20 മിനിറ്റ്"</item>
+    <item msgid="7896694531989090700">"25 മിനിറ്റ്"</item>
+    <item msgid="8754510169374808607">"30 മിനിറ്റ്"</item>
+    <item msgid="3113380274218454394">"45 മിനിറ്റ്"</item>
+    <item msgid="8546646645868526283">"ഒരു മണിക്കൂർ"</item>
+    <item msgid="6467845211024768872">"2 മണിക്കൂർ"</item>
+    <item msgid="8201677619511076575">"3 മണിക്കൂർ"</item>
+    <item msgid="7172504281650128893">"12 മണിക്കൂർ"</item>
+    <item msgid="9114286702181482496">"24 മണിക്കൂർ"</item>
+    <item msgid="3107009344872997366">"2 ദിവസം"</item>
+    <item msgid="6135563708172153696">"ഒരാഴ്ച"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"ഒന്നുമില്ല"</item>
+    <item msgid="5883344836499335043">"0 മിനിറ്റ്"</item>
+    <item msgid="4354350447805231188">"ഒരു മിനിറ്റ്"</item>
+    <item msgid="265674592625309858">"5 മിനിറ്റ്"</item>
+    <item msgid="8011089417728419666">"10 മിനിറ്റ്"</item>
+    <item msgid="6177098581805412986">"15 മിനിറ്റ്"</item>
+    <item msgid="356346660503078923">"20 മിനിറ്റ്"</item>
+    <item msgid="992592434377054063">"25 മിനിറ്റ്"</item>
+    <item msgid="9191353668596201944">"30 മിനിറ്റ്"</item>
+    <item msgid="1192985682962908244">"45 മിനിറ്റ്"</item>
+    <item msgid="1694315499429259938">"ഒരു മണിക്കൂർ"</item>
+    <item msgid="8281019320591769635">"2 മണിക്കൂർ"</item>
+    <item msgid="2062931719019287773">"3 മണിക്കൂർ"</item>
+    <item msgid="4086495711621133006">"12 മണിക്കൂർ"</item>
+    <item msgid="3172669681920709561">"24 മണിക്കൂർ"</item>
+    <item msgid="5557836606782821910">"2 ദിവസം"</item>
+    <item msgid="8336577387266744930">"ഒരാഴ്ച"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"സ്ഥിരമായ ലൊക്കേൽ"</item>
+    <item msgid="134027225275475280">"ശനി"</item>
+    <item msgid="95029346069903091">"ഞായർ"</item>
+    <item msgid="5840983116375063739">"തിങ്കൾ"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"തിരക്കിലാണ്"</item>
+    <item msgid="6228387173725732140">"ലഭ്യം"</item>
+    <item msgid="2064426942462573474">"താൽക്കാലികം"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"സ്ഥിരമായത്"</item>
+    <item msgid="5200216103966973369">"സ്വകാര്യം"</item>
+    <item msgid="9182342638433672664">"എല്ലാവർക്കും കാണാനാകുന്നത്"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"ആദ്യത്തെ"</item>
+    <item msgid="5631923029483854900">"രണ്ടാമത്തെ"</item>
+    <item msgid="148935502975250973">"മൂന്നാമത്തെ"</item>
+    <item msgid="5124200797326669172">"നാലാമത്തെ"</item>
+    <item msgid="7564374178324652137">"അവസാനത്തെ"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"പ്രതികരണമൊന്നുമില്ല"</item>
+    <item msgid="3724434080904437698">"അതെ"</item>
+    <item msgid="8854145743148992583">"ചിലപ്പോൾ"</item>
+    <item msgid="6174292185978948873">"ഇല്ല"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"ഈ ഇവന്റ് മാത്രം"</item>
+    <item msgid="1536401639805370405">"ഇതും ഭാവി ഇവന്റുകളും"</item>
+    <item msgid="7833229563617435430">"എല്ലാ ഇവന്റുകളും"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"ഇതും ഭാവി ഇവന്റുകളും"</item>
+    <item msgid="6315440193748139854">"എല്ലാ ഇവന്റുകളും"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"ഈ ഇവന്റ് മാത്രം"</item>
+    <item msgid="140670561403965380">"സീരീസിലുള്ള എല്ലാ ഇവന്റുകളും"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"ദിവസം"</item>
+    <item msgid="6248480754959562740">"ആഴ്‌ച"</item>
+    <item msgid="4298472806133153766">"മാസം"</item>
+    <item msgid="5033084974413793845">"അജൻഡ"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"നിരസിച്ചെങ്കിൽ മാത്രം"</item>
+    <item msgid="6367412240524984286">"നിരസിച്ചതോ പ്രതികരണമില്ലാത്തതോ ആണെങ്കിൽ മാത്രം"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"ദിവസവും ആവർത്തിക്കുക"</item>
+    <item msgid="6300824484048337842">"ആഴ്ചതോറും ആവർത്തിക്കുക"</item>
+    <item msgid="189361731610816256">"എല്ലാമാസവും ആവർത്തിക്കുക"</item>
+    <item msgid="8714177874112569158">"എല്ലാവർഷവും ആവർത്തിക്കുക"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"എല്ലാ ആദ്യ ഞായറാഴ്ചയും"</item>
+    <item msgid="2557379346106451363">"എല്ലാ രണ്ടാമത്തെ ഞായറാഴ്ചയും"</item>
+    <item msgid="7622144489915654132">"എല്ലാ മൂന്നാമത്തെ ഞായറാഴ്ചയും"</item>
+    <item msgid="527152448137686021">"എല്ലാ നാലാമത്തെ ഞായറാഴ്ചയും"</item>
+    <item msgid="5057483608824759350">"എല്ലാ  അവസാന ഞായറാഴ്ചയും"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"എല്ലാ ആദ്യ തിങ്കളാഴ്‌ചയും"</item>
+    <item msgid="4484275849072423978">"എല്ലാ രണ്ടാമത്തെ തിങ്കളാഴ്‌ചയും"</item>
+    <item msgid="8956169860824371383">"എല്ലാ മൂന്നാമത്തെ തിങ്കളാഴ്‌ചയും"</item>
+    <item msgid="6924403357659569326">"എല്ലാ നാലാമത്തെ തിങ്കളാഴ്‌ചയും"</item>
+    <item msgid="1379608815263472161">"എല്ലാ അവസാന തിങ്കളാഴ്‌ചയും"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"എല്ലാ ആദ്യ ചൊവ്വാഴ്ചയും"</item>
+    <item msgid="9063613547307760928">"എല്ലാ രണ്ടാമത്തെ ചൊവ്വാഴ്ചയും"</item>
+    <item msgid="6688603328729208168">"എല്ലാ മൂന്നാമത്തെ  ചൊവ്വാഴ്ചയും"</item>
+    <item msgid="6695206006961533357">"എല്ലാ നാലാമത്തെ ചൊവ്വാഴ്ചയും"</item>
+    <item msgid="8619069174889809914">"എല്ലാ അവസാന ചൊവ്വാഴ്ചയും"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"എല്ലാ ആദ്യ ബുധനാഴ്ചയും"</item>
+    <item msgid="5059722045367799217">"എല്ലാ രണ്ടാമത്തെ ബുധനാഴ്ചയും"</item>
+    <item msgid="7986246648229272275">"എല്ലാ മൂന്നാമത്തെ ബുധനാഴ്ചയും"</item>
+    <item msgid="9068566169348980801">"എല്ലാ നാലാമത്തെ ബുധനാഴ്ചയും"</item>
+    <item msgid="7976866743069062134">"എല്ലാ അവസാന ബുധനാഴ്ചയും"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"എല്ലാ ആദ്യ വ്യാഴാഴ്ചയും"</item>
+    <item msgid="4857419136007543270">"എല്ലാ രണ്ടാമത്തെ വ്യാഴാഴ്ചയും"</item>
+    <item msgid="222044587450564839">"എല്ലാ മൂന്നാമത്തെ വ്യാഴാഴ്ചയും"</item>
+    <item msgid="6197927556533030945">"എല്ലാ നാലാമത്തെ വ്യാഴാഴ്ചയും"</item>
+    <item msgid="1023326923033436905">"എല്ലാ അവസാന വ്യാഴാഴ്ചയും"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"എല്ലാ ആദ്യ വെള്ളിയാഴ്ചയും"</item>
+    <item msgid="1935608297230506940">"എല്ലാ രണ്ടാമത്തെ വെള്ളിയാഴ്ചയും"</item>
+    <item msgid="4061877662049317599">"എല്ലാ മൂന്നാമത്തെ വെള്ളിയാഴ്ചയും"</item>
+    <item msgid="6856646749131820614">"എല്ലാ നാലാമത്തെ വെള്ളിയാഴ്ചയും"</item>
+    <item msgid="6533513913914859794">"എല്ലാ അവസാന വെള്ളിയാഴ്ചയും"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"എല്ലാ ആദ്യ ശനിയാഴ്ചയും"</item>
+    <item msgid="9130198690512925355">"എല്ലാ രണ്ടാമത്തെ ശനിയാഴ്ചയും"</item>
+    <item msgid="4525736070844032405">"എല്ലാ മൂന്നാമത്തെ ശനിയാഴ്ചയും"</item>
+    <item msgid="422053689531707709">"എല്ലാ നാലാമത്തെ ശനിയാഴ്ചയും"</item>
+    <item msgid="5499975799312474425">"എല്ലാ അവസാന ശനിയാഴ്ചയും"</item>
+  </string-array>
+</resources>
