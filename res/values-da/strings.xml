@@ -94,7 +94,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"Vis alle"</string>
     <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
     <string name="presence_label" msgid="6169724148441175862">"Vis mig som"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Privatliv"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Tilføj påmindelse"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Før du kan tilføje en begivenhed, skal du tilføje mindst én Kalender-konto til din enhed og gøre en kalender synlig. Tryk på Tilføj konto for at tilføje en konto (hvis du lige har tilføjet en konto, så vent til den er færdig med at synkronisere, og prøv så igen). Eller tryk på Annuller, og sørg for, at mindst én kalender er synlig."</string>
@@ -233,7 +233,7 @@
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Tidspunkt for påmindelse"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Påmindelsestype"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Vis mig som"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Fortrolighed"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privatliv"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Kalendermeddelelse"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Udsæt underretning"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Send e-mail til gæster"</string>
