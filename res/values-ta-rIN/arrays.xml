@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"அறிவிப்பு"</item>
+    <item msgid="1751151680520784746">"மின்னஞ்சல்"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"அலாரம்"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 நிமிடங்கள்"</item>
+    <item msgid="6681865010714743948">"1 நிமிடம்"</item>
+    <item msgid="2327505114623595779">"5 நிமிடங்கள்"</item>
+    <item msgid="1657410063332547113">"10 நிமிடங்கள்"</item>
+    <item msgid="366087535181197780">"15 நிமிடங்கள்"</item>
+    <item msgid="6252612791145061929">"20 நிமிடங்கள்"</item>
+    <item msgid="7896694531989090700">"25 நிமிடங்கள்"</item>
+    <item msgid="8754510169374808607">"30 நிமிடங்கள்"</item>
+    <item msgid="3113380274218454394">"45 நிமிடங்கள்"</item>
+    <item msgid="8546646645868526283">"1 மணிநேரம்"</item>
+    <item msgid="6467845211024768872">"2 மணிநேரம்"</item>
+    <item msgid="8201677619511076575">"3 மணிநேரம்"</item>
+    <item msgid="7172504281650128893">"12 மணிநேரம்"</item>
+    <item msgid="9114286702181482496">"24 மணி நேரம்"</item>
+    <item msgid="3107009344872997366">"2 நாட்கள்"</item>
+    <item msgid="6135563708172153696">"1 வாரம்"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"ஏதுமில்லை"</item>
+    <item msgid="5883344836499335043">"0 நிமிடங்கள்"</item>
+    <item msgid="4354350447805231188">"1 நிமிடம்"</item>
+    <item msgid="265674592625309858">"5 நிமிடங்கள்"</item>
+    <item msgid="8011089417728419666">"10 நிமிடங்கள்"</item>
+    <item msgid="6177098581805412986">"15 நிமிடங்கள்"</item>
+    <item msgid="356346660503078923">"20 நிமிடங்கள்"</item>
+    <item msgid="992592434377054063">"25 நிமிடங்கள்"</item>
+    <item msgid="9191353668596201944">"30 நிமிடங்கள்"</item>
+    <item msgid="1192985682962908244">"45 நிமிடங்கள்"</item>
+    <item msgid="1694315499429259938">"1 மணிநேரம்"</item>
+    <item msgid="8281019320591769635">"2 மணிநேரம்"</item>
+    <item msgid="2062931719019287773">"3 மணிநேரம்"</item>
+    <item msgid="4086495711621133006">"12 மணிநேரம்"</item>
+    <item msgid="3172669681920709561">"24 மணி நேரம்"</item>
+    <item msgid="5557836606782821910">"2 நாட்கள்"</item>
+    <item msgid="8336577387266744930">"1 வாரம்"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"இயல்பு மொழி"</item>
+    <item msgid="134027225275475280">"சனிக்கிழமை"</item>
+    <item msgid="95029346069903091">"ஞாயிற்றுக்கிழமை"</item>
+    <item msgid="5840983116375063739">"திங்கட்கிழமை"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"பணிமிகுதி"</item>
+    <item msgid="6228387173725732140">"இருக்கிறார்"</item>
+    <item msgid="2064426942462573474">"வருவதில் நிச்சயமில்லை"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"இயல்பு"</item>
+    <item msgid="5200216103966973369">"தனிப்பட்டது"</item>
+    <item msgid="9182342638433672664">"பொதுவானவை"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"முதல்"</item>
+    <item msgid="5631923029483854900">"இரண்டாவது"</item>
+    <item msgid="148935502975250973">"மூன்றாவது"</item>
+    <item msgid="5124200797326669172">"நான்காவது"</item>
+    <item msgid="7564374178324652137">"கடைசி"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"பதில் இல்லை"</item>
+    <item msgid="3724434080904437698">"ஆம்"</item>
+    <item msgid="8854145743148992583">"கலந்துகொள்ளக்கூடும்"</item>
+    <item msgid="6174292185978948873">"இல்லை"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"இந்த நிகழ்விற்கு மட்டும்"</item>
+    <item msgid="1536401639805370405">"இந்த நிகழ்வு மற்றும் எதிர்கால நிகழ்வுகள்"</item>
+    <item msgid="7833229563617435430">"எல்லா நிகழ்வுகளும்"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"இந்த நிகழ்வு &amp; எதிர்கால நிகழ்வுகள்"</item>
+    <item msgid="6315440193748139854">"எல்லா நிகழ்வுகளும்"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"இந்த நிகழ்விற்கு மட்டும்"</item>
+    <item msgid="140670561403965380">"தொடரில் உள்ள எல்லா நிகழ்வுகளுக்கும்"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"நாள்"</item>
+    <item msgid="6248480754959562740">"வாரம்"</item>
+    <item msgid="4298472806133153766">"மாதம்"</item>
+    <item msgid="5033084974413793845">"நிகழ்ச்சி விவரம்"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"நிராகரிக்கப்பட்டிருந்தால் மட்டும்"</item>
+    <item msgid="6367412240524984286">"நிராகரிக்கப்பட்டிருந்தால் அல்லது பதிலளிக்காமல் இருந்தால்"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"தினமும் நினைவுபடுத்து"</item>
+    <item msgid="6300824484048337842">"வாரந்தோறும் நினைவுபடுத்து"</item>
+    <item msgid="189361731610816256">"மாதந்தோறும் நினைவுபடுத்து"</item>
+    <item msgid="8714177874112569158">"ஆண்டுதோறும் நினைவுபடுத்து"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"ஒவ்வொரு முதல் ஞாயிற்றுக்கிழமை"</item>
+    <item msgid="2557379346106451363">"ஒவ்வொரு இரண்டாவது ஞாயிற்றுக்கிழமை"</item>
+    <item msgid="7622144489915654132">"ஒவ்வொரு மூன்றாவது ஞாயிற்றுக்கிழமை"</item>
+    <item msgid="527152448137686021">"ஒவ்வொரு நான்காவது ஞாயிற்றுக்கிழமை"</item>
+    <item msgid="5057483608824759350">"ஒவ்வொரு கடைசி ஞாயிற்றுக்கிழமை"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"ஒவ்வொரு முதல் திங்கட்கிழமை"</item>
+    <item msgid="4484275849072423978">"ஒவ்வொரு இரண்டாவது திங்கட்கிழமை"</item>
+    <item msgid="8956169860824371383">"ஒவ்வொரு மூன்றாவது திங்கட்கிழமை"</item>
+    <item msgid="6924403357659569326">"ஒவ்வொரு நான்காவது திங்கட்கிழமை"</item>
+    <item msgid="1379608815263472161">"ஒவ்வொரு கடைசி திங்கட்கிழமை"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"ஒவ்வொரு முதல் செவ்வாய்க்கிழமை"</item>
+    <item msgid="9063613547307760928">"ஒவ்வொரு இரண்டாவது செவ்வாய்க்கிழமை"</item>
+    <item msgid="6688603328729208168">"ஒவ்வொரு மூன்றாவது செவ்வாய்க்கிழமை"</item>
+    <item msgid="6695206006961533357">"ஒவ்வொரு நான்காவது செவ்வாய்க்கிழமை"</item>
+    <item msgid="8619069174889809914">"ஒவ்வொரு கடைசி செவ்வாய்க்கிழமை"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"ஒவ்வொரு முதல் புதன்கிழமை"</item>
+    <item msgid="5059722045367799217">"ஒவ்வொரு இரண்டாவது புதன்கிழமை"</item>
+    <item msgid="7986246648229272275">"ஒவ்வொரு மூன்றாவது புதன்கிழமை"</item>
+    <item msgid="9068566169348980801">"ஒவ்வொரு நான்காவது புதன்கிழமை"</item>
+    <item msgid="7976866743069062134">"ஒவ்வொரு கடைசி புதன்கிழமை"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"ஒவ்வொரு முதல் வியாழக்கிழமை"</item>
+    <item msgid="4857419136007543270">"ஒவ்வொரு இரண்டாவது வியாழக்கிழமை"</item>
+    <item msgid="222044587450564839">"ஒவ்வொரு மூன்றாவது வியாழக்கிழமை"</item>
+    <item msgid="6197927556533030945">"ஒவ்வொரு நான்காவது வியாழக்கிழமை"</item>
+    <item msgid="1023326923033436905">"ஒவ்வொரு கடைசி வியாழக்கிழமை"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"ஒவ்வொரு முதல் வெள்ளிக்கிழமை"</item>
+    <item msgid="1935608297230506940">"ஒவ்வொரு இரண்டாவது வெள்ளிக்கிழமை"</item>
+    <item msgid="4061877662049317599">"ஒவ்வொரு மூன்றாவது வெள்ளிக்கிழமை"</item>
+    <item msgid="6856646749131820614">"ஒவ்வொரு நான்காவது வெள்ளிக்கிழமை"</item>
+    <item msgid="6533513913914859794">"ஒவ்வொரு கடைசி வெள்ளிக்கிழமை"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"ஒவ்வொரு முதல் சனிக்கிழமை"</item>
+    <item msgid="9130198690512925355">"ஒவ்வொரு இரண்டாவது சனிக்கிழமை"</item>
+    <item msgid="4525736070844032405">"ஒவ்வொரு மூன்றாவது சனிக்கிழமை"</item>
+    <item msgid="422053689531707709">"ஒவ்வொரு நான்காவது சனிக்கிழமை"</item>
+    <item msgid="5499975799312474425">"ஒவ்வொரு கடைசி சனிக்கிழமை"</item>
+  </string-array>
+</resources>
