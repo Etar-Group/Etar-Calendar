@@ -19,7 +19,7 @@
   <string-array name="reminder_methods_labels">
     <item msgid="5172236776878811487">"إشعار"</item>
     <item msgid="1751151680520784746">"بريد إلكتروني"</item>
-    <item msgid="2658001219380695677">"رسائل SMS"</item>
+    <item msgid="2658001219380695677">"‏رسائل SMS"</item>
     <item msgid="7926918288165444873">"المنبه"</item>
   </string-array>
   <string-array name="reminder_minutes_labels">

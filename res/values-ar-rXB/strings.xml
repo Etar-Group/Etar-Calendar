@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"‏‮Calendar‬‏"</string>
+    <string name="what_label" msgid="1933578391985810049">"‏‮What‬‏"</string>
+    <string name="where_label" msgid="3472482206065595118">"‏‮Where‬‏"</string>
+    <string name="when_label" msgid="894636567327261599">"‏‮When‬‏"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"‏‮Time‬‏ ‏‮zone‬‏"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"‏‮Guests‬‏"</string>
+    <string name="today" msgid="8577375020252453006">"‏‮Today‬‏"</string>
+    <string name="tomorrow" msgid="614434811813859237">"‏‮Tomorrow‬‏"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"‏‮Today‬‏ ‏‮at‬‏ <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"‏‮Tomorrow‬‏ ‏‮at‬‏ <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"‏‮Repetition‬‏"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(‏‮No‬‏ ‏‮title‬‏)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 ‏‮minute‬‏"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> ‏‮minutes‬‏"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 ‏‮min‬‏"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> ‏‮mins‬‏"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 ‏‮hour‬‏"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ‏‮hours‬‏"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 ‏‮day‬‏"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ‏‮days‬‏"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"‏‮WEEK‬‏ <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"‏‮Refresh‬‏"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"‏‮Show‬‏ ‏‮day‬‏"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"‏‮Agenda‬‏"</string>
+    <string name="day_view" msgid="4467754504843584437">"‏‮Day‬‏"</string>
+    <string name="week_view" msgid="6775043022159508060">"‏‮Week‬‏"</string>
+    <string name="month_view" msgid="7287101431749285412">"‏‮Month‬‏"</string>
+    <string name="event_view" msgid="7621353079385122317">"‏‮View‬‏ ‏‮event‬‏"</string>
+    <string name="event_create" msgid="6941040556709110617">"‏‮New‬‏ ‏‮event‬‏"</string>
+    <string name="event_edit" msgid="4006961928830064662">"‏‮Edit‬‏ ‏‮event‬‏"</string>
+    <string name="event_delete" msgid="2386667193277770442">"‏‮Delete‬‏ ‏‮event‬‏"</string>
+    <string name="goto_today" msgid="9162136434410891230">"‏‮Today‬‏"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"‏‮Settings‬‏"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"‏‮Calendars‬‏ ‏‮to‬‏ ‏‮display‬‏"</string>
+    <string name="search" msgid="550656004486017426">"‏‮Search‬‏"</string>
+    <string name="hide_controls" msgid="830320505938520882">"‏‮Hide‬‏ ‏‮controls‬‏"</string>
+    <string name="show_controls" msgid="715520586028062621">"‏‮Show‬‏ ‏‮controls‬‏"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"‏‮Calendars‬‏ ‏‮to‬‏ ‏‮display‬‏"</string>
+    <string name="synced" msgid="7913940305983383493">"‏‮synced‬‏"</string>
+    <string name="not_synced" msgid="4275114941801829419">"‏‮not‬‏ ‏‮synced‬‏"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"‏‮This‬‏ ‏‮account‬‏ ‏‮isn‬‏\'‏‮t‬‏ ‏‮being‬‏ ‏‮synced‬‏ ‏‮so‬‏ ‏‮your‬‏ ‏‮calendars‬‏ ‏‮may‬‏ ‏‮not‬‏ ‏‮be‬‏ ‏‮up‬‏-‏‮to‬‏-‏‮date‬‏."</string>
+    <string name="accounts" msgid="849401841083180306">"‏‮Accounts‬‏ &amp; ‏‮sync‬‏"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"‏‮Calendars‬‏ ‏‮to‬‏ ‏‮sync‬‏"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"‏‮Calendars‬‏ ‏‮to‬‏ ‏‮sync‬‏"</string>
+    <string name="hint_what" msgid="709155115005044531">"‏‮Event‬‏ ‏‮name‬‏"</string>
+    <string name="hint_where" msgid="4972598001033801974">"‏‮Location‬‏"</string>
+    <string name="hint_description" msgid="1910143586169033232">"‏‮Description‬‏"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"‏‮Guests‬‏"</string>
+    <string name="creating_event" msgid="7516249252554059980">"‏‮Event‬‏ ‏‮created‬‏."</string>
+    <string name="saving_event" msgid="7694181017411177226">"‏‮Event‬‏ ‏‮saved‬‏."</string>
+    <string name="empty_event" msgid="9018699257414338634">"‏‮Empty‬‏ ‏‮event‬‏ ‏‮not‬‏ ‏‮created‬‏."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"‏‮Invitations‬‏ ‏‮will‬‏ ‏‮be‬‏ ‏‮sent‬‏."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"‏‮Updates‬‏ ‏‮will‬‏ ‏‮be‬‏ ‏‮sent‬‏."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"‏‮Responded‬‏ ‏‮yes‬‏."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"‏‮Responded‬‏ ‏‮maybe‬‏."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"‏‮Responded‬‏ ‏‮no‬‏."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"‏‮Save‬‏"</string>
+    <string name="alert_title" msgid="7869592820853066853">"‏‮Calendar‬‏ ‏‮notifications‬‏"</string>
+    <string name="event_info_title" msgid="56024222340421620">"‏‮View‬‏ ‏‮event‬‏"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"‏‮Meeting‬‏ ‏‮invitation‬‏"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"‏‮To‬‏"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"‏‮From‬‏"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"‏‮All‬‏ ‏‮day‬‏"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"‏‮Calendar‬‏"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"‏‮Show‬‏ ‏‮all‬‏"</string>
+    <string name="description_label" msgid="7193475046717505855">"‏‮Description‬‏"</string>
+    <string name="presence_label" msgid="6169724148441175862">"‏‮Show‬‏ ‏‮me‬‏ ‏‮as‬‏"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"‏‮Privacy‬‏"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"‏‮Add‬‏ ‏‮reminder‬‏"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"‏‮No‬‏ ‏‮calendars‬‏"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"‏‮Before‬‏ ‏‮you‬‏ ‏‮can‬‏ ‏‮add‬‏ ‏‮an‬‏ ‏‮event‬‏, ‏‮you‬‏ ‏‮must‬‏ ‏‮add‬‏ ‏‮at‬‏ ‏‮least‬‏ ‏‮one‬‏ ‏‮Calendar‬‏ ‏‮account‬‏ ‏‮to‬‏ ‏‮your‬‏ ‏‮device‬‏ ‏‮and‬‏ ‏‮make‬‏ ‏‮a‬‏ ‏‮calendar‬‏ ‏‮visible‬‏. ‏‮Touch‬‏ ‏‮Add‬‏ ‏‮Account‬‏ ‏‮to‬‏ ‏‮add‬‏ ‏‮an‬‏ ‏‮account‬‏ (‏‮if‬‏ ‏‮you‬‏ ‏‮just‬‏ ‏‮added‬‏ ‏‮an‬‏ ‏‮account‬‏, ‏‮wait‬‏ ‏‮for‬‏ ‏‮it‬‏ ‏‮to‬‏ ‏‮finish‬‏ ‏‮syncing‬‏ ‏‮and‬‏ ‏‮try‬‏ ‏‮again‬‏). ‏‮Or‬‏ ‏‮touch‬‏ ‏‮Cancel‬‏ ‏‮and‬‏ ‏‮make‬‏ ‏‮sure‬‏ ‏‮at‬‏ ‏‮least‬‏ ‏‮one‬‏ ‏‮calendar‬‏ ‏‮is‬‏ ‏‮visible‬‏."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"‏‮Calendar‬‏ ‏‮works‬‏ ‏‮better‬‏ ‏‮with‬‏ ‏‮a‬‏ ‏‮Google‬‏ ‏‮Account‬‏.\n\n• ‏‮Access‬‏ ‏‮it‬‏ ‏‮from‬‏ ‏‮any‬‏ ‏‮web‬‏ ‏‮browser‬‏\n• ‏‮Back‬‏ ‏‮up‬‏ ‏‮your‬‏ ‏‮events‬‏ ‏‮securely‬‏"</string>
+    <string name="add_account" msgid="1669072099756774952">"‏‮Add‬‏ ‏‮account‬‏"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"‏‮Calendar‬‏:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"‏‮Organizer‬‏:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"‏‮Choose‬‏ ‏‮event‬‏ ‏‮color‬‏"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"‏‮Event‬‏ ‏‮Color‬‏"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"‏‮Set‬‏ ‏‮to‬‏ ‏‮default‬‏ ‏‮calendar‬‏ ‏‮color‬‏"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"‏‮Calendar‬‏ ‏‮Color‬‏"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"‏‮Color‬‏ ‏‮picker‬‏"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"‏‮Attending‬‏?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"‏‮Yes‬‏"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"‏‮Maybe‬‏"</string>
+    <string name="response_no" msgid="561911691884148136">"‏‮No‬‏"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"‏‮Email‬‏ ‏‮guests‬‏"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"‏‮Email‬‏ ‏‮organizer‬‏"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"‏‮Email‬‏ ‏‮with‬‏"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"‏‮Event‬‏ ‏‮not‬‏ ‏‮found‬‏."</string>
+    <string name="map_label" msgid="8795383535586556038">"‏‮Map‬‏"</string>
+    <string name="call_label" msgid="2960328220008869083">"‏‮Call‬‏"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"‏‮Quick‬‏ ‏‮responses‬‏"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"‏‮Edit‬‏ ‏‮default‬‏ ‏‮responses‬‏ ‏‮when‬‏ ‏‮emailing‬‏ ‏‮guests‬‏"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"‏‮Edit‬‏ ‏‮quick‬‏ ‏‮responses‬‏"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"‏‮Quick‬‏ ‏‮response‬‏"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"‏‮Choose‬‏ ‏‮quick‬‏ ‏‮response‬‏"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"‏‮Failed‬‏ ‏‮to‬‏ ‏‮find‬‏ ‏‮an‬‏ ‏‮email‬‏ ‏‮program‬‏"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"‏‮Running‬‏ ‏‮just‬‏ ‏‮a‬‏ ‏‮couple‬‏ ‏‮of‬‏ ‏‮minutes‬‏ ‏‮late‬‏."</item>
+    <item msgid="6215158751728689832">"‏‮Be‬‏ ‏‮there‬‏ ‏‮in‬‏ ‏‮about‬‏ 10 ‏‮minutes‬‏."</item>
+    <item msgid="4485794001743679338">"‏‮Go‬‏ ‏‮ahead‬‏ ‏‮and‬‏ ‏‮start‬‏ ‏‮without‬‏ ‏‮me‬‏."</item>
+    <item msgid="8036557974294987511">"‏‮Sorry‬‏, ‏‮I‬‏ ‏‮can‬‏\'‏‮t‬‏ ‏‮make‬‏ ‏‮it‬‏. ‏‮We‬‏\'‏‮ll‬‏ ‏‮have‬‏ ‏‮to‬‏ ‏‮reschedule‬‏."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"‏‮Write‬‏ ‏‮your‬‏ ‏‮own‬‏…"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"‏‮Organizer‬‏:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"‏‮Reminders‬‏"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"‏‮TODAY‬‏, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"‏‮YESTERDAY‬‏, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"‏‮TOMORROW‬‏, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"‏‮Loading‬‏…"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"‏‮Touch‬‏ ‏‮to‬‏ ‏‮view‬‏ ‏‮events‬‏ ‏‮before‬‏ <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"‏‮Touch‬‏ ‏‮to‬‏ ‏‮view‬‏ ‏‮events‬‏ ‏‮after‬‏ <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="search_title" msgid="8898015280250716254">"‏‮Search‬‏ ‏‮my‬‏ ‏‮calendars‬‏"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"‏‮Details‬‏"</string>
+    <string name="edit_label" msgid="8934331258435656534">"‏‮Edit‬‏"</string>
+    <string name="delete_label" msgid="874742811918030739">"‏‮Delete‬‏"</string>
+    <string name="save_label" msgid="2133599104834432589">"‏‮Done‬‏"</string>
+    <string name="discard_label" msgid="2394623883289782541">"‏‮Cancel‬‏"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"‏‮Snooze‬‏ ‏‮all‬‏"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"‏‮Dismiss‬‏ ‏‮all‬‏"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"‏‮Snooze‬‏"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"‏‮One‬‏-‏‮time‬‏ ‏‮event‬‏"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; ‏‮until‬‏ <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; ‏‮for‬‏ ‏‮one‬‏ ‏‮time‬‏"</item>
+    <item quantity="other" msgid="4855496837834652446">"; ‏‮for‬‏ <xliff:g id="NUMBER">%d</xliff:g> ‏‮times‬‏"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"‏‮Daily‬‏"</item>
+    <item quantity="other" msgid="5455230727715859264">"‏‮Every‬‏ <xliff:g id="NUMBER">%d</xliff:g> ‏‮days‬‏"</item>
+  </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"‏‮Every‬‏ ‏‮weekday‬‏ (‏‮Mon‬‏–‏‮Fri‬‏)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"‏‮Weekly‬‏ ‏‮on‬‏ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"‏‮Every‬‏ <xliff:g id="NUMBER">%1$d</xliff:g> ‏‮weeks‬‏ ‏‮on‬‏ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
+    <string name="monthly" msgid="4587116285383048586">"‏‮Monthly‬‏"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"‏‮Yearly‬‏"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"‏‮Monthly‬‏ (‏‮on‬‏ ‏‮day‬‏ <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"‏‮Yearly‬‏ (‏‮on‬‏ <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"‏‮Custom‬‏ (‏‮can‬‏\'‏‮t‬‏ ‏‮customize‬‏ ‏‮on‬‏ ‏‮tablet‬‏)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"‏‮Custom‬‏ (‏‮can‬‏\'‏‮t‬‏ ‏‮customize‬‏ ‏‮on‬‏ ‏‮phone‬‏)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"‏‮Change‬‏ ‏‮only‬‏ ‏‮this‬‏ ‏‮event‬‏"</string>
+    <string name="modify_all" msgid="4421657265864209041">"‏‮Change‬‏ ‏‮all‬‏ ‏‮events‬‏ ‏‮in‬‏ ‏‮the‬‏ ‏‮series‬‏"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"‏‮Change‬‏ ‏‮this‬‏ ‏‮and‬‏ ‏‮all‬‏ ‏‮future‬‏ ‏‮events‬‏"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"‏‮New‬‏ ‏‮event‬‏"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"‏‮New‬‏ ‏‮event‬‏"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"‏‮Delete‬‏ ‏‮this‬‏ ‏‮event‬‏?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"‏‮Delete‬‏ <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"‏‮Change‬‏ ‏‮response‬‏"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"‏‮General‬‏ ‏‮settings‬‏"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"‏‮About‬‏ ‏‮Calendar‬‏"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"‏‮Settings‬‏"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"‏‮Calendar‬‏ ‏‮view‬‏ ‏‮setting‬‏"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"‏‮Notifications‬‏ &amp; ‏‮reminders‬‏"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"‏‮Hide‬‏ ‏‮declined‬‏ ‏‮events‬‏"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"‏‮Week‬‏ ‏‮starts‬‏ ‏‮on‬‏"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"‏‮Week‬‏ ‏‮starts‬‏ ‏‮on‬‏"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"‏‮Clear‬‏ ‏‮search‬‏ ‏‮history‬‏"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"‏‮Remove‬‏ ‏‮all‬‏ ‏‮the‬‏ ‏‮searches‬‏ ‏‮you‬‏\'‏‮ve‬‏ ‏‮performed‬‏"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"‏‮Search‬‏ ‏‮history‬‏ ‏‮cleared‬‏."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"‏‮Notifications‬‏"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"‏‮Vibrate‬‏"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"‏‮Sound‬‏"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"‏‮Pop‬‏-‏‮up‬‏ ‏‮notification‬‏"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"‏‮Default‬‏ ‏‮reminder‬‏ ‏‮time‬‏"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"‏‮Default‬‏ ‏‮reminder‬‏ ‏‮time‬‏"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"‏‮Use‬‏ ‏‮home‬‏ ‏‮time‬‏ ‏‮zone‬‏"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"‏‮Displays‬‏ ‏‮calendars‬‏ ‏‮and‬‏ ‏‮event‬‏ ‏‮times‬‏ ‏‮in‬‏ ‏‮your‬‏ ‏‮home‬‏ ‏‮time‬‏ ‏‮zone‬‏ ‏‮when‬‏ ‏‮traveling‬‏"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"‏‮Home‬‏ ‏‮time‬‏ ‏‮zone‬‏"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"‏‮Show‬‏ ‏‮week‬‏ ‏‮number‬‏"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"‏‮About‬‏"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"‏‮Build‬‏ ‏‮version‬‏"</string>
+    <string name="gadget_title" msgid="939918875331310945">"‏‮Calendar‬‏"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"‏‮No‬‏ ‏‮upcoming‬‏ ‏‮calendar‬‏ ‏‮events‬‏"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"‏‮Experimental‬‏"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"‏‮Reminders‬‏"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"‏‮Skip‬‏ ‏‮Reminders‬‏"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"‏‮Skip‬‏ ‏‮Reminders‬‏"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"‏‮Quiet‬‏ ‏‮hours‬‏"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"‏‮Silence‬‏ ‏‮event‬‏ ‏‮reminders‬‏ ‏‮during‬‏ ‏‮specified‬‏ ‏‮time‬‏."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"‏‮Quiet‬‏ ‏‮hours‬‏ ‏‮start‬‏ ‏‮time‬‏"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"‏‮Quiet‬‏ ‏‮hours‬‏ ‏‮end‬‏ ‏‮time‬‏"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"‏‮Debugging‬‏"</string>
+    <string name="copy_db" msgid="437691290566699292">"‏‮Send‬‏ ‏‮database‬‏"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"‏‮Searching‬‏ <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"‏‮Remove‬‏ ‏‮attendee‬‏"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"‏‮Start‬‏ ‏‮date‬‏"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"‏‮Start‬‏ ‏‮time‬‏"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"‏‮End‬‏ ‏‮date‬‏"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"‏‮End‬‏ ‏‮time‬‏"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"‏‮Time‬‏ ‏‮zone‬‏"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"‏‮Repeat‬‏ ‏‮event‬‏"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"‏‮Add‬‏ ‏‮reminder‬‏"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"‏‮Remove‬‏ ‏‮reminder‬‏"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"‏‮Add‬‏ ‏‮attendee‬‏"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"‏‮Sync‬‏ ‏‮calendar‬‏"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"‏‮All‬‏ ‏‮day‬‏ ‏‮event‬‏"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"‏‮Repetition‬‏"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"‏‮Reminder‬‏ ‏‮time‬‏"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"‏‮Reminder‬‏ ‏‮type‬‏"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"‏‮Show‬‏ ‏‮me‬‏ ‏‮as‬‏"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"‏‮Privacy‬‏"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"‏‮Calendar‬‏ ‏‮Notification‬‏"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"‏‮Snooze‬‏ ‏‮Notification‬‏"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"‏‮Email‬‏ ‏‮guests‬‏"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ ‏‮New‬‏ ‏‮event‬‏"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"‏‮Event‬‏ <xliff:g id="ITEM_INDEX">%1$s</xliff:g> ‏‮of‬‏ <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"1 ‏‮event‬‏"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ‏‮events‬‏"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 ‏‮event‬‏"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ‏‮events‬‏"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"‏‮Selected‬‏ ‏‮event‬‏"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"‏‮Do‬‏ ‏‮NOT‬‏ ‏‮check‬‏ -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"‏‮Repeat‬‏"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"‏‮Never‬‏ ‏‮repeats‬‏"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮day‬‏"</item>
+    <item quantity="other" msgid="707566499994398250">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮days‬‏"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮week‬‏"</item>
+    <item quantity="other" msgid="7094801039989237061">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮weeks‬‏"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮month‬‏"</item>
+    <item quantity="other" msgid="5419723710346646523">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮months‬‏"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮year‬‏"</item>
+    <item quantity="other" msgid="5678653649746562060">"‏‮Every‬‏ <xliff:g id="COUNT">%d</xliff:g> ‏‮years‬‏"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"‏‮on‬‏ ‏‮the‬‏ ‏‮same‬‏ ‏‮day‬‏ ‏‮each‬‏ ‏‮month‬‏"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"‏‮Forever‬‏"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"‏‮Until‬‏ ‏‮a‬‏ ‏‮date‬‏"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"‏‮Until‬‏ <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"‏‮For‬‏ ‏‮a‬‏ ‏‮number‬‏ ‏‮of‬‏ ‏‮events‬‏"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"‏‮For‬‏ <xliff:g id="EVENT_COUNT">%d</xliff:g> ‏‮event‬‏"</item>
+    <item quantity="other" msgid="8779598489398048259">"‏‮For‬‏ <xliff:g id="EVENT_COUNT">%d</xliff:g> ‏‮events‬‏"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"‏‮change‬‏ ‏‮end‬‏ ‏‮date‬‏"</string>
+</resources>

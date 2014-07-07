@@ -78,8 +78,8 @@
     <string name="creating_event" msgid="7516249252554059980">"رویداد ایجاد شد."</string>
     <string name="saving_event" msgid="7694181017411177226">"رویداد ذخیره شد."</string>
     <string name="empty_event" msgid="9018699257414338634">"رویداد خالی ایجاد نمی‌شود."</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">"دعوت نامه‎ها ارسال خواهند شد."</string>
-    <string name="saving_event_with_guest" msgid="9184584438475689577">"به‌روزرسانی‎ها ارسال خواهند شد."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"‏دعوت نامه‎ها ارسال خواهند شد."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"‏به‌روزرسانی‎ها ارسال خواهند شد."</string>
     <string name="rsvp_accepted" msgid="8146618862268962727">"پاسخ مثبت داد."</string>
     <string name="rsvp_tentative" msgid="6545510359501328718">"پاسخ «شاید» داد."</string>
     <string name="rsvp_declined" msgid="8686330037802222895">"پاسخ منفی داد."</string>
@@ -98,7 +98,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"افزودن یادآور"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"تقویمی موجود نیست"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"قبل از اینکه بتوانید یک رویداد اضافه کنید، باید حداقل یک حساب تقویم به دستگاه خود اضافه کرده و تقویمی را قابل مشاهده کنید. برای افزودن یک حساب، \"افزودن حساب\" را لمس کنید (اگر بتازگی حسابی اضافه کرده‌اید، منتظر بمانید تا همگامسازی آن تمام شود و سپس دوباره امتحان کنید). همچنین می‌توانید \"لغو\" را لمس کرده و اطمینان حاصل کنید که حداقل یک تقویم قابل مشاهده است."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Calendar با یک حساب Google بهتر کار می‌کند.\n\n• از هر مرورگر وب به آن دسترسی دارید\n• از رویدادهای خود به طور امن پشتیبان تهیه کنید"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"‏Calendar با یک حساب Google بهتر کار می‌کند.\n\n• از هر مرورگر وب به آن دسترسی دارید\n• از رویدادهای خود به طور امن پشتیبان تهیه کنید"</string>
     <string name="add_account" msgid="1669072099756774952">"افزودن حساب"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"تقویم:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"سازمان دهنده:"</string>
@@ -235,7 +235,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"نمایش من به صورت"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"حریم خصوصی"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"اعلان‌های تقویم"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"اعلان تعویق"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"تعویق اعلان"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"ارسال ایمیل به مهمانان"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ رویداد جدید"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"رویداد <xliff:g id="ITEM_INDEX">%1$s</xliff:g> از <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
@@ -248,7 +248,7 @@
     <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> رویداد"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"رویداد انتخاب شده"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"علامت نزنید -&gt;"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"‏علامت نزنید -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"تکرار"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"هرگز تکرار نمی‌شود"</string>
   <plurals name="recurrence_interval_daily">

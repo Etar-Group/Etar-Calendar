@@ -146,7 +146,7 @@
     <string name="discard_label" msgid="2394623883289782541">"रद्द करें"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"सभी स्नूज़ करें"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"सभी खारिज करें"</string>
-    <string name="snooze_label" msgid="1515893621063224666">"स्‍नूज़ करें"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"याद दिलाएं"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"एक-बार का ईवेंट"</string>
     <string name="endByDate" msgid="7654221304929538201">"; <xliff:g id="DATE">%s</xliff:g> तक"</string>
   <plurals name="endByCount">
@@ -235,7 +235,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"मुझे इस रूप में दिखाएं"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"गोपनीयता"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"कैलेंडर सूचना"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"सूचना स्‍नूज़ करें"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"सूचना याद दिलाएं"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"अतिथियों को ईमेल करें"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ नया ईवेंट"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_COUNT">%2$s</xliff:g> में से <xliff:g id="ITEM_INDEX">%1$s</xliff:g> ईवेंट."</string>

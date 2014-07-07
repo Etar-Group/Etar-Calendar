@@ -97,8 +97,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"פרטיות"</string>
     <string name="reminders_label" msgid="7292389181815525676">"הוסף תזכורת"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"אין לוחות שנה"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"לפני שתוכל להוסיף אירוע, עליך להוסיף למכשיר לפחות חשבון \'יומן Google\' אחד ולהגדיר לוח שנה אחד כגלוי. גע באפשרות \'הוסף חשבון\' כדי להוסיף חשבון (אם זה עתה הוספת חשבון, המתן להשלמת תהליך הסינכרון שלו ונסה שוב). לחלופין, גע באפשרות \'ביטול\' וודא שלפחות לוח שנה אחד מוגדר כגלוי."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"\'יומן Google\' עובד טוב יותר עם חשבון Google‏.\n\n• גישה מכל דפדפן אינטרנט\n• גיבוי האירועים באופן מאובטח"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"‏לפני שתוכל להוסיף אירוע, עליך להוסיף למכשיר לפחות חשבון \'יומן Google\' אחד ולהגדיר לוח שנה אחד כגלוי. גע באפשרות \'הוסף חשבון\' כדי להוסיף חשבון (אם זה עתה הוספת חשבון, המתן להשלמת תהליך הסינכרון שלו ונסה שוב). לחלופין, גע באפשרות \'ביטול\' וודא שלפחות לוח שנה אחד מוגדר כגלוי."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"‏\'יומן Google\' עובד טוב יותר עם חשבון Google‏.\n\n• גישה מכל דפדפן אינטרנט\n• גיבוי האירועים באופן מאובטח"</string>
     <string name="add_account" msgid="1669072099756774952">"הוסף חשבון"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"יומן:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"מארגן:"</string>
@@ -177,7 +177,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"האם למחוק את <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"שנה תגובה"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"הגדרות כלליות"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"מידע על \'יומן Google\'"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"‏מידע על \'יומן Google\'"</string>
     <string name="preferences_title" msgid="8045855493262131773">"הגדרות"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"הגדרות תצוגה של יומן"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"התראות ותזכורות"</string>
@@ -199,7 +199,7 @@
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"אזור זמן מקומי"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"הצג מספר שבוע"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"מידע על"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"גרסת Build"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"‏גרסת Build"</string>
     <string name="gadget_title" msgid="939918875331310945">"יומן"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
@@ -248,7 +248,7 @@
     <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> אירועים"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"אירוע נבחר"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"אל תסמן -&gt;"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"‏אל תסמן -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"חזרה"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ללא חזרה"</string>
   <plurals name="recurrence_interval_daily">
