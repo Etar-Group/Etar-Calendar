@@ -20,7 +20,7 @@
     <item msgid="5172236776878811487">"Notifica"</item>
     <item msgid="1751151680520784746">"Email"</item>
     <item msgid="2658001219380695677">"SMS"</item>
-    <item msgid="7926918288165444873">"Allarme"</item>
+    <item msgid="7926918288165444873">"Sveglia"</item>
   </string-array>
   <string-array name="reminder_minutes_labels">
     <item msgid="2416970002377237011">"0 minuti"</item>
