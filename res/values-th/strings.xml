@@ -57,7 +57,7 @@
     <string name="event_view" msgid="7621353079385122317">"ดูกิจกรรม"</string>
     <string name="event_create" msgid="6941040556709110617">"กิจกรรมใหม่"</string>
     <string name="event_edit" msgid="4006961928830064662">"แก้ไขกิจกรรม"</string>
-    <string name="event_delete" msgid="2386667193277770442">"นำออกกิจกรรม"</string>
+    <string name="event_delete" msgid="2386667193277770442">"ลบกิจกรรม"</string>
     <string name="goto_today" msgid="9162136434410891230">"วันนี้"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"การตั้งค่า"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"เลือกปฏิทิน"</string>
@@ -173,7 +173,7 @@
     <string name="modify_all_following" msgid="3017428541066390380">"เปลี่ยนกิจกรรมนี้และในอนาคตทั้งหมด"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"กิจกรรมใหม่"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"กิจกรรมใหม่"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">"นำออกกิจกรรมนี้"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"ลบกิจกรรมนี้"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"ลบ <xliff:g id="EVENTTITLE">%s</xliff:g> ใช่ไหม"</string>
     <string name="change_response_title" msgid="7704714776070974984">"เปลี่ยนการตอบกลับ"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"การตั้งค่าทั่วไป"</string>
