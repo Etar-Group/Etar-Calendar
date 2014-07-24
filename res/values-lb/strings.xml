@@ -16,9 +16,12 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_label">Kalenner</string>
+  <string name="where_label">Wou</string>
   <string name="timezone_label">Zäitzon</string>
   <string name="attendees_label">Gäscht</string>
   <string name="today">Haut</string>
+  <string name="tomorrow">Muer</string>
+  <string name="date_time_fmt">"<xliff:g id="date">%s</xliff:g>, <xliff:g id="time_interval">%s</xliff:g>"</string>
   <string name="repeats_label">Widderhuelung</string>
   <plurals name="Nminutes">
     <item quantity="one">1 Minutt</item>
@@ -36,6 +39,7 @@
     <item quantity="one">WOCH <xliff:g id="count">%d</xliff:g></item>
     <item quantity="other">WOCH <xliff:g id="count">%d</xliff:g></item>
   </plurals>
+  <string name="calendar_refresh"> \"Opfrëschen\"</string>
   <string name="agenda_view">"Agenda"</string>
   <string name="day_view">"Dag"</string>
   <string name="week_view">"Woch"</string>
@@ -53,6 +57,7 @@
   <string name="select_visible_calendars_title">"Kalenner déi ugewise ginn"</string>
   <string name="synced"> synchroniséiert</string>
   <string name="not_synced"> net synchroniséiert</string>
+  <string name="acct_not_synced">Dëse Kont gëtt net synchroniséiert. Deng Kalenner sinn vläicht net aktuell.</string>
   <string name="hint_what">"Numm vum Rendezvous"</string>
   <string name="hint_where">"Plaz"</string>
   <string name="hint_description">"Beschreiwung"</string>

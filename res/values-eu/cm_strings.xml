@@ -17,4 +17,11 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Oroigarriak</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Oroigarrien arteko denbora oroigarri bakoitzean galdetu</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Oroigarri artean lehenetsitako denbora tartea erabili beti</string>
+  <string name="snooze_delay_dialog_title">Denbora tartea</string>
+  <string name="preferences_default_snooze_delay_title">Oroigarrien arteko denbora tartea</string>
+  <string name="preferences_default_snooze_delay_dialog">Oroigarrien arteko denbora tarte lehenetsia</string>
+  <string name="default_start_title">Lehenetsitako ikuspegia</string>
+  <string name="default_start_last">Aurretik erabilitako ikuspegia</string>
 </resources>

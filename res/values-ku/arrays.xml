@@ -24,20 +24,20 @@
   <string-array name="reminder_minutes_labels">
     <item>0 خولەک</item>
     <item>1 خولەک</item>
-    <item>٥ خولەک</item>
+    <item>5 خولەک</item>
     <item>10 خولەک</item>
     <item>10 خوله‌ک</item>
-    <item>٢٠ خولەک</item>
-    <item>٢٥ خولەک</item>
+    <item>20 خولەک</item>
+    <item>25 خولەک</item>
     <item>30 خوله‌ک</item>
     <item>45 خوله‌ك</item>
     <item>1 كاتژێر</item>
-    <item>٢ کاتژێر</item>
-    <item>٣ کاتژێر</item>
-    <item>١٢ کاتژێر</item>
-    <item>٢٤ کاتژێر</item>
-    <item>٢ ڕۆژ</item>
-    <item>١ هەفتە</item>
+    <item>2 کاژێر</item>
+    <item>3 کاژێر</item>
+    <item>12 کاژێر</item>
+    <item>24 کاژێر</item>
+    <item>2 ڕۆژ</item>
+    <item>1 هەفتە</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>هیچ</item>
@@ -46,17 +46,17 @@
     <item>5 خوله‌ک</item>
     <item>10 خولەک</item>
     <item>15 خولەک</item>
-    <item>٢٠ خولەک</item>
-    <item>٢٥ خولەک</item>
+    <item>20 خولەک</item>
+    <item>25 خولەک</item>
     <item>30 خوله‌ک</item>
     <item>45 خوله‌ك</item>
     <item>1 كاتژێر</item>
-    <item>٢ کاتژێر</item>
-    <item>٣ کاتژێر</item>
-    <item>١٢ کاتژێر</item>
-    <item>٢٤ کاتژێر</item>
-    <item>٢ ڕۆژ</item>
-    <item>١ هەفتە</item>
+    <item>2 کاژێر</item>
+    <item>3 کاژێر</item>
+    <item>12 کاژێر</item>
+    <item>24 کاژێر</item>
+    <item>2 ڕۆژ</item>
+    <item>1 هەفتە</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item>ناوچەی بنەڕەتی</item>
@@ -115,31 +115,58 @@
     <item>تەنها ئەگەر پوچەڵکرایەوە</item>
     <item>ئەگەر پوچەڵکرایەوە یان وەڵام نەدرایەوە</item>
   </string-array>
+  <string-array name="recurrence_freq">
+    <item>دوباره‌ كردنه‌وه‌ی ڕۆژانه‌</item>
+    <item>دوباره‌ كردنه‌وه‌ی هه‌فتانه‌</item>
+    <item>دوباره‌ كردنه‌وه‌ی مانگانه‌</item>
+    <item> دوباره‌ كردنه‌وه‌ی ساڵانه‌</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item>له‌ هه‌ر یه‌كه‌م ڕۆژی یه‌كشه‌مه‌دا</item>
+    <item>له‌ هه‌ر دوه‌م ڕۆژی یه‌كشه‌مه‌دا</item>
+    <item>له‌ هه‌ر سێهه‌م ڕۆژی یه‌كشه‌مه‌دا</item>
+    <item>له‌ هه‌ر چواره‌م ڕۆژی یه‌كشه‌مه‌دا</item>
+    <item>له‌ كۆتایی ڕۆژی یه‌كشه‌مه‌دا</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item>له‌ هه‌ر یه‌كه‌م ڕۆژی دوو شه‌مه‌دا</item>
+    <item>لە هەر یەکێک نا یەکێک دوشەممانەدا</item>
+    <item>له‌ هه‌ر سێهه‌م ڕۆژی دوو شه‌مه‌دا</item>
+    <item>له‌ هه‌ر چواره‌م ڕۆژی دوو شه‌مه‌دا</item>
+    <item>له‌ كۆتایی هه‌ر دوو شه‌مه‌یه‌كدا</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item>له‌ هه‌ر یه‌كه‌م ڕۆژی سێ شه‌مه‌دا</item>
+    <item>له‌ هه‌ردووه‌م ڕۆژی سێ شه‌مه‌دا</item>
+    <item>له‌ هه‌ر سێهه‌م ڕۆژی سێ شه‌مه‌دا</item>
+    <item>له‌ هه‌ر چواره‌م ڕۆژی سێ شه‌مه‌دا</item>
+    <item>له‌ كۆتایی هه‌ر سێشه‌مه‌یه‌كدا</item>
+  </string-array>
   <string-array name="repeat_by_nth_wed">
-    <item>on every first Wednesday</item>
-    <item>on every second Wednesday</item>
-    <item>on every third Wednesday</item>
-    <item>on every fourth Wednesday</item>
+    <item>له‌ هه‌ر یه‌كه‌م ڕۆژی چوار شه‌مه‌دا</item>
+    <item>له‌ هه‌ر دووه‌م ڕۆژی چوار شه‌مه‌دا</item>
+    <item>له‌ هه‌ر سێهه‌م ڕۆژی چوار شه‌مه‌دا</item>
+    <item>له‌ كۆتایی هه‌ر چوار شه‌مه‌یه‌كدا</item>
     <item>لە کۆتای هەموو چوارشەمەیەک</item>
   </string-array>
   <string-array name="repeat_by_nth_thurs">
-    <item>لە کۆتای هەموو ٥ شەمەیەک</item>
-    <item>لە هەموو چرکەیە لە ٥ شەمە</item>
-    <item>لە هەموو ٣ یەک لە ٥ شەمە</item>
-    <item>لە هەموو چوارەمێک لە ٥ شەمە</item>
-    <item>لە هەموو کۆتایەکی ٥ شەمە</item>
+    <item>لە کۆتای هەموو 5 شەمەیەک</item>
+    <item>لە هەموو چرکەیە لە 5 شەمە</item>
+    <item>لە هەموو 3 یەک لە 5 شەمە</item>
+    <item>لە هەموو چوارەمێک لە 5 شەمە</item>
+    <item>لە هەموو کۆتایەکی 5 شەمە</item>
   </string-array>
   <string-array name="repeat_by_nth_fri">
     <item>لە هەموو یەکەم هەینیدا</item>
     <item>لە هەموو چرکەیەکی هەینیدا</item>
-    <item>لە هەموو ٣ یەکی هەینیدا</item>
+    <item>لە هەموو 3 یەکی هەینیدا</item>
     <item>لە هەموو چوارەمێکی هەینیدا</item>
     <item>ل کۆتای هەموو هەینیەکدا</item>
   </string-array>
   <string-array name="repeat_by_nth_sat">
     <item>لەهەموو یەکەمی شەمەیکدا</item>
     <item>لە هەموو چرکەیەکی شەمەیەکدا</item>
-    <item>لە هەموو ٣ یەکی شەمەدا</item>
+    <item>لە هەموو 3 یەکی شەمەدا</item>
     <item>لە هەموو چوارەمێکی شەمەدا</item>
     <item>لە هەموو کۆتای شەمەیەکدا</item>
   </string-array>
