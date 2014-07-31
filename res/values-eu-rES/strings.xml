@@ -60,14 +60,14 @@
     <string name="event_delete" msgid="2386667193277770442">"Ezabatu gertaera"</string>
     <string name="goto_today" msgid="9162136434410891230">"Gaur"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Ezarpenak"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Erakutsi beharreko egutegiak"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Bistaratzeko egutegiak"</string>
     <string name="search" msgid="550656004486017426">"Bilatu"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ezkutatu kontrolak"</string>
     <string name="show_controls" msgid="715520586028062621">"Erakutsi kontrolatzeko aukerak"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Erakutsi beharreko egutegiak"</string>
     <string name="synced" msgid="7913940305983383493">"sinkronizatuta"</string>
     <string name="not_synced" msgid="4275114941801829419">"ez dago sinkronizatuta"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Kontu hau ez dago sinkronizatuta, beraz, baliteke egutegiak eguneratuta ez egotea."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Kontu hau ez dago sinkronizatuta. Beraz, baliteke egutegiak eguneratuta ez egotea."</string>
     <string name="accounts" msgid="849401841083180306">"Kontuak eta sinkronizazioa"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Sinkronizatu beharreko egutegiak"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Sinkronizatu beharreko egutegiak"</string>
@@ -77,12 +77,12 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Gonbidatuak"</string>
     <string name="creating_event" msgid="7516249252554059980">"Gertaera sortu da."</string>
     <string name="saving_event" msgid="7694181017411177226">"Gertaera gorde da."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Ez da gertaera sortu, hutsik utzi delako."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Ez da gertaera sortu, hutsik dagoelako."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gonbidapenak bidaliko dira."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Eguneratzeak bidaliko dira."</string>
-    <string name="rsvp_accepted" msgid="8146618862268962727">"Joango zarela erantzun duzu."</string>
-    <string name="rsvp_tentative" msgid="6545510359501328718">"Agian joango zarela erantzun duzu."</string>
-    <string name="rsvp_declined" msgid="8686330037802222895">"Ez zarela joango erantzun duzu."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Joango dela erantzun du."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Agian joango dela erantzun du."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Ez dela joango erantzun du."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Gorde"</string>
     <string name="alert_title" msgid="7869592820853066853">"Egutegiaren jakinarazpenak"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ikusi gertaera"</string>
@@ -97,7 +97,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Pribatutasuna"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Gehitu abisua"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ez dago egutegirik"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Gertaera bat gehitu aurretik, Google Calendar zerbitzuko gutxienez kontu bat gehitu behar duzu gailuan eta gutxienez egutegi bat jarri behar duzu ikusgai. Ukitu \"Gehitu kontua\" botoia eta gehitu kontu bat (kontu bat gehitu berri baduzu, itxaron sinkronizatzen amaitu arte eta saiatu berriro) edo ukitu \"Utzi\" botoia eta ziurtatu gutxienez egutegi bat ikusgai dagoela."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Gertaera bat gehitu aurretik, Google Calendar zerbitzuko kontu bat gutxienez gehitu behar duzu gailuan, eta gutxienez egutegi bat jarri behar duzu ikusgai. Ukitu \"Gehitu kontua\" botoia eta gehitu kontu bat (kontu bat gehitu berri baduzu, itxaron sinkronizatzen amaitu arte eta saiatu berriro) edo ukitu \"Utzi\" botoia eta ziurtatu gutxienez egutegi bat ikusgai dagoela."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Google Calendar zerbitzuak hobeto funtzionatzen du Google kontuekin.\n\n• Atzitu egutegiak edozein web-arakatzailetatik\n• Egin gertaeren babeskopiak seguru gordeta izateko"</string>
     <string name="add_account" msgid="1669072099756774952">"Gehitu kontua"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Egutegia:"</string>
@@ -195,7 +195,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Abisuaren iraupen lehenetsia"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Erabili etxeko ordu-zona"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Egutegiak eta gertaeren orduak etxeko ordu-zonan erakutsiko dira atzerrian egon arren"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Egutegiak eta gertaeren orduak etxeko ordu-zonan erakutsiko dira, atzerrian egon arren"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Etxeko ordu-zona"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Erakutsi astearen zenbakia"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Honi buruz"</string>
@@ -210,10 +210,10 @@
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Abisuak"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Saltatu abisuak"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Saltatu abisuak"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Ordu isilak"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Mututu gertaeren abisuak denbora jakin batez."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Ordu isilen hasiera"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Ordu isilen amaiera"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Soinu gabeko epea"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Desaktibatu gertaeren abisuen audioa denbora jakin batez."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Soinu gabeko epearen hasiera"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Soinu gabeko epearen amaiera"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Arazketa"</string>
     <string name="copy_db" msgid="437691290566699292">"Bidali datu-basea"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> domeinuan bilatzen…"</string>
@@ -249,7 +249,7 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Hautatutako gertaera"</string>
     <string name="do_not_check" msgid="7815441673853466129">"EZ hautatu -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Errepikapenak"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Errepikapena"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Inoiz ez"</string>
   <plurals name="recurrence_interval_daily">
     <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> egunez behin"</item>
