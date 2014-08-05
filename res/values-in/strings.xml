@@ -116,7 +116,7 @@
     <string name="email_picker_label" msgid="4808253965057791781">"Email dengan"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Acara tidak ditemukan."</string>
     <string name="map_label" msgid="8795383535586556038">"Peta"</string>
-    <string name="call_label" msgid="2960328220008869083">"Panggil"</string>
+    <string name="call_label" msgid="2960328220008869083">"Telepon"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Tanggapan cepat"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit tanggapan default saat meng-email tamu"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit tanggapan cpt"</string>
