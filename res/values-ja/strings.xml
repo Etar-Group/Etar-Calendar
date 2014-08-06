@@ -114,7 +114,7 @@
     <string name="email_guests_label" msgid="8772030932155305903">"ゲストにメールを送信"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"主催者にメールを送信"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"メールに次を含める:"</string>
-    <string name="event_not_found" msgid="8356864185947582727">"イベントが見つかりません。"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"予定が見つかりません。"</string>
     <string name="map_label" msgid="8795383535586556038">"地図"</string>
     <string name="call_label" msgid="2960328220008869083">"発信"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"クイック返信"</string>
