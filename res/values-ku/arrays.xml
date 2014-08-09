@@ -16,7 +16,7 @@
 -->
 <resources>
   <string-array name="reminder_methods_labels">
-    <item>ئاگادارکردنەوەکان</item>
+    <item>تێبینی</item>
     <item>ئیمەیڵ</item>
     <item>کورتەنامە</item>
     <item>بیرخه‌ره‌وه‌</item>
@@ -70,7 +70,7 @@
     <item>ديارىنەكراو</item>
   </string-array>
   <string-array name="visibility">
-    <item>بنه‌ڕه‌ت</item>
+    <item>بنێڕه‌ت</item>
     <item>تایبەتی</item>
     <item>گشتی</item>
   </string-array>
@@ -123,7 +123,7 @@
   </string-array>
   <string-array name="repeat_by_nth_sun">
     <item>له‌ هه‌ر یه‌كه‌م ڕۆژی یه‌كشه‌مه‌دا</item>
-    <item>له‌ هه‌ر دوه‌م ڕۆژی یه‌كشه‌مه‌دا</item>
+    <item>له‌ هه‌ر دووه‌م ڕۆژی یه‌كشه‌مه‌دا</item>
     <item>له‌ هه‌ر سێهه‌م ڕۆژی یه‌كشه‌مه‌دا</item>
     <item>له‌ هه‌ر چواره‌م ڕۆژی یه‌كشه‌مه‌دا</item>
     <item>له‌ كۆتایی ڕۆژی یه‌كشه‌مه‌دا</item>
