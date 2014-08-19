@@ -126,7 +126,7 @@
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Sono in ritardo di qualche minuto."</item>
     <item msgid="6215158751728689832">"Arrivo tra circa 10 minuti."</item>
-    <item msgid="4485794001743679338">"Continua e inizia senza di me."</item>
+    <item msgid="4485794001743679338">"Inizia pure senza di me."</item>
     <item msgid="8036557974294987511">"Mi dispiace, non ce la faccio. Dovremo spostare l\'appuntamento."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Scrivi la tua risposta personale…"</string>

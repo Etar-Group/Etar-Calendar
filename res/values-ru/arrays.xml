@@ -105,7 +105,7 @@
     <item msgid="5917946202321434335">"День"</item>
     <item msgid="6248480754959562740">"Неделя"</item>
     <item msgid="4298472806133153766">"Месяц"</item>
-    <item msgid="5033084974413793845">"Повестка дня"</item>
+    <item msgid="5033084974413793845">"Расписание"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Только если отклонено"</item>
