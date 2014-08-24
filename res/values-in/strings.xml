@@ -93,7 +93,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Tampilkan semua"</string>
     <string name="description_label" msgid="7193475046717505855">"Deskripsi"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Tampilkan saya sebagai"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Tampilkan saya:"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privasi"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Tambahkan pengingat"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Tak ada kalender"</string>
@@ -232,7 +232,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"Perulangan"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Waktu pengingat"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Jenis pengingat"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Tampilkan saya sebagai"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Tampilkan saya:"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privasi"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Pemberitahuan Kalender"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Tunda Pemberitahuan"</string>

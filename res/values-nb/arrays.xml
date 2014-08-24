@@ -19,7 +19,7 @@
   <string-array name="reminder_methods_labels">
     <item msgid="5172236776878811487">"Varsel"</item>
     <item msgid="1751151680520784746">"E-post"</item>
-    <item msgid="2658001219380695677">"Tekstmelding"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
     <item msgid="7926918288165444873">"Alarm"</item>
   </string-array>
   <string-array name="reminder_minutes_labels">
@@ -55,7 +55,7 @@
     <item msgid="8281019320591769635">"2 timer"</item>
     <item msgid="2062931719019287773">"3 timer"</item>
     <item msgid="4086495711621133006">"12 timer"</item>
-    <item msgid="3172669681920709561">"1 døgn"</item>
+    <item msgid="3172669681920709561">"24 timer"</item>
     <item msgid="5557836606782821910">"2 dager"</item>
     <item msgid="8336577387266744930">"1 uke"</item>
   </string-array>
@@ -105,7 +105,7 @@
     <item msgid="5917946202321434335">"Dag"</item>
     <item msgid="6248480754959562740">"Uke"</item>
     <item msgid="4298472806133153766">"Måned"</item>
-    <item msgid="5033084974413793845">"Agenda"</item>
+    <item msgid="5033084974413793845">"Oversikt"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Bare hvis avvist"</item>

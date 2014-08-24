@@ -184,9 +184,9 @@
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rexeitados"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"A semana comeza o"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"A semana comeza o"</string>
-    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Borrar o historial de busca"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Borrar o Historial de busca"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Eliminar todas as buscas realizadas"</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"Borrouse o historial de busca."</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Borrouse o Historial de busca."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificacións"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Son"</string>

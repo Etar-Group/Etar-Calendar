@@ -95,7 +95,7 @@
     <string name="description_label" msgid="7193475046717505855">"वर्णन"</string>
     <string name="presence_label" msgid="6169724148441175862">"मुझे इस रूप में दिखाएं"</string>
     <string name="privacy_label" msgid="9215031965259597335">"गोपनीयता"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"अनुस्मारक जोड़ें"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"रिमाइंडर जोड़ें"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"कोई कैलेंडर नहीं"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"आप कोई ईवेंट जोड़ें उसके पहले, आपको अपने उपकरण में कम से कम एक कैलेंडर खाता जोड़ना होगा और कैलेंडर को दृश्यमान बनाना होगा. कोई खाता जोड़ने के लिए खाता जोड़ें स्पर्श करें (यदि आपने अभी कोई खाता जोड़ा है, तो इसका समन्वयन पूरा होने की प्रतीक्षा करें और पुन: प्रयास करें). या रद्द करें स्पर्श करें और सुनिश्चित करें कि कम से कम एक कैलेंडर दृश्यमान है."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Google खाते के साथ कैलेंडर बेहतर तरीके से कार्य करता है.\n\n• किसी भी वेब ब्राउज़र से इस पर पहुंचें\n• सुरक्षि‍त रूप से अपने ईवेंट का बैकअप लें"</string>
@@ -131,7 +131,7 @@
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"अपना स्वयं का लिखें…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"आयोजक:"</string>
-    <string name="event_info_reminders_label" msgid="8913097552956388972">"अनुस्मारक"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"रिमाइंडर"</string>
     <string name="agenda_today" msgid="5965841338467422191">"आज, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"कल, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"कल, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -180,7 +180,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"कैलेंडर के बारे में"</string>
     <string name="preferences_title" msgid="8045855493262131773">"सेटिंग"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"कैलेंडर दृश्य सेटिंग"</string>
-    <string name="preferences_reminder_title" msgid="5199606534191180129">"सूचनाएं और अनुस्मारक"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"सूचनाएं और रिमाइंडर"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"अस्वीकृत ईवेंट छुपाएं"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"सप्ताह का प्रारंभ"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"सप्ताह का प्रारंभ"</string>
@@ -191,8 +191,8 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"कंपन"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"ध्वनि"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"पॉप-अप सूचना"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"डिफ़ॉल्ट अनुस्मारक समय"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"डिफ़ॉल्ट अनुस्मारक समय"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"डिफ़ॉल्ट रिमाइंडर समय"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"डिफ़ॉल्ट रिमाइंडर समय"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"घरेलू समय क्षेत्र का उपयोग करें"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"यात्रा के समय आपके घरेलू समय क्षेत्र में कैलेंडर और ईवेंट समय प्रदर्शित करता है"</string>
@@ -207,9 +207,9 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"कोई आगामी कैलेंडर ईवेंट नहीं"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"प्रयोगात्मक"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"अनुस्मारक"</string>
-    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"अनुस्मारक छोड़ें"</string>
-    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"अनुस्मारक छोड़ें"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"रिमाइंडर"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"रिमाइंडर छोड़ें"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"रिमाइंडर छोड़ें"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"मौन घंटे"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"विशिष्ट समय में ईवेंट अनुस्मारकों को मौन करें."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"मौन घंटों का प्रारंभ समय"</string>
@@ -224,14 +224,14 @@
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"समाप्ति समय"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"समय क्षेत्र"</string>
     <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ईवेंट दोहराएं"</string>
-    <string name="accessibility_add_reminder" msgid="2267950744060950152">"अनुस्मारक जोड़ें"</string>
-    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"अनुस्मारक निकालें"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"रिमाइंडर जोड़ें"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"रिमाइंडर निकालें"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"अतिथि जोड़ें"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"कैलेंडर समन्वयन करें"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"पूरे दिन का ईवेंट"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"दोहराव"</string>
-    <string name="accessibility_reminder_time" msgid="3594100545814579575">"अनुस्मारक समय"</string>
-    <string name="accessibility_reminder_type" msgid="5339120699701437227">"अनुस्मारक का प्रकार"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"रिमाइंडर का समय"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"रिमाइंडर का प्रकार"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"मुझे इस रूप में दिखाएं"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"गोपनीयता"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"कैलेंडर सूचना"</string>
