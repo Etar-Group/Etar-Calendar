@@ -47,6 +47,7 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.EventsEntity;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.ActionMode;
@@ -333,7 +334,7 @@ public class DeleteEventsActivity extends ListActivity
             // if DTEND invalid, check for duration
             if (end == 0) {
                 String durationStr = cursor.getString(cursor.getColumnIndex(Events.DURATION));
-                if (durationStr != null) {
+                if (!TextUtils.isEmpty(durationStr)) {
                     Duration duration = new Duration();
 
                     try {
