@@ -31,45 +31,40 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
     android:background="?android:attr/activatedBackgroundIndicator">
 
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:clickable="false"
-        android:focusable="false" >
-    </CheckBox>
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp" />
 
     <TextView
         android:id="@+id/event_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/checkbox"
-        android:focusable="false"
+        android:layout_toEndOf="@id/checkbox"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" >
-    </TextView>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/event_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/event_title"
-        android:layout_toRightOf="@id/checkbox"
-        android:focusable="false" >
-    </TextView>
+        android:layout_toEndOf="@id/checkbox" />
 
     <TextView
         android:id="@+id/calendar_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/event_time"
-        android:layout_toRightOf="@id/checkbox"
-        android:focusable="false" >
-    </TextView>
+        android:layout_toEndOf="@id/checkbox" />
 
 </RelativeLayout>
