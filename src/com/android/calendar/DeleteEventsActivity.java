@@ -376,7 +376,8 @@ public class DeleteEventsActivity extends ListActivity
     private void updateTitle() {
         if (mActionMode != null) {
             mActionMode.setTitle(getString(R.string.events_delete));
-            mActionMode.setSubtitle(" " + mSelectedMap.size() + " " + getString(R.string.selected));
+            mActionMode.setSubtitle(getResources().getQuantityString(R.plurals.events_selected,
+                        mSelectedMap.size(), mSelectedMap.size()));
         }
     }
 

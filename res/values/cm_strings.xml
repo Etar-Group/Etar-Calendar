@@ -40,8 +40,7 @@
     <string name="action_delete">Done</string>
     <string name="all_events">All events</string>
     <string name="no_events">No events available</string>
-    <string name="selected">selected</string>
-    <string name="evt_del_dlg_title">Delete Events?</string>
+    <string name="evt_del_dlg_title">Delete events?</string>
     <string name="evt_del_dlg_msg_selected">Selected events will be deleted</string>
     <string name="evt_del_dlg_msg_all">All events will be deleted</string>
     <string name="no_events_selected">No events selected</string>
