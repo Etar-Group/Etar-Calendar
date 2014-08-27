@@ -84,7 +84,7 @@
     <string name="rsvp_tentative" msgid="6545510359501328718">"Har svaret måske."</string>
     <string name="rsvp_declined" msgid="8686330037802222895">"Har svaret nej."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Gem"</string>
-    <string name="alert_title" msgid="7869592820853066853">"Meddelelser fra Kalender"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Underretninger fra Kalender"</string>
     <string name="event_info_title" msgid="56024222340421620">"Vis begivenhed"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Mødeinvitation"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Til"</string>

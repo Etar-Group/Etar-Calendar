@@ -60,7 +60,7 @@
     <item msgid="8336577387266744930">"1週間"</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"ユーザーの言語/地域でのデフォルト設定"</item>
+    <item msgid="986150274035512339">"ユーザーの言語/地域での既定の設定"</item>
     <item msgid="134027225275475280">"土曜日"</item>
     <item msgid="95029346069903091">"日曜日"</item>
     <item msgid="5840983116375063739">"月曜日"</item>
@@ -71,7 +71,7 @@
     <item msgid="2064426942462573474">"仮承諾"</item>
   </string-array>
   <string-array name="visibility">
-    <item msgid="3035788428581513163">"デフォルト"</item>
+    <item msgid="3035788428581513163">"既定"</item>
     <item msgid="5200216103966973369">"限定公開"</item>
     <item msgid="9182342638433672664">"一般公開"</item>
   </string-array>

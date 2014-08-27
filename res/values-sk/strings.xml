@@ -34,7 +34,7 @@
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 min."</item>
+    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
     <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
   </plurals>
   <plurals name="Nhours">
@@ -60,7 +60,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Odstrániť udalosť"</string>
     <string name="goto_today" msgid="9162136434410891230">"Dnes"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Nastavenia"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendáre, ktoré sa majú zobraziť"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendáre na zobraz."</string>
     <string name="search" msgid="550656004486017426">"Hľadať"</string>
     <string name="hide_controls" msgid="830320505938520882">"Skryť ovlád. prvky"</string>
     <string name="show_controls" msgid="715520586028062621">"Zobraziť ovl. prvky"</string>
@@ -94,7 +94,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"Zobraziť všetky"</string>
     <string name="description_label" msgid="7193475046717505855">"Popis"</string>
     <string name="presence_label" msgid="6169724148441175862">"Zobraziť ma ako"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"Ochrana osobných údajov"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Úroveň súkromia"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Pridať pripomenutie"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Žiadne kalendáre"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Pred pridaním udalosti musíte do zariadenia pridať aspoň jeden účet služby Kalendár a nastaviť kalendár ako viditeľný. Ak chcete pridať účet, dotknite sa možnosti Pridať účet (ak ste účet práve pridali, počkajte na dokončenie jeho synchronizácie a skúste to znova). Prípadne sa dotknite možnosti Zrušiť a skontrolujte, či je viditeľný aspoň jeden kalendár."</string>
@@ -118,8 +118,8 @@
     <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
     <string name="call_label" msgid="2960328220008869083">"Zavolať"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Rýchle odpovede"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Upraviť predv. odp."</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Upraviť rýchle odp."</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Upraviť predvoľby e-mailových odpovedí hosťom"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Upraviť rýchle odpovede"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Rýchla odpoveď"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Vyberte rýchlu odpoveď"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"E-mailový program sa nepodarilo nájsť"</string>
@@ -136,8 +136,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">"VČERA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"ZAJTRA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Prebieha načítavanie…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Dotykom zobrazíte udalosti za obdobie pred <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Dotykom zobrazíte udalosti za obdobie po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Dotykom zobrazíte udalosti v období pred <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Dotykom zobrazíte udalosti v období po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Hľadať v mojich kalendároch"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Podrobnosti"</string>
     <string name="edit_label" msgid="8934331258435656534">"Upraviť"</string>
@@ -196,7 +196,7 @@
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Použiť domáce č.p."</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Kalendáre a časy udal. sa zobr. vždy v domovskom čas. pásme"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domov. čas. pásmo"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domáce čas. pásmo"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Zobrazovať číslo týždňa"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"O službe"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Verzia zostavy"</string>
@@ -233,7 +233,7 @@
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Čas pripomenutia"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Typ pripomenutia"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Zobraziť ma ako"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Ochrana osobných údajov"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Úroveň súkromia"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Upozornenie v kalendári"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Odložiť upozornenie"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Poslať e-mail hosťom"</string>

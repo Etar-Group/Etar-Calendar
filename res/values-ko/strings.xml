@@ -211,7 +211,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"알림 건너뛰기"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"알림 건너뛰기"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"무음 모드 시간"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"지정한 시간에는 이벤트 알림을 무음으로 설정합니다."</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"지정한 시간에는 일정 알림을 무음으로 설정합니다."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"무음 모드 시작 시간"</string>
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"무음 모드 종료 시간"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"디버깅"</string>
