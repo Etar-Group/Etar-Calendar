@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">기본 일시중지 시간</string>
   <string name="default_start_title">기본 보기</string>
   <string name="default_start_last">이전에 사용한 보기</string>
+  <string name="events_delete">이벤트 삭제</string>
+  <string name="action_select_all">모두 선택</string>
+  <string name="action_select_none">모두 선택 취소</string>
+  <string name="action_delete">완료</string>
+  <string name="all_events">모든 이벤트</string>
+  <string name="no_events">이벤트가 없습니다</string>
+  <string name="evt_del_dlg_title">이벤트를 삭제할까요?</string>
+  <string name="evt_del_dlg_msg_selected">선택된 이벤트가 모두 삭제됩니다</string>
+  <string name="evt_del_dlg_msg_all">모든 이벤트가 삭제됩니다</string>
+  <string name="no_events_selected">선택된 이벤트가 없습니다</string>
+  <string name="go_to">"탐색"</string>
 </resources>

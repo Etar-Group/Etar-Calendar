@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Intervalo entre recordatorios por defecto</string>
   <string name="default_start_title">Vista por defecto</string>
   <string name="default_start_last">Vista usada previamente</string>
+  <string name="events_delete">Eliminar eventos</string>
+  <string name="action_select_all">Seleccionar todo</string>
+  <string name="action_select_none">Anular selección</string>
+  <string name="action_delete">Hecho</string>
+  <string name="all_events">Todos los eventos</string>
+  <string name="no_events">No hay eventos disponibles</string>
+  <string name="evt_del_dlg_title">¿Eliminar eventos?</string>
+  <string name="evt_del_dlg_msg_selected">Los eventos seleccionados serán eliminados</string>
+  <string name="evt_del_dlg_msg_all">Todos los eventos serán eliminados</string>
+  <string name="no_events_selected">No hay eventos seleccionados</string>
+  <string name="go_to">"Ir a"</string>
 </resources>

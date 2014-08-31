@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Atraso de repetição</string>
   <string name="default_start_title">Modo de exibição</string>
   <string name="default_start_last">Modo utilizado anteriormente</string>
+  <string name="events_delete">Apagar eventos</string>
+  <string name="action_select_all">Selecionar todos</string>
+  <string name="action_select_none">Desmarcar todos</string>
+  <string name="action_delete">Concluído</string>
+  <string name="all_events">Todos os eventos</string>
+  <string name="no_events">Não há eventos disponíveis</string>
+  <string name="evt_del_dlg_title">Apagar eventos?</string>
+  <string name="evt_del_dlg_msg_selected">Os eventos selecionados serão apagados</string>
+  <string name="evt_del_dlg_msg_all">Todos os eventos serão apagados</string>
+  <string name="no_events_selected">Não há eventos selecionados</string>
+  <string name="go_to">"Ir para"</string>
 </resources>

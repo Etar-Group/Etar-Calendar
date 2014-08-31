@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Повтор по умолчанию</string>
   <string name="default_start_title">Вид по умолчанию</string>
   <string name="default_start_last">Последний использовавшийся</string>
+  <string name="events_delete">Удалить события</string>
+  <string name="action_select_all">Выбрать все</string>
+  <string name="action_select_none">Отменить всё</string>
+  <string name="action_delete">Готово</string>
+  <string name="all_events">Все события</string>
+  <string name="no_events">Нет событий</string>
+  <string name="evt_del_dlg_title">Удалить выбранные события?</string>
+  <string name="evt_del_dlg_msg_selected">Выбранные события будут удалены.</string>
+  <string name="evt_del_dlg_msg_all">Все события будут удалены.</string>
+  <string name="no_events_selected">События не выбраны</string>
+  <string name="go_to">"Перейти к"</string>
 </resources>

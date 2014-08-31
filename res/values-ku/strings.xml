@@ -84,7 +84,7 @@
   <string name="rsvp_accepted">"وڵام درایەوە بەڵێ."</string>
   <string name="rsvp_tentative">"وڵام درایەوە لەوە ئەچێ."</string>
   <string name="rsvp_declined">"وڵام درایەوە نە."</string>
-  <string name="create_event_dialog_save">پاشەکەوتکردن</string>
+  <string name="create_event_dialog_save">پاشەکەوت</string>
   <string name="alert_title">تێبینییەکانی ڕۆژژمێر</string>
   <string name="event_info_title">دەرخستنی ڕووداو</string>
   <string name="event_info_title_invite">بینینی وردەکاری بانگکردن</string>
@@ -144,7 +144,7 @@
   <string name="edit_event_label">"ورده‌كاری"</string>
   <string name="edit_label">"دەستکاری"</string>
   <string name="delete_label">"سڕینه‌وه‌"</string>
-  <string name="save_label">ئه‌نجامدرا</string>
+  <string name="save_label">ئه‌نجام درا</string>
   <string name="discard_label">هەڵوەشاندنەوە</string>
   <string name="snooze_all_label">"خەواندنەوەی هەمووان"</string>
   <string name="dismiss_all_label">"وێڵکردنی هەمووان"</string>

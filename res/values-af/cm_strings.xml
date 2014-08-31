@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Standaard sluimer vertraging</string>
   <string name="default_start_title">Standaard uitleg</string>
   <string name="default_start_last">Voorheen gebruikte uitleg</string>
+  <string name="events_delete">Verwyder gebeure</string>
+  <string name="action_select_all">Kies alles</string>
+  <string name="action_select_none">Deselekteer alles</string>
+  <string name="action_delete">Klaar</string>
+  <string name="all_events">Alle gebeure</string>
+  <string name="no_events">Geen gebeure beskikbaar</string>
+  <string name="evt_del_dlg_title">Verwyder gebeure?</string>
+  <string name="evt_del_dlg_msg_selected">Gekose gebeure sal verwyder word</string>
+  <string name="evt_del_dlg_msg_all">Al die gebeure  sal verwyder word</string>
+  <string name="no_events_selected">Geen gebeure gekies</string>
+  <string name="go_to">"Gaan na"</string>
 </resources>
