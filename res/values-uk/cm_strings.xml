@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Повторне нагадування за умовчуванням</string>
   <string name="default_start_title">Типовий вигляд</string>
   <string name="default_start_last">Попередній вигляд</string>
-  <string name="events_delete">Видалити події</string>
-  <string name="action_select_all">Вибрати все</string>
-  <string name="action_select_none">Зняти вибір</string>
-  <string name="action_delete">Готово</string>
-  <string name="all_events">Всі події</string>
-  <string name="no_events">Немає доступних подій</string>
-  <string name="evt_del_dlg_title">Видалити події?</string>
-  <string name="evt_del_dlg_msg_selected">Обрані події будуть видалені</string>
-  <string name="evt_del_dlg_msg_all">Всі події будуть видалені</string>
-  <string name="no_events_selected">Подію не обрано</string>
-  <string name="go_to">"Перейти до"</string>
 </resources>

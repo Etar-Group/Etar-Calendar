@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Retard de la repetició predefinit</string>
   <string name="default_start_title">Vista per defecte</string>
   <string name="default_start_last">Vista utilitzada prèviament</string>
-  <string name="events_delete">Esborra els esdeveniments</string>
-  <string name="action_select_all">Selecciona-ho tot</string>
-  <string name="action_select_none">Deselecciona-ho tot</string>
-  <string name="action_delete">Fet</string>
-  <string name="all_events">Tots els esdeveniments</string>
-  <string name="no_events">No hi ha esdeveniments disponibles</string>
-  <string name="evt_del_dlg_title">Esborra els esdeveniments?</string>
-  <string name="evt_del_dlg_msg_selected">Els esdeveniments seleccionats seran esborrats</string>
-  <string name="evt_del_dlg_msg_all">Tots els esdeveniments seran esborrats</string>
-  <string name="no_events_selected">No hi ha esdeveniments seleccionats</string>
-  <string name="go_to">"Ves a"</string>
 </resources>

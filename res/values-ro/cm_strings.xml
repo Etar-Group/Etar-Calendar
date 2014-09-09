@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Întârzierea snooze implicită</string>
   <string name="default_start_title">Vizualizare implicită</string>
   <string name="default_start_last">Vizualizarea folosită anterior</string>
-  <string name="events_delete">Șterge evenimente</string>
-  <string name="action_select_all">Selectează tot</string>
-  <string name="action_select_none">Deselectează toate</string>
-  <string name="action_delete">Efectuat</string>
-  <string name="all_events">Toate evenimentele</string>
-  <string name="no_events">Nu sunt evenimente disponibile</string>
-  <string name="evt_del_dlg_title">Ștergeți evenimentele?</string>
-  <string name="evt_del_dlg_msg_selected">Evenimente selectate vor fi șterse</string>
-  <string name="evt_del_dlg_msg_all">Toate evenimentele vor fi șterse</string>
-  <string name="no_events_selected">Nu sunt evenimente selectate</string>
-  <string name="go_to">"Du-te la"</string>
 </resources>

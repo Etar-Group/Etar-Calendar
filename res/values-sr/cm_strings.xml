@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Подразумевано кашњење одлагања</string>
   <string name="default_start_title">Подразумевани преглед</string>
   <string name="default_start_last">Претходно коришћен преглед</string>
-  <string name="events_delete">Избриши догађаје</string>
-  <string name="action_select_all">Изабери све</string>
-  <string name="action_select_none">Поништи избор свега</string>
-  <string name="action_delete">Готово</string>
-  <string name="all_events">Сви догађаји</string>
-  <string name="no_events">Нема доступних догађаја</string>
-  <string name="evt_del_dlg_title">Избриши догађаје?</string>
-  <string name="evt_del_dlg_msg_selected">Изабрани догађаји ће бити избрисани</string>
-  <string name="evt_del_dlg_msg_all">Сви догађаји ће бити избрисани</string>
-  <string name="no_events_selected">Нема изабраних догађаја</string>
-  <string name="go_to">"Иди на"</string>
 </resources>

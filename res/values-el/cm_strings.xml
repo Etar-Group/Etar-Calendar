@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Προεπιλεγμένη καθυστέρηση αναβολής</string>
   <string name="default_start_title">Προεπιλεγμένη προβολή</string>
   <string name="default_start_last">Τελευταία χρησιμοποιημένη προβολή</string>
-  <string name="events_delete">Διαγραφή συμβάντων</string>
-  <string name="action_select_all">Επιλογή όλων</string>
-  <string name="action_select_none">Αποεπιλογή όλων</string>
-  <string name="action_delete">Τέλος</string>
-  <string name="all_events">Όλα τα συμβάντα</string>
-  <string name="no_events">Δεν υπάρχουν διαθέσιμα συμβάντα</string>
-  <string name="evt_del_dlg_title">Διαγραφή συμβάντων;</string>
-  <string name="evt_del_dlg_msg_selected">Τα επιλεγμένα συμβάντα θα διαγραφούν</string>
-  <string name="evt_del_dlg_msg_all">Όλα τα συμβάντα θα διαγραφούν</string>
-  <string name="no_events_selected">Δεν επιλέχθηκαν συμβάντα</string>
-  <string name="go_to">"Πήγαινε στις"</string>
 </resources>

@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Tempo ritardo rinvio predefinito</string>
   <string name="default_start_title">Vista predefinita</string>
   <string name="default_start_last">Vista utilizzata precedentemente</string>
-  <string name="events_delete">Elimina gli eventi</string>
-  <string name="action_select_all">Seleziona tutto</string>
-  <string name="action_select_none">Deseleziona tutto</string>
-  <string name="action_delete">Fatto</string>
-  <string name="all_events">Tutti gli eventi</string>
-  <string name="no_events">Nessun evento disponibile</string>
-  <string name="evt_del_dlg_title">Eliminare gli eventi?</string>
-  <string name="evt_del_dlg_msg_selected">Gli eventi selezionati verranno eliminati</string>
-  <string name="evt_del_dlg_msg_all">Tutti gli eventi saranno eliminati</string>
-  <string name="no_events_selected">Nessun evento selezionato</string>
-  <string name="go_to">"Vai a"</string>
 </resources>

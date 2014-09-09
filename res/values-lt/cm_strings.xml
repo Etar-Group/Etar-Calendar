@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Numatytoji atidėjimo trukmė</string>
   <string name="default_start_title">Numatytasis rodinys</string>
   <string name="default_start_last">Ankstesnis rodinys</string>
-  <string name="events_delete">Ištrinti įvykius</string>
-  <string name="action_select_all">Pasirinkti viską</string>
-  <string name="action_select_none">Atžymėti viską</string>
-  <string name="action_delete">Atlikta</string>
-  <string name="all_events">Visi įvykiai</string>
-  <string name="no_events">Nėra jokių įvykių</string>
-  <string name="evt_del_dlg_title">Ištrinti įvykius?</string>
-  <string name="evt_del_dlg_msg_selected">Pasirinkti įvykiai bus ištrinti</string>
-  <string name="evt_del_dlg_msg_all">Visi įvykiai bus ištrinti</string>
-  <string name="no_events_selected">Nėra jokių pasirinktų įvykių</string>
-  <string name="go_to">"Eiti į"</string>
 </resources>

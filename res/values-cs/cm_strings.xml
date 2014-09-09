@@ -24,15 +24,4 @@
   <string name="preferences_default_snooze_delay_dialog">Výchozí délka odložení</string>
   <string name="default_start_title">Výchozí zobrazení</string>
   <string name="default_start_last">Předchozí použité zobrazení</string>
-  <string name="events_delete">Odstranit události</string>
-  <string name="action_select_all">Vybrat vše</string>
-  <string name="action_select_none">Zrušit výběr</string>
-  <string name="action_delete">Hotovo</string>
-  <string name="all_events">Všechny udalosti</string>
-  <string name="no_events">Žádné události k dispozici</string>
-  <string name="evt_del_dlg_title">Odstranit události?</string>
-  <string name="evt_del_dlg_msg_selected">Vybrané události budou odstraněny</string>
-  <string name="evt_del_dlg_msg_all">Všechny události budou odstraněny</string>
-  <string name="no_events_selected">Nejsou vybrané žádné události</string>
-  <string name="go_to">"Přejít"</string>
 </resources>
