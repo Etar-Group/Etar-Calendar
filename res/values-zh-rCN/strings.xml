@@ -232,7 +232,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"重复"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"提醒时间"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"提醒类型"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"将我的状态显示为："</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"将我的状态显示为"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"隐私设置"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"日历通知"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"暂停通知"</string>
