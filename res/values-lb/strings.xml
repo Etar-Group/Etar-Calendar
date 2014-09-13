@@ -93,6 +93,7 @@
   <string name="privacy_label">Privatsphär</string>
   <string name="reminders_label">Erënnerung dobäisetzen</string>
   <string name="no_syncable_calendars">Keng Kalenneren</string>
+  <string name="no_calendars_found">Ier s du e Rendezvous dobäisetzt, muss du e Kalennerkont dobäisetzen. Dréck op Kont dobäisetzen fir e Kont dobäizesetzen. Wann s du grad e Kont dobäigesat hues, waart bis fäerdegsynchroniséiert gouf a probéier nees oder dréck op Ofbriechen a vergewësser dech datt op d\'mannst ee Kalenner siichtbar ass.</string>
   <string name="add_account">Kont dobäisetzen</string>
   <string name="view_event_calendar_label">Kalenner:</string>
   <string name="choose_event_color_label">Rendezvousfaarf auswielen</string>
