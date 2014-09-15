@@ -80,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"ไม่ได้สร้างกิจกรรมเปล่า"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"จะมีการส่งข้อความเชิญ"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"จะมีการส่งการอัปเดต"</string>
-    <string name="rsvp_accepted" msgid="8146618862268962727">"ตอบว่าไป"</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"ตอบไปแล้วว่าไป"</string>
     <string name="rsvp_tentative" msgid="6545510359501328718">"ตอบว่าอาจจะไป"</string>
     <string name="rsvp_declined" msgid="8686330037802222895">"ตอบว่าไม่ไป"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"บันทึก"</string>
@@ -109,7 +109,7 @@
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"ตัวเลือกสี"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"ต้องการเข้าร่วมหรือไม่"</string>
     <string name="response_yes" msgid="2027484304899988350">"ใช่"</string>
-    <string name="response_maybe" msgid="7791500973627841695">"ไม่แน่นอน"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"ไม่แน่"</string>
     <string name="response_no" msgid="561911691884148136">"ไม่"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"ส่งอีเมลถึงผู้เข้าร่วม"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"ส่งอีเมลถึงผู้จัด"</string>
@@ -124,10 +124,10 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"เลือกคำตอบด่วน"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"การค้นหาโปรแกรมอีเมลล้มเหลว"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"ไปช้าสักสองสามนาที"</item>
-    <item msgid="6215158751728689832">"ไปถึงในอีกประมาณ 10 นาที"</item>
+    <item msgid="1524421198348168403">"อาจไปถึงช้านิดหน่อย"</item>
+    <item msgid="6215158751728689832">"อีกประมาณ 10 นาทีน่าจะถึง"</item>
     <item msgid="4485794001743679338">"เริ่มไปเลย ไม่ต้องรอ"</item>
-    <item msgid="8036557974294987511">"ขอโทษ ฉันไปไม่ได้ เราต้องกำหนดเวลากันใหม่"</item>
+    <item msgid="8036557974294987511">"ขอโทษด้วยที่ไปไม่ได้ เราคงต้องนัดเวลากันใหม่"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"เขียนคำตอบของคุณเอง…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"ผู้จัด:"</string>

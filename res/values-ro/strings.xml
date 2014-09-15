@@ -55,7 +55,7 @@
     <string name="week_view" msgid="6775043022159508060">"Săptămână"</string>
     <string name="month_view" msgid="7287101431749285412">"Lună"</string>
     <string name="event_view" msgid="7621353079385122317">"Vizualizaţi evenimentul"</string>
-    <string name="event_create" msgid="6941040556709110617">"Eveniment nou"</string>
+    <string name="event_create" msgid="6941040556709110617">"Nou"</string>
     <string name="event_edit" msgid="4006961928830064662">"Modificaţi evenimentul"</string>
     <string name="event_delete" msgid="2386667193277770442">"Ștergeţi evenimentul"</string>
     <string name="goto_today" msgid="9162136434410891230">"Azi"</string>

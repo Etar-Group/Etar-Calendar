@@ -56,7 +56,7 @@
     <string name="month_view" msgid="7287101431749285412">"Maand"</string>
     <string name="event_view" msgid="7621353079385122317">"Afspraak weergeven"</string>
     <string name="event_create" msgid="6941040556709110617">"Nieuwe afspraak"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Afspraak bewerken"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Bewerken"</string>
     <string name="event_delete" msgid="2386667193277770442">"Afspraak verwijderen"</string>
     <string name="goto_today" msgid="9162136434410891230">"Vandaag"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Instellingen"</string>

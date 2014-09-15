@@ -51,7 +51,7 @@
     <string name="calendar_refresh" msgid="6172731193680500025">"ဆန်းသစ်ယူရန်"</string>
     <string name="show_day_view" msgid="5782512782605466016">"ရက်ကို ပြရန်"</string>
     <string name="agenda_view" msgid="5566084759423843245">"အစီအစဉ်"</string>
-    <string name="day_view" msgid="4467754504843584437">"ရက်စွဲ"</string>
+    <string name="day_view" msgid="4467754504843584437">"နေ့ရက်"</string>
     <string name="week_view" msgid="6775043022159508060">"အပတ်"</string>
     <string name="month_view" msgid="7287101431749285412">"လ"</string>
     <string name="event_view" msgid="7621353079385122317">"ဖြစ်ရပ်များကို ကြည့်ရန်"</string>
@@ -61,7 +61,7 @@
     <string name="goto_today" msgid="9162136434410891230">"ယနေ့"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"ဆက်တင်များ"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"ပြရန် ပြက္ခဒိန်များ"</string>
-    <string name="search" msgid="550656004486017426">"ရှာဖွေမှု"</string>
+    <string name="search" msgid="550656004486017426">"ရှာဖွေရန်"</string>
     <string name="hide_controls" msgid="830320505938520882">"ထိန်းချုပ်မှုများ ဝှက်ထားရန်"</string>
     <string name="show_controls" msgid="715520586028062621">"ထိန်းချုပ်မှု ပြရန်"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"ပြပေးရန် ပြက္ခဒိန်များ"</string>
@@ -181,7 +181,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"ဆက်တင်များ"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"ပြက္ခဒိန် မြင်ကွင်း ဆက်တင်"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"အကြောင်းကြားချက်များ &amp; သတိပေးချက်များ"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"ငြင်းပယ်ခံခဲ့ရသည့် ဖြစ်ရပ်များ ဝှက်ထားရန်"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"ငြင်းထားသည့် ပွဲများဖျောက်ထားရန်"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"အပတ် စတင်သည်မှာ"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"အပတ် စတင်သည်မှာ"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"ရှာဖွေမှု မှတ်တမ်းကို ရှင်းရန်"</string>
