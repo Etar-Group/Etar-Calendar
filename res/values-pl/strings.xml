@@ -274,7 +274,7 @@
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Określona liczba powtórzeń"</string>
   <plurals name="recurrence_end_count">
     <item quantity="one" msgid="1400782968090516215">"Do <xliff:g id="EVENT_COUNT">%d</xliff:g> wydarzenia"</item>
-    <item quantity="other" msgid="8779598489398048259">"Dla <xliff:g id="EVENT_COUNT">%d</xliff:g> wydarzeń"</item>
+    <item quantity="other" msgid="8779598489398048259">"Dla <xliff:g id="EVENT_COUNT">%d</xliff:g> wystąpienia"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"zmień datę zakończenia"</string>
 </resources>
