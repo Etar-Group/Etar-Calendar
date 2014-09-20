@@ -50,7 +50,7 @@
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"রিফ্রেশ করুন"</string>
     <string name="show_day_view" msgid="5782512782605466016">"দিনটি দেখান"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"আলোচ্যসূচি"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"কার্যসূচি"</string>
     <string name="day_view" msgid="4467754504843584437">"দিন"</string>
     <string name="week_view" msgid="6775043022159508060">"সপ্তাহ"</string>
     <string name="month_view" msgid="7287101431749285412">"মাস"</string>

@@ -56,7 +56,7 @@
     <string name="month_view" msgid="7287101431749285412">"Месяц"</string>
     <string name="event_view" msgid="7621353079385122317">"Просмотр мероприятия"</string>
     <string name="event_create" msgid="6941040556709110617">"Заполните"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Изменить мероприятие"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Правка"</string>
     <string name="event_delete" msgid="2386667193277770442">"Удалить мероприятие"</string>
     <string name="goto_today" msgid="9162136434410891230">"Сегодня"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>

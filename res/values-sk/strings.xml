@@ -125,9 +125,9 @@
     <string name="quick_response_email_failed" msgid="5544066405231853245">"E-mailový program sa nepodarilo nájsť"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Budem pár minút meškať."</item>
-    <item msgid="6215158751728689832">"Budem tam o 10 minút."</item>
+    <item msgid="6215158751728689832">"Budem tam o desať minút."</item>
     <item msgid="4485794001743679338">"Začnite bezo mňa."</item>
-    <item msgid="8036557974294987511">"Je mi ľúto, ale nestíham. Naplánujeme to na inokedy."</item>
+    <item msgid="8036557974294987511">"Je mi ľúto, nestíham. Naplánujeme to na inokedy."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napíšte vlastnú..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizátor:"</string>
