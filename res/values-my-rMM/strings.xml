@@ -107,7 +107,7 @@
     <string name="event_color_set_to_default" msgid="3447218820785647967">"ပြက္ခဒိန် ပုံသေ အရောင်သို့ သတ်မှတ်ရန်"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"ပြက္ခဒိန် အရောင်"</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"အရောင် ရွေးမှု"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"တက်ရောက်နေသလား?"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"တက်ရောက်မှာလား?"</string>
     <string name="response_yes" msgid="2027484304899988350">"လက်ခံ"</string>
     <string name="response_maybe" msgid="7791500973627841695">"ဖြစ်နိုင်"</string>
     <string name="response_no" msgid="561911691884148136">"မတက်ပါ"</string>

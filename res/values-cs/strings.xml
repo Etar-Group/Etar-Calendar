@@ -154,12 +154,12 @@
     <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g>krát"</item>
   </plurals>
   <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Denně"</item>
+    <item quantity="one" msgid="5169052946627480942">"denně"</item>
     <item quantity="other" msgid="5455230727715859264">"Jednou za <xliff:g id="NUMBER">%d</xliff:g> d."</item>
   </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Každý pracovní den (po–pá)"</string>
   <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Každý týden v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="one" msgid="5463021019301453273">"Týdně (<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
     <item quantity="other" msgid="2857390143157377867">"Jednou za <xliff:g id="NUMBER">%1$d</xliff:g> týd. v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
   </plurals>
     <string name="monthly" msgid="4587116285383048586">"Měsíčně"</string>
