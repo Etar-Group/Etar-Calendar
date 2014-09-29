@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Standard snooze forsinkelse</string>
   <string name="default_start_title">Standardvisning</string>
   <string name="default_start_last">Tidligere visning</string>
+  <string name="events_delete">Slett hendelser</string>
+  <string name="action_select_all">Velg alle</string>
+  <string name="action_select_none">Fjern all merking</string>
+  <string name="action_delete">Ferdig</string>
+  <string name="all_events">Alle hendelser</string>
+  <string name="no_events">Ingen hendelser tilgjengelig</string>
+  <string name="evt_del_dlg_title">Slette hendelser?</string>
+  <string name="evt_del_dlg_msg_selected">Valgte hendelser vil bli slettet</string>
+  <string name="evt_del_dlg_msg_all">Alle hendelser vil bli slettet</string>
+  <string name="no_events_selected">Ingen hendelser valgt</string>
+  <string name="go_to">"Gå til"</string>
 </resources>

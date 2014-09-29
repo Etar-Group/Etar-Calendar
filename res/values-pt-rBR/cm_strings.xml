@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Tempo padrão da soneca</string>
   <string name="default_start_title">Visualização padrão</string>
   <string name="default_start_last">Visualização previamente utilizada</string>
+  <string name="events_delete">Apagar eventos</string>
+  <string name="action_select_all">Selecionar tudo</string>
+  <string name="action_select_none">Desselecionar tudo</string>
+  <string name="action_delete">Concluído</string>
+  <string name="all_events">Todos os eventos</string>
+  <string name="no_events">Nenhum evento disponível</string>
+  <string name="evt_del_dlg_title">Apagar eventos?</string>
+  <string name="evt_del_dlg_msg_selected">Os eventos selecionados serão apagados</string>
+  <string name="evt_del_dlg_msg_all">Todos os eventos serão apagados</string>
+  <string name="no_events_selected">Nenhum evento selecionado</string>
+  <string name="go_to">"Ir para"</string>
 </resources>

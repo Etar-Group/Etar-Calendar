@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Erinnerung wiederholen nach\u2026</string>
   <string name="default_start_title">Standardansicht</string>
   <string name="default_start_last">Zuletzt genutzte Ansicht</string>
+  <string name="events_delete">Termine löschen</string>
+  <string name="action_select_all">Alle auswählen</string>
+  <string name="action_select_none">Alle abwählen</string>
+  <string name="action_delete">Fertig</string>
+  <string name="all_events">Alle Termine</string>
+  <string name="no_events">Keine Termine vorhanden</string>
+  <string name="evt_del_dlg_title">Termine löschen?</string>
+  <string name="evt_del_dlg_msg_selected">Ausgewählte Termine werden gelöscht</string>
+  <string name="evt_del_dlg_msg_all">Alle Termine werden gelöscht</string>
+  <string name="no_events_selected">Kein Termin ausgewählt</string>
+  <string name="go_to">"Wechseln zu"</string>
 </resources>

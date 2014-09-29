@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Standard-udsættelse</string>
   <string name="default_start_title">Standardvisning</string>
   <string name="default_start_last">Tidl. anvendt visning</string>
+  <string name="events_delete">Slet begivenheder</string>
+  <string name="action_select_all">Vælg alle</string>
+  <string name="action_select_none">Fravælg alle</string>
+  <string name="action_delete">Udført</string>
+  <string name="all_events">Alle begivenheder</string>
+  <string name="no_events">Ingen tilgængelige begivenheder</string>
+  <string name="evt_del_dlg_title">Slet begivenheder?</string>
+  <string name="evt_del_dlg_msg_selected">Valgte begivenheder vil blive slettet</string>
+  <string name="evt_del_dlg_msg_all">Alle begivenheder vil blive slettet</string>
+  <string name="no_events_selected">Ingen begivenheder valgt</string>
+  <string name="go_to">"Gå til"</string>
 </resources>

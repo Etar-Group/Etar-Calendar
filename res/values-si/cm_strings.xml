@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">පෙරනිමි මදකට නිදන ප්‍රමාදය</string>
   <string name="default_start_title">පෙරනිමි පෙනුම</string>
   <string name="default_start_last">කලින් භාවිතාවූ පෙනුම</string>
+  <string name="events_delete">සිදුවීම් මකන්න</string>
+  <string name="action_select_all">සියල්ල තෝරන්න</string>
+  <string name="action_select_none">සියල්ල නොතෝරන්න</string>
+  <string name="action_delete">හරි</string>
+  <string name="all_events">සියලු සිදුවීම්</string>
+  <string name="no_events">සිදුවීම් කිසිවක් නොමැත</string>
+  <string name="evt_del_dlg_title">සිදුවීම් මකන්නද?</string>
+  <string name="evt_del_dlg_msg_selected">තෝරා ඇති සිදුවීම් මකාදැමෙනු ඇත</string>
+  <string name="evt_del_dlg_msg_all">සියලු සිදුවීම් මකාදැමෙනු ඇත</string>
+  <string name="no_events_selected">සිදුවීමක් තෝරා නොමැත</string>
+  <string name="go_to">"වෙත යන්න"</string>
 </resources>

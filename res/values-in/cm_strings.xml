@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Jeda tunda default</string>
   <string name="default_start_title">Tampilan default</string>
   <string name="default_start_last">Tampilan yang digunakan sebelumnya</string>
+  <string name="events_delete">Hapus acara</string>
+  <string name="action_select_all">Pilih semua</string>
+  <string name="action_select_none">Hapus centang semua</string>
+  <string name="action_delete">Selesai</string>
+  <string name="all_events">Semua acara</string>
+  <string name="no_events">Tidak ada acara yang tersedia</string>
+  <string name="evt_del_dlg_title">Hapus acara?</string>
+  <string name="evt_del_dlg_msg_selected">Acara yang dipilih akan dihapus</string>
+  <string name="evt_del_dlg_msg_all">Semua acara akan dihapus</string>
+  <string name="no_events_selected">Tidak ada acara yang dipilih</string>
+  <string name="go_to">"Pergi ke"</string>
 </resources>

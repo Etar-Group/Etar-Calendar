@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Korduse edasilükkamine vaikimisi</string>
   <string name="default_start_title">Vaikimisi vaade</string>
   <string name="default_start_last">Eelnevalt kasutatud vaade</string>
+  <string name="events_delete">Kustuta sündmused</string>
+  <string name="action_select_all">Vali kõik</string>
+  <string name="action_select_none">Tühista kõik valikud</string>
+  <string name="action_delete">Valmis</string>
+  <string name="all_events">Kõik sündmused</string>
+  <string name="no_events">Sündmusi pole saadaval</string>
+  <string name="evt_del_dlg_title">Kustuta sündmused?</string>
+  <string name="evt_del_dlg_msg_selected">Valitud sündmused kustutatakse</string>
+  <string name="evt_del_dlg_msg_all">Kõik sündmused kustutatakse</string>
+  <string name="no_events_selected">Sündmusi pole valitud</string>
+  <string name="go_to">"Mine"</string>
 </resources>

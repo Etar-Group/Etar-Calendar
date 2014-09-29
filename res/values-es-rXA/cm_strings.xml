@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Intervalu ente recordatorios por defeutu</string>
   <string name="default_start_title">Vista por defeutu</string>
   <string name="default_start_last">Vista usada previamente</string>
+  <string name="events_delete">Desaniciar eventos</string>
+  <string name="action_select_all">Esbillalo too</string>
+  <string name="action_select_none">Desmarcalo too</string>
+  <string name="action_delete">Fecho</string>
+  <string name="all_events">Tolos eventos</string>
+  <string name="no_events">Nun hai eventos disponibles</string>
+  <string name="evt_del_dlg_title">¿Desaniciar eventos?</string>
+  <string name="evt_del_dlg_msg_selected">Los eventos esbillaos van desaniciase</string>
+  <string name="evt_del_dlg_msg_all">Van desaniciase tolos eventos</string>
+  <string name="no_events_selected">Nun hai eventos seleicionaos</string>
+  <string name="go_to">"Dir a"</string>
 </resources>

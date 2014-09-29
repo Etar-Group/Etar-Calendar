@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Torkun oletusaika</string>
   <string name="default_start_title">Oletusnäkymä</string>
   <string name="default_start_last">Aiemmin käytetty näkymä</string>
+  <string name="events_delete">Poista tapahtumat</string>
+  <string name="action_select_all">Valitse kaikki</string>
+  <string name="action_select_none">Poista valinnat</string>
+  <string name="action_delete">Valmis</string>
+  <string name="all_events">Kaikki tapahtumat</string>
+  <string name="no_events">Tapahtumia ei saatavilla</string>
+  <string name="evt_del_dlg_title">Poista tapahtumat?</string>
+  <string name="evt_del_dlg_msg_selected">Valitut tapahtumat poistetaan</string>
+  <string name="evt_del_dlg_msg_all">Kaikki tapahtumat poistetaan</string>
+  <string name="no_events_selected">Tapahtumia ei valittu</string>
+  <string name="go_to">"Mene"</string>
 </resources>

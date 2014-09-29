@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Domyślna długość drzemki</string>
   <string name="default_start_title">Domyślny widok</string>
   <string name="default_start_last">Poprzednio używany widok</string>
+  <string name="events_delete">Usuń wydarzenia</string>
+  <string name="action_select_all">Zaznacz wszystkie</string>
+  <string name="action_select_none">Odznacz wszystkie</string>
+  <string name="action_delete">Gotowe</string>
+  <string name="all_events">Wszystkie wydarzenia</string>
+  <string name="no_events">Brak dostępnych wydarzeń</string>
+  <string name="evt_del_dlg_title">Usunąć wydarzenia?</string>
+  <string name="evt_del_dlg_msg_selected">Zaznaczone wydarzenia zostaną usunięte</string>
+  <string name="evt_del_dlg_msg_all">Wszystkie wydarzenia zostaną usunięte</string>
+  <string name="no_events_selected">Brak zaznaczonych wydarzeń</string>
+  <string name="go_to">"Przejdź do"</string>
 </resources>

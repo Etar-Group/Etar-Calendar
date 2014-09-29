@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">เตือนล่าฃ้าเริ่มต้น</string>
   <string name="default_start_title">มุมมองเริ่มต้น</string>
   <string name="default_start_last">มุมมองที่ใช้ก่อนหน้านี้</string>
+  <string name="events_delete">ลบกิจกรรม</string>
+  <string name="action_select_all">เลือกทั้งหมด</string>
+  <string name="action_select_none">ไม่​เลือก​ทั้ง​หมด</string>
+  <string name="action_delete">เสร็จสิ้น</string>
+  <string name="all_events">กิจกรรมทั้งหมด</string>
+  <string name="no_events">ไม่มีกิจกรรม</string>
+  <string name="evt_del_dlg_title">ลบกิจกรรม?</string>
+  <string name="evt_del_dlg_msg_selected">กิจกรรมที่เลือกจะถูกลบ</string>
+  <string name="evt_del_dlg_msg_all">กิจกรรมทั้งหมดจะถูกลบ</string>
+  <string name="no_events_selected">ไม่มีกิจกรรมที่เลือก</string>
+  <string name="go_to">"ไปยัง"</string>
 </resources>

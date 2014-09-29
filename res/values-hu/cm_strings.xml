@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Alapértelmezett szundi időtartama</string>
   <string name="default_start_title">Alapértelmezett nézet</string>
   <string name="default_start_last">Korábban használt nézet</string>
+  <string name="events_delete">Események törlése</string>
+  <string name="action_select_all">Összes kijelölése</string>
+  <string name="action_select_none">Összes kijelölés elvetése</string>
+  <string name="action_delete">Kész</string>
+  <string name="all_events">Összes esemény</string>
+  <string name="no_events">Nincs elérhető esemény</string>
+  <string name="evt_del_dlg_title">Események törlése?</string>
+  <string name="evt_del_dlg_msg_selected">A kijelölt események törlésre kerülnek</string>
+  <string name="evt_del_dlg_msg_all">Minden esemény törlésre kerül</string>
+  <string name="no_events_selected">Nincs kijelölt esemény</string>
+  <string name="go_to">"Menj a(z)"</string>
 </resources>

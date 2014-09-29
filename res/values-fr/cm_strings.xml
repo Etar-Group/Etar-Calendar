@@ -24,4 +24,14 @@
   <string name="preferences_default_snooze_delay_dialog">Délai par défaut</string>
   <string name="default_start_title">Vue par défaut</string>
   <string name="default_start_last">Utiliser la vue précédente</string>
+  <string name="events_delete">Supprimer les événements</string>
+  <string name="action_select_all">Tout sélectionner</string>
+  <string name="action_select_none">Tout désélectionner</string>
+  <string name="all_events">Tous les événements</string>
+  <string name="no_events">Aucun événement disponible</string>
+  <string name="evt_del_dlg_title">Supprimer les événements ?</string>
+  <string name="evt_del_dlg_msg_selected">Les événements sélectionnés seront supprimés</string>
+  <string name="evt_del_dlg_msg_all">Tous les événements seront supprimés</string>
+  <string name="no_events_selected">Aucun événement sélectionné</string>
+  <string name="go_to">"Aller à"</string>
 </resources>

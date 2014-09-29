@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Varsayılan erteleme süresi</string>
   <string name="default_start_title">Varsayılan görünüm</string>
   <string name="default_start_last">Önceki görünüm</string>
+  <string name="events_delete">Etkinlikleri sil</string>
+  <string name="action_select_all">Tümünü seç</string>
+  <string name="action_select_none">Tüm seçimleri kaldır</string>
+  <string name="action_delete">Tamamlandı</string>
+  <string name="all_events">Tüm etkinlikler</string>
+  <string name="no_events">Hiç etkinlik yok</string>
+  <string name="evt_del_dlg_title">Etkinlikler silinsin mi?</string>
+  <string name="evt_del_dlg_msg_selected">Seçilen etkinlikler silinecek</string>
+  <string name="evt_del_dlg_msg_all">Tüm etkinlikler silinecek</string>
+  <string name="no_events_selected">Hiç etkinlik seçilmedi</string>
+  <string name="go_to">"Git"</string>
 </resources>

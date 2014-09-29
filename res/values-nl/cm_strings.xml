@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Standaardsnoozeduur</string>
   <string name="default_start_title">Standaardweergave</string>
   <string name="default_start_last">Laatst gebruikte weergave</string>
+  <string name="events_delete">Afspraken verwijderen</string>
+  <string name="action_select_all">Alles selecteren</string>
+  <string name="action_select_none">Alles deselecteren</string>
+  <string name="action_delete">Voltooid</string>
+  <string name="all_events">Alle afspraken</string>
+  <string name="no_events">Geen afspraken beschikbaar</string>
+  <string name="evt_del_dlg_title">Afspraken verwijderen?</string>
+  <string name="evt_del_dlg_msg_selected">Geselecteerde afspraken zullen worden verwijderd</string>
+  <string name="evt_del_dlg_msg_all">Alle afspraken worden verwijderd</string>
+  <string name="no_events_selected">Geen afspraken geselecteerd</string>
+  <string name="go_to">"Ga naar"</string>
 </resources>

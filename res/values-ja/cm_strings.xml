@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">デフォルトのスヌーズの遅延</string>
   <string name="default_start_title">デフォルトのビュー</string>
   <string name="default_start_last">前回終了時のビュー</string>
+  <string name="events_delete">予定を削除</string>
+  <string name="action_select_all">すべて選択</string>
+  <string name="action_select_none">すべて選択解除</string>
+  <string name="action_delete">完了</string>
+  <string name="all_events">すべての予定</string>
+  <string name="no_events">予定がありません</string>
+  <string name="evt_del_dlg_title">予定を削除しますか？</string>
+  <string name="evt_del_dlg_msg_selected">選択した予定が削除されます。</string>
+  <string name="evt_del_dlg_msg_all">すべての予定が削除されます。</string>
+  <string name="no_events_selected">予定が選択されていません</string>
+  <string name="go_to">"移動"</string>
 </resources>
