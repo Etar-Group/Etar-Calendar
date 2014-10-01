@@ -111,18 +111,18 @@
     <string name="response_yes" msgid="2027484304899988350">"כן"</string>
     <string name="response_maybe" msgid="7791500973627841695">"אולי"</string>
     <string name="response_no" msgid="561911691884148136">"לא"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"שלח דוא\"ל לאורחים"</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">"שלח דוא\"ל למארגן"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"שלח הודעת דוא\"ל באמצעות"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"שלח אימייל לאורחים"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"שלח אימייל למארגן"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"שלח אימייל באמצעות"</string>
     <string name="event_not_found" msgid="8356864185947582727">"האירוע לא נמצא."</string>
     <string name="map_label" msgid="8795383535586556038">"מפה"</string>
     <string name="call_label" msgid="2960328220008869083">"שיחה"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"תגובות מהירות"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ערוך תגובות ברירת מחדל בעת שליחת דוא\"ל לאורחים"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ערוך תגובות ברירת מחדל בעת שליחת אימייל לאורחים"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"ערוך תגובות מהירות"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"תגובה מהירה"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"בחר תגובה מהירה"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"חיפוש תכנית דוא\"ל נכשל"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"חיפוש תוכנת האימיילים נכשל"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"אאחר רק בכמה דקות."</item>
     <item msgid="6215158751728689832">"אגיע בערך עוד 10 דקות."</item>
@@ -236,7 +236,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"פרטיות"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"התראת יומן"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"התראת נודניק"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"שלח דוא\"ל לאורחים"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"שלח אימייל לאורחים"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ אירוע חדש"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">
