@@ -27,6 +27,7 @@
   <string name="events_delete">Supprimer les événements</string>
   <string name="action_select_all">Tout sélectionner</string>
   <string name="action_select_none">Tout désélectionner</string>
+  <string name="action_delete">Supprimé</string>
   <string name="all_events">Tous les événements</string>
   <string name="no_events">Aucun événement disponible</string>
   <string name="evt_del_dlg_title">Supprimer les événements ?</string>
