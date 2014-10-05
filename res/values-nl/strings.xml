@@ -67,7 +67,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Agenda\'s om weer te geven"</string>
     <string name="synced" msgid="7913940305983383493">"gesynchroniseerd"</string>
     <string name="not_synced" msgid="4275114941801829419">"niet gesynchroniseerd"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Dit account wordt niet gesynchroniseerd, dus uw agenda\'s zijn mogelijk niet bijgewerkt."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Dit account wordt niet gesynchroniseerd, dus je agenda\'s zijn mogelijk niet bijgewerkt."</string>
     <string name="accounts" msgid="849401841083180306">"Accounts en synchronisatie"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Agenda\'s om te synchroniseren"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Agenda\'s om te synchroniseren"</string>
@@ -98,7 +98,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Voordat je een afspraak kunt toevoegen, moet je ten minste één Agenda-account aan je apparaat toevoegen en de agenda zichtbaar maken. Raak \'Account toevoegen\' aan om een account toe te voegen (als je net een account hebt toegevoegd, wacht je tot het synchroniseren is voltooid en probeer je het opnieuw). Of raak \'Annuleren\' aan en zorg ervoor dat er ten minste één agenda zichtbaar is."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Agenda werkt beter met een Google-account.\n\n• Toegang via elke webbrowser\n• Maak beveiligde back-ups van uw afspraken"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Agenda werkt beter met een Google-account.\n\n• Toegang via elke webbrowser\n• Maak beveiligde back-ups van je afspraken"</string>
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
