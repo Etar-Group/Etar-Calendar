@@ -65,12 +65,12 @@
     <string name="hide_controls" msgid="830320505938520882">"ထိန်းချုပ်မှုများ ဝှက်ထားရန်"</string>
     <string name="show_controls" msgid="715520586028062621">"ထိန်းချုပ်မှု ပြရန်"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"ပြပေးရန် ပြက္ခဒိန်များ"</string>
-    <string name="synced" msgid="7913940305983383493">"စင့်က် လုပ်ပြီး"</string>
-    <string name="not_synced" msgid="4275114941801829419">"စင့်က် မလုပ်ရသေး"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"ဒီအကောင့်ကို စင့်က် လုပ်မပေးပါ၊ သို့ဖြစ်၍ သင်၏ ပြက္ခဒိန်များမှာ နောက်ဆုံးမူ ဟုတ်ချင်မှ ဟုတ်လိမ့်မည်။"</string>
-    <string name="accounts" msgid="849401841083180306">"အကောင့်များ &amp; စင့်က် လုပ်ရန်"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"စင့်က် လုပ်ရန် ပြက္ခဒိန်များ"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"စင့်က် လုပ်ရန် ပြက္ခဒိန်များ"</string>
+    <string name="synced" msgid="7913940305983383493">"စင့်က် လုပ်ပြီး"</string>
+    <string name="not_synced" msgid="4275114941801829419">"စင့်က် မလုပ်ရသေး"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"ဒီအကောင့်ကို စင့်က် လုပ်မပေးပါ၊ သို့ဖြစ်၍ သင်၏ ပြက္ခဒိန်များမှာ နောက်ဆုံးမူ ဟုတ်ချင်မှ ဟုတ်လိမ့်မည်။"</string>
+    <string name="accounts" msgid="849401841083180306">"အကောင့်များ &amp; စင့်က် လုပ်ရန်"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"စင့်က် လုပ်ရန် ပြက္ခဒိန်များ"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"စင့်က် လုပ်ရန် ပြက္ခဒိန်များ"</string>
     <string name="hint_what" msgid="709155115005044531">"ဖြစ်ရပ် အမည်"</string>
     <string name="hint_where" msgid="4972598001033801974">"တည်နေရာ"</string>
     <string name="hint_description" msgid="1910143586169033232">"ဖော်ပြချက်"</string>
@@ -85,9 +85,9 @@
     <string name="rsvp_declined" msgid="8686330037802222895">"လက်မခံဟု ပြန်ကြားခဲ့သည်။"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"သိမ်းဆည်း"</string>
     <string name="alert_title" msgid="7869592820853066853">"ပြက္ခဒိန် အကြောင်းကြားချက်များ"</string>
-    <string name="event_info_title" msgid="56024222340421620">"ဖြစ်ရပ် ကြည့်ရန်"</string>
+    <string name="event_info_title" msgid="56024222340421620">"ဖြစ်ရပ် ကြည့်ရန်"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"တွေ့ဆုံရန် ဖိတ်ကြားချက်"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"သို့​"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"သို့"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"မှ"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"တစ်နေ့လုံး"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"ပြက္ခဒိန်"</string>
@@ -95,11 +95,11 @@
     <string name="description_label" msgid="7193475046717505855">"ဖော်ပြချက်"</string>
     <string name="presence_label" msgid="6169724148441175862">"ကျွန်ုပ်ကို အဖြစ် ပြရန်"</string>
     <string name="privacy_label" msgid="9215031965259597335">"ကိုယ်ရေး"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"သတိပေးချက် ထည့်ရန်"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"သတိပေးချက် ထည့်ရန်"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ပြက္ခဒိန်များ မရှိ"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"သင်သည် ဖြစ်ရပ် တစ်ခုကို ထည့်မပေးခင်မှာ၊ သင်သည် အနည်းဆုံး ပြက္ခဒိန် ဖြစ်ရပ် တစ်ခုကို ထည့်ပေးလျက် ပြက္ခဒိန် တစ်ခုကို မြင်ရအောင် လုပ်ပေးရန် လိုမည်။ အကောင့် တစ်ခုကို ထည့်ရန် အကောင့် ထည့်ရန်ကို ထိပါ (အကယ်၍ သင်သည် အကောင့်ကို ယခုလေးတင် ထည့်ပေးခဲ့သည် ဆိုလျှင် ၎င်းက စင့်က် လုပ်ပြီးမှကို စောင့်ပြီး နောက်မှာ ထပ်စမ်းပါ)။ သို့မဟုတ် ပယ်ဖျက်ရန်ကို ထိလိုက်ကာ အနည်းဆုံး ပြက္ခဒိန် တစ်ခု မြင်ရတာ သေချာပါစေ။"</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"ပြက္ခဒိန် လုပ်ကိုင်မှုမှာ Google အကောင့်နှင့် ပိုအဆင်ပြေသည်။ \n\n• မည်သည့် ဘရောင်ဇာမှမဆို ရယူသုံးနိုင်\n• သင်၏ ဖြစ်ရပ်များကို လုံခြုံစွာ ဘက်အာပ် လုပ်ထားပါသည်။"</string>
-    <string name="add_account" msgid="1669072099756774952">"အကောင့် ထည့်ရန်"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"သင်သည် ဖြစ်ရပ် တစ်ခုကို ထည့်မပေးခင်မှာ၊ သင်သည် အနည်းဆုံး ပြက္ခဒိန် ဖြစ်ရပ် တစ်ခုကို ထည့်ပေးလျက် ပြက္ခဒိန် တစ်ခုကို မြင်ရအောင် လုပ်ပေးရန် လိုမည်။ အကောင့် တစ်ခုကို ထည့်ရန် အကောင့် ထည့်ရန်ကို ထိပါ (အကယ်၍ သင်သည် အကောင့်ကို ယခုလေးတင် ထည့်ပေးခဲ့သည် ဆိုလျှင် ၎င်းက စင့်က် လုပ်ပြီးမှကို စောင့်ပြီး နောက်မှာ ထပ်စမ်းပါ)။ သို့မဟုတ် ပယ်ဖျက်ရန်ကို ထိလိုက်ကာ အနည်းဆုံး ပြက္ခဒိန် တစ်ခု မြင်ရတာ သေချာပါစေ။"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"ပြက္ခဒိန် လုပ်ကိုင်မှုမှာ Google အကောင့်နှင့် ပိုအဆင်ပြေသည်။ \n\n• မည်သည့် ဘရောင်ဇာမှမဆို ရယူသုံးနိုင်\n• သင်၏ ဖြစ်ရပ်များကို လုံခြုံစွာ ဘက်အာပ် လုပ်ထားပါသည်။"</string>
+    <string name="add_account" msgid="1669072099756774952">"အကောင့် ထည့်ရန်"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"ပြက္ခဒိန်:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"စည်းရုံးသူ:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"ဖြစ်ရပ် အရောင်ကို ရွေးရန်"</string>
@@ -113,20 +113,20 @@
     <string name="response_no" msgid="561911691884148136">"မတက်ပါ"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"ဧည့်သည်များထံ အီးမေးလ်ပို့ရန်"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"အီးမေးလ် စည်းရုံးပေးသူ"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"...နှင့် အီးမေးလ် ဆက်သွယ်ရန်"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"...နှင့် အီးမေးလ် ဆက်သွယ်ရန်"</string>
     <string name="event_not_found" msgid="8356864185947582727">"ဖြစ်ရပ်ကို ရှာမတွေ့ခဲ့ပါ။"</string>
     <string name="map_label" msgid="8795383535586556038">"မြေပုံ"</string>
     <string name="call_label" msgid="2960328220008869083">"ခေါ်ဆိုမှု"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"အမြန် တုံ့ပြန်မှု"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ဧည့်သည်များထံ အီးမေးလ် ပို့ချိန်မှာ ပုံသေ တုံ့ပြန်ချက်များကို တည်းဖြတ်ရန်"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ဧည့်သည်များထံ အီးမေးလ် ပို့ချိန်မှာ ပုံသေ တုံ့ပြန်ချက်များကို တည်းဖြတ်ရန်"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"အမြန် တုံ့ပြန်ချက် တည်းဖြတ်"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"အမြန် တုံ့ပြန်ချက်"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"အမြန် တုံ့ပြန်မှုကို ရွေးရန်"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"အီးမေးလ် ပရိုဂရမ်ကို ရှာမရခဲ့"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"ပြေးရာမှာ နှစ်မိနစ်ခန့် နောက်ကျနေသည်။"</item>
+    <item msgid="1524421198348168403">"ပြေးရာမှာ နှစ်မိနစ်ခန့် နောက်ကျနေသည်။"</item>
     <item msgid="6215158751728689832">"အဲဒီကို ၁၀ မိနစ် အတွင်းမှာ ရောက်လာမည်။"</item>
-    <item msgid="4485794001743679338">"သွားနှင့်ပြီး ကျွန်ုပ် မပါဘဲ စတင်ပါ။"</item>
+    <item msgid="4485794001743679338">"သွားနှင့်ပြီး ကျွန်ုပ် မပါဘဲ စတင်ပါ။"</item>
     <item msgid="8036557974294987511">"ဆော်ရီး၊ ကျွန်ုပ် အဲဒါကို မလုပ်နိုင်ပါ။ ကျွန်ုပ်တို့ ပြန်ပြီး စီစဉ်ရန် လိုမည်။"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"သင် ကိုယ်တိုင်၏…ကို ရေးရန်"</string>
@@ -136,8 +136,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">"မနေ့က၊ <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"နက်ဖြန်၊ <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"တင်နေ…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> မတိုင်မီတုန်းက ဖြစ်ရပ်များကို ကြည့်ရန် ထိပါ"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> နောက်ပိုင်း ဖြစ်ရပ်များကို ကြည့်ရန် ထိပါ"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> မတိုင်မီတုန်းက ဖြစ်ရပ်များကို ကြည့်ရန် ထိပါ"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> နောက်ပိုင်း ဖြစ်ရပ်များကို ကြည့်ရန် ထိပါ"</string>
     <string name="search_title" msgid="8898015280250716254">"ကျွန်ုပ် ပြက္ခဒိန်များ ရှာဖွေ"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"အသေးစိတ်များ"</string>
     <string name="edit_label" msgid="8934331258435656534">"တည်းဖြတ်"</string>
@@ -170,7 +170,7 @@
     <string name="custom" product="default" msgid="4137468716966004993">"စိတ်ကြိုက် (ဖုန်း ထဲတွင် စိတ်ကြိုက် ပြုပြင် မရပါ)"</string>
     <string name="modify_event" msgid="5982876409997142690">"ဒီဖြစ်ရပ်ကိုသာ ပြောင်းလဲရန်"</string>
     <string name="modify_all" msgid="4421657265864209041">"စီးရီးများထဲက ဖြစ်ရပ် အားလုံး ပြောင်းလဲရန်"</string>
-    <string name="modify_all_following" msgid="3017428541066390380">"လက်ရှိ နှင့် အနာဂတ် ဖြစ်ရပ်များကို ပြောင်းလဲရန်"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"လက်ရှိ နှင့် အနာဂတ် ဖြစ်ရပ်များကို ပြောင်းလဲရန်"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"ဖြစ်ရပ် အသစ်"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"ဖြစ်ရပ် အသစ်"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"ဒီဖြစ်ရပ်ကို ဖျက်ရမလား?"</string>
@@ -195,7 +195,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"သတိပေးချက် ပုံသေ အချိန်"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"၁၀"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"အိမ်ချိန်ဇုန်သုံးရန်"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"ခရီးမှာ ပြက္ခဒိန် နှင့် ဖြစ်ရပ်ချိန်ကို သင့်အိမ် အချိန် ဇုန်ဖြင့် ပြရန်"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"ခရီးမှာ ပြက္ခဒိန် နှင့် ဖြစ်ရပ်ချိန်ကို သင့်အိမ် အချိန် ဇုန်ဖြင့် ပြရန်"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"အိမ်၏ အချိန် ဇုန်"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"အပတ်၏ နံပါတ်စဉ်ကို ပြရန်"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"အကြောင်း"</string>
@@ -205,7 +205,7 @@
     <item quantity="one" msgid="8971334808414201327">"+၁"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"လာမည့် ပြက္ခဒိန် ဖြစ်ရပ်များ မရှိ"</string>
+    <string name="gadget_no_events" msgid="5209110911088302855">"လာမည့် ပြက္ခဒိန် ဖြစ်ရပ်များ မရှိ"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"စမ်းသပ်ရေး"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"သတိပေးချက်များ"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"သတိပေးချက်များ ကျော်ရန်"</string>
@@ -224,10 +224,10 @@
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"ပြီးဆုံးချိန်"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"အချိန် ဇုန်"</string>
     <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ဖြစ်ရပ်ကို ထပ်လုပ်ရန်"</string>
-    <string name="accessibility_add_reminder" msgid="2267950744060950152">"သတိပေးချက် ထည့်ရန်"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"သတိပေးချက် ထည့်ရန်"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"သတိပေးမှု ဖယ်ရှားရန်"</string>
-    <string name="accessibility_add_attendee" msgid="5654014177472600916">"တက်ရောက်သူကို ထည့်ရန်"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"ပြက္ခဒိန် စင့်က်လုပ်ရန်"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"တက်ရောက်သူကို ထည့်ရန်"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"ပြက္ခဒိန် စင့်က်လုပ်ရန်"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"တစ်နေ့လုံး ဖြစ်ရပ်"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"ထပ်ဖြစ်မှု"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"သတိပေးချက် အချိန်"</string>
@@ -247,8 +247,8 @@
     <item quantity="one" msgid="431585781647034528">"+၁ ဖြစ်ရပ်"</item>
     <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ဖြစ်ရပ်များ"</item>
   </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"ရွေထားသည့် ဖြစ်ရပ်"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"မစစ်ဆေးပါနှင့် -&gt;"</string>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"ရွေထားသည့် ဖြစ်ရပ်"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"မစစ်ဆေးပါနှင့် -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"ထပ်လုပ်ရန်"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ဘယ်တော့မှ ထပ်မလုပ်ရ"</string>
   <plurals name="recurrence_interval_daily">
