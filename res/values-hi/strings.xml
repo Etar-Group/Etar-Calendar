@@ -115,7 +115,7 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"ईमेल व्यवस्थापक"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"इन्हें ईमेल करें"</string>
     <string name="event_not_found" msgid="8356864185947582727">"इवेंट नहीं मिला."</string>
-    <string name="map_label" msgid="8795383535586556038">"नक्शा"</string>
+    <string name="map_label" msgid="8795383535586556038">"मानचित्र"</string>
     <string name="call_label" msgid="2960328220008869083">"कॉल करें"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"त्वरित प्रतिसाद"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"जब अतिथि को ईमेल करें तो डिफ़ॉल्‍ट प्रतिसाद संपादित करें"</string>
@@ -199,7 +199,7 @@
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"घरेलू समय क्षेत्र"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"सप्ताह संख्या दिखाएं"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"इसके बारे में"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"बिल्ड संस्करण"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"बिल्ड वर्शन"</string>
     <string name="gadget_title" msgid="939918875331310945">"कैलेंडर"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
