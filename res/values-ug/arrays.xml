@@ -15,9 +15,159 @@
      limitations under the License.
 -->
 <resources>
+  <string-array name="reminder_methods_labels">
+    <item>ئۇقتۇرۇش</item>
+    <item>تورخەت</item>
+    <item>قىسقا ئۇچۇر</item>
+    <item>قوڭغۇراق</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item>0 مىنۇت</item>
+    <item>1 مىنۇت</item>
+    <item>5 مىنۇت</item>
+    <item>10 مىنۇت</item>
+    <item>15 مىنۇت</item>
+    <item>20 مىنۇت</item>
+    <item>25 مىنۇت</item>
+    <item>30 مىنۇت</item>
+    <item>45 مىنۇت</item>
+    <item>1 سائەت</item>
+    <item>2 سائەت</item>
+    <item>3 سائەت</item>
+    <item>12 سائەت</item>
+    <item>24 سائەت</item>
+    <item>2 كۈن</item>
+    <item>1 ھەپتە</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>يوق</item>
+    <item>0 مىنۇت</item>
+    <item>1 مىنۇت</item>
+    <item>5 مىنۇت</item>
+    <item>10 مىنۇت</item>
+    <item>15 مىنۇت</item>
+    <item>20 مىنۇت</item>
+    <item>25 مىنۇت</item>
+    <item>30 مىنۇت</item>
+    <item>45 مىنۇت</item>
+    <item>1 سائەت</item>
+    <item>2 سائەت</item>
+    <item>3 سائەت</item>
+    <item>12 سائەت</item>
+    <item>24 سائەت</item>
+    <item>2 كۈن</item>
+    <item>1 ھەپتە</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item>يەرلىك كۆڭۈلدىكى قىممەت</item>
+    <item>شەنبە</item>
+    <item>يەكشەنبە</item>
+    <item>دۈشەنبە</item>
+  </string-array>
+  <string-array name="availability">
+    <item>ئالدىراش</item>
+    <item>ئىشلىتىلىشچان</item>
+    <item>سىناق</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>كۆڭۈلدىكى</item>
+    <item>خۇسۇسىي</item>
+    <item>ئاممىۋى</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>بىرىنچى</item>
+    <item>ئىككىنچى</item>
+    <item>ئۈچىنچى</item>
+    <item>تۆتىنچى</item>
+    <item>ئاخىرقى</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>ئىنكاس يوق</item>
+    <item>ھەئە</item>
+    <item>«بەلكىم»</item>
+    <item>ياق</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>مۇشۇ پائالىيەتلا</item>
+    <item>بۇ ۋە كەلگۈسىدىكى پائالىيەتلەر</item>
+    <item>ھەممە پائالىيەت</item>
+  </string-array>
   <integer-array name="delete_repeating_values">
     <item>0</item>
     <item>1</item>
     <item>2</item>
   </integer-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>بۇ ۋە كەلگۈسىدىكى پائالىيەت</item>
+    <item>ھەممە پائالىيەت</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>مۇشۇ پائالىيەتلا</item>
+    <item>ھەممە مۇھىم پائالىيەتلەر</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item>كۈن</item>
+    <item>ھەپتە</item>
+    <item>ئاي</item>
+    <item>كۈنتەرتىپ</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item>سىز قاتناشمىغان ئەھۋالدىلا</item>
+    <item>سىز قاتناشمىغان ياكى جاۋاب قايتۇرمىغان ئەھۋالدا</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item>ھەر كۈنى قايتىلا</item>
+    <item>ھەر ھەپتە قايتىلا</item>
+    <item>ھەر ئايدا قايتىلا</item>
+    <item>ھەر يىلى قايتىلا</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item>ھەر ئاينىڭ بىرىنچى يەكشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئىككىنچى يەكشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئۈچىنچى يەكشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ تۆتىنچى يەكشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئاخىرقى يەكشەنبە كۈنى</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item> \"ھەر ئاينىڭ بىرىنچى دۈشەنبە كۈنى\"</item>
+    <item>ھەر ئاينىڭ ئىككىنچى دۈشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئۈچىنچى دۈشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ تۆتىنچى دۈشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئاخىرقى دۈشەنبە كۈنى</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item>ھەر ئاينىڭ بىرىنچى سەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئىككىنچى سەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئۈچىنچى سەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ تۆتىنچى سەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئاخىرقى سەيشەنبە كۈنى</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item>ھەر ئاينىڭ بىرىنچى چارشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئىككىنچى چارشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئۈچىنچى چارشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ تۆتىنچى چارشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئاخىرقى چارشەنبە كۈنى</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item>ھەر ئاينىڭ بىرىنچى پەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئىككىنچى پەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئۈچىنچى پەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ تۆتىنچى پەيشەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئاخىرقى پەيشەنبە كۈنى</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item>ھەر ئاينىڭ بىرىنچى جۈمە كۈنى</item>
+    <item>ھەر ئاينىڭ ئىككىنچى جۈمە كۈنى</item>
+    <item>ھەر ئاينىڭ ئۈچىنچى جۈمە كۈنى</item>
+    <item>ھەر ئاينىڭ تۆتىنچى جۈمە كۈنى</item>
+    <item>ھەر ئاينىڭ ئاخىرقى جۈمە كۈنى</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item>ھەر ئاينىڭ بىرىنچى شەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئىككىنچى شەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئۈچىنچى شەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ تۆتىنچى شەنبە كۈنى</item>
+    <item>ھەر ئاينىڭ ئاخىرقى شەنبە كۈنى</item>
+  </string-array>
 </resources>

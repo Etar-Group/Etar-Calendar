@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">ברירת מחדל לדחיית תזכורת</string>
   <string name="default_start_title">תצוגת ברירת מחדל</string>
   <string name="default_start_last">תצוגה קודמת</string>
+  <string name="events_delete">מחק אירועים</string>
+  <string name="action_select_all">בחר הכל</string>
+  <string name="action_select_none">בטל את כל הבחירות</string>
+  <string name="action_delete">סיום</string>
+  <string name="all_events">כל האירועים</string>
+  <string name="no_events">אין אירועים זמינים</string>
+  <string name="evt_del_dlg_title">למחוק אירועים?</string>
+  <string name="evt_del_dlg_msg_selected">האירועים שנבחרו יימחקו</string>
+  <string name="evt_del_dlg_msg_all">כל האירועים יימחקו</string>
+  <string name="no_events_selected">לא נבחרו אירועים</string>
+  <string name="go_to">"לך אל"</string>
 </resources>

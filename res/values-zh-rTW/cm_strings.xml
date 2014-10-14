@@ -20,4 +20,8 @@
   <string name="preferences_alerts_custom_snooze_delay_summary_on">每當重響提醒時要求重響延遲</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">總是使用預設重響延遲</string>
   <string name="snooze_delay_dialog_title">設定重響延遲</string>
+  <string name="events_delete">刪除活動</string>
+  <string name="action_delete">完成</string>
+  <string name="all_events">所有活動</string>
+  <string name="evt_del_dlg_title">刪除活動嗎？</string>
 </resources>
