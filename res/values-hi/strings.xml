@@ -80,9 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"खाली ईवेंट नहीं बनाया गया."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"आमंत्रण भेज दिए जाएंगे."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"अपडेट भेज दिए जाएंगे."</string>
-    <string name="rsvp_accepted" msgid="8146618862268962727">"हां में जवाब दिया."</string>
-    <string name="rsvp_tentative" msgid="6545510359501328718">"संभवत: में जवाब दिया."</string>
-    <string name="rsvp_declined" msgid="8686330037802222895">"नहीं में जवाब दिया."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"हां में उत्तर दिया."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"संभवत: में उत्तर दिया."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"नहीं में उत्तर दिया."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"सहेजें"</string>
     <string name="alert_title" msgid="7869592820853066853">"कैलेंडर नोटिफिकेशन"</string>
     <string name="event_info_title" msgid="56024222340421620">"ईवेंट देखें"</string>
@@ -117,10 +117,10 @@
     <string name="event_not_found" msgid="8356864185947582727">"इवेंट नहीं मिला."</string>
     <string name="map_label" msgid="8795383535586556038">"मानचित्र"</string>
     <string name="call_label" msgid="2960328220008869083">"कॉल करें"</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"त्वरित प्रतिसाद"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"झटपट उत्तर"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"जब अतिथि को ईमेल करें तो डिफ़ॉल्‍ट प्रतिसाद संपादित करें"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"त्वरित प्रतिसाद संपादित करें"</string>
-    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"त्वरित प्रतिसाद"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"झटपट उत्तर संपादित करें"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"झटपट उत्तर"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"त्‍वरित प्रतिसाद चुनें"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"ईमेल प्रोग्राम ढूंढने में विफल रहा"</string>
   <string-array name="quick_response_defaults">
