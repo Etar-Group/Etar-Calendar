@@ -50,7 +50,7 @@
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"تازه کردن"</string>
     <string name="show_day_view" msgid="5782512782605466016">"نمایش روز"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"دستور جلسه"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"دستور کار"</string>
     <string name="day_view" msgid="4467754504843584437">"روز"</string>
     <string name="week_view" msgid="6775043022159508060">"هفته"</string>
     <string name="month_view" msgid="7287101431749285412">"ماه"</string>
