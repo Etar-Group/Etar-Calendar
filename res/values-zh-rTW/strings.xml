@@ -55,7 +55,7 @@
     <string name="week_view" msgid="6775043022159508060">"週"</string>
     <string name="month_view" msgid="7287101431749285412">"月"</string>
     <string name="event_view" msgid="7621353079385122317">"檢視活動"</string>
-    <string name="event_create" msgid="6941040556709110617">"新活動"</string>
+    <string name="event_create" msgid="6941040556709110617">"新增活動"</string>
     <string name="event_edit" msgid="4006961928830064662">"編輯活動"</string>
     <string name="event_delete" msgid="2386667193277770442">"刪除活動"</string>
     <string name="goto_today" msgid="9162136434410891230">"今日"</string>
@@ -171,8 +171,8 @@
     <string name="modify_event" msgid="5982876409997142690">"僅變更這項活動。"</string>
     <string name="modify_all" msgid="4421657265864209041">"變更所有後續的活動"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"變更這項活動和所有未來活動。"</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"新活動"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"新活動"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"新增活動"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"新增活動"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"刪除這項活動？"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"要刪除「<xliff:g id="EVENTTITLE">%s</xliff:g>」嗎？"</string>
     <string name="change_response_title" msgid="7704714776070974984">"變更回應"</string>

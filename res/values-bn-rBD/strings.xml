@@ -50,7 +50,7 @@
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"রিফ্রেশ করুন"</string>
     <string name="show_day_view" msgid="5782512782605466016">"দিনটি দেখান"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"আলোচ্যসূচি"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"কার্যসূচি"</string>
     <string name="day_view" msgid="4467754504843584437">"দিন"</string>
     <string name="week_view" msgid="6775043022159508060">"সপ্তাহ"</string>
     <string name="month_view" msgid="7287101431749285412">"মাস"</string>
@@ -87,8 +87,8 @@
     <string name="alert_title" msgid="7869592820853066853">"ক্যালেন্ডার বিজ্ঞপ্তিগুলি"</string>
     <string name="event_info_title" msgid="56024222340421620">"ইভেন্ট দেখুন"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"মিটিংয়ের আমন্ত্রণ"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"পর্যন্ত"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"থেকে"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"এই তারিখ পর্যন্ত"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"এই তারিখ থেকে"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"সারা দিন"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"ক্যালেন্ডার"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"সবকিছু দেখান"</string>

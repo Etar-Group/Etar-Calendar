@@ -177,7 +177,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g> मेट्ने हो?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"जवाफ परिवर्तन गर्नुहोस्"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"साधारण सेटिङहरू"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"पात्राको बारे"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"पात्रोको बारेमा"</string>
     <string name="preferences_title" msgid="8045855493262131773">"सेटिङहरू"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"पात्रो दृश्य सेटिङ"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"सूचना &amp; रिमाइन्डरहरू"</string>

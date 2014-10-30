@@ -50,13 +50,13 @@
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Обновить"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показать день"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"Повестка дня"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Расписание"</string>
     <string name="day_view" msgid="4467754504843584437">"День"</string>
     <string name="week_view" msgid="6775043022159508060">"Неделя"</string>
     <string name="month_view" msgid="7287101431749285412">"Месяц"</string>
     <string name="event_view" msgid="7621353079385122317">"Просмотр мероприятия"</string>
-    <string name="event_create" msgid="6941040556709110617">"Новое мероприятие"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Изменить мероприятие"</string>
+    <string name="event_create" msgid="6941040556709110617">"Заполните"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Правка"</string>
     <string name="event_delete" msgid="2386667193277770442">"Удалить мероприятие"</string>
     <string name="goto_today" msgid="9162136434410891230">"Сегодня"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
@@ -127,7 +127,7 @@
     <item msgid="1524421198348168403">"Задерживаюсь на пару минут."</item>
     <item msgid="6215158751728689832">"Буду примерно через 10 минут."</item>
     <item msgid="4485794001743679338">"Начинайте без меня."</item>
-    <item msgid="8036557974294987511">"К сожалению, я не успеваю. Придется перенести мероприятие."</item>
+    <item msgid="8036557974294987511">"Не успеваю. Придется перенести."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Ваш ответ…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
