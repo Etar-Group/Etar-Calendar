@@ -94,8 +94,10 @@
   <string name="reminders_label">Erënnerung dobäisetzen</string>
   <string name="no_syncable_calendars">Keng Kalenneren</string>
   <string name="no_calendars_found">Ier s du e Rendezvous dobäisetzt, muss du e Kalennerkont dobäisetzen. Dréck op Kont dobäisetzen fir e Kont dobäizesetzen. Wann s du grad e Kont dobäigesat hues, waart bis fäerdegsynchroniséiert gouf a probéier nees oder dréck op Ofbriechen a vergewësser dech datt op d\'mannst ee Kalenner siichtbar ass.</string>
+  <string name="create_an_account_desc">"Kalenner funktionéiert besser mat engem Google-Kont.\n\n\u2022 Zougrëff iwwer jiddwer Browser\n\u2022 Séchere vu Rendezvouse mat Schutzfunktioun"</string>
   <string name="add_account">Kont dobäisetzen</string>
   <string name="view_event_calendar_label">Kalenner:</string>
+  <string name="view_event_organizer_label">Organisateur:</string>
   <string name="choose_event_color_label">Rendezvousfaarf auswielen</string>
   <string name="event_color_picker_dialog_title">Rendezvousfaarf</string>
   <string name="event_color_set_to_default">Als Standardfaarf fir de Kalenner benotzen</string>
@@ -105,33 +107,42 @@
   <string name="response_yes">Jo</string>
   <string name="response_maybe">Vläicht</string>
   <string name="response_no">Nee</string>
+  <string name="email_guests_label">E-Mailen u Gäscht schécken</string>
+  <string name="email_organizer_label">E-Mailen un den Organisateur schécken</string>
   <string name="email_picker_label">E-Mail iwwer</string>
   <string name="event_not_found">"Rendezvous net fonnt."</string>
   <string name="map_label">Kaart</string>
   <string name="call_label">Uruffen</string>
   <string name="quick_response_settings">Séier Äntwerten</string>
+  <string name="quick_response_settings_summary">Standardäntwerte beim Schécke vun E-Mailen u Gäscht änneren</string>
   <string name="quick_response_settings_title">Séier Äntwerten änneren</string>
   <string name="quick_response_settings_edit_title">Séier Äntwert</string>
   <string name="quick_response_dialog_title">Séier Äntwert auswielen</string>
   <string name="quick_response_email_failed">En E-Mail-Programm gouf net fonnt</string>
   <string-array name="quick_response_defaults">
-    <item>Running just a couple of minutes late.</item>
+    <item>Ech kommen e puer Minutte méi spéit.</item>
     <item>Ech sinn do an ongeféier 10 Minutten.</item>
-    <item>Go ahead and start without me.</item>
+    <item>Fänkt ouni mech un.</item>
     <item>Pardon, ech packen et net. Mir mussen en neie Rendezvous festsetzen.</item>
   </string-array>
   <string name="quick_response_custom_msg">Schreif däin eegnen\u2026</string>
+  <string name="event_info_organizer">Organisateur:</string>
   <string name="event_info_reminders_label">Erënnerungen</string>
   <string name="agenda_today">HAUT, <xliff:g id="date">%1$s</xliff:g></string>
   <string name="agenda_yesterday">GËSCHTER, <xliff:g id="date">%1$s</xliff:g></string>
   <string name="agenda_tomorrow">MUER, <xliff:g id="date">%1$s</xliff:g></string>
   <string name="loading">Gëtt gelueden\u2026</string>
+  <string name="show_older_events">Dréck fir Rendezvouse virum <xliff:g id="oldest_search_range">%1$s</xliff:g> ze weisen</string>
+  <string name="show_newer_events">Dréck fir Rendezvouse virum <xliff:g id="oldest_search_range">%1$s</xliff:g> ze weisen</string>
+  <string name="search_title">A menge Kalennere sichen</string>
   <string name="edit_event_label">"Detailer"</string>
   <string name="edit_label">"Änneren"</string>
   <string name="delete_label">"Läschen"</string>
   <string name="save_label">Fäerdeg</string>
   <string name="discard_label">Ofbriechen</string>
+  <string name="snooze_all_label">"All näipen"</string>
   <string name="dismiss_all_label">"All verwerfen"</string>
+  <string name="snooze_label">"Näipen"</string>
   <string name="does_not_repeat">Eemolege Rendezvous</string>
   <string name="endByDate">, bis <xliff:g id="DATE">%s</xliff:g></string>
   <plurals name="endByCount">
@@ -165,36 +176,56 @@
   <string name="menu_about_preferences">Iwwer Kalenner</string>
   <string name="preferences_title">"Astellungen"</string>
   <string name="preferences_general_title">Virschauastellunge vum Kalenner</string>
+  <string name="preferences_reminder_title">Notifikatiounen an Erënnerungen</string>
+  <string name="preferences_hide_declined_title">Ofgeleent Rendezvouse verstoppen</string>
+  <string name="preferences_week_start_day_title">D\'Woch fänkt un</string>
+  <string name="preferences_week_start_day_dialog">D\'Woch fänkt un</string>
   <string name="preferences_week_start_day_default">-1</string>
+  <string name="preferences_clear_search_history_title">Sichhistorique läschen</string>
+  <string name="preferences_clear_search_history_summary">D\'Sich déi gemaach goufe läschen</string>
+  <string name="search_history_cleared">De Sichhistorique gouf geläscht.</string>
+  <string name="preferences_alerts_title">Notifikatiounen</string>
   <string name="preferences_alerts_vibrateWhen_title">Vibréieren</string>
+  <string name="preferences_alerts_ringtone_title">Toun</string>
+  <string name="preferences_alerts_popup_title">Pop-up-Notifikatioun</string>
+  <string name="preferences_default_reminder_title">Standardzäit fir Erënnerungen</string>
   <string name="preferences_default_reminder_dialog">Standardzäit fir Erënnerungen</string>
   <string name="preferences_default_reminder_default">10</string>
   <string name="preferences_use_home_tz_title">Heemechtszäitzon benotzen</string>
+  <string name="preferences_use_home_tz_descrip">Weist beim Reesen d\'Kalenner- a Rendezvouszäiten an der Heemechtszäitzon</string>
   <string name="preferences_home_tz_title">Heemechtszäitzon</string>
   <string name="preferences_home_tz_default">Europe/Luxembourg</string>
   <string name="preferences_show_week_num_title">Wochennummer uweisen</string>
   <string name="preferences_about_title">Iwwer</string>
+  <string name="preferences_build_version">Buildversioun</string>
   <string name="gadget_title">Kalenner</string>
   <plurals name="month_more_events">
     <item quantity="one">"+1"</item>
     <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
   </plurals>
+  <string name="gadget_no_events">Et komme keng Rendezvouse méi</string>
   <string name="tardis">TARDIS</string>
   <string name="preferences_experimental_category">Experimentell</string>
   <string name="preferences_reminders_category">Erënnerungen</string>
   <string name="preferences_reminders_responded_label">Erënnerungen iwwersprangen</string>
   <string name="preferences_reminders_responded_dialog">Erënnerungen iwwersprangen</string>
   <string name="preferences_reminders_quiet_hours_label">Roueg Stonnen</string>
+  <string name="preferences_reminders_quiet_hours_description">Rendezvouserënnerung zu bestëmmten Zäite stommschalten.</string>
+  <string name="preferences_reminders_quiet_hours_start">Startzäit vun de rouege Stonnen</string>
+  <string name="preferences_reminders_quiet_hours_end">Schlusszäit vun de rouege Stonnen</string>
   <string name="preferences_debug_category">Debugging</string>
   <string name="copy_db">Datebank schécken</string>
   <string name="directory_searching_fmt"><xliff:g id="domain">%s</xliff:g> gëtt duerchsicht\u2026</string>
+  <string name="accessibility_remove_attendee">Participant ewechhuelen</string>
   <string name="accessibility_pick_start_date">Startdatum</string>
   <string name="accessibility_pick_start_time">Startzäit</string>
   <string name="accessibility_pick_end_date">Schlussdatum</string>
   <string name="accessibility_pick_end_time">Schlusszäit</string>
   <string name="accessibility_pick_time_zone">Zäitzon</string>
+  <string name="accessibility_pick_recurrence">Rendezvous widderhuelen</string>
   <string name="accessibility_add_reminder">Erënnerung dobäisetzen</string>
   <string name="accessibility_remove_reminder">Erënnerung ewechhuelen</string>
+  <string name="accessibility_add_attendee">Participant dobäisetzen</string>
   <string name="accessibility_sync_cal">Kalenner synchroniséieren</string>
   <string name="accessibility_all_day">Ganzdeegleche Rendezvous</string>
   <string name="accessibility_repeats">Widderhuelung</string>
@@ -203,8 +234,10 @@
   <string name="accessibility_reminder_showmeas">Weis mech als</string>
   <string name="accessibility_reminder_privacy">Privatsphär</string>
   <string name="acessibility_cal_notification">Notifikatioune vum Kalenner</string>
+  <string name="acessibility_snooze_notification">Notifikatioun näipen</string>
   <string name="accessibility_email_notification">E-Mail un d\'Gäscht schécken</string>
   <string name="day_view_new_event_hint">+ Neie Rendezvous</string>
+  <string name="template_announce_item_index">Rendezvous <xliff:g id="item_index">%1$s</xliff:g> / <xliff:g id="item_count">%2$s</xliff:g>.</string>
   <plurals name="Nevents">
     <item quantity="one">1 Rendezvous</item>
     <item quantity="other"><xliff:g id="count">%d</xliff:g> Rendezvousen</item>
@@ -213,6 +246,8 @@
     <item quantity="one">+1 Rendezvous</item>
     <item quantity="other">+<xliff:g id="count">%d</xliff:g> Rendezvousen</item>
   </plurals>
+  <string name="acessibility_selected_marker_description">Ausgewielte Rendezvous</string>
+  <string name="do_not_check">NET aktivéieren -&gt;</string>
   <string name="recurrence_dialog_title">Widderhuelen</string>
   <string name="recurrence_dialog_title_never">Ni widderhuelen</string>
   <plurals name="recurrence_interval_daily">
@@ -231,9 +266,11 @@
     <item quantity="one">All <xliff:g id="count">%d</xliff:g> Joer</item>
     <item quantity="other">All <xliff:g id="count">%d</xliff:g> Joer</item>
   </plurals>
+  <string name="recurrence_month_pattern_by_day">all Mount de selwechten Dag</string>
   <string name="recurrence_end_continously">Fir ëmmer</string>
   <string name="recurrence_end_date_label">Bis zu engem bestëmmten Datum</string>
   <string name="recurrence_end_date">Bis <xliff:g id="date">%s</xliff:g></string>
+  <string name="recurrence_end_count_label">Fir eng Unzuel Rendezvousen</string>
   <plurals name="recurrence_end_count">
     <item quantity="one">Fir <xliff:g id="event_count">%d</xliff:g> Rendezvous</item>
     <item quantity="other">Fir <xliff:g id="event_count">%d</xliff:g> Rendezvousen</item>
