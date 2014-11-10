@@ -132,8 +132,8 @@
   <string name="agenda_yesterday">GËSCHTER, <xliff:g id="date">%1$s</xliff:g></string>
   <string name="agenda_tomorrow">MUER, <xliff:g id="date">%1$s</xliff:g></string>
   <string name="loading">Gëtt gelueden\u2026</string>
-  <string name="show_older_events">Dréck fir Rendezvouse virum <xliff:g id="oldest_search_range">%1$s</xliff:g> ze weisen</string>
-  <string name="show_newer_events">Dréck fir Rendezvouse virum <xliff:g id="oldest_search_range">%1$s</xliff:g> ze weisen</string>
+  <string name="show_older_events">Dréck fir Rendezvouse virum <xliff:g id="oldest_search_range">%1$s</xliff:g> unzeweisen</string>
+  <string name="show_newer_events">Dréck fir Rendezvouse virum <xliff:g id="oldest_search_range">%1$s</xliff:g> unzeweisen</string>
   <string name="search_title">A menge Kalennere sichen</string>
   <string name="edit_event_label">"Detailer"</string>
   <string name="edit_label">"Änneren"</string>
@@ -164,7 +164,7 @@
   <string name="yearly">"All Joer (de(n) <xliff:g id="DATES">%s</xliff:g>)"</string>
   <string name="custom" product="tablet">"Benotzerdefinéiert (Upassung iwwer Tablet net méiglech)"</string>
   <string name="custom" product="default">"Benotzerdefinéiert (Upassung iwwer Telefon net méiglech)"</string>
-  <string name="modify_event">Nëmmen dëse Rendezvous änneren</string>
+  <string name="modify_event">Just dëse Rendezvous änneren</string>
   <string name="modify_all">All Rendezvousen an där Serie änneren</string>
   <string name="modify_all_following">Dësen a zukënfteg Rendezvousen änneren</string>
   <string name="new_event_dialog_label">"Neie Rendezvous"</string>

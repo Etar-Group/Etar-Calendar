@@ -88,7 +88,7 @@
     <item>Nee</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>Nëmmen dëse Rendezvous</item>
+    <item>Just dëse Rendezvous</item>
     <item>Dësen a méi spéit Rendezvousen</item>
     <item>All Rendezvousen</item>
   </string-array>
@@ -102,7 +102,7 @@
     <item>All Rendezvousen</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>Nëmmen dëse Rendezvous</item>
+    <item>Just dëse Rendezvous</item>
     <item>All Rendezvousen an där Serie</item>
   </string-array>
   <string-array name="buttons_list">
