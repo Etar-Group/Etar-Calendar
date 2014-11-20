@@ -16,6 +16,11 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/info_action_share_event"
+        android:alphabeticShortcut="s"
+        android:title="@string/share_label"
+        android:icon="@drawable/ic_action_share"
+        android:showAsAction="always" />
     <item android:id='@+id/info_action_change_color'
         android:alphabeticShortcut="c"
         android:enabled="false"
