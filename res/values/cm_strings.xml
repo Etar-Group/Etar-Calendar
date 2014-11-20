@@ -14,6 +14,17 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- read_calendar permission -->
+    <string name="on_permission_read_calendar">You have disabled a required permission.</string>
+
+    <!-- No maps found in phone -->
+    <string name="no_map">No maps were found.</string>
+
+    <!-- Toast message displayed when ics file to share an event can't be generated -->
+    <string name="error_generating_ics">Problems encountered while sharing event</string>
+
+    <string name="share_label">Share</string>
+
     <!-- Check box label for using custom snooze delays -->
     <string name="preferences_alerts_custom_snooze_delay_title">Ask for reminder snooze delay</string>
     <!-- Summaries for using custom snooze delays -->
@@ -27,6 +38,24 @@
     <string name="preferences_default_snooze_delay_dialog">Default snooze delay</string>
     <!-- Default value for the default snooze delay (in minutes) -->
     <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
+
+    <!-- Delete events -->
+    <string name="events_delete">Delete events</string>
+    <string name="action_select_all">Select all</string>
+    <string name="action_select_none">Deselect all</string>
+    <string name="action_delete">Done</string>
+    <string name="all_events">All events</string>
+    <string name="no_events">No events available</string>
+    <string name="evt_del_dlg_title">Delete events?</string>
+    <string name="evt_del_dlg_msg_selected">Selected events will be deleted</string>
+    <string name="evt_del_dlg_msg_all">All events will be deleted</string>
+    <string name="no_events_selected">No events selected</string>
+
+  <plurals name="events_selected">
+    <item quantity="zero">No events selected</item>
+    <item quantity="one">%1$d event selected</item>
+    <item quantity="other">%1$d events selected</item>
+  </plurals>
 
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>

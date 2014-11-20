@@ -44,6 +44,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -84,6 +85,7 @@ import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 import com.android.datetimepicker.date.DatePickerDialog;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -429,6 +431,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             // other 'case' lines to check for other
             // permissions this app might request
         }
+
+        // Clean up cached ics files - in case onDestroy() didn't run the last time
+        cleanupCachedIcsFiles();
     }
 
     private void setupToolbar(int viewType) {
@@ -664,6 +669,37 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.deregisterAllEventHandlers();
 
         CalendarController.removeInstance(this);
+
+        // Clean up cached ics files
+        cleanupCachedIcsFiles();
+    }
+
+    /**
+     * Cleans up the temporarily generated ics files in the cache directory
+     * The files are of the format *.ics
+     */
+    private void cleanupCachedIcsFiles() {
+        if (!isExternalStorageWritable()) return;
+        File cacheDir = getExternalCacheDir();
+        File[] files = cacheDir.listFiles();
+        if (files == null) return;
+        for (File file : files) {
+            String filename = file.getName();
+            if (filename.endsWith(".ics")) {
+                file.delete();
+            }
+        }
+    }
+
+    /**
+     * Checks if external storage is available for read and write
+     */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
     }
 
     private void initFragments(long timeMillis, int viewType, Bundle icicle) {

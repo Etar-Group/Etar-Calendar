@@ -98,12 +98,18 @@ import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventColorPickerDialog;
 import com.android.calendar.event.EventViewUtils;
+import com.android.calendar.icalendar.IcalendarUtils;
+import com.android.calendar.icalendar.Organizer;
+import com.android.calendar.icalendar.VCalendar;
+import com.android.calendar.icalendar.VEvent;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.colorpicker.HsvColorComparator;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1078,8 +1084,104 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
         } else if (itemId == R.id.info_action_change_color) {
             showEventColorPickerDialog();
+        } else if (itemId == R.id.info_action_share_event) {
+            shareEvent();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Generates an .ics formatted file with the event info and launches intent chooser to
+     * share said file
+     */
+    private void shareEvent() {
+        // Create the respective ICalendar objects from the event info
+        VCalendar calendar = new VCalendar();
+        calendar.addProperty(VCalendar.VERSION, "2.0");
+        calendar.addProperty(VCalendar.PRODID, VCalendar.PRODUCT_IDENTIFIER);
+        calendar.addProperty(VCalendar.CALSCALE, "GREGORIAN");
+        calendar.addProperty(VCalendar.METHOD, "REQUEST");
+
+        VEvent event = new VEvent();
+        mEventCursor.moveToFirst();
+        // Add event start and end datetime
+        if (!mAllDay) {
+            String eventTimeZone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
+            event.addEventStart(mStartMillis, eventTimeZone);
+            event.addEventEnd(mEndMillis, eventTimeZone);
+        } else {
+            // All-day events' start and end time are stored as UTC.
+            // Treat the event start and end time as being in the local time zone and convert them
+            // to the corresponding UTC datetime. If the UTC time is used as is, the ical recipients
+            // will report the wrong start and end time (+/- 1 day) for the event as they will
+            // convert the UTC time to their respective local time-zones
+            String localTimeZone = Utils.getTimeZone(mActivity, mTZUpdater);
+            long eventStart = IcalendarUtils.convertTimeToUtc(mStartMillis, localTimeZone);
+            long eventEnd = IcalendarUtils.convertTimeToUtc(mEndMillis, localTimeZone);
+            event.addEventStart(eventStart, "UTC");
+            event.addEventEnd(eventEnd, "UTC");
+        }
+
+        event.addProperty(VEvent.LOCATION, mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION));
+        event.addProperty(VEvent.DESCRIPTION, mEventCursor.getString(EVENT_INDEX_DESCRIPTION));
+        event.addProperty(VEvent.SUMMARY, mEventCursor.getString(EVENT_INDEX_TITLE));
+        event.addOrganizer(new Organizer(mEventOrganizerDisplayName, mEventOrganizerEmail));
+
+        // Add Attendees to event
+        for (Attendee attendee : mAcceptedAttendees) {
+            IcalendarUtils.addAttendeeToEvent(attendee, event);
+        }
+
+        for (Attendee attendee : mDeclinedAttendees) {
+            IcalendarUtils.addAttendeeToEvent(attendee, event);
+        }
+
+        for (Attendee attendee : mTentativeAttendees) {
+            IcalendarUtils.addAttendeeToEvent(attendee, event);
+        }
+
+        for (Attendee attendee : mNoResponseAttendees) {
+            IcalendarUtils.addAttendeeToEvent(attendee, event);
+        }
+
+        // Compose all of the ICalendar objects
+        calendar.addEvent(event);
+
+        // Create and share ics file
+        boolean isShareSuccessful = false;
+        try {
+            // Event title serves as the file name prefix
+            String filePrefix = event.getProperty(VEvent.SUMMARY);
+            if (filePrefix == null || filePrefix.length() < 3) {
+                // Default to a generic filename if event title doesn't qualify
+                // Prefix length constraint is imposed by File#createTempFile
+                filePrefix = "invite";
+            }
+            File inviteFile = File.createTempFile(filePrefix, ".ics",
+                    mActivity.getExternalCacheDir());
+            if (IcalendarUtils.writeCalendarToFile(calendar, inviteFile)) {
+                inviteFile.setReadable(true,false);     // set world-readable
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(inviteFile));
+                // The ics file is sent as an extra, the receiving application decides whether to
+                // parse the file to extract calendar events or treat it as a regular file
+                shareIntent.setType("application/octet-stream");
+                startActivity(shareIntent);
+                isShareSuccessful = true;
+
+            } else {
+                // Error writing event info to file
+                isShareSuccessful = false;
+            }
+        } catch (IOException e) {
+            isShareSuccessful = false;
+        }
+
+        if (!isShareSuccessful) {
+            Log.e(TAG, "Couldn't generate ics file");
+            Toast.makeText(mActivity, R.string.error_generating_ics, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showEventColorPickerDialog() {
