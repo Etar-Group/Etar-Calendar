@@ -198,7 +198,7 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Prikazuje kalendare i vremenike vaše vrem. zone dok putujete"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domaća vremenska zona"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Prikaži broj tjedna"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"O"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"O aplikaciji"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Međuverzija"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalendar"</string>
   <plurals name="month_more_events">
