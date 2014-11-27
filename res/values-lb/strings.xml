@@ -40,6 +40,10 @@
     <item quantity="one">1 Stonn</item>
     <item quantity="other"><xliff:g id="count">%d</xliff:g> Stonnen</item>
   </plurals>
+  <plurals name="Ndays">
+    <item quantity="one">1 Dag</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> Deeg</item>
+  </plurals>
   <plurals name="weekN">
     <item quantity="one">WOCH <xliff:g id="count">%d</xliff:g></item>
     <item quantity="other">WOCH <xliff:g id="count">%d</xliff:g></item>
