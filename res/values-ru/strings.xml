@@ -38,7 +38,7 @@
     <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"за 1 час"</item>
+    <item quantity="one" msgid="4793697728599296830">"1 час"</item>
     <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ч."</item>
   </plurals>
   <plurals name="Ndays">
