@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2016 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -60,4 +61,14 @@
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>
     <string name="default_start_last">Previously used view</string>
+
+    <!-- Strings for buttons in drop down menu -->
+    <string name="buttons_list_0">Day</string>
+    <string name="buttons_list_1">Week</string>
+    <string name="buttons_list_2">Month</string>
+    <string name="buttons_list_3">Agenda</string>
+    <string name="buttons_list_4">Year</string>
+
+    <!-- Sharing calendar event -->
+    <string name="cal_share_intent_title">Send event to:</string>
 </resources>

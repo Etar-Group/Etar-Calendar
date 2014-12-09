@@ -1167,7 +1167,27 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 // The ics file is sent as an extra, the receiving application decides whether to
                 // parse the file to extract calendar events or treat it as a regular file
                 shareIntent.setType("application/octet-stream");
-                startActivity(shareIntent);
+
+                Intent chooserIntent = Intent.createChooser(shareIntent,
+                                        getResources().getString(R.string.cal_share_intent_title));
+
+                // The MMS app only responds to "text/x-vcalendar" so we create a chooser intent
+                // that includes the targeted mms intent + any that respond to the above general
+                // purpose "application/octet-stream" intent.
+                File vcsInviteFile = File.createTempFile(filePrefix, ".vcs",
+                    mActivity.getExternalCacheDir());
+                // For now, we are duplicating ics file and using that as the vcs file
+                // TODO: revisit above
+                if (IcalendarUtils.copyFile(inviteFile, vcsInviteFile)) {
+                    Intent mmsShareIntent = new Intent();
+                    mmsShareIntent.setAction(Intent.ACTION_SEND);
+                    mmsShareIntent.setPackage("com.android.mms");
+                    mmsShareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(vcsInviteFile));
+                    mmsShareIntent.setType("text/x-vcalendar");
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                                           new Intent[]{mmsShareIntent});
+                }
+                startActivity(chooserIntent);
                 isShareSuccessful = true;
 
             } else {
