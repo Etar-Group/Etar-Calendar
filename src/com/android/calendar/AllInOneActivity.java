@@ -798,6 +798,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             getMenuInflater().inflate(extensionMenuRes, menu);
         }
 
+        MenuItem item = menu.findItem(R.id.action_import);
+        item.setVisible(ImportActivity.hasThingsToImport(this));
+
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenu);
         if (mSearchView != null) {
@@ -892,6 +895,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             return true;
         } else if (itemId == R.id.action_search) {
             return false;
+        } else if (itemId == R.id.action_delete_events) {
+            startActivity(new Intent(this, DeleteEventsActivity.class));
+            return true;
+        } else if (itemId == R.id.action_import) {
+            ImportActivity.pickImportFile(this);
         } else {
             return mExtensions.handleItemSelected(item, this);
         }

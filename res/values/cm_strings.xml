@@ -71,4 +71,11 @@
 
     <!-- Sharing calendar event -->
     <string name="cal_share_intent_title">Send event to:</string>
+
+    <string name="cal_export_event_sdcard_title">Export to sdcard</string>
+    <string name="cal_export_succ_msg">Event exported successfully : %1s</string>
+    <string name="cal_import_menu_title">Import event</string>
+    <string name="cal_nothing_to_import">Nothing to import</string>
+    <string name="cal_import_error_msg">Importing to calendar failed</string>
+    <string name="cal_pick_ics">Pick file to import</string>
 </resources>
