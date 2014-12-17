@@ -16,8 +16,12 @@
 
 package com.android.calendar.icalendar;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Models the Calendar/VCalendar component of the iCalendar format
@@ -112,6 +116,29 @@ public class VCalendar {
         output.append("END:VCALENDAR\n");
 
         return output.toString();
+    }
+
+    public void populateFromString(ArrayList<String> input) {
+        ListIterator<String> iter = input.listIterator();
+
+        while (iter.hasNext()) {
+            String line = iter.next();
+            if (line.contains("BEGIN:VEVENT")) {
+                // Go one previous, so VEvent, parses current line
+                iter.previous();
+
+                // Offload to vevent for parsing
+                VEvent event = new VEvent();
+                event.populateFromEntries(iter);
+                mEvents.add(event);
+            } else if (line.contains("END:VCALENDAR")) {
+                break;
+            }
+        }
+    }
+
+    public String getProperty(String key) {
+        return mProperties.get(key);
     }
 
     /**

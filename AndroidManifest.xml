@@ -29,6 +29,7 @@
        version was using a shared user ID with the provider.
     -->
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -175,6 +176,19 @@
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
             <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
+        </activity>
+
+        <activity android:name="ImportActivity"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:launchMode="singleTop">
+             <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:mimeType="text/x-vcalendar" />
+                <data android:mimeType="text/calendar" />
+            </intent-filter>
         </activity>
 
         <!--<provider android:name="com.android.calendar.CalendarRecentSuggestionsProvider"
