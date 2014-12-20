@@ -184,7 +184,6 @@
   <string name="preferences_hide_declined_title">Ofgeleent Rendezvouse verstoppen</string>
   <string name="preferences_week_start_day_title">D\'Woch fänkt un</string>
   <string name="preferences_week_start_day_dialog">D\'Woch fänkt un</string>
-  <string name="preferences_week_start_day_default">-1</string>
   <string name="preferences_clear_search_history_title">Sichhistorique läschen</string>
   <string name="preferences_clear_search_history_summary">D\'Sich déi gemaach goufe läschen</string>
   <string name="search_history_cleared">De Sichhistorique gouf geläscht.</string>
@@ -194,11 +193,9 @@
   <string name="preferences_alerts_popup_title">Pop-up-Notifikatioun</string>
   <string name="preferences_default_reminder_title">Standardzäit fir Erënnerungen</string>
   <string name="preferences_default_reminder_dialog">Standardzäit fir Erënnerungen</string>
-  <string name="preferences_default_reminder_default">10</string>
   <string name="preferences_use_home_tz_title">Heemechtszäitzon benotzen</string>
   <string name="preferences_use_home_tz_descrip">Weist beim Reesen d\'Kalenner- a Rendezvouszäiten an der Heemechtszäitzon</string>
   <string name="preferences_home_tz_title">Heemechtszäitzon</string>
-  <string name="preferences_home_tz_default">Europe/Luxembourg</string>
   <string name="preferences_show_week_num_title">Wochennummer uweisen</string>
   <string name="preferences_about_title">Iwwer</string>
   <string name="preferences_build_version">Buildversioun</string>

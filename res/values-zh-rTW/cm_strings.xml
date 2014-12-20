@@ -20,10 +20,18 @@
   <string name="preferences_alerts_custom_snooze_delay_summary_on">每當重響提醒時要求重響延遲</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">總是使用預設重響延遲</string>
   <string name="snooze_delay_dialog_title">設定重響延遲</string>
+  <string name="preferences_default_snooze_delay_title">預設重響延遲時間</string>
+  <string name="preferences_default_snooze_delay_dialog">預設重響延遲</string>
+  <string name="default_start_title">預設視圖</string>
   <string name="events_delete">刪除活動</string>
   <string name="action_select_all">全選</string>
   <string name="action_select_none">取消全選</string>
   <string name="action_delete">完成</string>
   <string name="all_events">所有活動</string>
+  <string name="no_events">沒有可用活動</string>
   <string name="evt_del_dlg_title">刪除活動嗎？</string>
+  <string name="evt_del_dlg_msg_selected">將刪除所選活動</string>
+  <string name="evt_del_dlg_msg_all">將刪除所有活動</string>
+  <string name="no_events_selected">沒有已選擇的活動</string>
+  <string name="go_to">"前往"</string>
 </resources>
