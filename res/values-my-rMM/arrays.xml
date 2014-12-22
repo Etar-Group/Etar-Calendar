@@ -77,7 +77,7 @@
   </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"ပထမ"</item>
-    <item msgid="5631923029483854900">"ဒု​တိ​ယ"</item>
+    <item msgid="5631923029483854900">"ဒု​တိ​ယ​"</item>
     <item msgid="148935502975250973">"တတိယ"</item>
     <item msgid="5124200797326669172">"စတုတ္ထ"</item>
     <item msgid="7564374178324652137">"နောက်ဆုံး"</item>
@@ -90,7 +90,7 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"ဒီဖြစ်ရပ် သာလျှင်"</item>
-    <item msgid="1536401639805370405">"ဒီဟာ နှင့် အနာဂတ် ဖြစ်ရပ်များ"</item>
+    <item msgid="1536401639805370405">"ဒီဟာ နှင့် အနာဂတ် ဖြစ်ရပ်များ"</item>
     <item msgid="7833229563617435430">"ဖြစ်ရပ်များ အားလုံး"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">

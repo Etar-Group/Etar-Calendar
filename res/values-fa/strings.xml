@@ -48,7 +48,7 @@
   <plurals name="weekN">
     <item quantity="other" msgid="8085184869561028365">"هفته <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"تازه کردن"</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">"بازخوانی"</string>
     <string name="show_day_view" msgid="5782512782605466016">"نمایش روز"</string>
     <string name="agenda_view" msgid="5566084759423843245">"دستور کار"</string>
     <string name="day_view" msgid="4467754504843584437">"روز"</string>
