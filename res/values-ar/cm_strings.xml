@@ -24,4 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">التأخير انتظار الافتراضي</string>
   <string name="default_start_title">المشهد الافتراضي</string>
   <string name="default_start_last">تستخدم طريقة العرض سابقا</string>
+  <string name="events_delete">حذف الأحداث</string>
+  <string name="action_select_all">تحديد الكل</string>
+  <string name="action_select_none">إلغاء تحديد الكل</string>
+  <string name="action_delete">تم</string>
+  <string name="all_events">جميع الأحداث</string>
+  <string name="no_events">لا يوجد أحداث متاحة</string>
+  <string name="evt_del_dlg_title">حذف الأحداث؟</string>
+  <string name="evt_del_dlg_msg_selected">سيتم حذف الأحداث المحددة</string>
+  <string name="evt_del_dlg_msg_all">سيتم حذف كافة الأحداث</string>
+  <string name="no_events_selected">لا يوجد أحداث محددة</string>
+  <string name="go_to">"اذهب إلى"</string>
 </resources>

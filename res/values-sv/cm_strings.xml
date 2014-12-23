@@ -24,5 +24,15 @@
   <string name="preferences_default_snooze_delay_dialog">Standardsnoozelängd</string>
   <string name="default_start_title">Standardvisning</string>
   <string name="default_start_last">Tidigare använd visning</string>
+  <string name="events_delete">Ta bort händelser</string>
   <string name="action_select_all">Välj alla</string>
+  <string name="action_select_none">Avmarkera alla</string>
+  <string name="action_delete">Färdig</string>
+  <string name="all_events">Alla händelser</string>
+  <string name="no_events">Inga händelser tillgängliga</string>
+  <string name="evt_del_dlg_title">Ta bort händelser?</string>
+  <string name="evt_del_dlg_msg_selected">Valda händelser kommer tas bort</string>
+  <string name="evt_del_dlg_msg_all">Alla händelser kommer tas bort</string>
+  <string name="no_events_selected">Inga händelser valda</string>
+  <string name="go_to">"Gå till"</string>
 </resources>

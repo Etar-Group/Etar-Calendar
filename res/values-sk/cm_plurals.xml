@@ -17,7 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <plurals name="events_selected">
-    <item quantity="one">%1$d seçildi</item>
-    <item quantity="other">%1$d seçildi</item>
+    <item quantity="one">%1$d vybraná</item>
+    <item quantity="few">%1$d vybrané</item>
+    <item quantity="other">%1$d vybraných</item>
   </plurals>
 </resources>

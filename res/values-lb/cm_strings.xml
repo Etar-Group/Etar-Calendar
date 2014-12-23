@@ -17,4 +17,22 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="preferences_alerts_custom_snooze_delay_title">Erënnerung fir d\'Widderhuelungszäit</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Ëmmer nofroe wéi laang bis déi nächst Erënnerung soll gewaart ginn</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Ëmmer no der Standardzäit erënneren</string>
+  <string name="snooze_delay_dialog_title">Erënneren an\u2026</string>
+  <string name="preferences_default_snooze_delay_title">Standard-Widderhuelungszäit</string>
+  <string name="preferences_default_snooze_delay_dialog">Erënnerung widderhuelen no\u2026</string>
+  <string name="default_start_title">Standard-Usiicht</string>
+  <string name="default_start_last">Lescht benotzten Usiicht</string>
+  <string name="events_delete">Rendezvouse läschen</string>
+  <string name="action_select_all">All auswielen</string>
+  <string name="action_select_none">Auswiel ophiewen</string>
+  <string name="action_delete">Fäerdeg</string>
+  <string name="all_events">All Rendezvousen</string>
+  <string name="no_events">Keng Rendezvousen disponibel</string>
+  <string name="evt_del_dlg_title">Rendezvouse läschen?</string>
+  <string name="evt_del_dlg_msg_selected">Déi ausgewielte Rendezvouse gi geläscht</string>
+  <string name="evt_del_dlg_msg_all">All d\'Rendezvouse gi geläscht</string>
+  <string name="no_events_selected">Keng Rendezvousen ausgewielt</string>
+  <string name="go_to">"Wiesselen op"</string>
 </resources>
