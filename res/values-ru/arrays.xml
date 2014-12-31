@@ -24,7 +24,7 @@
   </string-array>
   <string-array name="reminder_minutes_labels">
     <item msgid="2416970002377237011">"0 минут"</item>
-    <item msgid="6681865010714743948">"1 минута"</item>
+    <item msgid="6681865010714743948">"1 мин."</item>
     <item msgid="2327505114623595779">"5 минут"</item>
     <item msgid="1657410063332547113">"10 минут"</item>
     <item msgid="366087535181197780">"15 минут"</item>
@@ -43,7 +43,7 @@
   <string-array name="preferences_default_reminder_labels">
     <item msgid="7495163916242649023">"Нет"</item>
     <item msgid="5883344836499335043">"0 минут"</item>
-    <item msgid="4354350447805231188">"1 минута"</item>
+    <item msgid="4354350447805231188">"1 мин."</item>
     <item msgid="265674592625309858">"5 минут"</item>
     <item msgid="8011089417728419666">"10 минут"</item>
     <item msgid="6177098581805412986">"15 минут"</item>

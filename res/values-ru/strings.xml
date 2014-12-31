@@ -30,7 +30,7 @@
     <string name="repeats_label" msgid="7414023871434593196">"Повторять"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Нет заголовка)"</string>
   <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 минута"</item>
+    <item quantity="one" msgid="4871052965772159239">"1 мин."</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
   </plurals>
   <plurals name="Nmins">
