@@ -112,7 +112,7 @@
     <string name="response_maybe" msgid="7791500973627841695">"ربما"</string>
     <string name="response_no" msgid="561911691884148136">"لا"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"إرسال بريد إلكتروني إلى المدعوين"</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">"منظم البريد الإلكتروني"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"إرسال بريد إلكتروني إلى المنظّم"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"إرسال رسالة إلكترونية إلى"</string>
     <string name="event_not_found" msgid="8356864185947582727">"لم يتم العثور على الحدث."</string>
     <string name="map_label" msgid="8795383535586556038">"خريطة"</string>
