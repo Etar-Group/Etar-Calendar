@@ -249,7 +249,7 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Vybratá udalosť"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NEzačiarknite -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakovať"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakovanie"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nikdy neopakovať"</string>
   <plurals name="recurrence_interval_daily">
     <item quantity="one" msgid="1205422710088692631">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>
