@@ -30,7 +30,7 @@
     <string name="repeats_label" msgid="7414023871434593196">"Повторять"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Нет заголовка)"</string>
   <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 минута"</item>
+    <item quantity="one" msgid="4871052965772159239">"1 мин."</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
   </plurals>
   <plurals name="Nmins">
@@ -38,7 +38,7 @@
     <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"за 1 час"</item>
+    <item quantity="one" msgid="4793697728599296830">"1 час"</item>
     <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ч."</item>
   </plurals>
   <plurals name="Ndays">
@@ -55,8 +55,8 @@
     <string name="week_view" msgid="6775043022159508060">"Неделя"</string>
     <string name="month_view" msgid="7287101431749285412">"Месяц"</string>
     <string name="event_view" msgid="7621353079385122317">"Просмотр мероприятия"</string>
-    <string name="event_create" msgid="6941040556709110617">"Новое мероприятие"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Изменить мероприятие"</string>
+    <string name="event_create" msgid="6941040556709110617">"Новое"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Правка"</string>
     <string name="event_delete" msgid="2386667193277770442">"Удалить мероприятие"</string>
     <string name="goto_today" msgid="9162136434410891230">"Сегодня"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>

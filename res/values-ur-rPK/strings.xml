@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for app_label (5452708708398908131) -->
+    <skip />
+    <!-- no translation found for what_label (1933578391985810049) -->
+    <skip />
+    <!-- no translation found for where_label (3472482206065595118) -->
+    <skip />
+    <!-- no translation found for when_label (894636567327261599) -->
+    <skip />
+    <!-- no translation found for timezone_label (3988530993300431650) -->
+    <skip />
+    <!-- no translation found for attendees_label (2971281641565729725) -->
+    <skip />
+    <!-- no translation found for today (8577375020252453006) -->
+    <skip />
+    <!-- no translation found for tomorrow (614434811813859237) -->
+    <skip />
+    <!-- no translation found for today_at_time_fmt (1981279213130049736) -->
+    <skip />
+    <!-- no translation found for tomorrow_at_time_fmt (1330779112841767432) -->
+    <skip />
+    <!-- no translation found for date_time_fmt (1642972650061946484) -->
+    <skip />
+    <!-- no translation found for repeats_label (7414023871434593196) -->
+    <skip />
+    <!-- no translation found for no_title_label (302177118061368042) -->
+    <skip />
+    <!-- no translation found for Nminutes:one (4871052965772159239) -->
+    <!-- no translation found for Nminutes:other (5644461630927544936) -->
+    <!-- no translation found for Nmins:one (9191090668359663663) -->
+    <!-- no translation found for Nmins:other (9175648445939148974) -->
+    <!-- no translation found for Nhours:one (4793697728599296830) -->
+    <!-- no translation found for Nhours:other (4477841052001760620) -->
+    <!-- no translation found for Ndays:one (5988137255732166573) -->
+    <!-- no translation found for Ndays:other (1709378992389618261) -->
+    <!-- no translation found for weekN:other (8085184869561028365) -->
+    <!-- no translation found for calendar_refresh (6172731193680500025) -->
+    <skip />
+    <!-- no translation found for show_day_view (5782512782605466016) -->
+    <skip />
+    <!-- no translation found for agenda_view (5566084759423843245) -->
+    <skip />
+    <!-- no translation found for day_view (4467754504843584437) -->
+    <skip />
+    <!-- no translation found for week_view (6775043022159508060) -->
+    <skip />
+    <!-- no translation found for month_view (7287101431749285412) -->
+    <skip />
+    <!-- no translation found for event_view (7621353079385122317) -->
+    <skip />
+    <string name="event_create" msgid="6941040556709110617">"نیا ایونٹ"</string>
+    <!-- no translation found for event_edit (4006961928830064662) -->
+    <skip />
+    <!-- no translation found for event_delete (2386667193277770442) -->
+    <skip />
+    <!-- no translation found for goto_today (9162136434410891230) -->
+    <skip />
+    <!-- no translation found for menu_preferences (9120238479503233925) -->
+    <skip />
+    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
+    <skip />
+    <!-- no translation found for search (550656004486017426) -->
+    <skip />
+    <!-- no translation found for hide_controls (830320505938520882) -->
+    <skip />
+    <!-- no translation found for show_controls (715520586028062621) -->
+    <skip />
+    <!-- no translation found for select_visible_calendars_title (7944393060991949882) -->
+    <skip />
+    <!-- no translation found for synced (7913940305983383493) -->
+    <skip />
+    <!-- no translation found for not_synced (4275114941801829419) -->
+    <skip />
+    <!-- no translation found for acct_not_synced (6126800985681230627) -->
+    <skip />
+    <!-- no translation found for accounts (849401841083180306) -->
+    <skip />
+    <!-- no translation found for select_synced_calendars_title (7916084873075901448) -->
+    <skip />
+    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
+    <skip />
+    <!-- no translation found for hint_what (709155115005044531) -->
+    <skip />
+    <!-- no translation found for hint_where (4972598001033801974) -->
+    <skip />
+    <!-- no translation found for hint_description (1910143586169033232) -->
+    <skip />
+    <!-- no translation found for hint_attendees (1650488163176888480) -->
+    <skip />
+    <!-- no translation found for creating_event (7516249252554059980) -->
+    <skip />
+    <!-- no translation found for saving_event (7694181017411177226) -->
+    <skip />
+    <!-- no translation found for empty_event (9018699257414338634) -->
+    <skip />
+    <!-- no translation found for creating_event_with_guest (5758688413124191931) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (9184584438475689577) -->
+    <skip />
+    <!-- no translation found for rsvp_accepted (8146618862268962727) -->
+    <skip />
+    <!-- no translation found for rsvp_tentative (6545510359501328718) -->
+    <skip />
+    <!-- no translation found for rsvp_declined (8686330037802222895) -->
+    <skip />
+    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
+    <skip />
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
+    <!-- no translation found for event_info_title (56024222340421620) -->
+    <skip />
+    <!-- no translation found for event_info_title_invite (9160326363769403865) -->
+    <skip />
+    <!-- no translation found for edit_event_to_label (795012981218062421) -->
+    <skip />
+    <!-- no translation found for edit_event_from_label (174999102612666115) -->
+    <skip />
+    <!-- no translation found for edit_event_all_day_label (6200181113992136073) -->
+    <skip />
+    <!-- no translation found for edit_event_calendar_label (4556498359505856900) -->
+    <skip />
+    <!-- no translation found for edit_event_show_all (4558049350756058301) -->
+    <skip />
+    <!-- no translation found for description_label (7193475046717505855) -->
+    <skip />
+    <!-- no translation found for presence_label (6169724148441175862) -->
+    <skip />
+    <!-- no translation found for privacy_label (9215031965259597335) -->
+    <skip />
+    <!-- no translation found for reminders_label (7292389181815525676) -->
+    <skip />
+    <!-- no translation found for no_syncable_calendars (7019488867045436129) -->
+    <skip />
+    <!-- no translation found for no_calendars_found (8968682716053492187) -->
+    <skip />
+    <!-- no translation found for create_an_account_desc (7249605109240576895) -->
+    <skip />
+    <!-- no translation found for add_account (1669072099756774952) -->
+    <skip />
+    <!-- no translation found for view_event_calendar_label (6126231656338241140) -->
+    <skip />
+    <!-- no translation found for view_event_organizer_label (2753151795647402277) -->
+    <skip />
+    <!-- no translation found for choose_event_color_label (2192923501857428854) -->
+    <skip />
+    <!-- no translation found for event_color_picker_dialog_title (4631938661655159511) -->
+    <skip />
+    <!-- no translation found for event_color_set_to_default (3447218820785647967) -->
+    <skip />
+    <!-- no translation found for calendar_color_picker_dialog_title (3595509200561433667) -->
+    <skip />
+    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
+    <skip />
+    <!-- no translation found for view_event_response_label (8382281658458798329) -->
+    <skip />
+    <!-- no translation found for response_yes (2027484304899988350) -->
+    <skip />
+    <!-- no translation found for response_maybe (7791500973627841695) -->
+    <skip />
+    <!-- no translation found for response_no (561911691884148136) -->
+    <skip />
+    <!-- no translation found for email_guests_label (8772030932155305903) -->
+    <skip />
+    <!-- no translation found for email_organizer_label (7178059542798074813) -->
+    <skip />
+    <!-- no translation found for email_picker_label (4808253965057791781) -->
+    <skip />
+    <!-- no translation found for event_not_found (8356864185947582727) -->
+    <skip />
+    <!-- no translation found for map_label (8795383535586556038) -->
+    <skip />
+    <!-- no translation found for call_label (2960328220008869083) -->
+    <skip />
+    <!-- no translation found for quick_response_settings (6776151690686068278) -->
+    <skip />
+    <!-- no translation found for quick_response_settings_summary (7878304729027355604) -->
+    <skip />
+    <!-- no translation found for quick_response_settings_title (8966517107774567031) -->
+    <skip />
+    <!-- no translation found for quick_response_settings_edit_title (6260055523174081930) -->
+    <skip />
+    <!-- no translation found for quick_response_dialog_title (2681309456412199207) -->
+    <skip />
+    <!-- no translation found for quick_response_email_failed (5544066405231853245) -->
+    <skip />
+    <!-- no translation found for quick_response_defaults:0 (1524421198348168403) -->
+    <!-- no translation found for quick_response_defaults:1 (6215158751728689832) -->
+    <!-- no translation found for quick_response_defaults:2 (4485794001743679338) -->
+    <!-- no translation found for quick_response_defaults:3 (8036557974294987511) -->
+    <!-- no translation found for quick_response_custom_msg (8792374208224108798) -->
+    <skip />
+    <!-- no translation found for event_info_organizer (9138683335394832629) -->
+    <skip />
+    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
+    <skip />
+    <!-- no translation found for agenda_today (5965841338467422191) -->
+    <skip />
+    <!-- no translation found for agenda_yesterday (4170964206728599693) -->
+    <skip />
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
+    <skip />
+    <!-- no translation found for loading (3772533493214331230) -->
+    <skip />
+    <!-- no translation found for show_older_events (5140647493681439926) -->
+    <skip />
+    <!-- no translation found for show_newer_events (2604638815440163080) -->
+    <skip />
+    <!-- no translation found for search_title (8898015280250716254) -->
+    <skip />
+    <!-- no translation found for edit_event_label (7413222956349977161) -->
+    <skip />
+    <!-- no translation found for edit_label (8934331258435656534) -->
+    <skip />
+    <!-- no translation found for delete_label (874742811918030739) -->
+    <skip />
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (2394623883289782541) -->
+    <skip />
+    <!-- no translation found for snooze_all_label (4994488813124409077) -->
+    <skip />
+    <!-- no translation found for dismiss_all_label (1834400025868091301) -->
+    <skip />
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
+    <!-- no translation found for does_not_repeat (1877681921029738999) -->
+    <skip />
+    <!-- no translation found for endByDate (7654221304929538201) -->
+    <skip />
+    <!-- no translation found for endByCount:one (3727754565990691816) -->
+    <!-- no translation found for endByCount:other (4855496837834652446) -->
+    <!-- no translation found for daily:one (5169052946627480942) -->
+    <!-- no translation found for daily:other (5455230727715859264) -->
+    <!-- no translation found for every_weekday (5896574838353902978) -->
+    <skip />
+    <!-- no translation found for weekly:one (5463021019301453273) -->
+    <!-- no translation found for weekly:other (2857390143157377867) -->
+    <!-- no translation found for monthly (4587116285383048586) -->
+    <skip />
+    <!-- no translation found for yearly_plain (3652692085322162449) -->
+    <skip />
+    <!-- no translation found for monthly_on_day (5370155265278821156) -->
+    <skip />
+    <!-- no translation found for yearly (8576208380302949002) -->
+    <skip />
+    <!-- no translation found for custom (3806817351377723249) -->
+    <skip />
+    <!-- no translation found for custom (4137468716966004993) -->
+    <skip />
+    <!-- no translation found for modify_event (5982876409997142690) -->
+    <skip />
+    <!-- no translation found for modify_all (4421657265864209041) -->
+    <skip />
+    <!-- no translation found for modify_all_following (3017428541066390380) -->
+    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"نیا ایونٹ"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"نیا ایونٹ"</string>
+    <!-- no translation found for delete_this_event_title (518402946676919384) -->
+    <skip />
+    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
+    <skip />
+    <!-- no translation found for change_response_title (7704714776070974984) -->
+    <skip />
+    <!-- no translation found for menu_general_preferences (2812705323334260708) -->
+    <skip />
+    <!-- no translation found for menu_about_preferences (6124375438237674973) -->
+    <skip />
+    <!-- no translation found for preferences_title (8045855493262131773) -->
+    <skip />
+    <!-- no translation found for preferences_general_title (2069075513760573117) -->
+    <skip />
+    <!-- no translation found for preferences_reminder_title (5199606534191180129) -->
+    <skip />
+    <!-- no translation found for preferences_hide_declined_title (1849295943669890034) -->
+    <skip />
+    <!-- no translation found for preferences_week_start_day_title (4619489296444901622) -->
+    <skip />
+    <!-- no translation found for preferences_week_start_day_dialog (5181634128884089113) -->
+    <skip />
+    <!-- no translation found for preferences_clear_search_history_title (6619916370215282982) -->
+    <skip />
+    <!-- no translation found for preferences_clear_search_history_summary (7864674093455778158) -->
+    <skip />
+    <!-- no translation found for search_history_cleared (1536707558435227567) -->
+    <skip />
+    <!-- no translation found for preferences_alerts_title (6636088008103904020) -->
+    <skip />
+    <!-- no translation found for preferences_alerts_vibrateWhen_title (8731372580674292759) -->
+    <skip />
+    <!-- no translation found for preferences_alerts_ringtone_title (1849706055052358346) -->
+    <skip />
+    <!-- no translation found for preferences_alerts_popup_title (6643468203670475296) -->
+    <skip />
+    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
+    <skip />
+    <!-- no translation found for preferences_default_reminder_dialog (2490348857239323412) -->
+    <skip />
+    <!-- no translation found for preferences_default_reminder_default (2903884416749959435) -->
+    <skip />
+    <!-- no translation found for preferences_use_home_tz_title (5597546849968598210) -->
+    <skip />
+    <!-- no translation found for preferences_use_home_tz_descrip (4835375381297413746) -->
+    <skip />
+    <!-- no translation found for preferences_home_tz_title (6680000444088818578) -->
+    <skip />
+    <!-- no translation found for preferences_show_week_num_title (5280734329664503461) -->
+    <skip />
+    <!-- no translation found for preferences_about_title (2810624892412097879) -->
+    <skip />
+    <!-- no translation found for preferences_build_version (8242471883413502068) -->
+    <skip />
+    <!-- no translation found for gadget_title (939918875331310945) -->
+    <skip />
+    <!-- no translation found for month_more_events:one (8971334808414201327) -->
+    <!-- no translation found for month_more_events:other (1997405398178470838) -->
+    <!-- no translation found for gadget_no_events (5209110911088302855) -->
+    <skip />
+    <!-- no translation found for preferences_experimental_category (8111213192001230350) -->
+    <skip />
+    <!-- no translation found for preferences_reminders_category (3179315692653755740) -->
+    <skip />
+    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
+    <skip />
+    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
+    <skip />
+    <!-- no translation found for preferences_reminders_quiet_hours_label (8529712276644546893) -->
+    <skip />
+    <!-- no translation found for preferences_reminders_quiet_hours_description (65969073433791290) -->
+    <skip />
+    <!-- no translation found for preferences_reminders_quiet_hours_start (3433058529220285232) -->
+    <skip />
+    <!-- no translation found for preferences_reminders_quiet_hours_end (7492883554865119346) -->
+    <skip />
+    <!-- no translation found for preferences_debug_category (6203278208385095018) -->
+    <skip />
+    <!-- no translation found for copy_db (437691290566699292) -->
+    <skip />
+    <!-- no translation found for directory_searching_fmt (1232037509095606687) -->
+    <skip />
+    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_recurrence (1834311617874828931) -->
+    <skip />
+    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
+    <skip />
+    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
+    <skip />
+    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
+    <skip />
+    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
+    <skip />
+    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
+    <skip />
+    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
+    <skip />
+    <!-- no translation found for acessibility_cal_notification (7267601064994839394) -->
+    <skip />
+    <!-- no translation found for acessibility_snooze_notification (5007852779125102681) -->
+    <skip />
+    <!-- no translation found for accessibility_email_notification (9124064701968129831) -->
+    <skip />
+    <!-- no translation found for day_view_new_event_hint (2131483437911536229) -->
+    <skip />
+    <!-- no translation found for template_announce_item_index (4067877800670753110) -->
+    <skip />
+    <!-- no translation found for Nevents:one (5230907142214104485) -->
+    <!-- no translation found for Nevents:other (6093072093209431078) -->
+    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
+    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+    <!-- no translation found for acessibility_selected_marker_description (3010149843148810768) -->
+    <skip />
+    <!-- no translation found for do_not_check (7815441673853466129) -->
+    <skip />
+    <!-- no translation found for recurrence_dialog_title (8093909645557717483) -->
+    <skip />
+    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_daily:one (1205422710088692631) -->
+    <!-- no translation found for recurrence_interval_daily:other (707566499994398250) -->
+    <!-- no translation found for recurrence_interval_weekly:one (4948681635464488351) -->
+    <!-- no translation found for recurrence_interval_weekly:other (7094801039989237061) -->
+    <!-- no translation found for recurrence_interval_monthly:one (4768178401603139718) -->
+    <!-- no translation found for recurrence_interval_monthly:other (5419723710346646523) -->
+    <!-- no translation found for recurrence_interval_yearly:one (5819562634008179102) -->
+    <!-- no translation found for recurrence_interval_yearly:other (5678653649746562060) -->
+    <!-- no translation found for recurrence_month_pattern_by_day (4400107556121003459) -->
+    <skip />
+    <!-- no translation found for recurrence_end_continously (6898950241634912991) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (4142791438636994952) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date (3693751578164711701) -->
+    <skip />
+    <!-- no translation found for recurrence_end_count_label (1233883668293087977) -->
+    <skip />
+    <!-- no translation found for recurrence_end_count:one (1400782968090516215) -->
+    <!-- no translation found for recurrence_end_count:other (8779598489398048259) -->
+    <!-- no translation found for acessibility_recurrence_choose_end_date_description (5899029840837836711) -->
+    <skip />
+</resources>

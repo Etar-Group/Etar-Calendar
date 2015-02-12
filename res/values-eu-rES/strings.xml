@@ -28,7 +28,7 @@
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Bihar (<xliff:g id="TIME_INTERVAL">%s</xliff:g>)"</string>
     <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g> (<xliff:g id="TIME_INTERVAL">%s</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Errepikapena"</string>
-    <string name="no_title_label" msgid="302177118061368042">"(Ez dauka izenbururik)"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Ez dauka izenik)"</string>
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"1 minutu"</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutu"</item>

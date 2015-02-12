@@ -18,7 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_methods_labels">
     <item msgid="5172236776878811487">"התראה"</item>
-    <item msgid="1751151680520784746">"דוא\"ל"</item>
+    <item msgid="1751151680520784746">"אימייל"</item>
     <item msgid="2658001219380695677">"SMS"</item>
     <item msgid="7926918288165444873">"התראה"</item>
   </string-array>

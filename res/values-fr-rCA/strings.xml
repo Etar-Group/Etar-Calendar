@@ -55,7 +55,7 @@
     <string name="week_view" msgid="6775043022159508060">"Semaine"</string>
     <string name="month_view" msgid="7287101431749285412">"Mois"</string>
     <string name="event_view" msgid="7621353079385122317">"Afficher l\'événement"</string>
-    <string name="event_create" msgid="6941040556709110617">"Nouvel événement"</string>
+    <string name="event_create" msgid="6941040556709110617">"Nouvel évén."</string>
     <string name="event_edit" msgid="4006961928830064662">"Modifier l\'événement"</string>
     <string name="event_delete" msgid="2386667193277770442">"Supprimer l\'événement"</string>
     <string name="goto_today" msgid="9162136434410891230">"Aujourd’hui"</string>

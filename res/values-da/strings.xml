@@ -56,7 +56,7 @@
     <string name="month_view" msgid="7287101431749285412">"Måned"</string>
     <string name="event_view" msgid="7621353079385122317">"Vis begivenhed"</string>
     <string name="event_create" msgid="6941040556709110617">"Ny begivenhed"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Rediger begivenhed"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Rediger"</string>
     <string name="event_delete" msgid="2386667193277770442">"Slet begivenhed"</string>
     <string name="goto_today" msgid="9162136434410891230">"I dag"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Indstillinger"</string>
@@ -78,8 +78,8 @@
     <string name="creating_event" msgid="7516249252554059980">"Begivenheden er oprettet."</string>
     <string name="saving_event" msgid="7694181017411177226">"Begivenheden er gemt."</string>
     <string name="empty_event" msgid="9018699257414338634">"Tom begivenhed ikke oprettet."</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">"Invitationer vil blive sendt."</string>
-    <string name="saving_event_with_guest" msgid="9184584438475689577">"Opdateringer vil blive sendt."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Invitationer sendes."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"Opdateringer sendes."</string>
     <string name="rsvp_accepted" msgid="8146618862268962727">"Har svaret ja."</string>
     <string name="rsvp_tentative" msgid="6545510359501328718">"Har svaret måske."</string>
     <string name="rsvp_declined" msgid="8686330037802222895">"Har svaret nej."</string>

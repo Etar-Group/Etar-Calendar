@@ -125,9 +125,9 @@
     <string name="quick_response_email_failed" msgid="5544066405231853245">"E-mailový program sa nepodarilo nájsť"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Budem pár minút meškať."</item>
-    <item msgid="6215158751728689832">"Budem tam o 10 minút."</item>
+    <item msgid="6215158751728689832">"Budem tam o desať minút."</item>
     <item msgid="4485794001743679338">"Začnite bezo mňa."</item>
-    <item msgid="8036557974294987511">"Je mi ľúto, ale nestíham. Naplánujeme to na inokedy."</item>
+    <item msgid="8036557974294987511">"Je mi ľúto, nestíham. Naplánujeme to na inokedy."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napíšte vlastnú..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizátor:"</string>
@@ -249,7 +249,7 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Vybratá udalosť"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NEzačiarknite -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakovať"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakovanie"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nikdy neopakovať"</string>
   <plurals name="recurrence_interval_daily">
     <item quantity="one" msgid="1205422710088692631">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>

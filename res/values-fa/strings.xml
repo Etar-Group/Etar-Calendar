@@ -18,10 +18,10 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"تقویم"</string>
     <string name="what_label" msgid="1933578391985810049">"چه چیزی"</string>
-    <string name="where_label" msgid="3472482206065595118">"کجا"</string>
+    <string name="where_label" msgid="3472482206065595118">"مکان"</string>
     <string name="when_label" msgid="894636567327261599">"زمان"</string>
     <string name="timezone_label" msgid="3988530993300431650">"منطقهٔ زمانی"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"مهمان ها"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"مهمان‌ها"</string>
     <string name="today" msgid="8577375020252453006">"امروز"</string>
     <string name="tomorrow" msgid="614434811813859237">"فردا"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"امروز در <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
@@ -48,9 +48,9 @@
   <plurals name="weekN">
     <item quantity="other" msgid="8085184869561028365">"هفته <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"تازه کردن"</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">"بازخوانی"</string>
     <string name="show_day_view" msgid="5782512782605466016">"نمایش روز"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"دستور جلسه"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"دستور کار"</string>
     <string name="day_view" msgid="4467754504843584437">"روز"</string>
     <string name="week_view" msgid="6775043022159508060">"هفته"</string>
     <string name="month_view" msgid="7287101431749285412">"ماه"</string>
@@ -69,7 +69,7 @@
     <string name="not_synced" msgid="4275114941801829419">"همگام‌سازی نشده"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"این حساب همگام نمی‌شود، بنابراین تقویم‌های شما ممکن است به روز نباشند."</string>
     <string name="accounts" msgid="849401841083180306">"حساب‌ها و همگام‌سازی"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"تقویم‌های موردنظر برای همگام‌سازی"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"تقویم‌های مورد نظر برای همگام‌سازی"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"تقویم‌ها برای همگام‌سازی"</string>
     <string name="hint_what" msgid="709155115005044531">"نام رویداد"</string>
     <string name="hint_where" msgid="4972598001033801974">"مکان"</string>
@@ -94,7 +94,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"نمایش همه"</string>
     <string name="description_label" msgid="7193475046717505855">"توضیح"</string>
     <string name="presence_label" msgid="6169724148441175862">"نمایش من به‌عنوان"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"رازداری"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"حریم خصوصی"</string>
     <string name="reminders_label" msgid="7292389181815525676">"افزودن یادآور"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"تقویمی موجود نیست"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"قبل از اینکه بتوانید یک رویداد اضافه کنید، باید حداقل یک حساب تقویم به دستگاه خود اضافه کرده و تقویمی را قابل مشاهده کنید. برای افزودن یک حساب، \"افزودن حساب\" را لمس کنید (اگر بتازگی حسابی اضافه کرده‌اید، منتظر بمانید تا همگامسازی آن تمام شود و سپس دوباره امتحان کنید). همچنین می‌توانید \"لغو\" را لمس کرده و اطمینان حاصل کنید که حداقل یک تقویم قابل مشاهده است."</string>
@@ -107,7 +107,7 @@
     <string name="event_color_set_to_default" msgid="3447218820785647967">"تنظیم روی رنگ تقویم پیش‌فرض"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"رنگ تقویم"</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"انتخابگر رنگ"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"حاضر می‌شوید؟"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"شرکت می‌کنید؟"</string>
     <string name="response_yes" msgid="2027484304899988350">"بله"</string>
     <string name="response_maybe" msgid="7791500973627841695">"شاید"</string>
     <string name="response_no" msgid="561911691884148136">"خیر"</string>
@@ -147,7 +147,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"تعویق همه"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"رد کردن همه"</string>
     <string name="snooze_label" msgid="1515893621063224666">"تعویق"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"رویداد یک بار"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"رویداد تکرار نمی‌شود"</string>
     <string name="endByDate" msgid="7654221304929538201">"؛ تا <xliff:g id="DATE">%s</xliff:g>"</string>
   <plurals name="endByCount">
     <item quantity="one" msgid="3727754565990691816">"؛ برای یکبار"</item>
@@ -182,8 +182,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"تنظیم نمای تقویم"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"اعلان‌ها و یادآورها"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"پنهان کردن رویدادهای رد شده"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"شروع هفته در"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"شروع هفته در"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"شروع هفته از"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"شروع هفته از"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"پاک کردن سابقه جستجو"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"تمام جستجوهایی را که انجام داده‌اید، حذف کنید"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"سابقه جستجو پاک شد."</string>
@@ -216,7 +216,7 @@
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"زمان پایان ساعات سکوت"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"اشکال‌زدایی"</string>
     <string name="copy_db" msgid="437691290566699292">"ارسال پایگاه داده"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"در حال جستجو <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"در حال جستجوی <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"حذف شرکت کنندگان"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"تاریخ شروع"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"زمان شروع"</string>

@@ -198,7 +198,7 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按家里的时区显示日历和活动时间"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"家里时区"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"显示周数"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"关于"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"应用信息"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
     <string name="gadget_title" msgid="939918875331310945">"日历"</string>
   <plurals name="month_more_events">
@@ -232,7 +232,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"重复"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"提醒时间"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"提醒类型"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"将我的状态显示为："</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"将我的状态显示为"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"隐私设置"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"日历通知"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"暂停通知"</string>
