@@ -57,7 +57,7 @@
     <string name="event_view" msgid="7621353079385122317">"ดูกิจกรรม"</string>
     <string name="event_create" msgid="6941040556709110617">"กิจกรรมใหม่"</string>
     <string name="event_edit" msgid="4006961928830064662">"แก้ไขกิจกรรม"</string>
-    <string name="event_delete" msgid="2386667193277770442">"นำออกกิจกรรม"</string>
+    <string name="event_delete" msgid="2386667193277770442">"ลบกิจกรรม"</string>
     <string name="goto_today" msgid="9162136434410891230">"วันนี้"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"การตั้งค่า"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"เลือกปฏิทิน"</string>
@@ -80,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"ไม่ได้สร้างกิจกรรมเปล่า"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"จะมีการส่งข้อความเชิญ"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"จะมีการส่งการอัปเดต"</string>
-    <string name="rsvp_accepted" msgid="8146618862268962727">"ตอบว่าไป"</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"ตอบไปแล้วว่าไป"</string>
     <string name="rsvp_tentative" msgid="6545510359501328718">"ตอบว่าอาจจะไป"</string>
     <string name="rsvp_declined" msgid="8686330037802222895">"ตอบว่าไม่ไป"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"บันทึก"</string>
@@ -109,7 +109,7 @@
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"ตัวเลือกสี"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"ต้องการเข้าร่วมหรือไม่"</string>
     <string name="response_yes" msgid="2027484304899988350">"ใช่"</string>
-    <string name="response_maybe" msgid="7791500973627841695">"ไม่แน่นอน"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"ไม่แน่"</string>
     <string name="response_no" msgid="561911691884148136">"ไม่"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"ส่งอีเมลถึงผู้เข้าร่วม"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"ส่งอีเมลถึงผู้จัด"</string>
@@ -124,10 +124,10 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"เลือกคำตอบด่วน"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"การค้นหาโปรแกรมอีเมลล้มเหลว"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"ไปช้าสักสองสามนาที"</item>
-    <item msgid="6215158751728689832">"ไปถึงในอีกประมาณ 10 นาที"</item>
+    <item msgid="1524421198348168403">"อาจไปถึงช้านิดหน่อย"</item>
+    <item msgid="6215158751728689832">"อีกประมาณ 10 นาทีน่าจะถึง"</item>
     <item msgid="4485794001743679338">"เริ่มไปเลย ไม่ต้องรอ"</item>
-    <item msgid="8036557974294987511">"ขอโทษ ฉันไปไม่ได้ เราต้องกำหนดเวลากันใหม่"</item>
+    <item msgid="8036557974294987511">"ขอโทษด้วยที่ไปไม่ได้ เราคงต้องนัดเวลากันใหม่"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"เขียนคำตอบของคุณเอง…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"ผู้จัด:"</string>
@@ -141,7 +141,7 @@
     <string name="search_title" msgid="8898015280250716254">"ค้นหาปฏิทินของฉัน"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"รายละเอียด"</string>
     <string name="edit_label" msgid="8934331258435656534">"แก้ไข"</string>
-    <string name="delete_label" msgid="874742811918030739">"นำออก"</string>
+    <string name="delete_label" msgid="874742811918030739">"ลบ"</string>
     <string name="save_label" msgid="2133599104834432589">"เสร็จสิ้น"</string>
     <string name="discard_label" msgid="2394623883289782541">"ยกเลิก"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"ปิดเสียงเตือนชั่วคราวทั้งหมด"</string>
@@ -173,8 +173,8 @@
     <string name="modify_all_following" msgid="3017428541066390380">"เปลี่ยนกิจกรรมนี้และในอนาคตทั้งหมด"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"กิจกรรมใหม่"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"กิจกรรมใหม่"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">"นำออกกิจกรรมนี้"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"นำออก <xliff:g id="EVENTTITLE">%s</xliff:g> หรือไม่"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"ลบกิจกรรมนี้"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"ลบ <xliff:g id="EVENTTITLE">%s</xliff:g> ใช่ไหม"</string>
     <string name="change_response_title" msgid="7704714776070974984">"เปลี่ยนการตอบกลับ"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"การตั้งค่าทั่วไป"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"เกี่ยวกับปฏิทิน"</string>

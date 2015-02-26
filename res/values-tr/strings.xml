@@ -121,7 +121,7 @@
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Konuklara gönderilecek e-posta varsayılan yanıtlarını düzenle"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Hızlı yanıtları düzenle"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Hızlı yanıt"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Hızlı yanıt seç"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Hızlı yanıt seçin"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Bir e-posta programı bulunamadı"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Birkaç dakika geç kalıyorum."</item>

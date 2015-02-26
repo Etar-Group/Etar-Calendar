@@ -109,7 +109,7 @@
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"केवल अस्वीकार होने पर"</item>
-    <item msgid="6367412240524984286">"यदि अस्वीकार हुआ हो या जवाब न मिला हो"</item>
+    <item msgid="6367412240524984286">"यदि अस्वीकार हुआ हो या उत्तर न मिला हो"</item>
   </string-array>
   <string-array name="recurrence_freq">
     <item msgid="3388478383574917007">"हर दिन दोहराएं"</item>

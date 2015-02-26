@@ -94,11 +94,11 @@
     <item msgid="7833229563617435430">"Zonke izenzakalo"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Lokhu &amp; izenzakalo zesikhathi esizayo"</item>
+    <item msgid="1341910309321756150">"Lona neminye imicimbi ezayo"</item>
     <item msgid="6315440193748139854">"Zonke izenzakalo"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item msgid="3466644709343519437">"Kuphela le senzakalo"</item>
+    <item msgid="3466644709343519437">"Kuphela lo mcimbi"</item>
     <item msgid="140670561403965380">"Zonke izenzakalo ochungechungeni"</item>
   </string-array>
   <string-array name="buttons_list">

@@ -56,7 +56,7 @@
     <string name="month_view" msgid="7287101431749285412">"Maand"</string>
     <string name="event_view" msgid="7621353079385122317">"Afspraak weergeven"</string>
     <string name="event_create" msgid="6941040556709110617">"Nieuwe afspraak"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Afspraak bewerken"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Bewerken"</string>
     <string name="event_delete" msgid="2386667193277770442">"Afspraak verwijderen"</string>
     <string name="goto_today" msgid="9162136434410891230">"Vandaag"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Instellingen"</string>
@@ -67,7 +67,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Agenda\'s om weer te geven"</string>
     <string name="synced" msgid="7913940305983383493">"gesynchroniseerd"</string>
     <string name="not_synced" msgid="4275114941801829419">"niet gesynchroniseerd"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Dit account wordt niet gesynchroniseerd, dus uw agenda\'s zijn mogelijk niet bijgewerkt."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Dit account wordt niet gesynchroniseerd, dus je agenda\'s zijn mogelijk niet bijgewerkt."</string>
     <string name="accounts" msgid="849401841083180306">"Accounts en synchronisatie"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Agenda\'s om te synchroniseren"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Agenda\'s om te synchroniseren"</string>
@@ -97,8 +97,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Voordat u een afspraak kunt toevoegen, moet u ten minste één Agenda-account aan uw apparaat toevoegen en de agenda zichtbaar maken. Raak \'Account toevoegen\' aan om een account toe te voegen (als u net een account heeft toegevoegd, wacht u tot het synchroniseren is voltooid en probeert u het opnieuw). Of raak \'Annuleren\' aan en zorg ervoor dat er ten minste één agenda zichtbaar is."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Agenda werkt beter met een Google-account.\n\n• Toegang via elke webbrowser\n• Maak beveiligde back-ups van uw afspraken"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Voordat je een afspraak kunt toevoegen, moet je ten minste één Agenda-account aan je apparaat toevoegen en de agenda zichtbaar maken. Raak \'Account toevoegen\' aan om een account toe te voegen (als je net een account hebt toegevoegd, wacht je tot het synchroniseren is voltooid en probeer je het opnieuw). Of raak \'Annuleren\' aan en zorg ervoor dat er ten minste één agenda zichtbaar is."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Agenda werkt beter met een Google-account.\n\n• Toegang via elke webbrowser\n• Maak beveiligde back-ups van je afspraken"</string>
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
@@ -111,7 +111,7 @@
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Misschien"</string>
     <string name="response_no" msgid="561911691884148136">"Nee"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"E-mailen aan gasten"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Gasten e-mailen"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Organisator e-mailen"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-mail met"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Afspraak niet gevonden."</string>
@@ -212,14 +212,14 @@
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Herinneringen overslaan"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Stille uren"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Afspraakherinneringen op stil zetten gedurende opgegeven tijd."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Starttijd stille uren"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Begintijd stille uren"</string>
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Eindtijd stille uren"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Foutopsporing"</string>
     <string name="copy_db" msgid="437691290566699292">"Database verzenden"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> zoeken…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Deelnemer verwijderen"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Startdatum"</string>
-    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Starttijd"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Begintijd"</string>
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Einddatum"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Eindtijd"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Tijdzone"</string>

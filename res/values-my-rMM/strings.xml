@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"ပြက္ခဒိန်"</string>
+    <string name="what_label" msgid="1933578391985810049">"အမည်"</string>
+    <string name="where_label" msgid="3472482206065595118">"နေရာ"</string>
+    <string name="when_label" msgid="894636567327261599">"အချိန်"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"အချိန် ဇုန်"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"ဧည့်သည်များ"</string>
+    <string name="today" msgid="8577375020252453006">"ယနေ့"</string>
+    <string name="tomorrow" msgid="614434811813859237">"နက်ဖြန်"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"ယနေ့ <xliff:g id="TIME_INTERVAL">%s</xliff:g> တွင်"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"နက်ဖြန် <xliff:g id="TIME_INTERVAL">%s</xliff:g>တွင်"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>၊ <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"ထပ်ဖြစ်မှု"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(ခေါင်းစဉ်မဲ့)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"၁ မိနစ်"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> မိနစ်"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"၁ မိနစ်"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> မိနစ်"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"၁ နာရီ"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> နာရီ"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"၁ ရက်"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ရက်"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"အပတ် <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"ဆန်းသစ်ယူရန်"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"ရက်ကို ပြရန်"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"အစီအစဉ်"</string>
+    <string name="day_view" msgid="4467754504843584437">"နေ့ရက်"</string>
+    <string name="week_view" msgid="6775043022159508060">"အပတ်"</string>
+    <string name="month_view" msgid="7287101431749285412">"လ"</string>
+    <string name="event_view" msgid="7621353079385122317">"ဖြစ်ရပ်များကို ကြည့်ရန်"</string>
+    <string name="event_create" msgid="6941040556709110617">"ဖြစ်ရပ် အသစ်"</string>
+    <string name="event_edit" msgid="4006961928830064662">"ဖြစ်ရပ်ကို တည်းဖြတ်ရန်"</string>
+    <string name="event_delete" msgid="2386667193277770442">"ဖြစ်ရပ်ကို ဖျက်ရန်"</string>
+    <string name="goto_today" msgid="9162136434410891230">"ယနေ့"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"ဆက်တင်များ"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"ပြရန် ပြက္ခဒိန်များ"</string>
+    <string name="search" msgid="550656004486017426">"ရှာဖွေရန်"</string>
+    <string name="hide_controls" msgid="830320505938520882">"ထိန်းချုပ်မှုများ ဝှက်ထားရန်"</string>
+    <string name="show_controls" msgid="715520586028062621">"ထိန်းချုပ်မှု ပြရန်"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"ပြပေးရန် ပြက္ခဒိန်များ"</string>
+    <string name="synced" msgid="7913940305983383493">"စင့်က် လုပ်ပြီး"</string>
+    <string name="not_synced" msgid="4275114941801829419">"စင့်က် မလုပ်ရသေး"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"ဒီအကောင့်ကို စင့်က် လုပ်မပေးပါ၊ သို့ဖြစ်၍ သင်၏ ပြက္ခဒိန်များမှာ နောက်ဆုံးမူ ဟုတ်ချင်မှ ဟုတ်လိမ့်မည်။"</string>
+    <string name="accounts" msgid="849401841083180306">"အကောင့်များ &amp; စင့်က် လုပ်ရန်"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"စင့်က် လုပ်ရန် ပြက္ခဒိန်များ"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"စင့်က် လုပ်ရန် ပြက္ခဒိန်များ"</string>
+    <string name="hint_what" msgid="709155115005044531">"ဖြစ်ရပ် အမည်"</string>
+    <string name="hint_where" msgid="4972598001033801974">"တည်နေရာ"</string>
+    <string name="hint_description" msgid="1910143586169033232">"ဖော်ပြချက်"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"ဧည့်သည်"</string>
+    <string name="creating_event" msgid="7516249252554059980">"ဖြစ်ရပ်ကို ဖန်တီးလိုက်ပြီ"</string>
+    <string name="saving_event" msgid="7694181017411177226">"ဖြစ်ရပ် သိမ်းဆည်းပြီး"</string>
+    <string name="empty_event" msgid="9018699257414338634">"ပလာ ဖြစ်ရပ်ကို ဖန်တီး မပေးခဲပါ။"</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"အကြောင်းကြားချက်များကို ပို့ပေးမည်။"</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"မွမ်းမံချက်များကို ပို့ပေးမည်။"</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"လက်ခံဟု ပြန်ကြားခဲ့သည်။"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"ဖြစ်နိုင်ဟု ပြန်ကြားခဲ့သည်။"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"လက်မခံဟု ပြန်ကြားခဲ့သည်။"</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"သိမ်းဆည်း"</string>
+    <string name="alert_title" msgid="7869592820853066853">"ပြက္ခဒိန် အကြောင်းကြားချက်များ"</string>
+    <string name="event_info_title" msgid="56024222340421620">"ဖြစ်ရပ် ကြည့်ရန်"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"တွေ့ဆုံရန် ဖိတ်ကြားချက်"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"သို့​"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"မှ"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"တစ်နေ့လုံး"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"ပြက္ခဒိန်"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"အားလုံးကို ပြသရန်"</string>
+    <string name="description_label" msgid="7193475046717505855">"ဖော်ပြချက်"</string>
+    <string name="presence_label" msgid="6169724148441175862">"ကျွန်ုပ်ကို အဖြစ် ပြရန်"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"ကိုယ်ရေး"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"သတိပေးချက် ထည့်ရန်"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"ပြက္ခဒိန်များ မရှိ"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"သင်သည် ဖြစ်ရပ် တစ်ခုကို ထည့်မပေးခင်မှာ၊ သင်သည် အနည်းဆုံး ပြက္ခဒိန် ဖြစ်ရပ် တစ်ခုကို ထည့်ပေးလျက် ပြက္ခဒိန် တစ်ခုကို မြင်ရအောင် လုပ်ပေးရန် လိုမည်။ အကောင့် တစ်ခုကို ထည့်ရန် အကောင့် ထည့်ရန်ကို ထိပါ (အကယ်၍ သင်သည် အကောင့်ကို ယခုလေးတင် ထည့်ပေးခဲ့သည် ဆိုလျှင် ၎င်းက စင့်က် လုပ်ပြီးမှကို စောင့်ပြီး နောက်မှာ ထပ်စမ်းပါ)။ သို့မဟုတ် ပယ်ဖျက်ရန်ကို ထိလိုက်ကာ အနည်းဆုံး ပြက္ခဒိန် တစ်ခု မြင်ရတာ သေချာပါစေ။"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"ပြက္ခဒိန် လုပ်ကိုင်မှုမှာ Google အကောင့်နှင့် ပိုအဆင်ပြေသည်။ \n\n• မည်သည့် ဘရောင်ဇာမှမဆို ရယူသုံးနိုင်\n• သင်၏ ဖြစ်ရပ်များကို လုံခြုံစွာ ဘက်အာပ် လုပ်ထားပါသည်။"</string>
+    <string name="add_account" msgid="1669072099756774952">"အကောင့် ထည့်ရန်"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"ပြက္ခဒိန်:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"စည်းရုံးသူ:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"ဖြစ်ရပ် အရောင်ကို ရွေးရန်"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"ဖြစ်ရပ် အရောင်"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"ပြက္ခဒိန် ပုံသေ အရောင်သို့ သတ်မှတ်ရန်"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"ပြက္ခဒိန် အရောင်"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"အရောင် ရွေးမှု"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"တက်ရောက်မှာလား?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"လက်ခံ"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"ဖြစ်နိုင်"</string>
+    <string name="response_no" msgid="561911691884148136">"မတက်ပါ"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"ဧည့်သည်များထံ အီးမေးလ်ပို့ရန်"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"အီးမေးလ် စည်းရုံးပေးသူ"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"...နှင့် အီးမေးလ် ဆက်သွယ်ရန်"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"ဖြစ်ရပ်ကို ရှာမတွေ့ခဲ့ပါ။"</string>
+    <string name="map_label" msgid="8795383535586556038">"မြေပုံ"</string>
+    <string name="call_label" msgid="2960328220008869083">"ခေါ်ဆိုမှု"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"အမြန် တုံ့ပြန်မှု"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ဧည့်သည်များထံ အီးမေးလ် ပို့ချိန်မှာ ပုံသေ တုံ့ပြန်ချက်များကို တည်းဖြတ်ရန်"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"အမြန် တုံ့ပြန်ချက် တည်းဖြတ်"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"အမြန် တုံ့ပြန်ချက်"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"အမြန် တုံ့ပြန်မှုကို ရွေးရန်"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"အီးမေးလ် ပရိုဂရမ်ကို ရှာမရခဲ့"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"ပြေးရာမှာ နှစ်မိနစ်ခန့် နောက်ကျနေသည်။"</item>
+    <item msgid="6215158751728689832">"အဲဒီကို ၁၀ မိနစ် အတွင်းမှာ ရောက်လာမည်။"</item>
+    <item msgid="4485794001743679338">"သွားနှင့်ပြီး ကျွန်ုပ် မပါဘဲ စတင်ပါ။"</item>
+    <item msgid="8036557974294987511">"ဆော်ရီး၊ ကျွန်ုပ် အဲဒါကို မလုပ်နိုင်ပါ။ ကျွန်ုပ်တို့ ပြန်ပြီး စီစဉ်ရန် လိုမည်။"</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"သင် ကိုယ်တိုင်၏…ကို ရေးရန်"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"စည်းရုံးသူ"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"သတိပေးချက်များ"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"ယနေ့၊ <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"မနေ့က၊ <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"နက်ဖြန်၊ <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"တင်နေ…"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> မတိုင်မီတုန်းက ဖြစ်ရပ်များကို ကြည့်ရန် ထိပါ"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> နောက်ပိုင်း ဖြစ်ရပ်များကို ကြည့်ရန် ထိပါ"</string>
+    <string name="search_title" msgid="8898015280250716254">"ကျွန်ုပ် ပြက္ခဒိန်များ ရှာဖွေ"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"အသေးစိတ်များ"</string>
+    <string name="edit_label" msgid="8934331258435656534">"တည်းဖြတ်"</string>
+    <string name="delete_label" msgid="874742811918030739">"ဖျက်ရန်"</string>
+    <string name="save_label" msgid="2133599104834432589">"လုပ်ပြီး"</string>
+    <string name="discard_label" msgid="2394623883289782541">"ပယ်ဖျက်ရန်"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"အားလုံး မှေးထားရန်"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"အားလုံးကို ပယ်ရန်"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"မှေးမည်"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"တစ်ကြိမ် ဖြစ်ရပ်"</string>
+    <string name="endByDate" msgid="7654221304929538201">";<xliff:g id="DATE">%s</xliff:g> အထိ"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"၊ တစ်ကြိမ်"</item>
+    <item quantity="other" msgid="4855496837834652446">";၊ <xliff:g id="NUMBER">%d</xliff:g> ကြိမ်"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"နေ့စဉ်"</item>
+    <item quantity="other" msgid="5455230727715859264">"<xliff:g id="NUMBER">%d</xliff:g> ရက်တိုင်း"</item>
+  </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"ရုံးရက်တိုင်း (တနင်္လာ–သောကြာ)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"အပတ်စဉ် <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> တွင်"</item>
+    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g> ပတ်တိုင်း <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> တွင်"</item>
+  </plurals>
+    <string name="monthly" msgid="4587116285383048586">"လစဉ်"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"နှစ်စဉ်"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"လစဉ် (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>ရက်တွင်)"</string>
+    <string name="yearly" msgid="8576208380302949002">"နှစ်စဉ် (<xliff:g id="DATES">%s</xliff:g> တွင်)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"စိတ်ကြိုက် (တက်ဘလက် ထဲတွင် စိတ်ကြိုက် ပြုပြင်၍မရပါ)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"စိတ်ကြိုက် (ဖုန်း ထဲတွင် စိတ်ကြိုက် ပြုပြင် မရပါ)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"ဒီဖြစ်ရပ်ကိုသာ ပြောင်းလဲရန်"</string>
+    <string name="modify_all" msgid="4421657265864209041">"စီးရီးများထဲက ဖြစ်ရပ် အားလုံး ပြောင်းလဲရန်"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"လက်ရှိ နှင့် အနာဂတ် ဖြစ်ရပ်များကို ပြောင်းလဲရန်"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"ဖြစ်ရပ် အသစ်"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"ဖြစ်ရပ် အသစ်"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"ဒီဖြစ်ရပ်ကို ဖျက်ရမလား?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g>ကို ဖျက်ရမလား?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"တုံ့ပြန်ချက်ကို ပြောင်းလဲရန်"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"အထွေထွေ ဆက်တင်များ"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"ပြက္ခဒိန် အကြောင်း"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"ဆက်တင်များ"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"ပြက္ခဒိန် မြင်ကွင်း ဆက်တင်"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"အကြောင်းကြားချက်များ &amp; သတိပေးချက်များ"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"ငြင်းထားသည့် ပွဲများဖျောက်ထားရန်"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"အပတ် စတင်သည်မှာ"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"အပတ် စတင်သည်မှာ"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"ရှာဖွေမှု မှတ်တမ်းကို ရှင်းရန်"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"သင် လုပ်ဆောင်ခဲ့သည့် ရှာဖွေမှု အားလုံး ဖယ်ရှားရန်"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"ရှာဖွေမှု မှတ်တမ်း ရှင်းပြီးပြီ။"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"အကြောင်းကြားချက်များ"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"တုန်ခါမှု"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"အသံ"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"ပေါ့အာပ် အကြောင်းကြားချက်များ"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"သတိပေးချက် ပုံသေ အချိန်"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"သတိပေးချက် ပုံသေ အချိန်"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"၁၀"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"အိမ်ချိန်ဇုန်သုံးရန်"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"ခရီးမှာ ပြက္ခဒိန် နှင့် ဖြစ်ရပ်ချိန်ကို သင့်အိမ် အချိန် ဇုန်ဖြင့် ပြရန်"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"အိမ်၏ အချိန် ဇုန်"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"အပတ်၏ နံပါတ်စဉ်ကို ပြရန်"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"အကြောင်း"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"တည်ဆောက်မှု ဗားရှင်း"</string>
+    <string name="gadget_title" msgid="939918875331310945">"ပြက္ခဒိန်"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+၁"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"လာမည့် ပြက္ခဒိန် ဖြစ်ရပ်များ မရှိ"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"စမ်းသပ်ရေး"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"သတိပေးချက်များ"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"သတိပေးချက်များ ကျော်ရန်"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"သတိပေးချက်များ ကျော်ရန်"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"တိတ်ဆိတ်မှု နာရီများ"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"သတ်မှတ် အချိန် အတွင်းမှာ ဖြစ်ရပ်များ သတိပေးချက် တိတ်ထားရန်"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"တိတ်ဆိတ် နာရီများ စချိန်"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"တိတ်ဆိတ်မှု နာရီများ ပြီးဆုံးချိန်"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"ဒီဘာဂင်"</string>
+    <string name="copy_db" msgid="437691290566699292">"ဒေတာဘေ့စ် ပို့ရန်"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> ကို ရှာနေ…"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"တက်ရောက်သူကို ဖယ်ရှားရန်"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"စတင်မှု ရက်စွဲ"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"စတင်ချိန်"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"ပြီးဆုံးမှု ရက်စွဲ"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"ပြီးဆုံးချိန်"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"အချိန် ဇုန်"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ဖြစ်ရပ်ကို ထပ်လုပ်ရန်"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"သတိပေးချက် ထည့်ရန်"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"သတိပေးမှု ဖယ်ရှားရန်"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"တက်ရောက်သူကို ထည့်ရန်"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"ပြက္ခဒိန် စင့်က်လုပ်ရန်"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"တစ်နေ့လုံး ဖြစ်ရပ်"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"ထပ်ဖြစ်မှု"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"သတိပေးချက် အချိန်"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"သတိပေးချက် ပုံစံ"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"ကျွန်ုပ်ကို ...အဖြစ် ပြရန်"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"ကိုယ်ရေး"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"ပြက္ခဒိန် အကြောင်းကြားချက်"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"အကြောင်းကြားချက်ကို မှေးထားရန်"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"ဧည့်သည်များထံ အီးမေးလ်ပို့ရန်"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ ဖြစ်ရပ် အသစ်"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"ဖြစ်ရပ် <xliff:g id="ITEM_INDEX">%1$s</xliff:g> of <xliff:g id="ITEM_COUNT">%2$s</xliff:g>။"</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"၁ ဖြစ်ရပ်"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ဖြစ်ရပ်များ"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+၁ ဖြစ်ရပ်"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ဖြစ်ရပ်များ"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"ရွေထားသည့် ဖြစ်ရပ်"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"မစစ်ဆေးပါနှင့် -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"ထပ်လုပ်ရန်"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ဘယ်တော့မှ ထပ်မလုပ်ရ"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> ရက်တိုင်း"</item>
+    <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g> ရက်တိုင်း"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> ပတ်တိုင်း"</item>
+    <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g> ပတ်တိုင်း"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> လတိုင်း"</item>
+    <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g> လတိုင်း"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> နှစ်တိုင်း"</item>
+    <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g> နှစ်တိုင်း"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"လစဉ် ထို နေ့မှာ"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"ထာဝရ"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"ရက်စွဲ အထိ"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"<xliff:g id="DATE">%s</xliff:g> အထိ"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"ဖြစ်ရပ် တစ်သီကြီး အတွက်"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"ဖြစ်ရပ် <xliff:g id="EVENT_COUNT">%d</xliff:g> အတွက်"</item>
+    <item quantity="other" msgid="8779598489398048259">"ဖြစ်ရပ်များ <xliff:g id="EVENT_COUNT">%d</xliff:g> အတွက်"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"ပြီးဆုံးရက်စွဲကို ပြောင်းရန်"</string>
+</resources>

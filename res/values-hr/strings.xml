@@ -103,7 +103,7 @@
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Odabir boje za događaj"</string>
-    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Boja za događaj"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Boja događaja"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Postavi na zadanu boju kalendara"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Boja kalendara"</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Odabir boje"</string>
@@ -144,7 +144,7 @@
     <string name="delete_label" msgid="874742811918030739">"Izbriši"</string>
     <string name="save_label" msgid="2133599104834432589">"Gotovo"</string>
     <string name="discard_label" msgid="2394623883289782541">"Odustani"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Odgoda svih alarma"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Odgodi sve alarme"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Odbaci sve"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Odgodi alarm"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Jednokratni događaj"</string>
@@ -198,7 +198,7 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Prikazuje kalendare i vremenike vaše vrem. zone dok putujete"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domaća vremenska zona"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Prikaži broj tjedna"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"O"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"O aplikaciji"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Međuverzija"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalendar"</string>
   <plurals name="month_more_events">

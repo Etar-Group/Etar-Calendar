@@ -105,7 +105,7 @@
     <item msgid="5917946202321434335">"Journée"</item>
     <item msgid="6248480754959562740">"Semaine"</item>
     <item msgid="4298472806133153766">"Mois"</item>
-    <item msgid="5033084974413793845">"Ordre du jour"</item>
+    <item msgid="5033084974413793845">"Calendrier"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Seulement en cas de refus"</item>

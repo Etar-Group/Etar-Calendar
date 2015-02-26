@@ -24,8 +24,8 @@
     <string name="attendees_label" msgid="2971281641565729725">"Tamu"</string>
     <string name="today" msgid="8577375020252453006">"Hari ini"</string>
     <string name="tomorrow" msgid="614434811813859237">"Besok"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Hari ini pada pukul <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Besok pada pukul <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"Hari ini pukul <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Besok pukul <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Perulangan"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Tanpa judul)"</string>
@@ -67,7 +67,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalender untuk ditampilkan"</string>
     <string name="synced" msgid="7913940305983383493">"disinkronkan"</string>
     <string name="not_synced" msgid="4275114941801829419">"tidak disinkronkan"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Akun ini belum disinkronkan, kalender Anda mungkin tidak mutakhir."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Akun ini belum disinkronkan, kalender Anda mungkin belum versi terbaru."</string>
     <string name="accounts" msgid="849401841083180306">"Sinkronisasi &amp; akun"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalender untuk disinkronkan"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalender untuk disinkronkan"</string>
@@ -93,7 +93,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Tampilkan semua"</string>
     <string name="description_label" msgid="7193475046717505855">"Deskripsi"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Tampilkan saya sebagai"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Tampilkan saya:"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privasi"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Tambahkan pengingat"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Tak ada kalender"</string>
@@ -116,21 +116,21 @@
     <string name="email_picker_label" msgid="4808253965057791781">"Email dengan"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Acara tidak ditemukan."</string>
     <string name="map_label" msgid="8795383535586556038">"Peta"</string>
-    <string name="call_label" msgid="2960328220008869083">"Panggil"</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"Tanggapan cepat"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit tanggapan default saat meng-email tamu"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit tanggapan cpt"</string>
+    <string name="call_label" msgid="2960328220008869083">"Telepon"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Respons cepat"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit respons default untuk email ke tamu"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit respons cepat"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Tanggapan cepat"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Pilih tanggapan cepat"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Pilih respons cepat"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Gagal menemukan program email"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Dijalankan terlambat beberapa menit."</item>
-    <item msgid="6215158751728689832">"Tiba dalam waktu sekitar 10 menit."</item>
+    <item msgid="6215158751728689832">"Tiba sekitar 10 menit lagi."</item>
     <item msgid="4485794001743679338">"Silakan mulai tanpa saya."</item>
     <item msgid="8036557974294987511">"Maaf, saya tidak bisa. Kita harus menjadwalkan ulang."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Tulis respons Anda sendiri…"</string>
-    <string name="event_info_organizer" msgid="9138683335394832629">"Pnylenggara:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Panitia:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Pengingat"</string>
     <string name="agenda_today" msgid="5965841338467422191">"HARI INI, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"KEMARIN, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -166,8 +166,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Tahunan"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Bulanan (pada hari <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Tahunan (pada <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Khusus (tidak dapat mengubahsuai pada tablet)"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">"Khusus (tidak dapat mengubahsuai pada ponsel)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Khusus (tidak dapat disesuaikan di tablet)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Khusus (tidak dapat disesuaikan di ponsel)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Ubah acara ini saja"</string>
     <string name="modify_all" msgid="4421657265864209041">"Ubah semua acara dalam rangkaian"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Ubah acara saat ini dan di masa mendatang"</string>
@@ -182,8 +182,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Setelan tampilan kalender"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Pemberitahuan &amp; pengingat"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Sembunyikan acara yang ditolak"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Minggu dimulai pada"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Minggu dimulai pada"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Minggu dimulai:"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Minggu dimulai:"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Hapus riwayat penelusuran"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Hapus semua penelusuran yang telah Anda lakukan"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Riwayat penelusuran dihapus."</string>
@@ -232,7 +232,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"Perulangan"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Waktu pengingat"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Jenis pengingat"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Tampilkan saya sebagai"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Tampilkan saya:"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privasi"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Pemberitahuan Kalender"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Tunda Pemberitahuan"</string>

@@ -55,7 +55,7 @@
     <string name="week_view" msgid="6775043022159508060">"Linggo"</string>
     <string name="month_view" msgid="7287101431749285412">"Buwan"</string>
     <string name="event_view" msgid="7621353079385122317">"Tingnan ang kaganapan"</string>
-    <string name="event_create" msgid="6941040556709110617">"Bagong kaganapan"</string>
+    <string name="event_create" msgid="6941040556709110617">"Bagong event"</string>
     <string name="event_edit" msgid="4006961928830064662">"I-edit ang kaganapan"</string>
     <string name="event_delete" msgid="2386667193277770442">"Tanggalin ang kaganapan"</string>
     <string name="goto_today" msgid="9162136434410891230">"Ngayong araw"</string>

@@ -55,7 +55,7 @@
     <string name="week_view" msgid="6775043022159508060">"Minggu"</string>
     <string name="month_view" msgid="7287101431749285412">"Bulan"</string>
     <string name="event_view" msgid="7621353079385122317">"Lihat acara"</string>
-    <string name="event_create" msgid="6941040556709110617">"Acara baru"</string>
+    <string name="event_create" msgid="6941040556709110617">"Acara baharu"</string>
     <string name="event_edit" msgid="4006961928830064662">"Edit acara"</string>
     <string name="event_delete" msgid="2386667193277770442">"Padam acara"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hari ini"</string>
@@ -171,8 +171,8 @@
     <string name="modify_event" msgid="5982876409997142690">"Tukar acara ini sahaja"</string>
     <string name="modify_all" msgid="4421657265864209041">"Tukar semua acara dalam siri"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Tukar acara ini dan semua acara masa depan"</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"Acara baru"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"Acara baru"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Acara baharu"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Acara baharu"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Padamkan acara ini?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Padam <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Tukar jawapan"</string>
