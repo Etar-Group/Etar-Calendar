@@ -182,7 +182,7 @@
             android:theme="@android:style/Theme.NoDisplay"
             android:launchMode="singleTop">
              <intent-filter>
-                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="content" />
                 <data android:scheme="file" />
