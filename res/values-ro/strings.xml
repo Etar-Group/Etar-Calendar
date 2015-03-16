@@ -97,7 +97,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidenţialitate"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Adăugaţi memento"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Niciun calendar"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Înainte de a putea adăuga un eveniment, trebuie să adăugaţi cel puţin un cont Calendar pe dispozitiv şi să faceţi un calendar vizibil. Atingeţi „Adăugaţi un cont” pentru a adăuga un cont (dacă tocmai aţi adăugat un cont, aşteptaţi să se termine sincronizarea şi încercaţi din nou). Sau atingeţi „Anulaţi” şi asiguraţi-vă că cel puţin un calendar este vizibil."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Înainte de a putea adăuga un eveniment, trebuie să adăugaţi cel puţin un cont Calendar pe dispozitiv şi să faceţi un calendar vizibil. Atingeţi „Adăugaţi un cont” pentru a adăuga un cont (dacă tocmai aţi adăugat un cont, aşteptaţi să se termine sincronizarea şi încercaţi din nou). Sau atingeţi „Anulați” şi asiguraţi-vă că cel puţin un calendar este vizibil."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Google Calendar funcţionează mai bine cu un Cont Google.\n\n• Accesaţi serviciul din orice browser web\n• Creaţi în siguranţă copii de rezervă pentru evenimentele dvs."</string>
     <string name="add_account" msgid="1669072099756774952">"Adăugaţi un cont"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendar:"</string>
@@ -143,7 +143,7 @@
     <string name="edit_label" msgid="8934331258435656534">"Editaţi"</string>
     <string name="delete_label" msgid="874742811918030739">"Ștergeţi"</string>
     <string name="save_label" msgid="2133599104834432589">"Terminat"</string>
-    <string name="discard_label" msgid="2394623883289782541">"Anulaţi"</string>
+    <string name="discard_label" msgid="2394623883289782541">"Anulați"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Amânaţi-le pe toate"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Renunţaţi la toate"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Amânaţi"</string>
