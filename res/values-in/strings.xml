@@ -84,7 +84,7 @@
     <string name="rsvp_tentative" msgid="6545510359501328718">"Ditanggapi mungkin."</string>
     <string name="rsvp_declined" msgid="8686330037802222895">"Ditanggapi tidak."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Simpan"</string>
-    <string name="alert_title" msgid="7869592820853066853">"Pemberitahuan kalender"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Notifikasi kalender"</string>
     <string name="event_info_title" msgid="56024222340421620">"Lihat acara"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Undangan rapat"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Kepada"</string>
@@ -180,17 +180,17 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Tentang Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Setelan"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Setelan tampilan kalender"</string>
-    <string name="preferences_reminder_title" msgid="5199606534191180129">"Pemberitahuan &amp; pengingat"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Notifikasi &amp; pengingat"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Sembunyikan acara yang ditolak"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Minggu dimulai:"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Minggu dimulai:"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Hapus riwayat penelusuran"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Hapus semua penelusuran yang telah Anda lakukan"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Riwayat penelusuran dihapus."</string>
-    <string name="preferences_alerts_title" msgid="6636088008103904020">"Pemberitahuan"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifikasi"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Getar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Suara"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pemberitahuan munculan"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notifikasi munculan"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Waktu pengingat default"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Waktu pengingat default"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
@@ -234,8 +234,8 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Jenis pengingat"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Tampilkan saya:"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privasi"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Pemberitahuan Kalender"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Tunda Pemberitahuan"</string>
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Notifikasi Kalender"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Tunda Notifikasi"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Kirim email ke tamu"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Acara baru"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Acara <xliff:g id="ITEM_INDEX">%1$s</xliff:g> dari <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
