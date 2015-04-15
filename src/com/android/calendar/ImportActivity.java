@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
 import android.widget.Toast;
+import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.icalendar.Attendee;
 import com.android.calendar.icalendar.IcalendarUtils;
 import com.android.calendar.icalendar.VCalendar;
@@ -105,6 +106,8 @@ public class ImportActivity extends Activity {
             calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
                     getLocalTimeFromString(dtEnd));
         }
+
+        calIntent.putExtra(EditEventActivity.EXTRA_READ_ONLY, true);
 
         try {
             startActivity(calIntent);
