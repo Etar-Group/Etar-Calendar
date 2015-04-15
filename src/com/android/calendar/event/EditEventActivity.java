@@ -44,9 +44,11 @@ import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 public class EditEventActivity extends AbstractCalendarActivity {
     public static final String EXTRA_EVENT_COLOR = "event_color";
     public static final String EXTRA_EVENT_REMINDERS = "reminders";
+    public static final String EXTRA_READ_ONLY = "read_only";
     private static final String TAG = "EditEventActivity";
     private static final boolean DEBUG = false;
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
+
     private static boolean mIsMultipane;
     private final DynamicTheme dynamicTheme = new DynamicTheme();
     private EditEventFragment mEditFragment;
@@ -90,12 +92,14 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
         if (mEditFragment == null) {
             Intent intent = null;
+            boolean readOnly = false;
             if (mEventInfo.id == -1) {
                 intent = getIntent();
+                readOnly = intent.getBooleanExtra(EXTRA_READ_ONLY, false);
             }
 
             mEditFragment = new EditEventFragment(mEventInfo, mReminders, mEventColorInitialized,
-                    mEventColor, false, intent);
+                    mEventColor, readOnly, intent);
 
             mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
