@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for reminder_methods_labels:0 (5172236776878811487) -->
+    <!-- no translation found for reminder_methods_labels:1 (1751151680520784746) -->
+    <!-- no translation found for reminder_methods_labels:3 (7926918288165444873) -->
+    <!-- no translation found for reminder_minutes_labels:0 (2416970002377237011) -->
+    <!-- no translation found for reminder_minutes_labels:1 (6681865010714743948) -->
+    <!-- no translation found for reminder_minutes_labels:2 (2327505114623595779) -->
+    <!-- no translation found for reminder_minutes_labels:3 (1657410063332547113) -->
+    <!-- no translation found for reminder_minutes_labels:4 (366087535181197780) -->
+    <!-- no translation found for reminder_minutes_labels:5 (6252612791145061929) -->
+    <!-- no translation found for reminder_minutes_labels:6 (7896694531989090700) -->
+    <!-- no translation found for reminder_minutes_labels:7 (8754510169374808607) -->
+    <!-- no translation found for reminder_minutes_labels:8 (3113380274218454394) -->
+    <!-- no translation found for reminder_minutes_labels:9 (8546646645868526283) -->
+    <!-- no translation found for reminder_minutes_labels:10 (6467845211024768872) -->
+    <!-- no translation found for reminder_minutes_labels:11 (8201677619511076575) -->
+    <!-- no translation found for reminder_minutes_labels:12 (7172504281650128893) -->
+    <!-- no translation found for reminder_minutes_labels:13 (9114286702181482496) -->
+    <!-- no translation found for reminder_minutes_labels:14 (3107009344872997366) -->
+    <!-- no translation found for reminder_minutes_labels:15 (6135563708172153696) -->
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"کوئی نہیں"</item>
+    <item msgid="5883344836499335043">"0 منٹ"</item>
+    <item msgid="4354350447805231188">"1 منٹ"</item>
+    <item msgid="265674592625309858">"5 منٹ"</item>
+    <item msgid="8011089417728419666">"10 منٹ"</item>
+    <item msgid="6177098581805412986">"15 منٹ"</item>
+    <item msgid="356346660503078923">"20 منٹ"</item>
+    <item msgid="992592434377054063">"25 منٹ"</item>
+    <item msgid="9191353668596201944">"30 منٹ"</item>
+    <item msgid="1192985682962908244">"45 منٹ"</item>
+    <item msgid="1694315499429259938">"1 گھنٹہ"</item>
+    <item msgid="8281019320591769635">"2 گھنٹے"</item>
+    <item msgid="2062931719019287773">"3 گھنٹے"</item>
+    <item msgid="4086495711621133006">"12 گھنٹے"</item>
+    <item msgid="3172669681920709561">"24 گھنٹے"</item>
+    <item msgid="5557836606782821910">"2 دن"</item>
+    <item msgid="8336577387266744930">"1 ہفتہ"</item>
+  </string-array>
+    <!-- no translation found for preferences_week_start_day_labels:0 (986150274035512339) -->
+    <!-- no translation found for preferences_week_start_day_labels:1 (134027225275475280) -->
+    <!-- no translation found for preferences_week_start_day_labels:2 (95029346069903091) -->
+    <!-- no translation found for preferences_week_start_day_labels:3 (5840983116375063739) -->
+  <string-array name="availability">
+    <item msgid="454869065893453189">"مصروف"</item>
+    <item msgid="6228387173725732140">"دستیاب"</item>
+    <item msgid="2064426942462573474">"وقتی"</item>
+  </string-array>
+    <!-- no translation found for visibility:0 (3035788428581513163) -->
+    <!-- no translation found for visibility:1 (5200216103966973369) -->
+    <!-- no translation found for visibility:2 (9182342638433672664) -->
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"پہلا"</item>
+    <item msgid="5631923029483854900">"دوسرا"</item>
+    <item msgid="148935502975250973">"تیسرا"</item>
+    <item msgid="5124200797326669172">"چوتھا"</item>
+    <item msgid="7564374178324652137">"آخری"</item>
+  </string-array>
+    <!-- no translation found for response_labels1:0 (5605392595848194997) -->
+    <!-- no translation found for response_labels1:1 (3724434080904437698) -->
+    <!-- no translation found for response_labels1:2 (8854145743148992583) -->
+    <!-- no translation found for response_labels1:3 (6174292185978948873) -->
+    <!-- no translation found for delete_repeating_labels:0 (4208432367651646938) -->
+    <!-- no translation found for delete_repeating_labels:1 (1536401639805370405) -->
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"یہ اور آئندہ ایونٹس"</item>
+    <item msgid="6315440193748139854">"سبھی ایونٹس"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"صرف یہ ایونٹ"</item>
+    <item msgid="140670561403965380">"اس سلسلے کے سبھی ایونٹس"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"دن"</item>
+    <item msgid="6248480754959562740">"ہفتہ"</item>
+    <item msgid="4298472806133153766">"مہینہ"</item>
+    <item msgid="5033084974413793845">"ایجنڈا"</item>
+  </string-array>
+    <!-- no translation found for preferences_skip_reminders_labels:0 (2285927842308686988) -->
+    <!-- no translation found for preferences_skip_reminders_labels:1 (6367412240524984286) -->
+    <!-- no translation found for recurrence_freq:0 (3388478383574917007) -->
+    <!-- no translation found for recurrence_freq:1 (6300824484048337842) -->
+    <!-- no translation found for recurrence_freq:2 (189361731610816256) -->
+    <!-- no translation found for recurrence_freq:3 (8714177874112569158) -->
+    <!-- no translation found for repeat_by_nth_sun:0 (143841313172233420) -->
+    <!-- no translation found for repeat_by_nth_sun:1 (2557379346106451363) -->
+    <!-- no translation found for repeat_by_nth_sun:2 (7622144489915654132) -->
+    <!-- no translation found for repeat_by_nth_sun:3 (527152448137686021) -->
+    <!-- no translation found for repeat_by_nth_sun:4 (5057483608824759350) -->
+    <!-- no translation found for repeat_by_nth_mon:0 (7539974918997689048) -->
+    <!-- no translation found for repeat_by_nth_mon:1 (4484275849072423978) -->
+    <!-- no translation found for repeat_by_nth_mon:2 (8956169860824371383) -->
+    <!-- no translation found for repeat_by_nth_mon:3 (6924403357659569326) -->
+    <!-- no translation found for repeat_by_nth_mon:4 (1379608815263472161) -->
+    <!-- no translation found for repeat_by_nth_tues:0 (8690802834039790777) -->
+    <!-- no translation found for repeat_by_nth_tues:1 (9063613547307760928) -->
+    <!-- no translation found for repeat_by_nth_tues:2 (6688603328729208168) -->
+    <!-- no translation found for repeat_by_nth_tues:3 (6695206006961533357) -->
+    <!-- no translation found for repeat_by_nth_tues:4 (8619069174889809914) -->
+    <!-- no translation found for repeat_by_nth_wed:0 (3233850232075584386) -->
+    <!-- no translation found for repeat_by_nth_wed:1 (5059722045367799217) -->
+    <!-- no translation found for repeat_by_nth_wed:2 (7986246648229272275) -->
+    <!-- no translation found for repeat_by_nth_wed:3 (9068566169348980801) -->
+    <!-- no translation found for repeat_by_nth_wed:4 (7976866743069062134) -->
+    <!-- no translation found for repeat_by_nth_thurs:0 (920673677566009313) -->
+    <!-- no translation found for repeat_by_nth_thurs:1 (4857419136007543270) -->
+    <!-- no translation found for repeat_by_nth_thurs:2 (222044587450564839) -->
+    <!-- no translation found for repeat_by_nth_thurs:3 (6197927556533030945) -->
+    <!-- no translation found for repeat_by_nth_thurs:4 (1023326923033436905) -->
+    <!-- no translation found for repeat_by_nth_fri:0 (6534500380525126157) -->
+    <!-- no translation found for repeat_by_nth_fri:1 (1935608297230506940) -->
+    <!-- no translation found for repeat_by_nth_fri:2 (4061877662049317599) -->
+    <!-- no translation found for repeat_by_nth_fri:3 (6856646749131820614) -->
+    <!-- no translation found for repeat_by_nth_fri:4 (6533513913914859794) -->
+    <!-- no translation found for repeat_by_nth_sat:0 (3556369572649948699) -->
+    <!-- no translation found for repeat_by_nth_sat:1 (9130198690512925355) -->
+    <!-- no translation found for repeat_by_nth_sat:2 (4525736070844032405) -->
+    <!-- no translation found for repeat_by_nth_sat:3 (422053689531707709) -->
+    <!-- no translation found for repeat_by_nth_sat:4 (5499975799312474425) -->
+</resources>
