@@ -18,13 +18,25 @@ package com.android.calendar;
 
 import org.sufficientlysecure.standalonecalendar.R;
 
-public final class CalendarData {
-    static final String[] s12HoursNoAmPm = { "12", "1", "2", "3", "4",
-        "5", "6", "7", "8", "9", "10", "11", "12",
-        "1", "2", "3", "4", "5", "6", "7", "8",
-        "9", "10", "11", "12" };
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
-    static final String[] s24Hours = { "00", "01", "02", "03", "04", "05",
-        "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16",
-        "17", "18", "19", "20", "21", "22", "23", "00" };
+public final class CalendarData {
+
+    private static final DecimalFormat decimal12HoursFormat = new DecimalFormat("0");
+    static final String[] s12HoursNoAmPm = { decimal12HoursFormat.format(12), decimal12HoursFormat.format(1), decimal12HoursFormat.format(2), decimal12HoursFormat.format(3), decimal12HoursFormat.format(4),
+            decimal12HoursFormat.format(5), decimal12HoursFormat.format(6), decimal12HoursFormat.format(7), decimal12HoursFormat.format(8), decimal12HoursFormat.format(9), decimal12HoursFormat.format(10), decimal12HoursFormat.format(11), decimal12HoursFormat.format(12),
+            decimal12HoursFormat.format(1), decimal12HoursFormat.format(2), decimal12HoursFormat.format(3), decimal12HoursFormat.format(4), decimal12HoursFormat.format(5), decimal12HoursFormat.format(6), decimal12HoursFormat.format(7), decimal12HoursFormat.format(8),
+            decimal12HoursFormat.format(9), decimal12HoursFormat.format(10), decimal12HoursFormat.format(11), decimal12HoursFormat.format(12) };
+
+    private static final DecimalFormat decimal24HoursFormat = new DecimalFormat("00");
+    static final String[] s24Hours = { decimal24HoursFormat.format(0), decimal24HoursFormat.format(1), decimal24HoursFormat.format(2), decimal24HoursFormat.format(3), decimal24HoursFormat.format(4), decimal24HoursFormat.format(5),
+            decimal24HoursFormat.format(6), decimal24HoursFormat.format(7), decimal24HoursFormat.format(8), decimal24HoursFormat.format(9), decimal24HoursFormat.format(10), decimal24HoursFormat.format(11), decimal24HoursFormat.format(12), decimal24HoursFormat.format(13), decimal24HoursFormat.format(14), decimal24HoursFormat.format(15), decimal24HoursFormat.format(16),
+            decimal24HoursFormat.format(17), decimal24HoursFormat.format(18), decimal24HoursFormat.format(19), decimal24HoursFormat.format(20), decimal24HoursFormat.format(21), decimal24HoursFormat.format(22), decimal24HoursFormat.format(23), decimal24HoursFormat.format(0) };
+
+    public CalendarData() {
+
+
+
+    }
 }

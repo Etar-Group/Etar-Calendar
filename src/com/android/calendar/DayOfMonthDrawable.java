@@ -27,6 +27,8 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
+import java.text.NumberFormat;
+
 /**
  * A custom view to draw the day of the month in the today button in the options menu
  */
@@ -73,7 +75,7 @@ public class DayOfMonthDrawable extends Drawable {
     }
 
     public void setDayOfMonth(int day) {
-        mDayOfMonth = Integer.toString(day);
+        mDayOfMonth = NumberFormat.getInstance().format(day);
         invalidateSelf();
     }
 }

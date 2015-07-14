@@ -36,6 +36,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
 import java.security.InvalidParameterException;
+import java.text.NumberFormat;
 import java.util.HashMap;
 
 /**
@@ -250,7 +251,7 @@ public class SimpleWeekView extends View {
         // If we're showing the week number calculate it based on Monday
         int i = 0;
         if (mShowWeekNum) {
-            mDayNumbers[0] = Integer.toString(time.getWeekNumber());
+            mDayNumbers[0] = NumberFormat.getInstance().format(time.getWeekNumber());
             i++;
         }
 
@@ -297,7 +298,7 @@ public class SimpleWeekView extends View {
                 mHasToday = true;
                 mToday = i;
             }
-            mDayNumbers[i] = Integer.toString(time.monthDay++);
+            mDayNumbers[i] = NumberFormat.getInstance().format(time.monthDay++);
             time.normalize(true);
         }
         // We do one extra add at the end of the loop, if that pushed us to a
