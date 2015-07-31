@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ActionBar;
@@ -29,17 +27,50 @@ import android.preference.PreferenceActivity;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.provider.Settings;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import com.android.calendar.selectcalendars.SelectCalendarsSyncFragment;
+
+import org.sufficientlysecure.standalonecalendar.R;
 
 import java.util.List;
 
 public class CalendarSettingsActivity extends PreferenceActivity {
     private static final int CHECK_ACCOUNTS_DELAY = 3000;
     private Account[] mAccounts;
+    Runnable mCheckAccounts = new Runnable() {
+        @Override
+        public void run() {
+            Account[] accounts = AccountManager.get(CalendarSettingsActivity.this).getAccounts();
+            if (accounts != null && !accounts.equals(mAccounts)) {
+                invalidateHeaders();
+            }
+        }
+    };
     private Handler mHandler = new Handler();
     private boolean mHideMenuButtons = false;
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
+        Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.app_bar, root, false);
+        root.addView(bar, 0); // insert at top
+        bar.setTitle(getTitle());
+        bar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     @Override
     public void onBuildHeaders(List<Header> target) {
@@ -114,15 +145,12 @@ public class CalendarSettingsActivity extends PreferenceActivity {
         super.onPause();
     }
 
-    Runnable mCheckAccounts = new Runnable() {
-        @Override
-        public void run() {
-            Account[] accounts = AccountManager.get(CalendarSettingsActivity.this).getAccounts();
-            if (accounts != null && !accounts.equals(mAccounts)) {
-                invalidateHeaders();
-            }
-        }
-    };
+    protected boolean isValidFragment(String fragmentName) {
+        return GeneralPreferences.class.getName().equals(fragmentName)
+                || SelectCalendarsSyncFragment.class.getName().equals(fragmentName)
+                || OtherPreferences.class.getName().equals(fragmentName)
+                || AboutPreferences.class.getName().equals(fragmentName);
+    }
 
     public void hideMenuButtons() {
         mHideMenuButtons = true;
