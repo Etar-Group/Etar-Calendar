@@ -31,8 +31,9 @@ import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
+
+import org.sufficientlysecure.standalonecalendar.R;
 
 public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
     private SelectVisibleCalendarsFragment mFragment;
@@ -96,7 +97,7 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getActionBar()
+        getSupportActionBar()
                 .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         return true;
     }

@@ -16,11 +16,9 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
+import android.support.v7.app.AppCompatActivity;
 
-import android.app.Activity;
-
-public abstract class AbstractCalendarActivity extends Activity {
+public abstract class AbstractCalendarActivity extends AppCompatActivity {
     protected AsyncQueryService mService;
 
     public synchronized AsyncQueryService getAsyncQueryService() {

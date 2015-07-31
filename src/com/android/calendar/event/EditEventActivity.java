@@ -16,16 +16,12 @@
 
 package com.android.calendar.event;
 
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-
-import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
+import android.support.v7.app.ActionBar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,22 +30,22 @@ import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
+
+import org.sufficientlysecure.standalonecalendar.R;
 
 import java.util.ArrayList;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+
 public class EditEventActivity extends AbstractCalendarActivity {
-    private static final String TAG = "EditEventActivity";
-
-    private static final boolean DEBUG = false;
-
-    private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
-
     public static final String EXTRA_EVENT_COLOR = "event_color";
-
     public static final String EXTRA_EVENT_REMINDERS = "reminders";
-
+    private static final String TAG = "EditEventActivity";
+    private static final boolean DEBUG = false;
+    private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     private static boolean mIsMultipane;
 
     private EditEventFragment mEditFragment;
@@ -78,15 +74,15 @@ public class EditEventActivity extends AbstractCalendarActivity {
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
 
         if (mIsMultipane) {
-            getActionBar().setDisplayOptions(
+            getSupportActionBar().setDisplayOptions(
                     ActionBar.DISPLAY_SHOW_TITLE,
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME
                             | ActionBar.DISPLAY_SHOW_TITLE);
-            getActionBar().setTitle(
+            getSupportActionBar().setTitle(
                     mEventInfo.id == -1 ? R.string.event_create : R.string.event_edit);
         }
         else {
-            getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME|
                     ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
         }

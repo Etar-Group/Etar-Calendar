@@ -39,6 +39,7 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -61,10 +62,11 @@ import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.colorpicker.HsvColorComparator;
+
+import org.sufficientlysecure.standalonecalendar.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -96,25 +98,24 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private static final int TOKEN_ALL = TOKEN_EVENT | TOKEN_ATTENDEES | TOKEN_REMINDERS
             | TOKEN_CALENDARS | TOKEN_COLORS;
     private static final int TOKEN_UNITIALIZED = 1 << 31;
-
-    /**
-     * A bitfield of TOKEN_* to keep track which query hasn't been completed
-     * yet. Once all queries have returned, the model can be applied to the
-     * view.
-     */
-    private int mOutstandingQueries = TOKEN_UNITIALIZED;
-
+    private final EventInfo mEvent;
+    private final Done mOnDone = new Done();
+    private final Intent mIntent;
+    public boolean mShowModifyDialogOnLaunch = false;
     EditEventHelper mHelper;
     CalendarEventModel mModel;
     CalendarEventModel mOriginalModel;
     CalendarEventModel mRestoreModel;
     EditEventView mView;
     QueryHandler mHandler;
-
-    private AlertDialog mModifyDialog;
     int mModification = Utils.MODIFY_UNINITIALIZED;
-
-    private final EventInfo mEvent;
+    /**
+     * A bitfield of TOKEN_* to keep track which query hasn't been completed
+     * yet. Once all queries have returned, the model can be applied to the
+     * view.
+     */
+    private int mOutstandingQueries = TOKEN_UNITIALIZED;
+    private AlertDialog mModifyDialog;
     private EventBundle mEventBundle;
     private ArrayList<ReminderEntry> mReminders;
     private int mEventColor;
@@ -123,271 +124,21 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private long mBegin;
     private long mEnd;
     private long mCalendarId = -1;
-
     private EventColorPickerDialog mColorPickerDialog;
-
-    private Activity mContext;
-    private final Done mOnDone = new Done();
-
+    private AppCompatActivity mContext;
     private boolean mSaveOnDetach = true;
     private boolean mIsReadOnly = false;
-    public boolean mShowModifyDialogOnLaunch = false;
     private boolean mShowColorPalette = false;
-
     private boolean mTimeSelectedWasStartTime;
     private boolean mDateSelectedWasStartDate;
-
     private InputMethodManager mInputMethodManager;
-
-    private final Intent mIntent;
-
-    private boolean mUseCustomActionBar;
-
     private final View.OnClickListener mActionBarListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             onActionBarItemSelected(v.getId());
         }
     };
-
-    // TODO turn this into a helper function in EditEventHelper for building the
-    // model
-    private class QueryHandler extends AsyncQueryHandler {
-        public QueryHandler(ContentResolver cr) {
-            super(cr);
-        }
-
-        @Override
-        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            // If the query didn't return a cursor for some reason return
-            if (cursor == null) {
-                return;
-            }
-
-            // If the Activity is finishing, then close the cursor.
-            // Otherwise, use the new cursor in the adapter.
-            final Activity activity = EditEventFragment.this.getActivity();
-            if (activity == null || activity.isFinishing()) {
-                cursor.close();
-                return;
-            }
-            long eventId;
-            switch (token) {
-                case TOKEN_EVENT:
-                    if (cursor.getCount() == 0) {
-                        // The cursor is empty. This can happen if the event
-                        // was deleted.
-                        cursor.close();
-                        mOnDone.setDoneCode(Utils.DONE_EXIT);
-                        mSaveOnDetach = false;
-                        mOnDone.run();
-                        return;
-                    }
-                    mOriginalModel = new CalendarEventModel();
-                    EditEventHelper.setModelFromCursor(mOriginalModel, cursor);
-                    EditEventHelper.setModelFromCursor(mModel, cursor);
-                    cursor.close();
-
-                    mOriginalModel.mUri = mUri.toString();
-
-                    mModel.mUri = mUri.toString();
-                    mModel.mOriginalStart = mBegin;
-                    mModel.mOriginalEnd = mEnd;
-                    mModel.mIsFirstEventInSeries = mBegin == mOriginalModel.mStart;
-                    mModel.mStart = mBegin;
-                    mModel.mEnd = mEnd;
-                    if (mEventColorInitialized) {
-                        mModel.setEventColor(mEventColor);
-                    }
-                    eventId = mModel.mId;
-
-                    // TOKEN_ATTENDEES
-                    if (mModel.mHasAttendeeData && eventId != -1) {
-                        Uri attUri = Attendees.CONTENT_URI;
-                        String[] whereArgs = {
-                            Long.toString(eventId)
-                        };
-                        mHandler.startQuery(TOKEN_ATTENDEES, null, attUri,
-                                EditEventHelper.ATTENDEES_PROJECTION,
-                                EditEventHelper.ATTENDEES_WHERE /* selection */,
-                                whereArgs /* selection args */, null /* sort order */);
-                    } else {
-                        setModelIfDone(TOKEN_ATTENDEES);
-                    }
-
-                    // TOKEN_REMINDERS
-                    if (mModel.mHasAlarm && mReminders == null) {
-                        Uri rUri = Reminders.CONTENT_URI;
-                        String[] remArgs = {
-                                Long.toString(eventId)
-                        };
-                        mHandler.startQuery(TOKEN_REMINDERS, null, rUri,
-                                EditEventHelper.REMINDERS_PROJECTION,
-                                EditEventHelper.REMINDERS_WHERE /* selection */,
-                                remArgs /* selection args */, null /* sort order */);
-                    } else {
-                        if (mReminders == null) {
-                            // mReminders should not be null.
-                            mReminders = new ArrayList<ReminderEntry>();
-                        } else {
-                            Collections.sort(mReminders);
-                        }
-                        mOriginalModel.mReminders = mReminders;
-                        mModel.mReminders =
-                                (ArrayList<ReminderEntry>) mReminders.clone();
-                        setModelIfDone(TOKEN_REMINDERS);
-                    }
-
-                    // TOKEN_CALENDARS
-                    String[] selArgs = {
-                        Long.toString(mModel.mCalendarId)
-                    };
-                    mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
-                            EditEventHelper.CALENDARS_PROJECTION, EditEventHelper.CALENDARS_WHERE,
-                            selArgs /* selection args */, null /* sort order */);
-
-                    // TOKEN_COLORS
-                    mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
-                            EditEventHelper.COLORS_PROJECTION,
-                            Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
-
-                    setModelIfDone(TOKEN_EVENT);
-                    break;
-                case TOKEN_ATTENDEES:
-                    try {
-                        while (cursor.moveToNext()) {
-                            String name = cursor.getString(EditEventHelper.ATTENDEES_INDEX_NAME);
-                            String email = cursor.getString(EditEventHelper.ATTENDEES_INDEX_EMAIL);
-                            int status = cursor.getInt(EditEventHelper.ATTENDEES_INDEX_STATUS);
-                            int relationship = cursor
-                                    .getInt(EditEventHelper.ATTENDEES_INDEX_RELATIONSHIP);
-                            if (relationship == Attendees.RELATIONSHIP_ORGANIZER) {
-                                if (email != null) {
-                                    mModel.mOrganizer = email;
-                                    mModel.mIsOrganizer = mModel.mOwnerAccount
-                                            .equalsIgnoreCase(email);
-                                    mOriginalModel.mOrganizer = email;
-                                    mOriginalModel.mIsOrganizer = mOriginalModel.mOwnerAccount
-                                            .equalsIgnoreCase(email);
-                                }
-
-                                if (TextUtils.isEmpty(name)) {
-                                    mModel.mOrganizerDisplayName = mModel.mOrganizer;
-                                    mOriginalModel.mOrganizerDisplayName =
-                                            mOriginalModel.mOrganizer;
-                                } else {
-                                    mModel.mOrganizerDisplayName = name;
-                                    mOriginalModel.mOrganizerDisplayName = name;
-                                }
-                            }
-
-                            if (email != null) {
-                                if (mModel.mOwnerAccount != null &&
-                                        mModel.mOwnerAccount.equalsIgnoreCase(email)) {
-                                    int attendeeId =
-                                        cursor.getInt(EditEventHelper.ATTENDEES_INDEX_ID);
-                                    mModel.mOwnerAttendeeId = attendeeId;
-                                    mModel.mSelfAttendeeStatus = status;
-                                    mOriginalModel.mOwnerAttendeeId = attendeeId;
-                                    mOriginalModel.mSelfAttendeeStatus = status;
-                                    continue;
-                                }
-                            }
-                            Attendee attendee = new Attendee(name, email);
-                            attendee.mStatus = status;
-                            mModel.addAttendee(attendee);
-                            mOriginalModel.addAttendee(attendee);
-                        }
-                    } finally {
-                        cursor.close();
-                    }
-
-                    setModelIfDone(TOKEN_ATTENDEES);
-                    break;
-                case TOKEN_REMINDERS:
-                    try {
-                        // Add all reminders to the models
-                        while (cursor.moveToNext()) {
-                            int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
-                            int method = cursor.getInt(EditEventHelper.REMINDERS_INDEX_METHOD);
-                            ReminderEntry re = ReminderEntry.valueOf(minutes, method);
-                            mModel.mReminders.add(re);
-                            mOriginalModel.mReminders.add(re);
-                        }
-
-                        // Sort appropriately for display
-                        Collections.sort(mModel.mReminders);
-                        Collections.sort(mOriginalModel.mReminders);
-                    } finally {
-                        cursor.close();
-                    }
-
-                    setModelIfDone(TOKEN_REMINDERS);
-                    break;
-                case TOKEN_CALENDARS:
-                    try {
-                        if (mModel.mId == -1) {
-                            // Populate Calendar spinner only if no event id is set.
-                            MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
-                            if (DEBUG) {
-                                Log.d(TAG, "onQueryComplete: setting cursor with "
-                                        + matrixCursor.getCount() + " calendars");
-                            }
-                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed(),
-                                    mCalendarId);
-                        } else {
-                            // Populate model for an existing event
-                            EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
-                            EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor);
-                        }
-                    } finally {
-                        cursor.close();
-                    }
-                    setModelIfDone(TOKEN_CALENDARS);
-                    break;
-                case TOKEN_COLORS:
-                    if (cursor.moveToFirst()) {
-                        EventColorCache cache = new EventColorCache();
-                        do
-                        {
-                            int colorKey = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR_KEY);
-                            int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
-                            int displayColor = Utils.getDisplayColorFromColor(rawColor);
-                            String accountName = cursor
-                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_NAME);
-                            String accountType = cursor
-                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_TYPE);
-                            cache.insertColor(accountName, accountType,
-                                    displayColor, colorKey);
-                        } while (cursor.moveToNext());
-                        cache.sortPalettes(new HsvColorComparator());
-
-                        mModel.mEventColorCache = cache;
-                        mView.mColorPickerNewEvent.setOnClickListener(mOnColorPickerClicked);
-                        mView.mColorPickerExistingEvent.setOnClickListener(mOnColorPickerClicked);
-                    }
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-
-                    // If the account name/type is null, the calendar event colors cannot be
-                    // determined, so take the default/savedInstanceState value.
-                    if (mModel.mCalendarAccountName == null
-                           || mModel.mCalendarAccountType == null) {
-                        mView.setColorPickerButtonStates(mShowColorPalette);
-                    } else {
-                        mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
-                    }
-
-                    setModelIfDone(TOKEN_COLORS);
-                    break;
-                default:
-                    cursor.close();
-                    break;
-            }
-        }
-    }
-
+    private boolean mUseCustomActionBar;
     private View.OnClickListener mOnColorPickerClicked = new View.OnClickListener() {
 
         @Override
@@ -409,6 +160,24 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
     };
 
+    public EditEventFragment() {
+        this(null, null, false, -1, false, null);
+    }
+
+    public EditEventFragment(EventInfo event, ArrayList<ReminderEntry> reminders,
+                             boolean eventColorInitialized, int eventColor, boolean readOnly, Intent intent) {
+        mEvent = event;
+        mIsReadOnly = readOnly;
+        mIntent = intent;
+
+        mReminders = reminders;
+        mEventColorInitialized = eventColorInitialized;
+        if (eventColorInitialized) {
+            mEventColor = eventColor;
+        }
+        setHasOptionsMenu(true);
+    }
+
     private void setModelIfDone(int queryType) {
         synchronized (this) {
             mOutstandingQueries &= ~queryType;
@@ -428,24 +197,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mView.setModification(mModification);
             }
         }
-    }
-
-    public EditEventFragment() {
-        this(null, null, false, -1, false, null);
-    }
-
-    public EditEventFragment(EventInfo event, ArrayList<ReminderEntry> reminders,
-            boolean eventColorInitialized, int eventColor, boolean readOnly, Intent intent) {
-        mEvent = event;
-        mIsReadOnly = readOnly;
-        mIntent = intent;
-
-        mReminders = reminders;
-        mEventColorInitialized = eventColorInitialized;
-        if (eventColorInitialized) {
-            mEventColor = eventColor;
-        }
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -545,7 +296,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mContext = activity;
+        mContext = (AppCompatActivity) activity;
 
         mHelper = new EditEventHelper(activity, null);
         mHandler = new QueryHandler(activity.getContentResolver());
@@ -558,7 +309,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 //        mContext.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         View view;
         if (mIsReadOnly) {
@@ -578,7 +329,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             View doneActionView = actionBarButtons.findViewById(R.id.action_done);
             doneActionView.setOnClickListener(mActionBarListener);
 
-            mContext.getActionBar().setCustomView(actionBarButtons);
+            mContext.getSupportActionBar().setCustomView(actionBarButtons);
         }
 
         return view;
@@ -589,7 +340,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         super.onDestroyView();
 
         if (mUseCustomActionBar) {
-            mContext.getActionBar().setCustomView(null);
+            mContext.getSupportActionBar().setCustomView(null);
         }
     }
 
@@ -628,7 +379,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
 
         }
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -778,113 +528,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
     }
 
-    class Done implements EditEventHelper.EditDoneRunnable {
-        private int mCode = -1;
-
-        @Override
-        public void setDoneCode(int code) {
-            mCode = code;
-        }
-
-        @Override
-        public void run() {
-            // We only want this to get called once, either because the user
-            // pressed back/home or one of the buttons on screen
-            mSaveOnDetach = false;
-            if (mModification == Utils.MODIFY_UNINITIALIZED) {
-                // If this is uninitialized the user hit back, the only
-                // changeable item is response to default to all events.
-                mModification = Utils.MODIFY_ALL;
-            }
-
-            if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null
-                    && (EditEventHelper.canRespond(mModel)
-                            || EditEventHelper.canModifyEvent(mModel))
-                    && mView.prepareForSave()
-                    && !isEmptyNewEvent()
-                    && mModel.normalizeReminders()
-                    && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
-                int stringResource;
-                if (!mModel.mAttendeesList.isEmpty()) {
-                    if (mModel.mUri != null) {
-                        stringResource = R.string.saving_event_with_guest;
-                    } else {
-                        stringResource = R.string.creating_event_with_guest;
-                    }
-                } else {
-                    if (mModel.mUri != null) {
-                        stringResource = R.string.saving_event;
-                    } else {
-                        stringResource = R.string.creating_event;
-                    }
-                }
-                Toast.makeText(mContext, stringResource, Toast.LENGTH_SHORT).show();
-            } else if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null && isEmptyNewEvent()) {
-                Toast.makeText(mContext, R.string.empty_event, Toast.LENGTH_SHORT).show();
-            }
-
-            if ((mCode & Utils.DONE_DELETE) != 0 && mOriginalModel != null
-                    && EditEventHelper.canModifyCalendar(mOriginalModel)) {
-                long begin = mModel.mStart;
-                long end = mModel.mEnd;
-                int which = -1;
-                switch (mModification) {
-                    case Utils.MODIFY_SELECTED:
-                        which = DeleteEventHelper.DELETE_SELECTED;
-                        break;
-                    case Utils.MODIFY_ALL_FOLLOWING:
-                        which = DeleteEventHelper.DELETE_ALL_FOLLOWING;
-                        break;
-                    case Utils.MODIFY_ALL:
-                        which = DeleteEventHelper.DELETE_ALL;
-                        break;
-                }
-                DeleteEventHelper deleteHelper = new DeleteEventHelper(
-                        mContext, mContext, !mIsReadOnly /* exitWhenDone */);
-                deleteHelper.delete(begin, end, mOriginalModel, which);
-            }
-
-            if ((mCode & Utils.DONE_EXIT) != 0) {
-                // This will exit the edit event screen, should be called
-                // when we want to return to the main calendar views
-                if ((mCode & Utils.DONE_SAVE) != 0) {
-                    if (mContext != null) {
-                        long start = mModel.mStart;
-                        long end = mModel.mEnd;
-                        if (mModel.mAllDay) {
-                            // For allday events we want to go to the day in the
-                            // user's current tz
-                            String tz = Utils.getTimeZone(mContext, null);
-                            Time t = new Time(Time.TIMEZONE_UTC);
-                            t.set(start);
-                            t.timezone = tz;
-                            start = t.toMillis(true);
-
-                            t.timezone = Time.TIMEZONE_UTC;
-                            t.set(end);
-                            t.timezone = tz;
-                            end = t.toMillis(true);
-                        }
-                        CalendarController.getInstance(mContext).launchViewEvent(-1, start, end,
-                                Attendees.ATTENDEE_STATUS_NONE);
-                    }
-                }
-                Activity a = EditEventFragment.this.getActivity();
-                if (a != null) {
-                    a.finish();
-                }
-            }
-
-            // Hide a software keyboard so that user won't see it even after this Fragment's
-            // disappearing.
-            final View focusedView = mContext.getCurrentFocus();
-            if (focusedView != null) {
-                mInputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
-                focusedView.clearFocus();
-            }
-        }
-    }
-
     boolean isEmptyNewEvent() {
         if (mOriginalModel != null) {
             // Not new
@@ -973,6 +616,14 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
     }
 
+    @Override
+    public void onColorSelected(int color) {
+        if (!mModel.isEventColorInitialized() || mModel.getEventColor() != color) {
+            mModel.setEventColor(color);
+            mView.updateHeadlineColor(mModel, color);
+        }
+    }
+
     private static class EventBundle implements Serializable {
         private static final long serialVersionUID = 1L;
         long id = -1;
@@ -980,11 +631,347 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         long end = -1;
     }
 
-    @Override
-    public void onColorSelected(int color) {
-        if (!mModel.isEventColorInitialized() || mModel.getEventColor() != color) {
-            mModel.setEventColor(color);
-            mView.updateHeadlineColor(mModel, color);
+    // TODO turn this into a helper function in EditEventHelper for building the
+    // model
+    private class QueryHandler extends AsyncQueryHandler {
+        public QueryHandler(ContentResolver cr) {
+            super(cr);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            // If the query didn't return a cursor for some reason return
+            if (cursor == null) {
+                return;
+            }
+
+            // If the Activity is finishing, then close the cursor.
+            // Otherwise, use the new cursor in the adapter.
+            final Activity activity = EditEventFragment.this.getActivity();
+            if (activity == null || activity.isFinishing()) {
+                cursor.close();
+                return;
+            }
+            long eventId;
+            switch (token) {
+                case TOKEN_EVENT:
+                    if (cursor.getCount() == 0) {
+                        // The cursor is empty. This can happen if the event
+                        // was deleted.
+                        cursor.close();
+                        mOnDone.setDoneCode(Utils.DONE_EXIT);
+                        mSaveOnDetach = false;
+                        mOnDone.run();
+                        return;
+                    }
+                    mOriginalModel = new CalendarEventModel();
+                    EditEventHelper.setModelFromCursor(mOriginalModel, cursor);
+                    EditEventHelper.setModelFromCursor(mModel, cursor);
+                    cursor.close();
+
+                    mOriginalModel.mUri = mUri.toString();
+
+                    mModel.mUri = mUri.toString();
+                    mModel.mOriginalStart = mBegin;
+                    mModel.mOriginalEnd = mEnd;
+                    mModel.mIsFirstEventInSeries = mBegin == mOriginalModel.mStart;
+                    mModel.mStart = mBegin;
+                    mModel.mEnd = mEnd;
+                    if (mEventColorInitialized) {
+                        mModel.setEventColor(mEventColor);
+                    }
+                    eventId = mModel.mId;
+
+                    // TOKEN_ATTENDEES
+                    if (mModel.mHasAttendeeData && eventId != -1) {
+                        Uri attUri = Attendees.CONTENT_URI;
+                        String[] whereArgs = {
+                                Long.toString(eventId)
+                        };
+                        mHandler.startQuery(TOKEN_ATTENDEES, null, attUri,
+                                EditEventHelper.ATTENDEES_PROJECTION,
+                                EditEventHelper.ATTENDEES_WHERE /* selection */,
+                                whereArgs /* selection args */, null /* sort order */);
+                    } else {
+                        setModelIfDone(TOKEN_ATTENDEES);
+                    }
+
+                    // TOKEN_REMINDERS
+                    if (mModel.mHasAlarm && mReminders == null) {
+                        Uri rUri = Reminders.CONTENT_URI;
+                        String[] remArgs = {
+                                Long.toString(eventId)
+                        };
+                        mHandler.startQuery(TOKEN_REMINDERS, null, rUri,
+                                EditEventHelper.REMINDERS_PROJECTION,
+                                EditEventHelper.REMINDERS_WHERE /* selection */,
+                                remArgs /* selection args */, null /* sort order */);
+                    } else {
+                        if (mReminders == null) {
+                            // mReminders should not be null.
+                            mReminders = new ArrayList<ReminderEntry>();
+                        } else {
+                            Collections.sort(mReminders);
+                        }
+                        mOriginalModel.mReminders = mReminders;
+                        mModel.mReminders =
+                                (ArrayList<ReminderEntry>) mReminders.clone();
+                        setModelIfDone(TOKEN_REMINDERS);
+                    }
+
+                    // TOKEN_CALENDARS
+                    String[] selArgs = {
+                            Long.toString(mModel.mCalendarId)
+                    };
+                    mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
+                            EditEventHelper.CALENDARS_PROJECTION, EditEventHelper.CALENDARS_WHERE,
+                            selArgs /* selection args */, null /* sort order */);
+
+                    // TOKEN_COLORS
+                    mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
+                            EditEventHelper.COLORS_PROJECTION,
+                            Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
+
+                    setModelIfDone(TOKEN_EVENT);
+                    break;
+                case TOKEN_ATTENDEES:
+                    try {
+                        while (cursor.moveToNext()) {
+                            String name = cursor.getString(EditEventHelper.ATTENDEES_INDEX_NAME);
+                            String email = cursor.getString(EditEventHelper.ATTENDEES_INDEX_EMAIL);
+                            int status = cursor.getInt(EditEventHelper.ATTENDEES_INDEX_STATUS);
+                            int relationship = cursor
+                                    .getInt(EditEventHelper.ATTENDEES_INDEX_RELATIONSHIP);
+                            if (relationship == Attendees.RELATIONSHIP_ORGANIZER) {
+                                if (email != null) {
+                                    mModel.mOrganizer = email;
+                                    mModel.mIsOrganizer = mModel.mOwnerAccount
+                                            .equalsIgnoreCase(email);
+                                    mOriginalModel.mOrganizer = email;
+                                    mOriginalModel.mIsOrganizer = mOriginalModel.mOwnerAccount
+                                            .equalsIgnoreCase(email);
+                                }
+
+                                if (TextUtils.isEmpty(name)) {
+                                    mModel.mOrganizerDisplayName = mModel.mOrganizer;
+                                    mOriginalModel.mOrganizerDisplayName =
+                                            mOriginalModel.mOrganizer;
+                                } else {
+                                    mModel.mOrganizerDisplayName = name;
+                                    mOriginalModel.mOrganizerDisplayName = name;
+                                }
+                            }
+
+                            if (email != null) {
+                                if (mModel.mOwnerAccount != null &&
+                                        mModel.mOwnerAccount.equalsIgnoreCase(email)) {
+                                    int attendeeId =
+                                            cursor.getInt(EditEventHelper.ATTENDEES_INDEX_ID);
+                                    mModel.mOwnerAttendeeId = attendeeId;
+                                    mModel.mSelfAttendeeStatus = status;
+                                    mOriginalModel.mOwnerAttendeeId = attendeeId;
+                                    mOriginalModel.mSelfAttendeeStatus = status;
+                                    continue;
+                                }
+                            }
+                            Attendee attendee = new Attendee(name, email);
+                            attendee.mStatus = status;
+                            mModel.addAttendee(attendee);
+                            mOriginalModel.addAttendee(attendee);
+                        }
+                    } finally {
+                        cursor.close();
+                    }
+
+                    setModelIfDone(TOKEN_ATTENDEES);
+                    break;
+                case TOKEN_REMINDERS:
+                    try {
+                        // Add all reminders to the models
+                        while (cursor.moveToNext()) {
+                            int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
+                            int method = cursor.getInt(EditEventHelper.REMINDERS_INDEX_METHOD);
+                            ReminderEntry re = ReminderEntry.valueOf(minutes, method);
+                            mModel.mReminders.add(re);
+                            mOriginalModel.mReminders.add(re);
+                        }
+
+                        // Sort appropriately for display
+                        Collections.sort(mModel.mReminders);
+                        Collections.sort(mOriginalModel.mReminders);
+                    } finally {
+                        cursor.close();
+                    }
+
+                    setModelIfDone(TOKEN_REMINDERS);
+                    break;
+                case TOKEN_CALENDARS:
+                    try {
+                        if (mModel.mId == -1) {
+                            // Populate Calendar spinner only if no event id is set.
+                            MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
+                            if (DEBUG) {
+                                Log.d(TAG, "onQueryComplete: setting cursor with "
+                                        + matrixCursor.getCount() + " calendars");
+                            }
+                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed(),
+                                    mCalendarId);
+                        } else {
+                            // Populate model for an existing event
+                            EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
+                            EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor);
+                        }
+                    } finally {
+                        cursor.close();
+                    }
+                    setModelIfDone(TOKEN_CALENDARS);
+                    break;
+                case TOKEN_COLORS:
+                    if (cursor.moveToFirst()) {
+                        EventColorCache cache = new EventColorCache();
+                        do {
+                            int colorKey = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR_KEY);
+                            int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
+                            int displayColor = Utils.getDisplayColorFromColor(rawColor);
+                            String accountName = cursor
+                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_NAME);
+                            String accountType = cursor
+                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_TYPE);
+                            cache.insertColor(accountName, accountType,
+                                    displayColor, colorKey);
+                        } while (cursor.moveToNext());
+                        cache.sortPalettes(new HsvColorComparator());
+
+                        mModel.mEventColorCache = cache;
+                        mView.mColorPickerNewEvent.setOnClickListener(mOnColorPickerClicked);
+                        mView.mColorPickerExistingEvent.setOnClickListener(mOnColorPickerClicked);
+                    }
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+
+                    // If the account name/type is null, the calendar event colors cannot be
+                    // determined, so take the default/savedInstanceState value.
+                    if (mModel.mCalendarAccountName == null
+                            || mModel.mCalendarAccountType == null) {
+                        mView.setColorPickerButtonStates(mShowColorPalette);
+                    } else {
+                        mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
+                    }
+
+                    setModelIfDone(TOKEN_COLORS);
+                    break;
+                default:
+                    cursor.close();
+                    break;
+            }
+        }
+    }
+
+    class Done implements EditEventHelper.EditDoneRunnable {
+        private int mCode = -1;
+
+        @Override
+        public void setDoneCode(int code) {
+            mCode = code;
+        }
+
+        @Override
+        public void run() {
+            // We only want this to get called once, either because the user
+            // pressed back/home or one of the buttons on screen
+            mSaveOnDetach = false;
+            if (mModification == Utils.MODIFY_UNINITIALIZED) {
+                // If this is uninitialized the user hit back, the only
+                // changeable item is response to default to all events.
+                mModification = Utils.MODIFY_ALL;
+            }
+
+            if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null
+                    && (EditEventHelper.canRespond(mModel)
+                    || EditEventHelper.canModifyEvent(mModel))
+                    && mView.prepareForSave()
+                    && !isEmptyNewEvent()
+                    && mModel.normalizeReminders()
+                    && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
+                int stringResource;
+                if (!mModel.mAttendeesList.isEmpty()) {
+                    if (mModel.mUri != null) {
+                        stringResource = R.string.saving_event_with_guest;
+                    } else {
+                        stringResource = R.string.creating_event_with_guest;
+                    }
+                } else {
+                    if (mModel.mUri != null) {
+                        stringResource = R.string.saving_event;
+                    } else {
+                        stringResource = R.string.creating_event;
+                    }
+                }
+                Toast.makeText(mContext, stringResource, Toast.LENGTH_SHORT).show();
+            } else if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null && isEmptyNewEvent()) {
+                Toast.makeText(mContext, R.string.empty_event, Toast.LENGTH_SHORT).show();
+            }
+
+            if ((mCode & Utils.DONE_DELETE) != 0 && mOriginalModel != null
+                    && EditEventHelper.canModifyCalendar(mOriginalModel)) {
+                long begin = mModel.mStart;
+                long end = mModel.mEnd;
+                int which = -1;
+                switch (mModification) {
+                    case Utils.MODIFY_SELECTED:
+                        which = DeleteEventHelper.DELETE_SELECTED;
+                        break;
+                    case Utils.MODIFY_ALL_FOLLOWING:
+                        which = DeleteEventHelper.DELETE_ALL_FOLLOWING;
+                        break;
+                    case Utils.MODIFY_ALL:
+                        which = DeleteEventHelper.DELETE_ALL;
+                        break;
+                }
+                DeleteEventHelper deleteHelper = new DeleteEventHelper(
+                        mContext, mContext, !mIsReadOnly /* exitWhenDone */);
+                deleteHelper.delete(begin, end, mOriginalModel, which);
+            }
+
+            if ((mCode & Utils.DONE_EXIT) != 0) {
+                // This will exit the edit event screen, should be called
+                // when we want to return to the main calendar views
+                if ((mCode & Utils.DONE_SAVE) != 0) {
+                    if (mContext != null) {
+                        long start = mModel.mStart;
+                        long end = mModel.mEnd;
+                        if (mModel.mAllDay) {
+                            // For allday events we want to go to the day in the
+                            // user's current tz
+                            String tz = Utils.getTimeZone(mContext, null);
+                            Time t = new Time(Time.TIMEZONE_UTC);
+                            t.set(start);
+                            t.timezone = tz;
+                            start = t.toMillis(true);
+
+                            t.timezone = Time.TIMEZONE_UTC;
+                            t.set(end);
+                            t.timezone = tz;
+                            end = t.toMillis(true);
+                        }
+                        CalendarController.getInstance(mContext).launchViewEvent(-1, start, end,
+                                Attendees.ATTENDEE_STATUS_NONE);
+                    }
+                }
+                Activity a = EditEventFragment.this.getActivity();
+                if (a != null) {
+                    a.finish();
+                }
+            }
+
+            // Hide a software keyboard so that user won't see it even after this Fragment's
+            // disappearing.
+            final View focusedView = mContext.getCurrentFocus();
+            if (focusedView != null) {
+                mInputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
+                focusedView.clearFocus();
+            }
         }
     }
 }
