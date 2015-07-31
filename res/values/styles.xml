@@ -24,6 +24,7 @@
     <style name="CalendarAppTheme" parent="Base.CalendarAppTheme">
 
     </style>
+
     <style name="CalendarAppThemeWithActionBar" parent="Base.CalendarAppThemeWithActionBar">
 
     </style>
@@ -43,6 +44,7 @@
         <item name="theme">@style/ThemeOverlay.CalendarAppTheme.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
+
     <style name="ThemeOverlay.CalendarAppTheme.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/titleTextColor</item>
     </style>
@@ -53,19 +55,24 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
     <style name="Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/titleTextColor</item>
     </style>
+
     <style name="Title.Expanded" parent="Title">
         <item name="android:textSize">32sp</item>
     </style>
+
     <style name="Title.collapsed" parent="Title">
         <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="ViewText">
         <item name="android:textColor">@color/titleTextColor</item>
     </style>
+
     <style name="DrawerNameText" parent="ViewText">
         <item name="android:textStyle">bold</item>
     </style>

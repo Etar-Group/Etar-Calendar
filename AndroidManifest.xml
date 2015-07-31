@@ -44,9 +44,10 @@
     <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="18"></uses-sdk>
 
     <application android:name="com.android.calendar.CalendarApplication"
-            android:hardwareAccelerated="true" android:icon="@mipmap/ic_launcher_calendar"
-            android:label="@string/standalone_app_label"
-                android:taskAffinity="org.sufficientlysecure.standalonecalendar.task"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher_calendar"
+        android:label="@string/standalone_app_label"
+        android:taskAffinity="org.sufficientlysecure.standalonecalendar.task"
         android:theme="@style/CalendarAppTheme">
 
         <activity
@@ -112,7 +113,9 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name="com.android.calendar.GoogleCalendarUriIntentFilter" android:configChanges="orientation|keyboardHidden"
+        <activity
+            android:name="com.android.calendar.GoogleCalendarUriIntentFilter"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_label"
             android:theme="@android:style/Theme.NoDisplay">
 
@@ -121,10 +124,23 @@
                <action android:name="android.intent.action.VIEW" />
                <category android:name="android.intent.category.DEFAULT" />
                <category android:name="android.intent.category.BROWSABLE" />
-               <data android:host="www.google.com" android:pathPrefix="/calendar/event" android:scheme="http" />
-               <data android:host="www.google.com" android:pathPrefix="/calendar/event" android:scheme="https" />
-               <data android:host="www.google.com" android:pathPattern="/calendar/hosted/.*/event" android:scheme="http" />
-               <data android:host="www.google.com" android:pathPattern="/calendar/hosted/.*/event" android:scheme="https" />
+
+                <data
+                    android:host="www.google.com"
+                    android:pathPrefix="/calendar/event"
+                    android:scheme="http" />
+                <data
+                    android:host="www.google.com"
+                    android:pathPrefix="/calendar/event"
+                    android:scheme="https" />
+                <data
+                    android:host="www.google.com"
+                    android:pathPattern="/calendar/hosted/.*/event"
+                    android:scheme="http" />
+                <data
+                    android:host="www.google.com"
+                    android:pathPattern="/calendar/hosted/.*/event"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 
@@ -136,7 +152,8 @@
             android:label="@string/select_synced_calendars_title"
             android:theme="@style/Base.CalendarAppThemeWithActionBar" />
 
-        <activity android:name="com.android.calendar.CalendarSettingsActivity"
+        <activity
+            android:name="com.android.calendar.CalendarSettingsActivity"
             android:label="@string/preferences_title" />
 
         <!-- Declarations for search -->
@@ -144,8 +161,11 @@
         <meta-data android:name="android.app.default_searchable"
             android:value="com.android.calendar.SearchActivity"/>
 
-        <activity android:name="com.android.calendar.SearchActivity" android:exported="true"
-            android:label="@string/search_title" android:launchMode="singleTop"
+        <activity
+            android:name="com.android.calendar.SearchActivity"
+            android:exported="true"
+            android:label="@string/search_title"
+            android:launchMode="singleTop"
             android:theme="@style/CalendarTheme.WithoutActionBar"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -159,15 +179,24 @@
             android:authorities="com.android.calendar.CalendarRecentSuggestionsProvider" />-->
 
         <!-- Declarations for alerts/reminders -->
-        <activity android:name="com.android.calendar.alerts.AlertActivity" android:excludeFromRecents="true"
-             android:launchMode="singleInstance" android:theme="@android:style/Theme.Holo.Dialog" />
+        <activity
+            android:name="com.android.calendar.alerts.AlertActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Holo.Dialog" />
 
-        <activity android:name="com.android.calendar.alerts.QuickResponseActivity" android:excludeFromRecents="true"
-             android:label="@string/quick_response_dialog_title" android:launchMode="singleInstance"
-             android:theme="@android:style/Theme.Holo.Dialog" />
+        <activity
+            android:name="com.android.calendar.alerts.QuickResponseActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/quick_response_dialog_title"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Holo.Dialog" />
 
-        <activity android:name="com.android.calendar.alerts.SnoozeDelayActivity" android:excludeFromRecents="true"
-             android:launchMode="singleInstance" android:theme="@android:style/Theme.Holo.Dialog" />
+        <activity
+            android:name="com.android.calendar.alerts.SnoozeDelayActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Holo.Dialog" />
 
         <receiver android:name="com.android.calendar.alerts.AlertReceiver">
             <intent-filter>
