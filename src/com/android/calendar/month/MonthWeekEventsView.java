@@ -16,10 +16,6 @@
 
 package com.android.calendar.month;
 
-import com.android.calendar.Event;
-import org.sufficientlysecure.standalonecalendar.R;
-import com.android.calendar.Utils;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -45,6 +41,11 @@ import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
+import com.android.calendar.Event;
+import com.android.calendar.Utils;
+
+import org.sufficientlysecure.standalonecalendar.R;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Formatter;
@@ -55,13 +56,14 @@ import java.util.Locale;
 
 public class MonthWeekEventsView extends SimpleWeekView {
 
-    private static final String TAG = "MonthView";
-
-    private static final boolean DEBUG_LAYOUT = false;
-
     public static final String VIEW_PARAMS_ORIENTATION = "orientation";
     public static final String VIEW_PARAMS_ANIMATE_TODAY = "animate_today";
-
+    private static final String TAG = "MonthView";
+    private static final boolean DEBUG_LAYOUT = false;
+    private static final int mClickedAlpha = 128;
+    protected static StringBuilder mStringBuilder = new StringBuilder(50);
+    // TODO recreate formatter when locale changes
+    protected static Formatter mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
     /* NOTE: these are not constants, and may be multiplied by a scale factor */
     private static int TEXT_SIZE_MONTH_NUMBER = 32;
     private static int TEXT_SIZE_EVENT = 12;
@@ -69,7 +71,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int TEXT_SIZE_MORE_EVENTS = 12;
     private static int TEXT_SIZE_MONTH_NAME = 14;
     private static int TEXT_SIZE_WEEK_NUM = 12;
-
     private static int DNA_MARGIN = 4;
     private static int DNA_ALL_DAY_HEIGHT = 4;
     private static int DNA_MIN_SEGMENT_HEIGHT = 4;
@@ -78,7 +79,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int DNA_SIDE_PADDING = 6;
     private static int CONFLICT_COLOR = Color.BLACK;
     private static int EVENT_TEXT_COLOR = Color.WHITE;
-
     private static int DEFAULT_EDGE_SPACING = 0;
     private static int SIDE_PADDING_MONTH_NUMBER = 4;
     private static int TOP_PADDING_MONTH_NUMBER = 4;
@@ -89,7 +89,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int DAY_SEPARATOR_VERTICAL_LENGTH = 53;
     private static int DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT = 64;
     private static int MIN_WEEK_WIDTH = 50;
-
     private static int EVENT_X_OFFSET_LANDSCAPE = 38;
     private static int EVENT_Y_OFFSET_LANDSCAPE = 8;
     private static int EVENT_Y_OFFSET_PORTRAIT = 7;
@@ -98,30 +97,20 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_LINE_PADDING = 2;
     private static int EVENT_RIGHT_PADDING = 4;
     private static int EVENT_BOTTOM_PADDING = 3;
-
     private static int TODAY_HIGHLIGHT_WIDTH = 2;
-
     private static int SPACING_WEEK_NUMBER = 24;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
-
+    private final TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
     protected Time mToday = new Time();
     protected boolean mHasToday = false;
     protected int mTodayIndex = -1;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
     protected List<ArrayList<Event>> mEvents = null;
     protected ArrayList<Event> mUnsortedEvents = null;
-    HashMap<Integer, Utils.DNAStrand> mDna = null;
     // This is for drawing the outlines around event chips and supports up to 10
     // events being drawn on each day. The code will expand this if necessary.
     protected FloatRef mEventOutlines = new FloatRef(10 * 4 * 4 * 7);
-
-
-
-    protected static StringBuilder mStringBuilder = new StringBuilder(50);
-    // TODO recreate formatter when locale changes
-    protected static Formatter mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
-
     protected Paint mMonthNamePaint;
     protected TextPaint mEventPaint;
     protected TextPaint mSolidBackgroundEventPaint;
@@ -133,10 +122,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected Paint mDNAAllDayPaint;
     protected Paint mDNATimePaint;
     protected Paint mEventSquarePaint;
-
-
     protected Drawable mTodayDrawable;
-
     protected int mMonthNumHeight;
     protected int mMonthNumAscentHeight;
     protected int mEventHeight;
@@ -145,10 +131,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mExtrasAscentHeight;
     protected int mExtrasDescent;
     protected int mWeekNumAscentHeight;
-
     protected int mMonthBGColor;
     protected int mMonthBGOtherColor;
     protected int mMonthBGTodayColor;
+    protected int mMonthBGFocusMonthColor;
     protected int mMonthNumColor;
     protected int mMonthNumOtherColor;
     protected int mMonthNumTodayColor;
@@ -164,85 +150,16 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mMonthBusyBitsBgColor;
     protected int mMonthBusyBitsBusyTimeColor;
     protected int mMonthBusyBitsConflictTimeColor;
-    private int mClickedDayIndex = -1;
-    private int mClickedDayColor;
-    private static final int mClickedAlpha = 128;
-
     protected int mEventChipOutlineColor = 0xFFFFFFFF;
     protected int mDaySeparatorInnerColor;
     protected int mTodayAnimateColor;
-
+    HashMap<Integer, Utils.DNAStrand> mDna = null;
+    private int mClickedDayIndex = -1;
+    private int mClickedDayColor;
     private boolean mAnimateToday;
     private int mAnimateTodayAlpha = 0;
     private ObjectAnimator mTodayAnimator = null;
-
-    private final TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
-
-    class TodayAnimatorListener extends AnimatorListenerAdapter {
-        private volatile Animator mAnimator = null;
-        private volatile boolean mFadingIn = false;
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            synchronized (this) {
-                if (mAnimator != animation) {
-                    animation.removeAllListeners();
-                    animation.cancel();
-                    return;
-                }
-                if (mFadingIn) {
-                    if (mTodayAnimator != null) {
-                        mTodayAnimator.removeAllListeners();
-                        mTodayAnimator.cancel();
-                    }
-                    mTodayAnimator = ObjectAnimator.ofInt(MonthWeekEventsView.this,
-                            "animateTodayAlpha", 255, 0);
-                    mAnimator = mTodayAnimator;
-                    mFadingIn = false;
-                    mTodayAnimator.addListener(this);
-                    mTodayAnimator.setDuration(600);
-                    mTodayAnimator.start();
-                } else {
-                    mAnimateToday = false;
-                    mAnimateTodayAlpha = 0;
-                    mAnimator.removeAllListeners();
-                    mAnimator = null;
-                    mTodayAnimator = null;
-                    invalidate();
-                }
-            }
-        }
-
-        public void setAnimator(Animator animation) {
-            mAnimator = animation;
-        }
-
-        public void setFadingIn(boolean fadingIn) {
-            mFadingIn = fadingIn;
-        }
-
-    }
-
     private int[] mDayXs;
-
-    /**
-     * This provides a reference to a float array which allows for easy size
-     * checking and reallocation. Used for drawing lines.
-     */
-    private class FloatRef {
-        float[] array;
-
-        public FloatRef(int size) {
-            array = new float[size];
-        }
-
-        public void ensureSize(int newSize) {
-            if (newSize >= array.length) {
-                // Add enough space for 7 more boxes to be drawn
-                array = Arrays.copyOf(array, newSize + 16 * 7);
-            }
-        }
-    }
 
     /**
      * Shows up as an error if we don't include this.
@@ -329,6 +246,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthEventOtherColor = res.getColor(R.color.month_event_other_color);
         mMonthEventExtraOtherColor = res.getColor(R.color.month_event_extra_other_color);
         mMonthBGTodayColor = res.getColor(R.color.month_today_bgcolor);
+        mMonthBGFocusMonthColor = res.getColor(R.color.month_focus_month_bgcolor);
         mMonthBGOtherColor = res.getColor(R.color.month_other_bgcolor);
         mMonthBGColor = res.getColor(R.color.month_bgcolor);
         mDaySeparatorInnerColor = res.getColor(R.color.month_grid_lines);
@@ -630,7 +548,24 @@ public class MonthWeekEventsView extends SimpleWeekView {
             i++;
             offset++;
         }
-        if (!mOddMonth[i]) {
+        if (mFocusDay[i]) {
+            while (++i < mOddMonth.length && mFocusDay[i])
+                ;
+            r.right = computeDayLeftPosition(i - offset);
+            r.left = 0;
+            p.setColor(mMonthBGFocusMonthColor);
+            canvas.drawRect(r, p);
+            // compute left edge for i, set up r, draw
+        } else if (mFocusDay[(i = mFocusDay.length - 1)]) {
+            while (--i >= offset && mFocusDay[i])
+                ;
+            i++;
+            // compute left edge for i, set up r, draw
+            r.right = mWidth;
+            r.left = computeDayLeftPosition(i - offset);
+            p.setColor(mMonthBGFocusMonthColor);
+            canvas.drawRect(r, p);
+        } else if (!mOddMonth[i]) {
             while (++i < mOddMonth.length && !mOddMonth[i])
                 ;
             r.right = computeDayLeftPosition(i - offset);
@@ -1103,8 +1038,73 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mClickedDayIndex = getDayIndexFromLocation(xLocation);
         invalidate();
     }
+
     public void clearClickedDay() {
         mClickedDayIndex = -1;
         invalidate();
+    }
+
+    class TodayAnimatorListener extends AnimatorListenerAdapter {
+        private volatile Animator mAnimator = null;
+        private volatile boolean mFadingIn = false;
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            synchronized (this) {
+                if (mAnimator != animation) {
+                    animation.removeAllListeners();
+                    animation.cancel();
+                    return;
+                }
+                if (mFadingIn) {
+                    if (mTodayAnimator != null) {
+                        mTodayAnimator.removeAllListeners();
+                        mTodayAnimator.cancel();
+                    }
+                    mTodayAnimator = ObjectAnimator.ofInt(MonthWeekEventsView.this,
+                            "animateTodayAlpha", 255, 0);
+                    mAnimator = mTodayAnimator;
+                    mFadingIn = false;
+                    mTodayAnimator.addListener(this);
+                    mTodayAnimator.setDuration(600);
+                    mTodayAnimator.start();
+                } else {
+                    mAnimateToday = false;
+                    mAnimateTodayAlpha = 0;
+                    mAnimator.removeAllListeners();
+                    mAnimator = null;
+                    mTodayAnimator = null;
+                    invalidate();
+                }
+            }
+        }
+
+        public void setAnimator(Animator animation) {
+            mAnimator = animation;
+        }
+
+        public void setFadingIn(boolean fadingIn) {
+            mFadingIn = fadingIn;
+        }
+
+    }
+
+    /**
+     * This provides a reference to a float array which allows for easy size
+     * checking and reallocation. Used for drawing lines.
+     */
+    private class FloatRef {
+        float[] array;
+
+        public FloatRef(int size) {
+            array = new float[size];
+        }
+
+        public void ensureSize(int newSize) {
+            if (newSize >= array.length) {
+                // Add enough space for 7 more boxes to be drawn
+                array = Arrays.copyOf(array, newSize + 16 * 7);
+            }
+        }
     }
 }
