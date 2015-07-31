@@ -22,7 +22,7 @@ project(':external:calendar') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 18
+        compileSdkVersion 22
         buildToolsVersion '22.0.1'
 
         sourceSets {
@@ -43,7 +43,7 @@ project(':external:colorpicker') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 18
+        compileSdkVersion 22
         buildToolsVersion '22.0.1'
 
         sourceSets {
@@ -68,7 +68,7 @@ project(':external:datetimepicker') {
     }
 
     android {
-        compileSdkVersion 18
+        compileSdkVersion 22
         buildToolsVersion '22.0.1'
 
         sourceSets {
@@ -93,7 +93,7 @@ project(':external:timezonepicker') {
     }
 
     android {
-        compileSdkVersion 18
+        compileSdkVersion 22
         buildToolsVersion '22.0.1'
 
         sourceSets {
@@ -114,7 +114,7 @@ project(':external:ex:chips') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 18
+        compileSdkVersion 22
         buildToolsVersion '22.0.1'
 
         sourceSets {
@@ -135,6 +135,7 @@ apply plugin: 'android'
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:design:22.2.0'
     compile project(':external:calendar')
     compile project(':external:colorpicker')
     compile project(':external:datetimepicker')
@@ -143,12 +144,12 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 18
+    compileSdkVersion 22
     buildToolsVersion '22.0.1'
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 18
+        minSdkVersion 19
+        targetSdkVersion 22
     }
 
     sourceSets {

@@ -19,6 +19,58 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <!-- Application theme. -->
+    <style name="CalendarAppTheme" parent="Base.CalendarAppTheme">
+
+    </style>
+    <style name="CalendarAppThemeWithActionBar" parent="Base.CalendarAppThemeWithActionBar">
+
+    </style>
+
+    <style name="Base.CalendarAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Widget.CalendarAppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">?colorPrimary</item>
+        <item name="theme">@style/ThemeOverlay.CalendarAppTheme.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+    <style name="ThemeOverlay.CalendarAppTheme.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/titleTextColor</item>
+    </style>
+
+
+    <style name="NotImplementedYet">
+        <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/titleTextColor</item>
+    </style>
+    <style name="Title.Expanded" parent="Title">
+        <item name="android:textSize">32sp</item>
+    </style>
+    <style name="Title.collapsed" parent="Title">
+        <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ViewText">
+        <item name="android:textColor">@color/titleTextColor</item>
+    </style>
+    <style name="DrawerNameText" parent="ViewText">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!-- END Application theme -->
+
     <style name="MinusButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:src">@drawable/ic_menu_remove_field_holo_light</item>
@@ -155,7 +207,7 @@
         <item name="android:paddingLeft">16dip</item>
     </style>
 
-    <style name="EditEvent_Layout" parent="android:Theme.Holo.Light">
+    <style name="EditEvent_Layout" parent="CalendarAppTheme">
     </style>
 
     <style name="TextAppearance.Date_Range_Title">
@@ -163,24 +215,16 @@
         <item name="android:textColor">@color/calendar_date_range_color</item>
     </style>
 
-    <style name="CalendarTheme" parent="android:Theme.Holo.Light">
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="CalendarTheme" parent="CalendarAppTheme">
     </style>
 
-    <style name="CalendarTheme.WithActionBar" parent="android:Theme.Holo.Light">
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowActionBar">true</item>
-        <item name="android:windowBackground">@color/background_color</item>
-        <item name="android:actionBarStyle">@style/CalendarActionBarStyle</item>
+    <style name="CalendarTheme.WithoutActionBar" parent="CalendarAppTheme">
         <item name="android:endYear">2036</item>
         <item name="android:startYear">1970</item>
     </style>
 
-    <style name="CalendarActionBarStyle" parent="android:style/Widget.Holo.Light.ActionBar.Solid">
-        <item name="android:displayOptions">showCustom</item>
-    </style>
 
-    <style name="CalendarTheme.WithActionBarWallpaper" parent="CalendarTheme.WithActionBar">
+    <style name="CalendarTheme.WithActionBarWallpaper" parent="CalendarTheme.WithoutActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
