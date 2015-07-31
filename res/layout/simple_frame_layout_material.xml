@@ -10,15 +10,15 @@
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            layout="@layout/all_in_one"
+        <FrameLayout
+            android:id="@+id/main_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"></include>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -31,24 +31,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:minHeight="?attr/actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways" />
+
         </android.support.design.widget.AppBarLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_add_event"
-            app:borderWidth="0dp"
-            app:layout_anchor="@id/coordinator_layout"
-            app:layout_anchorGravity="bottom|right|end" />
     </android.support.design.widget.CoordinatorLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/calendar_view" />
 </android.support.v4.widget.DrawerLayout>

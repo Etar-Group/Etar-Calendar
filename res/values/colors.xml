@@ -19,6 +19,11 @@
 -->
 <resources>
 
+    <color name="colorPrimary">#00bcd4</color>
+    <color name="colorPrimaryDark">#0097a7</color>
+    <color name="colorAccent">#23ff9a</color>
+    <color name="titleTextColor">@android:color/white</color>
+
     <color name="pressed">#330066ff</color>
 
     <color name="selection">@android:color/holo_blue_light</color>
@@ -70,10 +75,13 @@
     <color name="month_sunday">#80333333</color>
     <color name="month_grid_lines">#ffCCCCCC</color>
     <color name="month_other_month_day_number">#ff939497</color>
-    <color name="month_other_bgcolor">#FFEEEEEE</color>
+
+    <!-- Background Color of the selected week for the mini calendar on the tablet size -->
     <color name="month_selected_week_bgcolor">#FFDDDDDD</color>
-    <color name="month_today_bgcolor">#FFFFFFFF</color>
+    <color name="month_today_bgcolor">#25a2ff00</color>
+    <color name="month_focus_month_bgcolor">#FFFFFFFF</color>
     <color name="month_bgcolor">#FFE5E5E5</color>
+    <color name="month_other_bgcolor">#FFEEEEEE</color>
 
     <color name="month_dna_conflict_time_color">#FF333333</color>
 
@@ -124,7 +132,7 @@
     <!-- background color for for clicked days in month view-->
     <color name="day_clicked_background_color">#FF33B5E5</color>
     <!-- background color for the past -->
-    <color name="day_past_background_color">#FFDDDDDD</color>
+    <color name="day_past_background_color">#22DDDDDD</color>
 
     <!-- Event info colors -->
     <color name="event_info_headline_color">#FFFFFFFF</color>

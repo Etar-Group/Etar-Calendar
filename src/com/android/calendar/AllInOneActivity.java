@@ -46,6 +46,7 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -164,6 +165,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         public void onAnimationStart(android.animation.Animator animation) {
         }
     };
+    private FloatingActionButton mFab;
     private View mSecondaryPane;
     private String mTimeZone;
     private boolean mShowCalendarControls;
@@ -190,20 +192,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private MenuItem mControlsMenu;
     private Menu mOptionsMenu;
     private QueryHandler mHandler;
-    // runs every midnight/time changes and refreshes the today icon
-    private final Runnable mTimeChangesUpdater = new Runnable() {
-        @Override
-        public void run() {
-            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
-            AllInOneActivity.this.invalidateOptionsMenu();
-            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
-        }
-    };
     private final Runnable mHomeTimeUpdater = new Runnable() {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
             updateSecondaryTitleFields(-1);
+            AllInOneActivity.this.invalidateOptionsMenu();
+            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
+        }
+    };
+    // runs every midnight/time changes and refreshes the today icon
+    private final Runnable mTimeChangesUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
             AllInOneActivity.this.invalidateOptionsMenu();
             Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
         }
@@ -339,6 +341,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
+        mFab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+
         if (mIsTabletConfig) {
             mDateRange = (TextView) findViewById(R.id.date_bar);
             mWeekTextView = (TextView) findViewById(R.id.week_num);
@@ -346,12 +350,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mDateRange = (TextView) getLayoutInflater().inflate(R.layout.date_range_title, null);
         }
 
-        // configureActionBar auto-selects the first tab you add, so we need to
-        // call it before we set up our own fragments to make sure it doesn't
-        // overwrite us
         setupToolbar(viewType);
         setupNavDrawer();
-        //configureActionBar(viewType);
+        setupFloatingActionButton();
 
         mHomeTime = (TextView) findViewById(R.id.home_time);
         mMiniMonth = findViewById(R.id.mini_month);
@@ -417,6 +418,27 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mNavigationView.setNavigationItemSelectedListener(this);
         showActionBar();
     }
+
+    public void setupFloatingActionButton() {
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Create new Event
+                Time t = new Time();
+                t.set(mController.getTime());
+                if (t.minute > 30) {
+                    t.hour++;
+                    t.minute = 0;
+                } else if (t.minute > 0 && t.minute < 30) {
+                    t.minute = 30;
+                }
+                mController.sendEventRelatedEvent(
+                        this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
+            }
+        });
+    }
+
+
 
     private void hideActionBar() {
         if (mActionBar == null) return;
