@@ -40,11 +40,11 @@
     <color name="calendar_date_range_color">#80000000</color>
 
 
+    <color name="week_today">#802979ff</color>
     <color name="week_saturday">#80333333</color>
     <color name="week_sunday">#80333333</color>
     <color name="calendar_future_bg_color">#ffffffff</color>
     <color name="calendar_hour_label">#ff666666</color>
-    <color name="calendar_ampm_label">#ff999999</color>
     <color name="calendar_hour_background">#ffEEEEEE</color>
 
     <color name="calendar_date_banner_background">#FFEEEEEE</color>

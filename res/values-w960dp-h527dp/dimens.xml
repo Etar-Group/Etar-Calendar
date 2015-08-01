@@ -22,7 +22,6 @@
     <dimen name="date_header_text_size">18sp</dimen>
     <dimen name="hours_text_size">16sp</dimen>
     <dimen name="allday_text_size">14sp</dimen>
-    <dimen name="ampm_text_size">12sp</dimen>
     <dimen name="day_view_event_text_size">14sp</dimen>
     <dimen name="week_view_event_text_size">12sp</dimen>
     <dimen name="event_text_vertical_margin">4dp</dimen>
@@ -31,7 +30,7 @@
     <!-- minimum size of hours column in day/week view -->
     <dimen name="min_hours_width">32dip</dimen>
     <!-- margins size of hours column in day/week view -->
-    <dimen name="hours_left_margin">28dip</dimen>
+    <dimen name="hours_left_margin">4dip</dimen>
     <dimen name="hours_right_margin">4dip</dimen>
     <!-- size of day header in day and week views  -->
     <dimen name="day_header_height">24sp</dimen>
