@@ -25,39 +25,19 @@
         android:title="@string/goto_today"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_create_event"
-        android:alphabeticShortcut="n"
-        android:icon="@drawable/ic_menu_add_event_holo_light"
-        android:orderInCategory="2"
-        android:title="@string/event_create"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
-        android:icon="@drawable/ic_menu_refresh_holo_light"
+        android:icon="@drawable/ic_menu_refresh"
         android:orderInCategory="3"
         android:title="@string/calendar_refresh"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_search"
-        android:actionViewClass="android.widget.SearchView"
         android:alphabeticShortcut="f"
-        android:icon="@drawable/ic_menu_search_holo_light"
+        android:icon="@drawable/ic_menu_search"
         android:imeOptions="actionSearch"
         android:orderInCategory="4"
         android:title="@string/search"
+        app:actionViewClass="android.widget.SearchView"
         app:showAsAction="never|collapseActionView" />
-    <item
-        android:id="@+id/action_select_visible_calendars"
-        android:icon="@drawable/ic_menu_select_visible_calendars_holo_light"
-        android:orderInCategory="5"
-        android:title="@string/menu_select_visible_calendars"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_settings"
-        android:alphabeticShortcut="s"
-        android:icon="@drawable/ic_menu_settings_holo_light"
-        android:orderInCategory="10"
-        android:title="@string/menu_preferences"
-        app:showAsAction="never" />
 </menu>

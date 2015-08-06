@@ -14,24 +14,24 @@
      limitations under the License.
 -->
 
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_search"
-        android:alphabeticShortcut="f"
-        android:title="@string/search"
-        android:icon="@drawable/ic_menu_search_holo_light"
-        android:showAsAction="always|collapseActionView"
         android:actionViewClass="android.widget.SearchView"
-        android:imeOptions="actionSearch" />
+        android:alphabeticShortcut="f"
+        android:icon="@drawable/ic_menu_search"
+        android:imeOptions="actionSearch"
+        android:title="@string/search"
+        app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
-        android:title="@string/goto_today"
         android:icon="@drawable/today_icon"
-        android:showAsAction="ifRoom" />
+        android:title="@string/goto_today"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
-        android:title="@string/menu_preferences"
-        android:icon="@drawable/ic_menu_settings_holo_light" />
+        android:icon="@drawable/ic_menu_settings"
+        android:title="@string/menu_preferences" />
 </menu>

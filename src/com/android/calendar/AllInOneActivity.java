@@ -192,20 +192,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private MenuItem mControlsMenu;
     private Menu mOptionsMenu;
     private QueryHandler mHandler;
-    private final Runnable mHomeTimeUpdater = new Runnable() {
-        @Override
-        public void run() {
-            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
-            updateSecondaryTitleFields(-1);
-            AllInOneActivity.this.invalidateOptionsMenu();
-            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
-        }
-    };
     // runs every midnight/time changes and refreshes the today icon
     private final Runnable mTimeChangesUpdater = new Runnable() {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
+            AllInOneActivity.this.invalidateOptionsMenu();
+            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
+        }
+    };
+    private final Runnable mHomeTimeUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
+            updateSecondaryTitleFields(-1);
             AllInOneActivity.this.invalidateOptionsMenu();
             Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
         }
@@ -745,25 +745,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             t = new Time(mTimeZone);
             t.setToNow();
             extras |= CalendarController.EXTRA_GOTO_TODAY;
-        } else if (itemId == R.id.action_create_event) {
-            t = new Time();
-            t.set(mController.getTime());
-            if (t.minute > 30) {
-                t.hour++;
-                t.minute = 0;
-            } else if (t.minute > 0 && t.minute < 30) {
-                t.minute = 30;
-            }
-            mController.sendEventRelatedEvent(
-                    this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
-            return true;
-        } else if (itemId == R.id.action_select_visible_calendars) {
-            mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
-                    0, 0);
-            return true;
-        } else if (itemId == R.id.action_settings) {
-            mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
-            return true;
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
             Utils.setSharedPreference(
@@ -813,6 +794,13 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 if (mCurrentView != ViewType.AGENDA) {
                     mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
                 }
+                break;
+            case R.id.action_select_visible_calendars:
+                mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
+                        0, 0);
+                break;
+            case R.id.action_settings:
+                mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
                 break;
         }
         mDrawerLayout.closeDrawers();
