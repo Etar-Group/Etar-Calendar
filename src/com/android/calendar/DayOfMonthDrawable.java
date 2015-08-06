@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -27,6 +25,8 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import java.text.NumberFormat;
 
 /**
@@ -35,16 +35,16 @@ import java.text.NumberFormat;
 
 public class DayOfMonthDrawable extends Drawable {
 
-    private String mDayOfMonth = "1";
+    private static float mTextSize = 14;
     private final Paint mPaint;
     private final Rect mTextBounds = new Rect();
-    private static float mTextSize = 14;
+    private String mDayOfMonth = "1";
 
     public DayOfMonthDrawable(Context c) {
         mTextSize = c.getResources().getDimension(R.dimen.today_icon_text_size);
         mPaint = new Paint();
         mPaint.setAlpha(255);
-        mPaint.setColor(0xFF777777);
+        mPaint.setColor(c.getResources().getColor(R.color.titleTextColor));
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setTextSize(mTextSize);
         mPaint.setTextAlign(Paint.Align.CENTER);

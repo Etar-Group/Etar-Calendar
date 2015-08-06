@@ -15,48 +15,49 @@
 -->
 
 <menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
-        android:title="@string/goto_today"
         android:icon="@drawable/today_icon"
-        android:showAsAction="ifRoom"
-        android:orderInCategory="1" />
+        android:orderInCategory="1"
+        android:title="@string/goto_today"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_create_event"
         android:alphabeticShortcut="n"
-        android:title="@string/event_create"
         android:icon="@drawable/ic_menu_add_event_holo_light"
-        android:showAsAction="never"
-        android:orderInCategory="2" />
+        android:orderInCategory="2"
+        android:title="@string/event_create"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
-        android:title="@string/calendar_refresh"
         android:icon="@drawable/ic_menu_refresh_holo_light"
-        android:showAsAction="never"
-        android:orderInCategory="3" />
+        android:orderInCategory="3"
+        android:title="@string/calendar_refresh"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_search"
-        android:alphabeticShortcut="f"
-        android:title="@string/search"
-        android:icon="@drawable/ic_menu_search_holo_light"
-        android:showAsAction="never|collapseActionView"
         android:actionViewClass="android.widget.SearchView"
+        android:alphabeticShortcut="f"
+        android:icon="@drawable/ic_menu_search_holo_light"
         android:imeOptions="actionSearch"
-        android:orderInCategory="4" />
+        android:orderInCategory="4"
+        android:title="@string/search"
+        app:showAsAction="never|collapseActionView" />
     <item
         android:id="@+id/action_select_visible_calendars"
-        android:title="@string/menu_select_visible_calendars"
         android:icon="@drawable/ic_menu_select_visible_calendars_holo_light"
-        android:showAsAction="never"
-        android:orderInCategory="5" />
+        android:orderInCategory="5"
+        android:title="@string/menu_select_visible_calendars"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
-        android:title="@string/menu_preferences"
         android:icon="@drawable/ic_menu_settings_holo_light"
-        android:showAsAction="never"
-        android:orderInCategory="10" />
+        android:orderInCategory="10"
+        android:title="@string/menu_preferences"
+        app:showAsAction="never" />
 </menu>
