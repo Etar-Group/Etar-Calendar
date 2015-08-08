@@ -14,16 +14,16 @@
      limitations under the License.
 -->
 
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_cancel"
         android:alphabeticShortcut="c"
-        android:title="@string/discard_label"
         android:icon="@drawable/ic_menu_cancel_holo_light"
-        android:showAsAction="withText|always" />
+        android:title="@string/discard_label"
+        app:showAsAction="withText|always" />
     <item android:id="@+id/action_done"
         android:alphabeticShortcut="d"
-        android:title="@string/save_label"
         android:icon="@drawable/ic_menu_done_holo_light"
-        android:showAsAction="withText|always" />
+        android:title="@string/save_label"
+        app:showAsAction="withText|always" />
 </menu>

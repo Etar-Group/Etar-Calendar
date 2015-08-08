@@ -15,41 +15,41 @@
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <!-- CALENDARS SELECTOR for new events -->
     <LinearLayout
         android:id="@+id/calendar_selector_group"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true" >
+        android:focusable="true"
+        android:orientation="horizontal">
         <Spinner
             android:id="@+id/calendars_spinner"
-            android:prompt="@string/edit_event_calendar_label"
-            android:layout_height="wrap_content"
             android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip"
             android:layout_marginLeft="12dip"
             android:layout_marginRight="12dip"
-            android:gravity="center_vertical" />
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:prompt="@string/edit_event_calendar_label" />
         <ImageButton
             android:id="@+id/change_color_new_event"
             style="?android:attr/buttonBarButtonStyle"
-            android:src="@drawable/ic_menu_colorpicker_holo_dark"
-            android:contentDescription="@string/choose_event_color_label"
             android:layout_width="48dip"
             android:layout_height="48dip"
-            android:enabled="false"
-            android:layout_marginRight="8dip"
             android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dip"
+            android:contentDescription="@string/choose_event_color_label"
+            android:enabled="false"
             android:padding="8dip"
             android:scaleType="centerInside"
+            android:src="@drawable/ic_menu_colorpicker_dialog"
             android:visibility="invisible" />
     </LinearLayout>
 
@@ -58,45 +58,45 @@
         android:id="@+id/calendar_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
         android:paddingBottom="5dip"
-        android:paddingTop="5dip"
-        android:focusable="true">
+        android:paddingTop="5dip">
         <LinearLayout
             android:layout_width="0dip"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:focusable="true"
             android:orientation="vertical" >
             <TextView
                 android:id="@+id/calendar_textview"
-                android:layout_height="wrap_content"
+                style="@style/TextAppearance.EditEvent_Value"
                 android:layout_width="match_parent"
-                android:textColor="#FFFFFFFF"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="24dip"
                 android:layout_marginRight="24dip"
-                style="@style/TextAppearance.EditEvent_Value" />
+                android:textColor="#FFFFFFFF" />
             <TextView
                 android:id="@+id/calendar_textview_secondary"
-                android:layout_height="wrap_content"
+                style="@style/TextAppearance.EditEvent_Value"
                 android:layout_width="match_parent"
-                android:textColor="#FFFFFFFF"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="24dip"
                 android:layout_marginRight="24dip"
-                android:textSize="14sp"
-                style="@style/TextAppearance.EditEvent_Value" />
+                android:textColor="#FFFFFFFF"
+                android:textSize="14sp" />
         </LinearLayout>
         <ImageButton
             android:id="@+id/change_color_existing_event"
             style="?android:attr/buttonBarButtonStyle"
-            android:src="@drawable/ic_menu_colorpicker_holo_dark"
-            android:contentDescription="@string/choose_event_color_label"
             android:layout_width="48dip"
             android:layout_height="48dip"
-            android:enabled="false"
-            android:layout_marginRight="8dip"
             android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dip"
+            android:contentDescription="@string/choose_event_color_label"
+            android:enabled="false"
             android:padding="8dip"
             android:scaleType="centerInside"
+            android:src="@drawable/ic_menu_colorpicker_dialog"
             android:visibility="gone"  />
     </LinearLayout>
 
@@ -104,33 +104,33 @@
     <EditText
         android:id="@+id/title"
         style="@style/TextAppearance.EditEvent_Value"
-        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dip"
-        android:minHeight="48dip"
-        android:hint="@string/hint_what"
         android:capitalize="sentences"
+        android:focusable="true"
+        android:hint="@string/hint_what"
         android:inputType="textAutoCorrect|textCapSentences"
-        android:focusable="true" />
+        android:minHeight="48dip"
+        android:singleLine="true" />
 
     <!-- WHERE -->
     <LinearLayout android:id="@+id/where_row"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dip"
-        android:focusable="true">
+        android:focusable="true"
+        android:orientation="vertical">
         <AutoCompleteTextView
             android:id="@+id/location"
-            android:singleLine="false"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:minHeight="48dip"
-            android:imeOptions="actionDone"
             style="@style/TextAppearance.EditEvent_Value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_where"
+            android:imeOptions="actionDone"
             android:inputType="textAutoCorrect|textCapSentences"
-            android:hint="@string/hint_where" />
+            android:minHeight="48dip"
+            android:singleLine="false" />
     <View
         style="@style/EditEventSeparator"/>
     </LinearLayout>
@@ -138,215 +138,217 @@
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->
     <LinearLayout
         android:id="@+id/when_row"
-        android:visibility="gone"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
         android:minHeight="48dip"
-        android:focusable="true">
+        android:orientation="vertical"
+        android:visibility="gone">
         <TextView
             android:id="@+id/when_label"
-            android:text="@string/when_label"
-            android:layout_height="wrap_content"
+            style="@style/TextAppearance.EditEvent_LabelSmall"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="-8dip"
-            style="@style/TextAppearance.EditEvent_LabelSmall" />
+            android:text="@string/when_label" />
         <TextView
             android:id="@+id/when"
-            android:layout_height="wrap_content"
+            style="@style/TextAppearance.EditEvent_Value"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="24dip"
-            android:layout_marginRight="24dip"
-            style="@style/TextAppearance.EditEvent_Value" />
+            android:layout_marginRight="24dip" />
     </LinearLayout>
 
     <!-- FROM - Read/write version which launches the date/time pickers -->
     <LinearLayout
         android:id="@+id/from_row"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dip">
+        android:minHeight="64dip"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/from_label"
-            android:layout_height="wrap_content"
+            style="@style/TextAppearance.EditEvent_LabelSmall"
             android:layout_width="match_parent"
-            android:text="@string/edit_event_from_label"
-            style="@style/TextAppearance.EditEvent_LabelSmall" />
+            android:layout_height="wrap_content"
+            android:text="@string/edit_event_from_label" />
+
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-6dip"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="false"
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/start_date"
+                style="@style/TextAppearance.EditEvent_SpinnerButton"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:singleLine="true"
-                android:paddingRight="4dp"
                 android:layout_marginRight="0dp"
+                android:layout_weight="7"
                 android:contentDescription="@string/accessibility_pick_start_date"
-                style="@style/TextAppearance.EditEvent_SpinnerButton" />
+                android:paddingRight="4dp"
+                android:singleLine="true" />
             <Button
                 android:id="@+id/start_time"
+                style="@style/TextAppearance.EditEvent_SpinnerButton"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:contentDescription="@string/accessibility_pick_start_time"
                 android:layout_marginLeft="0dip"
-                style="@style/TextAppearance.EditEvent_SpinnerButton" />
+                android:layout_weight="4"
+                android:contentDescription="@string/accessibility_pick_start_time" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout android:id="@+id/from_row_home_tz"
-        android:visibility="gone"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dip"
         android:layout_marginLeft="24dip"
         android:layout_marginRight="16dip"
-        android:focusable="true">
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="8dip"
+        android:visibility="gone">
         <TextView android:id="@+id/start_date_home_tz"
+            style="@style/TextAppearance.EditEvent_homeTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="7"
-            android:gravity="left|center_vertical"
-            style="@style/TextAppearance.EditEvent_homeTime" />
+            android:gravity="left|center_vertical" />
         <TextView android:id="@+id/start_time_home_tz"
+            style="@style/TextAppearance.EditEvent_homeTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:gravity="right|center_vertical"
-            style="@style/TextAppearance.EditEvent_homeTime" />
+            android:gravity="right|center_vertical" />
     </LinearLayout>
 
     <!-- TO - Read/write version which launches the date/time pickers -->
     <LinearLayout
         android:id="@+id/to_row"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dip">
+        android:minHeight="64dip"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/to_label"
-            android:text="@string/edit_event_to_label"
-            android:layout_height="wrap_content"
+            style="@style/TextAppearance.EditEvent_LabelSmall"
             android:layout_width="match_parent"
-            style="@style/TextAppearance.EditEvent_LabelSmall" />
+            android:layout_height="wrap_content"
+            android:text="@string/edit_event_to_label" />
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-6dip"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="false"
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/end_date"
+                style="@style/TextAppearance.EditEvent_SpinnerButton"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:singleLine="true"
-                android:paddingRight="4dp"
                 android:layout_marginRight="0dp"
+                android:layout_weight="7"
                 android:contentDescription="@string/accessibility_pick_end_date"
-                style="@style/TextAppearance.EditEvent_SpinnerButton" />
+                android:paddingRight="4dp"
+                android:singleLine="true" />
             <Button
                 android:id="@+id/end_time"
+                style="@style/TextAppearance.EditEvent_SpinnerButton"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:contentDescription="@string/accessibility_pick_end_time"
                 android:layout_marginLeft="0dip"
-                style="@style/TextAppearance.EditEvent_SpinnerButton" />
+                android:layout_weight="4"
+                android:contentDescription="@string/accessibility_pick_end_time" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/to_row_home_tz"
-        android:visibility="gone"
-        android:focusable="true"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dip"
         android:layout_marginLeft="24dip"
-        android:layout_marginRight="16dip">
+        android:layout_marginRight="16dip"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="8dip"
+        android:visibility="gone">
         <TextView android:id="@+id/end_date_home_tz"
+            style="@style/TextAppearance.EditEvent_homeTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="7"
-            android:gravity="left|center_vertical"
-            style="@style/TextAppearance.EditEvent_homeTime" />
+            android:gravity="left|center_vertical" />
         <TextView android:id="@+id/end_time_home_tz"
+            style="@style/TextAppearance.EditEvent_homeTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:gravity="right|center_vertical"
-            style="@style/TextAppearance.EditEvent_homeTime" />
+            android:gravity="right|center_vertical" />
     </LinearLayout>
 
     <!-- ALL DAY -->
     <LinearLayout
         android:id="@+id/all_day_row"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="4dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="24dip">
+        android:layout_marginTop="4dip"
+        android:gravity="center_vertical"
+        android:minHeight="24dip"
+        android:orientation="horizontal">
         <CheckBox
             android:id="@+id/is_all_day"
-            android:layout_height="match_parent"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="0dip"
-            android:contentDescription="@string/accessibility_all_day"/>
+            android:contentDescription="@string/accessibility_all_day"
+            android:gravity="center_vertical" />
         <TextView
             android:id="@+id/is_all_day_label"
-            android:text="@string/edit_event_all_day_label"
-            android:layout_height="wrap_content"
+            style="@style/TextAppearance.EditEvent_Small"
             android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_marginLeft="-8dip"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="-8dip"
+            android:layout_weight="1"
             android:gravity="center_vertical|left"
-            style="@style/TextAppearance.EditEvent_Small" />
+            android:text="@string/edit_event_all_day_label" />
     </LinearLayout>
 
     <!-- TIME ZONE - Read-only textview version -->
     <LinearLayout
         android:id="@+id/timezone_textview_row"
-        android:visibility="gone"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
         android:minHeight="48dip"
-        android:focusable="true">
+        android:orientation="vertical"
+        android:visibility="gone">
         <TextView
             android:id="@+id/timezone_textView"
-            android:layout_height="wrap_content"
+            style="@style/TextAppearance.EditEvent_Value"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="24dip"
-            android:layout_marginRight="24dip"
-            style="@style/TextAppearance.EditEvent_Value" />
+            android:layout_marginRight="24dip" />
     </LinearLayout>
 
     <!-- TIME ZONE - Read/write version with button to launch picker -->
     <LinearLayout
         android:id="@+id/timezone_button_row"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dip">
+        android:minHeight="48dip"
+        android:orientation="vertical">
         <Button
             android:id="@+id/timezone_button"
-            android:gravity="left|center_vertical"
-            android:layout_height="wrap_content"
+            style="@style/TextAppearance.EditEvent_SpinnerButton"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/accessibility_pick_time_zone"
-            style="@style/TextAppearance.EditEvent_SpinnerButton" />
+            android:gravity="left|center_vertical" />
     </LinearLayout>
 
 

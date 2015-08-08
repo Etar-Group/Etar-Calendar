@@ -232,6 +232,11 @@
         <item name="android:startYear">1970</item>
     </style>
 
+    <style name="CalendarTheme.WithActionBar" parent="CalendarAppThemeWithActionBar">
+        <item name="android:endYear">2036</item>
+        <item name="android:startYear">1970</item>
+    </style>
+
 
     <style name="CalendarTheme.WithActionBarWallpaper" parent="CalendarTheme.WithoutActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -273,7 +278,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textAppearance">?android:attr/actionMenuTextAppearance</item>
-        <item name="android:textColor">?android:attr/actionMenuTextColor</item>
+        <item name="android:textColor">@color/titleTextColor</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">none</item>

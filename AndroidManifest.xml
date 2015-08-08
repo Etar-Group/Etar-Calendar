@@ -78,7 +78,7 @@
 
         <activity android:name="com.android.calendar.EventInfoActivity"
             android:parentActivityName="com.android.calendar.AllInOneActivity"
-            android:theme="@style/CalendarTheme.WithoutActionBar">
+            android:theme="@style/CalendarTheme.WithActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
