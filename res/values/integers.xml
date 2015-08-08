@@ -10,12 +10,11 @@
     the specific language governing permissions and limitations under the
     License.
 -->
-<resources
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <!-- size of event title font in month view  -->
-    <integer name="text_size_event_title">14</integer>
+    <integer name="text_size_event_title">10</integer>
     <!-- size of day date font in month view  -->
-    <integer name="text_size_month_number">14</integer>
+    <integer name="text_size_month_number">20</integer>
     <!-- max number of lines in the description without showing More/Less button  -->
     <integer name="event_info_desc_line_num">8</integer>
     <!-- The alpha level of photos of attendees that didn't respond -->

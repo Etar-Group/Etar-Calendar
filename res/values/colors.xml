@@ -73,14 +73,14 @@
     <color name="month_event_extra_other_color">#4C999999</color>
     <color name="month_saturday">#80333333</color>
     <color name="month_sunday">#80333333</color>
-    <color name="month_grid_lines">#ffCCCCCC</color>
+    <color name="month_grid_lines">#ffdedede</color>
     <color name="month_other_month_day_number">#ff939497</color>
 
     <!-- Background Color of the selected week for the mini calendar on the tablet size -->
     <color name="month_selected_week_bgcolor">#FFDDDDDD</color>
     <color name="month_today_bgcolor">#25a2ff00</color>
     <color name="month_focus_month_bgcolor">#FFFFFFFF</color>
-    <color name="month_bgcolor">#FFE5E5E5</color>
+    <color name="month_bgcolor">#FFF2F2F2</color>
     <color name="month_other_bgcolor">#FFEEEEEE</color>
 
     <color name="month_dna_conflict_time_color">#FF333333</color>

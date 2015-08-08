@@ -92,7 +92,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_X_OFFSET_LANDSCAPE = 38;
     private static int EVENT_Y_OFFSET_LANDSCAPE = 8;
     private static int EVENT_Y_OFFSET_PORTRAIT = 7;
-    private static int EVENT_SQUARE_WIDTH = 10;
+    private static int EVENT_SQUARE_WIDTH = 3;
+    private static int EVENT_SQUARE_HEIGHT = 10;
     private static int EVENT_SQUARE_BORDER = 2;
     private static int EVENT_LINE_PADDING = 2;
     private static int EVENT_RIGHT_PADDING = 4;
@@ -101,6 +102,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int SPACING_WEEK_NUMBER = 24;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
+    private static boolean mShowTimeInMonth;
     private final TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
     protected Time mToday = new Time();
     protected boolean mHasToday = false;
@@ -266,6 +268,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (!mInitialized) {
             Resources resources = getContext().getResources();
             mShowDetailsInMonth = Utils.getConfigBool(getContext(), R.bool.show_details_in_month);
+            mShowTimeInMonth = Utils.getConfigBool(getContext(), R.bool.show_time_in_month);
             TEXT_SIZE_EVENT_TITLE = resources.getInteger(R.integer.text_size_event_title);
             TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
             SIDE_PADDING_MONTH_NUMBER = resources.getInteger(R.integer.month_day_number_margin);
@@ -291,6 +294,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 EVENT_Y_OFFSET_LANDSCAPE *= mScale;
                 EVENT_Y_OFFSET_PORTRAIT *= mScale;
                 EVENT_SQUARE_WIDTH *= mScale;
+                EVENT_SQUARE_HEIGHT *= mScale;
                 EVENT_SQUARE_BORDER *= mScale;
                 EVENT_LINE_PADDING *= mScale;
                 EVENT_BOTTOM_PADDING *= mScale;
@@ -664,19 +668,19 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 continue;
             }
             int ySquare;
-            int xSquare = computeDayLeftPosition(day) + SIDE_PADDING_MONTH_NUMBER + 1;
+            int xSquare = computeDayLeftPosition(day) + 1;
             int rightEdge = computeDayLeftPosition(day + 1);
 
             if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
                 ySquare = EVENT_Y_OFFSET_PORTRAIT + mMonthNumHeight + TOP_PADDING_MONTH_NUMBER;
-                rightEdge -= SIDE_PADDING_MONTH_NUMBER + 1;
+                rightEdge -= 1;
             } else {
                 ySquare = EVENT_Y_OFFSET_LANDSCAPE;
                 rightEdge -= EVENT_X_OFFSET_LANDSCAPE;
             }
 
             // Determine if everything will fit when time ranges are shown.
-            boolean showTimes = true;
+            boolean showTimes = mShowTimeInMonth;
             Iterator<Event> iter = eventDay.iterator();
             int yTest = ySquare;
             while (iter.hasNext()) {
@@ -824,7 +828,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             r.left = x;
             r.right = x + EVENT_SQUARE_WIDTH;
             r.bottom = y + mEventAscentHeight;
-            r.top = r.bottom - EVENT_SQUARE_WIDTH;
+            r.top = r.bottom - EVENT_SQUARE_HEIGHT;
             textX = x + EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING;
             textY = y + mEventAscentHeight;
             textRightEdge = rightEdge;
