@@ -34,19 +34,27 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
+
+import org.sufficientlysecure.standalonecalendar.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MonthByWeekAdapter extends SimpleWeeksAdapter {
-    private static final String TAG = "MonthByWeekAdapter";
-
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";
-    protected static int DEFAULT_QUERY_DAYS = 7 * 8; // 8 weeks
+    private static final String TAG = "MonthByWeekAdapter";
     private static final long ANIMATE_TODAY_TIMEOUT = 1000;
-
+    // Used to insure minimal time for seeing the click animation before switching views
+    private static final int mOnTapDelay = 100;
+    protected static int DEFAULT_QUERY_DAYS = 7 * 8; // 8 weeks
+    // Minimal time for a down touch action before stating the click animation, this insures that
+    // there is no click animation on flings
+    private static int mOnDownDelay;
+    private static int mTotalClickDelay;
+    // Minimal distance to move the finger in order to cancel the click animation
+    private static float mMovedPixelToCancel;
+    private final boolean mShowAgendaWithMonth;
     protected CalendarController mController;
     protected String mHomeTimeZone;
     protected Time mTempTime;
@@ -55,30 +63,51 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     protected int mQueryDays;
     protected boolean mIsMiniMonth = true;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
-    private final boolean mShowAgendaWithMonth;
-
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
     protected ArrayList<Event> mEvents = null;
-
-    private boolean mAnimateToday = false;
-    private long mAnimateTime = 0;
-
-    private Handler mEventDialogHandler;
-
     MonthWeekEventsView mClickedView;
     MonthWeekEventsView mSingleTapUpView;
     MonthWeekEventsView mLongClickedView;
-
     float mClickedXLocation;                // Used to find which day was clicked
+    // Perform the tap animation in a runnable to allow a delay before showing the tap color.
+    // This is done to prevent a click animation when a fling is done.
+    private final Runnable mDoClick = new Runnable() {
+        @Override
+        public void run() {
+            if (mClickedView != null) {
+                synchronized (mClickedView) {
+                    mClickedView.setClickedDay(mClickedXLocation);
+                }
+                mLongClickedView = mClickedView;
+                mClickedView = null;
+                // This is a workaround , sometimes the top item on the listview doesn't refresh on
+                // invalidate, so this forces a re-draw.
+                mListView.invalidate();
+            }
+        }
+    };
+    // Performs the single tap operation: go to the tapped day.
+    // This is done in a runnable to allow the click animation to finish before switching views
+    private final Runnable mDoSingleTapUp = new Runnable() {
+        @Override
+        public void run() {
+            if (mSingleTapUpView != null) {
+                Time day = mSingleTapUpView.getDayFromLocation(mClickedXLocation);
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "Touched day at Row=" + mSingleTapUpView.mWeek + " day=" + day.toString());
+                }
+                if (day != null) {
+                    onDayTapped(day);
+                }
+                clearClickedView(mSingleTapUpView);
+                mSingleTapUpView = null;
+            }
+        }
+    };
     long mClickTime;                        // Used to calculate minimum click animation time
-    // Used to insure minimal time for seeing the click animation before switching views
-    private static final int mOnTapDelay = 100;
-    // Minimal time for a down touch action before stating the click animation, this insures that
-    // there is no click animation on flings
-    private static int mOnDownDelay;
-    private static int mTotalClickDelay;
-    // Minimal distance to move the finger in order to cancel the click animation
-    private static float mMovedPixelToCancel;
+    private boolean mAnimateToday = false;
+    private long mAnimateTime = 0;
+    private Handler mEventDialogHandler;
 
     public MonthByWeekAdapter(Context context, HashMap<String, Integer> params, Handler handler) {
         super(context, params);
@@ -233,7 +262,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         }
 
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_HEIGHT,
-                (parent.getHeight() + parent.getTop()) / mNumWeeks);
+                (parent.getHeight() + (parent.getTop() * 2)) / (mNumWeeks + 1));
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_SHOW_WK_NUM, mShowWeekNumber ? 1 : 0);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_WEEK_START, mFirstDayOfWeek);
@@ -333,7 +362,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             // On Up/scroll/move/cancel: hide the "clicked" color.
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    mClickedView = (MonthWeekEventsView)v;
+                    mClickedView = (MonthWeekEventsView) v;
                     mClickedXLocation = event.getX();
                     mClickTime = System.currentTimeMillis();
                     mListView.postDelayed(mDoClick, mOnDownDelay);
@@ -341,12 +370,12 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_SCROLL:
                 case MotionEvent.ACTION_CANCEL:
-                    clearClickedView((MonthWeekEventsView)v);
+                    clearClickedView((MonthWeekEventsView) v);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     // No need to cancel on vertical movement, ACTION_SCROLL will do that.
                     if (Math.abs(event.getX() - mClickedXLocation) > mMovedPixelToCancel) {
-                        clearClickedView((MonthWeekEventsView)v);
+                        clearClickedView((MonthWeekEventsView) v);
                     }
                     break;
                 default:
@@ -356,6 +385,15 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         // Do not tell the frameworks we consumed the touch action so that fling actions can be
         // processed by the fragment.
         return false;
+    }
+
+    // Clear the visual cues of the click animation and related running code.
+    private void clearClickedView(MonthWeekEventsView v) {
+        mListView.removeCallbacks(mDoClick);
+        synchronized(v) {
+            v.clearClickedDay();
+        }
+        mClickedView = null;
     }
 
     /**
@@ -379,53 +417,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                 }
                 mLongClickedView.clearClickedDay();
                 mLongClickedView = null;
-             }
-        }
-    }
-
-    // Clear the visual cues of the click animation and related running code.
-    private void clearClickedView(MonthWeekEventsView v) {
-        mListView.removeCallbacks(mDoClick);
-        synchronized(v) {
-            v.clearClickedDay();
-        }
-        mClickedView = null;
-    }
-
-    // Perform the tap animation in a runnable to allow a delay before showing the tap color.
-    // This is done to prevent a click animation when a fling is done.
-    private final Runnable mDoClick = new Runnable() {
-        @Override
-        public void run() {
-            if (mClickedView != null) {
-                synchronized(mClickedView) {
-                    mClickedView.setClickedDay(mClickedXLocation);
-                }
-                mLongClickedView = mClickedView;
-                mClickedView = null;
-                // This is a workaround , sometimes the top item on the listview doesn't refresh on
-                // invalidate, so this forces a re-draw.
-                mListView.invalidate();
             }
         }
-    };
-
-    // Performs the single tap operation: go to the tapped day.
-    // This is done in a runnable to allow the click animation to finish before switching views
-    private final Runnable mDoSingleTapUp = new Runnable() {
-        @Override
-        public void run() {
-            if (mSingleTapUpView != null) {
-                Time day = mSingleTapUpView.getDayFromLocation(mClickedXLocation);
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
-                    Log.d(TAG, "Touched day at Row=" + mSingleTapUpView.mWeek + " day=" + day.toString());
-                }
-                if (day != null) {
-                    onDayTapped(day);
-                }
-                clearClickedView(mSingleTapUpView);
-                mSingleTapUpView = null;
-            }
-        }
-    };
+    }
 }

@@ -671,13 +671,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
             int xSquare = computeDayLeftPosition(day) + 1;
             int rightEdge = computeDayLeftPosition(day + 1);
 
-            if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                ySquare = EVENT_Y_OFFSET_PORTRAIT + mMonthNumHeight + TOP_PADDING_MONTH_NUMBER;
-                rightEdge -= 1;
-            } else {
-                ySquare = EVENT_Y_OFFSET_LANDSCAPE;
-                rightEdge -= EVENT_X_OFFSET_LANDSCAPE;
-            }
+            ySquare = EVENT_Y_OFFSET_PORTRAIT + mMonthNumHeight + TOP_PADDING_MONTH_NUMBER;
+            rightEdge -= 1;
 
             // Determine if everything will fit when time ranges are shown.
             boolean showTimes = mShowTimeInMonth;

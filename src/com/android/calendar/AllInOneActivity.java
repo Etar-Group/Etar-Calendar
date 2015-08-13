@@ -380,7 +380,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     private void setupToolbar(int viewType) {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mCalendarToolbarHandler = new CalendarToolbarHandler(this, mToolbar, viewType);
         if (mToolbar == null) {
             if (DEBUG) {
                 Log.d(TAG, "Didn't find a toolbar");
@@ -388,6 +387,27 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             return;
         }
 
+        if (!mIsTabletConfig) {
+            mCalendarToolbarHandler = new CalendarToolbarHandler(this, mToolbar, viewType);
+        } else {
+            int titleResource;
+            switch (viewType) {
+                case ViewType.AGENDA:
+                    titleResource = R.string.agenda_view;
+                    break;
+                case ViewType.DAY:
+                    titleResource = R.string.day_view;
+                    break;
+                case ViewType.MONTH:
+                    titleResource = R.string.month_view;
+                    break;
+                case ViewType.WEEK:
+                default:
+                    titleResource = R.string.week_view;
+                    break;
+            }
+            mToolbar.setTitle(titleResource);
+        }
         // mToolbar.setTitle(getTitle());
         mToolbar.setNavigationIcon(R.drawable.ic_menu_navigator);
         setSupportActionBar(mToolbar);
@@ -505,8 +525,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         t.set(mController.getTime());
         mController.sendEvent(this, EventType.UPDATE_TITLE, t, t, -1, ViewType.CURRENT,
                 mController.getDateFlags(), null, null);
-        // Make sure the drop-down menu will get its date updated at midnight
-        refreshActionbarTitle(this);
 
         if (mControlsMenu != null) {
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
@@ -535,9 +553,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mCalIntentReceiver = Utils.setTimeChangesReceiver(this, mTimeChangesUpdater);
     }
 
-    private void refreshActionbarTitle(AllInOneActivity allInOneActivity) {
-        //TODO: do it!
-    }
 
     @Override
     protected void onPause() {
@@ -881,10 +896,16 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             case ViewType.AGENDA:
                 mNavigationView.getMenu().findItem(R.id.agenda_menu_item).setChecked(true);
                 frag = new AgendaFragment(timeMillis, false);
+                if (mIsTabletConfig) {
+                    mToolbar.setTitle(R.string.agenda_view);
+                }
                 break;
             case ViewType.DAY:
                 mNavigationView.getMenu().findItem(R.id.day_menu_item).setChecked(true);
                 frag = new DayFragment(timeMillis, 1);
+                if (mIsTabletConfig) {
+                    mToolbar.setTitle(R.string.day_view);
+                }
                 break;
             case ViewType.MONTH:
                 mNavigationView.getMenu().findItem(R.id.month_menu_item).setChecked(true);
@@ -892,16 +913,24 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 if (mShowAgendaWithMonth) {
                     secFrag = new AgendaFragment(timeMillis, false);
                 }
+                if (mIsTabletConfig) {
+                    mToolbar.setTitle(R.string.month_view);
+                }
                 break;
             case ViewType.WEEK:
             default:
                 mNavigationView.getMenu().findItem(R.id.week_menu_item).setChecked(true);
                 frag = new DayFragment(timeMillis, 7);
+                if (mIsTabletConfig) {
+                    mToolbar.setTitle(R.string.week_view);
+                }
                 break;
         }
         // Update the current view so that the menu can update its look according to the
         // current view.
-        mCalendarToolbarHandler.setCurrentMainView(viewType);
+        if (mCalendarToolbarHandler != null) {
+            mCalendarToolbarHandler.setCurrentMainView(viewType);
+        }
 
         if (!mIsTabletConfig) {
             refreshActionbarTitle(timeMillis);
@@ -968,7 +997,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     private void refreshActionbarTitle(long timeMillis) {
-        mCalendarToolbarHandler.setTime(timeMillis);
+        if (mCalendarToolbarHandler != null) {
+            mCalendarToolbarHandler.setTime(timeMillis);
+        }
     }
 
     private void setTitleInActionBar(EventInfo event) {
