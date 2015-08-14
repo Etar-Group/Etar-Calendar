@@ -19,8 +19,8 @@
 -->
 <resources>
 
-    <color name="colorPrimary">#00bcd4</color>
-    <color name="colorPrimaryDark">#0097a7</color>
+    <color name="colorPrimary">#9c27b0</color>
+    <color name="colorPrimaryDark">#7b1fa2</color>
     <color name="colorAccent">#ff1744</color>
     <color name="titleTextColor">@android:color/white</color>
 
@@ -61,12 +61,12 @@
     <color name="mini_month_bg_color">#FFFFFFFF</color>
     <color name="mini_month_today_outline_color">#FF000000</color>
 
-    <color name="month_day_number">#FF333333</color>
+    <color name="month_day_number">#FF555555</color>
     <color name="month_mini_day_number">#FF000000</color>
     <color name="month_day_number_other">#FF999999</color>
     <color name="month_week_num_color">#FF999999</color>
     <color name="month_day_names_color">#FF999999</color>
-    <color name="month_today_number">#FF333333</color>
+    <color name="month_today_number">#FF555555</color>
     <color name="month_event_color">#FF333333</color>
     <color name="month_event_extra_color">#FF666666</color>
     <color name="month_event_other_color">#FF666666</color>
@@ -105,7 +105,7 @@
     <!-- Background Color of past events in agenda view  -->
     <color name="agenda_past_days_bar_background_color">#FFDDDDDD</color>
     <!-- Color of the separator between the past and the present/future in agenda view  -->
-    <color name="agenda_past_present_separator_color">#FF333333</color>
+    <color name="agenda_past_present_separator_color">#b2ff0000</color>
     <!-- General background color in agenda view  -->
     <color name="agenda_general_background_color">#FFEEEEEE</color>
     <!-- Agenda day item text color  -->
@@ -157,7 +157,7 @@
 
     <color name="appwidget_row_in_progress">#6633b5e5</color>
 
-    <color name="appwidget_date">#ffEEEEEE</color>
+    <color name="appwidget_date">#ff676767</color>
     <color name="appwidget_week">@android:color/white</color>
     <color name="appwidget_month">#ffEEEEEE</color>
 

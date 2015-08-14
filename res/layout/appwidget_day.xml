@@ -22,11 +22,11 @@
     android:layout_marginLeft="2dip"
     android:layout_marginRight="2dip"
     android:layout_marginTop="2dip"
-    android:orientation="vertical"
     android:addStatesFromChildren="true"
-    android:focusableInTouchMode="false"
+    android:clickable="false"
     android:focusable="false"
-    android:clickable="false">
+    android:focusableInTouchMode="false"
+    android:orientation="vertical">
 
     <!-- Left edge should align with those of event texts.
          TODO: values marginLeft/marginRight should be same as those in
@@ -34,13 +34,12 @@
       -->
     <TextView
         android:id="@+id/date"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:textSize="12sp"
-        android:textAllCaps="true"
-        android:paddingLeft="4dip"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dip"
         android:shadowColor="@color/text_shadow_color"
         android:shadowRadius="1"
-        android:textColor="@color/appwidget_date"/>
+        android:textColor="@color/appwidget_date"
+        android:textSize="12sp" />
 
 </LinearLayout>

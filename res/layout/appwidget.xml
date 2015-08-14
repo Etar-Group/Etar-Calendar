@@ -18,32 +18,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:clickable="true"
     android:focusable="true"
-    android:clickable="true">
+    android:orientation="vertical">
 
     <!-- Header -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dip"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center_vertical|left"
-        android:paddingLeft="8dip"
-        android:paddingRight="2dip"
+        android:minHeight="48dip"
         android:orientation="vertical"
-        android:background="@drawable/appwidget_header_selector">
+        android:paddingLeft="8dip"
+        android:paddingRight="2dip">
         <TextView
             android:id="@+id/day_of_week"
+            style="@style/WidgetDayOfWeekStyle"
             android:layout_marginTop="4dip"
-            android:textColor="@color/appwidget_week"
             android:shadowColor="#0dffffff"
             android:shadowRadius="3"
-            style="@style/WidgetDayOfWeekStyle" />
+            android:textColor="@color/appwidget_week" />
         <TextView
             android:id="@+id/date"
-            android:textColor="@color/appwidget_month"
-            style="@style/WidgetDateStyle" />
+            style="@style/WidgetDateStyle"
+            android:textColor="@color/appwidget_month" />
     </LinearLayout>
 
     <!-- Event list -->
@@ -51,12 +51,12 @@
         android:id="@+id/events_list"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"
-        android:layout_marginRight="4dip"
         android:layout_marginLeft="4dip"
-        android:divider="@null"
-        android:listSelector="@android:color/transparent"
-        android:dividerHeight="3dip"
+        android:layout_marginRight="4dip"
+        android:layout_weight="1"
+        android:background="@android:color/white"
         android:cacheColorHint="@null"
-        android:background="@drawable/cal_widget_bg"/>
+        android:divider="@null"
+        android:dividerHeight="3dip"
+        android:listSelector="@android:color/transparent" />
 </LinearLayout>
