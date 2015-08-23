@@ -16,10 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -41,6 +37,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Calendars;
+import android.support.v7.widget.SearchView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -51,11 +48,12 @@ import android.text.format.Time;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.Log;
-import android.widget.SearchView;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
+
+import org.sufficientlysecure.standalonecalendar.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,19 +71,16 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Utils {
-    private static final boolean DEBUG = false;
-    private static final String TAG = "CalUtils";
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
+public class Utils {
     // Set to 0 until we have UI to perform undo
     public static final long UNDO_DELAY = 0;
-
     // For recurring events which instances of the series are being modified
     public static final int MODIFY_UNINITIALIZED = 0;
     public static final int MODIFY_SELECTED = 1;
     public static final int MODIFY_ALL_FOLLOWING = 2;
     public static final int MODIFY_ALL = 3;
-
     // When the edit event view finishes it passes back the appropriate exit
     // code.
     public static final int DONE_REVERT = 1 << 0;
@@ -94,57 +89,35 @@ public class Utils {
     // And should re run with DONE_EXIT if it should also leave the view, just
     // exiting is identical to reverting
     public static final int DONE_EXIT = 1 << 0;
-
     public static final String OPEN_EMAIL_MARKER = " <";
     public static final String CLOSE_EMAIL_MARKER = ">";
-
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
     public static final String INTENT_KEY_HOME = "KEY_HOME";
-
     public static final int MONDAY_BEFORE_JULIAN_EPOCH = Time.EPOCH_JULIAN_DAY - 3;
     public static final int DECLINED_EVENT_ALPHA = 0x66;
     public static final int DECLINED_EVENT_TEXT_ALPHA = 0xC0;
-
-    private static final float SATURATION_ADJUST = 1.3f;
-    private static final float INTENSITY_ADJUST = 0.8f;
-
+    public static final int YEAR_MIN = 1970;
+    public static final int YEAR_MAX = 2036;
+    public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
+    public static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
+    public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
     static final int WEEK_IN_MINUTES = DAY_IN_MINUTES * 7;
-    // The work day is being counted as 6am to 8pm
-    static int WORK_DAY_MINUTES = 14 * 60;
-    static int WORK_DAY_START_MINUTES = 6 * 60;
-    static int WORK_DAY_END_MINUTES = 20 * 60;
-    static int WORK_DAY_END_LENGTH = (24 * 60) - WORK_DAY_END_MINUTES;
-    static int CONFLICT_COLOR = 0xFF000000;
-    static boolean mMinutesLoaded = false;
-
-    public static final int YEAR_MIN = 1970;
-    public static final int YEAR_MAX = 2036;
-
     // The name of the shared preferences file. This name must be maintained for
     // historical
     // reasons, as it's what PreferenceManager assigned the first time the file
     // was created.
     static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
-
-    public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
-
-    public static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
-
-    public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
-
     static final String MACHINE_GENERATED_ADDRESS = "calendar.google.com";
-
+    private static final boolean DEBUG = false;
+    private static final String TAG = "CalUtils";
+    private static final float SATURATION_ADJUST = 1.3f;
+    private static final float INTENSITY_ADJUST = 0.8f;
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
-    private static boolean mAllowWeekForDetailView = false;
-    private static long mTardis = 0;
-    private static String sVersion = null;
-
     private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
-
     /**
     * A coordinate must be of the following form for Google Maps to correctly use it:
     * Latitude, Longitude
@@ -196,11 +169,23 @@ public class Utils {
             + COORD_DECIMAL_LONGITUDE;
     private static final Pattern COORD_PATTERN =
             Pattern.compile(COORD_DEGREES_PATTERN + "|" + COORD_DECIMAL_PATTERN);
-
     private static final String NANP_ALLOWED_SYMBOLS = "()+-*#.";
     private static final int NANP_MIN_DIGITS = 7;
     private static final int NANP_MAX_DIGITS = 11;
-
+    // Using int constants as a return value instead of an enum to minimize resources.
+    private static final int TODAY = 1;
+    private static final int TOMORROW = 2;
+    private static final int NONE = 0;
+    // The work day is being counted as 6am to 8pm
+    static int WORK_DAY_MINUTES = 14 * 60;
+    static int WORK_DAY_START_MINUTES = 6 * 60;
+    static int WORK_DAY_END_MINUTES = 20 * 60;
+    static int WORK_DAY_END_LENGTH = (24 * 60) - WORK_DAY_END_MINUTES;
+    static int CONFLICT_COLOR = 0xFF000000;
+    static boolean mMinutesLoaded = false;
+    private static boolean mAllowWeekForDetailView = false;
+    private static long mTardis = 0;
+    private static String sVersion = null;
 
     /**
      * Returns whether the SDK is the Jellybean release or later.
@@ -816,12 +801,12 @@ public class Utils {
         return o1 == null ? o2 == null : o1.equals(o2);
     }
 
-    public static void setAllowWeekForDetailView(boolean allowWeekView) {
-        mAllowWeekForDetailView  = allowWeekView;
-    }
-
     public static boolean getAllowWeekForDetailView() {
         return mAllowWeekForDetailView;
+    }
+
+    public static void setAllowWeekForDetailView(boolean allowWeekView) {
+        mAllowWeekForDetailView = allowWeekView;
     }
 
     public static boolean getConfigBool(Context c, int key) {
@@ -856,27 +841,6 @@ public class Utils {
         int g = (((color & 0x0000ff00) * a) + ((bg & 0x0000ff00) * (0xff - a))) & 0x00ff0000;
         int b = (((color & 0x000000ff) * a) + ((bg & 0x000000ff) * (0xff - a))) & 0x0000ff00;
         return (0xff000000) | ((r | g | b) >> 8);
-    }
-
-    // A single strand represents one color of events. Events are divided up by
-    // color to make them convenient to draw. The black strand is special in
-    // that it holds conflicting events as well as color settings for allday on
-    // each day.
-    public static class DNAStrand {
-        public float[] points;
-        public int[] allDays; // color for the allday, 0 means no event
-        int position;
-        public int color;
-        int count;
-    }
-
-    // A segment is a single continuous length of time occupied by a single
-    // color. Segments should never span multiple days.
-    private static class DNASegment {
-        int startMinute; // in minutes since the start of the week
-        int endMinute;
-        int color; // Calendar color or black for conflicts
-        int day; // quick reference to the day this segment is on
     }
 
     /**
@@ -1494,11 +1458,6 @@ public class Utils {
         return startDay == endDay;
     }
 
-    // Using int constants as a return value instead of an enum to minimize resources.
-    private static final int TODAY = 1;
-    private static final int TOMORROW = 2;
-    private static final int NONE = 0;
-
     /**
      * Returns TODAY or TOMORROW if applicable.  Otherwise returns NONE.
      */
@@ -1648,27 +1607,6 @@ public class Utils {
         today.setDayOfMonth(now.monthDay);
         icon.mutate();
         icon.setDrawableByLayerId(R.id.today_icon_day, today);
-    }
-
-    private static class CalendarBroadcastReceiver extends BroadcastReceiver {
-
-        Runnable mCallBack;
-
-        public CalendarBroadcastReceiver(Runnable callback) {
-            super();
-            mCallBack = callback;
-        }
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED) ||
-                    intent.getAction().equals(Intent.ACTION_TIME_CHANGED) ||
-                    intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED) ||
-                    intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                if (mCallBack != null) {
-                    mCallBack.run();
-                }
-            }
-        }
     }
 
     public static BroadcastReceiver setTimeChangesReceiver(Context c, Runnable callback) {
@@ -2108,6 +2046,49 @@ public class Utils {
         }
 
         return reminders;
+    }
+
+    // A single strand represents one color of events. Events are divided up by
+    // color to make them convenient to draw. The black strand is special in
+    // that it holds conflicting events as well as color settings for allday on
+    // each day.
+    public static class DNAStrand {
+        public float[] points;
+        public int[] allDays; // color for the allday, 0 means no event
+        public int color;
+        int position;
+        int count;
+    }
+
+    // A segment is a single continuous length of time occupied by a single
+    // color. Segments should never span multiple days.
+    private static class DNASegment {
+        int startMinute; // in minutes since the start of the week
+        int endMinute;
+        int color; // Calendar color or black for conflicts
+        int day; // quick reference to the day this segment is on
+    }
+
+    private static class CalendarBroadcastReceiver extends BroadcastReceiver {
+
+        Runnable mCallBack;
+
+        public CalendarBroadcastReceiver(Runnable callback) {
+            super();
+            mCallBack = callback;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_TIME_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                if (mCallBack != null) {
+                    mCallBack.run();
+                }
+            }
+        }
     }
 
 }

@@ -48,8 +48,10 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -64,8 +66,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.SearchView;
-import android.widget.SearchView.OnSuggestionListener;
 import android.widget.TextView;
 
 import com.android.calendar.CalendarController.EventHandler;
@@ -89,7 +89,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 public class AllInOneActivity extends AbstractCalendarActivity implements EventHandler,
-        OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, OnSuggestionListener, NavigationView.OnNavigationItemSelectedListener {
+        OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String EVENT_INFO_FRAGMENT_TAG = "EventInfoFragment";
@@ -709,7 +709,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         }
 
         mSearchMenu = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) mSearchMenu.getActionView();
+        mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenu);
         if (mSearchView != null) {
             Utils.setUpSearchView(mSearchView, this);
             mSearchView.setOnQueryTextListener(this);

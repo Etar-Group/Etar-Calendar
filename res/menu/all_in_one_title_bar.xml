@@ -38,6 +38,6 @@
         android:imeOptions="actionSearch"
         android:orderInCategory="4"
         android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="never|collapseActionView" />
 </menu>

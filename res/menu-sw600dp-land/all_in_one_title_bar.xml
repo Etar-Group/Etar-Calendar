@@ -29,11 +29,11 @@
         android:title="@string/calendar_refresh" />
     <item
         android:id="@+id/action_search"
-        android:actionViewClass="android.widget.SearchView"
         android:alphabeticShortcut="f"
         android:icon="@drawable/ic_menu_search"
         android:imeOptions="actionSearch"
         android:title="@string/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="collapseActionView" />
     <item
         android:id="@+id/action_hide_controls"
