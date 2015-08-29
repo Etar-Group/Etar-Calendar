@@ -45,7 +45,7 @@
 
     <application android:name="com.android.calendar.CalendarApplication"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher_calendar"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/standalone_app_label"
         android:taskAffinity="org.sufficientlysecure.standalonecalendar.task"
         android:theme="@style/CalendarAppTheme">
@@ -168,7 +168,7 @@
             android:exported="true"
             android:label="@string/search_title"
             android:launchMode="singleTop"
-            android:theme="@style/CalendarTheme.WithoutActionBar"
+            android:theme="@style/CalendarTheme.WithActionBar"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>

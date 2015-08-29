@@ -13,8 +13,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="standalone_app_label">Standalone Calendar</string>
+<resources>
+     <string name="standalone_app_label">Etar</string>
 
 </resources>
  

@@ -15,13 +15,7 @@
  */
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
@@ -36,52 +30,38 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Events;
 import android.provider.SearchRecentSuggestions;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnActionExpandListener;
-import android.widget.SearchView;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 
-public class SearchActivity extends Activity implements CalendarController.EventHandler,
-        SearchView.OnQueryTextListener, OnActionExpandListener {
+import org.sufficientlysecure.standalonecalendar.R;
 
-    private static final String TAG = SearchActivity.class.getSimpleName();
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
-    private static final boolean DEBUG = false;
+public class SearchActivity extends AppCompatActivity implements CalendarController.EventHandler,
+        SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
 
-    private static final int HANDLER_KEY = 0;
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
-
     protected static final String BUNDLE_KEY_RESTORE_SEARCH_QUERY =
         "key_restore_search_query";
-
-    // display event details to the side of the event list
-   private boolean mShowEventDetailsWithAgenda;
+    private static final String TAG = SearchActivity.class.getSimpleName();
+    private static final boolean DEBUG = false;
+    private static final int HANDLER_KEY = 0;
    private static boolean mIsMultipane;
-
+    // display event details to the side of the event list
+    private boolean mShowEventDetailsWithAgenda;
     private CalendarController mController;
-
-    private EventInfoFragment mEventInfoFragment;
-
-    private long mCurrentEventId = -1;
-
-    private String mQuery;
-
-    private SearchView mSearchView;
-
-    private DeleteEventHelper mDeleteEventHelper;
-
-    private Handler mHandler;
-    private BroadcastReceiver mTimeChangesReceiver;
-    private ContentResolver mContentResolver;
-
     private final ContentObserver mObserver = new ContentObserver(new Handler()) {
         @Override
         public boolean deliverSelfNotifications() {
@@ -93,7 +73,12 @@ public class SearchActivity extends Activity implements CalendarController.Event
             eventsChanged();
         }
     };
-
+    private EventInfoFragment mEventInfoFragment;
+    private long mCurrentEventId = -1;
+    private String mQuery;
+    private SearchView mSearchView;
+    private DeleteEventHelper mDeleteEventHelper;
+    private Handler mHandler;
     // runs when a timezone was changed and updates the today icon
     private final Runnable mTimeChangesUpdater = new Runnable() {
         @Override
@@ -103,6 +88,8 @@ public class SearchActivity extends Activity implements CalendarController.Event
             SearchActivity.this.invalidateOptionsMenu();
         }
     };
+    private BroadcastReceiver mTimeChangesReceiver;
+    private ContentResolver mContentResolver;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -122,10 +109,10 @@ public class SearchActivity extends Activity implements CalendarController.Event
         mContentResolver = getContentResolver();
 
         if (mIsMultipane) {
-            getActionBar().setDisplayOptions(
+            getSupportActionBar().setDisplayOptions(
                     ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         } else {
-            getActionBar().setDisplayOptions(0,
+            getSupportActionBar().setDisplayOptions(0,
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
         }
 
@@ -264,9 +251,10 @@ public class SearchActivity extends Activity implements CalendarController.Event
         }
 
         MenuItem item = menu.findItem(R.id.action_search);
-        item.expandActionView();
-        item.setOnActionExpandListener(this);
-        mSearchView = (SearchView) item.getActionView();
+
+        MenuItemCompat.expandActionView(item);
+        MenuItemCompat.setOnActionExpandListener(item, this);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
         Utils.setUpSearchView(mSearchView, this);
         mSearchView.setQuery(mQuery, false);
         mSearchView.clearFocus();
