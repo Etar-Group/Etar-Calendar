@@ -16,44 +16,45 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.ContactsAsyncHelper;
-import org.sufficientlysecure.standalonecalendar.R;
-import com.android.calendar.Utils;
-import com.android.calendar.event.EditEventHelper.AttendeeItem;
-import com.android.common.Rfc822Validator;
+ import android.content.AsyncQueryHandler;
+ import android.content.ContentResolver;
+ import android.content.ContentUris;
+ import android.content.Context;
+ import android.content.res.Resources;
+ import android.database.Cursor;
+ import android.graphics.ColorMatrix;
+ import android.graphics.ColorMatrixColorFilter;
+ import android.graphics.Paint;
+ import android.graphics.drawable.Drawable;
+ import android.net.Uri;
+ import android.provider.CalendarContract.Attendees;
+ import android.provider.ContactsContract.CommonDataKinds.Email;
+ import android.provider.ContactsContract.CommonDataKinds.Identity;
+ import android.provider.ContactsContract.Contacts;
+ import android.provider.ContactsContract.Data;
+ import android.provider.ContactsContract.RawContacts;
+ import android.text.TextUtils;
+ import android.text.util.Rfc822Token;
+ import android.util.AttributeSet;
+ import android.util.Log;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.widget.ImageButton;
+ import android.widget.LinearLayout;
+ import android.widget.QuickContactBadge;
+ import android.widget.TextView;
 
-import android.content.AsyncQueryHandler;
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.Context;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.provider.CalendarContract.Attendees;
-import android.provider.ContactsContract.CommonDataKinds.Email;
-import android.provider.ContactsContract.CommonDataKinds.Identity;
-import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.RawContacts;
-import android.text.TextUtils;
-import android.text.util.Rfc822Token;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.QuickContactBadge;
-import android.widget.TextView;
+ import com.android.calendar.CalendarEventModel.Attendee;
+ import com.android.calendar.ContactsAsyncHelper;
+ import com.android.calendar.Utils;
+ import com.android.calendar.event.EditEventHelper.AttendeeItem;
+ import com.android.common.Rfc822Validator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
+ import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.LinkedHashSet;
+
+ import ws.xsoh.etar.R;
 
 public class AttendeesView extends LinearLayout implements View.OnClickListener {
     private static final String TAG = "AttendeesView";
@@ -88,16 +89,14 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     private final View mDividerForNoResponse;
     private final int mNoResponsePhotoAlpha;
     private final int mDefaultPhotoAlpha;
+    // Cache for loaded photos
+    HashMap<String, Drawable> mRecycledPhotos;
     private Rfc822Validator mValidator;
-
     // Number of attendees responding or not responding.
     private int mYes;
     private int mNo;
     private int mMaybe;
     private int mNoResponse;
-
-    // Cache for loaded photos
-    HashMap<String, Drawable> mRecycledPhotos;
 
     public AttendeesView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -408,6 +407,22 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         return ((AttendeeItem) view.getTag()).mRemoved;
     }
 
+    public Attendee getItem(int index) {
+        final View view = getChildAt(index);
+        if (view instanceof TextView) { // divider
+            return null;
+        }
+        return ((AttendeeItem) view.getTag()).mAttendee;
+    }
+
+    @Override
+    public void onClick(View view) {
+        // Button corresponding to R.id.contact_remove.
+        final AttendeeItem item = (AttendeeItem) view.getTag();
+        item.mRemoved = !item.mRemoved;
+        updateAttendeeView(item);
+    }
+
     // TODO put this into a Loader for auto-requeries
     private class PresenceQueryHandler extends AsyncQueryHandler {
         public PresenceQueryHandler(ContentResolver cr) {
@@ -466,21 +481,5 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                 cursor.close();
             }
         }
-    }
-
-    public Attendee getItem(int index) {
-        final View view = getChildAt(index);
-        if (view instanceof TextView) { // divider
-            return null;
-        }
-        return ((AttendeeItem) view.getTag()).mAttendee;
-    }
-
-    @Override
-    public void onClick(View view) {
-        // Button corresponding to R.id.contact_remove.
-        final AttendeeItem item = (AttendeeItem) view.getTag();
-        item.mRemoved = !item.mRemoved;
-        updateAttendeeView(item);
     }
 }

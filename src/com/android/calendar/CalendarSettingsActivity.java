@@ -37,9 +37,9 @@ import android.widget.LinearLayout;
 
 import com.android.calendar.selectcalendars.SelectCalendarsSyncFragment;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.util.List;
+
+import ws.xsoh.etar.R;
 
 public class CalendarSettingsActivity extends PreferenceActivity {
     private static final int CHECK_ACCOUNTS_DELAY = 3000;

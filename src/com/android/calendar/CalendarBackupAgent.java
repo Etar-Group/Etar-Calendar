@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.app.backup.BackupAgentHelper;
 import android.app.backup.BackupDataInput;
 import android.app.backup.SharedPreferencesBackupHelper;

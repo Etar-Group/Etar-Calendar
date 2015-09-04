@@ -40,26 +40,35 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
 
 import java.util.Date;
 
+import ws.xsoh.etar.R;
+
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler,
         OnScrollListener {
 
-    private static final String TAG = AgendaFragment.class.getSimpleName();
-    private static boolean DEBUG = false;
-
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     protected static final String BUNDLE_KEY_RESTORE_INSTANCE_ID = "key_restore_instance_id";
-
+    private static final String TAG = AgendaFragment.class.getSimpleName();
+    private static boolean DEBUG = false;
+    private final Time mTime;
+    private final long mInitialTimeMillis;
+    // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
+    // bar.
+    int mJulianDayOnTop = -1;
     private AgendaListView mAgendaListView;
     private Activity mActivity;
-    private final Time mTime;
     private String mTimeZone;
-    private final long mInitialTimeMillis;
+    private final Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(getActivity(), this);
+            mTime.switchTimezone(mTimeZone);
+        }
+    };
     private boolean mShowEventDetailsWithAgenda;
     private CalendarController mController;
     private EventInfoFragment mEventFragment;
@@ -71,25 +80,12 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private AgendaWindowAdapter mAdapter = null;
     private boolean mForceReplace = true;
     private long mLastShownEventId = -1;
-
-
-
-    // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
-    // bar.
-    int  mJulianDayOnTop = -1;
-
-    private final Runnable mTZUpdater = new Runnable() {
-        @Override
-        public void run() {
-            mTimeZone = Utils.getTimeZone(getActivity(), this);
-            mTime.switchTimezone(mTimeZone);
-        }
-    };
+    private long mLastHandledEventId = -1;
+    private Time mLastHandledEventTime = null;
 
     public AgendaFragment() {
         this(0, false);
     }
-
 
     // timeMillis - time of first event to show
     // usedForSearch - indicates if this fragment is used in the search fragment
@@ -326,7 +322,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             return;
         }
         mAgendaListView.goTo(mTime, event.id, mQuery, false,
-                ((event.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0  &&
+                ((event.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0 &&
                         mShowEventDetailsWithAgenda) ? true : false);
         AgendaAdapter.ViewHolder vh = mAgendaListView.getSelectedViewHolder();
         // Make sure that on the first time the event info is shown to recreate it
@@ -359,8 +355,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         return EventType.GO_TO | EventType.EVENTS_CHANGED | ((mUsedForSearch)?EventType.SEARCH:0);
     }
 
-    private long mLastHandledEventId = -1;
-    private Time mLastHandledEventTime = null;
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {

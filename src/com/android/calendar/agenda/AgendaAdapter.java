@@ -31,12 +31,13 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.ColorChipView;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import ws.xsoh.etar.R;
 
 public class AgendaAdapter extends ResourceCursorAdapter {
     private final String mNoTitleLabel;
@@ -48,37 +49,15 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
     private final Formatter mFormatter;
     private final StringBuilder mStringBuilder;
-    private float mScale;
-
-    private int COLOR_CHIP_ALL_DAY_HEIGHT;
-    private int COLOR_CHIP_HEIGHT;
-
     private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             notifyDataSetChanged();
         }
     };
-
-    static class ViewHolder {
-
-        public static final int DECLINED_RESPONSE = 0;
-        public static final int TENTATIVE_RESPONSE = 1;
-        public static final int ACCEPTED_RESPONSE = 2;
-
-        /* Event */
-        TextView title;
-        TextView when;
-        TextView where;
-        View selectedMarker;
-        LinearLayout textContainer;
-        long instanceId;
-        ColorChipView colorChip;
-        long startTimeMilli;
-        boolean allDay;
-        boolean grayed;
-        int julianDay;
-    }
+    private float mScale;
+    private int COLOR_CHIP_ALL_DAY_HEIGHT;
+    private int COLOR_CHIP_HEIGHT;
 
     public AgendaAdapter(Context context, int resource) {
         super(context, resource, null);
@@ -261,6 +240,26 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         } else {
             where.setVisibility(View.GONE);
         }
+    }
+
+    static class ViewHolder {
+
+        public static final int DECLINED_RESPONSE = 0;
+        public static final int TENTATIVE_RESPONSE = 1;
+        public static final int ACCEPTED_RESPONSE = 2;
+
+        /* Event */
+        TextView title;
+        TextView when;
+        TextView where;
+        View selectedMarker;
+        LinearLayout textContainer;
+        long instanceId;
+        ColorChipView colorChip;
+        long startTimeMilli;
+        boolean allDay;
+        boolean grayed;
+        int julianDay;
     }
 
     /*

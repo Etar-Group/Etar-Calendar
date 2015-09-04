@@ -42,13 +42,14 @@ import android.widget.CursorTreeAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.CalendarColorPickerDialog;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import ws.xsoh.etar.R;
 
 public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter implements
         View.OnClickListener, OnCalendarColorsLoadedListener {
@@ -61,56 +62,13 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
             + Calendars.CALENDAR_DISPLAY_NAME + " COLLATE NOCASE";
     private static final String ACCOUNT_SELECTION = Calendars.ACCOUNT_NAME + "=?"
             + " AND " + Calendars.ACCOUNT_TYPE + "=?";
-
-    private final LayoutInflater mInflater;
-    private final ContentResolver mResolver;
-    private final SelectSyncedCalendarsMultiAccountActivity mActivity;
-    private final FragmentManager mFragmentManager;
-    private final boolean mIsTablet;
-    private CalendarColorPickerDialog mColorPickerDialog;
-    private final View mView;
-    private final static Runnable mStopRefreshing = new Runnable() {
-        @Override
-        public void run() {
-            mRefresh = false;
-        }
-    };
-    private Map<String, AuthenticatorDescription> mTypeToAuthDescription
-        = new HashMap<String, AuthenticatorDescription>();
-    protected AuthenticatorDescription[] mAuthDescs;
-
-    // These track changes to the synced state of calendars
-    private Map<Long, Boolean> mCalendarChanges
-        = new HashMap<Long, Boolean>();
-    private Map<Long, Boolean> mCalendarInitialStates
-        = new HashMap<Long, Boolean>();
-
-    // Flag for when the cursors have all been closed to ensure no race condition with queries.
-    private boolean mClosedCursorsFlag;
-
-    // This is for keeping MatrixCursor copies so that we can requery in the background.
-    private Map<String, Cursor> mChildrenCursors
-        = new HashMap<String, Cursor>();
-
-    private AsyncCalendarsUpdater mCalendarsUpdater;
     // This is to keep our update tokens separate from other tokens. Since we cancel old updates
     // when a new update comes in, we'd like to leave a token space that won't be canceled.
     private static final int MIN_UPDATE_TOKEN = 1000;
-    private static int mUpdateToken = MIN_UPDATE_TOKEN;
     // How long to wait between requeries of the calendars to see if anything has changed.
     private static final int REFRESH_DELAY = 5000;
     // How long to keep refreshing for
     private static final int REFRESH_DURATION = 60000;
-    private static boolean mRefresh = true;
-
-    private static String mSyncedText;
-    private static String mNotSyncedText;
-
-    // This is to keep track of whether or not multiple calendars have the same display name
-    private static HashMap<String, Boolean> mIsDuplicateName = new HashMap<String, Boolean>();
-
-    private int mColorViewTouchAreaIncrease;
-
     private static final String[] PROJECTION = new String[] {
       Calendars._ID,
       Calendars.ACCOUNT_NAME,
@@ -132,91 +90,46 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
     private static final int SYNCED_COLUMN = 6;
     private static final int PRIMARY_COLUMN = 7;
     private static final int ACCOUNT_TYPE_COLUMN = 8;
-
     private static final int TAG_ID_CALENDAR_ID = R.id.calendar;
     private static final int TAG_ID_SYNC_CHECKBOX = R.id.sync;
-
+    private static int mUpdateToken = MIN_UPDATE_TOKEN;
+    private static boolean mRefresh = true;
+    private final static Runnable mStopRefreshing = new Runnable() {
+        @Override
+        public void run() {
+            mRefresh = false;
+        }
+    };
+    private static String mSyncedText;
+    private static String mNotSyncedText;
+    // This is to keep track of whether or not multiple calendars have the same display name
+    private static HashMap<String, Boolean> mIsDuplicateName = new HashMap<String, Boolean>();
+    private final LayoutInflater mInflater;
+    private final ContentResolver mResolver;
+    private final SelectSyncedCalendarsMultiAccountActivity mActivity;
+    private final FragmentManager mFragmentManager;
+    private final boolean mIsTablet;
+    private final View mView;
+    protected AuthenticatorDescription[] mAuthDescs;
+    private CalendarColorPickerDialog mColorPickerDialog;
+    private Map<String, AuthenticatorDescription> mTypeToAuthDescription
+            = new HashMap<String, AuthenticatorDescription>();
+    // These track changes to the synced state of calendars
+    private Map<Long, Boolean> mCalendarChanges
+            = new HashMap<Long, Boolean>();
+    private Map<Long, Boolean> mCalendarInitialStates
+            = new HashMap<Long, Boolean>();
+    // Flag for when the cursors have all been closed to ensure no race condition with queries.
+    private boolean mClosedCursorsFlag;
+    // This is for keeping MatrixCursor copies so that we can requery in the background.
+    private Map<String, Cursor> mChildrenCursors
+            = new HashMap<String, Cursor>();
+    private AsyncCalendarsUpdater mCalendarsUpdater;
+    private int mColorViewTouchAreaIncrease;
     private CalendarColorCache mCache;
 
-    private class AsyncCalendarsUpdater extends AsyncQueryHandler {
-
-        public AsyncCalendarsUpdater(ContentResolver cr) {
-            super(cr);
-        }
-
-        @Override
-        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            if(cursor == null) {
-                return;
-            }
-            synchronized(mChildrenCursors) {
-                if (mClosedCursorsFlag || (mActivity != null && mActivity.isFinishing())) {
-                    cursor.close();
-                    return;
-                }
-            }
-
-            Cursor currentCursor = mChildrenCursors.get(cookie);
-            // Check if the new cursor has the same content as our old cursor
-            if (currentCursor != null) {
-                if (Utils.compareCursors(currentCursor, cursor)) {
-                    cursor.close();
-                    return;
-                }
-            }
-            // If not then make a new matrix cursor for our Map
-            MatrixCursor newCursor = Utils.matrixCursorFromCursor(cursor);
-            cursor.close();
-            // And update our list of duplicated names
-            Utils.checkForDuplicateNames(mIsDuplicateName, newCursor, NAME_COLUMN);
-
-            mChildrenCursors.put((String)cookie, newCursor);
-            try {
-                setChildrenCursor(token, newCursor);
-            } catch (NullPointerException e) {
-                Log.w(TAG, "Adapter expired, try again on the next query: " + e);
-            }
-            // Clean up our old cursor if we had one. We have to do this after setting the new
-            // cursor so that our view doesn't throw on an invalid cursor.
-            if (currentCursor != null) {
-                currentCursor.close();
-            }
-        }
-    }
-
-    /**
-     * Method for changing the sync state when a calendar's button is pressed.
-     *
-     * This gets called when the CheckBox for a calendar is clicked. It toggles
-     * the sync state for the associated calendar and saves a change of state to
-     * a hashmap. It also compares against the original value and removes any
-     * changes from the hashmap if this is back at its initial state.
-     */
-    @Override
-    public void onClick(View v) {
-        long id = (Long) v.getTag(TAG_ID_CALENDAR_ID);
-        boolean newState;
-        boolean initialState = mCalendarInitialStates.get(id);
-        if (mCalendarChanges.containsKey(id)) {
-            // Negate to reflect the click
-            newState = !mCalendarChanges.get(id);
-        } else {
-            // Negate to reflect the click
-            newState = !initialState;
-        }
-
-        if (newState == initialState) {
-            mCalendarChanges.remove(id);
-        } else {
-            mCalendarChanges.put(id, newState);
-        }
-
-        ((CheckBox) v.getTag(TAG_ID_SYNC_CHECKBOX)).setChecked(newState);
-        setText(v, R.id.status, newState ? mSyncedText : mNotSyncedText);
-    }
-
     public SelectSyncedCalendarsMultiAccountAdapter(Context context, Cursor acctsCursor,
-            SelectSyncedCalendarsMultiAccountActivity act) {
+                                                    SelectSyncedCalendarsMultiAccountActivity act) {
         super(acctsCursor, context);
         mSyncedText = context.getString(R.string.synced);
         mNotSyncedText = context.getString(R.string.not_synced);
@@ -249,6 +162,45 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
 
         mColorViewTouchAreaIncrease = context.getResources()
                 .getDimensionPixelSize(R.dimen.color_view_touch_area_increase);
+    }
+
+    private static void setText(View view, int id, String text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        TextView textView = (TextView) view.findViewById(id);
+        textView.setText(text);
+    }
+
+    /**
+     * Method for changing the sync state when a calendar's button is pressed.
+     *
+     * This gets called when the CheckBox for a calendar is clicked. It toggles
+     * the sync state for the associated calendar and saves a change of state to
+     * a hashmap. It also compares against the original value and removes any
+     * changes from the hashmap if this is back at its initial state.
+     */
+    @Override
+    public void onClick(View v) {
+        long id = (Long) v.getTag(TAG_ID_CALENDAR_ID);
+        boolean newState;
+        boolean initialState = mCalendarInitialStates.get(id);
+        if (mCalendarChanges.containsKey(id)) {
+            // Negate to reflect the click
+            newState = !mCalendarChanges.get(id);
+        } else {
+            // Negate to reflect the click
+            newState = !initialState;
+        }
+
+        if (newState == initialState) {
+            mCalendarChanges.remove(id);
+        } else {
+            mCalendarChanges.put(id, newState);
+        }
+
+        ((CheckBox) v.getTag(TAG_ID_SYNC_CHECKBOX)).setChecked(newState);
+        setText(v, R.id.status, newState ? mSyncedText : mNotSyncedText);
     }
 
     public void startRefreshStopDelay() {
@@ -285,14 +237,6 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
             values.put(Calendars.SYNC_EVENTS, newSynced ? 1 : 0);
             mCalendarsUpdater.startUpdate(mUpdateToken, id, uri, values, null, null);
         }
-    }
-
-    private static void setText(View view, int id, String text) {
-        if (TextUtils.isEmpty(text)) {
-            return;
-        }
-        TextView textView = (TextView) view.findViewById(id);
-        textView.setText(text);
     }
 
     /**
@@ -434,6 +378,57 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         }
     }
 
+    @Override
+    public void onCalendarColorsLoaded() {
+        notifyDataSetChanged();
+    }
+
+    private class AsyncCalendarsUpdater extends AsyncQueryHandler {
+
+        public AsyncCalendarsUpdater(ContentResolver cr) {
+            super(cr);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            if (cursor == null) {
+                return;
+            }
+            synchronized (mChildrenCursors) {
+                if (mClosedCursorsFlag || (mActivity != null && mActivity.isFinishing())) {
+                    cursor.close();
+                    return;
+                }
+            }
+
+            Cursor currentCursor = mChildrenCursors.get(cookie);
+            // Check if the new cursor has the same content as our old cursor
+            if (currentCursor != null) {
+                if (Utils.compareCursors(currentCursor, cursor)) {
+                    cursor.close();
+                    return;
+                }
+            }
+            // If not then make a new matrix cursor for our Map
+            MatrixCursor newCursor = Utils.matrixCursorFromCursor(cursor);
+            cursor.close();
+            // And update our list of duplicated names
+            Utils.checkForDuplicateNames(mIsDuplicateName, newCursor, NAME_COLUMN);
+
+            mChildrenCursors.put((String) cookie, newCursor);
+            try {
+                setChildrenCursor(token, newCursor);
+            } catch (NullPointerException e) {
+                Log.w(TAG, "Adapter expired, try again on the next query: " + e);
+            }
+            // Clean up our old cursor if we had one. We have to do this after setting the new
+            // cursor so that our view doesn't throw on an invalid cursor.
+            if (currentCursor != null) {
+                currentCursor.close();
+            }
+        }
+    }
+
     private class RefreshCalendars implements Runnable {
 
         int mToken;
@@ -461,10 +456,5 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
                     new String[] { mAccount, mAccountType } /*selectionArgs*/,
                     CALENDARS_ORDERBY);
         }
-    }
-
-    @Override
-    public void onCalendarColorsLoaded() {
-        notifyDataSetChanged();
     }
 }

@@ -16,9 +16,6 @@
 
 package com.android.calendar.month;
 
-import org.sufficientlysecure.standalonecalendar.R;
-import com.android.calendar.Utils;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.res.Resources;
@@ -35,9 +32,13 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
+import com.android.calendar.Utils;
+
 import java.security.InvalidParameterException;
 import java.text.NumberFormat;
 import java.util.HashMap;
+
+import ws.xsoh.etar.R;
 
 /**
  * <p>
@@ -48,17 +49,16 @@ import java.util.HashMap;
  * </p>
  */
 public class SimpleWeekView extends View {
-    private static final String TAG = "MonthView";
+    /**
+     * This sets the height of this week in pixels
+     */
+    public static final String VIEW_PARAMS_HEIGHT = "height";
 
     /**
      * These params can be passed into the view to control how it appears.
      * {@link #VIEW_PARAMS_WEEK} is the only required field, though the default
      * values are unlikely to fit most layouts correctly.
      */
-    /**
-     * This sets the height of this week in pixels
-     */
-    public static final String VIEW_PARAMS_HEIGHT = "height";
     /**
      * This specifies the position (or weeks since the epoch) of this week,
      * calculated using {@link Utils#getWeeksSinceEpochFromJulianDay}
@@ -88,15 +88,14 @@ public class SimpleWeekView extends View {
      * If this month should display week numbers. false if 0, true otherwise.
      */
     public static final String VIEW_PARAMS_SHOW_WK_NUM = "show_wk_num";
-
-    protected static int DEFAULT_HEIGHT = 32;
-    protected static int MIN_HEIGHT = 10;
     protected static final int DEFAULT_SELECTED_DAY = -1;
     protected static final int DEFAULT_WEEK_START = Time.SUNDAY;
     protected static final int DEFAULT_NUM_DAYS = 7;
     protected static final int DEFAULT_SHOW_WK_NUM = 0;
     protected static final int DEFAULT_FOCUS_MONTH = -1;
-
+    private static final String TAG = "MonthView";
+    protected static int DEFAULT_HEIGHT = 32;
+    protected static int MIN_HEIGHT = 10;
     protected static int DAY_SEPARATOR_WIDTH = 1;
 
     protected static int MINI_DAY_NUMBER_TEXT_SIZE = 14;
@@ -166,6 +165,7 @@ public class SimpleWeekView extends View {
     protected int mDaySeparatorColor;
     protected int mTodayOutlineColor;
     protected int mWeekNumColor;
+    Time mLastHoverTime = null;
 
     public SimpleWeekView(Context context) {
         super(context);
@@ -547,6 +547,4 @@ public class SimpleWeekView extends View {
         }
         return true;
     }
-
-    Time mLastHoverTime = null;
 }

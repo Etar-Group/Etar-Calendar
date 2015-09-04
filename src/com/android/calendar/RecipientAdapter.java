@@ -16,12 +16,10 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import com.android.ex.chips.BaseRecipientAdapter;
-
 import android.accounts.Account;
 import android.content.Context;
+
+import com.android.ex.chips.BaseRecipientAdapter;
 
 public class RecipientAdapter extends BaseRecipientAdapter {
     public RecipientAdapter(Context context) {

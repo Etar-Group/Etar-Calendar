@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.app.Application;
 
 public class CalendarApplication extends Application {

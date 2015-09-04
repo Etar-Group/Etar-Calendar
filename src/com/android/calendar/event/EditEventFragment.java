@@ -66,11 +66,11 @@ import com.android.calendar.Utils;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.colorpicker.HsvColorComparator;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import ws.xsoh.etar.R;
 
 public class EditEventFragment extends Fragment implements EventHandler, OnColorSelectedListener {
     private static final String TAG = "EditEventActivity";

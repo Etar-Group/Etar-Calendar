@@ -20,8 +20,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.colorpicker.ColorPickerDialog;
+
+import ws.xsoh.etar.R;
 
 /**
  * A dialog which displays event colors, with an additional button for the calendar color.

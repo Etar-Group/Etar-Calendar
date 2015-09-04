@@ -16,9 +16,6 @@
 
 package com.android.calendar.alerts;
 
-import org.sufficientlysecure.standalonecalendar.R;
-import com.android.calendar.Utils;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -30,8 +27,12 @@ import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.Utils;
+
 import java.util.Locale;
 import java.util.TimeZone;
+
+import ws.xsoh.etar.R;
 
 public class AlertAdapter extends ResourceCursorAdapter {
 
@@ -44,39 +45,6 @@ public class AlertAdapter extends ResourceCursorAdapter {
     public AlertAdapter(AlertActivity activity, int resource) {
         super(activity, resource, null);
         alertActivity = activity;
-    }
-
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        View square = view.findViewById(R.id.color_square);
-        int color = Utils.getDisplayColorFromColor(cursor.getInt(AlertActivity.INDEX_COLOR));
-        square.setBackgroundColor(color);
-
-        // Repeating info
-        View repeatContainer = view.findViewById(R.id.repeat_icon);
-        String rrule = cursor.getString(AlertActivity.INDEX_RRULE);
-        if (!TextUtils.isEmpty(rrule)) {
-            repeatContainer.setVisibility(View.VISIBLE);
-        } else {
-            repeatContainer.setVisibility(View.GONE);
-        }
-
-        /*
-        // Reminder
-        boolean hasAlarm = cursor.getInt(AlertActivity.INDEX_HAS_ALARM) != 0;
-        if (hasAlarm) {
-            AgendaAdapter.updateReminder(view, context, cursor.getLong(AlertActivity.INDEX_BEGIN),
-                    cursor.getLong(AlertActivity.INDEX_EVENT_ID));
-        }
-        */
-
-        String eventName = cursor.getString(AlertActivity.INDEX_TITLE);
-        String location = cursor.getString(AlertActivity.INDEX_EVENT_LOCATION);
-        long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
-        long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-        boolean allDay = cursor.getInt(AlertActivity.INDEX_ALL_DAY) != 0;
-
-        updateView(context, view, eventName, location, startMillis, endMillis, allDay);
     }
 
     public static void updateView(Context context, View view, String eventName, String location,
@@ -144,6 +112,39 @@ public class AlertAdapter extends ResourceCursorAdapter {
             whereView.setText(location);
             whereView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void bindView(View view, Context context, Cursor cursor) {
+        View square = view.findViewById(R.id.color_square);
+        int color = Utils.getDisplayColorFromColor(cursor.getInt(AlertActivity.INDEX_COLOR));
+        square.setBackgroundColor(color);
+
+        // Repeating info
+        View repeatContainer = view.findViewById(R.id.repeat_icon);
+        String rrule = cursor.getString(AlertActivity.INDEX_RRULE);
+        if (!TextUtils.isEmpty(rrule)) {
+            repeatContainer.setVisibility(View.VISIBLE);
+        } else {
+            repeatContainer.setVisibility(View.GONE);
+        }
+
+        /*
+        // Reminder
+        boolean hasAlarm = cursor.getInt(AlertActivity.INDEX_HAS_ALARM) != 0;
+        if (hasAlarm) {
+            AgendaAdapter.updateReminder(view, context, cursor.getLong(AlertActivity.INDEX_BEGIN),
+                    cursor.getLong(AlertActivity.INDEX_EVENT_ID));
+        }
+        */
+
+        String eventName = cursor.getString(AlertActivity.INDEX_TITLE);
+        String location = cursor.getString(AlertActivity.INDEX_EVENT_LOCATION);
+        long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
+        long endMillis = cursor.getLong(AlertActivity.INDEX_END);
+        boolean allDay = cursor.getInt(AlertActivity.INDEX_ALL_DAY) != 0;
+
+        updateView(context, view, eventName, location, startMillis, endMillis, allDay);
     }
 
     @Override

@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -42,6 +40,83 @@ public class EventLoader {
     private LoaderThread mLoaderThread;
     private ContentResolver mResolver;
 
+    public EventLoader(Context context) {
+        mContext = context;
+        mLoaderQueue = new LinkedBlockingQueue<LoadRequest>();
+        mResolver = context.getContentResolver();
+    }
+
+    /**
+     * Call this from the activity's onResume()
+     */
+    public void startBackgroundThread() {
+        mLoaderThread = new LoaderThread(mLoaderQueue, this);
+        mLoaderThread.start();
+    }
+
+    /**
+     * Call this from the activity's onPause()
+     */
+    public void stopBackgroundThread() {
+        mLoaderThread.shutdown();
+    }
+
+    /**
+     * Loads "numDays" days worth of events, starting at start, into events.
+     * Posts uiCallback to the {@link Handler} for this view, which will run in the UI thread.
+     * Reuses an existing background thread, if events were already being loaded in the background.
+     * NOTE: events and uiCallback are not used if an existing background thread gets reused --
+     * the ones that were passed in on the call that results in the background thread getting
+     * created are used, and the most recent call's worth of data is loaded into events and posted
+     * via the uiCallback.
+     */
+    public void loadEventsInBackground(final int numDays, final ArrayList<Event> events,
+                                       int startDay, final Runnable successCallback, final Runnable cancelCallback) {
+
+        // Increment the sequence number for requests.  We don't care if the
+        // sequence numbers wrap around because we test for equality with the
+        // latest one.
+        int id = mSequenceNumber.incrementAndGet();
+
+        // Send the load request to the background thread
+        LoadEventsRequest request = new LoadEventsRequest(id, startDay, numDays,
+                events, successCallback, cancelCallback);
+
+        try {
+            mLoaderQueue.put(request);
+        } catch (InterruptedException ex) {
+            // The put() method fails with InterruptedException if the
+            // queue is full. This should never happen because the queue
+            // has no limit.
+            Log.e("Cal", "loadEventsInBackground() interrupted!");
+        }
+    }
+
+    /**
+     * Sends a request for the days with events to be marked. Loads "numDays"
+     * worth of days, starting at start, and fills in eventDays to express which
+     * days have events.
+     *
+     * @param startDay   First day to check for events
+     * @param numDays    Days following the start day to check
+     * @param eventDay   Whether or not an event exists on that day
+     * @param uiCallback What to do when done (log data, redraw screen)
+     */
+    void loadEventDaysInBackground(int startDay, int numDays, boolean[] eventDays,
+                                   final Runnable uiCallback) {
+        // Send load request to the background thread
+        LoadEventDaysRequest request = new LoadEventDaysRequest(startDay, numDays,
+                eventDays, uiCallback);
+        try {
+            mLoaderQueue.put(request);
+        } catch (InterruptedException ex) {
+            // The put() method fails with InterruptedException if the
+            // queue is full. This should never happen because the queue
+            // has no limit.
+            Log.e("Cal", "loadEventDaysInBackground() interrupted!");
+        }
+    }
+
     private static interface LoadRequest {
         public void processRequest(EventLoader eventLoader);
         public void skipRequest(EventLoader eventLoader);
@@ -62,17 +137,16 @@ public class EventLoader {
      *
      */
     private static class LoadEventDaysRequest implements LoadRequest {
-        public int startDay;
-        public int numDays;
-        public boolean[] eventDays;
-        public Runnable uiCallback;
-
         /**
          * The projection used by the EventDays query.
          */
         private static final String[] PROJECTION = {
                 CalendarContract.EventDays.STARTDAY, CalendarContract.EventDays.ENDDAY
         };
+        public int startDay;
+        public int numDays;
+        public boolean[] eventDays;
+        public Runnable uiCallback;
 
         public LoadEventDaysRequest(int startDay, int numDays, boolean[] eventDays,
                 final Runnable uiCallback)
@@ -205,84 +279,6 @@ public class EventLoader {
                     Log.e("Cal", "background LoaderThread interrupted!");
                 }
             }
-        }
-    }
-
-    public EventLoader(Context context) {
-        mContext = context;
-        mLoaderQueue = new LinkedBlockingQueue<LoadRequest>();
-        mResolver = context.getContentResolver();
-    }
-
-    /**
-     * Call this from the activity's onResume()
-     */
-    public void startBackgroundThread() {
-        mLoaderThread = new LoaderThread(mLoaderQueue, this);
-        mLoaderThread.start();
-    }
-
-    /**
-     * Call this from the activity's onPause()
-     */
-    public void stopBackgroundThread() {
-        mLoaderThread.shutdown();
-    }
-
-    /**
-     * Loads "numDays" days worth of events, starting at start, into events.
-     * Posts uiCallback to the {@link Handler} for this view, which will run in the UI thread.
-     * Reuses an existing background thread, if events were already being loaded in the background.
-     * NOTE: events and uiCallback are not used if an existing background thread gets reused --
-     * the ones that were passed in on the call that results in the background thread getting
-     * created are used, and the most recent call's worth of data is loaded into events and posted
-     * via the uiCallback.
-     */
-    public void loadEventsInBackground(final int numDays, final ArrayList<Event> events,
-            int startDay, final Runnable successCallback, final Runnable cancelCallback) {
-
-        // Increment the sequence number for requests.  We don't care if the
-        // sequence numbers wrap around because we test for equality with the
-        // latest one.
-        int id = mSequenceNumber.incrementAndGet();
-
-        // Send the load request to the background thread
-        LoadEventsRequest request = new LoadEventsRequest(id, startDay, numDays,
-                events, successCallback, cancelCallback);
-
-        try {
-            mLoaderQueue.put(request);
-        } catch (InterruptedException ex) {
-            // The put() method fails with InterruptedException if the
-            // queue is full. This should never happen because the queue
-            // has no limit.
-            Log.e("Cal", "loadEventsInBackground() interrupted!");
-        }
-    }
-
-    /**
-     * Sends a request for the days with events to be marked. Loads "numDays"
-     * worth of days, starting at start, and fills in eventDays to express which
-     * days have events.
-     *
-     * @param startDay First day to check for events
-     * @param numDays Days following the start day to check
-     * @param eventDay Whether or not an event exists on that day
-     * @param uiCallback What to do when done (log data, redraw screen)
-     */
-    void loadEventDaysInBackground(int startDay, int numDays, boolean[] eventDays,
-        final Runnable uiCallback)
-    {
-        // Send load request to the background thread
-        LoadEventDaysRequest request = new LoadEventDaysRequest(startDay, numDays,
-                eventDays, uiCallback);
-        try {
-            mLoaderQueue.put(request);
-        } catch (InterruptedException ex) {
-            // The put() method fails with InterruptedException if the
-            // queue is full. This should never happen because the queue
-            // has no limit.
-            Log.e("Cal", "loadEventDaysInBackground() interrupted!");
         }
     }
 }

@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.util.MonthDisplayHelper;
 
 /**
@@ -73,6 +71,11 @@ public class DayOfMonthCursor extends MonthDisplayHelper {
         return getDayAt(mRow, mColumn);
     }
 
+    public void setSelectedDayOfMonth(int dayOfMonth) {
+        mRow = getRowOf(dayOfMonth);
+        mColumn = getColumnOf(dayOfMonth);
+    }
+
     /**
      * @return 0 if the selection is in the current month, otherwise -1 or +1
      * depending on whether the selection is in the first or last row.
@@ -85,11 +88,6 @@ public class DayOfMonthCursor extends MonthDisplayHelper {
             return -1;
         }
         return 1;
-    }
-
-    public void setSelectedDayOfMonth(int dayOfMonth) {
-        mRow = getRowOf(dayOfMonth);
-        mColumn = getColumnOf(dayOfMonth);
     }
 
     public boolean isSelected(int row, int column) {

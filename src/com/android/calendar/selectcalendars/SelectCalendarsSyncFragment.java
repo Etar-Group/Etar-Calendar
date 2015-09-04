@@ -42,11 +42,12 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.AsyncQueryService;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.SelectCalendarsSyncAdapter.CalendarRow;
 
 import java.util.HashMap;
+
+import ws.xsoh.etar.R;
 
 public class SelectCalendarsSyncFragment extends ListFragment
         implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
@@ -69,11 +70,10 @@ public class SelectCalendarsSyncFragment extends ListFragment
         Calendars.ACCOUNT_NAME,
         Calendars.ACCOUNT_TYPE,
         "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
-
+    private final String[] mArgs = new String[2];
     private TextView mSyncStatus;
     private Button mAccountsButton;
     private Account mAccount;
-    private final String[] mArgs = new String[2];
     private AsyncQueryService mService;
     private Handler mHandler = new Handler();
     private ContentObserver mCalendarsObserver = new ContentObserver(mHandler) {

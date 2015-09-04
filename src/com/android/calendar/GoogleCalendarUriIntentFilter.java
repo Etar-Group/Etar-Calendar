@@ -17,16 +17,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_NONE;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentUris;
@@ -43,10 +33,17 @@ import android.util.Log;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 
-public class GoogleCalendarUriIntentFilter extends Activity {
-    private static final String TAG = "GoogleCalendarUriIntentFilter";
-    static final boolean debug = false;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_NONE;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
+public class GoogleCalendarUriIntentFilter extends Activity {
+    static final boolean debug = false;
+    private static final String TAG = "GoogleCalendarUriIntentFilter";
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_START = 1;
     private static final int EVENT_INDEX_END = 2;

@@ -34,7 +34,6 @@ import android.util.Pair;
 
 import com.android.calendar.CloudNotificationBackplane;
 import com.android.calendar.ExtensionsFactory;
-import org.sufficientlysecure.standalonecalendar.R;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,16 +43,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import ws.xsoh.etar.R;
+
 /**
  * Utilities for managing notification dismissal across devices.
  */
 public class GlobalDismissManager extends BroadcastReceiver {
-    private static final String TAG = "GlobalDismissManager";
-    private static final String GOOGLE_ACCOUNT_TYPE = "com.google";
-    private static final String GLOBAL_DISMISS_MANAGER_PREFS = "com.android.calendar.alerts.GDM";
-    private static final String ACCOUNT_KEY = "known_accounts";
+    public static final String KEY_PREFIX = "com.android.calendar.alerts.";
+    public static final String SYNC_ID = KEY_PREFIX + "sync_id";
+    public static final String START_TIME = KEY_PREFIX + "start_time";
+    public static final String ACCOUNT_NAME = KEY_PREFIX + "account_name";
+    public static final String DISMISS_INTENT = KEY_PREFIX + "DISMISS";
     protected static final long FOUR_WEEKS = 60 * 60 * 24 * 7 * 4;
-
     static final String[] EVENT_PROJECTION = new String[] {
             Events._ID,
             Events.CALENDAR_ID
@@ -67,26 +68,15 @@ public class GlobalDismissManager extends BroadcastReceiver {
             Calendars.ACCOUNT_NAME,
             Calendars.ACCOUNT_TYPE
     };
-
-    public static final String KEY_PREFIX = "com.android.calendar.alerts.";
-    public static final String SYNC_ID = KEY_PREFIX + "sync_id";
-    public static final String START_TIME = KEY_PREFIX + "start_time";
-    public static final String ACCOUNT_NAME = KEY_PREFIX + "account_name";
-    public static final String DISMISS_INTENT = KEY_PREFIX + "DISMISS";
-
-    public static class AlarmId {
-        public long mEventId;
-        public long mStart;
-         public AlarmId(long id, long start) {
-             mEventId = id;
-             mStart = start;
-         }
-    }
+    private static final String TAG = "GlobalDismissManager";
+    private static final String GOOGLE_ACCOUNT_TYPE = "com.google";
+    private static final String GLOBAL_DISMISS_MANAGER_PREFS = "com.android.calendar.alerts.GDM";
+    private static final String ACCOUNT_KEY = "known_accounts";
 
     /**
      * Look for unknown accounts in a set of events and associate with them.
      * Returns immediately, processing happens in the background.
-     * 
+     *
      * @param context application context
      * @param eventIds IDs for events that have posted notifications that may be
      *            dismissed.
@@ -156,7 +146,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
 
     /**
      * Globally dismiss notifications that are backed by the same events.
-     * 
+     *
      * @param context application context
      * @param alarmIds Unique identifiers for events that have been dismissed by the user.
      * @return true if notification_sender_id is available
@@ -254,7 +244,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
 
     /**
      * build a selection over a set of row IDs
-     * 
+     *
      * @param ids row IDs to select
      * @param key row name for the table
      * @return a selection string suitable for a resolver query.
@@ -381,5 +371,15 @@ public class GlobalDismissManager extends BroadcastReceiver {
                 return null;
             }
         }.execute(new Pair<Context, Intent>(context, intent));
+    }
+
+    public static class AlarmId {
+        public long mEventId;
+        public long mStart;
+
+        public AlarmId(long id, long start) {
+            mEventId = id;
+            mStart = start;
+        }
     }
 }

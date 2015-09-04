@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -26,6 +24,8 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import ws.xsoh.etar.R;
 
 public class ExpandableTextView extends LinearLayout implements OnClickListener {
 
@@ -110,6 +110,13 @@ public class ExpandableTextView extends LinearLayout implements OnClickListener 
         mButton.setOnClickListener(this);
     }
 
+    public CharSequence getText() {
+        if (mTv == null) {
+            return "";
+        }
+        return mTv.getText();
+    }
+
     public void setText(String text) {
         mRelayout = true;
         if (mTv == null) {
@@ -118,12 +125,5 @@ public class ExpandableTextView extends LinearLayout implements OnClickListener 
         String trimmedText = text.trim();
         mTv.setText(trimmedText);
         this.setVisibility(trimmedText.length() == 0 ? View.GONE : View.VISIBLE);
-    }
-
-    public CharSequence getText() {
-        if (mTv == null) {
-            return "";
-        }
-        return mTv.getText();
     }
 }

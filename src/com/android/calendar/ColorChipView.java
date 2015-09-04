@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -35,25 +33,20 @@ import android.view.View;
  */
 public class ColorChipView extends View {
 
-    private static final String TAG = "ColorChipView";
+    public static final int DRAW_FULL = 0;
     // Style of drawing
     // Full rectangle for accepted events
     // Border for tentative events
     // Cross-hatched with 50% transparency for declined events
-
-    public static final int DRAW_FULL = 0;
     public static final int DRAW_BORDER = 1;
     public static final int DRAW_FADED = 2;
-
+    private static final String TAG = "ColorChipView";
+    private static final int DEF_BORDER_WIDTH = 4;
+    int mBorderWidth = DEF_BORDER_WIDTH;
+    int mColor;
     private int mDrawStyle = DRAW_FULL;
     private float mDefStrokeWidth;
     private Paint mPaint;
-
-    private static final int DEF_BORDER_WIDTH = 4;
-
-    int mBorderWidth = DEF_BORDER_WIDTH;
-
-    int mColor;
 
     public ColorChipView(Context context) {
         super(context);

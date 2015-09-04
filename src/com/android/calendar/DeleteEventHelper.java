@@ -16,11 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import com.android.calendar.event.EditEventHelper;
-import com.android.calendarcommon2.EventRecurrence;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -38,8 +33,13 @@ import android.text.format.Time;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.android.calendar.event.EditEventHelper;
+import com.android.calendarcommon2.EventRecurrence;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import ws.xsoh.etar.R;
 
 /**
  * A helper class for deleting events.  If a normal event is selected for
@@ -63,20 +63,6 @@ import java.util.Arrays;
  * {@link #delete()} multiple times).
  */
 public class DeleteEventHelper {
-    private final Activity mParent;
-    private Context mContext;
-
-    private long mStartMillis;
-    private long mEndMillis;
-    private CalendarEventModel mModel;
-
-    /**
-     * If true, then call finish() on the parent activity when done.
-     */
-    private boolean mExitWhenDone;
-    // the runnable to execute when the delete is confirmed
-    private Runnable mCallback;
-
     /**
      * These are the corresponding indices into the array of strings
      * "R.array.delete_repeating_labels" in the resource file.
@@ -84,7 +70,17 @@ public class DeleteEventHelper {
     public static final int DELETE_SELECTED = 0;
     public static final int DELETE_ALL_FOLLOWING = 1;
     public static final int DELETE_ALL = 2;
-
+    private final Activity mParent;
+    private Context mContext;
+    private long mStartMillis;
+    private long mEndMillis;
+    private CalendarEventModel mModel;
+    /**
+     * If true, then call finish() on the parent activity when done.
+     */
+    private boolean mExitWhenDone;
+    // the runnable to execute when the delete is confirmed
+    private Runnable mCallback;
     private int mWhichDelete;
     private ArrayList<Integer> mWhichIndex;
     private AlertDialog mAlertDialog;
@@ -95,11 +91,67 @@ public class DeleteEventHelper {
     private AsyncQueryService mService;
 
     private DeleteNotifyListener mDeleteStartedListener = null;
+    /**
+     * This callback is used when a normal event is deleted.
+     */
+    private DialogInterface.OnClickListener mDeleteNormalDialogListener =
+            new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int button) {
+            deleteStarted();
+            long id = mModel.mId; // mCursor.getInt(mEventIndexId);
+            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
+            mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
+            if (mCallback != null) {
+                mCallback.run();
+            }
+            if (mExitWhenDone) {
+                mParent.finish();
+            }
+        }
+    };
+    /**
+     * This callback is used when an exception to an event is deleted
+     */
+    private DialogInterface.OnClickListener mDeleteExceptionDialogListener =
+        new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int button) {
+            deleteStarted();
+            deleteExceptionEvent();
+            if (mCallback != null) {
+                mCallback.run();
+            }
+            if (mExitWhenDone) {
+                mParent.finish();
+            }
+        }
+    };
+    /**
+     * This callback is used when a list item for a repeating event is selected
+     */
+    private DialogInterface.OnClickListener mDeleteListListener =
+            new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int button) {
+            // set mWhichDelete to the delete type at that index
+            mWhichDelete = mWhichIndex.get(button);
 
-    public interface DeleteNotifyListener {
-        public void onDeleteStarted();
-    }
-
+            // Enable the "ok" button now that the user has selected which
+            // events in the series to delete.
+            Button ok = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            ok.setEnabled(true);
+        }
+    };
+    /**
+     * This callback is used when a repeating event is deleted.
+     */
+    private DialogInterface.OnClickListener mDeleteRepeatingDialogListener =
+            new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int button) {
+            deleteStarted();
+            if (mWhichDelete != -1) {
+                deleteRepeatingEvent(mWhichDelete);
+            }
+        }
+    };
 
     public DeleteEventHelper(Context context, Activity parentActivity, boolean exitWhenDone) {
         if (exitWhenDone && parentActivity == null) {
@@ -128,71 +180,6 @@ public class DeleteEventHelper {
     public void setExitWhenDone(boolean exitWhenDone) {
         mExitWhenDone = exitWhenDone;
     }
-
-    /**
-     * This callback is used when a normal event is deleted.
-     */
-    private DialogInterface.OnClickListener mDeleteNormalDialogListener =
-            new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int button) {
-            deleteStarted();
-            long id = mModel.mId; // mCursor.getInt(mEventIndexId);
-            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
-            mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
-            if (mCallback != null) {
-                mCallback.run();
-            }
-            if (mExitWhenDone) {
-                mParent.finish();
-            }
-        }
-    };
-
-    /**
-     * This callback is used when an exception to an event is deleted
-     */
-    private DialogInterface.OnClickListener mDeleteExceptionDialogListener =
-        new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int button) {
-            deleteStarted();
-            deleteExceptionEvent();
-            if (mCallback != null) {
-                mCallback.run();
-            }
-            if (mExitWhenDone) {
-                mParent.finish();
-            }
-        }
-    };
-
-    /**
-     * This callback is used when a list item for a repeating event is selected
-     */
-    private DialogInterface.OnClickListener mDeleteListListener =
-            new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int button) {
-            // set mWhichDelete to the delete type at that index
-            mWhichDelete = mWhichIndex.get(button);
-
-            // Enable the "ok" button now that the user has selected which
-            // events in the series to delete.
-            Button ok = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            ok.setEnabled(true);
-        }
-    };
-
-    /**
-     * This callback is used when a repeating event is deleted.
-     */
-    private DialogInterface.OnClickListener mDeleteRepeatingDialogListener =
-            new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int button) {
-            deleteStarted();
-            if (mWhichDelete != -1) {
-                deleteRepeatingEvent(mWhichDelete);
-            }
-        }
-    };
 
     /**
      * Does the required processing for deleting an event, which includes
@@ -464,5 +451,9 @@ public class DeleteEventHelper {
         if (mAlertDialog != null) {
             mAlertDialog.dismiss();
         }
+    }
+
+    public interface DeleteNotifyListener {
+        public void onDeleteStarted();
     }
 }

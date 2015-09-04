@@ -43,13 +43,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import ws.xsoh.etar.R;
 
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
@@ -66,111 +67,50 @@ import java.util.regex.Pattern;
  *    -n "com.android.calendar/.alerts.AlertReceiver"
  */
 public class AlertReceiver extends BroadcastReceiver {
+    // The broadcast for notification refreshes scheduled by the app. This is to
+    // distinguish the EVENT_REMINDER broadcast sent by the provider.
+    public static final String EVENT_REMINDER_APP_ACTION =
+            "com.android.calendar.EVENT_REMINDER_APP";
+    public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
+    static final Object mStartingServiceSync = new Object();
     private static final String TAG = "AlertReceiver";
-
     private static final String DELETE_ALL_ACTION = "com.android.calendar.DELETEALL";
     private static final String MAP_ACTION = "com.android.calendar.MAP";
     private static final String CALL_ACTION = "com.android.calendar.CALL";
     private static final String MAIL_ACTION = "com.android.calendar.MAIL";
     private static final String EXTRA_EVENT_ID = "eventid";
-
-    // The broadcast for notification refreshes scheduled by the app. This is to
-    // distinguish the EVENT_REMINDER broadcast sent by the provider.
-    public static final String EVENT_REMINDER_APP_ACTION =
-            "com.android.calendar.EVENT_REMINDER_APP";
-
-    static final Object mStartingServiceSync = new Object();
-    static PowerManager.WakeLock mStartingService;
     private static final Pattern mBlankLinePattern = Pattern.compile("^\\s*$[\n\r]",
             Pattern.MULTILINE);
-
-    public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
     private static final int NOTIFICATION_DIGEST_MAX_LENGTH = 3;
-
     private static final String GEO_PREFIX = "geo:";
     private static final String TEL_PREFIX = "tel:";
     private static final int MAX_NOTIF_ACTIONS = 3;
-
+    private static final String[] ATTENDEES_PROJECTION = new String[]{
+            Attendees.ATTENDEE_EMAIL,           // 0
+            Attendees.ATTENDEE_STATUS,          // 1
+    };
+    private static final int ATTENDEES_INDEX_EMAIL = 0;
+    private static final int ATTENDEES_INDEX_STATUS = 1;
+    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
+    private static final String ATTENDEES_SORT_ORDER = Attendees.ATTENDEE_NAME + " ASC, "
+            + Attendees.ATTENDEE_EMAIL + " ASC";
+    private static final String[] EVENT_PROJECTION = new String[]{
+            Calendars.OWNER_ACCOUNT, // 0
+            Calendars.ACCOUNT_NAME,  // 1
+            Events.TITLE,            // 2
+            Events.ORGANIZER,        // 3
+    };
+    private static final int EVENT_INDEX_OWNER_ACCOUNT = 0;
+    private static final int EVENT_INDEX_ACCOUNT_NAME = 1;
+    private static final int EVENT_INDEX_TITLE = 2;
+    private static final int EVENT_INDEX_ORGANIZER = 3;
+    static PowerManager.WakeLock mStartingService;
     private static Handler sAsyncHandler;
+
     static {
         HandlerThread thr = new HandlerThread("AlertReceiver async");
         thr.start();
         sAsyncHandler = new Handler(thr.getLooper());
-    }
-
-    @Override
-    public void onReceive(final Context context, final Intent intent) {
-        if (AlertService.DEBUG) {
-            Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
-        }
-        if (DELETE_ALL_ACTION.equals(intent.getAction())) {
-
-            // The user has dismissed a digest notification.
-            // TODO Grab a wake lock here?
-            Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
-            context.startService(serviceIntent);
-        } else if (MAP_ACTION.equals(intent.getAction())) {
-            // Try starting the map action.
-            // If no map location is found (something changed since the notification was originally
-            // fired), update the notifications to express this change.
-            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
-            if (eventId != -1) {
-                URLSpan[] urlSpans = getURLSpans(context, eventId);
-                Intent geoIntent = createMapActivityIntent(context, urlSpans);
-                if (geoIntent != null) {
-                    // Location was successfully found, so dismiss the shade and start maps.
-                    context.startActivity(geoIntent);
-                    closeNotificationShade(context);
-                } else {
-                    // No location was found, so update all notifications.
-                    // Our alert service does not currently allow us to specify only one
-                    // specific notification to refresh.
-                    AlertService.updateAlertNotification(context);
-                }
-            }
-        } else if (CALL_ACTION.equals(intent.getAction())) {
-            // Try starting the call action.
-            // If no call location is found (something changed since the notification was originally
-            // fired), update the notifications to express this change.
-            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
-            if (eventId != -1) {
-                URLSpan[] urlSpans = getURLSpans(context, eventId);
-                Intent callIntent = createCallActivityIntent(context, urlSpans);
-                if (callIntent != null) {
-                    // Call location was successfully found, so dismiss the shade and start dialer.
-                    context.startActivity(callIntent);
-                    closeNotificationShade(context);
-                } else {
-                    // No call location was found, so update all notifications.
-                    // Our alert service does not currently allow us to specify only one
-                    // specific notification to refresh.
-                    AlertService.updateAlertNotification(context);
-                }
-            }
-        } else if (MAIL_ACTION.equals(intent.getAction())) {
-            closeNotificationShade(context);
-
-            // Now start the email intent.
-            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
-            if (eventId != -1) {
-                Intent i = new Intent(context, QuickResponseActivity.class);
-                i.putExtra(QuickResponseActivity.EXTRA_EVENT_ID, eventId);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
-            }
-        } else {
-            Intent i = new Intent();
-            i.setClass(context, AlertService.class);
-            i.putExtras(intent);
-            i.putExtra("action", intent.getAction());
-            Uri uri = intent.getData();
-
-            // This intent might be a BOOT_COMPLETED so it might not have a Uri.
-            if (uri != null) {
-                i.putExtra("uri", uri.toString());
-            }
-            beginStartingService(context, i);
-        }
     }
 
     /**
@@ -595,32 +535,6 @@ public class AlertReceiver extends BroadcastReceiver {
         return nw;
     }
 
-    private void closeNotificationShade(Context context) {
-        Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-        context.sendBroadcast(closeNotificationShadeIntent);
-    }
-
-    private static final String[] ATTENDEES_PROJECTION = new String[] {
-        Attendees.ATTENDEE_EMAIL,           // 0
-        Attendees.ATTENDEE_STATUS,          // 1
-    };
-    private static final int ATTENDEES_INDEX_EMAIL = 0;
-    private static final int ATTENDEES_INDEX_STATUS = 1;
-    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
-    private static final String ATTENDEES_SORT_ORDER = Attendees.ATTENDEE_NAME + " ASC, "
-            + Attendees.ATTENDEE_EMAIL + " ASC";
-
-    private static final String[] EVENT_PROJECTION = new String[] {
-        Calendars.OWNER_ACCOUNT, // 0
-        Calendars.ACCOUNT_NAME,  // 1
-        Events.TITLE,            // 2
-        Events.ORGANIZER,        // 3
-    };
-    private static final int EVENT_INDEX_OWNER_ACCOUNT = 0;
-    private static final int EVENT_INDEX_ACCOUNT_NAME = 1;
-    private static final int EVENT_INDEX_TITLE = 2;
-    private static final int EVENT_INDEX_ORGANIZER = 3;
-
     private static Cursor getEventCursor(Context context, long eventId) {
         return context.getContentResolver().query(
                 ContentUris.withAppendedId(Events.CONTENT_URI, eventId), EVENT_PROJECTION,
@@ -888,5 +802,85 @@ public class AlertReceiver extends BroadcastReceiver {
 
         // No tel link was found, so return null;
         return null;
+    }
+
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        if (AlertService.DEBUG) {
+            Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
+        }
+        if (DELETE_ALL_ACTION.equals(intent.getAction())) {
+
+            // The user has dismissed a digest notification.
+            // TODO Grab a wake lock here?
+            Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
+            context.startService(serviceIntent);
+        } else if (MAP_ACTION.equals(intent.getAction())) {
+            // Try starting the map action.
+            // If no map location is found (something changed since the notification was originally
+            // fired), update the notifications to express this change.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                URLSpan[] urlSpans = getURLSpans(context, eventId);
+                Intent geoIntent = createMapActivityIntent(context, urlSpans);
+                if (geoIntent != null) {
+                    // Location was successfully found, so dismiss the shade and start maps.
+                    context.startActivity(geoIntent);
+                    closeNotificationShade(context);
+                } else {
+                    // No location was found, so update all notifications.
+                    // Our alert service does not currently allow us to specify only one
+                    // specific notification to refresh.
+                    AlertService.updateAlertNotification(context);
+                }
+            }
+        } else if (CALL_ACTION.equals(intent.getAction())) {
+            // Try starting the call action.
+            // If no call location is found (something changed since the notification was originally
+            // fired), update the notifications to express this change.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                URLSpan[] urlSpans = getURLSpans(context, eventId);
+                Intent callIntent = createCallActivityIntent(context, urlSpans);
+                if (callIntent != null) {
+                    // Call location was successfully found, so dismiss the shade and start dialer.
+                    context.startActivity(callIntent);
+                    closeNotificationShade(context);
+                } else {
+                    // No call location was found, so update all notifications.
+                    // Our alert service does not currently allow us to specify only one
+                    // specific notification to refresh.
+                    AlertService.updateAlertNotification(context);
+                }
+            }
+        } else if (MAIL_ACTION.equals(intent.getAction())) {
+            closeNotificationShade(context);
+
+            // Now start the email intent.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                Intent i = new Intent(context, QuickResponseActivity.class);
+                i.putExtra(QuickResponseActivity.EXTRA_EVENT_ID, eventId);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            }
+        } else {
+            Intent i = new Intent();
+            i.setClass(context, AlertService.class);
+            i.putExtras(intent);
+            i.putExtra("action", intent.getAction());
+            Uri uri = intent.getData();
+
+            // This intent might be a BOOT_COMPLETED so it might not have a Uri.
+            if (uri != null) {
+                i.putExtra("uri", uri.toString());
+            }
+            beginStartingService(context, i);
+        }
+    }
+
+    private void closeNotificationShade(Context context) {
+        Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        context.sendBroadcast(closeNotificationShadeIntent);
     }
 }

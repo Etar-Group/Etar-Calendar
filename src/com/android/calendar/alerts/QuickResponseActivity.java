@@ -26,10 +26,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import java.util.Arrays;
+
+import ws.xsoh.etar.R;
 
 /**
  * Activity which displays when the user wants to email guests from notifications.
@@ -39,11 +40,10 @@ import java.util.Arrays;
  *
  */
 public class QuickResponseActivity extends ListActivity implements OnItemClickListener {
-    private static final String TAG = "QuickResponseActivity";
     public static final String EXTRA_EVENT_ID = "eventId";
-
-    private String[] mResponses = null;
+    private static final String TAG = "QuickResponseActivity";
     static long mEventId;
+    private String[] mResponses = null;
 
     @Override
     protected void onCreate(Bundle icicle) {

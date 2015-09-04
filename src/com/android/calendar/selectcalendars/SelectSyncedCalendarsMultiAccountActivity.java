@@ -28,8 +28,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
+
+import ws.xsoh.etar.R;
 
 public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListActivity
     implements View.OnClickListener {
@@ -37,9 +38,6 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     private static final String TAG = "Calendar";
     private static final String EXPANDED_KEY = "is_expanded";
     private static final String ACCOUNT_UNIQUE_KEY = "ACCOUNT_KEY";
-    private MatrixCursor mAccountsCursor = null;
-    private ExpandableListView mList;
-    private SelectSyncedCalendarsMultiAccountAdapter mAdapter;
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
         Calendars.ACCOUNT_TYPE,
@@ -47,6 +45,9 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
         Calendars.ACCOUNT_TYPE + " || " + Calendars.ACCOUNT_NAME + " AS " +
                 ACCOUNT_UNIQUE_KEY,
     };
+    private MatrixCursor mAccountsCursor = null;
+    private ExpandableListView mList;
+    private SelectSyncedCalendarsMultiAccountAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle icicle) {

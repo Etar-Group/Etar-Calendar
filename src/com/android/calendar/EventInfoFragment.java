@@ -16,13 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -116,6 +109,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import ws.xsoh.etar.R;
+
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
+
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener,
         OnColorSelectedListener {
@@ -124,9 +124,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     public static final String TAG = "EventInfoFragment";
     public static final String COLOR_PICKER_DIALOG_TAG = "EventColorPickerDialog";
-
-    private static final int REQUEST_CODE_COLOR_PICKER = 0;
-
+    // Style of view
+    public static final int FULL_WINDOW_STYLE = 0;
+    public static final int DIALOG_WINDOW_STYLE = 1;
+    public static final int COLORS_INDEX_COLOR = 1;
+    public static final int COLORS_INDEX_COLOR_KEY = 2;
     protected static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     protected static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
     protected static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
@@ -148,25 +150,38 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_RESPONSE_WHICH_EVENTS = "key_response_which_events";
     protected static final String BUNDLE_KEY_REMINDER_MINUTES = "key_reminder_minutes";
     protected static final String BUNDLE_KEY_REMINDER_METHODS = "key_reminder_methods";
-
-
-    private static final String PERIOD_SPACE = ". ";
-
-    private static final String NO_EVENT_COLOR = "";
-
     /**
      * These are the corresponding indices into the array of strings
      * "R.array.change_response_labels" in the resource file.
      */
     static final int UPDATE_SINGLE = 0;
     static final int UPDATE_ALL = 1;
-
-    // Style of view
-    public static final int FULL_WINDOW_STYLE = 0;
-    public static final int DIALOG_WINDOW_STYLE = 1;
-
-    private int mWindowStyle = DIALOG_WINDOW_STYLE;
-
+    static final String[] CALENDARS_PROJECTION = new String[]{
+            Calendars._ID,           // 0
+            Calendars.CALENDAR_DISPLAY_NAME,  // 1
+            Calendars.OWNER_ACCOUNT, // 2
+            Calendars.CAN_ORGANIZER_RESPOND, // 3
+            Calendars.ACCOUNT_NAME, // 4
+            Calendars.ACCOUNT_TYPE  // 5
+    };
+    static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
+    static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
+    static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
+    static final int CALENDARS_INDEX_ACCOUNT_NAME = 4;
+    static final int CALENDARS_INDEX_ACCOUNT_TYPE = 5;
+    static final String CALENDARS_WHERE = Calendars._ID + "=?";
+    static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
+    static final String CALENDARS_VISIBLE_WHERE = Calendars.VISIBLE + "=?";
+    static final String[] COLORS_PROJECTION = new String[]{
+            Colors._ID, // 0
+            Colors.COLOR, // 1
+            Colors.COLOR_KEY // 2
+    };
+    static final String COLORS_WHERE = Colors.ACCOUNT_NAME + "=? AND " + Colors.ACCOUNT_TYPE +
+            "=? AND " + Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT;
+    private static final int REQUEST_CODE_COLOR_PICKER = 0;
+    private static final String PERIOD_SPACE = ". ";
+    private static final String NO_EVENT_COLOR = "";
     // Query tokens for QueryHandler
     private static final int TOKEN_QUERY_EVENT = 1 << 0;
     private static final int TOKEN_QUERY_CALENDARS = 1 << 1;
@@ -175,13 +190,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int TOKEN_QUERY_REMINDERS = 1 << 4;
     private static final int TOKEN_QUERY_VISIBLE_CALENDARS = 1 << 5;
     private static final int TOKEN_QUERY_COLORS = 1 << 6;
-
     private static final int TOKEN_QUERY_ALL = TOKEN_QUERY_DUPLICATE_CALENDARS
             | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT
             | TOKEN_QUERY_REMINDERS | TOKEN_QUERY_VISIBLE_CALENDARS | TOKEN_QUERY_COLORS;
-
-    private int mCurrentQuery = 0;
-
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,                  // 0  do not remove; used in DeleteEventHelper
         Events.TITLE,                // 1  do not remove; used in DeleteEventHelper
@@ -229,7 +240,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_CUSTOM_APP_URI = 19;
     private static final int EVENT_INDEX_DTEND = 20;
     private static final int EVENT_INDEX_DURATION = 21;
-
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
         Attendees.ATTENDEE_NAME,            // 1
@@ -246,6 +256,26 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int ATTENDEES_INDEX_STATUS = 4;
     private static final int ATTENDEES_INDEX_IDENTITY = 5;
     private static final int ATTENDEES_INDEX_ID_NAMESPACE = 6;
+    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
+    private static final String ATTENDEES_SORT_ORDER = Attendees.ATTENDEE_NAME + " ASC, "
+            + Attendees.ATTENDEE_EMAIL + " ASC";
+    private static final String[] REMINDERS_PROJECTION = new String[] {
+        Reminders._ID,                      // 0
+        Reminders.MINUTES,            // 1
+        Reminders.METHOD           // 2
+    };
+    private static final int REMINDERS_INDEX_ID = 0;
+    private static final int REMINDERS_MINUTES_ID = 1;
+    private static final int REMINDERS_METHOD_ID = 2;
+    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=?";
+    private static final int FADE_IN_TIME = 300;   // in milliseconds
+    private static final int LOADING_MSG_DELAY = 600;   // in milliseconds
+    private static final int LOADING_MSG_MIN_DISPLAY_TIME = 600;
+    private static float mScale = 0; // Used for supporting different screen densities
+    private static int mCustomAppIconSize = 32;
+    private static int mDialogWidth = 500;
+    private static int mDialogHeight = 600;
+    private static int DIALOG_TOP_MARGIN = 8;
 
     static {
         if (!Utils.isJellybeanOrLater()) {
@@ -257,69 +287,28 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
-    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
-
-    private static final String ATTENDEES_SORT_ORDER = Attendees.ATTENDEE_NAME + " ASC, "
-            + Attendees.ATTENDEE_EMAIL + " ASC";
-
-    private static final String[] REMINDERS_PROJECTION = new String[] {
-        Reminders._ID,                      // 0
-        Reminders.MINUTES,            // 1
-        Reminders.METHOD           // 2
-    };
-    private static final int REMINDERS_INDEX_ID = 0;
-    private static final int REMINDERS_MINUTES_ID = 1;
-    private static final int REMINDERS_METHOD_ID = 2;
-
-    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=?";
-
-    static final String[] CALENDARS_PROJECTION = new String[] {
-        Calendars._ID,           // 0
-        Calendars.CALENDAR_DISPLAY_NAME,  // 1
-        Calendars.OWNER_ACCOUNT, // 2
-        Calendars.CAN_ORGANIZER_RESPOND, // 3
-        Calendars.ACCOUNT_NAME, // 4
-        Calendars.ACCOUNT_TYPE  // 5
-    };
-    static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
-    static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
-    static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
-    static final int CALENDARS_INDEX_ACCOUNT_NAME = 4;
-    static final int CALENDARS_INDEX_ACCOUNT_TYPE = 5;
-
-    static final String CALENDARS_WHERE = Calendars._ID + "=?";
-    static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
-    static final String CALENDARS_VISIBLE_WHERE = Calendars.VISIBLE + "=?";
-
-    static final String[] COLORS_PROJECTION = new String[] {
-        Colors._ID, // 0
-        Colors.COLOR, // 1
-        Colors.COLOR_KEY // 2
-    };
-
-    static final String COLORS_WHERE = Colors.ACCOUNT_NAME + "=? AND " + Colors.ACCOUNT_TYPE +
-        "=? AND " + Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT;
-
-    public static final int COLORS_INDEX_COLOR = 1;
-    public static final int COLORS_INDEX_COLOR_KEY = 2;
-
+    private final ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
+    public ArrayList<ReminderEntry> mReminders;
+    public ArrayList<ReminderEntry> mOriginalReminders = new ArrayList<ReminderEntry>();
+    public ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
+    ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
+    ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
+    ArrayList<Attendee> mTentativeAttendees = new ArrayList<Attendee>();
+    ArrayList<Attendee> mNoResponseAttendees = new ArrayList<Attendee>();
+    ArrayList<String> mToEmails = new ArrayList<String>();
+    ArrayList<String> mCcEmails = new ArrayList<String>();
+    private int mWindowStyle = DIALOG_WINDOW_STYLE;
+    private int mCurrentQuery = 0;
     private View mView;
-
     private Uri mUri;
     private long mEventId;
     private Cursor mEventCursor;
     private Cursor mAttendeesCursor;
     private Cursor mCalendarsCursor;
     private Cursor mRemindersCursor;
-
-    private static float mScale = 0; // Used for supporting different screen densities
-
-    private static int mCustomAppIconSize = 32;
-
     private long mStartMillis;
     private long mEndMillis;
     private boolean mAllDay;
-
     private boolean mHasAttendeeData;
     private String mEventOrganizerEmail;
     private String mEventOrganizerDisplayName = "";
@@ -335,7 +324,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private EditResponseHelper mEditResponseHelper;
     private boolean mDeleteDialogVisible = false;
     private DeleteEventHelper mDeleteHelper;
-
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = Attendees.ATTENDEE_STATUS_NONE;
     private int mUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
@@ -349,7 +337,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private String mCalendarAllowedReminders;
     // Used to prevent saving changes in event if it is being deleted.
     private boolean mEventDeletionStarted = false;
-
     private TextView mTitle;
     private TextView mWhenDateTime;
     private TextView mWhere;
@@ -362,63 +349,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private View mLoadingMsgView;
     private ObjectAnimator mAnimateAlpha;
     private long mLoadingMsgStartTime;
-
-    private EventColorPickerDialog mColorPickerDialog;
-    private SparseIntArray mDisplayColorKeyMap = new SparseIntArray();
-    private int[] mColors;
-    private int mOriginalColor = -1;
-    private boolean mOriginalColorInitialized = false;
-    private int mCalendarColor = -1;
-    private boolean mCalendarColorInitialized = false;
-    private int mCurrentColor = -1;
-    private boolean mCurrentColorInitialized = false;
-    private int mCurrentColorKey = -1;
-
-    private static final int FADE_IN_TIME = 300;   // in milliseconds
-    private static final int LOADING_MSG_DELAY = 600;   // in milliseconds
-    private static final int LOADING_MSG_MIN_DISPLAY_TIME = 600;
-    private boolean mNoCrossFade = false;  // Used to prevent repeated cross-fade
-    private RadioGroup mResponseRadioGroup;
-
-    ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
-    ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
-    ArrayList<Attendee> mTentativeAttendees = new ArrayList<Attendee>();
-    ArrayList<Attendee> mNoResponseAttendees = new ArrayList<Attendee>();
-    ArrayList<String> mToEmails = new ArrayList<String>();
-    ArrayList<String> mCcEmails = new ArrayList<String>();
-
-    private int mDefaultReminderMinutes;
-    private final ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
-    public ArrayList<ReminderEntry> mReminders;
-    public ArrayList<ReminderEntry> mOriginalReminders = new ArrayList<ReminderEntry>();
-    public ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
-    private boolean mUserModifiedReminders = false;
-
-    /**
-     * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
-     * with any additional values that were already associated with the event.
-     */
-    private ArrayList<Integer> mReminderMinuteValues;
-    private ArrayList<String> mReminderMinuteLabels;
-
-    /**
-     * Contents of the "methods" spinner.  The "values" list specifies the method constant
-     * (e.g. {@link Reminders#METHOD_ALERT}) associated with the labels.  Any methods that
-     * aren't allowed by the Calendar will be removed.
-     */
-    private ArrayList<Integer> mReminderMethodValues;
-    private ArrayList<String> mReminderMethodLabels;
-
-    private QueryHandler mHandler;
-
-
-    private final Runnable mTZUpdater = new Runnable() {
-        @Override
-        public void run() {
-            updateEvent(mView);
-        }
-    };
-
     private final Runnable mLoadingMsgAlphaUpdater = new Runnable() {
         @Override
         public void run() {
@@ -430,218 +360,63 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         }
     };
-
+    private EventColorPickerDialog mColorPickerDialog;
+    private SparseIntArray mDisplayColorKeyMap = new SparseIntArray();
+    private int[] mColors;
+    private int mOriginalColor = -1;
+    private boolean mOriginalColorInitialized = false;
+    private int mCalendarColor = -1;
+    private boolean mCalendarColorInitialized = false;
+    private int mCurrentColor = -1;
+    private boolean mCurrentColorInitialized = false;
+    private int mCurrentColorKey = -1;
+    private boolean mNoCrossFade = false;  // Used to prevent repeated cross-fade
+    private RadioGroup mResponseRadioGroup;
+    private int mDefaultReminderMinutes;
+    private boolean mUserModifiedReminders = false;
+    /**
+     * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
+     * with any additional values that were already associated with the event.
+     */
+    private ArrayList<Integer> mReminderMinuteValues;
+    private ArrayList<String> mReminderMinuteLabels;
+    /**
+     * Contents of the "methods" spinner.  The "values" list specifies the method constant
+     * (e.g. {@link Reminders#METHOD_ALERT}) associated with the labels.  Any methods that
+     * aren't allowed by the Calendar will be removed.
+     */
+    private ArrayList<Integer> mReminderMethodValues;
+    private ArrayList<String> mReminderMethodLabels;
+    private QueryHandler mHandler;
     private OnItemSelectedListener mReminderChangeListener;
-
-    private static int mDialogWidth = 500;
-    private static int mDialogHeight = 600;
-    private static int DIALOG_TOP_MARGIN = 8;
     private boolean mIsDialog = false;
     private boolean mIsPaused = true;
     private boolean mDismissOnResume = false;
+    private final Runnable onDeleteRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (EventInfoFragment.this.mIsPaused) {
+                mDismissOnResume = true;
+                return;
+            }
+            if (EventInfoFragment.this.isVisible()) {
+                EventInfoFragment.this.dismiss();
+            }
+        }
+    };
     private int mX = -1;
     private int mY = -1;
     private int mMinTop;         // Dialog cannot be above this location
     private boolean mIsTabletConfig;
     private Activity mActivity;
     private Context mContext;
-
-    private CalendarController mController;
-
-    private class QueryHandler extends AsyncQueryService {
-        public QueryHandler(Context context) {
-            super(context);
-        }
-
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
-        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            // if the activity is finishing, then close the cursor and return
-            final Activity activity = getActivity();
-            if (activity == null || activity.isFinishing()) {
-                if (cursor != null) {
-                    cursor.close();
-                }
-                return;
-            }
-
-            switch (token) {
-            case TOKEN_QUERY_EVENT:
-                mEventCursor = Utils.matrixCursorFromCursor(cursor);
-                if (initEventCursor()) {
-                    // The cursor is empty. This can happen if the event was
-                    // deleted.
-                    // FRAG_TODO we should no longer rely on Activity.finish()
-                    activity.finish();
-                    return;
-                }
-                if (!mCalendarColorInitialized) {
-                    mCalendarColor = Utils.getDisplayColorFromColor(
-                            mEventCursor.getInt(EVENT_INDEX_CALENDAR_COLOR));
-                    mCalendarColorInitialized = true;
-                }
-
-                if (!mOriginalColorInitialized) {
-                    mOriginalColor = mEventCursor.isNull(EVENT_INDEX_EVENT_COLOR)
-                            ? mCalendarColor : Utils.getDisplayColorFromColor(
-                                    mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
-                    mOriginalColorInitialized = true;
-                }
-
-                if (!mCurrentColorInitialized) {
-                    mCurrentColor = mOriginalColor;
-                    mCurrentColorInitialized = true;
-                }
-
-                updateEvent(mView);
-                prepareReminders();
-
-                // start calendar query
-                Uri uri = Calendars.CONTENT_URI;
-                String[] args = new String[] {
-                        Long.toString(mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID))};
-                startQuery(TOKEN_QUERY_CALENDARS, null, uri, CALENDARS_PROJECTION,
-                        CALENDARS_WHERE, args, null);
-                break;
-            case TOKEN_QUERY_CALENDARS:
-                mCalendarsCursor = Utils.matrixCursorFromCursor(cursor);
-                updateCalendar(mView);
-                // FRAG_TODO fragments shouldn't set the title anymore
-                updateTitle();
-
-                args = new String[] {
-                        mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_NAME),
-                        mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE) };
-                uri = Colors.CONTENT_URI;
-                startQuery(TOKEN_QUERY_COLORS, null, uri, COLORS_PROJECTION, COLORS_WHERE, args,
-                        null);
-
-                if (!mIsBusyFreeCalendar) {
-                    args = new String[] { Long.toString(mEventId) };
-
-                    // start attendees query
-                    uri = Attendees.CONTENT_URI;
-                    startQuery(TOKEN_QUERY_ATTENDEES, null, uri, ATTENDEES_PROJECTION,
-                            ATTENDEES_WHERE, args, ATTENDEES_SORT_ORDER);
-                } else {
-                    sendAccessibilityEventIfQueryDone(TOKEN_QUERY_ATTENDEES);
-                }
-                if (mHasAlarm) {
-                    // start reminders query
-                    args = new String[] { Long.toString(mEventId) };
-                    uri = Reminders.CONTENT_URI;
-                    startQuery(TOKEN_QUERY_REMINDERS, null, uri,
-                            REMINDERS_PROJECTION, REMINDERS_WHERE, args, null);
-                } else {
-                    sendAccessibilityEventIfQueryDone(TOKEN_QUERY_REMINDERS);
-                }
-                break;
-            case TOKEN_QUERY_COLORS:
-                ArrayList<Integer> colors = new ArrayList<Integer>();
-                if (cursor.moveToFirst()) {
-                    do
-                    {
-                        int colorKey = cursor.getInt(COLORS_INDEX_COLOR_KEY);
-                        int rawColor = cursor.getInt(COLORS_INDEX_COLOR);
-                        int displayColor = Utils.getDisplayColorFromColor(rawColor);
-                        mDisplayColorKeyMap.put(displayColor, colorKey);
-                        colors.add(displayColor);
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
-                Integer[] sortedColors = new Integer[colors.size()];
-                Arrays.sort(colors.toArray(sortedColors), new HsvColorComparator());
-                mColors = new int[sortedColors.length];
-                for (int i = 0; i < sortedColors.length; i++) {
-                    mColors[i] = sortedColors[i].intValue();
-
-                    float[] hsv = new float[3];
-                    Color.colorToHSV(mColors[i], hsv);
-                    if (DEBUG) {
-                        Log.d("Color", "H:" + hsv[0] + ",S:" + hsv[1] + ",V:" + hsv[2]);
-                    }
-                }
-                if (mCanModifyCalendar) {
-                    View button = mView.findViewById(R.id.change_color);
-                    if (button != null && mColors.length > 0) {
-                        button.setEnabled(true);
-                        button.setVisibility(View.VISIBLE);
-                    }
-                }
-                updateMenu();
-                break;
-            case TOKEN_QUERY_ATTENDEES:
-                mAttendeesCursor = Utils.matrixCursorFromCursor(cursor);
-                initAttendeesCursor(mView);
-                updateResponse(mView);
-                break;
-            case TOKEN_QUERY_REMINDERS:
-                mRemindersCursor = Utils.matrixCursorFromCursor(cursor);
-                initReminders(mView, mRemindersCursor);
-                break;
-            case TOKEN_QUERY_VISIBLE_CALENDARS:
-                if (cursor.getCount() > 1) {
-                    // Start duplicate calendars query to detect whether to add the calendar
-                    // email to the calendar owner display.
-                    String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-                    mHandler.startQuery(TOKEN_QUERY_DUPLICATE_CALENDARS, null,
-                            Calendars.CONTENT_URI, CALENDARS_PROJECTION,
-                            CALENDARS_DUPLICATE_NAME_WHERE, new String[] {displayName}, null);
-                } else {
-                    // Don't need to display the calendar owner when there is only a single
-                    // calendar.  Skip the duplicate calendars query.
-                    setVisibilityCommon(mView, R.id.calendar_container, View.GONE);
-                    mCurrentQuery |= TOKEN_QUERY_DUPLICATE_CALENDARS;
-                }
-                break;
-            case TOKEN_QUERY_DUPLICATE_CALENDARS:
-                SpannableStringBuilder sb = new SpannableStringBuilder();
-
-                // Calendar display name
-                String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-                sb.append(calendarName);
-
-                // Show email account if display name is not unique and
-                // display name != email
-                String email = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-                if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email) &&
-                        Utils.isValidEmail(email)) {
-                    sb.append(" (").append(email).append(")");
-                }
-
-                setVisibilityCommon(mView, R.id.calendar_container, View.VISIBLE);
-                setTextCommon(mView, R.id.calendar_name, sb);
-                break;
-            }
-            cursor.close();
-            sendAccessibilityEventIfQueryDone(token);
-
-            // All queries are done, show the view.
-            if (mCurrentQuery == TOKEN_QUERY_ALL) {
-                if (mLoadingMsgView.getAlpha() == 1) {
-                    // Loading message is showing, let it stay a bit more (to prevent
-                    // flashing) by adding a start delay to the event animation
-                    long timeDiff = LOADING_MSG_MIN_DISPLAY_TIME - (System.currentTimeMillis() -
-                            mLoadingMsgStartTime);
-                    if (timeDiff > 0) {
-                        mAnimateAlpha.setStartDelay(timeDiff);
-                    }
-                }
-                if (!mAnimateAlpha.isRunning() &&!mAnimateAlpha.isStarted() && !mNoCrossFade) {
-                    mAnimateAlpha.start();
-                } else {
-                    mScrollView.setAlpha(1);
-                    mLoadingMsgView.setVisibility(View.GONE);
-                }
-            }
+        public void run() {
+            updateEvent(mView);
         }
-    }
-
-    private void sendAccessibilityEventIfQueryDone(int token) {
-        mCurrentQuery |= token;
-        if (mCurrentQuery == TOKEN_QUERY_ALL) {
-            sendAccessibilityEvent();
-        }
-    }
+    };
+    private CalendarController mController;
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
             int attendeeResponse, boolean isDialog, int windowStyle,
@@ -685,6 +460,69 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         this(context, ContentUris.withAppendedId(Events.CONTENT_URI, eventId), startMillis,
                 endMillis, attendeeResponse, isDialog, windowStyle, reminders);
         mEventId = eventId;
+    }
+
+    public static int getResponseFromButtonId(int buttonId) {
+        int response;
+        if (buttonId == R.id.response_yes) {
+            response = Attendees.ATTENDEE_STATUS_ACCEPTED;
+        } else if (buttonId == R.id.response_maybe) {
+            response = Attendees.ATTENDEE_STATUS_TENTATIVE;
+        } else if (buttonId == R.id.response_no) {
+            response = Attendees.ATTENDEE_STATUS_DECLINED;
+        } else {
+            response = Attendees.ATTENDEE_STATUS_NONE;
+        }
+        return response;
+    }
+
+    public static int findButtonIdForResponse(int response) {
+        int buttonId;
+        switch (response) {
+            case Attendees.ATTENDEE_STATUS_ACCEPTED:
+                buttonId = R.id.response_yes;
+                break;
+            case Attendees.ATTENDEE_STATUS_TENTATIVE:
+                buttonId = R.id.response_maybe;
+                break;
+            case Attendees.ATTENDEE_STATUS_DECLINED:
+                buttonId = R.id.response_no;
+                break;
+            default:
+                buttonId = -1;
+        }
+        return buttonId;
+    }
+
+    /**
+     * Loads an integer array asset into a list.
+     */
+    private static ArrayList<Integer> loadIntegerArray(Resources r, int resNum) {
+        int[] vals = r.getIntArray(resNum);
+        int size = vals.length;
+        ArrayList<Integer> list = new ArrayList<Integer>(size);
+
+        for (int i = 0; i < size; i++) {
+            list.add(vals[i]);
+        }
+
+        return list;
+    }
+
+    /**
+     * Loads a String array asset into a list.
+     */
+    private static ArrayList<String> loadStringArray(Resources r, int resNum) {
+        String[] labels = r.getStringArray(resNum);
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
+        return list;
+    }
+
+    private void sendAccessibilityEventIfQueryDone(int token) {
+        mCurrentQuery |= token;
+        if (mCurrentQuery == TOKEN_QUERY_ALL) {
+            sendAccessibilityEvent();
+        }
     }
 
     @Override
@@ -1028,19 +866,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         return mView;
     }
-
-    private final Runnable onDeleteRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (EventInfoFragment.this.mIsPaused) {
-                mDismissOnResume = true;
-                return;
-            }
-            if (EventInfoFragment.this.isVisible()) {
-                EventInfoFragment.this.dismiss();
-            }
-        }
-    };
 
     private void updateTitle() {
         Resources res = getActivity().getResources();
@@ -1407,38 +1232,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mHandler.startBatch(mHandler.getNextToken(), null, CalendarContract.AUTHORITY, ops,
                 Utils.UNDO_DELAY);
    }
-
-    public static int getResponseFromButtonId(int buttonId) {
-        int response;
-        if (buttonId == R.id.response_yes) {
-            response = Attendees.ATTENDEE_STATUS_ACCEPTED;
-        } else if (buttonId == R.id.response_maybe) {
-            response = Attendees.ATTENDEE_STATUS_TENTATIVE;
-        } else if (buttonId == R.id.response_no) {
-            response = Attendees.ATTENDEE_STATUS_DECLINED;
-        } else {
-            response = Attendees.ATTENDEE_STATUS_NONE;
-        }
-        return response;
-    }
-
-    public static int findButtonIdForResponse(int response) {
-        int buttonId;
-        switch (response) {
-            case Attendees.ATTENDEE_STATUS_ACCEPTED:
-                buttonId = R.id.response_yes;
-                break;
-            case Attendees.ATTENDEE_STATUS_TENTATIVE:
-                buttonId = R.id.response_maybe;
-                break;
-            case Attendees.ATTENDEE_STATUS_DECLINED:
-                buttonId = R.id.response_no;
-                break;
-                default:
-                    buttonId = -1;
-        }
-        return buttonId;
-    }
 
     private void doEdit() {
         Context c = getActivity();
@@ -2128,7 +1921,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         EventViewUtils.updateAddReminderButton(mView, mReminderViews, mMaxReminders);
     }
 
-
     /**
      * Add a new reminder when the user hits the "add reminder" button.  We use the default
      * reminder time and method.
@@ -2182,7 +1974,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
-
     private boolean saveReminders() {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>(3);
 
@@ -2229,29 +2020,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         startActivity(i);
     }
 
-    /**
-     * Loads an integer array asset into a list.
-     */
-    private static ArrayList<Integer> loadIntegerArray(Resources r, int resNum) {
-        int[] vals = r.getIntArray(resNum);
-        int size = vals.length;
-        ArrayList<Integer> list = new ArrayList<Integer>(size);
-
-        for (int i = 0; i < size; i++) {
-            list.add(vals[i]);
-        }
-
-        return list;
-    }
-    /**
-     * Loads a String array asset into a list.
-     */
-    private static ArrayList<String> loadStringArray(Resources r, int resNum) {
-        String[] labels = r.getStringArray(resNum);
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
-        return list;
-    }
-
     @Override
     public void onDeleteStarted() {
         mEventDeletionStarted = true;
@@ -2277,9 +2045,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public long getStartMillis() {
         return mStartMillis;
     }
+
     public long getEndMillis() {
         return mEndMillis;
     }
+
     private void setDialogSize(Resources r) {
         mDialogWidth = (int)r.getDimension(R.dimen.event_info_dialog_width);
         mDialogHeight = (int)r.getDimension(R.dimen.event_info_dialog_height);
@@ -2290,5 +2060,192 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mCurrentColor = color;
         mCurrentColorKey = mDisplayColorKeyMap.get(color);
         mHeadlines.setBackgroundColor(color);
+    }
+
+    private class QueryHandler extends AsyncQueryService {
+        public QueryHandler(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            // if the activity is finishing, then close the cursor and return
+            final Activity activity = getActivity();
+            if (activity == null || activity.isFinishing()) {
+                if (cursor != null) {
+                    cursor.close();
+                }
+                return;
+            }
+
+            switch (token) {
+                case TOKEN_QUERY_EVENT:
+                    mEventCursor = Utils.matrixCursorFromCursor(cursor);
+                    if (initEventCursor()) {
+                        // The cursor is empty. This can happen if the event was
+                        // deleted.
+                        // FRAG_TODO we should no longer rely on Activity.finish()
+                        activity.finish();
+                        return;
+                    }
+                    if (!mCalendarColorInitialized) {
+                        mCalendarColor = Utils.getDisplayColorFromColor(
+                                mEventCursor.getInt(EVENT_INDEX_CALENDAR_COLOR));
+                        mCalendarColorInitialized = true;
+                    }
+
+                    if (!mOriginalColorInitialized) {
+                        mOriginalColor = mEventCursor.isNull(EVENT_INDEX_EVENT_COLOR)
+                                ? mCalendarColor : Utils.getDisplayColorFromColor(
+                                mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
+                        mOriginalColorInitialized = true;
+                    }
+
+                    if (!mCurrentColorInitialized) {
+                        mCurrentColor = mOriginalColor;
+                        mCurrentColorInitialized = true;
+                    }
+
+                    updateEvent(mView);
+                    prepareReminders();
+
+                    // start calendar query
+                    Uri uri = Calendars.CONTENT_URI;
+                    String[] args = new String[]{
+                            Long.toString(mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID))};
+                    startQuery(TOKEN_QUERY_CALENDARS, null, uri, CALENDARS_PROJECTION,
+                            CALENDARS_WHERE, args, null);
+                    break;
+                case TOKEN_QUERY_CALENDARS:
+                    mCalendarsCursor = Utils.matrixCursorFromCursor(cursor);
+                    updateCalendar(mView);
+                    // FRAG_TODO fragments shouldn't set the title anymore
+                    updateTitle();
+
+                    args = new String[]{
+                            mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_NAME),
+                            mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE)};
+                    uri = Colors.CONTENT_URI;
+                    startQuery(TOKEN_QUERY_COLORS, null, uri, COLORS_PROJECTION, COLORS_WHERE, args,
+                            null);
+
+                    if (!mIsBusyFreeCalendar) {
+                        args = new String[]{Long.toString(mEventId)};
+
+                        // start attendees query
+                        uri = Attendees.CONTENT_URI;
+                        startQuery(TOKEN_QUERY_ATTENDEES, null, uri, ATTENDEES_PROJECTION,
+                                ATTENDEES_WHERE, args, ATTENDEES_SORT_ORDER);
+                    } else {
+                        sendAccessibilityEventIfQueryDone(TOKEN_QUERY_ATTENDEES);
+                    }
+                    if (mHasAlarm) {
+                        // start reminders query
+                        args = new String[]{Long.toString(mEventId)};
+                        uri = Reminders.CONTENT_URI;
+                        startQuery(TOKEN_QUERY_REMINDERS, null, uri,
+                                REMINDERS_PROJECTION, REMINDERS_WHERE, args, null);
+                    } else {
+                        sendAccessibilityEventIfQueryDone(TOKEN_QUERY_REMINDERS);
+                    }
+                    break;
+                case TOKEN_QUERY_COLORS:
+                    ArrayList<Integer> colors = new ArrayList<Integer>();
+                    if (cursor.moveToFirst()) {
+                        do {
+                            int colorKey = cursor.getInt(COLORS_INDEX_COLOR_KEY);
+                            int rawColor = cursor.getInt(COLORS_INDEX_COLOR);
+                            int displayColor = Utils.getDisplayColorFromColor(rawColor);
+                            mDisplayColorKeyMap.put(displayColor, colorKey);
+                            colors.add(displayColor);
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+                    Integer[] sortedColors = new Integer[colors.size()];
+                    Arrays.sort(colors.toArray(sortedColors), new HsvColorComparator());
+                    mColors = new int[sortedColors.length];
+                    for (int i = 0; i < sortedColors.length; i++) {
+                        mColors[i] = sortedColors[i].intValue();
+
+                        float[] hsv = new float[3];
+                        Color.colorToHSV(mColors[i], hsv);
+                        if (DEBUG) {
+                            Log.d("Color", "H:" + hsv[0] + ",S:" + hsv[1] + ",V:" + hsv[2]);
+                        }
+                    }
+                    if (mCanModifyCalendar) {
+                        View button = mView.findViewById(R.id.change_color);
+                        if (button != null && mColors.length > 0) {
+                            button.setEnabled(true);
+                            button.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    updateMenu();
+                    break;
+                case TOKEN_QUERY_ATTENDEES:
+                    mAttendeesCursor = Utils.matrixCursorFromCursor(cursor);
+                    initAttendeesCursor(mView);
+                    updateResponse(mView);
+                    break;
+                case TOKEN_QUERY_REMINDERS:
+                    mRemindersCursor = Utils.matrixCursorFromCursor(cursor);
+                    initReminders(mView, mRemindersCursor);
+                    break;
+                case TOKEN_QUERY_VISIBLE_CALENDARS:
+                    if (cursor.getCount() > 1) {
+                        // Start duplicate calendars query to detect whether to add the calendar
+                        // email to the calendar owner display.
+                        String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                        mHandler.startQuery(TOKEN_QUERY_DUPLICATE_CALENDARS, null,
+                                Calendars.CONTENT_URI, CALENDARS_PROJECTION,
+                                CALENDARS_DUPLICATE_NAME_WHERE, new String[]{displayName}, null);
+                    } else {
+                        // Don't need to display the calendar owner when there is only a single
+                        // calendar.  Skip the duplicate calendars query.
+                        setVisibilityCommon(mView, R.id.calendar_container, View.GONE);
+                        mCurrentQuery |= TOKEN_QUERY_DUPLICATE_CALENDARS;
+                    }
+                    break;
+                case TOKEN_QUERY_DUPLICATE_CALENDARS:
+                    SpannableStringBuilder sb = new SpannableStringBuilder();
+
+                    // Calendar display name
+                    String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                    sb.append(calendarName);
+
+                    // Show email account if display name is not unique and
+                    // display name != email
+                    String email = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+                    if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email) &&
+                            Utils.isValidEmail(email)) {
+                        sb.append(" (").append(email).append(")");
+                    }
+
+                    setVisibilityCommon(mView, R.id.calendar_container, View.VISIBLE);
+                    setTextCommon(mView, R.id.calendar_name, sb);
+                    break;
+            }
+            cursor.close();
+            sendAccessibilityEventIfQueryDone(token);
+
+            // All queries are done, show the view.
+            if (mCurrentQuery == TOKEN_QUERY_ALL) {
+                if (mLoadingMsgView.getAlpha() == 1) {
+                    // Loading message is showing, let it stay a bit more (to prevent
+                    // flashing) by adding a start delay to the event animation
+                    long timeDiff = LOADING_MSG_MIN_DISPLAY_TIME - (System.currentTimeMillis() -
+                            mLoadingMsgStartTime);
+                    if (timeDiff > 0) {
+                        mAnimateAlpha.setStartDelay(timeDiff);
+                    }
+                }
+                if (!mAnimateAlpha.isRunning() && !mAnimateAlpha.isStarted() && !mNoCrossFade) {
+                    mAnimateAlpha.start();
+                } else {
+                    mScrollView.setAlpha(1);
+                    mLoadingMsgView.setVisibility(View.GONE);
+                }
+            }
+        }
     }
 }

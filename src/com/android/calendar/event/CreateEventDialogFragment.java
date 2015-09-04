@@ -44,8 +44,9 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.GeneralPreferences;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
+
+import ws.xsoh.etar.R;
 
 
 /**
@@ -82,24 +83,6 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
     private CalendarEventModel mModel;
     private long mCalendarId = -1;
     private String mCalendarOwner;
-
-    private class CalendarQueryService extends AsyncQueryService {
-
-        /**
-         * @param context
-         */
-        public CalendarQueryService(Context context) {
-            super(context);
-        }
-
-        @Override
-        public void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            setDefaultCalendarView(cursor);
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
 
     public CreateEventDialogFragment() {
         // Empty constructor required for DialogFragment.
@@ -320,6 +303,24 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         } else {
             mAccountName.setVisibility(View.VISIBLE);
             mAccountName.setText(accountName);
+        }
+    }
+
+    private class CalendarQueryService extends AsyncQueryService {
+
+        /**
+         * @param context
+         */
+        public CalendarQueryService(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            setDefaultCalendarView(cursor);
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 }

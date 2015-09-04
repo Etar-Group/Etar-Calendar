@@ -44,8 +44,6 @@ import android.view.accessibility.AccessibilityManager;
 import com.android.calendar.Event;
 import com.android.calendar.Utils;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Formatter;
@@ -53,6 +51,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+
+import ws.xsoh.etar.R;
 
 public class MonthWeekEventsView extends SimpleWeekView {
 

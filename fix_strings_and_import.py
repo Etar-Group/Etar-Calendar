@@ -15,7 +15,7 @@ def findReplace(directory, find, replace, filePattern):
 findReplace("res", r"(<string name=\"custom\" product=\"tablet\".*>).*(</string>)", r"", "strings.xml")
 
 # change import of generated R file to fix packagename
-findReplace("src", r"import com.android.calendar.R;", r"import org.sufficientlysecure.standalonecalendar.R;", "*.java")
+findReplace("src", r"import com.android.calendar.R;", r"import ws.xsoh.etar.R;", "*.java")
 
 # add R import to com.android.calendar
-findReplace("src", r"package com.android.calendar;", r"package com.android.calendar;\n\nimport org.sufficientlysecure.standalonecalendar.R;", "*.java")
+findReplace("src", r"package com.android.calendar;", r"package com.android.calendar;\n\nimport ws.xsoh.etar.R;", "*.java")

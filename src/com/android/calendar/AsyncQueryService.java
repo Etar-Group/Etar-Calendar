@@ -16,10 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import com.android.calendar.AsyncQueryServiceHelper.OperationInfo;
-
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.ContentResolver;
@@ -30,6 +26,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import com.android.calendar.AsyncQueryServiceHelper.OperationInfo;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -46,70 +44,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * application which serializes all the calls.
  */
 public class AsyncQueryService extends Handler {
-    private static final String TAG = "AsyncQuery";
     static final boolean localLOGV = false;
-
+    private static final String TAG = "AsyncQuery";
     // Used for generating unique tokens for calls to this service
     private static AtomicInteger mUniqueToken = new AtomicInteger(0);
 
     private Context mContext;
     private Handler mHandler = this; // can be overridden for testing
-
-    /**
-     * Data class which holds into info of the queued operation
-     */
-    public static class Operation {
-        static final int EVENT_ARG_QUERY = 1;
-        static final int EVENT_ARG_INSERT = 2;
-        static final int EVENT_ARG_UPDATE = 3;
-        static final int EVENT_ARG_DELETE = 4;
-        static final int EVENT_ARG_BATCH = 5;
-
-        /**
-         * unique identify for cancellation purpose
-         */
-        public int token;
-
-        /**
-         * One of the EVENT_ARG_ constants in the class describing the operation
-         */
-        public int op;
-
-        /**
-         * {@link SystemClock.elapsedRealtime()} based
-         */
-        public long scheduledExecutionTime;
-
-        protected static char opToChar(int op) {
-            switch (op) {
-                case Operation.EVENT_ARG_QUERY:
-                    return 'Q';
-                case Operation.EVENT_ARG_INSERT:
-                    return 'I';
-                case Operation.EVENT_ARG_UPDATE:
-                    return 'U';
-                case Operation.EVENT_ARG_DELETE:
-                    return 'D';
-                case Operation.EVENT_ARG_BATCH:
-                    return 'B';
-                default:
-                    return '?';
-            }
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("Operation [op=");
-            builder.append(op);
-            builder.append(", token=");
-            builder.append(token);
-            builder.append(", scheduledExecutionTime=");
-            builder.append(scheduledExecutionTime);
-            builder.append("]");
-            return builder.toString();
-        }
-    }
 
     public AsyncQueryService(Context context) {
         mContext = context;
@@ -435,5 +376,61 @@ public class AsyncQueryService extends Handler {
 //    @VisibleForTesting
     protected void setTestHandler(Handler handler) {
         mHandler = handler;
+    }
+
+    /**
+     * Data class which holds into info of the queued operation
+     */
+    public static class Operation {
+        static final int EVENT_ARG_QUERY = 1;
+        static final int EVENT_ARG_INSERT = 2;
+        static final int EVENT_ARG_UPDATE = 3;
+        static final int EVENT_ARG_DELETE = 4;
+        static final int EVENT_ARG_BATCH = 5;
+
+        /**
+         * unique identify for cancellation purpose
+         */
+        public int token;
+
+        /**
+         * One of the EVENT_ARG_ constants in the class describing the operation
+         */
+        public int op;
+
+        /**
+         * {@link SystemClock.elapsedRealtime()} based
+         */
+        public long scheduledExecutionTime;
+
+        protected static char opToChar(int op) {
+            switch (op) {
+                case Operation.EVENT_ARG_QUERY:
+                    return 'Q';
+                case Operation.EVENT_ARG_INSERT:
+                    return 'I';
+                case Operation.EVENT_ARG_UPDATE:
+                    return 'U';
+                case Operation.EVENT_ARG_DELETE:
+                    return 'D';
+                case Operation.EVENT_ARG_BATCH:
+                    return 'B';
+                default:
+                    return '?';
+            }
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("Operation [op=");
+            builder.append(op);
+            builder.append(", token=");
+            builder.append(token);
+            builder.append(", scheduledExecutionTime=");
+            builder.append(scheduledExecutionTime);
+            builder.append("]");
+            return builder.toString();
+        }
     }
 }

@@ -36,53 +36,37 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.CalendarColorPickerDialog;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
 
 import java.util.HashMap;
 
+import ws.xsoh.etar.R;
+
 public class SelectCalendarsSyncAdapter extends BaseAdapter
         implements ListAdapter, AdapterView.OnItemClickListener, OnCalendarColorsLoadedListener {
     private static final String TAG = "SelCalsAdapter";
     private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
-
+    private static final int LAYOUT = R.layout.calendar_sync_item;
     private static int COLOR_CHIP_SIZE = 30;
+    private final String mSyncedString;
+    private final String mNotSyncedString;
     private RectShape r = new RectShape();
-
     private CalendarColorPickerDialog mColorPickerDialog;
     private CalendarColorCache mCache;
-
     private LayoutInflater mInflater;
-    private static final int LAYOUT = R.layout.calendar_sync_item;
     private CalendarRow[] mData;
     private HashMap<Long, CalendarRow> mChanges = new HashMap<Long, CalendarRow>();
     private int mRowCount = 0;
-
     private int mIdColumn;
     private int mNameColumn;
     private int mColorColumn;
     private int mSyncedColumn;
     private int mAccountNameColumn;
     private int mAccountTypeColumn;
-
     private boolean mIsTablet;
     private FragmentManager mFragmentManager;
     private int mColorViewTouchAreaIncrease;
-
-
-    private final String mSyncedString;
-    private final String mNotSyncedString;
-
-    public class CalendarRow {
-        long id;
-        String displayName;
-        int color;
-        boolean synced;
-        boolean originalSynced;
-        String accountName;
-        String accountType;
-    }
 
     public SelectCalendarsSyncAdapter(Context context, Cursor c, FragmentManager manager) {
         super();
@@ -100,6 +84,14 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         Resources res = context.getResources();
         mSyncedString = res.getString(R.string.synced);
         mNotSyncedString = res.getString(R.string.not_synced);
+    }
+
+    private static void setText(View view, int id, String text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        TextView textView = (TextView) view.findViewById(id);
+        textView.setText(text);
     }
 
     private void initData(Cursor c) {
@@ -217,14 +209,6 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         return mCache.hasColors(mData[position].accountName, mData[position].accountType);
     }
 
-    private static void setText(View view, int id, String text) {
-        if (TextUtils.isEmpty(text)) {
-            return;
-        }
-        TextView textView = (TextView) view.findViewById(id);
-        textView.setText(text);
-    }
-
     @Override
     public int getCount() {
         return mRowCount;
@@ -284,5 +268,15 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     @Override
     public void onCalendarColorsLoaded() {
         notifyDataSetChanged();
+    }
+
+    public class CalendarRow {
+        long id;
+        String displayName;
+        int color;
+        boolean synced;
+        boolean originalSynced;
+        String accountName;
+        String accountType;
     }
 }

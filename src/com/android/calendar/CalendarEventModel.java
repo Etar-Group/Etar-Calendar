@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,180 +44,25 @@ import java.util.TimeZone;
  */
 public class CalendarEventModel implements Serializable {
     private static final String TAG = "CalendarEventModel";
-
-    public static class Attendee implements Serializable {
-        @Override
-        public int hashCode() {
-            return (mEmail == null) ? 0 : mEmail.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (!(obj instanceof Attendee)) {
-                return false;
-            }
-            Attendee other = (Attendee) obj;
-            if (!TextUtils.equals(mEmail, other.mEmail)) {
-                return false;
-            }
-            return true;
-        }
-
-        String getDisplayName() {
-            if (TextUtils.isEmpty(mName)) {
-                return mEmail;
-            } else {
-                return mName;
-            }
-        }
-
-        public String mName;
-        public String mEmail;
-        public int mStatus;
-        public String mIdentity;
-        public String mIdNamespace;
-
-        public Attendee(String name, String email) {
-            this(name, email, Attendees.ATTENDEE_STATUS_NONE, null, null);
-        }
-        public Attendee(String name, String email, int status, String identity,
-                String idNamespace) {
-            mName = name;
-            mEmail = email;
-            mStatus = status;
-            mIdentity = identity;
-            mIdNamespace = idNamespace;
-        }
-    }
-
-    /**
-     * A single reminder entry.
-     *
-     * Instances of the class are immutable.
-     */
-    public static class ReminderEntry implements Comparable<ReminderEntry>, Serializable {
-        private final int mMinutes;
-        private final int mMethod;
-
-        /**
-         * Returns a new ReminderEntry, with the specified minutes and method.
-         *
-         * @param minutes Number of minutes before the start of the event that the alert will fire.
-         * @param method Type of alert ({@link Reminders#METHOD_ALERT}, etc).
-         */
-        public static ReminderEntry valueOf(int minutes, int method) {
-            // TODO: cache common instances
-            return new ReminderEntry(minutes, method);
-        }
-
-        /**
-         * Returns a ReminderEntry, with the specified number of minutes and a default alert method.
-         *
-         * @param minutes Number of minutes before the start of the event that the alert will fire.
-         */
-        public static ReminderEntry valueOf(int minutes) {
-            return valueOf(minutes, Reminders.METHOD_DEFAULT);
-        }
-
-        /**
-         * Constructs a new ReminderEntry.
-         *
-         * @param minutes Number of minutes before the start of the event that the alert will fire.
-         * @param method Type of alert ({@link Reminders#METHOD_ALERT}, etc).
-         */
-        private ReminderEntry(int minutes, int method) {
-            // TODO: error-check args
-            mMinutes = minutes;
-            mMethod = method;
-        }
-
-        @Override
-        public int hashCode() {
-            return mMinutes * 10 + mMethod;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (!(obj instanceof ReminderEntry)) {
-                return false;
-            }
-
-            ReminderEntry re = (ReminderEntry) obj;
-
-            if (re.mMinutes != mMinutes) {
-                return false;
-            }
-
-            // Treat ALERT and DEFAULT as equivalent.  This is useful during the "has anything
-            // "changed" test, so that if DEFAULT is present, but we don't change anything,
-            // the internal conversion of DEFAULT to ALERT doesn't force a database update.
-            return re.mMethod == mMethod ||
-                (re.mMethod == Reminders.METHOD_DEFAULT && mMethod == Reminders.METHOD_ALERT) ||
-                (re.mMethod == Reminders.METHOD_ALERT && mMethod == Reminders.METHOD_DEFAULT);
-        }
-
-        @Override
-        public String toString() {
-            return "ReminderEntry min=" + mMinutes + " meth=" + mMethod;
-        }
-
-        /**
-         * Comparison function for a sort ordered primarily descending by minutes,
-         * secondarily ascending by method type.
-         */
-        @Override
-        public int compareTo(ReminderEntry re) {
-            if (re.mMinutes != mMinutes) {
-                return re.mMinutes - mMinutes;
-            }
-            if (re.mMethod != mMethod) {
-                return mMethod - re.mMethod;
-            }
-            return 0;
-        }
-
-        /** Returns the minutes. */
-        public int getMinutes() {
-            return mMinutes;
-        }
-
-        /** Returns the alert method. */
-        public int getMethod() {
-            return mMethod;
-        }
-    }
-
-    // TODO strip out fields that don't ever get used
     /**
      * The uri of the event in the db. This should only be null for new events.
      */
     public String mUri = null;
     public long mId = -1;
+
+    // TODO strip out fields that don't ever get used
     public long mCalendarId = -1;
     public String mCalendarDisplayName = ""; // Make sure this is in sync with the mCalendarId
-    private int mCalendarColor = -1;
-    private boolean mCalendarColorInitialized = false;
     public String mCalendarAccountName;
     public String mCalendarAccountType;
     public int mCalendarMaxReminders;
     public String mCalendarAllowedReminders;
     public String mCalendarAllowedAttendeeTypes;
     public String mCalendarAllowedAvailability;
-
     public String mSyncId = null;
     public String mSyncAccount = null;
     public String mSyncAccountType = null;
-
     public EventColorCache mEventColorCache;
-    private int mEventColor = -1;
-    private boolean mEventColorInitialized = false;
-
     // PROVIDER_NOTES owner account comes from the calendars table
     public String mOwnerAccount = null;
     public String mTitle = null;
@@ -233,12 +76,10 @@ public class CalendarEventModel implements Serializable {
      */
     public boolean mIsOrganizer = true;
     public boolean mIsFirstEventInSeries = true;
-
     // This should be set the same as mStart when created and is used for making changes to
     // recurring events. It should not be updated after it is initially set.
     public long mOriginalStart = -1;
     public long mStart = -1;
-
     // This should be set the same as mEnd when created and is used for making changes to
     // recurring events. It should not be updated after it is initially set.
     public long mOriginalEnd = -1;
@@ -249,7 +90,6 @@ public class CalendarEventModel implements Serializable {
     public boolean mAllDay = false;
     public boolean mHasAlarm = false;
     public int mAvailability = Events.AVAILABILITY_BUSY;
-
     // PROVIDER_NOTES How does an event not have attendee data? The owner is added
     // as an attendee by default.
     public boolean mHasAttendeeData = true;
@@ -262,24 +102,22 @@ public class CalendarEventModel implements Serializable {
     public boolean mGuestsCanModify = false;
     public boolean mGuestsCanInviteOthers = false;
     public boolean mGuestsCanSeeGuests = false;
-
     public boolean mOrganizerCanRespond = false;
     public int mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
-
     public int mEventStatus = Events.STATUS_CONFIRMED;
-
     // The model can't be updated with a calendar cursor until it has been
     // updated with an event cursor.
     public boolean mModelUpdatedWithEventCursor;
-
     public int mAccessLevel = 0;
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mDefaultReminders;
-
     // PROVIDER_NOTES Using EditEventHelper the owner should not be included in this
     // list and will instead be added by saveEvent. Is this what we want?
     public LinkedHashMap<String, Attendee> mAttendeesList;
-
+    private int mCalendarColor = -1;
+    private boolean mCalendarColorInitialized = false;
+    private int mEventColor = -1;
+    private boolean mEventColorInitialized = false;
     public CalendarEventModel() {
         mReminders = new ArrayList<ReminderEntry>();
         mDefaultReminders = new ArrayList<ReminderEntry>();
@@ -915,13 +753,13 @@ public class CalendarEventModel implements Serializable {
         return mCalendarColor;
     }
 
-    public int getEventColor() {
-        return mEventColor;
-    }
-
     public void setCalendarColor(int color) {
         mCalendarColor = color;
         mCalendarColorInitialized = true;
+    }
+
+    public int getEventColor() {
+        return mEventColor;
     }
 
     public void setEventColor(int color) {
@@ -942,5 +780,154 @@ public class CalendarEventModel implements Serializable {
                     mEventColor);
         }
         return -1;
+    }
+
+    public static class Attendee implements Serializable {
+        public String mName;
+        public String mEmail;
+        public int mStatus;
+        public String mIdentity;
+        public String mIdNamespace;
+
+        public Attendee(String name, String email) {
+            this(name, email, Attendees.ATTENDEE_STATUS_NONE, null, null);
+        }
+
+        public Attendee(String name, String email, int status, String identity,
+                        String idNamespace) {
+            mName = name;
+            mEmail = email;
+            mStatus = status;
+            mIdentity = identity;
+            mIdNamespace = idNamespace;
+        }
+
+        @Override
+        public int hashCode() {
+            return (mEmail == null) ? 0 : mEmail.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof Attendee)) {
+                return false;
+            }
+            Attendee other = (Attendee) obj;
+            if (!TextUtils.equals(mEmail, other.mEmail)) {
+                return false;
+            }
+            return true;
+        }
+
+        String getDisplayName() {
+            if (TextUtils.isEmpty(mName)) {
+                return mEmail;
+            } else {
+                return mName;
+            }
+        }
+    }
+
+    /**
+     * A single reminder entry.
+     * <p/>
+     * Instances of the class are immutable.
+     */
+    public static class ReminderEntry implements Comparable<ReminderEntry>, Serializable {
+        private final int mMinutes;
+        private final int mMethod;
+
+        /**
+         * Constructs a new ReminderEntry.
+         *
+         * @param minutes Number of minutes before the start of the event that the alert will fire.
+         * @param method Type of alert ({@link Reminders#METHOD_ALERT}, etc).
+         */
+        private ReminderEntry(int minutes, int method) {
+            // TODO: error-check args
+            mMinutes = minutes;
+            mMethod = method;
+        }
+
+        /**
+         * Returns a new ReminderEntry, with the specified minutes and method.
+         *
+         * @param minutes Number of minutes before the start of the event that the alert will fire.
+         * @param method Type of alert ({@link Reminders#METHOD_ALERT}, etc).
+         */
+        public static ReminderEntry valueOf(int minutes, int method) {
+            // TODO: cache common instances
+            return new ReminderEntry(minutes, method);
+        }
+
+        /**
+         * Returns a ReminderEntry, with the specified number of minutes and a default alert method.
+         *
+         * @param minutes Number of minutes before the start of the event that the alert will fire.
+         */
+        public static ReminderEntry valueOf(int minutes) {
+            return valueOf(minutes, Reminders.METHOD_DEFAULT);
+        }
+
+        @Override
+        public int hashCode() {
+            return mMinutes * 10 + mMethod;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof ReminderEntry)) {
+                return false;
+            }
+
+            ReminderEntry re = (ReminderEntry) obj;
+
+            if (re.mMinutes != mMinutes) {
+                return false;
+            }
+
+            // Treat ALERT and DEFAULT as equivalent.  This is useful during the "has anything
+            // "changed" test, so that if DEFAULT is present, but we don't change anything,
+            // the internal conversion of DEFAULT to ALERT doesn't force a database update.
+            return re.mMethod == mMethod ||
+                    (re.mMethod == Reminders.METHOD_DEFAULT && mMethod == Reminders.METHOD_ALERT) ||
+                    (re.mMethod == Reminders.METHOD_ALERT && mMethod == Reminders.METHOD_DEFAULT);
+        }
+
+        @Override
+        public String toString() {
+            return "ReminderEntry min=" + mMinutes + " meth=" + mMethod;
+        }
+
+        /**
+         * Comparison function for a sort ordered primarily descending by minutes,
+         * secondarily ascending by method type.
+         */
+        @Override
+        public int compareTo(ReminderEntry re) {
+            if (re.mMinutes != mMinutes) {
+                return re.mMinutes - mMinutes;
+            }
+            if (re.mMethod != mMethod) {
+                return mMethod - re.mMethod;
+            }
+            return 0;
+        }
+
+        /** Returns the minutes. */
+        public int getMinutes() {
+            return mMinutes;
+        }
+
+        /** Returns the alert method. */
+        public int getMethod() {
+            return mMethod;
+        }
     }
 }

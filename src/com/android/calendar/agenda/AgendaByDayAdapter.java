@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
 
@@ -38,29 +37,22 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
 
+import ws.xsoh.etar.R;
+
 public class AgendaByDayAdapter extends BaseAdapter {
+    static final int TYPE_LAST = 2;
     private static final int TYPE_DAY = 0;
     private static final int TYPE_MEETING = 1;
-    static final int TYPE_LAST = 2;
-
     private final Context mContext;
     private final AgendaAdapter mAgendaAdapter;
     private final LayoutInflater mInflater;
+    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
+    private final Formatter mFormatter;
+    private final StringBuilder mStringBuilder;
     private ArrayList<RowInfo> mRowInfo;
     private int mTodayJulianDay;
     private Time mTmpTime;
     private String mTimeZone;
-    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
-    private final Formatter mFormatter;
-    private final StringBuilder mStringBuilder;
-
-    static class ViewHolder {
-        TextView dayView;
-        TextView dateView;
-        int julianDay;
-        boolean grayed;
-    }
-
     private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
@@ -93,7 +85,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
         }
         return mRowInfo.get(position).mEventStartTimeMilli;
     }
-
 
     // Returns the position of a header of a specific item
     public int getHeaderPosition(int position) {
@@ -431,69 +422,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mRowInfo = rowInfo;
     }
 
-    private static class RowInfo {
-        // mType is either a day header (TYPE_DAY) or an event (TYPE_MEETING)
-        final int mType;
-
-        final int mDay;          // Julian day
-        final int mPosition;     // cursor position (not used for TYPE_DAY)
-        // This is used to mark a day header as the first day with events that is "today"
-        // or later. This flag is used by the adapter to create a view with a visual separator
-        // between the past and the present/future
-        boolean mFirstDayAfterYesterday;
-        final long mEventId;
-        final long mEventStartTimeMilli;
-        final long mEventEndTimeMilli;
-        final long mInstanceId;
-        final boolean mAllDay;
-
-        RowInfo(int type, int julianDay, int position, long id, long startTime, long endTime,
-                long instanceId, boolean allDay) {
-            mType = type;
-            mDay = julianDay;
-            mPosition = position;
-            mEventId = id;
-            mEventStartTimeMilli = startTime;
-            mEventEndTimeMilli = endTime;
-            mFirstDayAfterYesterday = false;
-            mInstanceId = instanceId;
-            mAllDay = allDay;
-        }
-
-        RowInfo(int type, int julianDay) {
-            mType = type;
-            mDay = julianDay;
-            mPosition = 0;
-            mEventId = 0;
-            mEventStartTimeMilli = 0;
-            mEventEndTimeMilli = 0;
-            mFirstDayAfterYesterday = false;
-            mInstanceId = -1;
-            mAllDay = false;
-        }
-    }
-
-    private static class MultipleDayInfo {
-        final int mPosition;
-        final int mEndDay;
-        final long mEventId;
-        long mEventStartTimeMilli;
-        long mEventEndTimeMilli;
-        final long mInstanceId;
-        final boolean mAllDay;
-
-        MultipleDayInfo(int position, int endDay, long id, long startTime, long endTime,
-                long instanceId, boolean allDay) {
-            mPosition = position;
-            mEndDay = endDay;
-            mEventId = id;
-            mEventStartTimeMilli = startTime;
-            mEventEndTimeMilli = endTime;
-            mInstanceId = instanceId;
-            mAllDay = allDay;
-        }
-    }
-
     /**
      * Finds the position in the cursor of the event that best matches the time and Id.
      * It will try to find the event that has the specified id and start time, if such event
@@ -588,7 +516,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
         return minIndex;
     }
 
-
     /**
      * Returns a flag indicating if this position is the first day after "yesterday" that has
      * events in it.
@@ -680,5 +607,75 @@ public class AgendaByDayAdapter extends BaseAdapter {
             return row.mType == TYPE_MEETING;
         }
         return true;
+    }
+
+    static class ViewHolder {
+        TextView dayView;
+        TextView dateView;
+        int julianDay;
+        boolean grayed;
+    }
+
+    private static class RowInfo {
+        // mType is either a day header (TYPE_DAY) or an event (TYPE_MEETING)
+        final int mType;
+
+        final int mDay;          // Julian day
+        final int mPosition;     // cursor position (not used for TYPE_DAY)
+        final long mEventId;
+        final long mEventStartTimeMilli;
+        final long mEventEndTimeMilli;
+        final long mInstanceId;
+        final boolean mAllDay;
+        // This is used to mark a day header as the first day with events that is "today"
+        // or later. This flag is used by the adapter to create a view with a visual separator
+        // between the past and the present/future
+        boolean mFirstDayAfterYesterday;
+
+        RowInfo(int type, int julianDay, int position, long id, long startTime, long endTime,
+                long instanceId, boolean allDay) {
+            mType = type;
+            mDay = julianDay;
+            mPosition = position;
+            mEventId = id;
+            mEventStartTimeMilli = startTime;
+            mEventEndTimeMilli = endTime;
+            mFirstDayAfterYesterday = false;
+            mInstanceId = instanceId;
+            mAllDay = allDay;
+        }
+
+        RowInfo(int type, int julianDay) {
+            mType = type;
+            mDay = julianDay;
+            mPosition = 0;
+            mEventId = 0;
+            mEventStartTimeMilli = 0;
+            mEventEndTimeMilli = 0;
+            mFirstDayAfterYesterday = false;
+            mInstanceId = -1;
+            mAllDay = false;
+        }
+    }
+
+    private static class MultipleDayInfo {
+        final int mPosition;
+        final int mEndDay;
+        final long mEventId;
+        final long mInstanceId;
+        final boolean mAllDay;
+        long mEventStartTimeMilli;
+        long mEventEndTimeMilli;
+
+        MultipleDayInfo(int position, int endDay, long id, long startTime, long endTime,
+                        long instanceId, boolean allDay) {
+            mPosition = position;
+            mEndDay = endDay;
+            mEventId = id;
+            mEventStartTimeMilli = startTime;
+            mEventEndTimeMilli = endTime;
+            mInstanceId = instanceId;
+            mAllDay = allDay;
+        }
     }
 }

@@ -16,10 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import com.android.calendar.CalendarController.ViewType;
-
 import android.content.Context;
 import android.os.Handler;
 import android.text.format.DateUtils;
@@ -30,8 +26,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.CalendarController.ViewType;
+
 import java.util.Formatter;
 import java.util.Locale;
+
+import ws.xsoh.etar.R;
 
 
 /*
@@ -43,40 +43,32 @@ import java.util.Locale;
 
 public class CalendarViewAdapter extends BaseAdapter {
 
+    public static final int DAY_BUTTON_INDEX = 0;
+    public static final int WEEK_BUTTON_INDEX = 1;
+    public static final int MONTH_BUTTON_INDEX = 2;
+    public static final int AGENDA_BUTTON_INDEX = 3;
+    static final int VIEW_TYPE_NUM = 1;  // Increase this if you add more view types
     private static final String TAG = "MenuSpinnerAdapter";
-
+    // Defines the types of view returned by this spinner
+    private static final int BUTTON_VIEW_TYPE = 0;
     private final String mButtonNames [];           // Text on buttons
-
+    private final LayoutInflater mInflater;
+    private final Context mContext;
+    private final Formatter mFormatter;
+    private final StringBuilder mStringBuilder;
+    private final boolean mShowDate;   // Spinner mode indicator (view name or view name with date)
     // Used to define the look of the menu button according to the current view:
     // Day view: show day of the week + full date underneath
     // Week view: show the month + year
     // Month view: show the month + year
     // Agenda view: show day of the week + full date underneath
     private int mCurrentMainView;
-
-    private final LayoutInflater mInflater;
-
-    // Defines the types of view returned by this spinner
-    private static final int BUTTON_VIEW_TYPE = 0;
-    static final int VIEW_TYPE_NUM = 1;  // Increase this if you add more view types
-
-    public static final int DAY_BUTTON_INDEX = 0;
-    public static final int WEEK_BUTTON_INDEX = 1;
-    public static final int MONTH_BUTTON_INDEX = 2;
-    public static final int AGENDA_BUTTON_INDEX = 3;
-
     // The current selected event's time, used to calculate the date and day of the week
     // for the buttons.
     private long mMilliTime;
     private String mTimeZone;
     private long mTodayJulianDay;
-
-    private final Context mContext;
-    private final Formatter mFormatter;
-    private final StringBuilder mStringBuilder;
     private Handler mMidnightHandler = null; // Used to run a time update every midnight
-    private final boolean mShowDate;   // Spinner mode indicator (view name or view name with date)
-
     // Updates time specific variables (time-zone, today's Julian day).
     private final Runnable mTimeUpdater = new Runnable() {
         @Override

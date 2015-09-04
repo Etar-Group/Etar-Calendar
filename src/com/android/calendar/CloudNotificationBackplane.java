@@ -16,12 +16,10 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import java.io.IOException;
-
 import android.content.Context;
 import android.os.Bundle;
+
+import java.io.IOException;
 
 public interface CloudNotificationBackplane {
     public boolean open(Context context);

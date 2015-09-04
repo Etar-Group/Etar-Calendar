@@ -54,7 +54,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.datetimepicker.date.DatePickerDialog;
@@ -64,209 +63,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import ws.xsoh.etar.R;
+
 public class RecurrencePickerDialog extends DialogFragment implements OnItemSelectedListener,
         OnCheckedChangeListener, OnClickListener,
         android.widget.RadioGroup.OnCheckedChangeListener, DatePickerDialog.OnDateSetListener {
 
+    public static final String BUNDLE_START_TIME_MILLIS = "bundle_event_start_time";
+    public static final String BUNDLE_TIME_ZONE = "bundle_event_time_zone";
+    public static final String BUNDLE_RRULE = "bundle_event_rrule";
     private static final String TAG = "RecurrencePickerDialog";
-
     // in dp's
     private static final int MIN_SCREEN_WIDTH_FOR_SINGLE_ROW_WEEK = 450;
-
     // Update android:maxLength in EditText as needed
     private static final int INTERVAL_MAX = 99;
     private static final int INTERVAL_DEFAULT = 1;
     // Update android:maxLength in EditText as needed
     private static final int COUNT_MAX = 730;
     private static final int COUNT_DEFAULT = 5;
-
-    private DatePickerDialog mDatePickerDialog;
-
-    private class RecurrenceModel implements Parcelable {
-
-        // Should match EventRecurrence.DAILY, etc
-        static final int FREQ_DAILY = 0;
-        static final int FREQ_WEEKLY = 1;
-        static final int FREQ_MONTHLY = 2;
-        static final int FREQ_YEARLY = 3;
-
-        static final int END_NEVER = 0;
-        static final int END_BY_DATE = 1;
-        static final int END_BY_COUNT = 2;
-
-        static final int MONTHLY_BY_DATE = 0;
-        static final int MONTHLY_BY_NTH_DAY_OF_WEEK = 1;
-
-        static final int STATE_NO_RECURRENCE = 0;
-        static final int STATE_RECURRENCE = 1;
-
-        int recurrenceState;
-
-        /**
-         * FREQ: Repeat pattern
-         *
-         * @see FREQ_DAILY
-         * @see FREQ_WEEKLY
-         * @see FREQ_MONTHLY
-         * @see FREQ_YEARLY
-         */
-        int freq = FREQ_WEEKLY;
-
-        /**
-         * INTERVAL: Every n days/weeks/months/years. n >= 1
-         */
-        int interval = INTERVAL_DEFAULT;
-
-        /**
-         * UNTIL and COUNT: How does the the event end?
-         *
-         * @see END_NEVER
-         * @see END_BY_DATE
-         * @see END_BY_COUNT
-         * @see untilDate
-         * @see untilCount
-         */
-        int end;
-
-        /**
-         * UNTIL: Date of the last recurrence. Used when until == END_BY_DATE
-         */
-        Time endDate;
-
-        /**
-         * COUNT: Times to repeat. Use when until == END_BY_COUNT
-         */
-        int endCount = COUNT_DEFAULT;
-
-        /**
-         * BYDAY: Days of the week to be repeated. Sun = 0, Mon = 1, etc
-         */
-        boolean[] weeklyByDayOfWeek = new boolean[7];
-
-        /**
-         * BYDAY AND BYMONTHDAY: How to repeat monthly events? Same date of the
-         * month or Same nth day of week.
-         *
-         * @see MONTHLY_BY_DATE
-         * @see MONTHLY_BY_NTH_DAY_OF_WEEK
-         */
-        int monthlyRepeat;
-
-        /**
-         * Day of the month to repeat. Used when monthlyRepeat ==
-         * MONTHLY_BY_DATE
-         */
-        int monthlyByMonthDay;
-
-        /**
-         * Day of the week to repeat. Used when monthlyRepeat ==
-         * MONTHLY_BY_NTH_DAY_OF_WEEK
-         */
-        int monthlyByDayOfWeek;
-
-        /**
-         * Nth day of the week to repeat. Used when monthlyRepeat ==
-         * MONTHLY_BY_NTH_DAY_OF_WEEK 0=undefined, 1=1st, 2=2nd, etc
-         */
-        int monthlyByNthDayOfWeek;
-
-        /*
-         * (generated method)
-         */
-        @Override
-        public String toString() {
-            return "Model [freq=" + freq + ", interval=" + interval + ", end=" + end + ", endDate="
-                    + endDate + ", endCount=" + endCount + ", weeklyByDayOfWeek="
-                    + Arrays.toString(weeklyByDayOfWeek) + ", monthlyRepeat=" + monthlyRepeat
-                    + ", monthlyByMonthDay=" + monthlyByMonthDay + ", monthlyByDayOfWeek="
-                    + monthlyByDayOfWeek + ", monthlyByNthDayOfWeek=" + monthlyByNthDayOfWeek + "]";
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        public RecurrenceModel() {
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(freq);
-            dest.writeInt(interval);
-            dest.writeInt(end);
-            dest.writeInt(endDate.year);
-            dest.writeInt(endDate.month);
-            dest.writeInt(endDate.monthDay);
-            dest.writeInt(endCount);
-            dest.writeBooleanArray(weeklyByDayOfWeek);
-            dest.writeInt(monthlyRepeat);
-            dest.writeInt(monthlyByMonthDay);
-            dest.writeInt(monthlyByDayOfWeek);
-            dest.writeInt(monthlyByNthDayOfWeek);
-            dest.writeInt(recurrenceState);
-        }
-    }
-
-    class minMaxTextWatcher implements TextWatcher {
-        private int mMin;
-        private int mMax;
-        private int mDefault;
-
-        public minMaxTextWatcher(int min, int defaultInt, int max) {
-            mMin = min;
-            mMax = max;
-            mDefault = defaultInt;
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            boolean updated = false;
-            int value;
-            try {
-                value = Integer.parseInt(s.toString());
-            } catch (NumberFormatException e) {
-                value = mDefault;
-            }
-
-            if (value < mMin) {
-                value = mMin;
-                updated = true;
-            } else if (value > mMax) {
-                updated = true;
-                value = mMax;
-            }
-
-            // Update UI
-            if (updated) {
-                s.clear();
-                s.append(Integer.toString(value));
-            }
-
-            updateDoneButtonState();
-            onChange(value);
-        }
-
-        /** Override to be called after each key stroke */
-        void onChange(int value) {
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-    }
-
-    private Resources mResources;
-    private EventRecurrence mRecurrence = new EventRecurrence();
-    private Time mTime = new Time(); // TODO timezone?
-    private RecurrenceModel mModel = new RecurrenceModel();
-    private Toast mToast;
-
+    private static final int[] mFreqModelToEventRecurrence = {
+            EventRecurrence.DAILY,
+            EventRecurrence.WEEKLY,
+            EventRecurrence.MONTHLY,
+            EventRecurrence.YEARLY
+    };
+    private static final String BUNDLE_MODEL = "bundle_model";
+    private static final String BUNDLE_END_COUNT_HAS_FOCUS = "bundle_end_count_has_focus";
+    private static final String FRAG_TAG_DATE_PICKER = "tag_date_picker_frag";
     private final int[] TIME_DAY_TO_CALENDAR_DAY = new int[] {
             Calendar.SUNDAY,
             Calendar.MONDAY,
@@ -276,51 +99,34 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             Calendar.FRIDAY,
             Calendar.SATURDAY,
     };
+    private DatePickerDialog mDatePickerDialog;
 
     // Call mStringBuilder.setLength(0) before formatting any string or else the
     // formatted text will accumulate.
     // private final StringBuilder mStringBuilder = new StringBuilder();
     // private Formatter mFormatter = new Formatter(mStringBuilder);
-
+    private Resources mResources;
+    private EventRecurrence mRecurrence = new EventRecurrence();
+    private Time mTime = new Time(); // TODO timezone?
+    private RecurrenceModel mModel = new RecurrenceModel();
+    private Toast mToast;
     private View mView;
-
     private Spinner mFreqSpinner;
-    private static final int[] mFreqModelToEventRecurrence = {
-            EventRecurrence.DAILY,
-            EventRecurrence.WEEKLY,
-            EventRecurrence.MONTHLY,
-            EventRecurrence.YEARLY
-    };
-
-    public static final String BUNDLE_START_TIME_MILLIS = "bundle_event_start_time";
-    public static final String BUNDLE_TIME_ZONE = "bundle_event_time_zone";
-    public static final String BUNDLE_RRULE = "bundle_event_rrule";
-
-    private static final String BUNDLE_MODEL = "bundle_model";
-    private static final String BUNDLE_END_COUNT_HAS_FOCUS = "bundle_end_count_has_focus";
-
-    private static final String FRAG_TAG_DATE_PICKER = "tag_date_picker_frag";
-
     private Switch mRepeatSwitch;
-
     private EditText mInterval;
     private TextView mIntervalPreText;
     private TextView mIntervalPostText;
-
     private int mIntervalResId = -1;
-
     private Spinner mEndSpinner;
     private TextView mEndDateTextView;
     private EditText mEndCount;
     private TextView mPostEndCount;
     private boolean mHidePostEndCount;
-
     private ArrayList<CharSequence> mEndSpinnerArray = new ArrayList<CharSequence>(3);
     private EndSpinnerAdapter mEndSpinnerAdapter;
     private String mEndNeverStr;
     private String mEndDateLabel;
     private String mEndCountLabel;
-
     /** Hold toggle buttons in the order per user's first day of week preference */
     private LinearLayout mWeekGroup;
     private LinearLayout mWeekGroup2;
@@ -330,15 +136,12 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
      *  "on every [Nth] [DAY_OF_WEEK]", e.g. "on every second Monday",
      *  where [Nth] can be [first, second, third, fourth, last] */
     private String[][] mMonthRepeatByDayOfWeekStrs;
-
     private LinearLayout mMonthGroup;
     private RadioGroup mMonthRepeatByRadioGroup;
     private RadioButton mRepeatMonthlyByNthDayOfWeek;
     private RadioButton mRepeatMonthlyByNthDayOfMonth;
     private String mMonthRepeatByDayOfWeekStr;
-
     private Button mDone;
-
     private OnRecurrenceSetListener mRecurrenceSetListener;
 
     public RecurrencePickerDialog() {
@@ -1154,12 +957,193 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         }
     }
 
+    public void setOnRecurrenceSetListener(OnRecurrenceSetListener l) {
+        mRecurrenceSetListener = l;
+    }
+
     public interface OnRecurrenceSetListener {
         void onRecurrenceSet(String rrule);
     }
 
-    public void setOnRecurrenceSetListener(OnRecurrenceSetListener l) {
-        mRecurrenceSetListener = l;
+    private class RecurrenceModel implements Parcelable {
+
+        // Should match EventRecurrence.DAILY, etc
+        static final int FREQ_DAILY = 0;
+        static final int FREQ_WEEKLY = 1;
+        static final int FREQ_MONTHLY = 2;
+        static final int FREQ_YEARLY = 3;
+
+        static final int END_NEVER = 0;
+        static final int END_BY_DATE = 1;
+        static final int END_BY_COUNT = 2;
+
+        static final int MONTHLY_BY_DATE = 0;
+        static final int MONTHLY_BY_NTH_DAY_OF_WEEK = 1;
+
+        static final int STATE_NO_RECURRENCE = 0;
+        static final int STATE_RECURRENCE = 1;
+
+        int recurrenceState;
+
+        /**
+         * FREQ: Repeat pattern
+         *
+         * @see FREQ_DAILY
+         * @see FREQ_WEEKLY
+         * @see FREQ_MONTHLY
+         * @see FREQ_YEARLY
+         */
+        int freq = FREQ_WEEKLY;
+
+        /**
+         * INTERVAL: Every n days/weeks/months/years. n >= 1
+         */
+        int interval = INTERVAL_DEFAULT;
+
+        /**
+         * UNTIL and COUNT: How does the the event end?
+         *
+         * @see END_NEVER
+         * @see END_BY_DATE
+         * @see END_BY_COUNT
+         * @see untilDate
+         * @see untilCount
+         */
+        int end;
+
+        /**
+         * UNTIL: Date of the last recurrence. Used when until == END_BY_DATE
+         */
+        Time endDate;
+
+        /**
+         * COUNT: Times to repeat. Use when until == END_BY_COUNT
+         */
+        int endCount = COUNT_DEFAULT;
+
+        /**
+         * BYDAY: Days of the week to be repeated. Sun = 0, Mon = 1, etc
+         */
+        boolean[] weeklyByDayOfWeek = new boolean[7];
+
+        /**
+         * BYDAY AND BYMONTHDAY: How to repeat monthly events? Same date of the
+         * month or Same nth day of week.
+         *
+         * @see MONTHLY_BY_DATE
+         * @see MONTHLY_BY_NTH_DAY_OF_WEEK
+         */
+        int monthlyRepeat;
+
+        /**
+         * Day of the month to repeat. Used when monthlyRepeat ==
+         * MONTHLY_BY_DATE
+         */
+        int monthlyByMonthDay;
+
+        /**
+         * Day of the week to repeat. Used when monthlyRepeat ==
+         * MONTHLY_BY_NTH_DAY_OF_WEEK
+         */
+        int monthlyByDayOfWeek;
+
+        /**
+         * Nth day of the week to repeat. Used when monthlyRepeat ==
+         * MONTHLY_BY_NTH_DAY_OF_WEEK 0=undefined, 1=1st, 2=2nd, etc
+         */
+        int monthlyByNthDayOfWeek;
+
+        public RecurrenceModel() {
+        }
+
+        /*
+         * (generated method)
+         */
+        @Override
+        public String toString() {
+            return "Model [freq=" + freq + ", interval=" + interval + ", end=" + end + ", endDate="
+                    + endDate + ", endCount=" + endCount + ", weeklyByDayOfWeek="
+                    + Arrays.toString(weeklyByDayOfWeek) + ", monthlyRepeat=" + monthlyRepeat
+                    + ", monthlyByMonthDay=" + monthlyByMonthDay + ", monthlyByDayOfWeek="
+                    + monthlyByDayOfWeek + ", monthlyByNthDayOfWeek=" + monthlyByNthDayOfWeek + "]";
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(freq);
+            dest.writeInt(interval);
+            dest.writeInt(end);
+            dest.writeInt(endDate.year);
+            dest.writeInt(endDate.month);
+            dest.writeInt(endDate.monthDay);
+            dest.writeInt(endCount);
+            dest.writeBooleanArray(weeklyByDayOfWeek);
+            dest.writeInt(monthlyRepeat);
+            dest.writeInt(monthlyByMonthDay);
+            dest.writeInt(monthlyByDayOfWeek);
+            dest.writeInt(monthlyByNthDayOfWeek);
+            dest.writeInt(recurrenceState);
+        }
+    }
+
+    class minMaxTextWatcher implements TextWatcher {
+        private int mMin;
+        private int mMax;
+        private int mDefault;
+
+        public minMaxTextWatcher(int min, int defaultInt, int max) {
+            mMin = min;
+            mMax = max;
+            mDefault = defaultInt;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            boolean updated = false;
+            int value;
+            try {
+                value = Integer.parseInt(s.toString());
+            } catch (NumberFormatException e) {
+                value = mDefault;
+            }
+
+            if (value < mMin) {
+                value = mMin;
+                updated = true;
+            } else if (value > mMax) {
+                updated = true;
+                value = mMax;
+            }
+
+            // Update UI
+            if (updated) {
+                s.clear();
+                s.append(Integer.toString(value));
+            }
+
+            updateDoneButtonState();
+            onChange(value);
+        }
+
+        /**
+         * Override to be called after each key stroke
+         */
+        void onChange(int value) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
     }
 
     private class EndSpinnerAdapter extends ArrayAdapter<CharSequence> {

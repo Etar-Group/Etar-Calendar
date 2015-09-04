@@ -39,20 +39,32 @@ import android.widget.ListView;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.EventInfoActivity;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.alerts.GlobalDismissManager.AlarmId;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import ws.xsoh.etar.R;
+
 /**
  * The alert panel that pops up when there is a calendar event alarm.
  * This activity is started by an intent that specifies an event id.
   */
 public class AlertActivity extends Activity implements OnClickListener {
+    public static final int INDEX_ROW_ID = 0;
+    public static final int INDEX_TITLE = 1;
+    public static final int INDEX_EVENT_LOCATION = 2;
+    public static final int INDEX_ALL_DAY = 3;
+    public static final int INDEX_BEGIN = 4;
+    public static final int INDEX_END = 5;
+    public static final int INDEX_EVENT_ID = 6;
+    public static final int INDEX_COLOR = 7;
+    public static final int INDEX_RRULE = 8;
+    public static final int INDEX_HAS_ALARM = 9;
+    public static final int INDEX_STATE = 10;
+    public static final int INDEX_ALARM_TIME = 11;
     private static final String TAG = "AlertActivity";
-
     private static final String[] PROJECTION = new String[] {
         CalendarAlerts._ID,              // 0
         CalendarAlerts.TITLE,            // 1
@@ -67,20 +79,6 @@ public class AlertActivity extends Activity implements OnClickListener {
         CalendarAlerts.STATE,            // 10
         CalendarAlerts.ALARM_TIME,       // 11
     };
-
-    public static final int INDEX_ROW_ID = 0;
-    public static final int INDEX_TITLE = 1;
-    public static final int INDEX_EVENT_LOCATION = 2;
-    public static final int INDEX_ALL_DAY = 3;
-    public static final int INDEX_BEGIN = 4;
-    public static final int INDEX_END = 5;
-    public static final int INDEX_EVENT_ID = 6;
-    public static final int INDEX_COLOR = 7;
-    public static final int INDEX_RRULE = 8;
-    public static final int INDEX_HAS_ALARM = 9;
-    public static final int INDEX_STATE = 10;
-    public static final int INDEX_ALARM_TIME = 11;
-
     private static final String SELECTION = CalendarAlerts.STATE + "=?";
     private static final String[] SELECTIONARG = new String[] {
         Integer.toString(CalendarAlerts.STATE_FIRED)
@@ -90,8 +88,39 @@ public class AlertActivity extends Activity implements OnClickListener {
     private QueryHandler mQueryHandler;
     private Cursor mCursor;
     private ListView mListView;
-    private Button mDismissAllButton;
+    private final OnItemClickListener mViewListener = new OnItemClickListener() {
 
+        @SuppressLint("NewApi")
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long i) {
+            AlertActivity alertActivity = AlertActivity.this;
+            Cursor cursor = alertActivity.getItemForView(view);
+
+            long alarmId = cursor.getLong(INDEX_ROW_ID);
+            long eventId = cursor.getLong(AlertActivity.INDEX_EVENT_ID);
+            long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
+
+            // Mark this alarm as DISMISSED
+            dismissAlarm(alarmId, eventId, startMillis);
+
+            // build an intent and task stack to start EventInfoActivity with AllInOneActivity
+            // as the parent activity rooted to home.
+            long endMillis = cursor.getLong(AlertActivity.INDEX_END);
+            Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, eventId,
+                    startMillis, endMillis);
+
+            if (Utils.isJellybeanOrLater()) {
+                TaskStackBuilder.create(AlertActivity.this).addParentStack(EventInfoActivity.class)
+                        .addNextIntent(eventIntent).startActivities();
+            } else {
+                alertActivity.startActivity(eventIntent);
+            }
+
+            alertActivity.finish();
+        }
+    };
+    private Button mDismissAllButton;
 
     private void dismissFiredAlarms() {
         ContentValues values = new ContentValues(1 /* size */);
@@ -144,65 +173,6 @@ public class AlertActivity extends Activity implements OnClickListener {
             }
         }.execute(alarmIds);
     }
-
-    private class QueryHandler extends AsyncQueryService {
-        public QueryHandler(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            // Only set mCursor if the Activity is not finishing. Otherwise close the cursor.
-            if (!isFinishing()) {
-                mCursor = cursor;
-                mAdapter.changeCursor(cursor);
-                mListView.setSelection(cursor.getCount() - 1);
-
-                // The results are in, enable the buttons
-                mDismissAllButton.setEnabled(true);
-            } else {
-                cursor.close();
-            }
-        }
-
-        @Override
-        protected void onUpdateComplete(int token, Object cookie, int result) {
-            // Ignore
-        }
-    }
-
-    private final OnItemClickListener mViewListener = new OnItemClickListener() {
-
-        @SuppressLint("NewApi")
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                long i) {
-            AlertActivity alertActivity = AlertActivity.this;
-            Cursor cursor = alertActivity.getItemForView(view);
-
-            long alarmId = cursor.getLong(INDEX_ROW_ID);
-            long eventId = cursor.getLong(AlertActivity.INDEX_EVENT_ID);
-            long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
-
-            // Mark this alarm as DISMISSED
-            dismissAlarm(alarmId, eventId, startMillis);
-
-            // build an intent and task stack to start EventInfoActivity with AllInOneActivity
-            // as the parent activity rooted to home.
-            long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-            Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, eventId,
-                    startMillis, endMillis);
-
-            if (Utils.isJellybeanOrLater()) {
-                TaskStackBuilder.create(AlertActivity.this).addParentStack(EventInfoActivity.class)
-                        .addNextIntent(eventIntent).startActivities();
-            } else {
-                alertActivity.startActivity(eventIntent);
-            }
-
-            alertActivity.finish();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -291,5 +261,31 @@ public class AlertActivity extends Activity implements OnClickListener {
             return null;
         }
         return (Cursor) mListView.getAdapter().getItem(index);
+    }
+
+    private class QueryHandler extends AsyncQueryService {
+        public QueryHandler(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            // Only set mCursor if the Activity is not finishing. Otherwise close the cursor.
+            if (!isFinishing()) {
+                mCursor = cursor;
+                mAdapter.changeCursor(cursor);
+                mListView.setSelection(cursor.getCount() - 1);
+
+                // The results are in, enable the buttons
+                mDismissAllButton.setEnabled(true);
+            } else {
+                cursor.close();
+            }
+        }
+
+        @Override
+        protected void onUpdateComplete(int token, Object cookie, int result) {
+            // Ignore
+        }
     }
 }

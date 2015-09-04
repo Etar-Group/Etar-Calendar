@@ -44,7 +44,6 @@ import android.widget.TextView;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
 
@@ -54,6 +53,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import ws.xsoh.etar.R;
 
 /*
 Bugs Bugs Bugs:
@@ -76,15 +77,6 @@ Check for leaks and excessive allocations
 public class AgendaWindowAdapter extends BaseAdapter
     implements StickyHeaderListView.HeaderIndexer, StickyHeaderListView.HeaderHeightListener{
 
-    static final boolean BASICLOG = false;
-    static final boolean DEBUGLOG = false;
-    private static final String TAG = "AgendaWindowAdapter";
-
-    private static final String AGENDA_SORT_ORDER =
-            CalendarContract.Instances.START_DAY + " ASC, " +
-            CalendarContract.Instances.BEGIN + " ASC, " +
-            CalendarContract.Events.TITLE + " ASC";
-
     public static final int INDEX_INSTANCE_ID = 0;
     public static final int INDEX_TITLE = 1;
     public static final int INDEX_EVENT_LOCATION = 2;
@@ -102,7 +94,13 @@ public class AgendaWindowAdapter extends BaseAdapter
     public static final int INDEX_OWNER_ACCOUNT = 14;
     public static final int INDEX_CAN_ORGANIZER_RESPOND= 15;
     public static final int INDEX_TIME_ZONE = 16;
-
+    static final boolean BASICLOG = false;
+    static final boolean DEBUGLOG = false;
+    private static final String TAG = "AgendaWindowAdapter";
+    private static final String AGENDA_SORT_ORDER =
+            CalendarContract.Instances.START_DAY + " ASC, " +
+                    CalendarContract.Instances.BEGIN + " ASC, " +
+                    CalendarContract.Events.TITLE + " ASC";
     private static final String[] PROJECTION = new String[] {
             Instances._ID, // 0
             Instances.TITLE, // 1
@@ -122,13 +120,6 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.CAN_ORGANIZER_RESPOND, // 15
             Instances.EVENT_TIMEZONE, // 16
     };
-
-    static {
-        if (!Utils.isJellybeanOrLater()) {
-            PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
-        }
-    }
-
     // Listview may have a bug where the index/position is not consistent when there's a header.
     // position == positionInListView - OFF_BY_ONE_BUG
     // TODO Need to look into this.
@@ -138,73 +129,35 @@ public class AgendaWindowAdapter extends BaseAdapter
     private static final int MIN_QUERY_DURATION = 7; // days
     private static final int MAX_QUERY_DURATION = 60; // days
     private static final int PREFETCH_BOUNDARY = 1;
-
     /** Times to auto-expand/retry query after getting no data */
     private static final int RETRIES_ON_NO_DATA = 1;
+    // Types of Query
+    private static final int QUERY_TYPE_OLDER = 0; // Query for older events
+    private static final int QUERY_TYPE_NEWER = 1; // Query for newer events
+    private static final int QUERY_TYPE_CLEAN = 2; // Delete everything and query around a date
+
+    static {
+        if (!Utils.isJellybeanOrLater()) {
+            PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
+        }
+    }
 
     private final Context mContext;
     private final Resources mResources;
     private final QueryHandler mQueryHandler;
     private final AgendaListView mAgendaListView;
-
-    /** The sum of the rows in all the adapters */
-    private int mRowCount;
-
-    /** The number of times we have queried and gotten no results back */
-    private int mEmptyCursorCount;
-
-    /** Cached value of the last used adapter */
-    private DayAdapterInfo mLastUsedInfo;
-
     private final LinkedList<DayAdapterInfo> mAdapterInfos =
             new LinkedList<DayAdapterInfo>();
     private final ConcurrentLinkedQueue<QuerySpec> mQueryQueue =
             new ConcurrentLinkedQueue<QuerySpec>();
     private final TextView mHeaderView;
     private final TextView mFooterView;
-    private boolean mDoneSettingUpHeaderFooter = false;
-
     private final boolean mIsTabletConfig;
-
-    boolean mCleanQueryInitiated = false;
-    private int mStickyHeaderSize = 44; // Initial size big enough for it to work
-
-    /**
-     * When the user scrolled to the top, a query will be made for older events
-     * and this will be incremented. Don't make more requests if
-     * mOlderRequests > mOlderRequestsProcessed.
-     */
-    private int mOlderRequests;
-
-    /** Number of "older" query that has been processed. */
-    private int mOlderRequestsProcessed;
-
-    /**
-     * When the user scrolled to the bottom, a query will be made for newer
-     * events and this will be incremented. Don't make more requests if
-     * mNewerRequests > mNewerRequestsProcessed.
-     */
-    private int mNewerRequests;
-
-    /** Number of "newer" query that has been processed. */
-    private int mNewerRequestsProcessed;
-
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
     private final Formatter mFormatter;
     private final StringBuilder mStringBuilder;
-    private String mTimeZone;
-
     // defines if to pop-up the current event when the agenda is first shown
     private final boolean mShowEventOnStart;
-
-    private final Runnable mTZUpdater = new Runnable() {
-        @Override
-        public void run() {
-            mTimeZone = Utils.getTimeZone(mContext, this);
-            notifyDataSetChanged();
-        }
-    };
-
     private final Handler mDataChangedHandler = new Handler();
     private final Runnable mDataChangedRunnable = new Runnable() {
         @Override
@@ -212,129 +165,56 @@ public class AgendaWindowAdapter extends BaseAdapter
             notifyDataSetChanged();
         }
     };
-
-    private boolean mShuttingDown;
-    private boolean mHideDeclined;
-
-    // Used to stop a fling motion if the ListView is set to a specific position
-    int mListViewScrollState = OnScrollListener.SCROLL_STATE_IDLE;
-
-    /** The current search query, or null if none */
-    private String mSearchQuery;
-
-    private long mSelectedInstanceId = -1;
-
     private final int mSelectedItemBackgroundColor;
     private final int mSelectedItemTextColor;
     private final float mItemRightMargin;
-
-    // Types of Query
-    private static final int QUERY_TYPE_OLDER = 0; // Query for older events
-    private static final int QUERY_TYPE_NEWER = 1; // Query for newer events
-    private static final int QUERY_TYPE_CLEAN = 2; // Delete everything and query around a date
-
-    private static class QuerySpec {
-        long queryStartMillis;
-        Time goToTime;
-        int start;
-        int end;
-        String searchQuery;
-        int queryType;
-        long id;
-
-        public QuerySpec(int queryType) {
-            this.queryType = queryType;
-            id = -1;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + end;
-            result = prime * result + (int) (queryStartMillis ^ (queryStartMillis >>> 32));
-            result = prime * result + queryType;
-            result = prime * result + start;
-            if (searchQuery != null) {
-                result = prime * result + searchQuery.hashCode();
-            }
-            if (goToTime != null) {
-                long goToTimeMillis = goToTime.toMillis(false);
-                result = prime * result + (int) (goToTimeMillis ^ (goToTimeMillis >>> 32));
-            }
-            result = prime * result + (int)id;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null) return false;
-            if (getClass() != obj.getClass()) return false;
-            QuerySpec other = (QuerySpec) obj;
-            if (end != other.end || queryStartMillis != other.queryStartMillis
-                    || queryType != other.queryType || start != other.start
-                    || Utils.equals(searchQuery, other.searchQuery) || id != other.id) {
-                return false;
-            }
-
-            if (goToTime != null) {
-                if (goToTime.toMillis(false) != other.goToTime.toMillis(false)) {
-                    return false;
-                }
-            } else {
-                if (other.goToTime != null) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
-
+    boolean mCleanQueryInitiated = false;
+    // Used to stop a fling motion if the ListView is set to a specific position
+    int mListViewScrollState = OnScrollListener.SCROLL_STATE_IDLE;
     /**
-     * Class representing a list item within the Agenda view.  Could be either an instance of an
-     * event, or a header marking the specific day.
-     *
-     * The begin and end times of an AgendaItem should always be in local time, even if the event
-     * is all day.  buildAgendaItemFromCursor() converts each event to local time.
+     * The sum of the rows in all the adapters
      */
-    static class AgendaItem {
-        long begin;
-        long end;
-        long id;
-        int startDay;
-        boolean allDay;
-    }
-
-    static class DayAdapterInfo {
-        Cursor cursor;
-        AgendaByDayAdapter dayAdapter;
-        int start; // start day of the cursor's coverage
-        int end; // end day of the cursor's coverage
-        int offset; // offset in position in the list view
-        int size; // dayAdapter.getCount()
-
-        public DayAdapterInfo(Context context) {
-            dayAdapter = new AgendaByDayAdapter(context);
-        }
-
+    private int mRowCount;
+    /**
+     * The number of times we have queried and gotten no results back
+     */
+    private int mEmptyCursorCount;
+    /**
+     * Cached value of the last used adapter
+     */
+    private DayAdapterInfo mLastUsedInfo;
+    private boolean mDoneSettingUpHeaderFooter = false;
+    private int mStickyHeaderSize = 44; // Initial size big enough for it to work
+    /**
+     * When the user scrolled to the top, a query will be made for older events
+     * and this will be incremented. Don't make more requests if
+     * mOlderRequests > mOlderRequestsProcessed.
+     */
+    private int mOlderRequests;
+    /** Number of "older" query that has been processed. */
+    private int mOlderRequestsProcessed;
+    /**
+     * When the user scrolled to the bottom, a query will be made for newer
+     * events and this will be incremented. Don't make more requests if
+     * mNewerRequests > mNewerRequestsProcessed.
+     */
+    private int mNewerRequests;
+    /** Number of "newer" query that has been processed. */
+    private int mNewerRequestsProcessed;
+    private String mTimeZone;
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
-        public String toString() {
-            // Static class, so the time in this toString will not reflect the
-            // home tz settings. This should only affect debugging.
-            Time time = new Time();
-            StringBuilder sb = new StringBuilder();
-            time.setJulianDay(start);
-            time.normalize(false);
-            sb.append("Start:").append(time.toString());
-            time.setJulianDay(end);
-            time.normalize(false);
-            sb.append(" End:").append(time.toString());
-            sb.append(" Offset:").append(offset);
-            sb.append(" Size:").append(size);
-            return sb.toString();
+        public void run() {
+            mTimeZone = Utils.getTimeZone(mContext, this);
+            notifyDataSetChanged();
         }
-    }
+    };
+    private boolean mShuttingDown;
+    private boolean mHideDeclined;
+    /** The current search query, or null if none */
+    private String mSearchQuery;
+    private long mSelectedInstanceId = -1;
+    private AgendaAdapter.ViewHolder mSelectedVH = null;
 
     public AgendaWindowAdapter(Context context,
             AgendaListView agendaListView, boolean showEventOnStart) {
@@ -367,6 +247,25 @@ public class AgendaWindowAdapter extends BaseAdapter
         mFooterView = (TextView)inflater.inflate(R.layout.agenda_header_footer, null);
         mHeaderView.setText(R.string.loading);
         mAgendaListView.addHeaderView(mHeaderView);
+    }
+
+    static String getViewTitle(View x) {
+        String title = "";
+        if (x != null) {
+            Object yy = x.getTag();
+            if (yy instanceof AgendaAdapter.ViewHolder) {
+                TextView tv = ((AgendaAdapter.ViewHolder) yy).title;
+                if (tv != null) {
+                    title = (String) tv.getText();
+                }
+            } else if (yy != null) {
+                TextView dateView = ((AgendaByDayAdapter.ViewHolder) yy).dateView;
+                if (dateView != null) {
+                    title = (String) dateView.getText();
+                }
+            }
+        }
+        return title;
     }
 
     // Method in Adapter
@@ -528,8 +427,6 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
         return v;
     }
-
-    private AgendaAdapter.ViewHolder mSelectedVH = null;
 
     private int findEventPositionNearestTime(Time time, long id) {
         DayAdapterInfo info = getAdapterInfoByTime(time);
@@ -954,6 +851,221 @@ public class AgendaWindowAdapter extends BaseAdapter
                 formatDateString(end)));
     }
 
+    public void onResume() {
+        mTZUpdater.run();
+    }
+
+    public void setHideDeclinedEvents(boolean hideDeclined) {
+        mHideDeclined = hideDeclined;
+    }
+
+    public void setSelectedView(View v) {
+        if (v != null) {
+            Object vh = v.getTag();
+            if (vh instanceof AgendaAdapter.ViewHolder) {
+                mSelectedVH = (AgendaAdapter.ViewHolder) vh;
+                if (mSelectedInstanceId != mSelectedVH.instanceId) {
+                    mSelectedInstanceId = mSelectedVH.instanceId;
+                    notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    public AgendaAdapter.ViewHolder getSelectedViewHolder() {
+        return mSelectedVH;
+    }
+
+    public long getSelectedInstanceId() {
+        return mSelectedInstanceId;
+    }
+
+    public void setSelectedInstanceId(long selectedInstanceId) {
+        mSelectedInstanceId = selectedInstanceId;
+        mSelectedVH = null;
+    }
+
+    private long findInstanceIdFromPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.dayAdapter.getInstanceId(position - info.offset);
+        }
+        return -1;
+    }
+
+    private long findStartTimeFromPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.dayAdapter.getStartTime(position - info.offset);
+        }
+        return -1;
+    }
+
+    private Cursor getCursorByPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.cursor;
+        }
+        return null;
+    }
+
+    private int getCursorPositionByPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.dayAdapter.getCursorPosition(position - info.offset);
+        }
+        return -1;
+    }
+
+    // Returns the location of the day header of a specific event specified in the position
+    // in the adapter
+    @Override
+    public int getHeaderPositionFromItemPosition(int position) {
+
+        // For phone configuration, return -1 so there will be no sticky header
+        if (!mIsTabletConfig) {
+            return -1;
+        }
+
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            int pos = info.dayAdapter.getHeaderPosition(position - info.offset);
+            return (pos != -1) ? (pos + info.offset) : -1;
+        }
+        return -1;
+    }
+
+    // Returns the number of events for a specific day header
+    @Override
+    public int getHeaderItemsNumber(int headerPosition) {
+        if (headerPosition < 0 || !mIsTabletConfig) {
+            return -1;
+        }
+        DayAdapterInfo info = getAdapterInfoByPosition(headerPosition);
+        if (info != null) {
+            return info.dayAdapter.getHeaderItemsCount(headerPosition - info.offset);
+        }
+        return -1;
+    }
+
+    @Override
+    public void OnHeaderHeightChanged(int height) {
+        mStickyHeaderSize = height;
+    }
+
+    public int getStickyHeaderHeight() {
+        return mStickyHeaderSize;
+    }
+
+    // Implementation of HeaderIndexer interface for StickyHeeaderListView
+
+    public void setScrollState(int state) {
+        mListViewScrollState = state;
+    }
+
+    private static class QuerySpec {
+        long queryStartMillis;
+        Time goToTime;
+        int start;
+        int end;
+        String searchQuery;
+        int queryType;
+        long id;
+
+        public QuerySpec(int queryType) {
+            this.queryType = queryType;
+            id = -1;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + end;
+            result = prime * result + (int) (queryStartMillis ^ (queryStartMillis >>> 32));
+            result = prime * result + queryType;
+            result = prime * result + start;
+            if (searchQuery != null) {
+                result = prime * result + searchQuery.hashCode();
+            }
+            if (goToTime != null) {
+                long goToTimeMillis = goToTime.toMillis(false);
+                result = prime * result + (int) (goToTimeMillis ^ (goToTimeMillis >>> 32));
+            }
+            result = prime * result + (int) id;
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null) return false;
+            if (getClass() != obj.getClass()) return false;
+            QuerySpec other = (QuerySpec) obj;
+            if (end != other.end || queryStartMillis != other.queryStartMillis
+                    || queryType != other.queryType || start != other.start
+                    || Utils.equals(searchQuery, other.searchQuery) || id != other.id) {
+                return false;
+            }
+
+            if (goToTime != null) {
+                if (goToTime.toMillis(false) != other.goToTime.toMillis(false)) {
+                    return false;
+                }
+            } else {
+                if (other.goToTime != null) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    /**
+     * Class representing a list item within the Agenda view.  Could be either an instance of an
+     * event, or a header marking the specific day.
+     * <p/>
+     * The begin and end times of an AgendaItem should always be in local time, even if the event
+     * is all day.  buildAgendaItemFromCursor() converts each event to local time.
+     */
+    static class AgendaItem {
+        long begin;
+        long end;
+        long id;
+        int startDay;
+        boolean allDay;
+    }
+
+    static class DayAdapterInfo {
+        Cursor cursor;
+        AgendaByDayAdapter dayAdapter;
+        int start; // start day of the cursor's coverage
+        int end; // end day of the cursor's coverage
+        int offset; // offset in position in the list view
+        int size; // dayAdapter.getCount()
+
+        public DayAdapterInfo(Context context) {
+            dayAdapter = new AgendaByDayAdapter(context);
+        }
+
+        @Override
+        public String toString() {
+            // Static class, so the time in this toString will not reflect the
+            // home tz settings. This should only affect debugging.
+            Time time = new Time();
+            StringBuilder sb = new StringBuilder();
+            time.setJulianDay(start);
+            time.normalize(false);
+            sb.append("Start:").append(time.toString());
+            time.setJulianDay(end);
+            time.normalize(false);
+            sb.append(" End:").append(time.toString());
+            sb.append(" Offset:").append(offset);
+            sb.append(" Size:").append(size);
+            return sb.toString();
+        }
+    }
+
     private class QueryHandler extends AsyncQueryHandler {
 
         public QueryHandler(ContentResolver cr) {
@@ -1276,137 +1388,5 @@ public class AgendaWindowAdapter extends BaseAdapter
                 return listPositionOffset;
             }
         }
-    }
-
-    static String getViewTitle(View x) {
-        String title = "";
-        if (x != null) {
-            Object yy = x.getTag();
-            if (yy instanceof AgendaAdapter.ViewHolder) {
-                TextView tv = ((AgendaAdapter.ViewHolder) yy).title;
-                if (tv != null) {
-                    title = (String) tv.getText();
-                }
-            } else if (yy != null) {
-                TextView dateView = ((AgendaByDayAdapter.ViewHolder) yy).dateView;
-                if (dateView != null) {
-                    title = (String) dateView.getText();
-                }
-            }
-        }
-        return title;
-    }
-
-    public void onResume() {
-        mTZUpdater.run();
-    }
-
-    public void setHideDeclinedEvents(boolean hideDeclined) {
-        mHideDeclined = hideDeclined;
-    }
-
-    public void setSelectedView(View v) {
-        if (v != null) {
-            Object vh = v.getTag();
-            if (vh instanceof AgendaAdapter.ViewHolder) {
-                mSelectedVH = (AgendaAdapter.ViewHolder) vh;
-                if (mSelectedInstanceId != mSelectedVH.instanceId) {
-                    mSelectedInstanceId = mSelectedVH.instanceId;
-                    notifyDataSetChanged();
-                }
-            }
-        }
-    }
-
-    public AgendaAdapter.ViewHolder getSelectedViewHolder() {
-        return mSelectedVH;
-    }
-
-    public long getSelectedInstanceId() {
-        return mSelectedInstanceId;
-    }
-
-    public void setSelectedInstanceId(long selectedInstanceId) {
-        mSelectedInstanceId = selectedInstanceId;
-        mSelectedVH = null;
-    }
-
-    private long findInstanceIdFromPosition(int position) {
-        DayAdapterInfo info = getAdapterInfoByPosition(position);
-        if (info != null) {
-            return info.dayAdapter.getInstanceId(position - info.offset);
-        }
-        return -1;
-    }
-
-    private long findStartTimeFromPosition(int position) {
-        DayAdapterInfo info = getAdapterInfoByPosition(position);
-        if (info != null) {
-            return info.dayAdapter.getStartTime(position - info.offset);
-        }
-        return -1;
-    }
-
-
-    private Cursor getCursorByPosition(int position) {
-        DayAdapterInfo info = getAdapterInfoByPosition(position);
-        if (info != null) {
-            return info.cursor;
-        }
-        return null;
-    }
-
-    private int getCursorPositionByPosition(int position) {
-        DayAdapterInfo info = getAdapterInfoByPosition(position);
-        if (info != null) {
-            return info.dayAdapter.getCursorPosition(position - info.offset);
-        }
-        return -1;
-    }
-
-    // Implementation of HeaderIndexer interface for StickyHeeaderListView
-
-    // Returns the location of the day header of a specific event specified in the position
-    // in the adapter
-    @Override
-    public int getHeaderPositionFromItemPosition(int position) {
-
-        // For phone configuration, return -1 so there will be no sticky header
-        if (!mIsTabletConfig) {
-            return -1;
-        }
-
-        DayAdapterInfo info = getAdapterInfoByPosition(position);
-        if (info != null) {
-            int pos = info.dayAdapter.getHeaderPosition(position - info.offset);
-            return (pos != -1)?(pos + info.offset):-1;
-        }
-        return -1;
-    }
-
-    // Returns the number of events for a specific day header
-    @Override
-    public int getHeaderItemsNumber(int headerPosition) {
-        if (headerPosition < 0 || !mIsTabletConfig) {
-            return -1;
-        }
-        DayAdapterInfo info = getAdapterInfoByPosition(headerPosition);
-        if (info != null) {
-            return info.dayAdapter.getHeaderItemsCount(headerPosition - info.offset);
-        }
-        return -1;
-    }
-
-    @Override
-    public void OnHeaderHeightChanged(int height) {
-        mStickyHeaderSize = height;
-    }
-
-    public int getStickyHeaderHeight() {
-        return mStickyHeaderSize;
-    }
-
-    public void setScrollState(int state) {
-        mListViewScrollState = state;
     }
 }

@@ -53,8 +53,6 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -70,6 +68,8 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import ws.xsoh.etar.R;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 

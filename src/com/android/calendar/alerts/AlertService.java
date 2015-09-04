@@ -44,7 +44,6 @@ import android.util.Log;
 
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.OtherPreferences;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import java.util.ArrayList;
@@ -52,16 +51,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
+import ws.xsoh.etar.R;
+
 /**
  * This service is used to handle calendar event reminders.
  */
 public class AlertService extends Service {
+    // Hard limit to the number of notifications displayed.
+    public static final int MAX_NOTIFICATIONS = 20;
     static final boolean DEBUG = true;
-    private static final String TAG = "AlertService";
-
-    private volatile Looper mServiceLooper;
-    private volatile ServiceHandler mServiceHandler;
-
     static final String[] ALERT_PROJECTION = new String[] {
         CalendarAlerts._ID,                     // 0
         CalendarAlerts.EVENT_ID,                // 1
@@ -76,7 +74,7 @@ public class AlertService extends Service {
         CalendarAlerts.END,                     // 10
         CalendarAlerts.DESCRIPTION,             // 11
     };
-
+    private static final String TAG = "AlertService";
     private static final int ALERT_INDEX_ID = 0;
     private static final int ALERT_INDEX_EVENT_ID = 1;
     private static final int ALERT_INDEX_STATE = 2;
@@ -89,28 +87,18 @@ public class AlertService extends Service {
     private static final int ALERT_INDEX_BEGIN = 9;
     private static final int ALERT_INDEX_END = 10;
     private static final int ALERT_INDEX_DESCRIPTION = 11;
-
     private static final String ACTIVE_ALERTS_SELECTION = "(" + CalendarAlerts.STATE + "=? OR "
             + CalendarAlerts.STATE + "=?) AND " + CalendarAlerts.ALARM_TIME + "<=";
-
     private static final String[] ACTIVE_ALERTS_SELECTION_ARGS = new String[] {
             Integer.toString(CalendarAlerts.STATE_FIRED),
             Integer.toString(CalendarAlerts.STATE_SCHEDULED)
     };
-
     private static final String ACTIVE_ALERTS_SORT = "begin DESC, end DESC";
-
     private static final String DISMISS_OLD_SELECTION = CalendarAlerts.END + "<? AND "
             + CalendarAlerts.STATE + "=?";
-
     private static final int MINUTE_MS = 60 * 1000;
-
     // The grace period before changing a notification's priority bucket.
     private static final int MIN_DEPRIORITIZE_GRACE_PERIOD_MS = 15 * MINUTE_MS;
-
-    // Hard limit to the number of notifications displayed.
-    public static final int MAX_NOTIFICATIONS = 20;
-
     // Shared prefs key for storing whether the EVENT_REMINDER event from the provider
     // was ever received.  Some OEMs modified this provider broadcast, so we had to
     // do the alarm scheduling here in the app, for the unbundled app's reminders to work.
@@ -118,132 +106,23 @@ public class AlertService extends Service {
     // alarm scheduling.
     private static final String PROVIDER_REMINDER_PREF_KEY =
             "preference_received_provider_reminder_broadcast";
+    private static final String SORT_ORDER_ALARMTIME_ASC =
+            CalendarContract.CalendarAlerts.ALARM_TIME + " ASC";
+    private static final String WHERE_RESCHEDULE_MISSED_ALARMS =
+            CalendarContract.CalendarAlerts.STATE
+                    + "="
+                    + CalendarContract.CalendarAlerts.STATE_SCHEDULED
+                    + " AND "
+                    + CalendarContract.CalendarAlerts.ALARM_TIME
+                    + "<?"
+                    + " AND "
+                    + CalendarContract.CalendarAlerts.ALARM_TIME
+                    + ">?"
+                    + " AND "
+                    + CalendarContract.CalendarAlerts.END + ">=?";
     private static Boolean sReceivedProviderReminderBroadcast = null;
-
-    // Added wrapper for testing
-    public static class NotificationWrapper {
-        Notification mNotification;
-        long mEventId;
-        long mBegin;
-        long mEnd;
-        ArrayList<NotificationWrapper> mNw;
-
-        public NotificationWrapper(Notification n, int notificationId, long eventId,
-                long startMillis, long endMillis, boolean doPopup) {
-            mNotification = n;
-            mEventId = eventId;
-            mBegin = startMillis;
-            mEnd = endMillis;
-
-            // popup?
-            // notification id?
-        }
-
-        public NotificationWrapper(Notification n) {
-            mNotification = n;
-        }
-
-        public void add(NotificationWrapper nw) {
-            if (mNw == null) {
-                mNw = new ArrayList<NotificationWrapper>();
-            }
-            mNw.add(nw);
-        }
-    }
-
-    // Added wrapper for testing
-    public static class NotificationMgrWrapper extends NotificationMgr {
-        NotificationManager mNm;
-
-        public NotificationMgrWrapper(NotificationManager nm) {
-            mNm = nm;
-        }
-
-        @Override
-        public void cancel(int id) {
-            mNm.cancel(id);
-        }
-
-        @Override
-        public void notify(int id, NotificationWrapper nw) {
-            mNm.notify(id, nw.mNotification);
-        }
-    }
-
-    void processMessage(Message msg) {
-        Bundle bundle = (Bundle) msg.obj;
-
-        // On reboot, update the notification bar with the contents of the
-        // CalendarAlerts table.
-        String action = bundle.getString("action");
-        if (DEBUG) {
-            Log.d(TAG, bundle.getLong(android.provider.CalendarContract.CalendarAlerts.ALARM_TIME)
-                    + " Action = " + action);
-        }
-
-        // Some OEMs had changed the provider's EVENT_REMINDER broadcast to their own event,
-        // which broke our unbundled app's reminders.  So we added backup alarm scheduling to the
-        // app, but we know we can turn it off if we ever receive the EVENT_REMINDER broadcast.
-        boolean providerReminder = action.equals(
-                android.provider.CalendarContract.ACTION_EVENT_REMINDER);
-        if (providerReminder) {
-            if (sReceivedProviderReminderBroadcast == null) {
-                sReceivedProviderReminderBroadcast = Utils.getSharedPreference(this,
-                        PROVIDER_REMINDER_PREF_KEY, false);
-            }
-
-            if (!sReceivedProviderReminderBroadcast) {
-                sReceivedProviderReminderBroadcast = true;
-                Log.d(TAG, "Setting key " + PROVIDER_REMINDER_PREF_KEY + " to: true");
-                Utils.setSharedPreference(this, PROVIDER_REMINDER_PREF_KEY, true);
-            }
-        }
-
-        if (providerReminder ||
-                action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
-                action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
-                action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) ||
-                action.equals(Intent.ACTION_LOCALE_CHANGED)) {
-
-            // b/7652098: Add a delay after the provider-changed event before refreshing
-            // notifications to help issue with the unbundled app installed on HTC having
-            // stale notifications.
-            if (action.equals(Intent.ACTION_PROVIDER_CHANGED)) {
-                try {
-                    Thread.sleep(5000);
-                } catch (Exception e) {
-                    // Ignore.
-                }
-            }
-
-            updateAlertNotification(this);
-        } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-            // The provider usually initiates this setting up of alarms on startup,
-            // but there was a bug (b/7221716) where a race condition caused this step to be
-            // skipped, resulting in missed alarms.  This is a stopgap to minimize this bug
-            // for devices that don't have the provider fix, by initiating this a 2nd time here.
-            // However, it would still theoretically be possible to hit the race condition
-            // the 2nd time and still miss alarms.
-            //
-            // TODO: Remove this when the provider fix is rolled out everywhere.
-            Intent intent = new Intent();
-            intent.setClass(this, InitAlarmsService.class);
-            startService(intent);
-        } else if (action.equals(Intent.ACTION_TIME_CHANGED)) {
-            doTimeChanged();
-        } else if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
-            dismissOldAlerts(this);
-        } else {
-            Log.w(TAG, "Invalid action: " + action);
-        }
-
-        // Schedule the alarm for the next upcoming reminder, if not done by the provider.
-        if (sReceivedProviderReminderBroadcast == null || !sReceivedProviderReminderBroadcast) {
-            Log.d(TAG, "Scheduling next alarm with AlarmScheduler. "
-                   + "sEventReminderReceived: " + sReceivedProviderReminderBroadcast);
-            AlarmScheduler.scheduleNextAlarm(this);
-        }
-    }
+    private volatile Looper mServiceLooper;
+    private volatile ServiceHandler mServiceHandler;
 
     static void dismissOldAlerts(Context context) {
         ContentResolver cr = context.getContentResolver();
@@ -895,29 +774,6 @@ public class AlertService extends Service {
         return tickerText;
     }
 
-    static class NotificationInfo {
-        String eventName;
-        String location;
-        String description;
-        long startMillis;
-        long endMillis;
-        long eventId;
-        boolean allDay;
-        boolean newAlert;
-
-        NotificationInfo(String eventName, String location, String description, long startMillis,
-                long endMillis, long eventId, boolean allDay, boolean newAlert) {
-            this.eventName = eventName;
-            this.location = location;
-            this.description = description;
-            this.startMillis = startMillis;
-            this.endMillis = endMillis;
-            this.eventId = eventId;
-            this.newAlert = newAlert;
-            this.allDay = allDay;
-        }
-    }
-
     private static void addNotificationOptions(NotificationWrapper nw, boolean quietUpdate,
             String tickerText, boolean defaultVibrate, String reminderRingtone,
             boolean showLights) {
@@ -949,79 +805,6 @@ public class AlertService extends Service {
                     .parse(reminderRingtone);
         }
     }
-
-    /* package */ static class NotificationPrefs {
-        boolean quietUpdate;
-        private Context context;
-        private SharedPreferences prefs;
-
-        // These are lazily initialized, do not access any of the following directly; use getters.
-        private int doPopup = -1;
-        private int defaultVibrate = -1;
-        private String ringtone = null;
-
-        private static final String EMPTY_RINGTONE = "";
-
-        NotificationPrefs(Context context, SharedPreferences prefs, boolean quietUpdate) {
-            this.context = context;
-            this.prefs = prefs;
-            this.quietUpdate = quietUpdate;
-        }
-
-        private boolean getDoPopup() {
-            if (doPopup < 0) {
-                if (prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false)) {
-                    doPopup = 1;
-                } else {
-                    doPopup = 0;
-                }
-            }
-            return doPopup == 1;
-        }
-
-        private boolean getDefaultVibrate() {
-            if (defaultVibrate < 0) {
-                defaultVibrate = Utils.getDefaultVibrate(context, prefs) ? 1 : 0;
-            }
-            return defaultVibrate == 1;
-        }
-
-        private String getRingtoneAndSilence() {
-            if (ringtone == null) {
-                if (quietUpdate) {
-                    ringtone = EMPTY_RINGTONE;
-                } else {
-                    ringtone = Utils.getRingTonePreference(context);
-                }
-            }
-            String retVal = ringtone;
-            ringtone = EMPTY_RINGTONE;
-            return retVal;
-        }
-    }
-
-    private void doTimeChanged() {
-        ContentResolver cr = getContentResolver();
-        // TODO Move this into Provider
-        rescheduleMissedAlarms(cr, this, AlertUtils.createAlarmManager(this));
-        updateAlertNotification(this);
-    }
-
-    private static final String SORT_ORDER_ALARMTIME_ASC =
-            CalendarContract.CalendarAlerts.ALARM_TIME + " ASC";
-
-    private static final String WHERE_RESCHEDULE_MISSED_ALARMS =
-            CalendarContract.CalendarAlerts.STATE
-            + "="
-            + CalendarContract.CalendarAlerts.STATE_SCHEDULED
-            + " AND "
-            + CalendarContract.CalendarAlerts.ALARM_TIME
-            + "<?"
-            + " AND "
-            + CalendarContract.CalendarAlerts.ALARM_TIME
-            + ">?"
-            + " AND "
-            + CalendarContract.CalendarAlerts.END + ">=?";
 
     /**
      * Searches the CalendarAlerts table for alarms that should have fired but
@@ -1074,18 +857,86 @@ public class AlertService extends Service {
         }
     }
 
-    private final class ServiceHandler extends Handler {
-        public ServiceHandler(Looper looper) {
-            super(looper);
+    void processMessage(Message msg) {
+        Bundle bundle = (Bundle) msg.obj;
+
+        // On reboot, update the notification bar with the contents of the
+        // CalendarAlerts table.
+        String action = bundle.getString("action");
+        if (DEBUG) {
+            Log.d(TAG, bundle.getLong(android.provider.CalendarContract.CalendarAlerts.ALARM_TIME)
+                    + " Action = " + action);
         }
 
-        @Override
-        public void handleMessage(Message msg) {
-            processMessage(msg);
-            // NOTE: We MUST not call stopSelf() directly, since we need to
-            // make sure the wake lock acquired by AlertReceiver is released.
-            AlertReceiver.finishStartingService(AlertService.this, msg.arg1);
+        // Some OEMs had changed the provider's EVENT_REMINDER broadcast to their own event,
+        // which broke our unbundled app's reminders.  So we added backup alarm scheduling to the
+        // app, but we know we can turn it off if we ever receive the EVENT_REMINDER broadcast.
+        boolean providerReminder = action.equals(
+                android.provider.CalendarContract.ACTION_EVENT_REMINDER);
+        if (providerReminder) {
+            if (sReceivedProviderReminderBroadcast == null) {
+                sReceivedProviderReminderBroadcast = Utils.getSharedPreference(this,
+                        PROVIDER_REMINDER_PREF_KEY, false);
+            }
+
+            if (!sReceivedProviderReminderBroadcast) {
+                sReceivedProviderReminderBroadcast = true;
+                Log.d(TAG, "Setting key " + PROVIDER_REMINDER_PREF_KEY + " to: true");
+                Utils.setSharedPreference(this, PROVIDER_REMINDER_PREF_KEY, true);
+            }
         }
+
+        if (providerReminder ||
+                action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
+                action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
+                action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) ||
+                action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+
+            // b/7652098: Add a delay after the provider-changed event before refreshing
+            // notifications to help issue with the unbundled app installed on HTC having
+            // stale notifications.
+            if (action.equals(Intent.ACTION_PROVIDER_CHANGED)) {
+                try {
+                    Thread.sleep(5000);
+                } catch (Exception e) {
+                    // Ignore.
+                }
+            }
+
+            updateAlertNotification(this);
+        } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+            // The provider usually initiates this setting up of alarms on startup,
+            // but there was a bug (b/7221716) where a race condition caused this step to be
+            // skipped, resulting in missed alarms.  This is a stopgap to minimize this bug
+            // for devices that don't have the provider fix, by initiating this a 2nd time here.
+            // However, it would still theoretically be possible to hit the race condition
+            // the 2nd time and still miss alarms.
+            //
+            // TODO: Remove this when the provider fix is rolled out everywhere.
+            Intent intent = new Intent();
+            intent.setClass(this, InitAlarmsService.class);
+            startService(intent);
+        } else if (action.equals(Intent.ACTION_TIME_CHANGED)) {
+            doTimeChanged();
+        } else if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
+            dismissOldAlerts(this);
+        } else {
+            Log.w(TAG, "Invalid action: " + action);
+        }
+
+        // Schedule the alarm for the next upcoming reminder, if not done by the provider.
+        if (sReceivedProviderReminderBroadcast == null || !sReceivedProviderReminderBroadcast) {
+            Log.d(TAG, "Scheduling next alarm with AlarmScheduler. "
+                    + "sEventReminderReceived: " + sReceivedProviderReminderBroadcast);
+            AlarmScheduler.scheduleNextAlarm(this);
+        }
+    }
+
+    private void doTimeChanged() {
+        ContentResolver cr = getContentResolver();
+        // TODO Move this into Provider
+        rescheduleMissedAlarms(cr, this, AlertUtils.createAlarmManager(this));
+        updateAlertNotification(this);
     }
 
     @Override
@@ -1120,5 +971,140 @@ public class AlertService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    // Added wrapper for testing
+    public static class NotificationWrapper {
+        Notification mNotification;
+        long mEventId;
+        long mBegin;
+        long mEnd;
+        ArrayList<NotificationWrapper> mNw;
+
+        public NotificationWrapper(Notification n, int notificationId, long eventId,
+                                   long startMillis, long endMillis, boolean doPopup) {
+            mNotification = n;
+            mEventId = eventId;
+            mBegin = startMillis;
+            mEnd = endMillis;
+
+            // popup?
+            // notification id?
+        }
+
+        public NotificationWrapper(Notification n) {
+            mNotification = n;
+        }
+
+        public void add(NotificationWrapper nw) {
+            if (mNw == null) {
+                mNw = new ArrayList<NotificationWrapper>();
+            }
+            mNw.add(nw);
+        }
+    }
+
+    // Added wrapper for testing
+    public static class NotificationMgrWrapper extends NotificationMgr {
+        NotificationManager mNm;
+
+        public NotificationMgrWrapper(NotificationManager nm) {
+            mNm = nm;
+        }
+
+        @Override
+        public void cancel(int id) {
+            mNm.cancel(id);
+        }
+
+        @Override
+        public void notify(int id, NotificationWrapper nw) {
+            mNm.notify(id, nw.mNotification);
+        }
+    }
+
+    static class NotificationInfo {
+        String eventName;
+        String location;
+        String description;
+        long startMillis;
+        long endMillis;
+        long eventId;
+        boolean allDay;
+        boolean newAlert;
+
+        NotificationInfo(String eventName, String location, String description, long startMillis,
+                         long endMillis, long eventId, boolean allDay, boolean newAlert) {
+            this.eventName = eventName;
+            this.location = location;
+            this.description = description;
+            this.startMillis = startMillis;
+            this.endMillis = endMillis;
+            this.eventId = eventId;
+            this.newAlert = newAlert;
+            this.allDay = allDay;
+        }
+    }
+
+    /* package */ static class NotificationPrefs {
+        private static final String EMPTY_RINGTONE = "";
+        boolean quietUpdate;
+        private Context context;
+        private SharedPreferences prefs;
+        // These are lazily initialized, do not access any of the following directly; use getters.
+        private int doPopup = -1;
+        private int defaultVibrate = -1;
+        private String ringtone = null;
+
+        NotificationPrefs(Context context, SharedPreferences prefs, boolean quietUpdate) {
+            this.context = context;
+            this.prefs = prefs;
+            this.quietUpdate = quietUpdate;
+        }
+
+        private boolean getDoPopup() {
+            if (doPopup < 0) {
+                if (prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false)) {
+                    doPopup = 1;
+                } else {
+                    doPopup = 0;
+                }
+            }
+            return doPopup == 1;
+        }
+
+        private boolean getDefaultVibrate() {
+            if (defaultVibrate < 0) {
+                defaultVibrate = Utils.getDefaultVibrate(context, prefs) ? 1 : 0;
+            }
+            return defaultVibrate == 1;
+        }
+
+        private String getRingtoneAndSilence() {
+            if (ringtone == null) {
+                if (quietUpdate) {
+                    ringtone = EMPTY_RINGTONE;
+                } else {
+                    ringtone = Utils.getRingTonePreference(context);
+                }
+            }
+            String retVal = ringtone;
+            ringtone = EMPTY_RINGTONE;
+            return retVal;
+        }
+    }
+
+    private final class ServiceHandler extends Handler {
+        public ServiceHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            processMessage(msg);
+            // NOTE: We MUST not call stopSelf() directly, since we need to
+            // make sure the wake lock acquired by AlertReceiver is released.
+            AlertReceiver.finishStartingService(AlertService.this, msg.arg1);
+        }
     }
 }

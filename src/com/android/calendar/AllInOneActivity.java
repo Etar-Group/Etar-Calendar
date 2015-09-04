@@ -76,12 +76,12 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import ws.xsoh.etar.R;
 
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
@@ -192,20 +192,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private MenuItem mControlsMenu;
     private Menu mOptionsMenu;
     private QueryHandler mHandler;
-    // runs every midnight/time changes and refreshes the today icon
-    private final Runnable mTimeChangesUpdater = new Runnable() {
-        @Override
-        public void run() {
-            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
-            AllInOneActivity.this.invalidateOptionsMenu();
-            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
-        }
-    };
     private final Runnable mHomeTimeUpdater = new Runnable() {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
             updateSecondaryTitleFields(-1);
+            AllInOneActivity.this.invalidateOptionsMenu();
+            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
+        }
+    };
+    // runs every midnight/time changes and refreshes the today icon
+    private final Runnable mTimeChangesUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
             AllInOneActivity.this.invalidateOptionsMenu();
             Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
         }

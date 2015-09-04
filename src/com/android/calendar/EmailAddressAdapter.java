@@ -16,17 +16,17 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import com.android.common.contacts.BaseEmailAddressAdapter;
-import com.android.ex.chips.AccountSpecifier;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.android.common.contacts.BaseEmailAddressAdapter;
+import com.android.ex.chips.AccountSpecifier;
+
+import ws.xsoh.etar.R;
 
 /**
 * An adaptation of {@link BaseEmailAddressAdapter} for the Email app. The main

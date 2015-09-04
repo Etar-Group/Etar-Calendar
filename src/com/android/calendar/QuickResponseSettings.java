@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
@@ -28,6 +26,8 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 
 import java.util.Arrays;
+
+import ws.xsoh.etar.R;
 
 /**
  * Fragment to facilitate editing of quick responses when emailing guests

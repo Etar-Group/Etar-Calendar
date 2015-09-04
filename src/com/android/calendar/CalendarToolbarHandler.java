@@ -8,10 +8,10 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.util.Formatter;
 import java.util.Locale;
+
+import ws.xsoh.etar.R;
 
 /**
  * Created by xsoh64 on 7/21/15.

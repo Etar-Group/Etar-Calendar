@@ -36,10 +36,10 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
 import com.android.calendar.Utils;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import ws.xsoh.etar.R;
 
 public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";

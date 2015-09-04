@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -63,64 +61,29 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
     protected View mDummyHeader = null; // A invisible header used when a section has no header
     protected ListView mListView = null;
     protected ListView.OnScrollListener mListener = null;
-
-    private int mSeparatorWidth;
-    private View mSeparatorView;
-    private int mLastStickyHeaderHeight = 0;
-
-    // This code is needed only if dataset changes do not force a call to OnScroll
-    // protected DataSetObserver mListDataObserver = null;
-
-
     protected int mCurrentSectionPos = -1; // Position of section that has its header on the
                                            // top of the view
     protected int mNextSectionPosition = -1; // Position of next section's header
     protected int mListViewHeadersCount = 0;
 
+    // This code is needed only if dataset changes do not force a call to OnScroll
+    // protected DataSetObserver mListDataObserver = null;
+    private int mSeparatorWidth;
+    private View mSeparatorView;
+    private int mLastStickyHeaderHeight = 0;
+
     /**
-     * Interface that must be implemented by the ListView adapter to provide headers locations
-     * and number of items under each header.
+     * Constructor
      *
+     * @param context - application context.
+     * @param attrs - layout attributes.
      */
-    public interface HeaderIndexer {
-        /**
-         * Calculates the position of the header of a specific item in the adapter's data set.
-         * For example: Assuming you have a list with albums and songs names:
-         * Album A, song 1, song 2, ...., song 10, Album B, song 1, ..., song 7. A call to
-         * this method with the position of song 5 in Album B, should return  the position
-         * of Album B.
-         * @param position - Position of the item in the ListView dataset
-         * @return Position of header. -1 if the is no header
-         */
-
-        int getHeaderPositionFromItemPosition(int position);
-
-        /**
-         * Calculates the number of items in the section defined by the header (not including
-         * the header).
-         * For example: A list with albums and songs, the method should return
-         * the number of songs names (without the album name).
-         *
-         * @param headerPosition - the value returned by 'getHeaderPositionFromItemPosition'
-         * @return Number of items. -1 on error.
-         */
-        int getHeaderItemsNumber(int headerPosition);
+    public StickyHeaderListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mContext = context;
+        // This code is needed only if dataset changes do not force a call to OnScroll
+        // createDataListener();
     }
-
-    /***
-    *
-    * Interface that is used to update the sticky header's height
-    *
-    */
-   public interface HeaderHeightListener {
-
-       /***
-        * Updated a change in the sticky header's size
-        *
-        * @param height - new height of sticky header
-        */
-       void OnHeaderHeightChanged(int height);
-   }
 
     /**
      * Sets the adapter to be used by the class to get views of headers
@@ -181,29 +144,6 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         mHeaderHeightListener = listener;
     }
 
-    // This code is needed only if dataset changes do not force a call to OnScroll
-    // protected void createDataListener() {
-    //    mListDataObserver = new DataSetObserver() {
-    //        @Override
-    //        public void onChanged() {
-    //            onDataChanged();
-    //        }
-    //    };
-    // }
-
-    /**
-     * Constructor
-     *
-     * @param context - application context.
-     * @param attrs - layout attributes.
-     */
-    public StickyHeaderListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mContext = context;
-        // This code is needed only if dataset changes do not force a call to OnScroll
-        // createDataListener();
-     }
-
     /**
      * Scroll status changes listener
      *
@@ -216,6 +156,16 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
             mListener.onScrollStateChanged(view, scrollState);
         }
     }
+
+    // This code is needed only if dataset changes do not force a call to OnScroll
+    // protected void createDataListener() {
+    //    mListDataObserver = new DataSetObserver() {
+    //        @Override
+    //        public void onChanged() {
+    //            onDataChanged();
+    //        }
+    //    };
+    // }
 
     /**
      * Scroll events listener
@@ -361,13 +311,6 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         mDoHeaderReset = true;
     }
 
-
-    // Resets the sticky header when the adapter data set was changed
-    // This code is needed only if dataset changes do not force a call to OnScroll
-    // protected void onDataChanged() {
-    // Should do a call to updateStickyHeader if needed
-    // }
-
     private void setChildViews() {
 
         // Find a child ListView (if any)
@@ -392,6 +335,56 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         mDummyHeader.setBackgroundColor(Color.TRANSPARENT);
 
         mChildViewsCreated = true;
+    }
+
+    /**
+     * Interface that must be implemented by the ListView adapter to provide headers locations
+     * and number of items under each header.
+     */
+    public interface HeaderIndexer {
+        /**
+         * Calculates the position of the header of a specific item in the adapter's data set.
+         * For example: Assuming you have a list with albums and songs names:
+         * Album A, song 1, song 2, ...., song 10, Album B, song 1, ..., song 7. A call to
+         * this method with the position of song 5 in Album B, should return  the position
+         * of Album B.
+         *
+         * @param position - Position of the item in the ListView dataset
+         * @return Position of header. -1 if the is no header
+         */
+
+        int getHeaderPositionFromItemPosition(int position);
+
+        /**
+         * Calculates the number of items in the section defined by the header (not including
+         * the header).
+         * For example: A list with albums and songs, the method should return
+         * the number of songs names (without the album name).
+         *
+         * @param headerPosition - the value returned by 'getHeaderPositionFromItemPosition'
+         * @return Number of items. -1 on error.
+         */
+        int getHeaderItemsNumber(int headerPosition);
+    }
+
+
+    // Resets the sticky header when the adapter data set was changed
+    // This code is needed only if dataset changes do not force a call to OnScroll
+    // protected void onDataChanged() {
+    // Should do a call to updateStickyHeader if needed
+    // }
+
+    /***
+     * Interface that is used to update the sticky header's height
+     */
+    public interface HeaderHeightListener {
+
+        /***
+         * Updated a change in the sticky header's size
+         *
+         * @param height - new height of sticky header
+         */
+        void OnHeaderHeightChanged(int height);
     }
 
 }

@@ -39,8 +39,6 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +47,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
+
+import ws.xsoh.etar.R;
 
 // TODO: limit length of dropdown to stop at the soft keyboard
 // TODO: history icon resize asset
@@ -59,40 +59,6 @@ import java.util.concurrent.ExecutionException;
 public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Result>
         implements Filterable {
     private static final String TAG = "EventLocationAdapter";
-
-    /**
-     * Internal class for containing info for an item in the auto-complete results.
-     */
-    public static class Result {
-        private final String mName;
-        private final String mAddress;
-
-        // The default image resource for the icon.  This will be null if there should
-        // be no icon (if multiple listings for a contact, only the first one should have the
-        // photo icon).
-        private final Integer mDefaultIcon;
-
-        // The contact photo to use for the icon.  This will override the default icon.
-        private final Uri mContactPhotoUri;
-
-        public Result(String displayName, String address, Integer defaultIcon,
-                Uri contactPhotoUri) {
-            this.mName = displayName;
-            this.mAddress = address;
-            this.mDefaultIcon = defaultIcon;
-            this.mContactPhotoUri = contactPhotoUri;
-        }
-
-        /**
-         * This is the autocompleted text.
-         */
-        @Override
-        public String toString() {
-            return mAddress;
-        }
-    }
-    private static ArrayList<Result> EMPTY_LIST = new ArrayList<Result>();
-
     // Constants for contacts query:
     // SELECT ... FROM view_data data WHERE ((data1 LIKE 'input%' OR data1 LIKE '%input%' OR
     // display_name LIKE 'input%' OR display_name LIKE '%input%' )) ORDER BY display_name ASC
@@ -120,7 +86,6 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
             .append(Contacts.DISPLAY_NAME)
             .append(" LIKE ? )")
             .toString();
-
     // Constants for recent locations query (in Events table):
     // SELECT ... FROM view_events WHERE (eventLocation LIKE 'input%') ORDER BY _id DESC
     private static final String[] EVENT_PROJECTION = new String[] {
@@ -134,11 +99,10 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
     private static final String LOCATION_WHERE = Events.VISIBLE + "=? AND "
             + Events.EVENT_LOCATION + " LIKE ?";
     private static final int MAX_LOCATION_SUGGESTIONS = 4;
-
+    private static ArrayList<Result> EMPTY_LIST = new ArrayList<Result>();
     private final ContentResolver mResolver;
     private final LayoutInflater mInflater;
     private final ArrayList<Result> mResultList = new ArrayList<Result>();
-
     // The cache for contacts photos.  We don't have to worry about clearing this, as a
     // new adapter is created for every edit event.
     private final Map<Uri, Bitmap> mPhotoCache = new HashMap<Uri, Bitmap>();
@@ -151,6 +115,136 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
 
         mResolver = context.getContentResolver();
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    /**
+     * Matches the input string against contacts names and addresses.
+     *
+     * @param resolver        The content resolver.
+     * @param input           The user-typed input string.
+     * @param addressesRetVal The addresses in the returned result are also returned here
+     *                        for faster lookup.  Pass in an empty set.
+     * @return Ordered list of all the matched results.  If there are multiple address matches
+     * for the same contact, they will be listed together in individual items, with only
+     * the first item containing a name/icon.
+     */
+    private static List<Result> queryContacts(ContentResolver resolver, String input,
+                                              HashSet<String> addressesRetVal) {
+        String where = null;
+        String[] whereArgs = null;
+
+        // Match any word in contact name or address.
+        if (!TextUtils.isEmpty(input)) {
+            where = CONTACTS_WHERE;
+            String param1 = input + "%";
+            String param2 = "% " + input + "%";
+            whereArgs = new String[]{param1, param2, param1, param2};
+        }
+
+        // Perform the query.
+        Cursor c = resolver.query(CommonDataKinds.StructuredPostal.CONTENT_URI,
+                CONTACTS_PROJECTION, where, whereArgs, Contacts.DISPLAY_NAME + " ASC");
+
+        // Process results.  Group together addresses for the same contact.
+        try {
+            Map<String, List<Result>> nameToAddresses = new HashMap<String, List<Result>>();
+            c.moveToPosition(-1);
+            while (c.moveToNext()) {
+                String name = c.getString(CONTACTS_INDEX_DISPLAY_NAME);
+                String address = c.getString(CONTACTS_INDEX_ADDRESS);
+                if (name != null) {
+
+                    List<Result> addressesForName = nameToAddresses.get(name);
+                    Result result;
+                    if (addressesForName == null) {
+                        // Determine if there is a photo for the icon.
+                        Uri contactPhotoUri = null;
+                        if (c.getLong(CONTACTS_INDEX_PHOTO_ID) > 0) {
+                            contactPhotoUri = ContentUris.withAppendedId(Contacts.CONTENT_URI,
+                                    c.getLong(CONTACTS_INDEX_CONTACT_ID));
+                        }
+
+                        // First listing for a distinct contact should have the name/icon.
+                        addressesForName = new ArrayList<Result>();
+                        nameToAddresses.put(name, addressesForName);
+                        result = new Result(name, address, R.drawable.ic_contact_picture,
+                                contactPhotoUri);
+                    } else {
+                        // Do not include name/icon in subsequent listings for the same contact.
+                        result = new Result(null, address, null, null);
+                    }
+
+                    addressesForName.add(result);
+                    addressesRetVal.add(address);
+                }
+            }
+
+            // Return the list of results.
+            List<Result> allResults = new ArrayList<Result>();
+            for (List<Result> result : nameToAddresses.values()) {
+                allResults.addAll(result);
+            }
+            return allResults;
+
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    /**
+     * Matches the input string against recent locations.
+     */
+    private static List<Result> queryRecentLocations(ContentResolver resolver, String input) {
+        // TODO: also match each word in the address?
+        String filter = input == null ? "" : input + "%";
+        if (filter.isEmpty()) {
+            return null;
+        }
+
+        // Query all locations prefixed with the constraint.  There is no way to insert
+        // 'DISTINCT' or 'GROUP BY' to get rid of dupes, so use post-processing to
+        // remove dupes.  We will order query results by descending event ID to show
+        // results that were most recently inputed.
+        Cursor c = resolver.query(Events.CONTENT_URI, EVENT_PROJECTION, LOCATION_WHERE,
+                new String[]{"1", filter}, Events._ID + " DESC");
+        try {
+            List<Result> recentLocations = null;
+            if (c != null) {
+                // Post process query results.
+                recentLocations = processLocationsQueryResults(c);
+            }
+            return recentLocations;
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    /**
+     * Post-process the query results to return the first MAX_LOCATION_SUGGESTIONS
+     * unique locations in alphabetical order.
+     * <p/>
+     * TODO: Refactor to share code with the recent titles auto-complete.
+     */
+    private static List<Result> processLocationsQueryResults(Cursor cursor) {
+        TreeSet<String> locations = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        cursor.moveToPosition(-1);
+
+        // Remove dupes.
+        while ((locations.size() < MAX_LOCATION_SUGGESTIONS) && cursor.moveToNext()) {
+            String location = cursor.getString(EVENT_INDEX_LOCATION).trim();
+            locations.add(location);
+        }
+
+        // Copy the sorted results.
+        List<Result> results = new ArrayList<Result>();
+        for (String location : locations) {
+            results.add(new Result(null, location, R.drawable.ic_history_holo_light, null));
+        }
+        return results;
     }
 
     @Override
@@ -261,6 +355,38 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
     }
 
     /**
+     * Internal class for containing info for an item in the auto-complete results.
+     */
+    public static class Result {
+        private final String mName;
+        private final String mAddress;
+
+        // The default image resource for the icon.  This will be null if there should
+        // be no icon (if multiple listings for a contact, only the first one should have the
+        // photo icon).
+        private final Integer mDefaultIcon;
+
+        // The contact photo to use for the icon.  This will override the default icon.
+        private final Uri mContactPhotoUri;
+
+        public Result(String displayName, String address, Integer defaultIcon,
+                      Uri contactPhotoUri) {
+            this.mName = displayName;
+            this.mAddress = address;
+            this.mDefaultIcon = defaultIcon;
+            this.mContactPhotoUri = contactPhotoUri;
+        }
+
+        /**
+         * This is the autocompleted text.
+         */
+        @Override
+        public String toString() {
+            return mAddress;
+        }
+    }
+
+    /**
      * Filter implementation for matching the input string against contacts info and
      * recent locations.
      */
@@ -338,135 +464,5 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
                 notifyDataSetInvalidated();
             }
         }
-    }
-
-    /**
-     * Matches the input string against contacts names and addresses.
-     *
-     * @param resolver The content resolver.
-     * @param input The user-typed input string.
-     * @param addressesRetVal The addresses in the returned result are also returned here
-     *     for faster lookup.  Pass in an empty set.
-     * @return Ordered list of all the matched results.  If there are multiple address matches
-     *     for the same contact, they will be listed together in individual items, with only
-     *     the first item containing a name/icon.
-     */
-    private static List<Result> queryContacts(ContentResolver resolver, String input,
-            HashSet<String> addressesRetVal) {
-        String where = null;
-        String[] whereArgs = null;
-
-        // Match any word in contact name or address.
-        if (!TextUtils.isEmpty(input)) {
-            where = CONTACTS_WHERE;
-            String param1 = input + "%";
-            String param2 = "% " + input + "%";
-            whereArgs = new String[] {param1, param2, param1, param2};
-        }
-
-        // Perform the query.
-        Cursor c = resolver.query(CommonDataKinds.StructuredPostal.CONTENT_URI,
-                CONTACTS_PROJECTION, where, whereArgs, Contacts.DISPLAY_NAME + " ASC");
-
-        // Process results.  Group together addresses for the same contact.
-        try {
-            Map<String, List<Result>> nameToAddresses = new HashMap<String, List<Result>>();
-            c.moveToPosition(-1);
-            while (c.moveToNext()) {
-                String name = c.getString(CONTACTS_INDEX_DISPLAY_NAME);
-                String address = c.getString(CONTACTS_INDEX_ADDRESS);
-                if (name != null) {
-
-                    List<Result> addressesForName = nameToAddresses.get(name);
-                    Result result;
-                    if (addressesForName == null) {
-                        // Determine if there is a photo for the icon.
-                        Uri contactPhotoUri = null;
-                        if (c.getLong(CONTACTS_INDEX_PHOTO_ID) > 0) {
-                            contactPhotoUri = ContentUris.withAppendedId(Contacts.CONTENT_URI,
-                                    c.getLong(CONTACTS_INDEX_CONTACT_ID));
-                        }
-
-                        // First listing for a distinct contact should have the name/icon.
-                        addressesForName = new ArrayList<Result>();
-                        nameToAddresses.put(name, addressesForName);
-                        result = new Result(name, address, R.drawable.ic_contact_picture,
-                                contactPhotoUri);
-                    } else {
-                        // Do not include name/icon in subsequent listings for the same contact.
-                        result = new Result(null, address, null, null);
-                    }
-
-                    addressesForName.add(result);
-                    addressesRetVal.add(address);
-                }
-            }
-
-            // Return the list of results.
-            List<Result> allResults = new ArrayList<Result>();
-            for (List<Result> result : nameToAddresses.values()) {
-                allResults.addAll(result);
-            }
-            return allResults;
-
-        } finally {
-            if (c != null) {
-                c.close();
-            }
-        }
-    }
-
-    /**
-     * Matches the input string against recent locations.
-     */
-    private static List<Result> queryRecentLocations(ContentResolver resolver, String input) {
-        // TODO: also match each word in the address?
-        String filter = input == null ? "" : input + "%";
-        if (filter.isEmpty()) {
-            return null;
-        }
-
-        // Query all locations prefixed with the constraint.  There is no way to insert
-        // 'DISTINCT' or 'GROUP BY' to get rid of dupes, so use post-processing to
-        // remove dupes.  We will order query results by descending event ID to show
-        // results that were most recently inputed.
-        Cursor c = resolver.query(Events.CONTENT_URI, EVENT_PROJECTION, LOCATION_WHERE,
-                new String[] { "1", filter }, Events._ID + " DESC");
-        try {
-            List<Result> recentLocations = null;
-            if (c != null) {
-                // Post process query results.
-                recentLocations = processLocationsQueryResults(c);
-            }
-            return recentLocations;
-        } finally {
-            if (c != null) {
-                c.close();
-            }
-        }
-    }
-
-    /**
-     * Post-process the query results to return the first MAX_LOCATION_SUGGESTIONS
-     * unique locations in alphabetical order.
-     *
-     * TODO: Refactor to share code with the recent titles auto-complete.
-     */
-    private static List<Result> processLocationsQueryResults(Cursor cursor) {
-        TreeSet<String> locations = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-        cursor.moveToPosition(-1);
-
-        // Remove dupes.
-        while ((locations.size() < MAX_LOCATION_SUGGESTIONS) && cursor.moveToNext()) {
-            String location = cursor.getString(EVENT_INDEX_LOCATION).trim();
-            locations.add(location);
-        }
-
-        // Copy the sorted results.
-        List<Result> results = new ArrayList<Result>();
-        for (String location : locations) {
-            results.add(new Result(null, location, R.drawable.ic_history_holo_light, null));
-        }
-        return results;
     }
 }

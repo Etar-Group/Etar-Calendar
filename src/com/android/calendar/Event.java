@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -38,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import ws.xsoh.etar.R;
 
 // TODO: should Event be Parcelable so it can be passed via Intents?
 public class Event implements Cloneable {
@@ -60,10 +60,6 @@ public class Event implements Cloneable {
     private static final String SORT_ALLDAY_BY =
             "startDay ASC, endDay DESC, title ASC";
     private static final String DISPLAY_AS_ALLDAY = "dispAllday";
-
-    private static final String EVENTS_WHERE = DISPLAY_AS_ALLDAY + "=0";
-    private static final String ALLDAY_WHERE = DISPLAY_AS_ALLDAY + "=1";
-
     // The projection to use when querying instances to build a list of events
     public static final String[] EVENT_PROJECTION = new String[] {
             Instances.TITLE,                 // 0
@@ -88,7 +84,8 @@ public class Event implements Cloneable {
             Instances.ALL_DAY + "=1 OR (" + Instances.END + "-" + Instances.BEGIN + ")>="
                     + DateUtils.DAY_IN_MILLIS + " AS " + DISPLAY_AS_ALLDAY, // 19
     };
-
+    private static final String EVENTS_WHERE = DISPLAY_AS_ALLDAY + "=0";
+    private static final String ALLDAY_WHERE = DISPLAY_AS_ALLDAY + "=1";
     // The indices for the projection array above.
     private static final int PROJECTION_TITLE_INDEX = 0;
     private static final int PROJECTION_LOCATION_INDEX = 1;
@@ -109,15 +106,14 @@ public class Event implements Cloneable {
     private static final int PROJECTION_ORGANIZER_INDEX = 17;
     private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 18;
     private static final int PROJECTION_DISPLAY_AS_ALLDAY = 19;
+    private static String mNoTitleString;
+    private static int mNoColorColor;
 
     static {
         if (!Utils.isJellybeanOrLater()) {
             EVENT_PROJECTION[PROJECTION_COLOR_INDEX] = Instances.CALENDAR_COLOR;
         }
     }
-
-    private static String mNoTitleString;
-    private static int mNoColorColor;
 
     public long id;
     public int color;
@@ -134,69 +130,22 @@ public class Event implements Cloneable {
 
     public long startMillis;   // UTC milliseconds since the epoch
     public long endMillis;     // UTC milliseconds since the epoch
-    private int mColumn;
-    private int mMaxColumns;
-
     public boolean hasAlarm;
     public boolean isRepeating;
-
     public int selfAttendeeStatus;
-
     // The coordinates of the event rectangle drawn on the screen.
     public float left;
     public float right;
     public float top;
     public float bottom;
-
     // These 4 fields are used for navigating among events within the selected
     // hour in the Day and Week view.
     public Event nextRight;
     public Event nextLeft;
     public Event nextUp;
     public Event nextDown;
-
-    @Override
-    public final Object clone() throws CloneNotSupportedException {
-        super.clone();
-        Event e = new Event();
-
-        e.title = title;
-        e.color = color;
-        e.location = location;
-        e.allDay = allDay;
-        e.startDay = startDay;
-        e.endDay = endDay;
-        e.startTime = startTime;
-        e.endTime = endTime;
-        e.startMillis = startMillis;
-        e.endMillis = endMillis;
-        e.hasAlarm = hasAlarm;
-        e.isRepeating = isRepeating;
-        e.selfAttendeeStatus = selfAttendeeStatus;
-        e.organizer = organizer;
-        e.guestsCanModify = guestsCanModify;
-
-        return e;
-    }
-
-    public final void copyTo(Event dest) {
-        dest.id = id;
-        dest.title = title;
-        dest.color = color;
-        dest.location = location;
-        dest.allDay = allDay;
-        dest.startDay = startDay;
-        dest.endDay = endDay;
-        dest.startTime = startTime;
-        dest.endTime = endTime;
-        dest.startMillis = startMillis;
-        dest.endMillis = endMillis;
-        dest.hasAlarm = hasAlarm;
-        dest.isRepeating = isRepeating;
-        dest.selfAttendeeStatus = selfAttendeeStatus;
-        dest.organizer = organizer;
-        dest.guestsCanModify = guestsCanModify;
-    }
+    private int mColumn;
+    private int mMaxColumns;
 
     public static final Event newInstance() {
         Event e = new Event();
@@ -538,6 +487,49 @@ public class Event implements Cloneable {
         return 64;
     }
 
+    @Override
+    public final Object clone() throws CloneNotSupportedException {
+        super.clone();
+        Event e = new Event();
+
+        e.title = title;
+        e.color = color;
+        e.location = location;
+        e.allDay = allDay;
+        e.startDay = startDay;
+        e.endDay = endDay;
+        e.startTime = startTime;
+        e.endTime = endTime;
+        e.startMillis = startMillis;
+        e.endMillis = endMillis;
+        e.hasAlarm = hasAlarm;
+        e.isRepeating = isRepeating;
+        e.selfAttendeeStatus = selfAttendeeStatus;
+        e.organizer = organizer;
+        e.guestsCanModify = guestsCanModify;
+
+        return e;
+    }
+
+    public final void copyTo(Event dest) {
+        dest.id = id;
+        dest.title = title;
+        dest.color = color;
+        dest.location = location;
+        dest.allDay = allDay;
+        dest.startDay = startDay;
+        dest.endDay = endDay;
+        dest.startTime = startTime;
+        dest.endTime = endTime;
+        dest.startMillis = startMillis;
+        dest.endMillis = endMillis;
+        dest.hasAlarm = hasAlarm;
+        dest.isRepeating = isRepeating;
+        dest.selfAttendeeStatus = selfAttendeeStatus;
+        dest.organizer = organizer;
+        dest.guestsCanModify = guestsCanModify;
+    }
+
     public final void dump() {
         Log.e("Cal", "+-----------------------------------------+");
         Log.e("Cal", "+        id = " + id);
@@ -605,36 +597,36 @@ public class Event implements Cloneable {
         return text;
     }
 
-    public void setColumn(int column) {
-        mColumn = column;
-    }
-
     public int getColumn() {
         return mColumn;
     }
 
-    public void setMaxColumns(int maxColumns) {
-        mMaxColumns = maxColumns;
+    public void setColumn(int column) {
+        mColumn = column;
     }
 
     public int getMaxColumns() {
         return mMaxColumns;
     }
 
-    public void setStartMillis(long startMillis) {
-        this.startMillis = startMillis;
+    public void setMaxColumns(int maxColumns) {
+        mMaxColumns = maxColumns;
     }
 
     public long getStartMillis() {
         return startMillis;
     }
 
-    public void setEndMillis(long endMillis) {
-        this.endMillis = endMillis;
+    public void setStartMillis(long startMillis) {
+        this.startMillis = startMillis;
     }
 
     public long getEndMillis() {
         return endMillis;
+    }
+
+    public void setEndMillis(long endMillis) {
+        this.endMillis = endMillis;
     }
 
     public boolean drawAsAllday() {

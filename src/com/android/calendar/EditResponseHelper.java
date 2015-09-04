@@ -16,13 +16,13 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.widget.Button;
+
+import ws.xsoh.etar.R;
 
 /**
  * A helper class for editing the response to an invitation when the invitation
@@ -39,6 +39,21 @@ public class EditResponseHelper implements DialogInterface.OnClickListener, OnDi
      * and is invoked when the "Ok" button is selected.
      */
     private DialogInterface.OnClickListener mDialogListener;
+    /**
+     * This callback is used when a list item is selected
+     */
+    private DialogInterface.OnClickListener mListListener =
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    mWhichEvents = which;
+
+                    // Enable the "ok" button now that the user has selected which
+                    // events in the series to delete.
+                    Button ok = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    ok.setEnabled(true);
+                }
+            };
+    private DialogInterface.OnDismissListener mDismissListener;
 
     public EditResponseHelper(Activity parent) {
         mParent = parent;
@@ -92,24 +107,6 @@ public class EditResponseHelper implements DialogInterface.OnClickListener, OnDi
     private void setClickedOk(boolean clickedOk) {
         mClickedOk = clickedOk;
     }
-
-    /**
-     * This callback is used when a list item is selected
-     */
-    private DialogInterface.OnClickListener mListListener =
-            new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            mWhichEvents = which;
-
-            // Enable the "ok" button now that the user has selected which
-            // events in the series to delete.
-            Button ok = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            ok.setEnabled(true);
-        }
-    };
-
-    private DialogInterface.OnDismissListener mDismissListener;
-
 
     /**
      * Set the dismiss listener to be called when the dialog is ended. There,

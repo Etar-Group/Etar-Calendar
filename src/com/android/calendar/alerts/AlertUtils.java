@@ -33,21 +33,18 @@ import android.text.format.Time;
 import android.util.Log;
 
 import com.android.calendar.EventInfoActivity;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-public class AlertUtils {
-    private static final String TAG = "AlertUtils";
-    static final boolean DEBUG = true;
+import ws.xsoh.etar.R;
 
+public class AlertUtils {
     // We use one notification id for the expired events notification.  All
     // other notifications (the 'active' future/concurrent ones) use a unique ID.
     public static final int EXPIRED_GROUP_NOTIFICATION_ID = 0;
-
     public static final String EVENT_ID_KEY = "eventid";
     public static final String SHOW_EVENT_KEY = "showevent";
     public static final String EVENT_START_KEY = "eventstart";
@@ -56,28 +53,25 @@ public class AlertUtils {
     public static final String EVENT_IDS_KEY = "eventids";
     public static final String SNOOZE_DELAY_KEY = "snoozedelay";
     public static final String EVENT_STARTS_KEY = "starts";
-
-    // A flag for using local storage to save alert state instead of the alerts DB table.
-    // This allows the unbundled app to run alongside other calendar apps without eating
-    // alerts from other apps.
-    static boolean BYPASS_DB = true;
-
+    static final boolean DEBUG = true;
+    private static final String TAG = "AlertUtils";
     // SharedPrefs table name for storing fired alerts.  This prevents other installed
     // Calendar apps from eating the alerts.
     private static final String ALERTS_SHARED_PREFS_NAME = "calendar_alerts";
-
     // Keyname prefix for the alerts data in SharedPrefs.  The key will contain a combo
     // of event ID, begin time, and alarm time.  The value will be the fired time.
     private static final String KEY_FIRED_ALERT_PREFIX = "preference_alert_";
-
     // The last time the SharedPrefs was scanned and flushed of old alerts data.
     private static final String KEY_LAST_FLUSH_TIME_MS = "preference_flushTimeMs";
-
     // The # of days to save alert states in the shared prefs table, before flushing.  This
     // can be any value, since AlertService will also check for a recent alertTime before
     // ringing the alert.
     private static final int FLUSH_INTERVAL_DAYS = 1;
     private static final int FLUSH_INTERVAL_MS = FLUSH_INTERVAL_DAYS * 24 * 60 * 60 * 1000;
+    // A flag for using local storage to save alert state instead of the alerts DB table.
+    // This allows the unbundled app to run alongside other calendar apps without eating
+    // alerts from other apps.
+    static boolean BYPASS_DB = true;
 
     /**
      * Creates an AlarmManagerInterface that wraps a real AlarmManager.  The alarm code

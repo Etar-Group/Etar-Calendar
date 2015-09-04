@@ -16,10 +16,7 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -37,14 +34,9 @@ import android.text.format.Time;
 import android.util.Log;
 import android.widget.TimePicker;
 
-public class OtherPreferences extends PreferenceFragment  implements OnPreferenceChangeListener{
-    private static final String TAG = "CalendarOtherPreferences";
+import ws.xsoh.etar.R;
 
-    // The name of the shared preferences file. This name must be maintained for
-    // historical reasons, as it's what PreferenceManager assigned the first
-    // time the file was created.
-    static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
-
+public class OtherPreferences extends PreferenceFragment implements OnPreferenceChangeListener {
     // Must be the same keys that are used in the other_preferences.xml file.
     public static final String KEY_OTHER_COPY_DB = "preferences_copy_db";
     public static final String KEY_OTHER_QUIET_HOURS = "preferences_reminders_quiet_hours";
@@ -62,12 +54,15 @@ public class OtherPreferences extends PreferenceFragment  implements OnPreferenc
     public static final String KEY_OTHER_QUIET_HOURS_END_MINUTE =
             "preferences_reminders_quiet_hours_end_minute";
     public static final String KEY_OTHER_1 = "preferences_tardis_1";
-
     public static final int QUIET_HOURS_DEFAULT_START_HOUR = 22;
     public static final int QUIET_HOURS_DEFAULT_START_MINUTE = 0;
     public static final int QUIET_HOURS_DEFAULT_END_HOUR = 8;
     public static final int QUIET_HOURS_DEFAULT_END_MINUTE = 0;
-
+    // The name of the shared preferences file. This name must be maintained for
+    // historical reasons, as it's what PreferenceManager assigned the first
+    // time the file was created.
+    static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+    private static final String TAG = "CalendarOtherPreferences";
     private static final int START_LISTENER = 1;
     private static final int END_LISTENER = 2;
     private static final String format24Hour = "%H:%M";
@@ -177,40 +172,6 @@ public class OtherPreferences extends PreferenceFragment  implements OnPreferenc
         return true;
     }
 
-    private class TimeSetListener implements TimePickerDialog.OnTimeSetListener {
-        private int mListenerId;
-
-        public TimeSetListener(int listenerId) {
-            mListenerId = listenerId;
-        }
-
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            mTimePickerDialog = null;
-
-            SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-            SharedPreferences.Editor editor = prefs.edit();
-
-            String summary = formatTime(hourOfDay, minute);
-            switch (mListenerId) {
-                case (START_LISTENER):
-                    mQuietHoursStart.setSummary(summary);
-                    editor.putInt(KEY_OTHER_QUIET_HOURS_START_HOUR, hourOfDay);
-                    editor.putInt(KEY_OTHER_QUIET_HOURS_START_MINUTE, minute);
-                    break;
-                case (END_LISTENER):
-                    mQuietHoursEnd.setSummary(summary);
-                    editor.putInt(KEY_OTHER_QUIET_HOURS_END_HOUR, hourOfDay);
-                    editor.putInt(KEY_OTHER_QUIET_HOURS_END_MINUTE, minute);
-                    break;
-                default:
-                    Log.d(TAG, "Set time for unknown listener: "+mListenerId);
-            }
-
-            editor.commit();
-        }
-    }
-
     /**
      * @param hourOfDay the hour of the day (0-24)
      * @param minute
@@ -248,6 +209,40 @@ public class OtherPreferences extends PreferenceFragment  implements OnPreferenc
                 // Value was not known ahead of time, so the default value will be set.
                 mSkipReminders.setValue(values[index].toString());
             }
+        }
+    }
+
+    private class TimeSetListener implements TimePickerDialog.OnTimeSetListener {
+        private int mListenerId;
+
+        public TimeSetListener(int listenerId) {
+            mListenerId = listenerId;
+        }
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            mTimePickerDialog = null;
+
+            SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
+            SharedPreferences.Editor editor = prefs.edit();
+
+            String summary = formatTime(hourOfDay, minute);
+            switch (mListenerId) {
+                case (START_LISTENER):
+                    mQuietHoursStart.setSummary(summary);
+                    editor.putInt(KEY_OTHER_QUIET_HOURS_START_HOUR, hourOfDay);
+                    editor.putInt(KEY_OTHER_QUIET_HOURS_START_MINUTE, minute);
+                    break;
+                case (END_LISTENER):
+                    mQuietHoursEnd.setSummary(summary);
+                    editor.putInt(KEY_OTHER_QUIET_HOURS_END_HOUR, hourOfDay);
+                    editor.putInt(KEY_OTHER_QUIET_HOURS_END_MINUTE, minute);
+                    break;
+                default:
+                    Log.d(TAG, "Set time for unknown listener: " + mListenerId);
+            }
+
+            editor.commit();
         }
     }
 }

@@ -16,9 +16,6 @@
 
 package com.android.calendar.month;
 
-import org.sufficientlysecure.standalonecalendar.R;
-import com.android.calendar.Utils;
-
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
@@ -40,9 +37,13 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.calendar.Utils;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+
+import ws.xsoh.etar.R;
 
 /**
  * <p>
@@ -55,9 +56,8 @@ import java.util.Locale;
  */
 public class SimpleDayPickerFragment extends ListFragment implements OnScrollListener {
 
-    private static final String TAG = "MonthFragment";
-    private static final String KEY_CURRENT_TIME = "current_time";
-
+    // The number of days to display in each week
+    public static final int DAYS_PER_WEEK = 7;
     // Affects when the month selection will change while scrolling up
     protected static final int SCROLL_HYST_WEEKS = 2;
     // How long the GoTo fling animation should last
@@ -65,41 +65,34 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     // How long to wait after receiving an onScrollStateChanged notification
     // before acting on it
     protected static final int SCROLL_CHANGE_DELAY = 40;
-    // The number of days to display in each week
-    public static final int DAYS_PER_WEEK = 7;
     // The size of the month name displayed above the week list
     protected static final int MINI_MONTH_NAME_TEXT_SIZE = 18;
+    private static final String TAG = "MonthFragment";
+    private static final String KEY_CURRENT_TIME = "current_time";
     public static int LIST_TOP_OFFSET = -1;  // so that the top line will be under the separator
+    private static float mScale = 0;
     protected int WEEK_MIN_VISIBLE_HEIGHT = 12;
     protected int BOTTOM_BUFFER = 20;
     protected int mSaturdayColor = 0;
     protected int mSundayColor = 0;
     protected int mDayNameColor = 0;
-
     // You can override these numbers to get a different appearance
     protected int mNumWeeks = 6;
     protected boolean mShowWeekNumber = false;
     protected int mDaysPerWeek = 7;
-
     // These affect the scroll speed and feel
     protected float mFriction = 1.0f;
-
     protected Context mContext;
     protected Handler mHandler;
-
     protected float mMinimumFlingVelocity;
-
     // highlighted time
     protected Time mSelectedDay = new Time();
     protected SimpleWeeksAdapter mAdapter;
     protected ListView mListView;
     protected ViewGroup mDayNamesHeader;
     protected String[] mDayLabels;
-
     // disposable variable used for time calculations
     protected Time mTempTime = new Time();
-
-    private static float mScale = 0;
     // When the week starts; numbered like Time.<WEEKDAY> (e.g. SUNDAY=0).
     protected int mFirstDayOfWeek;
     // The first day of the focus month
@@ -141,7 +134,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             }
         }
     };
-
+    protected ScrollStateRunnable mScrollStateChangedRunnable = new ScrollStateRunnable();
     // This allows us to update our position when a day is tapped
     protected DataSetObserver mObserver = new DataSetObserver() {
         @Override
@@ -577,8 +570,6 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         // exits
         mScrollStateChangedRunnable.doScrollStateChange(view, scrollState);
     }
-
-    protected ScrollStateRunnable mScrollStateChangedRunnable = new ScrollStateRunnable();
 
     protected class ScrollStateRunnable implements Runnable {
         private int mNewState;

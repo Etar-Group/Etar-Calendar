@@ -16,15 +16,6 @@
 
 package com.android.calendar.agenda;
 
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.DeleteEventHelper;
-import org.sufficientlysecure.standalonecalendar.R;
-import com.android.calendar.Utils;
-import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
-import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
-import com.android.calendar.agenda.AgendaWindowAdapter.AgendaItem;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
@@ -38,6 +29,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.DeleteEventHelper;
+import com.android.calendar.Utils;
+import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
+import com.android.calendar.agenda.AgendaWindowAdapter.AgendaItem;
+import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
+
+import ws.xsoh.etar.R;
+
 public class AgendaListView extends ListView implements OnItemClickListener {
 
     private static final String TAG = "AgendaListView";
@@ -49,9 +50,6 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private Context mContext;
     private String mTimeZone;
     private Time mTime;
-    private boolean mShowEventDetailsWithAgenda;
-    private Handler mHandler = null;
-
     private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
@@ -59,7 +57,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             mTime.switchTimezone(mTimeZone);
         }
     };
-
+    private boolean mShowEventDetailsWithAgenda;
+    private Handler mHandler = null;
     // runs every midnight and refreshes the view in order to update the past/present
     // separator
     private final Runnable mMidnightUpdater = new Runnable() {

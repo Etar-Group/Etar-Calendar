@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
@@ -27,6 +25,8 @@ import android.util.TimeFormatException;
 import com.android.calendarcommon2.EventRecurrence;
 
 import java.util.Calendar;
+
+import ws.xsoh.etar.R;
 
 public class EventRecurrenceFormatter
 {

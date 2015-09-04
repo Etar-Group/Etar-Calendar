@@ -16,10 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import com.android.calendar.AsyncQueryService.Operation;
-
 import android.app.IntentService;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -34,6 +30,8 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
+
+import com.android.calendar.AsyncQueryService.Operation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,106 +48,12 @@ public class AsyncQueryServiceHelper extends IntentService {
 
     protected Class<AsyncQueryService> mService = AsyncQueryService.class;
 
-    protected static class OperationInfo implements Delayed{
-        public int token; // Used for cancel
-        public int op;
-        public ContentResolver resolver;
-        public Uri uri;
-        public String authority;
-        public Handler handler;
-        public String[] projection;
-        public String selection;
-        public String[] selectionArgs;
-        public String orderBy;
-        public Object result;
-        public Object cookie;
-        public ContentValues values;
-        public ArrayList<ContentProviderOperation> cpo;
+    public AsyncQueryServiceHelper(String name) {
+        super(name);
+    }
 
-        /**
-         * delayMillis is relative time e.g. 10,000 milliseconds
-         */
-        public long delayMillis;
-
-        /**
-         * scheduleTimeMillis is the time scheduled for this to be processed.
-         * e.g. SystemClock.elapsedRealtime() + 10,000 milliseconds Based on
-         * {@link android.os.SystemClock#elapsedRealtime }
-         */
-        private long mScheduledTimeMillis = 0;
-
-        // @VisibleForTesting
-        void calculateScheduledTime() {
-            mScheduledTimeMillis = SystemClock.elapsedRealtime() + delayMillis;
-        }
-
-        // @Override // Uncomment with Java6
-        public long getDelay(TimeUnit unit) {
-            return unit.convert(mScheduledTimeMillis - SystemClock.elapsedRealtime(),
-                    TimeUnit.MILLISECONDS);
-        }
-
-        // @Override // Uncomment with Java6
-        public int compareTo(Delayed another) {
-            OperationInfo anotherArgs = (OperationInfo) another;
-            if (this.mScheduledTimeMillis == anotherArgs.mScheduledTimeMillis) {
-                return 0;
-            } else if (this.mScheduledTimeMillis < anotherArgs.mScheduledTimeMillis) {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("OperationInfo [\n\t token= ");
-            builder.append(token);
-            builder.append(",\n\t op= ");
-            builder.append(Operation.opToChar(op));
-            builder.append(",\n\t uri= ");
-            builder.append(uri);
-            builder.append(",\n\t authority= ");
-            builder.append(authority);
-            builder.append(",\n\t delayMillis= ");
-            builder.append(delayMillis);
-            builder.append(",\n\t mScheduledTimeMillis= ");
-            builder.append(mScheduledTimeMillis);
-            builder.append(",\n\t resolver= ");
-            builder.append(resolver);
-            builder.append(",\n\t handler= ");
-            builder.append(handler);
-            builder.append(",\n\t projection= ");
-            builder.append(Arrays.toString(projection));
-            builder.append(",\n\t selection= ");
-            builder.append(selection);
-            builder.append(",\n\t selectionArgs= ");
-            builder.append(Arrays.toString(selectionArgs));
-            builder.append(",\n\t orderBy= ");
-            builder.append(orderBy);
-            builder.append(",\n\t result= ");
-            builder.append(result);
-            builder.append(",\n\t cookie= ");
-            builder.append(cookie);
-            builder.append(",\n\t values= ");
-            builder.append(values);
-            builder.append(",\n\t cpo= ");
-            builder.append(cpo);
-            builder.append("\n]");
-            return builder.toString();
-        }
-
-        /**
-         * Compares an user-visible operation to this private OperationInfo
-         * object
-         *
-         * @param o operation to be compared
-         * @return true if logically equivalent
-         */
-        public boolean equivalent(Operation o) {
-            return o.token == this.token && o.op == this.op;
-        }
+    public AsyncQueryServiceHelper() {
+        super("AsyncQueryServiceHelper");
     }
 
     /**
@@ -231,14 +135,6 @@ public class AsyncQueryServiceHelper extends IntentService {
             Log.d(TAG, "cancelOperation(" + token + ") -> " + canceled);
         }
         return canceled;
-    }
-
-    public AsyncQueryServiceHelper(String name) {
-        super(name);
-    }
-
-    public AsyncQueryServiceHelper() {
-        super("AsyncQueryServiceHelper");
     }
 
     @Override
@@ -376,5 +272,107 @@ public class AsyncQueryServiceHelper extends IntentService {
             Log.d(TAG, "onDestroy");
         }
         super.onDestroy();
+    }
+
+    protected static class OperationInfo implements Delayed {
+        public int token; // Used for cancel
+        public int op;
+        public ContentResolver resolver;
+        public Uri uri;
+        public String authority;
+        public Handler handler;
+        public String[] projection;
+        public String selection;
+        public String[] selectionArgs;
+        public String orderBy;
+        public Object result;
+        public Object cookie;
+        public ContentValues values;
+        public ArrayList<ContentProviderOperation> cpo;
+
+        /**
+         * delayMillis is relative time e.g. 10,000 milliseconds
+         */
+        public long delayMillis;
+
+        /**
+         * scheduleTimeMillis is the time scheduled for this to be processed.
+         * e.g. SystemClock.elapsedRealtime() + 10,000 milliseconds Based on
+         * {@link android.os.SystemClock#elapsedRealtime }
+         */
+        private long mScheduledTimeMillis = 0;
+
+        // @VisibleForTesting
+        void calculateScheduledTime() {
+            mScheduledTimeMillis = SystemClock.elapsedRealtime() + delayMillis;
+        }
+
+        // @Override // Uncomment with Java6
+        public long getDelay(TimeUnit unit) {
+            return unit.convert(mScheduledTimeMillis - SystemClock.elapsedRealtime(),
+                    TimeUnit.MILLISECONDS);
+        }
+
+        // @Override // Uncomment with Java6
+        public int compareTo(Delayed another) {
+            OperationInfo anotherArgs = (OperationInfo) another;
+            if (this.mScheduledTimeMillis == anotherArgs.mScheduledTimeMillis) {
+                return 0;
+            } else if (this.mScheduledTimeMillis < anotherArgs.mScheduledTimeMillis) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("OperationInfo [\n\t token= ");
+            builder.append(token);
+            builder.append(",\n\t op= ");
+            builder.append(Operation.opToChar(op));
+            builder.append(",\n\t uri= ");
+            builder.append(uri);
+            builder.append(",\n\t authority= ");
+            builder.append(authority);
+            builder.append(",\n\t delayMillis= ");
+            builder.append(delayMillis);
+            builder.append(",\n\t mScheduledTimeMillis= ");
+            builder.append(mScheduledTimeMillis);
+            builder.append(",\n\t resolver= ");
+            builder.append(resolver);
+            builder.append(",\n\t handler= ");
+            builder.append(handler);
+            builder.append(",\n\t projection= ");
+            builder.append(Arrays.toString(projection));
+            builder.append(",\n\t selection= ");
+            builder.append(selection);
+            builder.append(",\n\t selectionArgs= ");
+            builder.append(Arrays.toString(selectionArgs));
+            builder.append(",\n\t orderBy= ");
+            builder.append(orderBy);
+            builder.append(",\n\t result= ");
+            builder.append(result);
+            builder.append(",\n\t cookie= ");
+            builder.append(cookie);
+            builder.append(",\n\t values= ");
+            builder.append(values);
+            builder.append(",\n\t cpo= ");
+            builder.append(cpo);
+            builder.append("\n]");
+            return builder.toString();
+        }
+
+        /**
+         * Compares an user-visible operation to this private OperationInfo
+         * object
+         *
+         * @param o operation to be compared
+         * @return true if logically equivalent
+         */
+        public boolean equivalent(Operation o) {
+            return o.token == this.token && o.op == this.op;
+        }
     }
 }

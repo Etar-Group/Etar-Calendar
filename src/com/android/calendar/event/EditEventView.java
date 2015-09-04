@@ -74,7 +74,6 @@ import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.EventInfoFragment;
 import com.android.calendar.EventRecurrenceFormatter;
 import com.android.calendar.GeneralPreferences;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.RecipientAdapter;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
@@ -102,6 +101,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import ws.xsoh.etar.R;
+
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
         DialogInterface.OnClickListener, OnItemSelectedListener,
         RecurrencePickerDialog.OnRecurrenceSetListener,
@@ -115,7 +116,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
     private static final String FRAG_TAG_TIME_ZONE_PICKER = "timeZonePickerDialogFragment";
     private static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
-
+    private static StringBuilder mSB = new StringBuilder(50);
+    private static Formatter mF = new Formatter(mSB, Locale.getDefault());
+    /**
+     * From com.google.android.gm.ComposeActivity Implements special address
+     * cleanup rules: The first space key entry following an "@" symbol that is
+     * followed by any combination of letters and symbols, including one+ dots
+     * and zero commas, should insert an extra comma (followed by the space).
+     */
+    private static InputFilter[] sRecipientFilters = new InputFilter[]{new Rfc822InputFilter()};
+    public boolean mIsMultipane;
+    public boolean mTimeSelectedWasStartTime;
+    public boolean mDateSelectedWasStartDate;
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
     ArrayList<View> mViewOnlyList = new ArrayList<View>();
@@ -160,10 +172,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mAttendeesGroup;
     View mStartHomeGroup;
     View mEndHomeGroup;
-
     private int[] mOriginalPadding = new int[4];
-
-    public boolean mIsMultipane;
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
     private DialogFragment mTimezoneDialog;
@@ -174,20 +183,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private Cursor mCalendarsCursor;
     private AccountSpecifier mAddressAdapter;
     private Rfc822Validator mEmailValidator;
-
-    public boolean mTimeSelectedWasStartTime;
-    public boolean mDateSelectedWasStartDate;
     private TimePickerDialog mStartTimePickerDialog;
     private TimePickerDialog mEndTimePickerDialog;
     private DatePickerDialog mDatePickerDialog;
-
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
      * with any additional values that were already associated with the event.
      */
     private ArrayList<Integer> mReminderMinuteValues;
     private ArrayList<String> mReminderMinuteLabels;
-
     /**
      * Contents of the "methods" spinner.  The "values" list specifies the method constant
      * (e.g. {@link Reminders#METHOD_ALERT}) associated with the labels.  Any methods that
@@ -195,7 +199,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      */
     private ArrayList<Integer> mReminderMethodValues;
     private ArrayList<String> mReminderMethodLabels;
-
     /**
      * Contents of the "availability" spinner. The "values" list specifies the
      * type constant (e.g. {@link Events#AVAILABILITY_BUSY}) associated with the
@@ -208,189 +211,216 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private boolean mAvailabilityExplicitlySet;
     private boolean mAllDayChangingAvailability;
     private int mAvailabilityCurrentlySelected;
-
     private int mDefaultReminderMinutes;
-
     private boolean mSaveAfterQueryComplete = false;
-
     private TimeZonePickerUtils mTzPickerUtils;
     private Time mStartTime;
     private Time mEndTime;
     private String mTimezone;
     private boolean mAllDay = false;
     private int mModification = EditEventHelper.MODIFY_UNINITIALIZED;
-
     private EventRecurrence mEventRecurrence = new EventRecurrence();
-
     private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
     private ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
     private String mRrule;
 
-    private static StringBuilder mSB = new StringBuilder(50);
-    private static Formatter mF = new Formatter(mSB, Locale.getDefault());
+    public EditEventView(Activity activity, View view, EditDoneRunnable done,
+                         boolean timeSelectedWasStartTime, boolean dateSelectedWasStartDate) {
 
-    /* This class is used to update the time buttons. */
-    private class TimeListener implements OnTimeSetListener {
-        private View mView;
+        mActivity = activity;
+        mView = view;
+        mDone = done;
 
-        public TimeListener(View view) {
-            mView = view;
-        }
+        // cache top level view elements
+        mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);
+        mScrollView = (ScrollView) view.findViewById(R.id.scroll_view);
 
-        @Override
-        public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-            // Cache the member variables locally to avoid inner class overhead.
-            Time startTime = mStartTime;
-            Time endTime = mEndTime;
+        // cache all the widgets
+        mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars_spinner);
+        mTitleTextView = (TextView) view.findViewById(R.id.title);
+        mLocationTextView = (AutoCompleteTextView) view.findViewById(R.id.location);
+        mDescriptionTextView = (TextView) view.findViewById(R.id.description);
+        mTimezoneLabel = (TextView) view.findViewById(R.id.timezone_label);
+        mStartDateButton = (Button) view.findViewById(R.id.start_date);
+        mEndDateButton = (Button) view.findViewById(R.id.end_date);
+        mWhenView = (TextView) mView.findViewById(R.id.when);
+        mTimezoneTextView = (TextView) mView.findViewById(R.id.timezone_textView);
+        mStartTimeButton = (Button) view.findViewById(R.id.start_time);
+        mEndTimeButton = (Button) view.findViewById(R.id.end_time);
+        mTimezoneButton = (Button) view.findViewById(R.id.timezone_button);
+        mTimezoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimezoneDialog();
+            }
+        });
+        mTimezoneRow = view.findViewById(R.id.timezone_button_row);
+        mStartTimeHome = (TextView) view.findViewById(R.id.start_time_home_tz);
+        mStartDateHome = (TextView) view.findViewById(R.id.start_date_home_tz);
+        mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home_tz);
+        mEndDateHome = (TextView) view.findViewById(R.id.end_date_home_tz);
+        mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
+        mRruleButton = (Button) view.findViewById(R.id.rrule);
+        mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
+        mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
+        mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
+        mCalendarSelectorWrapper = view.findViewById(R.id.calendar_selector_wrapper);
+        mCalendarStaticGroup = view.findViewById(R.id.calendar_group);
+        mRemindersGroup = view.findViewById(R.id.reminders_row);
+        mResponseGroup = view.findViewById(R.id.response_row);
+        mOrganizerGroup = view.findViewById(R.id.organizer_row);
+        mAttendeesGroup = view.findViewById(R.id.add_attendees_row);
+        mLocationGroup = view.findViewById(R.id.where_row);
+        mDescriptionGroup = view.findViewById(R.id.description_row);
+        mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
+        mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
+        mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
 
-            // Cache the start and end millis so that we limit the number
-            // of calls to normalize() and toMillis(), which are fairly
-            // expensive.
-            long startMillis;
-            long endMillis;
-            if (mView == mStartTimeButton) {
-                // The start time was changed.
-                int hourDuration = endTime.hour - startTime.hour;
-                int minuteDuration = endTime.minute - startTime.minute;
+        mColorPickerNewEvent = view.findViewById(R.id.change_color_new_event);
+        mColorPickerExistingEvent = view.findViewById(R.id.change_color_existing_event);
 
-                startTime.hour = hourOfDay;
-                startTime.minute = minute;
-                startMillis = startTime.normalize(true);
-
-                // Also update the end time to keep the duration constant.
-                endTime.hour = hourOfDay + hourDuration;
-                endTime.minute = minute + minuteDuration;
-
-                // Update tz in case the start time switched from/to DLS
-                populateTimezone(startMillis);
-            } else {
-                // The end time was changed.
-                startMillis = startTime.toMillis(true);
-                endTime.hour = hourOfDay;
-                endTime.minute = minute;
-
-                // Move to the start time if the end time is before the start
-                // time.
-                if (endTime.before(startTime)) {
-                    endTime.monthDay = startTime.monthDay + 1;
+        mTitleTextView.setTag(mTitleTextView.getBackground());
+        mLocationTextView.setTag(mLocationTextView.getBackground());
+        mLocationAdapter = new EventLocationAdapter(activity);
+        mLocationTextView.setAdapter(mLocationAdapter);
+        mLocationTextView.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // Dismiss the suggestions dropdown.  Return false so the other
+                    // side effects still occur (soft keyboard going away, etc.).
+                    mLocationTextView.dismissDropDown();
                 }
-                // Call populateTimezone if we support end time zone as well
+                return false;
+            }
+        });
+
+        mAvailabilityExplicitlySet = false;
+        mAllDayChangingAvailability = false;
+        mAvailabilityCurrentlySelected = -1;
+        mAvailabilitySpinner.setOnItemSelectedListener(
+                new OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent,
+                                               View view, int position, long id) {
+                        // The spinner's onItemSelected gets called while it is being
+                        // initialized to the first item, and when we explicitly set it
+                        // in the allDay checkbox toggling, so we need these checks to
+                        // find out when the spinner is actually being clicked.
+
+                        // Set the initial selection.
+                        if (mAvailabilityCurrentlySelected == -1) {
+                            mAvailabilityCurrentlySelected = position;
+                        }
+
+                        if (mAvailabilityCurrentlySelected != position &&
+                                !mAllDayChangingAvailability) {
+                            mAvailabilityExplicitlySet = true;
+                        } else {
+                            mAvailabilityCurrentlySelected = position;
+                            mAllDayChangingAvailability = false;
+                }
             }
 
-            endMillis = endTime.normalize(true);
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                    }
+                });
 
-            setDate(mEndDateButton, endMillis);
-            setTime(mStartTimeButton, startMillis);
-            setTime(mEndTimeButton, endMillis);
-            updateHomeTime();
+
+        mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
+        mAttendeesList.setTag(mAttendeesList.getBackground());
+        mOriginalPadding[0] = mLocationTextView.getPaddingLeft();
+        mOriginalPadding[1] = mLocationTextView.getPaddingTop();
+        mOriginalPadding[2] = mLocationTextView.getPaddingRight();
+        mOriginalPadding[3] = mLocationTextView.getPaddingBottom();
+        mEditViewList.add(mTitleTextView);
+        mEditViewList.add(mLocationTextView);
+        mEditViewList.add(mDescriptionTextView);
+        mEditViewList.add(mAttendeesList);
+
+        mViewOnlyList.add(view.findViewById(R.id.when_row));
+        mViewOnlyList.add(view.findViewById(R.id.timezone_textview_row));
+
+        mEditOnlyList.add(view.findViewById(R.id.all_day_row));
+        mEditOnlyList.add(view.findViewById(R.id.availability_row));
+        mEditOnlyList.add(view.findViewById(R.id.visibility_row));
+        mEditOnlyList.add(view.findViewById(R.id.from_row));
+        mEditOnlyList.add(view.findViewById(R.id.to_row));
+        mEditOnlyList.add(mTimezoneRow);
+        mEditOnlyList.add(mStartHomeGroup);
+        mEditOnlyList.add(mEndHomeGroup);
+
+        mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
+        mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
+
+        mTimezone = Utils.getTimeZone(activity, null);
+        mIsMultipane = activity.getResources().getBoolean(R.bool.tablet_config);
+        mStartTime = new Time(mTimezone);
+        mEndTime = new Time(mTimezone);
+        mEmailValidator = new Rfc822Validator(null);
+        initMultiAutoCompleteTextView((RecipientEditTextView) mAttendeesList);
+
+        // Display loading screen
+        setModel(null);
+
+        FragmentManager fm = activity.getFragmentManager();
+        RecurrencePickerDialog rpd = (RecurrencePickerDialog) fm
+                .findFragmentByTag(FRAG_TAG_RECUR_PICKER);
+        if (rpd != null) {
+            rpd.setOnRecurrenceSetListener(this);
+        }
+        TimeZonePickerDialog tzpd = (TimeZonePickerDialog) fm
+                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER);
+        if (tzpd != null) {
+            tzpd.setOnTimeZoneSetListener(this);
+        }
+        TimePickerDialog tpd = (TimePickerDialog) fm.findFragmentByTag(FRAG_TAG_TIME_PICKER);
+        if (tpd != null) {
+            View v;
+            mTimeSelectedWasStartTime = timeSelectedWasStartTime;
+            if (timeSelectedWasStartTime) {
+                v = mStartTimeButton;
+            } else {
+                v = mEndTimeButton;
+            }
+            tpd.setOnTimeSetListener(new TimeListener(v));
+        }
+        mDatePickerDialog = (DatePickerDialog) fm.findFragmentByTag(FRAG_TAG_DATE_PICKER);
+        if (mDatePickerDialog != null) {
+            View v;
+            mDateSelectedWasStartDate = dateSelectedWasStartDate;
+            if (dateSelectedWasStartDate) {
+                v = mStartDateButton;
+            } else {
+                v = mEndDateButton;
+            }
+            mDatePickerDialog.setOnDateSetListener(new DateListener(v));
         }
     }
 
-    private class TimeClickListener implements View.OnClickListener {
-        private Time mTime;
+    /**
+     * Loads an integer array asset into a list.
+     */
+    private static ArrayList<Integer> loadIntegerArray(Resources r, int resNum) {
+        int[] vals = r.getIntArray(resNum);
+        int size = vals.length;
+        ArrayList<Integer> list = new ArrayList<Integer>(size);
 
-        public TimeClickListener(Time time) {
-            mTime = time;
+        for (int i = 0; i < size; i++) {
+            list.add(vals[i]);
         }
 
-        @Override
-        public void onClick(View v) {
-
-            TimePickerDialog dialog;
-            if (v == mStartTimeButton) {
-                mTimeSelectedWasStartTime = true;
-                if (mStartTimePickerDialog == null) {
-                    mStartTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
-                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
-                } else {
-                    mStartTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
-                }
-                dialog = mStartTimePickerDialog;
-            } else {
-                mTimeSelectedWasStartTime = false;
-                if (mEndTimePickerDialog == null) {
-                    mEndTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
-                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
-                } else {
-                    mEndTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
-                }
-                dialog = mEndTimePickerDialog;
-
-            }
-
-            final FragmentManager fm = mActivity.getFragmentManager();
-            fm.executePendingTransactions();
-
-            if (dialog != null && !dialog.isAdded()) {
-                dialog.show(fm, FRAG_TAG_TIME_PICKER);
-            }
-        }
+        return list;
     }
 
-    private class DateListener implements OnDateSetListener {
-        View mView;
-
-        public DateListener(View view) {
-            mView = view;
-        }
-
-        @Override
-        public void onDateSet(DatePickerDialog view, int year, int month, int monthDay) {
-            Log.d(TAG, "onDateSet: " + year +  " " + month +  " " + monthDay);
-            // Cache the member variables locally to avoid inner class overhead.
-            Time startTime = mStartTime;
-            Time endTime = mEndTime;
-
-            // Cache the start and end millis so that we limit the number
-            // of calls to normalize() and toMillis(), which are fairly
-            // expensive.
-            long startMillis;
-            long endMillis;
-            if (mView == mStartDateButton) {
-                // The start date was changed.
-                int yearDuration = endTime.year - startTime.year;
-                int monthDuration = endTime.month - startTime.month;
-                int monthDayDuration = endTime.monthDay - startTime.monthDay;
-
-                startTime.year = year;
-                startTime.month = month;
-                startTime.monthDay = monthDay;
-                startMillis = startTime.normalize(true);
-
-                // Also update the end date to keep the duration constant.
-                endTime.year = year + yearDuration;
-                endTime.month = month + monthDuration;
-                endTime.monthDay = monthDay + monthDayDuration;
-                endMillis = endTime.normalize(true);
-
-                // If the start date has changed then update the repeats.
-                populateRepeats();
-
-                // Update tz in case the start time switched from/to DLS
-                populateTimezone(startMillis);
-            } else {
-                // The end date was changed.
-                startMillis = startTime.toMillis(true);
-                endTime.year = year;
-                endTime.month = month;
-                endTime.monthDay = monthDay;
-                endMillis = endTime.normalize(true);
-
-                // Do not allow an event to have an end time before the start
-                // time.
-                if (endTime.before(startTime)) {
-                    endTime.set(startTime);
-                    endMillis = startMillis;
-                }
-                // Call populateTimezone if we support end time zone as well
-            }
-
-            setDate(mStartDateButton, startMillis);
-            setDate(mEndDateButton, endMillis);
-            setTime(mEndTimeButton, endMillis); // In case end time had to be
-            // reset
-            updateHomeTime();
-        }
+    /**
+     * Loads a String array asset into a list.
+     */
+    private static ArrayList<String> loadStringArray(Resources r, int resNum) {
+        String[] labels = r.getStringArray(resNum);
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
+        return list;
     }
 
     // Fills in the date and time fields
@@ -487,65 +517,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         mRruleButton.setOnClickListener(this);
         mRruleButton.setEnabled(enabled);
-    }
-
-    private class DateClickListener implements View.OnClickListener {
-        private Time mTime;
-
-        public DateClickListener(Time time) {
-            mTime = time;
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            if (v == mStartDateButton) {
-                mDateSelectedWasStartDate = true;
-            } else {
-                mDateSelectedWasStartDate = false;
-            }
-
-            final DateListener listener = new DateListener(v);
-            if (mDatePickerDialog != null) {
-                mDatePickerDialog.dismiss();
-            }
-            mDatePickerDialog = DatePickerDialog.newInstance(listener,
-                    mTime.year, mTime.month, mTime.monthDay);
-            mDatePickerDialog.setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
-            mDatePickerDialog.setYearRange(Utils.YEAR_MIN, Utils.YEAR_MAX);
-            mDatePickerDialog.show(mActivity.getFragmentManager(), FRAG_TAG_DATE_PICKER);
-        }
-    }
-
-    public static class CalendarsAdapter extends ResourceCursorAdapter {
-        public CalendarsAdapter(Context context, int resourceId, Cursor c) {
-            super(context, resourceId, c);
-            setDropDownViewResource(R.layout.calendars_dropdown_item);
-        }
-
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            View colorBar = view.findViewById(R.id.color);
-            int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
-            int nameColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
-            int ownerColumn = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
-            if (colorBar != null) {
-                colorBar.setBackgroundColor(Utils.getDisplayColorFromColor(cursor
-                        .getInt(colorColumn)));
-            }
-
-            TextView name = (TextView) view.findViewById(R.id.calendar_name);
-            if (name != null) {
-                String displayName = cursor.getString(nameColumn);
-                name.setText(displayName);
-
-                TextView accountName = (TextView) view.findViewById(R.id.account_name);
-                if (accountName != null) {
-                    accountName.setText(cursor.getString(ownerColumn));
-                    accountName.setVisibility(TextView.VISIBLE);
-                }
-            }
-        }
     }
 
     /**
@@ -755,204 +726,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         return true;
-    }
-
-    public EditEventView(Activity activity, View view, EditDoneRunnable done,
-            boolean timeSelectedWasStartTime, boolean dateSelectedWasStartDate) {
-
-        mActivity = activity;
-        mView = view;
-        mDone = done;
-
-        // cache top level view elements
-        mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);
-        mScrollView = (ScrollView) view.findViewById(R.id.scroll_view);
-
-        // cache all the widgets
-        mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars_spinner);
-        mTitleTextView = (TextView) view.findViewById(R.id.title);
-        mLocationTextView = (AutoCompleteTextView) view.findViewById(R.id.location);
-        mDescriptionTextView = (TextView) view.findViewById(R.id.description);
-        mTimezoneLabel = (TextView) view.findViewById(R.id.timezone_label);
-        mStartDateButton = (Button) view.findViewById(R.id.start_date);
-        mEndDateButton = (Button) view.findViewById(R.id.end_date);
-        mWhenView = (TextView) mView.findViewById(R.id.when);
-        mTimezoneTextView = (TextView) mView.findViewById(R.id.timezone_textView);
-        mStartTimeButton = (Button) view.findViewById(R.id.start_time);
-        mEndTimeButton = (Button) view.findViewById(R.id.end_time);
-        mTimezoneButton = (Button) view.findViewById(R.id.timezone_button);
-        mTimezoneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimezoneDialog();
-            }
-        });
-        mTimezoneRow = view.findViewById(R.id.timezone_button_row);
-        mStartTimeHome = (TextView) view.findViewById(R.id.start_time_home_tz);
-        mStartDateHome = (TextView) view.findViewById(R.id.start_date_home_tz);
-        mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home_tz);
-        mEndDateHome = (TextView) view.findViewById(R.id.end_date_home_tz);
-        mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
-        mRruleButton = (Button) view.findViewById(R.id.rrule);
-        mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
-        mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
-        mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
-        mCalendarSelectorWrapper = view.findViewById(R.id.calendar_selector_wrapper);
-        mCalendarStaticGroup = view.findViewById(R.id.calendar_group);
-        mRemindersGroup = view.findViewById(R.id.reminders_row);
-        mResponseGroup = view.findViewById(R.id.response_row);
-        mOrganizerGroup = view.findViewById(R.id.organizer_row);
-        mAttendeesGroup = view.findViewById(R.id.add_attendees_row);
-        mLocationGroup = view.findViewById(R.id.where_row);
-        mDescriptionGroup = view.findViewById(R.id.description_row);
-        mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
-        mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
-        mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
-
-        mColorPickerNewEvent = view.findViewById(R.id.change_color_new_event);
-        mColorPickerExistingEvent = view.findViewById(R.id.change_color_existing_event);
-
-        mTitleTextView.setTag(mTitleTextView.getBackground());
-        mLocationTextView.setTag(mLocationTextView.getBackground());
-        mLocationAdapter = new EventLocationAdapter(activity);
-        mLocationTextView.setAdapter(mLocationAdapter);
-        mLocationTextView.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // Dismiss the suggestions dropdown.  Return false so the other
-                    // side effects still occur (soft keyboard going away, etc.).
-                    mLocationTextView.dismissDropDown();
-                }
-                return false;
-            }
-        });
-
-        mAvailabilityExplicitlySet = false;
-        mAllDayChangingAvailability = false;
-        mAvailabilityCurrentlySelected = -1;
-        mAvailabilitySpinner.setOnItemSelectedListener(
-                new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent,
-                    View view, int position, long id) {
-                // The spinner's onItemSelected gets called while it is being
-                // initialized to the first item, and when we explicitly set it
-                // in the allDay checkbox toggling, so we need these checks to
-                // find out when the spinner is actually being clicked.
-
-                // Set the initial selection.
-                if (mAvailabilityCurrentlySelected == -1) {
-                    mAvailabilityCurrentlySelected = position;
-                }
-
-                if (mAvailabilityCurrentlySelected != position &&
-                        !mAllDayChangingAvailability) {
-                    mAvailabilityExplicitlySet = true;
-                } else {
-                    mAvailabilityCurrentlySelected = position;
-                    mAllDayChangingAvailability = false;
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) { }
-        });
-
-
-        mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
-        mAttendeesList.setTag(mAttendeesList.getBackground());
-        mOriginalPadding[0] = mLocationTextView.getPaddingLeft();
-        mOriginalPadding[1] = mLocationTextView.getPaddingTop();
-        mOriginalPadding[2] = mLocationTextView.getPaddingRight();
-        mOriginalPadding[3] = mLocationTextView.getPaddingBottom();
-        mEditViewList.add(mTitleTextView);
-        mEditViewList.add(mLocationTextView);
-        mEditViewList.add(mDescriptionTextView);
-        mEditViewList.add(mAttendeesList);
-
-        mViewOnlyList.add(view.findViewById(R.id.when_row));
-        mViewOnlyList.add(view.findViewById(R.id.timezone_textview_row));
-
-        mEditOnlyList.add(view.findViewById(R.id.all_day_row));
-        mEditOnlyList.add(view.findViewById(R.id.availability_row));
-        mEditOnlyList.add(view.findViewById(R.id.visibility_row));
-        mEditOnlyList.add(view.findViewById(R.id.from_row));
-        mEditOnlyList.add(view.findViewById(R.id.to_row));
-        mEditOnlyList.add(mTimezoneRow);
-        mEditOnlyList.add(mStartHomeGroup);
-        mEditOnlyList.add(mEndHomeGroup);
-
-        mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
-        mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
-
-        mTimezone = Utils.getTimeZone(activity, null);
-        mIsMultipane = activity.getResources().getBoolean(R.bool.tablet_config);
-        mStartTime = new Time(mTimezone);
-        mEndTime = new Time(mTimezone);
-        mEmailValidator = new Rfc822Validator(null);
-        initMultiAutoCompleteTextView((RecipientEditTextView) mAttendeesList);
-
-        // Display loading screen
-        setModel(null);
-
-        FragmentManager fm = activity.getFragmentManager();
-        RecurrencePickerDialog rpd = (RecurrencePickerDialog) fm
-                .findFragmentByTag(FRAG_TAG_RECUR_PICKER);
-        if (rpd != null) {
-            rpd.setOnRecurrenceSetListener(this);
-        }
-        TimeZonePickerDialog tzpd = (TimeZonePickerDialog) fm
-                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER);
-        if (tzpd != null) {
-            tzpd.setOnTimeZoneSetListener(this);
-        }
-        TimePickerDialog tpd = (TimePickerDialog) fm.findFragmentByTag(FRAG_TAG_TIME_PICKER);
-        if (tpd != null) {
-            View v;
-            mTimeSelectedWasStartTime = timeSelectedWasStartTime;
-            if (timeSelectedWasStartTime) {
-                v = mStartTimeButton;
-            } else {
-                v = mEndTimeButton;
-            }
-            tpd.setOnTimeSetListener(new TimeListener(v));
-        }
-        mDatePickerDialog = (DatePickerDialog) fm.findFragmentByTag(FRAG_TAG_DATE_PICKER);
-        if (mDatePickerDialog != null) {
-            View v;
-            mDateSelectedWasStartDate = dateSelectedWasStartDate;
-            if (dateSelectedWasStartDate) {
-                v = mStartDateButton;
-            } else {
-                v = mEndDateButton;
-            }
-            mDatePickerDialog.setOnDateSetListener(new DateListener(v));
-        }
-    }
-
-
-    /**
-     * Loads an integer array asset into a list.
-     */
-    private static ArrayList<Integer> loadIntegerArray(Resources r, int resNum) {
-        int[] vals = r.getIntArray(resNum);
-        int size = vals.length;
-        ArrayList<Integer> list = new ArrayList<Integer>(size);
-
-        for (int i = 0; i < size; i++) {
-            list.add(vals[i]);
-        }
-
-        return list;
-    }
-
-    /**
-     * Loads a String array asset into a list.
-     */
-    private static ArrayList<String> loadStringArray(Resources r, int resNum) {
-        String[] labels = r.getStringArray(resNum);
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
-        return list;
     }
 
     private void prepareAvailability() {
@@ -1575,14 +1348,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return list;
     }
 
-    /**
-     * From com.google.android.gm.ComposeActivity Implements special address
-     * cleanup rules: The first space key entry following an "@" symbol that is
-     * followed by any combination of letters and symbols, including one+ dots
-     * and zero commas, should insert an extra comma (followed by the space).
-     */
-    private static InputFilter[] sRecipientFilters = new InputFilter[] { new Rfc822InputFilter() };
-
     private void setDate(TextView view, long millis) {
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
                 | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_MONTH
@@ -1840,5 +1605,228 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    public static class CalendarsAdapter extends ResourceCursorAdapter {
+        public CalendarsAdapter(Context context, int resourceId, Cursor c) {
+            super(context, resourceId, c);
+            setDropDownViewResource(R.layout.calendars_dropdown_item);
+        }
+
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            View colorBar = view.findViewById(R.id.color);
+            int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
+            int nameColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
+            int ownerColumn = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+            if (colorBar != null) {
+                colorBar.setBackgroundColor(Utils.getDisplayColorFromColor(cursor
+                        .getInt(colorColumn)));
+            }
+
+            TextView name = (TextView) view.findViewById(R.id.calendar_name);
+            if (name != null) {
+                String displayName = cursor.getString(nameColumn);
+                name.setText(displayName);
+
+                TextView accountName = (TextView) view.findViewById(R.id.account_name);
+                if (accountName != null) {
+                    accountName.setText(cursor.getString(ownerColumn));
+                    accountName.setVisibility(TextView.VISIBLE);
+                }
+            }
+        }
+    }
+
+    /* This class is used to update the time buttons. */
+    private class TimeListener implements OnTimeSetListener {
+        private View mView;
+
+        public TimeListener(View view) {
+            mView = view;
+        }
+
+        @Override
+        public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+            // Cache the member variables locally to avoid inner class overhead.
+            Time startTime = mStartTime;
+            Time endTime = mEndTime;
+
+            // Cache the start and end millis so that we limit the number
+            // of calls to normalize() and toMillis(), which are fairly
+            // expensive.
+            long startMillis;
+            long endMillis;
+            if (mView == mStartTimeButton) {
+                // The start time was changed.
+                int hourDuration = endTime.hour - startTime.hour;
+                int minuteDuration = endTime.minute - startTime.minute;
+
+                startTime.hour = hourOfDay;
+                startTime.minute = minute;
+                startMillis = startTime.normalize(true);
+
+                // Also update the end time to keep the duration constant.
+                endTime.hour = hourOfDay + hourDuration;
+                endTime.minute = minute + minuteDuration;
+
+                // Update tz in case the start time switched from/to DLS
+                populateTimezone(startMillis);
+            } else {
+                // The end time was changed.
+                startMillis = startTime.toMillis(true);
+                endTime.hour = hourOfDay;
+                endTime.minute = minute;
+
+                // Move to the start time if the end time is before the start
+                // time.
+                if (endTime.before(startTime)) {
+                    endTime.monthDay = startTime.monthDay + 1;
+                }
+                // Call populateTimezone if we support end time zone as well
+            }
+
+            endMillis = endTime.normalize(true);
+
+            setDate(mEndDateButton, endMillis);
+            setTime(mStartTimeButton, startMillis);
+            setTime(mEndTimeButton, endMillis);
+            updateHomeTime();
+        }
+    }
+
+    private class TimeClickListener implements View.OnClickListener {
+        private Time mTime;
+
+        public TimeClickListener(Time time) {
+            mTime = time;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            TimePickerDialog dialog;
+            if (v == mStartTimeButton) {
+                mTimeSelectedWasStartTime = true;
+                if (mStartTimePickerDialog == null) {
+                    mStartTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
+                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
+                } else {
+                    mStartTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
+                }
+                dialog = mStartTimePickerDialog;
+            } else {
+                mTimeSelectedWasStartTime = false;
+                if (mEndTimePickerDialog == null) {
+                    mEndTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
+                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
+                } else {
+                    mEndTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
+                }
+                dialog = mEndTimePickerDialog;
+
+            }
+
+            final FragmentManager fm = mActivity.getFragmentManager();
+            fm.executePendingTransactions();
+
+            if (dialog != null && !dialog.isAdded()) {
+                dialog.show(fm, FRAG_TAG_TIME_PICKER);
+            }
+        }
+    }
+
+    private class DateListener implements OnDateSetListener {
+        View mView;
+
+        public DateListener(View view) {
+            mView = view;
+        }
+
+        @Override
+        public void onDateSet(DatePickerDialog view, int year, int month, int monthDay) {
+            Log.d(TAG, "onDateSet: " + year + " " + month + " " + monthDay);
+            // Cache the member variables locally to avoid inner class overhead.
+            Time startTime = mStartTime;
+            Time endTime = mEndTime;
+
+            // Cache the start and end millis so that we limit the number
+            // of calls to normalize() and toMillis(), which are fairly
+            // expensive.
+            long startMillis;
+            long endMillis;
+            if (mView == mStartDateButton) {
+                // The start date was changed.
+                int yearDuration = endTime.year - startTime.year;
+                int monthDuration = endTime.month - startTime.month;
+                int monthDayDuration = endTime.monthDay - startTime.monthDay;
+
+                startTime.year = year;
+                startTime.month = month;
+                startTime.monthDay = monthDay;
+                startMillis = startTime.normalize(true);
+
+                // Also update the end date to keep the duration constant.
+                endTime.year = year + yearDuration;
+                endTime.month = month + monthDuration;
+                endTime.monthDay = monthDay + monthDayDuration;
+                endMillis = endTime.normalize(true);
+
+                // If the start date has changed then update the repeats.
+                populateRepeats();
+
+                // Update tz in case the start time switched from/to DLS
+                populateTimezone(startMillis);
+            } else {
+                // The end date was changed.
+                startMillis = startTime.toMillis(true);
+                endTime.year = year;
+                endTime.month = month;
+                endTime.monthDay = monthDay;
+                endMillis = endTime.normalize(true);
+
+                // Do not allow an event to have an end time before the start
+                // time.
+                if (endTime.before(startTime)) {
+                    endTime.set(startTime);
+                    endMillis = startMillis;
+                }
+                // Call populateTimezone if we support end time zone as well
+            }
+
+            setDate(mStartDateButton, startMillis);
+            setDate(mEndDateButton, endMillis);
+            setTime(mEndTimeButton, endMillis); // In case end time had to be
+            // reset
+            updateHomeTime();
+        }
+    }
+
+    private class DateClickListener implements View.OnClickListener {
+        private Time mTime;
+
+        public DateClickListener(Time time) {
+            mTime = time;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (v == mStartDateButton) {
+                mDateSelectedWasStartDate = true;
+            } else {
+                mDateSelectedWasStartDate = false;
+            }
+
+            final DateListener listener = new DateListener(v);
+            if (mDatePickerDialog != null) {
+                mDatePickerDialog.dismiss();
+            }
+            mDatePickerDialog = DatePickerDialog.newInstance(listener,
+                    mTime.year, mTime.month, mTime.monthDay);
+            mDatePickerDialog.setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
+            mDatePickerDialog.setYearRange(Utils.YEAR_MIN, Utils.YEAR_MAX);
+            mDatePickerDialog.show(mActivity.getFragmentManager(), FRAG_TAG_DATE_PICKER);
+        }
     }
 }

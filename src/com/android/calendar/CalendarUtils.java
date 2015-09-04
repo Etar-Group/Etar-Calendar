@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -44,33 +42,50 @@ public class CalendarUtils {
     private static final String TAG = "CalendarUtils";
 
     /**
+     * A helper method for writing a String value to the preferences
+     * asynchronously.
+     *
+     * @param context A context with access to the correct preferences
+     * @param key     The preference to write to
+     * @param value   The value to write
+     */
+    public static void setSharedPreference(SharedPreferences prefs, String key, String value) {
+//            SharedPreferences prefs = getSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    /**
+     * A helper method for writing a boolean value to the preferences
+     * asynchronously.
+     *
+     * @param context A context with access to the correct preferences
+     * @param key     The preference to write to
+     * @param value   The value to write
+     */
+    public static void setSharedPreference(SharedPreferences prefs, String key, boolean value) {
+//            SharedPreferences prefs = getSharedPreferences(context, prefsName);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    /**
+     * Return a properly configured SharedPreferences instance
+     */
+    public static SharedPreferences getSharedPreferences(Context context, String prefsName) {
+        return context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
+    }
+
+    /**
      * This class contains methods specific to reading and writing time zone
      * values.
      */
     public static class TimeZoneUtils {
-        private static final String[] TIMEZONE_TYPE_ARGS = { CalendarCache.KEY_TIMEZONE_TYPE };
-        private static final String[] TIMEZONE_INSTANCES_ARGS =
-                { CalendarCache.KEY_TIMEZONE_INSTANCES };
         public static final String[] CALENDAR_CACHE_POJECTION = {
                 CalendarCache.KEY, CalendarCache.VALUE
         };
-
-        private static StringBuilder mSB = new StringBuilder(50);
-        private static Formatter mF = new Formatter(mSB, Locale.getDefault());
-        private volatile static boolean mFirstTZRequest = true;
-        private volatile static boolean mTZQueryInProgress = false;
-
-        private volatile static boolean mUseHomeTZ = false;
-        private volatile static String mHomeTZ = Time.getCurrentTimezone();
-
-        private static HashSet<Runnable> mTZCallbacks = new HashSet<Runnable>();
-        private static int mToken = 1;
-        private static AsyncTZHandler mHandler;
-
-        // The name of the shared preferences file. This name must be maintained for historical
-        // reasons, as it's what PreferenceManager assigned the first time the file was created.
-        private final String mPrefsName;
-
         /**
          * This is the key used for writing whether or not a home time zone should
          * be used in the Calendar app to the Calendar Preferences.
@@ -81,65 +96,21 @@ public class CalendarUtils {
          * home time zones are enabled for the Calendar app.
          */
         public static final String KEY_HOME_TZ = "preferences_home_tz";
-
-        /**
-         * This is a helper class for handling the async queries and updates for the
-         * time zone settings in Calendar.
-         */
-        private class AsyncTZHandler extends AsyncQueryHandler {
-            public AsyncTZHandler(ContentResolver cr) {
-                super(cr);
-            }
-
-            @Override
-            protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-                synchronized (mTZCallbacks) {
-                    if (cursor == null) {
-                        mTZQueryInProgress = false;
-                        mFirstTZRequest = true;
-                        return;
-                    }
-
-                    boolean writePrefs = false;
-                    // Check the values in the db
-                    int keyColumn = cursor.getColumnIndexOrThrow(CalendarCache.KEY);
-                    int valueColumn = cursor.getColumnIndexOrThrow(CalendarCache.VALUE);
-                    while(cursor.moveToNext()) {
-                        String key = cursor.getString(keyColumn);
-                        String value = cursor.getString(valueColumn);
-                        if (TextUtils.equals(key, CalendarCache.KEY_TIMEZONE_TYPE)) {
-                            boolean useHomeTZ = !TextUtils.equals(
-                                    value, CalendarCache.TIMEZONE_TYPE_AUTO);
-                            if (useHomeTZ != mUseHomeTZ) {
-                                writePrefs = true;
-                                mUseHomeTZ = useHomeTZ;
-                            }
-                        } else if (TextUtils.equals(
-                                key, CalendarCache.KEY_TIMEZONE_INSTANCES_PREVIOUS)) {
-                            if (!TextUtils.isEmpty(value) && !TextUtils.equals(mHomeTZ, value)) {
-                                writePrefs = true;
-                                mHomeTZ = value;
-                            }
-                        }
-                    }
-                    cursor.close();
-                    if (writePrefs) {
-                        SharedPreferences prefs = getSharedPreferences((Context)cookie, mPrefsName);
-                        // Write the prefs
-                        setSharedPreference(prefs, KEY_HOME_TZ_ENABLED, mUseHomeTZ);
-                        setSharedPreference(prefs, KEY_HOME_TZ, mHomeTZ);
-                    }
-
-                    mTZQueryInProgress = false;
-                    for (Runnable callback : mTZCallbacks) {
-                        if (callback != null) {
-                            callback.run();
-                        }
-                    }
-                    mTZCallbacks.clear();
-                }
-            }
-        }
+        private static final String[] TIMEZONE_TYPE_ARGS = {CalendarCache.KEY_TIMEZONE_TYPE};
+        private static final String[] TIMEZONE_INSTANCES_ARGS =
+                {CalendarCache.KEY_TIMEZONE_INSTANCES};
+        private static StringBuilder mSB = new StringBuilder(50);
+        private static Formatter mF = new Formatter(mSB, Locale.getDefault());
+        private volatile static boolean mFirstTZRequest = true;
+        private volatile static boolean mTZQueryInProgress = false;
+        private volatile static boolean mUseHomeTZ = false;
+        private volatile static String mHomeTZ = Time.getCurrentTimezone();
+        private static HashSet<Runnable> mTZCallbacks = new HashSet<Runnable>();
+        private static int mToken = 1;
+        private static AsyncTZHandler mHandler;
+        // The name of the shared preferences file. This name must be maintained for historical
+        // reasons, as it's what PreferenceManager assigned the first time the file was created.
+        private final String mPrefsName;
 
         /**
          * The name of the file where the shared prefs for Calendar are stored
@@ -315,40 +286,64 @@ public class CalendarUtils {
                 getTimeZone(context, callback);
             }
         }
+
+        /**
+         * This is a helper class for handling the async queries and updates for the
+         * time zone settings in Calendar.
+         */
+        private class AsyncTZHandler extends AsyncQueryHandler {
+            public AsyncTZHandler(ContentResolver cr) {
+                super(cr);
+            }
+
+            @Override
+            protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+                synchronized (mTZCallbacks) {
+                    if (cursor == null) {
+                        mTZQueryInProgress = false;
+                        mFirstTZRequest = true;
+                        return;
+                    }
+
+                    boolean writePrefs = false;
+                    // Check the values in the db
+                    int keyColumn = cursor.getColumnIndexOrThrow(CalendarCache.KEY);
+                    int valueColumn = cursor.getColumnIndexOrThrow(CalendarCache.VALUE);
+                    while (cursor.moveToNext()) {
+                        String key = cursor.getString(keyColumn);
+                        String value = cursor.getString(valueColumn);
+                        if (TextUtils.equals(key, CalendarCache.KEY_TIMEZONE_TYPE)) {
+                            boolean useHomeTZ = !TextUtils.equals(
+                                    value, CalendarCache.TIMEZONE_TYPE_AUTO);
+                            if (useHomeTZ != mUseHomeTZ) {
+                                writePrefs = true;
+                                mUseHomeTZ = useHomeTZ;
+                            }
+                        } else if (TextUtils.equals(
+                                key, CalendarCache.KEY_TIMEZONE_INSTANCES_PREVIOUS)) {
+                            if (!TextUtils.isEmpty(value) && !TextUtils.equals(mHomeTZ, value)) {
+                                writePrefs = true;
+                                mHomeTZ = value;
+                            }
+                        }
+                    }
+                    cursor.close();
+                    if (writePrefs) {
+                        SharedPreferences prefs = getSharedPreferences((Context) cookie, mPrefsName);
+                        // Write the prefs
+                        setSharedPreference(prefs, KEY_HOME_TZ_ENABLED, mUseHomeTZ);
+                        setSharedPreference(prefs, KEY_HOME_TZ, mHomeTZ);
+                    }
+
+                    mTZQueryInProgress = false;
+                    for (Runnable callback : mTZCallbacks) {
+                        if (callback != null) {
+                            callback.run();
+                        }
+                    }
+                    mTZCallbacks.clear();
+                }
+            }
+        }
     }
-
-        /**
-         * A helper method for writing a String value to the preferences
-         * asynchronously.
-         *
-         * @param context A context with access to the correct preferences
-         * @param key The preference to write to
-         * @param value The value to write
-         */
-        public static void setSharedPreference(SharedPreferences prefs, String key, String value) {
-//            SharedPreferences prefs = getSharedPreferences(context);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString(key, value);
-            editor.apply();
-        }
-
-        /**
-         * A helper method for writing a boolean value to the preferences
-         * asynchronously.
-         *
-         * @param context A context with access to the correct preferences
-         * @param key The preference to write to
-         * @param value The value to write
-         */
-        public static void setSharedPreference(SharedPreferences prefs, String key, boolean value) {
-//            SharedPreferences prefs = getSharedPreferences(context, prefsName);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(key, value);
-            editor.apply();
-        }
-
-        /** Return a properly configured SharedPreferences instance */
-        public static SharedPreferences getSharedPreferences(Context context, String prefsName) {
-            return context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
-        }
 }

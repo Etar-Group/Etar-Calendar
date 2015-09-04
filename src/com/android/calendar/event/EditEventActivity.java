@@ -32,9 +32,9 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.Utils;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.util.ArrayList;
+
+import ws.xsoh.etar.R;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;

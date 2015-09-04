@@ -80,8 +80,6 @@ import android.widget.ViewSwitcher;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -89,6 +87,8 @@ import java.util.Formatter;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import ws.xsoh.etar.R;
 
 /**
  * View for multi-day view. So far only 1 and 7 day have been tested.

@@ -33,7 +33,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Utils;
 
-import org.sufficientlysecure.standalonecalendar.R;
+import ws.xsoh.etar.R;
 
 public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
     private SelectVisibleCalendarsFragment mFragment;

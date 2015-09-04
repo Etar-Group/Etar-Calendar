@@ -49,7 +49,6 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.event.CreateEventDialogFragment;
 
@@ -58,27 +57,17 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import ws.xsoh.etar.R;
+
 public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         CalendarController.EventHandler, LoaderManager.LoaderCallbacks<Cursor>, OnScrollListener,
         OnTouchListener {
     private static final String TAG = "MonthFragment";
     private static final String TAG_EVENT_DIALOG = "event_dialog";
-
-    private CreateEventDialogFragment mEventDialog;
-
     // Selection and selection args for adding event queries
     private static final String WHERE_CALENDARS_VISIBLE = Calendars.VISIBLE + "=1";
     private static final String INSTANCES_SORT_ORDER = Instances.START_DAY + ","
             + Instances.START_MINUTE + "," + Instances.TITLE;
-    protected static boolean mShowDetailsInMonth = false;
-
-    protected float mMinimumTwoMonthFlingVelocity;
-    protected boolean mIsMiniMonth;
-    protected boolean mHideDeclined;
-
-    protected int mFirstLoadedJulianDay;
-    protected int mLastLoadedJulianDay;
-
     private static final int WEEKS_BUFFER = 1;
     // How long to wait after scroll stops before starting the loader
     // Using scroll duration because scroll state changes don't update
@@ -87,32 +76,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     // The minimum time between requeries of the data if the db is
     // changing
     private static final int LOADER_THROTTLE_DELAY = 500;
-
-    private CursorLoader mLoader;
-    private Uri mEventUri;
+    protected static boolean mShowDetailsInMonth = false;
     private final Time mDesiredDay = new Time();
-
-    private volatile boolean mShouldLoad = true;
-    private boolean mUserScrolled = false;
-
-    private int mEventsLoadingDelay;
-    private boolean mShowCalendarControls;
-    private boolean mIsDetached;
-
-    private Handler mEventDialogHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            final FragmentManager manager = getFragmentManager();
-            if (manager != null) {
-                Time day = (Time) msg.obj;
-                mEventDialog = new CreateEventDialogFragment(day);
-                mEventDialog.show(manager, TAG_EVENT_DIALOG);
-            }
-        }
-    };
-
-
     private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
@@ -129,8 +94,15 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             }
         }
     };
-
-
+    protected float mMinimumTwoMonthFlingVelocity;
+    protected boolean mIsMiniMonth;
+    protected boolean mHideDeclined;
+    protected int mFirstLoadedJulianDay;
+    protected int mLastLoadedJulianDay;
+    private CreateEventDialogFragment mEventDialog;
+    private CursorLoader mLoader;
+    private Uri mEventUri;
+    private volatile boolean mShouldLoad = true;
     private final Runnable mUpdateLoader = new Runnable() {
         @Override
         public void run() {
@@ -153,6 +125,10 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             }
         }
     };
+    private boolean mUserScrolled = false;
+    private int mEventsLoadingDelay;
+    private boolean mShowCalendarControls;
+    private boolean mIsDetached;
     // Used to load the events when a delay is needed
     Runnable mLoadingRunnable = new Runnable() {
         @Override
@@ -163,7 +139,28 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             }
         }
     };
+    private Handler mEventDialogHandler = new Handler() {
 
+        @Override
+        public void handleMessage(Message msg) {
+            final FragmentManager manager = getFragmentManager();
+            if (manager != null) {
+                Time day = (Time) msg.obj;
+                mEventDialog = new CreateEventDialogFragment(day);
+                mEventDialog.show(manager, TAG_EVENT_DIALOG);
+            }
+        }
+    };
+
+
+    public MonthByWeekFragment() {
+        this(System.currentTimeMillis(), true);
+    }
+
+    public MonthByWeekFragment(long initialTime, boolean isMiniMonth) {
+        super(initialTime);
+        mIsMiniMonth = isMiniMonth;
+    }
 
     /**
      * Updates the uri used by the loader according to the current position of
@@ -314,15 +311,6 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
         }
         mAdapter.setListView(mListView);
-    }
-
-    public MonthByWeekFragment() {
-        this(System.currentTimeMillis(), true);
-    }
-
-    public MonthByWeekFragment(long initialTime, boolean isMiniMonth) {
-        super(initialTime);
-        mIsMiniMonth = isMiniMonth;
     }
 
     @Override

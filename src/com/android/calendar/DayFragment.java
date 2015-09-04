@@ -16,11 +16,6 @@
 
 package com.android.calendar;
 
-import org.sufficientlysecure.standalonecalendar.R;
-
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -35,19 +30,22 @@ import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 import android.widget.ViewSwitcher.ViewFactory;
 
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+
+import ws.xsoh.etar.R;
+
 /**
  * This is the base class for Day and Week Activities.
  */
 public class DayFragment extends Fragment implements CalendarController.EventHandler, ViewFactory {
+    protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     /**
      * The view id used for all the views we create. It's OK to have all child
      * views have the same ID. This ID is used to pick which view receives
      * focus when a view hierarchy is saved / restore
      */
     private static final int VIEW_ID = 1;
-
-    protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
-
     protected ProgressBar mProgressBar;
     protected ViewSwitcher mViewSwitcher;
     protected Animation mInAnimationForward;

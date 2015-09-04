@@ -39,7 +39,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
@@ -49,23 +48,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ws.xsoh.etar.R;
+
 
 public class CalendarAppWidgetService extends RemoteViewsService {
-    private static final String TAG = "CalendarWidget";
-
     static final int EVENT_MIN_COUNT = 20;
     static final int EVENT_MAX_COUNT = 100;
     // Minimum delay between queries on the database for widget updates in ms
     static final int WIDGET_UPDATE_THROTTLE = 500;
-
-    private static final String EVENT_SORT_ORDER = Instances.START_DAY + " ASC, "
-            + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
-            + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
-
-    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1";
-    private static final String EVENT_SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
-            + Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
-
     static final String[] EVENT_PROJECTION = new String[] {
         Instances.ALL_DAY,
         Instances.BEGIN,
@@ -78,7 +68,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.DISPLAY_COLOR, // If SDK < 16, set to Instances.CALENDAR_COLOR.
         Instances.SELF_ATTENDEE_STATUS,
     };
-
     static final int INDEX_ALL_DAY = 0;
     static final int INDEX_BEGIN = 1;
     static final int INDEX_END = 2;
@@ -89,21 +78,49 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     static final int INDEX_END_DAY = 7;
     static final int INDEX_COLOR = 8;
     static final int INDEX_SELF_ATTENDEE_STATUS = 9;
+    static final int MAX_DAYS = 7;
+    private static final String TAG = "CalendarWidget";
+    private static final String EVENT_SORT_ORDER = Instances.START_DAY + " ASC, "
+            + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
+            + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
+    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1";
+    private static final String EVENT_SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
+            + Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
+    private static final long SEARCH_DURATION = MAX_DAYS * DateUtils.DAY_IN_MILLIS;
+    /**
+     * Update interval used when no next-update calculated, or bad trigger time in past.
+     * Unit: milliseconds.
+     */
+    private static final long UPDATE_TIME_NO_EVENTS = DateUtils.HOUR_IN_MILLIS * 6;
 
     static {
         if (!Utils.isJellybeanOrLater()) {
             EVENT_PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
         }
     }
-    static final int MAX_DAYS = 7;
-
-    private static final long SEARCH_DURATION = MAX_DAYS * DateUtils.DAY_IN_MILLIS;
 
     /**
-     * Update interval used when no next-update calculated, or bad trigger time in past.
-     * Unit: milliseconds.
+     * Format given time for debugging output.
+     *
+     * @param unixTime Target time to report.
+     * @param now Current system time from {@link System#currentTimeMillis()}
+     *            for calculating time difference.
      */
-    private static final long UPDATE_TIME_NO_EVENTS = DateUtils.HOUR_IN_MILLIS * 6;
+    static String formatDebugTime(long unixTime, long now) {
+        Time time = new Time();
+        time.set(unixTime);
+
+        long delta = unixTime - now;
+        if (delta > DateUtils.MINUTE_IN_MILLIS) {
+            delta /= DateUtils.MINUTE_IN_MILLIS;
+            return String.format("[%d] %s (%+d mins)", unixTime,
+                    time.format("%H:%M:%S"), delta);
+        } else {
+            delta /= DateUtils.SECOND_IN_MILLIS;
+            return String.format("[%d] %s (%+d secs)", unixTime,
+                    time.format("%H:%M:%S"), delta);
+        }
+    }
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -113,28 +130,21 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     public static class CalendarFactory extends BroadcastReceiver implements
             RemoteViewsService.RemoteViewsFactory, Loader.OnLoadCompleteListener<Cursor> {
         private static final boolean LOGD = false;
-
+        private static final AtomicInteger currentVersion = new AtomicInteger(0);
         // Suppress unnecessary logging about update time. Need to be static as this object is
         // re-instanciated frequently.
         // TODO: It seems loadData() is called via onCreate() four times, which should mean
         // unnecessary CalendarFactory object is created and dropped. It is not efficient.
         private static long sLastUpdateTime = UPDATE_TIME_NO_EVENTS;
-
-        private Context mContext;
-        private Resources mResources;
         private static CalendarAppWidgetModel mModel;
         private static Object mLock = new Object();
         private static volatile int mSerialNum = 0;
+        private final Handler mHandler = new Handler();
+        private final ExecutorService executor = Executors.newSingleThreadExecutor();
+        private Context mContext;
+        private Resources mResources;
         private int mLastSerialNum = -1;
         private CursorLoader mLoader;
-        private final Handler mHandler = new Handler();
-        private static final AtomicInteger currentVersion = new AtomicInteger(0);
-        private final ExecutorService executor = Executors.newSingleThreadExecutor();
-        private int mAppWidgetId;
-        private int mDeclinedColor;
-        private int mStandardColor;
-        private int mAllDayColor;
-
         private final Runnable mTimezoneChanged = new Runnable() {
             @Override
             public void run() {
@@ -143,6 +153,61 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 }
             }
         };
+        private int mAppWidgetId;
+        private int mDeclinedColor;
+        private int mStandardColor;
+        private int mAllDayColor;
+
+        protected CalendarFactory(Context context, Intent intent) {
+            mContext = context;
+            mResources = context.getResources();
+            mAppWidgetId = intent.getIntExtra(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
+            mDeclinedColor = mResources.getColor(R.color.appwidget_item_declined_color);
+            mStandardColor = mResources.getColor(R.color.appwidget_item_standard_color);
+            mAllDayColor = mResources.getColor(R.color.appwidget_item_allday_color);
+        }
+
+        public CalendarFactory() {
+            // This is being created as part of onReceive
+
+        }
+
+        /* @VisibleForTesting */
+        protected static CalendarAppWidgetModel buildAppWidgetModel(
+                Context context, Cursor cursor, String timeZone) {
+            CalendarAppWidgetModel model = new CalendarAppWidgetModel(context, timeZone);
+            model.buildFromCursor(cursor, timeZone);
+            return model;
+        }
+
+        private static long getNextMidnightTimeMillis(String timezone) {
+            Time time = new Time();
+            time.setToNow();
+            time.monthDay++;
+            time.hour = 0;
+            time.minute = 0;
+            time.second = 0;
+            long midnightDeviceTz = time.normalize(true);
+
+            time.timezone = timezone;
+            time.setToNow();
+            time.monthDay++;
+            time.hour = 0;
+            time.minute = 0;
+            time.second = 0;
+            long midnightHomeTz = time.normalize(true);
+
+            return Math.min(midnightDeviceTz, midnightHomeTz);
+        }
+
+        static void updateTextView(RemoteViews views, int id, int visibility, String string) {
+            views.setViewVisibility(id, visibility);
+            if (visibility == View.VISIBLE) {
+                views.setTextViewText(id, string);
+            }
+        }
 
         private Runnable createUpdateLoaderRunnable(final String selection,
                 final PendingResult result, final int version) {
@@ -162,22 +227,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     result.finish();
                 }
             };
-        }
-
-        protected CalendarFactory(Context context, Intent intent) {
-            mContext = context;
-            mResources = context.getResources();
-            mAppWidgetId = intent.getIntExtra(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-
-            mDeclinedColor = mResources.getColor(R.color.appwidget_item_declined_color);
-            mStandardColor = mResources.getColor(R.color.appwidget_item_standard_color);
-            mAllDayColor = mResources.getColor(R.color.appwidget_item_allday_color);
-        }
-
-        public CalendarFactory() {
-            // This is being created as part of onReceive
-
         }
 
         @Override
@@ -409,14 +458,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             return uri;
         }
 
-        /* @VisibleForTesting */
-        protected static CalendarAppWidgetModel buildAppWidgetModel(
-                Context context, Cursor cursor, String timeZone) {
-            CalendarAppWidgetModel model = new CalendarAppWidgetModel(context, timeZone);
-            model.buildFromCursor(cursor, timeZone);
-            return model;
-        }
-
         /**
          * Calculates and returns the next time we should push widget updates.
          */
@@ -437,33 +478,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 }
             }
             return minUpdateTime;
-        }
-
-        private static long getNextMidnightTimeMillis(String timezone) {
-            Time time = new Time();
-            time.setToNow();
-            time.monthDay++;
-            time.hour = 0;
-            time.minute = 0;
-            time.second = 0;
-            long midnightDeviceTz = time.normalize(true);
-
-            time.timezone = timezone;
-            time.setToNow();
-            time.monthDay++;
-            time.hour = 0;
-            time.minute = 0;
-            time.second = 0;
-            long midnightHomeTz = time.normalize(true);
-
-            return Math.min(midnightDeviceTz, midnightHomeTz);
-        }
-
-        static void updateTextView(RemoteViews views, int id, int visibility, String string) {
-            views.setViewVisibility(id, visibility);
-            if (visibility == View.VISIBLE) {
-                views.setTextViewText(id, string);
-            }
         }
 
         /*
@@ -597,29 +611,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     }
                 }
             });
-        }
-    }
-
-    /**
-     * Format given time for debugging output.
-     *
-     * @param unixTime Target time to report.
-     * @param now Current system time from {@link System#currentTimeMillis()}
-     *            for calculating time difference.
-     */
-    static String formatDebugTime(long unixTime, long now) {
-        Time time = new Time();
-        time.set(unixTime);
-
-        long delta = unixTime - now;
-        if (delta > DateUtils.MINUTE_IN_MILLIS) {
-            delta /= DateUtils.MINUTE_IN_MILLIS;
-            return String.format("[%d] %s (%+d mins)", unixTime,
-                    time.format("%H:%M:%S"), delta);
-        } else {
-            delta /= DateUtils.SECOND_IN_MILLIS;
-            return String.format("[%d] %s (%+d secs)", unixTime,
-                    time.format("%H:%M:%S"), delta);
         }
     }
 }

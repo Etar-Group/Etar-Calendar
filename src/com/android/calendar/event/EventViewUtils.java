@@ -15,9 +15,6 @@
  */
 package com.android.calendar.event;
 
-import com.android.calendar.CalendarEventModel.ReminderEntry;
-import org.sufficientlysecure.standalonecalendar.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -30,7 +27,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+
 import java.util.ArrayList;
+
+import ws.xsoh.etar.R;
 
 public class EventViewUtils {
     private static final String TAG = "EventViewUtils";

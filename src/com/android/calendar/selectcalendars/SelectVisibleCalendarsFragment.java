@@ -34,9 +34,10 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
-import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
+
+import ws.xsoh.etar.R;
 
 public class SelectVisibleCalendarsFragment extends Fragment
         implements AdapterView.OnItemClickListener, CalendarController.EventHandler,
