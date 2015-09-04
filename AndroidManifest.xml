@@ -47,7 +47,7 @@
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/standalone_app_label"
-        android:taskAffinity="org.sufficientlysecure.standalonecalendar.task"
+        android:taskAffinity="ws.xsoh.etar.task"
         android:theme="@style/CalendarAppTheme">
 
         <activity
