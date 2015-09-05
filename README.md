@@ -1,7 +1,28 @@
-Some people do not have the open source calendar from AOSP and are forced to use either the proprietary Google Calendar from Google Play or the shipped crippled calendar from e.g. Samsung.
+![Etar Calendar](./assets/_pre_prod/Feature Graphic.png)
+#Etar Calendar
+Etar ( From Arabic:  `إِيتَار`)  is an opensource material designed calendar made for everyone!
 
-I made a repository to build the AOSP calendar without the need to build the whole Android OS.
-It has a different package name to prevent conflicting with “com.android.calendar”.
+
+![Etar Calendar](./assets/_pre_prod/publish/v1.0/animation.gif)
+
+##Why?
+Well, I wanted a simple, material designed and state of the art opensoure calendar that anyone can make it more better.
+
+###Spcical Thanks
+
+The application is enhanced version of AOSP Calendar. Without the help of
+[Free Software for Android](https://github.com/Free-Software-for-Android/Standalone-Calendar) team, 
+this app well be just dream. So thanks to them!
+
+##Features
+- Month view.
+- Week, day & agenda view.
+- Uses Android calendar sync. Works with Google Calendar, Exchange..etc.
+- Material designed.
+- Agenda widget.
+
+#### Translations in Google Play app description
+You can update/add your own language [here](./assets/_pre_prod/publish/v1.0/features/). Also all artwork files are available [here](./assets/_pre_prod/)
 
 ### Build instructions
 ```
