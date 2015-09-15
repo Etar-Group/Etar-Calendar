@@ -35,6 +35,11 @@ project(':external:calendar') {
                     res.srcDirs = ['res']
                     assets.srcDirs = ['assets']
             }
+
+        }
+
+        lintOptions {
+            abortOnError false
         }
     }
 }
@@ -82,6 +87,10 @@ project(':external:datetimepicker') {
                     assets.srcDirs = ['assets']
             }
         }
+
+        lintOptions {
+            abortOnError false
+        }
     }
 }
 
@@ -107,6 +116,10 @@ project(':external:timezonepicker') {
                     assets.srcDirs = ['assets']
             }
         }
+
+        lintOptions {
+            abortOnError false
+        }
     }
 }
 
@@ -127,6 +140,11 @@ project(':external:ex:chips') {
                     res.srcDirs = ['res']
                     assets.srcDirs = ['assets']
             }
+        }
+
+
+        lintOptions {
+            abortOnError false
         }
     }
 }
