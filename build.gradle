@@ -14,10 +14,6 @@ allprojects {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.8'
-}
-
 project(':external:calendar') {
     apply plugin: 'android-library'
 
