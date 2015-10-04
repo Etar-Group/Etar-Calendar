@@ -2,7 +2,7 @@
 #Etar Calendar
 Etar ( From Arabic:  `إِيتَار`)  is an opensource material designed calendar made for everyone!
 
-[![](./assets/_pre_prod/en_google_play.png)](https://play.google.com/store/apps/details?id=ws.xsoh.etar)
+[![](./assets/_pre_prod/en_fdroid.png)](https://f-droid.org/app/ws.xsoh.etar)[![](./assets/_pre_prod/en_google_play.png)](https://play.google.com/store/apps/details?id=ws.xsoh.etar)
 
 ![Etar Calendar](./assets/_pre_prod/publish/v1.0/animation.gif)
 
