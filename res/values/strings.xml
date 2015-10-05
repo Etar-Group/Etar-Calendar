@@ -134,6 +134,9 @@
          item takes the user to the current day (today) in whatever view
          (Day view, Week view, Agenda view, Month view) they are currently in. -->
     <string name="goto_today">"Today"</string>
+    <!-- This is a label on a menu item. Pressing this menu
+     item opens new dialog shown the date that the user wants to go. -->
+    <string name="goto_date">"Go to…"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to see the list of calendars that he is viewing and to then add
          or remove selected calendars. -->
@@ -307,7 +310,7 @@
     <!-- This is shown in the popup picker when emailing attendees -->
     <string name="email_picker_label">Email with</string>
     <!-- The is shown in the email subject as the prefix appended to the event title -->
-    <string translatable="false" name="email_subject_prefix">Re:\u0020</string>
+    <string name="email_subject_prefix" translatable="false">Re:\u0020</string>
     <!-- Toast message displayed when the event id was not found LIMIT=30] -->
     <string name="event_not_found">"Event not found."</string>
 
@@ -519,7 +522,7 @@
     <!-- Settings dialog label that specifies when the phone should vibrate -->
     <string name="preferences_alerts_vibrateWhen_title">Vibrate</string>
     <!-- The old value for enabling vibration. used only for migrating -->
-    <string translatable="false" name="prefDefault_alerts_vibrate_true">always</string>
+    <string name="prefDefault_alerts_vibrate_true" translatable="false">always</string>
     <!-- Title of ringtone selector dialog -->
     <string name="preferences_alerts_ringtone_title">Sound</string>
     <!-- Title of check box label to enable or disable pop-up notifications -->

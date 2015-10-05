@@ -23,6 +23,11 @@
         android:title="@string/goto_today"
         app:showAsAction="always|withText" />
     <item
+        android:id="@+id/action_goto"
+        android:alphabeticShortcut="g"
+        android:title="@string/goto_date"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
         android:icon="@drawable/ic_menu_refresh"

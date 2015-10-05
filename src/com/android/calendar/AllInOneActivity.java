@@ -75,6 +75,7 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
+import com.android.datetimepicker.date.DatePickerDialog;
 
 import java.io.IOException;
 import java.util.List;
@@ -192,20 +193,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private MenuItem mControlsMenu;
     private Menu mOptionsMenu;
     private QueryHandler mHandler;
-    private final Runnable mHomeTimeUpdater = new Runnable() {
-        @Override
-        public void run() {
-            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
-            updateSecondaryTitleFields(-1);
-            AllInOneActivity.this.invalidateOptionsMenu();
-            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
-        }
-    };
     // runs every midnight/time changes and refreshes the today icon
     private final Runnable mTimeChangesUpdater = new Runnable() {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
+            AllInOneActivity.this.invalidateOptionsMenu();
+            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
+        }
+    };
+    private final Runnable mHomeTimeUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
+            updateSecondaryTitleFields(-1);
             AllInOneActivity.this.invalidateOptionsMenu();
             Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
         }
@@ -760,6 +761,29 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             t = new Time(mTimeZone);
             t.setToNow();
             extras |= CalendarController.EXTRA_GOTO_TODAY;
+        } else if (itemId == R.id.action_goto) {
+            Time todayTime;
+            t = new Time(mTimeZone);
+            t.set(mController.getTime());
+            todayTime = new Time(mTimeZone);
+            todayTime.setToNow();
+            if (todayTime.month == t.month) {
+                t = todayTime;
+            }
+
+            DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+                    Time selectedTime = new Time(mTimeZone);
+                    selectedTime.year = year;
+                    selectedTime.month = monthOfYear;
+                    selectedTime.monthDay = dayOfMonth;
+                    long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
+                    mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
+                }
+            }, t.year, t.month, t.monthDay);
+            datePickerDialog.show(getFragmentManager(), "datePickerDialog");
+
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
             Utils.setSharedPreference(
