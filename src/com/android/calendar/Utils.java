@@ -222,21 +222,21 @@ public class Utils {
      * Gets the intent action for telling the widget to update.
      */
     public static String getWidgetUpdateAction(Context context) {
-        return context.getPackageName() + ".APPWIDGET_UPDATE";
+        return "com.android.calendar.APPWIDGET_UPDATE";
     }
 
     /**
      * Gets the intent action for telling the widget to update.
      */
     public static String getWidgetScheduledUpdateAction(Context context) {
-        return context.getPackageName() + ".APPWIDGET_SCHEDULED_UPDATE";
+        return "com.android.calendar.APPWIDGET_SCHEDULED_UPDATE";
     }
 
     /**
      * Gets the intent action for telling the widget to update.
      */
     public static String getSearchAuthority(Context context) {
-        return context.getPackageName() + ".CalendarRecentSuggestionsProvider";
+        return "com.android.calendar.CalendarRecentSuggestionsProvider";
     }
 
     /**
