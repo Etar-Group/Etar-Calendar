@@ -59,6 +59,7 @@
     <string name="event_edit" msgid="4006961928830064662">"Modifier l\'événement"</string>
     <string name="event_delete" msgid="2386667193277770442">"Supprimer l\'événement"</string>
     <string name="goto_today" msgid="9162136434410891230">"Aujourd\'hui"</string>
+    <string name="goto_date">"Aller au…"</string>    
     <string name="menu_preferences" msgid="9120238479503233925">"Paramètres"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Agendas à afficher"</string>
     <string name="search" msgid="550656004486017426">"Rechercher"</string>
@@ -93,7 +94,7 @@
     <string name="presence_label" msgid="6169724148441175862">"Ma disponibilité"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Confidentialité"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Ajouter un rappel"</string>
-    <string name="no_syncable_calendars" msgid="7019488867045436129">"Pas d\'agenda"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Aucun agenda"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Avant d\'ajouter un événement, vous devez ajouter au moins un compte Google Agenda à votre appareil et activer la visibilité de cet agenda. Pour cela, appuyez sur \"Ajouter un compte\", ou sur \"Annuler\" si vous pensez qu\'au moins un agenda est activé (vérifiez que c\'est bien le cas). Si vous venez d\'ajouter un compte, patientez jusqu\'à la fin de la synchronisation, puis réessayez."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Tirez le meilleur parti de Google Agenda en utilisant un compte Google."\n\n"• Accédez-y depuis n\'importe quel navigateur Web. "\n"• Sauvegardez vos événements en toute sécurité."</string>
     <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
@@ -174,7 +175,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Supprimer l\'événement \"<xliff:g id="EVENTTITLE">%s</xliff:g>\" ?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Modifier la réponse"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Paramètres généraux"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"À propos de Google Agenda"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"À propos de Agenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Paramètres"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Paramètres d\'affichage de l\'agenda"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notifications et rappels"</string>
@@ -195,7 +196,7 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Afficher les agendas et les événements dans votre fuseau horaire habituel, même en  déplacement"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Mon fuseau horaire"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Afficher numéro semaine"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"À propos de"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"À propos"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Version"</string>
     <string name="gadget_title" msgid="939918875331310945">"Agenda"</string>
   <plurals name="month_more_events">

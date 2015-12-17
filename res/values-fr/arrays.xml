@@ -108,7 +108,7 @@
     <item msgid="5033084974413793845">"Planning"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
-    <item msgid="2285927842308686988">"Seulement en cas de refus"</item>
+    <item msgid="2285927842308686988">"Uniquement en cas de refus"</item>
     <item msgid="6367412240524984286">"Si refus ou pas de réponse"</item>
   </string-array>
   <string-array name="recurrence_freq">
