@@ -173,7 +173,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"هل تريد حذف <xliff:g id="EVENTTITLE">%s</xliff:g>؟"</string>
     <string name="change_response_title" msgid="7704714776070974984">"تغيير الرد"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"إعدادات عامة"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"حول التقويم"</string>
+  <string name="menu_about_preferences" msgid="6124375438237674973">"حول إيتار"</string>
     <string name="preferences_title" msgid="8045855493262131773">"الإعدادات"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"إعداد عرض التقويم"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"الإشعارات والتذكيرات"</string>

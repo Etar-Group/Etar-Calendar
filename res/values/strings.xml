@@ -493,7 +493,7 @@
     <!-- This the title of a menu for "About Calendar" Preferences.
          Pressing the menu item lets user to view the current settings
          [CHAR LIMIT=30] -->
-    <string name="menu_about_preferences">About Calendar</string>
+    <string name="menu_about_preferences">About Etar</string>
 
     <!-- This is the title of the screen for setting user preferences. -->
     <string name="preferences_title">"Settings"</string>
