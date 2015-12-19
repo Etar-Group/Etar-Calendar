@@ -150,7 +150,8 @@ public class CalendarSettingsActivity extends PreferenceActivity {
         return GeneralPreferences.class.getName().equals(fragmentName)
                 || SelectCalendarsSyncFragment.class.getName().equals(fragmentName)
                 || OtherPreferences.class.getName().equals(fragmentName)
-                || AboutPreferences.class.getName().equals(fragmentName);
+                || AboutPreferences.class.getName().equals(fragmentName)
+                || QuickResponseSettings.class.getName().equals(fragmentName);
     }
 
     public void hideMenuButtons() {
