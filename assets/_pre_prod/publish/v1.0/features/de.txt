@@ -1,11 +1,11 @@
-Etar is material designed open source calendar, for everyone!
-Features:
-★ Month view.
-★ Week, day & agenda view.
-★ Uses Android calendar sync. Works with Google Calendar, Exchange..etc.
+Etar ist ein im Material Design gestalteter open source Kalender für jedermann!
+Besonderheiten:
+★ Monatsansicht
+★ Wochen, Tag und Agendaansicht.
+★ Benutzt Android Calendar sync. Arbeitet mit Google-Kalender, Exchange usw. zusammen.
 ★ Material design.
-★ Free, open source and absolutely no Ads.
-★ Agenda widget.
+★ Agenda Widget.
+★ Frei, quelloffen und ohne Werbung.
 
-Bugs & feedback: https://github.com/xsoh/Etar-Calendar/issues
-Source Code: https://github.com/xsoh/Etar-Calendar
+Bugs, Fehler & Feedback: https://github.com/xsoh/Etar-Calendar/issues
+Quellcode: https://github.com/xsoh/Etar-Calendar
