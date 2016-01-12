@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2016 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,4 +21,22 @@
     <string name="snooze_delay_dialog_title">设定暂停提醒的重复时间</string>
     <string name="preferences_default_snooze_delay_title">默认暂停提醒时长</string>
     <string name="preferences_default_snooze_delay_dialog">默认暂停提醒时长</string>
+    <string name="no_map">手机里没有找到地图</string>
+
+    <!-- Delete events -->
+    <string name="events_delete">删除事件</string>
+    <string name="action_select_all">全选</string>
+    <string name="action_select_none">取消全选</string>
+    <string name="action_delete">完成</string>
+    <string name="all_events">所有事件</string>
+    <string name="no_events">没有可用的事件</string>
+    <string name="evt_del_dlg_title">删除事件？</string>
+    <string name="evt_del_dlg_msg_selected">将删除选中的事件</string>
+    <string name="evt_del_dlg_msg_all">所有事件都将被删除</string>
+    <string name="no_events_selected">没有事件被选中</string>
+
+  <plurals name="events_selected">
+    <item quantity="zero">没有选择事件</item>
+    <item quantity="other">已选择 %1$d</item>
+  </plurals>
 </resources>
