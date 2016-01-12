@@ -40,6 +40,9 @@
     <!-- Default value for the default snooze delay (in minutes) -->
     <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
 
+    <!-- No maps found in phone -->
+    <string name="no_map">No maps were found.</string>
+
     <!-- Delete events -->
     <string name="events_delete">Delete events</string>
     <string name="action_select_all">Select all</string>
