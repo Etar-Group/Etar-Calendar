@@ -19,6 +19,7 @@ package com.android.calendar.alerts;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -42,6 +43,7 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.android.calendar.Utils;
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
@@ -113,6 +115,85 @@ public class AlertReceiver extends BroadcastReceiver {
         sAsyncHandler = new Handler(thr.getLooper());
     }
 
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        if (AlertService.DEBUG) {
+            Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
+        }
+        if (MAP_ACTION.equals(intent.getAction())) {
+            // Try starting the map action.
+            // If no map location is found (something changed since the notification was originally
+            // fired), update the notifications to express this change.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                URLSpan[] urlSpans = getURLSpans(context, eventId);
+                Intent geoIntent = createMapActivityIntent(context, urlSpans);
+                if (geoIntent != null) {
+                    // Location was successfully found, so dismiss the shade and start maps.
+                    try {
+                        context.startActivity(geoIntent);
+                    } catch (ActivityNotFoundException exception) {
+                        Toast.makeText(context,
+                                context.getString(R.string.no_map),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    closeNotificationShade(context);
+                } else {
+                    // No location was found, so update all notifications.
+                    // Our alert service does not currently allow us to specify only one
+                    // specific notification to refresh.
+                    AlertService.updateAlertNotification(context);
+                }
+            }
+        } else if (CALL_ACTION.equals(intent.getAction())) {
+            // Try starting the call action.
+            // If no call location is found (something changed since the notification was originally
+            // fired), update the notifications to express this change.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                URLSpan[] urlSpans = getURLSpans(context, eventId);
+                Intent callIntent = createCallActivityIntent(context, urlSpans);
+                if (callIntent != null) {
+                    // Call location was successfully found, so dismiss the shade and start dialer.
+                    context.startActivity(callIntent);
+                    closeNotificationShade(context);
+                } else {
+                    // No call location was found, so update all notifications.
+                    // Our alert service does not currently allow us to specify only one
+                    // specific notification to refresh.
+                    AlertService.updateAlertNotification(context);
+                }
+            }
+        } else if (MAIL_ACTION.equals(intent.getAction())) {
+            closeNotificationShade(context);
+
+            // Now start the email intent.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                Intent i = new Intent(context, QuickResponseActivity.class);
+                i.putExtra(QuickResponseActivity.EXTRA_EVENT_ID, eventId);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            }
+        } else {
+            Intent i = new Intent();
+            i.setClass(context, AlertService.class);
+            i.putExtras(intent);
+            i.putExtra("action", intent.getAction());
+            Uri uri = intent.getData();
+
+            // This intent might be a BOOT_COMPLETED so it might not have a Uri.
+            if (uri != null) {
+                i.putExtra("uri", uri.toString());
+            }
+            beginStartingService(context, i);
+        }
+    }
+
+    private void closeNotificationShade(Context context) {
+        Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        context.sendBroadcast(closeNotificationShadeIntent);
+    }
     /**
      * Start the service to process the current event notifications, acquiring
      * the wake lock before returning to ensure that the service will run.
@@ -802,85 +883,5 @@ public class AlertReceiver extends BroadcastReceiver {
 
         // No tel link was found, so return null;
         return null;
-    }
-
-    @Override
-    public void onReceive(final Context context, final Intent intent) {
-        if (AlertService.DEBUG) {
-            Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
-        }
-        if (DELETE_ALL_ACTION.equals(intent.getAction())) {
-
-            // The user has dismissed a digest notification.
-            // TODO Grab a wake lock here?
-            Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
-            context.startService(serviceIntent);
-        } else if (MAP_ACTION.equals(intent.getAction())) {
-            // Try starting the map action.
-            // If no map location is found (something changed since the notification was originally
-            // fired), update the notifications to express this change.
-            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
-            if (eventId != -1) {
-                URLSpan[] urlSpans = getURLSpans(context, eventId);
-                Intent geoIntent = createMapActivityIntent(context, urlSpans);
-                if (geoIntent != null) {
-                    // Location was successfully found, so dismiss the shade and start maps.
-                    context.startActivity(geoIntent);
-                    closeNotificationShade(context);
-                } else {
-                    // No location was found, so update all notifications.
-                    // Our alert service does not currently allow us to specify only one
-                    // specific notification to refresh.
-                    AlertService.updateAlertNotification(context);
-                }
-            }
-        } else if (CALL_ACTION.equals(intent.getAction())) {
-            // Try starting the call action.
-            // If no call location is found (something changed since the notification was originally
-            // fired), update the notifications to express this change.
-            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
-            if (eventId != -1) {
-                URLSpan[] urlSpans = getURLSpans(context, eventId);
-                Intent callIntent = createCallActivityIntent(context, urlSpans);
-                if (callIntent != null) {
-                    // Call location was successfully found, so dismiss the shade and start dialer.
-                    context.startActivity(callIntent);
-                    closeNotificationShade(context);
-                } else {
-                    // No call location was found, so update all notifications.
-                    // Our alert service does not currently allow us to specify only one
-                    // specific notification to refresh.
-                    AlertService.updateAlertNotification(context);
-                }
-            }
-        } else if (MAIL_ACTION.equals(intent.getAction())) {
-            closeNotificationShade(context);
-
-            // Now start the email intent.
-            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
-            if (eventId != -1) {
-                Intent i = new Intent(context, QuickResponseActivity.class);
-                i.putExtra(QuickResponseActivity.EXTRA_EVENT_ID, eventId);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
-            }
-        } else {
-            Intent i = new Intent();
-            i.setClass(context, AlertService.class);
-            i.putExtras(intent);
-            i.putExtra("action", intent.getAction());
-            Uri uri = intent.getData();
-
-            // This intent might be a BOOT_COMPLETED so it might not have a Uri.
-            if (uri != null) {
-                i.putExtra("uri", uri.toString());
-            }
-            beginStartingService(context, i);
-        }
-    }
-
-    private void closeNotificationShade(Context context) {
-        Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-        context.sendBroadcast(closeNotificationShadeIntent);
     }
 }

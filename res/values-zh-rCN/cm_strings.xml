@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2016 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,6 +15,24 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="no_map">手机里没有找到地图</string>
+
+    <!-- Delete events -->
+    <string name="events_delete">删除事件</string>
+    <string name="action_select_all">全选</string>
+    <string name="action_select_none">取消全选</string>
+    <string name="action_delete">完成</string>
+    <string name="all_events">所有事件</string>
+    <string name="no_events">没有可用的事件</string>
+    <string name="evt_del_dlg_title">删除事件？</string>
+    <string name="evt_del_dlg_msg_selected">将删除选中的事件</string>
+    <string name="evt_del_dlg_msg_all">所有事件都将被删除</string>
+    <string name="no_events_selected">没有事件被选中</string>
+
+  <plurals name="events_selected">
+    <item quantity="zero">没有选择事件</item>
+    <item quantity="other">已选择 %1$d</item>
+  </plurals>
     <string name="preferences_alerts_custom_snooze_delay_title">询问暂停提醒时长</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_on">暂停提醒时询问持续时长</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">总是使用默认的暂停提醒时长</string>
