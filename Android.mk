@@ -9,7 +9,7 @@ timezonepicker_dir := ../../../frameworks/opt/timezonepicker/res
 res_dirs := $(chips_dir) $(color_picker_dir) $(datetimepicker_dir) $(timezonepicker_dir) res
 src_dirs := src
 
-LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
+LOCAL_JACK_COVERAGE_INCLUDE_FILTER := com.android.calendar.*
 
 LOCAL_MODULE_TAGS := optional
 
