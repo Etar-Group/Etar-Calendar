@@ -40,7 +40,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_add_event"
             app:borderWidth="0dp"
-            app:layout_anchor="@id/coordinator_layout"
+            android:layout_gravity="bottom|end"
             app:layout_anchorGravity="bottom|right|end" />
     </android.support.design.widget.CoordinatorLayout>
 
