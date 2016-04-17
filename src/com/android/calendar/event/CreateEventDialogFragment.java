@@ -258,12 +258,15 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         }
 
         int calendarOwnerIndex = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        int calendarNameIndex = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
         int accountNameIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
         int accountTypeIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
 
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
             String calendarOwner = cursor.getString(calendarOwnerIndex);
+            String calendarName = cursor.getString(calendarNameIndex);
+            String currentCalendar = calendarOwner + "/" + calendarName;
             if (defaultCalendar == null) {
                 // There is no stored default upon the first time running.  Use a primary
                 // calendar in this case.
@@ -274,7 +277,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
                     setCalendarFields(cursor);
                     return;
                 }
-            } else if (defaultCalendar.equals(calendarOwner)) {
+            } else if (defaultCalendar.equals(currentCalendar)) {
                 // Found the default calendar.
                 setCalendarFields(cursor);
                 return;

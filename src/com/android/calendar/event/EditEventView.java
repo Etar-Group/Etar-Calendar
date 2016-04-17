@@ -670,12 +670,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mModel.mCalendarId = mCalendarsSpinner.getSelectedItemId();
             int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
             if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
-                String defaultCalendar = mCalendarsCursor.getString(
+                String calendarOwner = mCalendarsCursor.getString(
                         EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
+                String calendarName = mCalendarsCursor.getString(
+                        EditEventHelper.CALENDARS_INDEX_DISPLAY_NAME);
+                String defaultCalendar = calendarOwner + "/" + calendarName;
                 Utils.setSharedPreference(
                         mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
-                mModel.mOwnerAccount = defaultCalendar;
-                mModel.mOrganizer = defaultCalendar;
+                mModel.mOwnerAccount = calendarOwner;
+                mModel.mOrganizer = calendarOwner;
                 mModel.mCalendarId = mCalendarsCursor.getLong(EditEventHelper.CALENDARS_INDEX_ID);
             }
         }
@@ -1258,12 +1261,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
 
         int calendarsOwnerIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        int calendarNameIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
         int accountNameIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
         int accountTypeIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
         int position = 0;
         calendarsCursor.moveToPosition(-1);
         while (calendarsCursor.moveToNext()) {
             String calendarOwner = calendarsCursor.getString(calendarsOwnerIndex);
+            String calendarName = calendarsCursor.getString(calendarNameIndex);
+            String currentCalendar = calendarOwner + "/" + calendarName;
             if (defaultCalendar == null) {
                 // There is no stored default upon the first time running.  Use a primary
                 // calendar in this case.
@@ -1273,7 +1279,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                                 calendarsCursor.getString(accountTypeIndex))) {
                     return position;
                 }
-            } else if (defaultCalendar.equals(calendarOwner)) {
+            } else if (defaultCalendar.equals(currentCalendar)) {
                 // Found the default calendar.
                 return position;
             }
