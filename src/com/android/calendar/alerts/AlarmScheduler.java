@@ -16,18 +16,22 @@
 
 package com.android.calendar.alerts;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
 import android.provider.CalendarContract.Reminders;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -44,31 +48,16 @@ import java.util.Map;
  * and reminders tables for the next upcoming alert.
  */
 public class AlarmScheduler {
-    private static final String TAG = "AlarmScheduler";
-
-    private static final String INSTANCES_WHERE = Events.VISIBLE + "=? AND "
-            + Instances.BEGIN + ">=? AND " + Instances.BEGIN + "<=? AND "
-            + Events.ALL_DAY + "=?";
     static final String[] INSTANCES_PROJECTION = new String[] {
         Instances.EVENT_ID,
         Instances.BEGIN,
         Instances.ALL_DAY,
     };
-    private static final int INSTANCES_INDEX_EVENTID = 0;
-    private static final int INSTANCES_INDEX_BEGIN = 1;
-    private static final int INSTANCES_INDEX_ALL_DAY = 2;
-
-    private static final String REMINDERS_WHERE = Reminders.METHOD + "=1 AND "
-            + Reminders.EVENT_ID + " IN ";
     static final String[] REMINDERS_PROJECTION = new String[] {
         Reminders.EVENT_ID,
         Reminders.MINUTES,
         Reminders.METHOD,
     };
-    private static final int REMINDERS_INDEX_EVENT_ID = 0;
-    private static final int REMINDERS_INDEX_MINUTES = 1;
-    private static final int REMINDERS_INDEX_METHOD = 2;
-
     // Add a slight delay for the EVENT_REMINDER_APP broadcast for a couple reasons:
     // (1) so that the concurrent reminder broadcast from the provider doesn't result
     // in a double ring, and (2) some OEMs modified the provider to not add an alert to
@@ -76,7 +65,18 @@ public class AlarmScheduler {
     // notifications to work on these devices, a delay ensures that AlertService won't
     // read from the CalendarAlerts table until the alert is present.
     static final int ALARM_DELAY_MS = 1000;
-
+    private static final String TAG = "AlarmScheduler";
+    private static final String INSTANCES_WHERE = Events.VISIBLE + "=? AND "
+            + Instances.BEGIN + ">=? AND " + Instances.BEGIN + "<=? AND "
+            + Events.ALL_DAY + "=?";
+    private static final int INSTANCES_INDEX_EVENTID = 0;
+    private static final int INSTANCES_INDEX_BEGIN = 1;
+    private static final int INSTANCES_INDEX_ALL_DAY = 2;
+    private static final String REMINDERS_WHERE = Reminders.METHOD + "=1 AND "
+            + Reminders.EVENT_ID + " IN ";
+    private static final int REMINDERS_INDEX_EVENT_ID = 0;
+    private static final int REMINDERS_INDEX_MINUTES = 1;
+    private static final int REMINDERS_INDEX_METHOD = 2;
     // The reminders query looks like "SELECT ... AND eventId IN 101,102,202,...".  This
     // sets the max # of events in the query before batching into multiple queries, to
     // limit the SQL query length.
@@ -136,6 +136,14 @@ public class AlarmScheduler {
         final long localStartMax = localStartMin + EVENT_LOOKAHEAD_WINDOW_MS;
         final long utcStartMin = localStartMin - localOffset;
         final long utcStartMax = utcStartMin + EVENT_LOOKAHEAD_WINDOW_MS;
+
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+            return null;
+        }
 
         // Expand Instances table range by a day on either end to account for
         // all-day events.
