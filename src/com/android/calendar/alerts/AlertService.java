@@ -16,6 +16,7 @@
 
 package com.android.calendar.alerts;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -25,8 +26,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -37,6 +40,7 @@ import android.os.Process;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.CalendarAlerts;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -144,6 +148,15 @@ public class AlertService extends Service {
         if (DEBUG) {
             Log.d(TAG, "Beginning updateAlertNotification");
         }
+
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+            return false;
+        }
+
 
         if (!prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true)) {
             if (DEBUG) {
@@ -824,6 +837,15 @@ public class AlertService extends Service {
         String[] projection = new String[] {
             CalendarContract.CalendarAlerts.ALARM_TIME,
         };
+
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+            return;
+        }
+
 
         // TODO: construct an explicit SQL query so that we can add
         // "GROUPBY" instead of doing a sort and de-dup

@@ -274,4 +274,6 @@
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"تغيير تاريخ الانتهاء"</string>
   <string name="goto_date">"الذهاب إلى…"</string>
+  <string name="calendar_permission_not_granted">"يتعذر التطبيق عن تشغيل هذه الخاصية، يتطلب تطبيق إيتار صلاحياتي القراءة والكتابة على التقويم حتى يعمل بالشكل المطلوب"</string>
+  <string name="user_rejected_calendar_write_permission">"يتعذر التطبيق عن التشغيل، إيتار يتطلب صلاحياتي القراءة والكتابة على التقويم حتى يعمل بالشكل المطلوب"</string>
 </resources>

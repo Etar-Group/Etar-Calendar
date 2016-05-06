@@ -16,18 +16,22 @@
 
 package com.android.calendar.event;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.CalendarContract.Events;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.RawContacts;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -100,6 +104,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
             + Events.EVENT_LOCATION + " LIKE ?";
     private static final int MAX_LOCATION_SUGGESTIONS = 4;
     private static ArrayList<Result> EMPTY_LIST = new ArrayList<Result>();
+    private final Context mContext;
     private final ContentResolver mResolver;
     private final LayoutInflater mInflater;
     private final ArrayList<Result> mResultList = new ArrayList<Result>();
@@ -113,6 +118,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
     public EventLocationAdapter(Context context) {
         super(context, R.layout.location_dropdown_item, EMPTY_LIST);
 
+        mContext = context;
         mResolver = context.getContentResolver();
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -196,10 +202,18 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
     /**
      * Matches the input string against recent locations.
      */
-    private static List<Result> queryRecentLocations(ContentResolver resolver, String input) {
+    private static List<Result> queryRecentLocations(ContentResolver resolver, String input, Context context) {
         // TODO: also match each word in the address?
         String filter = input == null ? "" : input + "%";
         if (filter.isEmpty()) {
+            return null;
+        }
+
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return null;
         }
 
@@ -405,7 +419,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
                     new AsyncTask<Void, Void, List<Result>>() {
                 @Override
                 protected List<Result> doInBackground(Void... params) {
-                    return queryRecentLocations(mResolver, filter);
+                    return queryRecentLocations(mResolver, filter, mContext);
                 }
             }.execute();
 
