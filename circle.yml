@@ -84,6 +84,8 @@ dependencies:
       ls -al ;
       cp -av app-signed-aligned.apk $CIRCLE_ARTIFACTS/etar_circleci_$CIRCLE_SHA1.apk || exit 1
     - qrencode -o $CIRCLE_ARTIFACTS/QR_apk.png 'https://circle-artifacts.com/gh/zoff99/Etar-Calendar/'${CIRCLE_BUILD_NUM}'/artifacts/'${CIRCLE_NODE_INDEX}'/tmp/'`basename $CIRCLE_ARTIFACTS`'/'"etar_circleci_$CIRCLE_SHA1.apk" ; exit 0
+    - qrencode -o $CIRCLE_ARTIFACTS/QR_artifacts.png 'https://circle-artifacts.com/gh/zoff99/Etar-Calendar/'${CIRCLE_BUILD_NUM}'#artifacts' ; exit 0
+
 test:
   pre:
     - mksdcard -l e 180M sdcard.img
