@@ -30,6 +30,7 @@ dependencies:
     - sudo apt-get install telnet > /dev/null 2> /dev/null
     - sudo apt-get install x11-utils > /dev/null 2> /dev/null
     - sudo apt-get install xvkbd > /dev/null 2> /dev/null
+    - sudo apt-get install qrencode
 
     - gradle -v
     - cd ~ ; wget https://services.gradle.org/distributions/gradle-2.10-bin.zip
@@ -82,6 +83,7 @@ dependencies:
       pwd ;
       ls -al ;
       cp -av app-signed-aligned.apk $CIRCLE_ARTIFACTS/etar_circleci_$CIRCLE_SHA1.apk || exit 1
+      qrencode -o $CIRCLE_ARTIFACTS/QR_apk.png 'https://circle-artifacts.com/gh/zoff99/Etar-Calendar/'${build_num}'/artifacts/0/tmp/circle-artifacts.XsNhJWg/'"etar_circleci_$CIRCLE_SHA1.apk" 
 test:
   pre:
     - mksdcard -l e 180M sdcard.img
