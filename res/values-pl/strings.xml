@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Dodaj przypomnienie"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Brak kalendarzy"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Przed utworzeniem wydarzenia musisz dodać do urządzenia konto z Kalendarzem i ustawić wybrany kalendarz jako widoczny. Wybierz „Dodaj konto” (jeśli właśnie to zrobiłeś, poczekaj na zakończenie synchronizacji i spróbuj ponownie). Możesz też dotknąć Anuluj i upewnić się, że co najmniej jeden kalendarz jest widoczny."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendarz działa lepiej z kontem Google."\n\n"• Używaj go w dowolnej przeglądarce."\n"• Twórz kopie zapasowe wydarzeń."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendarz działa lepiej z kontem."\n\n"• Używaj go w dowolnej przeglądarce."\n"• Twórz kopie zapasowe wydarzeń."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodaj konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendarz:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>

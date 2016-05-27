@@ -81,7 +81,7 @@
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gli inviti verranno inviati."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Gli aggiornamenti verranno inviati."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Salva"</string>
-    <string name="alert_title" msgid="7869592820853066853">"Notifiche di Google Calendar"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Notifiche di Etar Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualizza evento"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invito a riunione"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"A"</string>
@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Aggiungi promemoria"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nessun calendario"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Prima di poter aggiungere un evento, devi aggiungere almeno un account Calendar al dispositivo e impostare un calendario come visibile. Tocca Aggiungi account per aggiungere un account (se hai appena aggiunto un account, attendi che venga completata la sincronizzazione e riprova). In alternativa, tocca Annulla e assicurati che sia visibile almeno un calendario."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"L\'applicazione Calendario funziona meglio con un account Google."\n\n"• Puoi accedervi da qualsiasi browser web"\n"• Effettua il backup dei tuoi eventi in modo sicuro"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"L\'applicazione Calendario funziona meglio con un account."\n\n"• Puoi accedervi da qualsiasi browser web"\n"• Effettua il backup dei tuoi eventi in modo sicuro"</string>
     <string name="add_account" msgid="1669072099756774952">"Aggiungi account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendario:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Agenda:"</string>

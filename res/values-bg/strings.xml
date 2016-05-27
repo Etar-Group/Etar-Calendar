@@ -174,7 +174,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Да се изтрие ли „<xliff:g id="EVENTTITLE">%s</xliff:g>“?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Промяна на отговор"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Общи настройки"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Всичко за Google Календар"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Всичко за Etar Календар"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Настройки за преглед на календар"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Известия и напомняния"</string>

@@ -94,7 +94,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Add reminder"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No calendars"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Before you can add an event, you must add at least one Calendar account to your device and make a calendar visible. Touch Add Account to add an account (if you\'ve just added an account, wait for it to finish syncing and try again). Or touch Cancel and make sure that at least one calendar is visible."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Calendar works better with a Google Account."\n\n"• Access it from any web browser"\n"• Back up your events securely"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Calendar works better with an Account."\n\n"• Access it from any web browser"\n"• Back up your events securely"</string>
     <string name="add_account" msgid="1669072099756774952">"Add account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiser:"</string>

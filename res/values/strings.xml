@@ -269,7 +269,7 @@
     <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->
     <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to your device and make a calendar visible. Touch Add Account to add an account (if you just added an account, wait for it to finish syncing and try again). Or touch Cancel and make sure at least one calendar is visible.</string>
     <!-- Body of dialog prompting the user to create an account.[CHAR LIMIT=NONE] -->
-    <string name="create_an_account_desc">"Calendar works better with a Google Account.\n\n\u2022 Access it from any web browser\n\u2022 Back up your events securely"</string>
+    <string name="create_an_account_desc">"Calendar works better with an Account.\n\n\u2022 Access it from any web browser\n\u2022 Back up your events securely"</string>
     <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
     <string name="add_account">Add account</string>
 
