@@ -122,7 +122,7 @@ public class CalendarToolbarHandler {
         Time t = new Time(mTimeZone);
         t.set(mMilliTime);
         long julianDay = Time.getJulianDay(mMilliTime, t.gmtoff);
-        String dayOfWeek = null;
+        String dayOfWeek;
         mStringBuilder.setLength(0);
 
         if (julianDay == mTodayJulianDay) {
@@ -141,7 +141,14 @@ public class CalendarToolbarHandler {
             dayOfWeek = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
                     DateUtils.FORMAT_SHOW_WEEKDAY, mTimeZone).toString();
         }
-        return dayOfWeek.toUpperCase();
+        String[] split = dayOfWeek.toLowerCase().split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String word : split) {
+            sb.append(word.substring(0, 1).toUpperCase() + word.substring(1));
+            sb.append(" ");
+        }
+        dayOfWeek = sb.toString();
+        return dayOfWeek;
     }
 
     // Builds strings with different formats:
