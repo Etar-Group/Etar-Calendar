@@ -309,11 +309,8 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      */
     protected void updateHeader() {
         TextView label = (TextView) mDayNamesHeader.findViewById(R.id.wk_label);
-        if (mShowWeekNumber) {
-            label.setVisibility(View.VISIBLE);
-        } else {
-            label.setVisibility(View.GONE);
-        }
+        label.setVisibility(View.GONE);
+
         int offset = mFirstDayOfWeek - 1;
         for (int i = 1; i < 8; i++) {
             label = (TextView) mDayNamesHeader.getChildAt(i);

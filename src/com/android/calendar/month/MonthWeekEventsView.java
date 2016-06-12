@@ -99,7 +99,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_RIGHT_PADDING = 4;
     private static int EVENT_BOTTOM_PADDING = 1;
     private static int TODAY_HIGHLIGHT_WIDTH = 2;
-    private static int SPACING_WEEK_NUMBER = 24;
+    private static int SPACING_WEEK_NUMBER = 0;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
     private static boolean mShowTimeInMonth;
@@ -200,9 +200,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (!mShowDetailsInMonth) {
             int numDays = mEvents.size();
             int effectiveWidth = mWidth - mPadding * 2;
-            if (mShowWeekNum) {
-                effectiveWidth -= SPACING_WEEK_NUMBER;
-            }
+
             DNA_ALL_DAY_WIDTH = effectiveWidth / numDays - 2 * DNA_SIDE_PADDING;
             mDNAAllDayPaint.setStrokeWidth(DNA_ALL_DAY_WIDTH);
             mDayXs = new int[numDays];
@@ -497,12 +495,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private int computeDayLeftPosition(int day) {
         int effectiveWidth = mWidth;
         int x = 0;
-        int xOffset = 0;
-        if (mShowWeekNum) {
-            xOffset = SPACING_WEEK_NUMBER + mPadding;
-            effectiveWidth -= xOffset;
-        }
-        x = day * effectiveWidth / mNumDays + xOffset;
+        x = day * effectiveWidth / mNumDays;
         return x;
     }
 
@@ -512,16 +505,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         int count = 6 * 4;
         int wkNumOffset = 0;
         int i = 0;
-        if (mShowWeekNum) {
-            // This adds the first line separating the week number
-            int xOffset = SPACING_WEEK_NUMBER + mPadding;
-            count += 4;
-            lines[i++] = xOffset;
-            lines[i++] = 0;
-            lines[i++] = xOffset;
-            lines[i++] = mHeight;
-            wkNumOffset++;
-        }
+
         count += 4;
         lines[i++] = 0;
         lines[i++] = 0;
@@ -548,10 +532,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         int offset = 0;
         r.top = DAY_SEPARATOR_INNER_WIDTH;
         r.bottom = mHeight;
-        if (mShowWeekNum) {
-            i++;
-            offset++;
-        }
+
         if (mFocusDay[i]) {
             while (++i < mOddMonth.length && mFocusDay[i])
                 ;
@@ -944,16 +925,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 selectedPosition += 7;
             }
             int effectiveWidth = mWidth - mPadding * 2;
-            effectiveWidth -= SPACING_WEEK_NUMBER;
             mSelectedLeft = selectedPosition * effectiveWidth / mNumDays + mPadding;
             mSelectedRight = (selectedPosition + 1) * effectiveWidth / mNumDays + mPadding;
-            mSelectedLeft += SPACING_WEEK_NUMBER;
-            mSelectedRight += SPACING_WEEK_NUMBER;
         }
     }
 
     public int getDayIndexFromLocation(float x) {
-        int dayStart = mShowWeekNum ? SPACING_WEEK_NUMBER + mPadding : mPadding;
+        int dayStart = mPadding;
         if (x < dayStart || x > mWidth - mPadding) {
             return -1;
         }
