@@ -141,13 +141,6 @@ public class CalendarToolbarHandler {
             dayOfWeek = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
                     DateUtils.FORMAT_SHOW_WEEKDAY, mTimeZone).toString();
         }
-        String[] split = dayOfWeek.toLowerCase().split(" ");
-        StringBuilder sb = new StringBuilder();
-        for (String word : split) {
-            sb.append(word.substring(0, 1).toUpperCase() + word.substring(1));
-            sb.append(" ");
-        }
-        dayOfWeek = sb.toString();
         return dayOfWeek;
     }
 
