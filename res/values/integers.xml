@@ -22,7 +22,7 @@
     <!-- The default alpha level of photos of attendees -->
     <integer name="default_attendee_photo_alpha_level">255</integer>
     <!-- margin between the day number and the edge of the day in month view -->
-    <integer name="month_day_number_margin">6</integer>
+    <integer name="month_day_number_margin">4</integer>
     <!-- The size of the color chip in the agenda view for all day events -->
     <integer name="color_chip_all_day_height">48</integer>
     <!-- The size of the color chip in the agenda view -->

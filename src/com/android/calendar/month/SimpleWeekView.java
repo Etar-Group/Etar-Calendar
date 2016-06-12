@@ -367,7 +367,7 @@ public class SimpleWeekView extends View {
      *         in a day
      */
     public Time getDayFromLocation(float x) {
-        int dayStart = mShowWeekNum ? (mWidth - mPadding * 2) / mNumCells + mPadding : mPadding;
+        int dayStart = mPadding;
         if (x < dayStart || x > mWidth - mPadding) {
             return null;
         }
@@ -433,16 +433,16 @@ public class SimpleWeekView extends View {
 
         int i = 0;
         int divisor = 2 * nDays;
-        if (mShowWeekNum) {
+        /*if (mShowWeekNum) {
             p.setTextSize(MINI_WK_NUMBER_TEXT_SIZE);
             p.setStyle(Style.FILL);
-            p.setTextAlign(Align.CENTER);
+            p.setTextAlign(Align.LEFT);
             p.setAntiAlias(true);
             p.setColor(mWeekNumColor);
             int x = (mWidth - mPadding * 2) / divisor + mPadding;
             canvas.drawText(mDayNumbers[0], x, y, p);
             i++;
-        }
+        }*/
 
         boolean isFocusMonth = mFocusDay[i];
         mMonthNumPaint.setColor(isFocusMonth ? mFocusMonthColor : mOtherMonthColor);
@@ -482,13 +482,13 @@ public class SimpleWeekView extends View {
             p.setColor(mTodayOutlineColor);
             canvas.drawRect(r, p);
         }
-        if (mShowWeekNum) {
+        /*if (mShowWeekNum) {
             p.setColor(mDaySeparatorColor);
             p.setStrokeWidth(DAY_SEPARATOR_WIDTH);
 
             int x = (mWidth - mPadding * 2) / mNumCells + mPadding;
             canvas.drawLine(x, 0, x, mHeight, p);
-        }
+        }*/
     }
 
     @Override
@@ -506,9 +506,9 @@ public class SimpleWeekView extends View {
             if (selectedPosition < 0) {
                 selectedPosition += 7;
             }
-            if (mShowWeekNum) {
+            /*if (mShowWeekNum) {
                 selectedPosition++;
-            }
+            }*/
             mSelectedLeft = selectedPosition * (mWidth - mPadding * 2) / mNumCells
                     + mPadding;
             mSelectedRight = (selectedPosition + 1) * (mWidth - mPadding * 2) / mNumCells
