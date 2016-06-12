@@ -65,12 +65,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
     // TODO recreate formatter when locale changes
     protected static Formatter mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
     /* NOTE: these are not constants, and may be multiplied by a scale factor */
-    private static int TEXT_SIZE_MONTH_NUMBER = 32;
+    private static int TEXT_SIZE_MONTH_NUMBER = 28;
     private static int TEXT_SIZE_EVENT = 12;
     private static int TEXT_SIZE_EVENT_TITLE = 14;
     private static int TEXT_SIZE_MORE_EVENTS = 12;
     private static int TEXT_SIZE_MONTH_NAME = 14;
-    private static int TEXT_SIZE_WEEK_NUM = 12;
+    private static int TEXT_SIZE_WEEK_NUM = 9;
     private static int DNA_MARGIN = 4;
     private static int DNA_ALL_DAY_HEIGHT = 4;
     private static int DNA_MIN_SEGMENT_HEIGHT = 4;
@@ -81,9 +81,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_TEXT_COLOR = Color.WHITE;
     private static int DEFAULT_EDGE_SPACING = 0;
     private static int SIDE_PADDING_MONTH_NUMBER = 4;
-    private static int TOP_PADDING_MONTH_NUMBER = 4;
+    private static int TOP_PADDING_MONTH_NUMBER = 3;
     private static int TOP_PADDING_WEEK_NUMBER = 4;
-    private static int SIDE_PADDING_WEEK_NUMBER = 20;
+    private static int SIDE_PADDING_WEEK_NUMBER = 12;
     private static int DAY_SEPARATOR_OUTER_WIDTH = 0;
     private static int DAY_SEPARATOR_INNER_WIDTH = 1;
     private static int DAY_SEPARATOR_VERTICAL_LENGTH = 53;
@@ -91,13 +91,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int MIN_WEEK_WIDTH = 50;
     private static int EVENT_X_OFFSET_LANDSCAPE = 38;
     private static int EVENT_Y_OFFSET_LANDSCAPE = 8;
-    private static int EVENT_Y_OFFSET_PORTRAIT = 7;
+    private static int EVENT_Y_OFFSET_PORTRAIT = 2;
     private static int EVENT_SQUARE_WIDTH = 3;
     private static int EVENT_SQUARE_HEIGHT = 10;
-    private static int EVENT_SQUARE_BORDER = 2;
+    private static int EVENT_SQUARE_BORDER = 0;
     private static int EVENT_LINE_PADDING = 2;
     private static int EVENT_RIGHT_PADDING = 4;
-    private static int EVENT_BOTTOM_PADDING = 3;
+    private static int EVENT_BOTTOM_PADDING = 1;
     private static int TODAY_HIGHLIGHT_WIDTH = 2;
     private static int SPACING_WEEK_NUMBER = 0;
     private static boolean mInitialized = false;
