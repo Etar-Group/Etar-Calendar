@@ -92,7 +92,7 @@
     <!-- This is for displaying the week of the year near the date. Eg. "January, 2011 Week 1" -->
     <plurals name="weekN">
         <!-- Label for displaying week of the year for all week values [CHAR LIMIT=16] -->
-        <item quantity="other">WEEK <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
 
     <!-- Menu items: -->
@@ -355,11 +355,11 @@
     <!-- Agenda View strings -->
     <skip/>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_today">TODAY, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_today">today, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_yesterday">YESTERDAY, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday">yesterday, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_tomorrow">TOMORROW, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow">tomorrow, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown while the calendar events are being loading to the screen. -->
     <string name="loading">Loading\u2026</string>
     <!-- This is shown at the top of the agenda view showing the beginning of the searched range. If the user taps on this string and Calendar will find events older than what is visible and display them to the user -->

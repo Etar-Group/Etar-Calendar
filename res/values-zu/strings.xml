@@ -46,7 +46,7 @@
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> izinsuku"</item>
   </plurals>
   <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"IVIKI <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8085184869561028365">"iviki <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Qala kabusha"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Bonisa usuku"</string>
@@ -133,9 +133,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Bhala okwakho…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Umhleli:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Izikhumbuzi"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"NAMHLANJE, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"IZOLO, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"KUSASA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"namhlanje, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"izolo, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"kusasa, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Iyalayisha..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"Thinta ukubuka izenzakalo ngaphambi <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Thinta ukubona izenzakalo emuva <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

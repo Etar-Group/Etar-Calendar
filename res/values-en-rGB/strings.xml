@@ -45,7 +45,7 @@
     <item msgid="1709378992389618261" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> days"</item>
   </plurals>
   <plurals name="weekN">
-    <item msgid="8085184869561028365" quantity="other">"WEEK <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item msgid="8085184869561028365" quantity="other">"week <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Refresh"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Show day"</string>
@@ -128,9 +128,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Write your own…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organiser:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Reminders"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"TODAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"YESTERDAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"TOMORROW, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"today, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"yesterday, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"toorrow, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Loading…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Touch to view events before <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Touch to view events after <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
