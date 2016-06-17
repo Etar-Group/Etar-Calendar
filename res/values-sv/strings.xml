@@ -46,7 +46,7 @@
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagar"</item>
   </plurals>
   <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"VECKA <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8085184869561028365">"vecka <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Uppdatera"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Visa dag"</string>
@@ -129,9 +129,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv eget svar ..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisatör:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Påminnelser"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"IDAG, DEN <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"IGÅR, DEN <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"IMORGON, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"idag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"igår, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"imorgon, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Hämtar…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tryck om du vill visa händelser före <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tryck om du vill visa händelser efter <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
