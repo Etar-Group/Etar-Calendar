@@ -21,7 +21,7 @@
 
     <color name="colorPrimary">#41c3b1</color>
     <color name="colorPrimaryDark">#388d7f</color>
-    <color name="colorAccent">#ff1744</color>
+    <color name="colorAccent">#41c3b1</color>
     <color name="titleTextColor">@android:color/white</color>
 
     <color name="pressed">#330066ff</color>
