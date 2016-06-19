@@ -21,7 +21,7 @@
 
     <color name="colorPrimary">#41c3b1</color>
     <color name="colorPrimaryDark">#388d7f</color>
-    <color name="colorAccent">#ff1744</color>
+    <color name="colorAccent">#41c3b1</color>
     <color name="titleTextColor">@android:color/white</color>
 
     <color name="pressed">#330066ff</color>
@@ -64,8 +64,8 @@
     <color name="month_day_number">#FF555555</color>
     <color name="month_mini_day_number">#FF000000</color>
     <color name="month_day_number_other">#FF999999</color>
-    <color name="month_week_num_color">#FF999999</color>
-    <color name="month_day_names_color">#FF999999</color>
+    <color name="month_week_num_color">#41c3b1</color>
+    <color name="month_day_names_color">#757575</color>
     <color name="month_today_number">#FF555555</color>
     <color name="month_event_color">#FF333333</color>
     <color name="month_event_extra_color">#FF666666</color>
