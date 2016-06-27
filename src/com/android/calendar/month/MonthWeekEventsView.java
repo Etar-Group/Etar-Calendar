@@ -532,7 +532,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
         int offset = 0;
         r.top = DAY_SEPARATOR_INNER_WIDTH;
         r.bottom = mHeight;
-
+        if (mShowWeekNum) {
+            i++;
+            offset++;
+        }
         if (mFocusDay[i]) {
             while (++i < mOddMonth.length && mFocusDay[i])
                 ;
