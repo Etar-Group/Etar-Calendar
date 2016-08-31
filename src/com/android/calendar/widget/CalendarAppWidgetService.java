@@ -78,7 +78,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     static final int INDEX_END_DAY = 7;
     static final int INDEX_COLOR = 8;
     static final int INDEX_SELF_ATTENDEE_STATUS = 9;
-    static final int MAX_DAYS = 7;
+    static final int MAX_DAYS = 31;
     private static final String TAG = "CalendarWidget";
     private static final String EVENT_SORT_ORDER = Instances.START_DAY + " ASC, "
             + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
