@@ -118,6 +118,8 @@ public class Utils {
     private static final float INTENSITY_ADJUST = 0.8f;
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
+    public static final String THEME_PREF = "pref_theme";
+
     /**
     * A coordinate must be of the following form for Google Maps to correctly use it:
     * Latitude, Longitude
@@ -329,6 +331,10 @@ public class Utils {
     public static boolean getSharedPreference(Context context, String key, boolean defaultValue) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         return prefs.getBoolean(key, defaultValue);
+    }
+
+    public static String getTheme(Context context) {
+        return getSharedPreference(context, THEME_PREF, "light");
     }
 
     /**

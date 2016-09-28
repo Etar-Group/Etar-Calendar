@@ -62,12 +62,20 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     public AgendaAdapter(Context context, int resource) {
         super(context, resource, null);
 
+        String theme = Utils.getTheme(context);
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
-        mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
-        mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
-        mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color);
-        mWhereColor = mResources.getColor(R.color.agenda_item_where_text_color);
+        if (theme.equals("dark")) {
+            mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color_dark);
+            mStandardColor = mResources.getColor(R.color.agenda_item_standard_color_dark);
+            mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color_dark);
+            mWhereColor = mResources.getColor(R.color.agenda_item_where_text_color_dark);
+        } else {
+            mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
+            mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
+            mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color);
+            mWhereColor = mResources.getColor(R.color.agenda_item_where_text_color);
+        }
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 

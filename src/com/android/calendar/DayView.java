@@ -776,22 +776,44 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCurrentTime.set(currentTime);
         mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
 
-        mWeek_todayColor = mResources.getColor(R.color.week_today);
-        mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
-        mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
-        mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
-        mFutureBgColorRes = mResources.getColor(R.color.calendar_future_bg_color);
-        mBgColor = mResources.getColor(R.color.calendar_hour_background);
-        mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
-        mCalendarGridLineInnerHorizontalColor = mResources
-                .getColor(R.color.calendar_grid_line_inner_horizontal_color);
-        mCalendarGridLineInnerVerticalColor = mResources
-                .getColor(R.color.calendar_grid_line_inner_vertical_color);
-        mCalendarHourLabelColor = mResources.getColor(R.color.calendar_hour_label);
-        mPressedColor = mResources.getColor(R.color.pressed);
-        mClickedColor = mResources.getColor(R.color.day_event_clicked_background_color);
-        mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
-        mMoreEventsTextColor = mResources.getColor(R.color.month_event_other_color);
+        String theme = Utils.getTheme(context);
+
+        if (theme.equals("dark")) {
+            mWeek_todayColor = mResources.getColor(R.color.week_today_dark);
+            mWeek_saturdayColor = mResources.getColor(R.color.week_saturday_dark);
+            mWeek_sundayColor = mResources.getColor(R.color.week_sunday_dark);
+            mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color_dark);
+            mFutureBgColorRes = mResources.getColor(R.color.calendar_future_bg_color_dark);
+            mBgColor = mResources.getColor(R.color.calendar_hour_background_dark);
+            mCalendarHourLabelColor = mResources.getColor(R.color.calendar_hour_label_dark);
+            mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected_dark);
+            mCalendarGridLineInnerHorizontalColor = mResources
+                    .getColor(R.color.calendar_grid_line_inner_horizontal_color_dark);
+            mCalendarGridLineInnerVerticalColor = mResources
+                    .getColor(R.color.calendar_grid_line_inner_vertical_color_dark);
+            mPressedColor = mResources.getColor(R.color.pressed_dark);
+            mClickedColor = mResources.getColor(R.color.day_event_clicked_background_color_dark);
+            mEventTextColor = mResources.getColor(R.color.calendar_event_text_color_dark);
+            mMoreEventsTextColor = mResources.getColor(R.color.month_event_other_color_dark);
+        }
+        else {
+            mWeek_todayColor = mResources.getColor(R.color.week_today);
+            mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
+            mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
+            mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
+            mFutureBgColorRes = mResources.getColor(R.color.calendar_future_bg_color);
+            mBgColor = mResources.getColor(R.color.calendar_hour_background);
+            mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
+            mCalendarGridLineInnerHorizontalColor = mResources
+                    .getColor(R.color.calendar_grid_line_inner_horizontal_color);
+            mCalendarGridLineInnerVerticalColor = mResources
+                    .getColor(R.color.calendar_grid_line_inner_vertical_color);
+            mCalendarHourLabelColor = mResources.getColor(R.color.calendar_hour_label);
+            mPressedColor = mResources.getColor(R.color.pressed);
+            mClickedColor = mResources.getColor(R.color.day_event_clicked_background_color);
+            mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
+            mMoreEventsTextColor = mResources.getColor(R.color.month_event_other_color);
+        }
 
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
         mEventTextPaint.setTextAlign(Paint.Align.LEFT);

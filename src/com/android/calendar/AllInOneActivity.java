@@ -78,6 +78,7 @@ import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
@@ -151,6 +152,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private View mMiniMonth;
     private View mCalendarsList;
     private View mMiniMonthContainer;
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 
         @Override
@@ -254,6 +256,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         }
         super.onCreate(icicle);
+        dynamicTheme.onCreate(this);
 
         if (icicle != null && icicle.containsKey(BUNDLE_KEY_CHECK_ACCOUNTS)) {
             mCheckForAccounts = icicle.getBoolean(BUNDLE_KEY_CHECK_ACCOUNTS);
@@ -558,6 +561,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     protected void onResume() {
         super.onResume();
+        dynamicTheme.onResume(this);
 
         // Must register as the first activity because this activity can modify
         // the list of event handlers in it's handle method. This affects who

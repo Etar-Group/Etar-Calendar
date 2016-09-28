@@ -171,6 +171,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             return mAgendaAdapter.getView(position, convertView, parent);
         }
 
+        String theme = Utils.getTheme(mContext);
         RowInfo row = mRowInfo.get(position);
         if (row.mType == TYPE_DAY) {
             ViewHolder holder = null;
@@ -236,10 +237,12 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
             // Set the background of the view, it is grayed for day that are in the past and today
             if (row.mDay > mTodayJulianDay) {
-                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
+                agendaDayView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_primary_dark : R.drawable.agenda_item_bg_primary);
                 holder.grayed = false;
             } else {
-                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
+                agendaDayView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_secondary_dark : R.drawable.agenda_item_bg_secondary);
                 holder.grayed = true;
             }
             return agendaDayView;
@@ -261,11 +264,13 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // if event in the past or started already, un-bold the title and set the background
             if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
                     (allDay && row.mDay <= mTodayJulianDay)) {
-                itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
+                itemView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_secondary_dark : R.drawable.agenda_item_bg_secondary);
                 title.setTypeface(Typeface.DEFAULT);
                 holder.grayed = true;
             } else {
-                itemView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
+                itemView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_primary_dark : R.drawable.agenda_item_bg_primary);
                 title.setTypeface(Typeface.DEFAULT_BOLD);
                 holder.grayed = false;
             }

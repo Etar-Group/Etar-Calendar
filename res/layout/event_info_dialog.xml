@@ -192,7 +192,7 @@
                         android:paddingLeft="16dip"
                         android:singleLine="true"
                         android:text="@string/view_event_calendar_label"
-                        android:textColor="@color/event_info_organizer_color"
+                        android:textColor="?attr/event_info_organizer_color"
                         android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/calendar_name"
@@ -204,7 +204,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:textColor="@color/event_info_organizer_color"
+                        android:textColor="?attr/event_info_organizer_color"
                         android:textIsSelectable="true"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -224,7 +224,7 @@
                         android:paddingLeft="16dip"
                         android:singleLine="true"
                         android:text="@string/event_info_organizer"
-                        android:textColor="@color/event_info_organizer_color"
+                        android:textColor="?attr/event_info_organizer_color"
                         android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/organizer"
@@ -236,7 +236,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:textColor="@color/event_info_organizer_color"
+                        android:textColor="?attr/event_info_organizer_color"
                         android:textIsSelectable="true"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -266,7 +266,7 @@
                     android:paddingRight="16dip"
                     android:text="@string/view_event_response_label"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/event_info_label_color" />
+                    android:textColor="?attr/event_info_label_color" />
                 <RadioGroup
                     android:id="@+id/response_value"
                     android:layout_width="match_parent"
@@ -284,7 +284,7 @@
                         android:layout_weight="1"
                         android:minWidth="96dip"
                         android:text="@string/response_yes"
-                        android:textColor="@color/event_info_body_color" />
+                        android:textColor="?attr/event_info_body_color" />
                     <RadioButton
                         android:id="@+id/response_maybe"
                         style="?android:attr/textAppearanceMedium"
@@ -294,7 +294,7 @@
                         android:layout_weight="1"
                         android:minWidth="96dip"
                         android:text="@string/response_maybe"
-                        android:textColor="@color/event_info_body_color" />
+                        android:textColor="?attr/event_info_body_color" />
                     <RadioButton
                         android:id="@+id/response_no"
                         style="?android:attr/textAppearanceMedium"
@@ -304,7 +304,7 @@
                         android:layout_weight="1"
                         android:minWidth="96dip"
                         android:text="@string/response_no"
-                        android:textColor="@color/event_info_body_color" />
+                        android:textColor="?attr/event_info_body_color" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -381,7 +381,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:orientation="vertical"
-                android:textColor="@color/event_info_body_color"
+                android:textColor="?attr/event_info_body_color"
                 android:visibility="gone" />
 
             <!-- REMINDERS -->
@@ -402,7 +402,7 @@
                     android:paddingRight="16dip"
                     android:text="@string/event_info_reminders_label"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/event_info_label_color" />
+                    android:textColor="?attr/event_info_label_color" />
                 <LinearLayout
                     android:id="@+id/reminder_items_container"
                     android:layout_width="match_parent"

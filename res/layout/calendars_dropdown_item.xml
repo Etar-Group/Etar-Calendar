@@ -39,7 +39,7 @@
         android:layout_toRightOf="@id/color"
         android:layout_alignParentTop="true"
         android:layout_height="wrap_content"
-        android:textColor="#333333"
+        android:textColor="?attr/light_dark"
     />
 
     <TextView
@@ -51,7 +51,7 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/calendar_owner_text_color"
+        android:textColor="?attr/calendar_owner_text_color"
     />
 
 </RelativeLayout>

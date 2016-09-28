@@ -31,7 +31,7 @@
             android:gravity="center_vertical|right"
             android:paddingRight="8dip"
             android:textSize="12sp"
-            android:background="@color/calendar_date_banner_background"
+            android:background="?attr/calendar_date_banner_bgcolor"
             android:visibility="gone" />
         <FrameLayout
             android:id="@+id/main_pane"
