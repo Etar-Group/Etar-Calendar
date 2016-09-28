@@ -85,15 +85,25 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         initData(c);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mRes = context.getResources();
-        mColorCalendarVisible = mRes.getColor(R.color.calendar_visible);
-        mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden);
-        mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible);
-        mColorCalendarSecondaryHidden = mRes.getColor(R.color.calendar_secondary_hidden);
+        String theme = Utils.getTheme(context);
+
+        if (theme.equals("dark")) {
+            mColorCalendarVisible = mRes.getColor(R.color.calendar_visible_dark);
+            mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden_dark);
+            mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible_dark);
+            mColorCalendarSecondaryHidden = mRes.getColor(R.color.calendar_secondary_hidden_dark);
+        }
+        else {
+            mColorCalendarVisible = mRes.getColor(R.color.calendar_visible);
+            mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden);
+            mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible);
+            mColorCalendarSecondaryHidden = mRes.getColor(R.color.calendar_secondary_hidden);
+        }
 
         if (mScale == 0) {
-            mScale = mRes.getDisplayMetrics().density;
-            BOTTOM_ITEM_HEIGHT *= mScale;
-            NORMAL_ITEM_HEIGHT *= mScale;
+                mScale = mRes.getDisplayMetrics().density;
+                BOTTOM_ITEM_HEIGHT *= mScale;
+                NORMAL_ITEM_HEIGHT *= mScale;
         }
 
         mCache = new CalendarColorCache(context, this);

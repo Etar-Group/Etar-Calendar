@@ -32,7 +32,7 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Utils;
-
+import com.android.calendar.DynamicTheme;
 import ws.xsoh.etar.R;
 
 public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
@@ -52,11 +52,11 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
           mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
         }
     };
-
+    private final DynamicTheme    dynamicTheme    = new DynamicTheme();
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        dynamicTheme.onCreate(this);
         setContentView(R.layout.simple_frame_layout);
 
         mController = CalendarController.getInstance(this);

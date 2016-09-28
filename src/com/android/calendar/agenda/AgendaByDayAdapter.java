@@ -170,7 +170,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // If we have no row info, mAgendaAdapter returns the view.
             return mAgendaAdapter.getView(position, convertView, parent);
         }
-
+        String theme = Utils.getTheme(mContext);
         RowInfo row = mRowInfo.get(position);
         if (row.mType == TYPE_DAY) {
             ViewHolder holder = null;
@@ -235,12 +235,24 @@ public class AgendaByDayAdapter extends BaseAdapter {
             holder.dateView.setText(dateViewText);
 
             // Set the background of the view, it is grayed for day that are in the past and today
-            if (row.mDay > mTodayJulianDay) {
-                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
-                holder.grayed = false;
+
+            if (theme.equals("dark")) {
+                if (row.mDay > mTodayJulianDay) {
+                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary_dark);
+                    holder.grayed = false;
+                } else {
+                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary_dark);
+                    holder.grayed = true;
+                }
             } else {
-                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
-                holder.grayed = true;
+                if (row.mDay > mTodayJulianDay) {
+                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
+                    holder.grayed = false;
+                } else {
+                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
+                    holder.grayed = true;
+
+                }
             }
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
@@ -259,15 +271,28 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
 
             // if event in the past or started already, un-bold the title and set the background
-            if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
+            if (theme.equals("dark")) {
+                if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
                     (allDay && row.mDay <= mTodayJulianDay)) {
-                itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
+                itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary_dark);
                 title.setTypeface(Typeface.DEFAULT);
                 holder.grayed = true;
-            } else {
-                itemView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
+                } else {
+                itemView.setBackgroundResource(R.drawable.agenda_item_bg_primary_dark);
                 title.setTypeface(Typeface.DEFAULT_BOLD);
                 holder.grayed = false;
+                }
+            } else {
+                if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
+                        (allDay && row.mDay <= mTodayJulianDay)) {
+                    itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
+                    title.setTypeface(Typeface.DEFAULT);
+                    holder.grayed = true;
+                } else {
+                    itemView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
+                    title.setTypeface(Typeface.DEFAULT_BOLD);
+                    holder.grayed = false;
+                }
             }
             holder.julianDay = row.mDay;
             return itemView;

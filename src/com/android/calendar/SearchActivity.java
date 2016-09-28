@@ -90,10 +90,11 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
     };
     private BroadcastReceiver mTimeChangesReceiver;
     private ContentResolver mContentResolver;
-
+    private final DynamicTheme    dynamicTheme    = new DynamicTheme();
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        dynamicTheme.onCreate(this);
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
         mHandler = new Handler();
@@ -313,7 +314,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
     @Override
     protected void onResume() {
         super.onResume();
-
+        dynamicTheme.onResume(this);
         Utils.setMidnightUpdater(
                 mHandler, mTimeChangesUpdater, Utils.getTimeZone(this, mTimeChangesUpdater));
         // Make sure the today icon is up to date

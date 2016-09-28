@@ -19,7 +19,8 @@
     android:id="@+id/edit_event"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/EditEvent_Layout">
+    style="@style/EditEvent_Layout"
+    android:background="?attr/edit_event_bgcolor">
     <TextView
         android:id="@+id/loading_message"
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
         android:gravity="center"
         android:text="@string/loading"
         style="?android:attr/textAppearanceLarge"
-        android:background="#FFFFFFFF"/>
+        android:background="?attr/edit_event_bgcolor"/>
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -52,7 +53,7 @@
                 android:layout_marginTop="1dip"
                 android:layout_marginBottom="1dip"
                 android:layout_gravity="center_horizontal|top"
-                android:background="#FFFFFFFF"/>
+                android:background="?attr/edit_event_bgcolor"/>
 
             <LinearLayout
                 android:id="@+id/two_pane"

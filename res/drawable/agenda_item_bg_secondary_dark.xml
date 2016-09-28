@@ -14,15 +14,15 @@
      limitations under the License.
 -->
 
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="32dip"
-    android:layout_marginTop="4dip"
-    android:layout_marginLeft="8dip"
-    android:layout_gravity="center_vertical"
-    android:paddingLeft="8dip"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    style="?android:attr/listSeparatorTextViewStyle"
-    android:textColor="?attr/event_info_label_color" />
-
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <item
+        android:state_focused="false"
+        android:state_pressed="false"
+        android:drawable="@drawable/list_secondary_holo_dark" />
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/list_focused_holo" />
+    <item
+        android:drawable="@drawable/list_pressed_holo" />
+</selector>

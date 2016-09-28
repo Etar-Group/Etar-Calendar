@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="CalendarAppThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/dark</item>
+        <item name="colorAccent">#41c3b1</item>
+        <item name="light_dark">@color/white</item>
+        <item name="android:windowBackground">@color/dark</item>
+        <item name="android:textColorPrimary">@color/appwidget_where</item>
+        <item name="android:textColor">@color/appwidget_where</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:textColorSecondary">@color/appwidget_where</item>
+        <item name="settings_titleText">?android:attr/textAppearanceLarge</item>
+        <item name="month_header_bgcolor">@color/month_bgcolor_dark</item>
+        <item name="agenda_general_bgcolor">@color/agenda_general_background_color_dark</item>
+        <item name="agenda_day_item_text_color">@color/agenda_day_item_text_color_dark</item>
+        <item name="edit_event_bgcolor">@color/edit_event_color_dark</item>
+        <item name="editEvent_small_color">@color/edit_event_small_dark</item>
+        <item name="android:itemBackground">@color/dark</item>
+        <item name="recurrence_picker_bgcolor_up">@color/recurrence_picker_background_up_dark</item>
+        <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background_dark</item>
+        <item name="done_text_recurrence">@color/recurrence_done_text_color_black</item>
+        <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground_dark</item>
+        <item name="event_info_scrollview_bgcolor">@color/dark</item>
+        <item name="event_info_organizer_color">@color/event_info_organizer_color_dark</item>
+        <item name="event_info_description_color">@color/event_info_description_color_dark</item>
+        <item name="event_info_body_color">@color/event_info_body_color_dark</item>
+        <item name="event_info_label_color">@color/event_info_label_color_dark</item>
+        <item name="create_event_date_color">@color/create_event_date_color_dark</item>
+        <item name="calendar_owner_text_color">@color/calendar_owner_text_color_dark</item>
+        <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_dark</item>
+    </style>
+</resources>

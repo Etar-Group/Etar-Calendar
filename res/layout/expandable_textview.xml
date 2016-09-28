@@ -31,7 +31,7 @@
         android:autoLink="all"
         android:ellipsize="end"
         android:textIsSelectable="true"
-        android:textColor="@color/event_info_description_color"
+        android:textColor="?attr/event_info_description_color"
         android:textSize="@dimen/event_info_text_size" />
 
     <ImageButton
@@ -46,6 +46,6 @@
         android:visibility="gone"
         android:src="@drawable/ic_expand_small_holo_light"
         android:background="#00000000"
-        android:textColor="@color/event_info_description_color" />
+        android:textColor="?attr/event_info_description_color" />
 
 </com.android.calendar.ExpandableTextView>

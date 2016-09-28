@@ -31,7 +31,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
-
+import android.support.v7.app.AppCompatActivity;
 import com.android.calendar.Utils;
 
 import java.security.InvalidParameterException;
@@ -171,15 +171,28 @@ public class SimpleWeekView extends View {
         super(context);
 
         Resources res = context.getResources();
+        String theme = Utils.getTheme(context);
 
-        mBGColor = res.getColor(R.color.month_bgcolor);
-        mSelectedWeekBGColor = res.getColor(R.color.month_selected_week_bgcolor);
-        mFocusMonthColor = res.getColor(R.color.month_mini_day_number);
-        mOtherMonthColor = res.getColor(R.color.month_other_month_day_number);
-        mDaySeparatorColor = res.getColor(R.color.month_grid_lines);
-        mTodayOutlineColor = res.getColor(R.color.mini_month_today_outline_color);
-        mWeekNumColor = res.getColor(R.color.month_week_num_color);
-        mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
+        if (theme.equals("dark")) {
+            mBGColor = res.getColor(R.color.month_bgcolor_dark);
+            mSelectedWeekBGColor = res.getColor(R.color.month_selected_week_bgcolor_dark);
+            mFocusMonthColor = res.getColor(R.color.month_mini_day_number_dark);
+            mOtherMonthColor = res.getColor(R.color.month_other_month_day_number_dark);
+            mDaySeparatorColor = res.getColor(R.color.month_grid_lines_dark);
+            mTodayOutlineColor = res.getColor(R.color.mini_month_today_outline_color_dark);
+            mWeekNumColor = res.getColor(R.color.month_week_num_color_dark);
+            mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
+        }
+        else {
+            mBGColor = res.getColor(R.color.month_bgcolor);
+            mSelectedWeekBGColor = res.getColor(R.color.month_selected_week_bgcolor);
+            mFocusMonthColor = res.getColor(R.color.month_mini_day_number);
+            mOtherMonthColor = res.getColor(R.color.month_other_month_day_number);
+            mDaySeparatorColor = res.getColor(R.color.month_grid_lines);
+            mTodayOutlineColor = res.getColor(R.color.mini_month_today_outline_color);
+            mWeekNumColor = res.getColor(R.color.month_week_num_color);
+            mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
+        }
 
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;

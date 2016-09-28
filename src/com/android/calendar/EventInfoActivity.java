@@ -65,11 +65,11 @@ public class EventInfoActivity extends AppCompatActivity {
     };
     private long mStartMillis, mEndMillis;
     private long mEventId;
-
+    private final DynamicTheme    dynamicTheme    = new DynamicTheme();
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        dynamicTheme.onCreate(this);
         // Get the info needed for the fragment
         Intent intent = getIntent();
         int attendeeResponse = 0;
@@ -183,6 +183,7 @@ public class EventInfoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        dynamicTheme.onResume(this);
         getContentResolver().registerContentObserver(CalendarContract.Events.CONTENT_URI,
                 true, mObserver);
     }

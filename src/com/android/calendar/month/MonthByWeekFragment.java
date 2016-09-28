@@ -298,9 +298,14 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         super.onActivityCreated(savedInstanceState);
         mListView.setSelector(new StateListDrawable());
         mListView.setOnTouchListener(this);
-
+        String theme = Utils.getTheme(getActivity());
         if (!mIsMiniMonth) {
-            mListView.setBackgroundColor(getResources().getColor(R.color.month_bgcolor));
+            if (theme.equals("dark")) {
+                mListView.setBackgroundColor(getResources().getColor(R.color.month_bgcolor_dark));
+            }
+            else {
+                mListView.setBackgroundColor(getResources().getColor(R.color.month_bgcolor));
+            }
         }
 
         // To get a smoother transition when showing this fragment, delay loading of events until

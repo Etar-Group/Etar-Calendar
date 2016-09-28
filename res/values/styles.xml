@@ -33,6 +33,26 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="light_dark">@color/dark</item>
+        <item name="settings_titleText">?android:attr/textAppearanceLargeInverse</item>
+        <item name="month_header_bgcolor">@color/month_other_bgcolor</item>
+        <item name="agenda_general_bgcolor">@color/agenda_general_background_color</item>
+        <item name="agenda_day_item_text_color">@color/agenda_day_item_text_color</item>
+        <item name="edit_event_bgcolor">@color/edit_event_color</item>
+        <item name="editEvent_small_color">@color/edit_event_small</item>
+        <item name="recurrence_picker_bgcolor_up">@color/white</item>
+        <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background</item>
+        <item name="done_text_recurrence">@color/recurrence_done_text_color</item>
+        <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground</item>
+        <item name="event_info_scrollview_bgcolor">@color/white</item>
+        <item name="event_info_organizer_color">@color/event_info_organizer_color</item>
+        <item name="event_info_description_color">@color/event_info_description_color</item>
+        <item name="event_info_body_color">@color/event_info_body_color</item>
+        <item name="event_info_label_color">@color/event_info_label_color</item>
+        <item name="android:itemBackground">@color/white</item>
+        <item name="create_event_date_color">@color/create_event_date_color</item>
+        <item name="calendar_owner_text_color">@color/calendar_owner_text_color</item>
+        <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -50,7 +70,6 @@
     <style name="ThemeOverlay.CalendarAppTheme.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/titleTextColor</item>
     </style>
-
 
     <style name="NotImplementedYet">
         <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
@@ -162,14 +181,14 @@
     <style name="TextAppearance.EditEvent_Small">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FFAAAAAA</item>
+        <item name="android:textColor">?attr/editEvent_small_color</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="TextAppearance.EditEvent">
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">#FF333333</item>
+        <item name="android:textColor">?attr/editEvent_small_color</item>
     </style>
 
     <style name="TextAppearance.EditEvent_Value" parent="TextAppearance.EditEvent">
@@ -195,11 +214,13 @@
         <item name="android:textColor">#FF333333</item>
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:popupBackground">?attr/spinner_privacy_presence_bgcolor</item>
     </style>
 
     <style name="TextAppearance.EditEvent_SpinnerButton" parent="TextAppearance.EditEvent_Spinner">
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">12dp</item>
+        <item name="android:textColor">#757575</item>
     </style>
 
     <style name="TextAppearance.EditEvent_homeTime">

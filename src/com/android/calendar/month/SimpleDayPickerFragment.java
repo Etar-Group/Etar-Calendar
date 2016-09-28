@@ -169,10 +169,18 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         mTempTime.timezone = tz;
 
         Resources res = activity.getResources();
-        mSaturdayColor = res.getColor(R.color.month_saturday);
-        mSundayColor = res.getColor(R.color.month_sunday);
-        mDayNameColor = res.getColor(R.color.month_day_names_color);
+        String theme = Utils.getTheme(getActivity());
 
+        if (theme.equals("dark")) {
+            mSaturdayColor = res.getColor(R.color.month_saturday_dark);
+            mSundayColor = res.getColor(R.color.month_sunday_dark);
+            mDayNameColor = res.getColor(R.color.month_day_names_color_dark);
+        }
+        else{
+            mSaturdayColor = res.getColor(R.color.month_saturday);
+            mSundayColor = res.getColor(R.color.month_sunday);
+            mDayNameColor = res.getColor(R.color.month_day_names_color);
+        }
         // Adjust sizes for screen density
         if (mScale == 0) {
             mScale = activity.getResources().getDisplayMetrics().density;
