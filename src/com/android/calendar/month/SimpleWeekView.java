@@ -182,8 +182,7 @@ public class SimpleWeekView extends View {
             mTodayOutlineColor = res.getColor(R.color.mini_month_today_outline_color_dark);
             mWeekNumColor = res.getColor(R.color.month_week_num_color_dark);
             mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
-        }
-        else {
+        } else {
             mBGColor = res.getColor(R.color.month_bgcolor);
             mSelectedWeekBGColor = res.getColor(R.color.month_selected_week_bgcolor);
             mFocusMonthColor = res.getColor(R.color.month_mini_day_number);

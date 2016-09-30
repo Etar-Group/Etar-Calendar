@@ -275,6 +275,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
         }
     }
+
     /**
      * Sets up the text and style properties for painting. Override this if you
      * want to use a different paint.

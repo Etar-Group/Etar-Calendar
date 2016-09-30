@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
     };
     private BroadcastReceiver mTimeChangesReceiver;
     private ContentResolver mContentResolver;
-    private final DynamicTheme    dynamicTheme    = new DynamicTheme();
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);

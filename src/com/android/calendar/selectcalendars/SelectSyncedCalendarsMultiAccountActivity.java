@@ -57,7 +57,7 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     private MatrixCursor mAccountsCursor = null;
     private ExpandableListView mList;
     private SelectSyncedCalendarsMultiAccountAdapter mAdapter;
-    private final DynamicTheme dynamicTheme    = new DynamicTheme();
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
 
     @Override
     protected void onCreate(Bundle icicle) {

@@ -65,7 +65,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     };
     private Handler mHandler = new Handler();
     private boolean mHideMenuButtons = false;
-    private final DynamicTheme    dynamicTheme    = new DynamicTheme();
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

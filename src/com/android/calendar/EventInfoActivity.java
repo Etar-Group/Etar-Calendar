@@ -65,7 +65,7 @@ public class EventInfoActivity extends AppCompatActivity {
     };
     private long mStartMillis, mEndMillis;
     private long mEventId;
-    private final DynamicTheme    dynamicTheme    = new DynamicTheme();
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);

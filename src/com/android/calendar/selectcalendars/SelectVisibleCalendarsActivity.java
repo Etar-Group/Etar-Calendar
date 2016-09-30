@@ -52,7 +52,7 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
           mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
         }
     };
-    private final DynamicTheme    dynamicTheme    = new DynamicTheme();
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);

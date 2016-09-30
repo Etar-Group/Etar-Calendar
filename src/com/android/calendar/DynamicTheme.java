@@ -30,7 +30,8 @@ public class DynamicTheme {
     protected int getSelectedTheme(Activity activity) {
         String theme = Utils.getTheme(activity);
 
-        if (theme.equals(DARK)) return R.style.CalendarAppThemeDark;
+        if (theme.equals(DARK))
+            return R.style.CalendarAppThemeDark;
 
         return R.style.CalendarAppTheme;
     }

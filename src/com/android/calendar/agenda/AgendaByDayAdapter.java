@@ -236,23 +236,14 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
             // Set the background of the view, it is grayed for day that are in the past and today
 
-            if (theme.equals("dark")) {
-                if (row.mDay > mTodayJulianDay) {
-                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary_dark);
+            if (row.mDay > mTodayJulianDay) {
+                    agendaDayView.setBackgroundResource(theme.equals("dark") ?
+                            R.drawable.agenda_item_bg_primary_dark : R.drawable.agenda_item_bg_primary);
                     holder.grayed = false;
-                } else {
-                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary_dark);
-                    holder.grayed = true;
-                }
             } else {
-                if (row.mDay > mTodayJulianDay) {
-                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
-                    holder.grayed = false;
-                } else {
-                    agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
+                    agendaDayView.setBackgroundResource(theme.equals("dark") ?
+                            R.drawable.agenda_item_bg_secondary_dark : R.drawable.agenda_item_bg_secondary);
                     holder.grayed = true;
-
-                }
             }
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
@@ -271,29 +262,19 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
 
             // if event in the past or started already, un-bold the title and set the background
-            if (theme.equals("dark")) {
-                if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
+
+            if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
                     (allDay && row.mDay <= mTodayJulianDay)) {
-                itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary_dark);
+                itemView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_secondary_dark : R.drawable.agenda_item_bg_secondary);
                 title.setTypeface(Typeface.DEFAULT);
                 holder.grayed = true;
-                } else {
-                itemView.setBackgroundResource(R.drawable.agenda_item_bg_primary_dark);
+            } else {
+                itemView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_primary_dark : R.drawable.agenda_item_bg_primary);
                 title.setTypeface(Typeface.DEFAULT_BOLD);
                 holder.grayed = false;
                 }
-            } else {
-                if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
-                        (allDay && row.mDay <= mTodayJulianDay)) {
-                    itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
-                    title.setTypeface(Typeface.DEFAULT);
-                    holder.grayed = true;
-                } else {
-                    itemView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
-                    title.setTypeface(Typeface.DEFAULT_BOLD);
-                    holder.grayed = false;
-                }
-            }
             holder.julianDay = row.mDay;
             return itemView;
         } else {

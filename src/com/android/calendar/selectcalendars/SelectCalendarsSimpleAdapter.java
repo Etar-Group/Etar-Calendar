@@ -92,8 +92,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden_dark);
             mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible_dark);
             mColorCalendarSecondaryHidden = mRes.getColor(R.color.calendar_secondary_hidden_dark);
-        }
-        else {
+        } else {
             mColorCalendarVisible = mRes.getColor(R.color.calendar_visible);
             mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden);
             mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible);
@@ -101,9 +100,9 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         }
 
         if (mScale == 0) {
-                mScale = mRes.getDisplayMetrics().density;
-                BOTTOM_ITEM_HEIGHT *= mScale;
-                NORMAL_ITEM_HEIGHT *= mScale;
+            mScale = mRes.getDisplayMetrics().density;
+            BOTTOM_ITEM_HEIGHT *= mScale;
+            NORMAL_ITEM_HEIGHT *= mScale;
         }
 
         mCache = new CalendarColorCache(context, this);

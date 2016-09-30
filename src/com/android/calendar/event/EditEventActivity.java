@@ -48,7 +48,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
     private static final boolean DEBUG = false;
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     private static boolean mIsMultipane;
-    private final DynamicTheme dynamicTheme    = new DynamicTheme();
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     private EditEventFragment mEditFragment;
 
     private ArrayList<ReminderEntry> mReminders;
@@ -58,6 +58,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
     private boolean mEventColorInitialized;
 
     private EventInfo mEventInfo;
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);

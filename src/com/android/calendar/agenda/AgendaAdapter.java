@@ -70,9 +70,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             mStandardColor = mResources.getColor(R.color.agenda_item_standard_color_dark);
             mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color_dark);
             mWhereColor = mResources.getColor(R.color.agenda_item_where_text_color_dark);
-
-
-        }else {
+        } else {
             mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
             mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
             mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color);
