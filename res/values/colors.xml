@@ -214,7 +214,7 @@
     <color name="month_day_number_other_dark">#616161</color>
     <color name="month_today_number_dark">#ffffff</color>
     <color name="month_event_color_dark">#ffffff</color>
-    <color name="agenda_item_declined_color_dark">#000000</color>
+    <color name="agenda_item_declined_color_dark">#616161</color>
     <color name="agenda_item_where_declined_text_color_dark">#000000</color>
     <color name="month_event_extra_color_dark">#ffffff</color>
     <color name="month_event_extra_other_color_dark">#000000</color>
