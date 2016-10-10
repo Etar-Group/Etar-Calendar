@@ -20,20 +20,17 @@
             android:icon="@drawable/ic_menu_agenda_view"
             android:title="@string/agenda_view" />
 
+    </group>
+    <group android:id="@+id/navigation_subheader" android:checkableBehavior="single">
         <item
-            android:id="@+id/navigation_subheader"
-            android:title="">
-            <menu>
-                <item
-                    android:id="@+id/action_select_visible_calendars"
-                    android:icon="@drawable/ic_menu_select_visible_calendars"
-                    android:title="@string/menu_select_visible_calendars" />
-                <item
-                    android:id="@+id/action_settings"
-                    android:alphabeticShortcut="s"
-                    android:icon="@drawable/ic_menu_settings"
-                    android:title="@string/menu_preferences" />
-            </menu>
-        </item>
+            android:id="@+id/action_select_visible_calendars"
+            android:icon="@drawable/ic_menu_select_visible_calendars"
+            android:title="@string/menu_select_visible_calendars" />
+        <item
+            android:id="@+id/action_settings"
+            android:alphabeticShortcut="s"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/menu_preferences" />
+
     </group>
 </menu>
