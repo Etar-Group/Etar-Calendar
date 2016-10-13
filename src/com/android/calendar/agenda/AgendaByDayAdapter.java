@@ -237,13 +237,13 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // Set the background of the view, it is grayed for day that are in the past and today
 
             if (row.mDay > mTodayJulianDay) {
-                    agendaDayView.setBackgroundResource(theme.equals("dark") ?
-                            R.drawable.agenda_item_bg_primary_dark : R.drawable.agenda_item_bg_primary);
-                    holder.grayed = false;
+                agendaDayView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_primary_dark : R.drawable.agenda_item_bg_primary);
+                holder.grayed = false;
             } else {
-                    agendaDayView.setBackgroundResource(theme.equals("dark") ?
-                            R.drawable.agenda_item_bg_secondary_dark : R.drawable.agenda_item_bg_secondary);
-                    holder.grayed = true;
+                agendaDayView.setBackgroundResource(theme.equals("dark") ?
+                        R.drawable.agenda_item_bg_secondary_dark : R.drawable.agenda_item_bg_secondary);
+                holder.grayed = true;
             }
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
