@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="?android:attr/itemBackground"
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingLeft="20dp"
