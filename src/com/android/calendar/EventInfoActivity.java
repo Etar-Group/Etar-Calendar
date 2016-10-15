@@ -70,6 +70,8 @@ public class EventInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         dynamicTheme.onCreate(this);
+        // Workaround reverts Noactionbar in dynamicTheme
+        setTheme(R.style.Base_CalendarAppThemeWithActionBar);
         // Get the info needed for the fragment
         Intent intent = getIntent();
         int attendeeResponse = 0;
