@@ -30,5 +30,6 @@
         <item name="create_event_date_color">@color/create_event_date_color_dark</item>
         <item name="calendar_owner_text_color">@color/calendar_owner_text_color_dark</item>
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_dark</item>
+        <item name="app_bar_color">@color/app_bar</item>
     </style>
 </resources>

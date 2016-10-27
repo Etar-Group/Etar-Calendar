@@ -38,5 +38,6 @@
         <attr name="create_event_date_color" format="color"/>
         <attr name="calendar_owner_text_color" format="color"/>
         <attr name="calendar_date_banner_bgcolor" format="color"/>
+        <attr name="app_bar_color" format="color"/>
     </declare-styleable>
 </resources>

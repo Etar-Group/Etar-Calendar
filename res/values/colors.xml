@@ -181,6 +181,7 @@
     <!-- Dark Color SimpleWeekView -->
 
     <color name="dark">#000000</color>
+    <color name="app_bar">#ff111111</color>
 
     <color name="month_bgcolor_dark">#000000</color>
     <color name="month_selected_week_bgcolor_dark">#FFDDDDDD</color>

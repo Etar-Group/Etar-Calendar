@@ -53,6 +53,7 @@
         <item name="create_event_date_color">@color/create_event_date_color</item>
         <item name="calendar_owner_text_color">@color/calendar_owner_text_color</item>
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
+        <item name="app_bar_color">@color/colorPrimary</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -62,7 +63,7 @@
     </style>
 
     <style name="Widget.CalendarAppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">?colorPrimary</item>
+        <item name="android:background">?attr/app_bar_color</item>
         <item name="theme">@style/ThemeOverlay.CalendarAppTheme.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
