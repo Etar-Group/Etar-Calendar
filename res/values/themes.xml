@@ -4,7 +4,7 @@
     <style name="CalendarAppThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/dark</item>
-        <item name="colorAccent">#41c3b1</item>
+        <item name="colorAccent">#1dc1ab</item>
         <item name="light_dark">@color/white</item>
         <item name="android:windowBackground">@color/dark</item>
         <item name="android:textColorPrimary">@color/appwidget_where</item>
