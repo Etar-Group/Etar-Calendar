@@ -502,6 +502,9 @@
     <string name="preferences_general_title">Calendar view setting</string>
     <!-- This is the title of a section in the Settings screen for settings
          related to reminders for calendar events -->
+    <string name="preferences_theme">Theme</string>
+    <string name="preferences_light_theme">Light</string>
+    <string name="preferences_dark_theme">Dark</string>
     <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
     <string name="preferences_hide_declined_title">Hide declined events</string>

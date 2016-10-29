@@ -18,4 +18,26 @@
     <!-- MultiStateButton doesn't define any special attributes -->
     <declare-styleable name="com.android.calendar.MultiStateButton">
     </declare-styleable>
+    <declare-styleable name="CustomWidget">
+        <attr name="light_dark" format="color"/>
+        <attr name="settings_titleText" format="reference|color" />
+        <attr name="month_header_bgcolor" format="color"/>
+        <attr name="agenda_general_bgcolor" format="color"/>
+        <attr name="edit_event_bgcolor" format="color"/>
+        <attr name="agenda_day_item_text_color" format="color"/>
+        <attr name="editEvent_small_color" format="color"/>
+        <attr name="recurrence_picker_bgcolor_up" format="color"/>
+        <attr name="recurrence_picker_bgcolor" format="color"/>
+        <attr name="done_text_recurrence" format="reference|color"/>
+        <attr name="spinner_privacy_presence_bgcolor" format="color"/>
+        <attr name="event_info_scrollview_bgcolor" format="color"/>
+        <attr name="event_info_organizer_color" format="color"/>
+        <attr name="event_info_description_color" format="color"/>
+        <attr name="event_info_body_color" format="color"/>
+        <attr name="event_info_label_color" format="color"/>
+        <attr name="create_event_date_color" format="color"/>
+        <attr name="calendar_owner_text_color" format="color"/>
+        <attr name="calendar_date_banner_bgcolor" format="color"/>
+        <attr name="app_bar_color" format="color"/>
+    </declare-styleable>
 </resources>

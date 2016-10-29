@@ -82,6 +82,7 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 import com.android.datetimepicker.date.DatePickerDialog;
+import com.android.calendar.DynamicTheme;
 
 import java.io.IOException;
 import java.util.List;
@@ -106,7 +107,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private static final String BUNDLE_KEY_CHECK_ACCOUNTS = "key_check_for_accounts";
     private static final int HANDLER_KEY = 0;
     private static final int PERMISSIONS_REQUEST_WRITE_CALENDAR = 0;
-
     // Indices of buttons for the drop down menu (tabs replacement)
     // Must match the strings in the array buttons_list in arrays.xml and the
     // OnNavigationListener
@@ -151,6 +151,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private View mMiniMonth;
     private View mCalendarsList;
     private View mMiniMonthContainer;
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 
         @Override
@@ -254,7 +255,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         }
         super.onCreate(icicle);
-
+        dynamicTheme.onCreate(this);
         if (icicle != null && icicle.containsKey(BUNDLE_KEY_CHECK_ACCOUNTS)) {
             mCheckForAccounts = icicle.getBoolean(BUNDLE_KEY_CHECK_ACCOUNTS);
         }
@@ -558,6 +559,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     protected void onResume() {
         super.onResume();
+        dynamicTheme.onResume(this);
+
 
         // Must register as the first activity because this activity can modify
         // the list of event handlers in it's handle method. This affects who

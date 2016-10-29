@@ -9,4 +9,5 @@
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/Widget.CalendarAppTheme.ActionBar"
     app:theme="@style/ThemeOverlay.CalendarAppTheme.ActionBar"
-    app:titleTextAppearance="?android:attr/textAppearanceLargeInverse" />
+    app:titleTextAppearance="?attr/settings_titleText" />
+

@@ -524,7 +524,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             sendAccessibilityEvent();
         }
     }
-
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -558,6 +558,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         final Activity activity = getActivity();
         mContext = activity;
+        dynamicTheme.onCreate(activity);
         mColorPickerDialog = (EventColorPickerDialog) activity.getFragmentManager()
                 .findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
         if (mColorPickerDialog != null) {

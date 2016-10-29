@@ -39,7 +39,7 @@
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         android:singleLine="true"
-        android:textColor="@color/create_event_date_color"
+        android:textColor="?attr/create_event_date_color"
         android:textSize="18sp" />
 
     <RelativeLayout
@@ -69,7 +69,7 @@
             android:layout_toRightOf="@id/color"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textColor="#333333" />
+            android:textColor="?attr/light_dark" />
 
         <TextView
             android:id="@+id/account_name"
@@ -80,7 +80,7 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/calendar_owner_text_color" />
+            android:textColor="?attr/calendar_owner_text_color" />
     </RelativeLayout>
 
 </LinearLayout>

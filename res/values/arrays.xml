@@ -14,6 +14,16 @@
      limitations under the License.
 -->
 <resources>
+    <string-array name="pref_theme_entries">
+        <item>@string/preferences_light_theme</item>
+        <item>@string/preferences_dark_theme</item>
+    </string-array>
+
+    <string-array name="pref_theme_values" translatable="false">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
     <!-- Choices for the "Reminder method" spinner.
          These must be kept in sync with the reminder_methods_values array.
          [CHAR LIMIT=10]

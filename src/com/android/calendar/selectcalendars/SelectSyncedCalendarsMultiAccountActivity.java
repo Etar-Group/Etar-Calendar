@@ -19,15 +19,24 @@ package com.android.calendar.selectcalendars;
 import android.app.ActionBar;
 import android.app.ExpandableListActivity;
 import android.content.AsyncQueryHandler;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
+import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.AppCompatCheckedTextView;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatSpinner;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 
 import ws.xsoh.etar.R;
@@ -48,10 +57,12 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     private MatrixCursor mAccountsCursor = null;
     private ExpandableListView mList;
     private SelectSyncedCalendarsMultiAccountAdapter mAdapter;
+    private final DynamicTheme dynamicTheme = new DynamicTheme();
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        dynamicTheme.onCreate(this);
         setContentView(R.layout.select_calendars_multi_accounts_fragment);
         mList = getExpandableListView();
         mList.setEmptyView(findViewById(R.id.loading));
@@ -60,6 +71,34 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
 
         findViewById(R.id.btn_done).setOnClickListener(this);
         findViewById(R.id.btn_discard).setOnClickListener(this);
+    }
+
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        // Allow super to try and create a view first
+        final View result = super.onCreateView(name, context, attrs);
+        if (result != null) {
+            return result;
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // If we're running pre-L, we need to 'inject' our tint aware Views in place of the
+            // standard framework versions
+            switch (name) {
+                case "EditText":
+                    return new AppCompatEditText(this, attrs);
+                case "Spinner":
+                    return new AppCompatSpinner(this, attrs);
+                case "CheckBox":
+                    return new AppCompatCheckBox(this, attrs);
+                case "RadioButton":
+                    return new AppCompatRadioButton(this, attrs);
+                case "CheckedTextView":
+                    return new AppCompatCheckedTextView(this, attrs);
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -77,6 +116,7 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     @Override
     protected void onResume() {
         super.onResume();
+        dynamicTheme.onResume(this);
         if (mAdapter != null) {
             mAdapter.startRefreshStopDelay();
         }
@@ -158,8 +198,9 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getActionBar()
-                .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        if( getActionBar() != null){
+            getActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        }
         return true;
     }
 
