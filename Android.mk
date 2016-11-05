@@ -1,50 +1,26 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-# Include res dir from chips
-chips_dir := ../../../frameworks/ex/chips/res
-color_picker_dir := ../../../frameworks/opt/colorpicker/res
-datetimepicker_dir := ../../../frameworks/opt/datetimepicker/res
-timezonepicker_dir := ../../../frameworks/opt/timezonepicker/res
-res_dirs := $(chips_dir) $(color_picker_dir) $(datetimepicker_dir) $(timezonepicker_dir) res
-src_dirs := src
-
-LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
-
+LOCAL_MODULE := Calendar
 LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := $(call all-java-files-under,$(src_dirs))
-
-# bundled
-#LOCAL_STATIC_JAVA_LIBRARIES += \
-#        android-common \
-#        android-common-chips \
-#        calendar-common
-
-# unbundled
-LOCAL_STATIC_JAVA_LIBRARIES := \
-        android-common \
-        android-common-chips \
-        colorpicker \
-        android-opt-datetimepicker \
-        android-opt-timezonepicker \
-        android-support-v4 \
-        calendar-common
-
-LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))
-
 LOCAL_PACKAGE_NAME := Calendar
 
-LOCAL_PROGUARD_FLAG_FILES := proguard.flags \
-                             ../../../frameworks/opt/datetimepicker/proguard.flags
+calendar_root  := $(LOCAL_PATH)
+calendar_out   := $(OUT_DIR)/target/common/obj/APPS/$(LOCAL_MODULE)_intermediates
+calendar_build := $(calendar_root)/build
+calendar_apk   := build/outputs/apk/Calendar-release-unsigned.apk
 
-LOCAL_AAPT_FLAGS := --auto-add-overlay
-LOCAL_AAPT_FLAGS += --extra-packages com.android.ex.chips
-LOCAL_AAPT_FLAGS += --extra-packages com.android.colorpicker
-LOCAL_AAPT_FLAGS += --extra-packages com.android.datetimepicker
-LOCAL_AAPT_FLAGS += --extra-packages com.android.timezonepicker
+$(calendar_root)/$(calendar_apk):
+	rm -Rf $(calendar_build)
+	mkdir -p $(calendar_out)
+	ln -s $(calendar_out) $(calendar_build)
+	echo "sdk.dir=$(ANDROID_HOME)" > $(calendar_root)/local.properties
+	cd $(calendar_root) && git submodule update --recursive --init
+	cd $(calendar_root) && gradle dependencies && JAVA_TOOL_OPTIONS="$(JAVA_TOOL_OPTIONS) -Dfile.encoding=UTF8" gradle assembleRelease
 
-include $(BUILD_PACKAGE)
+LOCAL_CERTIFICATE := platform
+LOCAL_SRC_FILES := $(calendar_apk)
+LOCAL_MODULE_CLASS := APPS
+LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
 
-# Use the following include to make our test apk.
-include $(call all-makefiles-under,$(LOCAL_PATH))
+include $(BUILD_PREBUILT)
