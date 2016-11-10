@@ -111,11 +111,13 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         mContentResolver = getContentResolver();
 
         if (mIsMultipane) {
-            getSupportActionBar().setDisplayOptions(
-                    ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+            }
         } else {
-            getSupportActionBar().setDisplayOptions(0,
-                    ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
+            if (getSupportActionBar() != null) {
+               getSupportActionBar().setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
+            }
         }
 
         // Must be the first to register because this activity can modify the

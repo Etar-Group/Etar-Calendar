@@ -101,8 +101,9 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportActionBar()
-                .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        }
         return true;
     }
 
