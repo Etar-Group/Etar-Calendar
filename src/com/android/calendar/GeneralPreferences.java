@@ -58,10 +58,12 @@ import ws.xsoh.etar.R;
 public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener, OnTimeZoneSetListener {
     // Preference keys
+    public static final String KEY_THEME_PREF = "pref_theme";
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     public static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
     public static final String KEY_SHOW_WEEK_NUM = "preferences_show_week_num";
     public static final String KEY_DAYS_PER_WEEK = "preferences_days_per_week";
+    public static final String KEY_MDAYS_PER_WEEK = "preferences_mdays_per_week";
     public static final String KEY_SKIP_SETUP = "preferences_skip_setup";
     public static final String KEY_CLEAR_SEARCH_HISTORY = "preferences_clear_search_history";
     public static final String KEY_ALERTS_CATEGORY = "preferences_alerts_category";
@@ -118,7 +120,9 @@ public class GeneralPreferences extends PreferenceFragment implements
     CheckBoxPreference mHideDeclined;
     Preference mHomeTZ;
     TimeZonePickerUtils mTzPickerUtils;
+    ListPreference mTheme;
     ListPreference mWeekStart;
+    ListPreference mDayWeek;
     ListPreference mDefaultReminder;
     ListPreference mSnoozeDelay;
 
@@ -173,15 +177,18 @@ public class GeneralPreferences extends PreferenceFragment implements
 
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
+        mTheme = (ListPreference) preferenceScreen.findPreference(KEY_THEME_PREF);
         mHideDeclined = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HIDE_DECLINED);
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
+        mDayWeek = (ListPreference) preferenceScreen.findPreference(KEY_DAYS_PER_WEEK);
         mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
         mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ);
 
         mSnoozeDelay = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY);
         buildSnoozeDelayEntries();
-
+        mTheme.setSummary(mTheme.getEntry());
         mWeekStart.setSummary(mWeekStart.getEntry());
+        mDayWeek.setSummary(mDayWeek.getEntry());
         mDefaultReminder.setSummary(mDefaultReminder.getEntry());
         mSnoozeDelay.setSummary(mSnoozeDelay.getEntry());
 
@@ -261,7 +268,9 @@ public class GeneralPreferences extends PreferenceFragment implements
     private void setPreferenceListeners(OnPreferenceChangeListener listener) {
         mUseHomeTZ.setOnPreferenceChangeListener(listener);
         mHomeTZ.setOnPreferenceChangeListener(listener);
+        mTheme.setOnPreferenceChangeListener(listener);
         mWeekStart.setOnPreferenceChangeListener(listener);
+        mDayWeek.setOnPreferenceChangeListener(listener);
         mDefaultReminder.setOnPreferenceChangeListener(listener);
         mSnoozeDelay.setOnPreferenceChangeListener(listener);
         mRingtone.setOnPreferenceChangeListener(listener);
@@ -313,6 +322,9 @@ public class GeneralPreferences extends PreferenceFragment implements
             }
             Utils.setTimeZone(activity, tz);
             return true;
+        } else if (preference == mTheme) {
+            mTheme.setValue((String) newValue);
+            mTheme.setSummary(mTheme.getEntry());
         } else if (preference == mHideDeclined) {
             mHideDeclined.setChecked((Boolean) newValue);
             Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(activity));
@@ -322,6 +334,9 @@ public class GeneralPreferences extends PreferenceFragment implements
         } else if (preference == mWeekStart) {
             mWeekStart.setValue((String) newValue);
             mWeekStart.setSummary(mWeekStart.getEntry());
+        } else if (preference == mDayWeek) {
+            mDayWeek.setValue((String) newValue);
+            mDayWeek.setSummary(mDayWeek.getEntry());
         } else if (preference == mDefaultReminder) {
             mDefaultReminder.setValue((String) newValue);
             mDefaultReminder.setSummary(mDefaultReminder.getEntry());

@@ -353,7 +353,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
         return loader;
     }
-
+    
     @Override
     public void doResumeUpdates() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
@@ -363,7 +363,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         if (prevHideDeclined != mHideDeclined && mLoader != null) {
             mLoader.setSelection(updateWhere());
         }
-        mDaysPerWeek = Utils.getDaysPerWeek(mContext);
+        mDaysPerWeek = Utils.getMDaysPerWeek(mContext);
         updateHeader();
         mAdapter.setSelectedDay(mSelectedDay);
         mTZUpdater.run();

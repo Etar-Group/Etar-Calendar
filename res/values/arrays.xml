@@ -146,7 +146,23 @@
         <item>"2"</item>
     </string-array>
 
+    <string-array name="preferences_days_per_week_labels">
+        <item>2 days</item>
+        <item>3 days</item>
+        <item>4 days</item>
+        <item>5 days</item>
+        <item>6 days</item>
+        <item>7 days</item>
+    </string-array>
 
+    <string-array name="preferences_days_per_week_values" translatable="false">
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+    </string-array>
 
     <string-array name="availability">
         <item>Busy</item>

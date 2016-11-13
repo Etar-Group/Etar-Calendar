@@ -65,6 +65,14 @@
     <item msgid="95029346069903091">"Sonntag"</item>
     <item msgid="5840983116375063739">"Montag"</item>
   </string-array>
+  <string-array name="preferences_days_per_week_labels">
+    <item>"2 Tage"</item>
+    <item>"3 Tage"</item>
+    <item>"4 Tage"</item>
+    <item>"5 Tage"</item>
+    <item>"6 Tage"</item>
+    <item>"7 Tage"</item>
+  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Beschäftigt"</item>
     <item msgid="6228387173725732140">"Verfügbar"</item>
