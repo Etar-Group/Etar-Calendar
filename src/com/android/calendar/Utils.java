@@ -682,7 +682,12 @@ public class Utils {
 
     public static int getDaysPerWeek(Context context) {
         final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
-        return prefs.getInt(GeneralPreferences.KEY_DAYS_PER_WEEK, 7);
+        return Integer.valueOf(prefs.getString(GeneralPreferences.KEY_DAYS_PER_WEEK, "7"));
+    }
+
+    public static int getMDaysPerWeek(Context context) {
+        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        return Integer.valueOf(prefs.getString(GeneralPreferences.KEY_MDAYS_PER_WEEK, "7"));
     }
 
     public static boolean useCustomSnoozeDelay(Context context) {

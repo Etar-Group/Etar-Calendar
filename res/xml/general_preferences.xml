@@ -37,6 +37,13 @@
             android:entries="@array/preferences_week_start_day_labels"
             android:entryValues="@array/preferences_week_start_day_values"
             android:dialogTitle="@string/preferences_week_start_day_dialog" />
+        <ListPreference
+            android:key="preferences_days_per_week"
+            android:defaultValue="@string/preferences_days_per_week_default"
+            android:title="@string/preferences_days_per_week_title"
+            android:entries="@array/preferences_days_per_week_labels"
+            android:entryValues="@array/preferences_days_per_week_values"
+            android:dialogTitle="@string/preferences_days_per_week_dialog" />
         <CheckBoxPreference
             android:key="preferences_home_tz_enabled"
             android:defaultValue="false"

@@ -274,7 +274,10 @@
     <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g>-mal"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"Enddatum ändern"</string>
-  <string name="preferences_theme">Darstellung</string>
-  <string name="preferences_dark_theme">Dunkel</string>
-  <string name="preferences_light_theme">Hell</string>
+  <string name="preferences_theme">"Darstellung"</string>
+  <string name="preferences_dark_theme">"Dunkel"</string>
+  <string name="preferences_light_theme">"Hell"</string>
+  <string name="preferences_days_per_week_dialog">"Anzahl Tage pro Woche"</string>
+  <string name="preferences_days_per_week_title">"Anzahl Tage pro Woche"</string>
+  <string name="goto_date">"Gehe zu..."</string>
 </resources>

@@ -514,6 +514,11 @@
     <string name="preferences_week_start_day_dialog">Week starts on</string>
     <!-- DO NOT TRANSLATE -->
     <string name="preferences_week_start_day_default">-1</string>
+
+    <string name="preferences_days_per_week_title">Days per week</string>
+    <string name="preferences_days_per_week_dialog">Days per week</string>
+    <string name="preferences_days_per_week_default">7</string>
+
     <!-- Title of the settings item to clear the recent search history [CHAR LIMIT=40] -->
     <string name="preferences_clear_search_history_title">Clear search history</string>
     <!-- Summary of the settings item to clear the recent search history [CHAR LIMIT=70]-->
