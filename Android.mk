@@ -16,7 +16,7 @@ $(calendar_root)/$(calendar_apk):
 	ln -s $(calendar_out) $(calendar_build)
 	echo "sdk.dir=$(ANDROID_HOME)" > $(calendar_root)/local.properties
 	cd $(calendar_root) && git submodule update --recursive --init
-	cd $(calendar_root) && gradle dependencies && JAVA_TOOL_OPTIONS="$(JAVA_TOOL_OPTIONS) -Dfile.encoding=UTF8" gradle assembleRelease
+	cd $(calendar_root) && ./gradlew dependencies && JAVA_TOOL_OPTIONS="$(JAVA_TOOL_OPTIONS) -Dfile.encoding=UTF8" ./gradlew assembleRelease
 
 LOCAL_CERTIFICATE := platform
 LOCAL_SRC_FILES := $(calendar_apk)
