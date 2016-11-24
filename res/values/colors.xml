@@ -146,7 +146,7 @@
     <color name="event_info_label_background_color">#FFDDDDDD</color>
 
     <!-- Create event colors -->
-    <color name="edit_event_color">#ffffff</color>
+    <color name="edit_event_color">#fafafa</color>
     <color name="create_event_date_color">#FF000000</color>
     <color name="create_event_more_details_color">#FF888888</color>
     <color name="create_event_divider_color">#FFDDDDDD</color>
