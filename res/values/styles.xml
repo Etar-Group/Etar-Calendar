@@ -177,7 +177,7 @@
         <item name="android:layout_marginRight">16dip</item>
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
-        <item name="android:layout_marginBottom">-12dip</item>
+        <item name="android:layout_marginBottom">-8dip</item>
     </style>
 
     <style name="TextAppearance.EditEvent_Small">
@@ -198,6 +198,7 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginRight">12dip</item>
         <item name="android:layout_marginLeft">12dip</item>
+        <item name="android:paddingLeft">12dp</item>
     </style>
 
     <style name="TextAppearance.EditEventCalSpinner">

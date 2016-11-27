@@ -206,8 +206,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      */
     private ArrayList<Integer> mAvailabilityValues;
     private ArrayList<String> mAvailabilityLabels;
+    private ArrayList<String> mAccessLabels;
     private ArrayList<String> mOriginalAvailabilityLabels;
     private ArrayAdapter<String> mAvailabilityAdapter;
+    private ArrayAdapter<String> mAccessAdapter;
     private boolean mAvailabilityExplicitlySet;
     private boolean mAllDayChangingAvailability;
     private int mAvailabilityCurrentlySelected;
@@ -731,6 +733,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return true;
     }
 
+    private void prepareAccess() {
+        Resources r = mActivity.getResources();
+        mAccessLabels = loadStringArray(r, R.array.visibility);
+        mAccessAdapter = new ArrayAdapter<String>(mActivity,
+                android.R.layout.simple_spinner_item, mAccessLabels);
+        mAccessAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAccessLevelSpinner.setAdapter(mAccessAdapter);
+    }
+
     private void prepareAvailability() {
         Resources r = mActivity.getResources();
 
@@ -903,6 +914,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         prepareReminders();
         prepareAvailability();
+        prepareAccess();
 
         View reminderAddButton = mView.findViewById(R.id.reminder_add);
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
@@ -1539,6 +1551,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         reminderLayout.removeAllViews();
         prepareReminders();
         prepareAvailability();
+        prepareAccess();
     }
 
     /**
