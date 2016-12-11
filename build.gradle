@@ -1,16 +1,16 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 
 allprojects {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 }
 
@@ -18,8 +18,8 @@ project(':external:calendar') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 23
-        buildToolsVersion '23.0.3'
+        compileSdkVersion 25
+        buildToolsVersion '25.0.1'
 
         sourceSets {
                 main {
@@ -44,8 +44,8 @@ project(':external:colorpicker') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 23
-        buildToolsVersion '23.0.3'
+        compileSdkVersion 25
+        buildToolsVersion '25.0.1'
 
         sourceSets {
                 main {
@@ -65,12 +65,12 @@ project(':external:datetimepicker') {
     apply plugin: 'android-library'
 
     dependencies {
-        compile 'com.android.support:support-v4:23.2.1'
+        compile 'com.android.support:support-v4:25.0.1'
     }
 
     android {
-        compileSdkVersion 23
-        buildToolsVersion '23.0.3'
+        compileSdkVersion 25
+        buildToolsVersion '25.0.1'
 
         sourceSets {
                 main {
@@ -94,12 +94,12 @@ project(':external:timezonepicker') {
     apply plugin: 'android-library'
 
     dependencies {
-        compile 'com.android.support:support-v4:23.2.1'
+        compile 'com.android.support:support-v4:25.0.1'
     }
 
     android {
-        compileSdkVersion 23
-        buildToolsVersion '23.0.3'
+        compileSdkVersion 25
+        buildToolsVersion '25.0.1'
 
         sourceSets {
                 main {
@@ -123,8 +123,8 @@ project(':external:ex:chips') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 23
-        buildToolsVersion '23.0.3'
+        compileSdkVersion 25
+        buildToolsVersion '25.0.1'
 
         sourceSets {
                 main {
@@ -148,8 +148,8 @@ project(':external:ex:chips') {
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile 'com.android.support:support-v4:23.2.1'
-    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:design:25.0.1'
     compile project(':external:calendar')
     compile project(':external:colorpicker')
     compile project(':external:datetimepicker')
@@ -158,12 +158,12 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 25
+    buildToolsVersion '25.0.1'
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 25
     }
 
     useLibrary 'org.apache.http.legacy'
