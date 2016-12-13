@@ -99,7 +99,7 @@
     <skip/>
     <!-- This is a label on a context menu item. Pressing this menu item to initiate
         syncing of your Calendar data with the server. [CHAR LIMIT=11] -->
-    <string name="calendar_refresh"> "Refresh"</string>
+    <string name="calendar_refresh">"Refresh"</string>
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Agenda view. -->
 
