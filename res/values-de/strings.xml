@@ -280,4 +280,6 @@
   <string name="preferences_days_per_week_dialog">"Anzahl Tage pro Woche"</string>
   <string name="preferences_days_per_week_title">"Anzahl Tage pro Woche"</string>
   <string name="goto_date">"Gehe zu..."</string>
+  <string name="default_start_last">Letzte aktive Ansicht</string>
+  <string name="default_start_title">Standardansicht</string>
 </resources>

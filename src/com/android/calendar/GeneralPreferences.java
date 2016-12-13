@@ -59,6 +59,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener, OnTimeZoneSetListener {
     // Preference keys
     public static final String KEY_THEME_PREF = "pref_theme";
+    public static final String KEY_DEFAULT_START = "preferences_default_start";
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     public static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
     public static final String KEY_SHOW_WEEK_NUM = "preferences_show_week_num";
@@ -95,6 +96,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     public static final String WEEK_START_SUNDAY = "1";
     public static final String WEEK_START_MONDAY = "2";
     // Default preference values
+    public static final String DEFAULT_DEFAULT_START = "-2";
     public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
     public static final int DEFAULT_DETAILED_VIEW = CalendarController.ViewType.DAY;
     public static final boolean DEFAULT_SHOW_WEEK_NUM = false;
@@ -125,6 +127,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     ListPreference mDayWeek;
     ListPreference mDefaultReminder;
     ListPreference mSnoozeDelay;
+    ListPreference mDefaultStart;
 
     private String mTimeZoneId;
 
@@ -178,6 +181,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
         mTheme = (ListPreference) preferenceScreen.findPreference(KEY_THEME_PREF);
+        mDefaultStart = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_START);
         mHideDeclined = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HIDE_DECLINED);
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
         mDayWeek = (ListPreference) preferenceScreen.findPreference(KEY_DAYS_PER_WEEK);
@@ -191,6 +195,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDayWeek.setSummary(mDayWeek.getEntry());
         mDefaultReminder.setSummary(mDefaultReminder.getEntry());
         mSnoozeDelay.setSummary(mSnoozeDelay.getEntry());
+        mDefaultStart.setSummary(mDefaultStart.getEntry());
 
         // This triggers an asynchronous call to the provider to refresh the data in shared pref
         mTimeZoneId = Utils.getTimeZone(activity, null);
@@ -269,6 +274,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mUseHomeTZ.setOnPreferenceChangeListener(listener);
         mHomeTZ.setOnPreferenceChangeListener(listener);
         mTheme.setOnPreferenceChangeListener(listener);
+        mDefaultStart.setOnPreferenceChangeListener(listener);
         mWeekStart.setOnPreferenceChangeListener(listener);
         mDayWeek.setOnPreferenceChangeListener(listener);
         mDefaultReminder.setOnPreferenceChangeListener(listener);
@@ -352,6 +358,10 @@ public class GeneralPreferences extends PreferenceFragment implements
             return true;
         } else if (preference == mVibrate) {
             mVibrate.setChecked((Boolean) newValue);
+            return true;
+        } else if (preference == mDefaultStart) {
+            int i = mDefaultStart.findIndexOfValue((String) newValue);
+            mDefaultStart.setSummary(mDefaultStart.getEntries()[i]);
             return true;
         } else {
             return true;
