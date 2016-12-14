@@ -223,6 +223,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         if (cursor == null || cursor.getCount() == 0) {
             // Create an error message for the user that, when clicked,
             // will exit this activity without saving the event.
+            final Activity activity = getActivity();
             dismiss();
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.no_syncable_calendars).setIconAttribute(
@@ -231,7 +232,6 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            final Activity activity = getActivity();
                             if (activity != null) {
                                 Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
                                 final String[] array = {"com.android.calendar"};
