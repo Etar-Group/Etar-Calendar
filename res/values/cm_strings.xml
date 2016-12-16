@@ -27,4 +27,8 @@
     <string name="preferences_default_snooze_delay_dialog">Default snooze delay</string>
     <!-- Default value for the default snooze delay (in minutes) -->
     <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
+
+    <!-- Label values for the default start page preference. -->
+    <string name="default_start_title">Default view</string>
+    <string name="default_start_last">Previously used view</string>
 </resources>

@@ -22,6 +22,12 @@
             android:entries="@array/pref_theme_entries"
             android:entryValues="@array/pref_theme_values"
             android:defaultValue="light"/>
+        <ListPreference
+            android:key="preferences_default_start"
+            android:defaultValue="-2"
+            android:title="@string/default_start_title"
+            android:entries="@array/default_start_entries"
+            android:entryValues="@array/default_start_values" />
         <CheckBoxPreference
             android:key="preferences_hide_declined"
             android:defaultValue="false"
