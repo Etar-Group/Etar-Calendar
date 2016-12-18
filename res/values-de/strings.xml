@@ -282,6 +282,20 @@
   <string name="goto_date">"Gehe zu..."</string>
   <string name="default_start_last">Letzte aktive Ansicht</string>
   <string name="default_start_title">Standardansicht</string>
-  <string name="error_generating_ics">Error. Der Termin konnte nicht geteilt werden</string>
+  <string name="error_generating_ics">Fehler. Der Termin konnte nicht geteilt werden</string>
   <string name="calendar_permission_not_granted">Diese Funktion steht nur zur Verfügnung wenn Etar Lese- und Schreibrechte für den Kalender gewährt werden</string>
+  <string name="events_delete">Termine löschen</string>
+  <string name="evt_del_dlg_title">Termine löschen?</string>
+  <string name="evt_del_dlg_msg_all">Alle Termine löschen</string>
+  <string name="evt_del_dlg_msg_selected">Ausgewählte Termine löschen</string>
+  <string name="no_events">Keine Termine verfügbar</string>
+  <string name="no_events_selected">Keine Termine ausgewählt</string>
+  <string name="no_map">Keine Karten gefunden</string>
+  <string name="on_permission_read_calendar">Die benötigte Berechtigung ist deaktiviert</string>
+  <string name="share_label">Teilen</string>
+  <string name="all_events">Alle Termine</string>
+  <string name="action_select_all">Alle auswählen</string>
+  <string name="action_select_none">Keine auswählen</string>
+  <string name="action_delete">Fertig</string>
+  <string name="user_rejected_calendar_write_permission">Etar benötigt Lese- und Schreibrechte für den Kalender um richtig zu funktionieren. Bitte versucht es erneut.</string>
 </resources>
