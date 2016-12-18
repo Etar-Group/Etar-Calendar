@@ -282,4 +282,6 @@
   <string name="goto_date">"Gehe zu..."</string>
   <string name="default_start_last">Letzte aktive Ansicht</string>
   <string name="default_start_title">Standardansicht</string>
+  <string name="error_generating_ics">Error. Der Termin konnte nicht geteilt werden</string>
+  <string name="calendar_permission_not_granted">Diese Funktion steht nur zur Verfügnung wenn Etar Lese- und Schreibrechte für den Kalender gewährt werden</string>
 </resources>
