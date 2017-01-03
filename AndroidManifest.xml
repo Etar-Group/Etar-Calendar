@@ -178,7 +178,7 @@
             <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
         </activity>
 
-        <activity android:name="ImportActivity"
+        <activity android:name="com.android.calendar.ImportActivity"
             android:theme="@android:style/Theme.NoDisplay"
             android:launchMode="singleTop">
              <intent-filter>

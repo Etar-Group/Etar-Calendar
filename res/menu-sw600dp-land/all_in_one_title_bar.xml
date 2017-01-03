@@ -50,9 +50,4 @@
         android:title="@string/cal_import_menu_title"
         android:icon="@drawable/ic_menu_export"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_settings"
-        android:alphabeticShortcut="s"
-        android:title="@string/menu_preferences"
-        android:icon="@drawable/ic_menu_settings_holo_light" />
 </menu>

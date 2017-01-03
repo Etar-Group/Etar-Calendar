@@ -209,8 +209,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         INTENT
     }
 
-    private int mCurrentQuery = 0;
-
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,                  // 0  do not remove; used in DeleteEventHelper
         Events.TITLE,                // 1  do not remove; used in DeleteEventHelper
