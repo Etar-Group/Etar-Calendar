@@ -25,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.TimeZone;
 
+import ws.xsoh.etar.R;
+
 public class ImportActivity extends Activity {
 
     @Override

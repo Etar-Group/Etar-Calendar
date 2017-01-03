@@ -298,4 +298,11 @@
   <string name="action_select_none">Keine auswählen</string>
   <string name="action_delete">Fertig</string>
   <string name="user_rejected_calendar_write_permission">Etar benötigt Lese- und Schreibrechte für den Kalender um richtig zu funktionieren. Bitte versucht es erneut.</string>
+  <string name="cal_share_intent_title">Sende Termin an:</string>
+  <string name="cal_pick_ics">Wähle die zu importierende Datei</string>
+  <string name="cal_nothing_to_import">Nichts zu importieren</string>
+  <string name="cal_import_menu_title">Importiere Termin</string>
+  <string name="cal_import_error_msg">Import zum Kalender ist fehlgeschlagen</string>
+  <string name="cal_export_succ_msg">Termin erfolgreich exportiert: %1s</string>
+  <string name="cal_export_event_sdcard_title">Export auf SD-Karte</string>
 </resources>
