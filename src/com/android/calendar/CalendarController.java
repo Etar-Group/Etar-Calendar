@@ -71,8 +71,6 @@ public class CalendarController {
     public static final long EXTRA_GOTO_TODAY = 8;
     private static final boolean DEBUG = false;
     private static final String TAG = "CalendarController";
-    private static WeakHashMap<Context, CalendarController> instances =
-            new WeakHashMap<Context, CalendarController>();
     private final Context mContext;
     // This uses a LinkedHashMap so that we can replace fragments based on the
     // view id they are being expanded into since we can't guarantee a reference
@@ -82,7 +80,6 @@ public class CalendarController {
     private final LinkedList<Integer> mToBeRemovedEventHandlers = new LinkedList<Integer>();
     private final LinkedHashMap<Integer, EventHandler> mToBeAddedEventHandlers = new LinkedHashMap<
             Integer, EventHandler>();
-    private final WeakHashMap<Object, Long> filters = new WeakHashMap<Object, Long>(1);
     private final Time mTime = new Time();
     private final Runnable mUpdateTimezone = new Runnable() {
         @Override
