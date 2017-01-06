@@ -39,13 +39,7 @@ import android.widget.Toast;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_NONE;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import ws.xsoh.etar.R;
 
 public class GoogleCalendarUriIntentFilter extends Activity {
     static final boolean debug = false;
