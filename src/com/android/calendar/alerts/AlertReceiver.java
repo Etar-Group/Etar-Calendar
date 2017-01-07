@@ -24,6 +24,8 @@ import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -299,6 +301,13 @@ public class AlertReceiver extends BroadcastReceiver {
                 context, title, summaryText, startMillis, endMillis, eventId, notificationId,
                 doPopup, priority, false);
         return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis, doPopup);
+    }
+
+    public static boolean isResolveIntent(Context context, Intent intent) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<ResolveInfo> resolveInfo = packageManager.queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        return (resolveInfo.size() > 0);
     }
 
     private static Notification buildBasicNotification(Notification.Builder notificationBuilder,
@@ -787,7 +796,7 @@ public class AlertReceiver extends BroadcastReceiver {
     /**
      * Create a pending intent to send ourself a broadcast to start maps, using the first map
      * link available.
-     * If no links are found, return null.
+     * If no links or resolved applications are found, return null.
      */
     private static PendingIntent createMapBroadcastIntent(Context context, URLSpan[] urlSpans,
             long eventId) {
@@ -795,12 +804,17 @@ public class AlertReceiver extends BroadcastReceiver {
             URLSpan urlSpan = urlSpans[span_i];
             String urlString = urlSpan.getURL();
             if (urlString.startsWith(GEO_PREFIX)) {
-                Intent broadcastIntent = new Intent(MAP_ACTION);
-                broadcastIntent.setClass(context, AlertReceiver.class);
-                broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
-                return PendingIntent.getBroadcast(context,
-                        Long.valueOf(eventId).hashCode(), broadcastIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
+                Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+                geoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                // If this intent cannot be handled, do not create the map action
+                if (isResolveIntent(context, geoIntent)) {
+                    Intent broadcastIntent = new Intent(MAP_ACTION);
+                    broadcastIntent.setClass(context, AlertReceiver.class);
+                    broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
+                    return PendingIntent.getBroadcast(context,
+                            Long.valueOf(eventId).hashCode(), broadcastIntent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+                }
             }
         }
 
