@@ -21,6 +21,11 @@ project(':external:calendar') {
         compileSdkVersion 25
         buildToolsVersion '25.0.1'
 
+        defaultConfig {
+            minSdkVersion 19
+            targetSdkVersion 25
+        }
+
         sourceSets {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
@@ -47,6 +52,11 @@ project(':external:colorpicker') {
         compileSdkVersion 25
         buildToolsVersion '25.0.1'
 
+        defaultConfig {
+            minSdkVersion 19
+            targetSdkVersion 25
+        }
+
         sourceSets {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
@@ -71,6 +81,11 @@ project(':external:datetimepicker') {
     android {
         compileSdkVersion 25
         buildToolsVersion '25.0.1'
+
+        defaultConfig {
+            minSdkVersion 19
+            targetSdkVersion 25
+        }
 
         sourceSets {
                 main {
@@ -101,6 +116,11 @@ project(':external:timezonepicker') {
         compileSdkVersion 25
         buildToolsVersion '25.0.1'
 
+        defaultConfig {
+            minSdkVersion 19
+            targetSdkVersion 25
+        }
+
         sourceSets {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
@@ -125,6 +145,11 @@ project(':external:ex:chips') {
     android {
         compileSdkVersion 25
         buildToolsVersion '25.0.1'
+
+        defaultConfig {
+            minSdkVersion 19
+            targetSdkVersion 25
+        }
 
         sourceSets {
                 main {
