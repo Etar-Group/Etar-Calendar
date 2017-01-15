@@ -62,13 +62,6 @@
     <string name="default_start_title">Default view</string>
     <string name="default_start_last">Previously used view</string>
 
-    <!-- Strings for buttons in drop down menu -->
-    <string name="buttons_list_0">Day</string>
-    <string name="buttons_list_1">Week</string>
-    <string name="buttons_list_2">Month</string>
-    <string name="buttons_list_3">Agenda</string>
-    <string name="buttons_list_4">Year</string>
-
     <!-- Sharing calendar event -->
     <string name="cal_share_intent_title">Send event to:</string>
 
