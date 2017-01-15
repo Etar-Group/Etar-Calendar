@@ -36,16 +36,12 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Random;
 import java.util.TimeZone;
 
 /**
  * Helper functions to help adhere to the iCalendar format.
  */
 public class IcalendarUtils {
-
-    public static int sPermittedLineLength = 75; // Line length mandated by iCalendar format
-    private static final Random tempFileRandom = new Random();
 
     private static final String INVITE_FILE_NAME = "invite";
 
@@ -212,6 +208,8 @@ public class IcalendarUtils {
      * @return
      */
     public static StringBuilder enforceICalLineLength(StringBuilder input) {
+        final int sPermittedLineLength = 75; // Line length mandated by iCalendar format
+
         if (input == null) return null;
         StringBuilder output = new StringBuilder();
         int length = input.length();
