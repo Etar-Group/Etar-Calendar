@@ -82,7 +82,11 @@ public class AlertUtils {
         return new AlarmManagerInterface() {
             @Override
             public void set(int type, long triggerAtMillis, PendingIntent operation) {
-                mgr.set(type, triggerAtMillis, operation);
+                if (Utils.isKeyLimePieOrLater()) {
+                    mgr.setExactAndAllowWhileIdle(type, triggerAtMillis, operation);
+                } else {
+                    mgr.set(type, triggerAtMillis, operation);
+                }
             }
         };
     }
