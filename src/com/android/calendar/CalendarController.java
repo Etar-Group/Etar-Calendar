@@ -71,8 +71,8 @@ public class CalendarController {
     public static final long EXTRA_GOTO_TODAY = 8;
     private static final boolean DEBUG = false;
     private static final String TAG = "CalendarController";
-    private static WeakHashMap<Context, CalendarController> instances =
-            new WeakHashMap<Context, CalendarController>();
+    private static WeakHashMap<Context, WeakReference<CalendarController>> instances =
+            new WeakHashMap<Context, WeakReference<CalendarController>>();
     private final Context mContext;
     // This uses a LinkedHashMap so that we can replace fragments based on the
     // view id they are being expanded into since we can't guarantee a reference
@@ -93,12 +93,6 @@ public class CalendarController {
     private Pair<Integer, EventHandler> mFirstEventHandler;
     private Pair<Integer, EventHandler> mToBeAddedFirstEventHandler;
     private volatile int mDispatchInProgressCounter = 0;
-
-    private static WeakHashMap<Context, WeakReference<CalendarController>> instances =
-        new WeakHashMap<Context, WeakReference<CalendarController>>();
-
-    private final WeakHashMap<Object, Long> filters = new WeakHashMap<Object, Long>(1);
-
     private int mViewType = -1;
     private int mDetailViewType = -1;
     private int mPreviousViewType = -1;
