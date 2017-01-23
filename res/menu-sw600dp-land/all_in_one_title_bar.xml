@@ -44,4 +44,10 @@
         android:id="@+id/action_hide_controls"
         android:alphabeticShortcut="h"
         android:title="@string/hide_controls" />
+    <item
+        android:id="@+id/action_import"
+        android:alphabeticShortcut="i"
+        android:title="@string/cal_import_menu_title"
+        android:icon="@drawable/ic_menu_export"
+        app:showAsAction="never" />
 </menu>

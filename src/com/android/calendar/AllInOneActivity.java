@@ -432,8 +432,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             // permissions this app might request
         }
 
-        // Clean up cached ics files - in case onDestroy() didn't run the last time
-        cleanupCachedIcsFiles();
+        // Clean up cached ics and vcs files - in case onDestroy() didn't run the last time
+        cleanupCachedEventFiles();
     }
 
     private void setupToolbar(int viewType) {
@@ -670,22 +670,22 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         CalendarController.removeInstance(this);
 
-        // Clean up cached ics files
-        cleanupCachedIcsFiles();
+        // Clean up cached ics and vcs files
+        cleanupCachedEventFiles();
     }
 
     /**
-     * Cleans up the temporarily generated ics files in the cache directory
-     * The files are of the format *.ics
+     * Cleans up the temporarily generated ics and vcs files in the cache directory
+     * The files are of the format *.ics and *.vcs
      */
-    private void cleanupCachedIcsFiles() {
+    private void cleanupCachedEventFiles() {
         if (!isExternalStorageWritable()) return;
         File cacheDir = getExternalCacheDir();
         File[] files = cacheDir.listFiles();
         if (files == null) return;
         for (File file : files) {
             String filename = file.getName();
-            if (filename.endsWith(".ics")) {
+            if (filename.endsWith(".ics") || filename.endsWith(".vcs")) {
                 file.delete();
             }
         }
@@ -798,6 +798,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             getMenuInflater().inflate(extensionMenuRes, menu);
         }
 
+        MenuItem item = menu.findItem(R.id.action_import);
+        item.setVisible(ImportActivity.hasThingsToImport(this));
+
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenu);
         if (mSearchView != null) {
@@ -892,6 +895,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             return true;
         } else if (itemId == R.id.action_search) {
             return false;
+        } else if (itemId == R.id.action_import) {
+            ImportActivity.pickImportFile(this);
         } else {
             return mExtensions.handleItemSelected(item, this);
         }

@@ -42,6 +42,12 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="never|collapseActionView" />
     <item
+        android:id="@+id/action_import"
+        android:alphabeticShortcut="i"
+        android:title="@string/cal_import_menu_title"
+        android:icon="@drawable/ic_menu_export"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_hide_controls"
         android:alphabeticShortcut="h"
         android:title="@string/hide_controls"

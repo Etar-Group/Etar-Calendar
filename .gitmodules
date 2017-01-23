@@ -1,15 +1,15 @@
 [submodule "external/colorpicker"]
 	path = external/colorpicker
-	url = https://github.com/xsoh/android_frameworks_opt_colorpicker.git
+	url = https://github.com/Etar-Group/android_frameworks_opt_colorpicker.git
 [submodule "external/datetimepicker"]
 	path = external/datetimepicker
-	url = https://github.com/xsoh/android_frameworks_opt_datetimepicker.git
+	url = https://github.com/Etar-Group/android_frameworks_opt_datetimepicker.git
 [submodule "external/timezonepicker"]
 	path = external/timezonepicker
-	url = https://github.com/xsoh/standalone-calendar-timezonepicker.git
+	url = https://github.com/Etar-Group/standalone-calendar-timezonepicker.git
 [submodule "external/calendar"]
 	path = external/calendar
-	url = https://github.com/xsoh/android_frameworks_opt_calendar.git
+	url = https://github.com/Etar-Group/android_frameworks_opt_calendar.git
 [submodule "external/ex"]
 	path = external/ex
-	url = https://github.com/xsoh/standalone-calendar-frameworks-ex.git
+	url = https://github.com/Etar-Group/standalone-calendar-frameworks-ex.git

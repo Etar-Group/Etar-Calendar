@@ -18,6 +18,7 @@ package com.android.calendar.icalendar;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.UUID;
 
 /**
@@ -183,6 +184,49 @@ public class VEvent {
         sb.append("END:VEVENT\n");
 
         return sb.toString();
+    }
+
+    public void populateFromEntries(ListIterator<String> iter) {
+        while (iter.hasNext()) {
+            String line = iter.next();
+            if (line.contains("BEGIN:VEVENT")) {
+                // Continue
+            } else if (line.startsWith("END:EVENT")) {
+                break;
+            } else if (line.startsWith("ORGANIZER")) {
+                String entry = parseTillNextAttribute(iter, line);
+                mOrganizer = Organizer.populateFromICalString(entry);
+            } else if (line.startsWith("ATTENDEE")) {
+                // Go one previous, so VEvent, parses current line
+                iter.previous();
+
+                // Offload to Attendee for parsing
+                Attendee attendee = new Attendee();
+                attendee.populateFromEntries(iter);
+                mAttendees.add(attendee);
+            } else if (line.contains(":")) {
+                String entry = parseTillNextAttribute(iter, line);
+                int indexOfFirstColon = entry.indexOf(":");
+                String key = entry.substring(0, indexOfFirstColon);
+                String value = entry.substring(indexOfFirstColon + 1);
+                mProperties.put(key, value);
+            }
+        }
+    }
+
+    public static String parseTillNextAttribute(ListIterator<String> iter, String currentLine) {
+        StringBuilder parse = new StringBuilder();
+        parse.append(currentLine);
+        while (iter.hasNext()) {
+            String line = iter.next();
+            if (line.startsWith(" ")) {
+                parse.append(line.replaceFirst(" ", ""));
+            } else {
+                iter.previous();
+                break;
+            }
+        }
+        return parse.toString();
     }
 
 }

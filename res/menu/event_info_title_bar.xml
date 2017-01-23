@@ -36,10 +36,18 @@
         android:visible="false"
         app:showAsAction="always" />
     <item android:id="@+id/info_action_delete"
-        android:alphabeticShortcut="x"
+        android:alphabeticShortcut="d"
         android:enabled="false"
         android:icon="@drawable/ic_menu_trash"
         android:title="@string/delete_label"
         android:visible="false"
         app:showAsAction="always" />
+    <item android:id="@+id/info_action_export"
+          android:alphabeticShortcut="x"
+          android:title="@string/cal_export_event_sdcard_title"
+          android:icon="@drawable/ic_menu_export"
+          android:showAsAction="always"
+          android:enabled="true"
+          android:visible="true"
+          app:showAsAction="always"/>
 </menu>

@@ -82,7 +82,7 @@ public class AlertUtils {
         return new AlarmManagerInterface() {
             @Override
             public void set(int type, long triggerAtMillis, PendingIntent operation) {
-                mgr.set(type, triggerAtMillis, operation);
+                mgr.setExactAndAllowWhileIdle(type, triggerAtMillis, operation);
             }
         };
     }

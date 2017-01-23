@@ -288,7 +288,6 @@ public class GeneralPreferences extends PreferenceFragment implements
     public void onStop() {
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
-        setPreferenceListeners(null);
         super.onStop();
     }
 
