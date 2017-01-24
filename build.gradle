@@ -129,7 +129,6 @@ project(':external:timezonepicker') {
                     aidl.srcDirs = ['src']
                     renderscript.srcDirs = ['src']
                     res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
             }
         }
 
@@ -139,7 +138,7 @@ project(':external:timezonepicker') {
     }
 }
 
-project(':external:ex:chips') {
+project(':external:chips') {
     apply plugin: 'android-library'
 
     android {
@@ -179,7 +178,7 @@ dependencies {
     compile project(':external:colorpicker')
     compile project(':external:datetimepicker')
     compile project(':external:timezonepicker')
-    compile project(':external:ex:chips')
+    compile project(':external:chips')
 }
 
 android {

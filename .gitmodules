@@ -13,3 +13,6 @@
 [submodule "external/ex"]
 	path = external/ex
 	url = https://github.com/Etar-Group/standalone-calendar-frameworks-ex.git
+[submodule "external/chips"]
+	path = external/chips
+	url = https://github.com/Etar-Group/android_frameworks_opt_chips
