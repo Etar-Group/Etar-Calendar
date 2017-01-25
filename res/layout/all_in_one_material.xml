@@ -29,8 +29,7 @@
                 style="@style/Widget.CalendarAppTheme.ActionBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:minHeight="?attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways" />
+                android:minHeight="?attr/actionBarSize" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.design.widget.FloatingActionButton
