@@ -82,7 +82,11 @@ public class AlertUtils {
         return new AlarmManagerInterface() {
             @Override
             public void set(int type, long triggerAtMillis, PendingIntent operation) {
-                mgr.setExactAndAllowWhileIdle(type, triggerAtMillis, operation);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    mgr.setExactAndAllowWhileIdle(type, triggerAtMillis, operation);
+                } else {
+                    mgr.setExact(type, triggerAtMillis, operation);
+                }
             }
         };
     }
