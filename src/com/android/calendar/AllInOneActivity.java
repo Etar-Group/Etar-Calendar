@@ -799,7 +799,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         }
 
         MenuItem item = menu.findItem(R.id.action_import);
-        item.setVisible(ImportActivity.hasThingsToImport(this));
+        item.setVisible(ImportActivity.hasThingsToImport());
 
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenu);
