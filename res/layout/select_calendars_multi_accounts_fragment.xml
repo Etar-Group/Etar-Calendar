@@ -13,58 +13,63 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/calendars"
-    android:orientation="vertical"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ExpandableListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:clickable="true"
-        android:layout_weight="1" />
-    <LinearLayout android:id="@+id/loading"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:indeterminate="true"
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="1dip"
-            android:paddingLeft="5dip"
-            android:text="@string/loading"/>
-
-    </LinearLayout>
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/calendars"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="@android:style/Holo.ButtonBar">
-        <Button
-            android:id="@+id/btn_discard"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
+        android:layout_height="match_parent">
+        <ExpandableListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:clickable="true"
+            android:layout_weight="1" />
+        <LinearLayout android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
             android:layout_weight="1"
-            android:text="@android:string/cancel" />
-        <Button
-            android:id="@+id/btn_done"
-            android:layout_width="0dip"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:indeterminate="true"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="1dip"
+                android:paddingLeft="5dip"
+                android:text="@string/loading"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@android:string/ok" />
+            android:orientation="horizontal"
+            style="@android:style/Holo.ButtonBar">
+            <Button
+                android:id="@+id/btn_discard"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@android:string/cancel" />
+            <Button
+                android:id="@+id/btn_done"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@android:string/ok" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>
