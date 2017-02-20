@@ -536,7 +536,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModel == null || (mCalendarsCursor == null && mModel.mUri == null)) {
             return false;
         }
-        return fillModelFromUI(true);
+        return fillModelFromUI();
     }
 
     public boolean fillModelFromReadOnlyUi() {
@@ -633,7 +633,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     // Goes through the UI elements and updates the model as necessary
-    private boolean fillModelFromUI(boolean ignoreAllday) {
+    private boolean fillModelFromUI() {
         if (mModel == null) {
             return false;
         }
@@ -685,7 +685,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
         }
 
-        if (mModel.mAllDay && !ignoreAllday) {
+        if (mModel.mAllDay) {
             // Reset start and end time, increment the monthDay by 1, and set
             // the timezone to UTC, as required for all-day events.
             mTimezone = Time.TIMEZONE_UTC;
@@ -699,7 +699,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTime.minute = 0;
             mEndTime.second = 0;
             mEndTime.timezone = mTimezone;
-            mModel.mEnd = mEndTime.normalize(true);
             // When a user see the event duration as "X - Y" (e.g. Oct. 28 - Oct. 29), end time
             // should be Y + 1 (Oct.30).
             final long normalizedEndTimeMillis =
@@ -1148,7 +1147,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         if (mSaveAfterQueryComplete) {
             mLoadingCalendarsDialog.cancel();
-            if (prepareForSave() && fillModelFromUI(false)) {
+            if (prepareForSave() && fillModelFromUI()) {
                 int exit = userVisible ? Utils.DONE_EXIT : 0;
                 mDone.setDoneCode(Utils.DONE_SAVE | exit);
                 mDone.run();
