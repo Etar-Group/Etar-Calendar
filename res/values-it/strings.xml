@@ -59,14 +59,15 @@
     <string name="event_edit" msgid="4006961928830064662">"Modifica  evento"</string>
     <string name="event_delete" msgid="2386667193277770442">"Elimina evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Oggi"</string>
+    <string name="goto_date">"Vai al…"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Impostazioni"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendari da visualizzare"</string>
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Nascondi controlli"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra controlli"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendari da visualizzare"</string>
-    <string name="synced" msgid="7913940305983383493">"sincronizzato"</string>
-    <string name="not_synced" msgid="4275114941801829419">"non sincronizzato"</string>
+    <string name="synced" msgid="7913940305983383493">" sincronizzato"</string>
+    <string name="not_synced" msgid="4275114941801829419">" non sincronizzato"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"L\'account non viene sincronizzato quindi i calendari potrebbero non essere aggiornati."</string>
     <string name="accounts" msgid="849401841083180306">"Account e sincronizzazione"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendari da sincronizzare"</string>
@@ -80,6 +81,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Evento vuoto non creato."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gli inviti verranno inviati."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Gli aggiornamenti verranno inviati."</string>
+    <string name="rsvp_accepted">"Hai accettato."</string>
+    <string name="rsvp_tentative">"Hai risposto forse."</string>
+    <string name="rsvp_declined">"Hai declinato."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Salva"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notifiche di Etar Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualizza evento"</string>
@@ -111,6 +115,7 @@
     <string name="email_guests_label" msgid="8772030932155305903">"Invia email agli invitati"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Invia email all\'organizzatore"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Invia email con"</string>
+    <string name="email_subject_prefix" translatable="false">Re:\u0020</string>
     <string name="event_not_found" msgid="8356864185947582727">"Evento non trovato."</string>
     <string name="map_label" msgid="8795383535586556038">"Mappa"</string>
     <string name="call_label" msgid="2960328220008869083">"Chiama"</string>
@@ -174,13 +179,18 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Eliminare <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambia risposta"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Impostazioni generali"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Informazioni su Calendario"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Informazioni su Etar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Impostazioni"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Visualizzazione calendario"</string>
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_light_theme">Chiaro</string>
+    <string name="preferences_dark_theme">Scuro</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notifiche e promemoria"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Nascondi eventi rifiutati"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La settimana inizia da"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La settimana inizia da"</string>
+    <string name="preferences_days_per_week_title">Giorni in una settimana</string>
+    <string name="preferences_days_per_week_dialog">Giorni in una settimana</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Cancella cronologia ricerche"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Rimuovi tutte le ricerche che hai eseguito"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Cronologia delle ricerche cancellata."</string>
@@ -274,4 +284,6 @@
     <item quantity="other" msgid="8779598489398048259">"Per <xliff:g id="EVENT_COUNT">%d</xliff:g> eventi"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifica data di fine"</string>
+    <string name="user_rejected_calendar_write_permission">Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare. Riprova.</string>
+<string name="calendar_permission_not_granted">Spiacenti, questo non può funzionare. Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare</string>
 </resources>
