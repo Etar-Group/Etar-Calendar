@@ -1,0 +1,12 @@
+Etar es un calendario en material design, para todos!
+Características:
+★ Vista del mes.
+★ Vista de la semana, día y agenda.
+★ Usa la sincronización del calendario Android. Funciona con Google Calendar, Exchange... etc.
+★ Material design.
+★ Tema claro y oscuro.
+★ Libre, de código abierto y sin anuncios.
+★ Widget para la agenda.
+
+Errores y feedback: https://github.com/xsoh/Etar-Calendar/issues
+Código fuente: https://github.com/xsoh/Etar-Calendar
