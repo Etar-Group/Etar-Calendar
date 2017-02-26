@@ -54,6 +54,7 @@
         <item name="calendar_owner_text_color">@color/calendar_owner_text_color</item>
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
         <item name="app_bar_color">@color/colorPrimary</item>
+        <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -98,6 +99,10 @@
 
     <style name="DrawerNameText" parent="ViewText">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="actionbar_cursor" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/actionbar_cursor</item>
     </style>
     <!-- END Application theme -->
 
