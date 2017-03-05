@@ -504,6 +504,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 //Create new Event
                 Time t = new Time();
                 t.set(mController.getTime());
+                t.second = 0;
                 if (t.minute > 30) {
                     t.hour++;
                     t.minute = 0;
