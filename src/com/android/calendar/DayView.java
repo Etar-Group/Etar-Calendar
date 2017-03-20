@@ -268,8 +268,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             private static int mNewEventHintColor;
             private static int mCalendarHourLabelColor;
             private static int mMoreAlldayEventsTextAlpha = MORE_EVENTS_MAX_ALPHA;
+
+            // Actual cell height we're using (may be modified by all day
+            // events), shared among all DayViews
             private static int mCellHeight = 0; // shared among all DayViews
-            private static int mMinCellHeight = 32;
+
+            // Last cell height set by user gesture
+            private static int mPreferredCellHeight = 0;
+
             private static int mScaledPagingTouchSlop = 0;
     /**
      * Whether to use the expand or collapse icon.
@@ -671,10 +677,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mViewSwitcher = viewSwitcher;
         mGestureDetector = new GestureDetector(context, new CalendarGestureListener());
         mScaleGestureDetector = new ScaleGestureDetector(getContext(), this);
-        if (mCellHeight == 0) {
-            mCellHeight = Utils.getSharedPreference(mContext,
+        if (mPreferredCellHeight == 0) {
+            mPreferredCellHeight = Utils.getSharedPreference(mContext,
                     GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT, DEFAULT_CELL_HEIGHT);
         }
+        mCellHeight = mPreferredCellHeight;
         mScroller = new OverScroller(context);
         mHScrollInterpolator = new ScrollInterpolator();
         mEdgeEffectTop = new EdgeEffect(context);
@@ -1256,10 +1263,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int maxAllDayEvents = mMaxAlldayEvents;
 
         // The min is where 24 hours cover the entire visible area
-        mMinCellHeight = Math.max((height - DAY_HEADER_HEIGHT) / 24, (int) MIN_EVENT_HEIGHT);
-        if (mCellHeight < mMinCellHeight) {
-            mCellHeight = mMinCellHeight;
-        }
+        int minCellHeight;
 
         // Calculate mAllDayHeight
         mFirstCell = DAY_HEADER_HEIGHT;
@@ -1298,8 +1302,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
             }
             mFirstCell = DAY_HEADER_HEIGHT + allDayHeight + ALLDAY_TOP_MARGIN;
+            minCellHeight = (height - mFirstCell) / 25;
         } else {
             mSelectionAllday = false;
+            minCellHeight = (height - DAY_HEADER_HEIGHT) / 25;
+        }
+        mCellHeight = mPreferredCellHeight;
+        if (mCellHeight < minCellHeight) {
+            mCellHeight = minCellHeight;
         }
         mAlldayHeight = allDayHeight;
 
@@ -2460,11 +2470,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         setupHourTextPaint(p);
 
         int y = mCellHeight + mHoursTextHeight / 2 + HOUR_GAP;
+        int totCellHeight =  mCellHeight + HOUR_GAP;
+        int hourStep = (mHoursTextHeight + totCellHeight - 1)/ totCellHeight;
         //Draw only from 1:00 to 23:00
-        for (int i = 1; i < 24; i++) {
+        for (int i = hourStep; i < 24; i += hourStep) {
             String time = mHourStrs[i];
             canvas.drawText(time, HOURS_LEFT_MARGIN, y, p);
-            y += mCellHeight + HOUR_GAP;
+            y += hourStep * totCellHeight;
         }
     }
 
@@ -4102,19 +4114,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     public boolean onScale(ScaleGestureDetector detector) {
         float spanY = Math.max(MIN_Y_SPAN, Math.abs(detector.getCurrentSpanY()));
 
-        mCellHeight = (int) (mCellHeightBeforeScaleGesture * spanY / mStartingSpanY);
+        mPreferredCellHeight = (int) (mCellHeightBeforeScaleGesture * spanY / mStartingSpanY);
 
-        if (mCellHeight < mMinCellHeight) {
+        if (mPreferredCellHeight > MAX_CELL_HEIGHT) {
             // If mStartingSpanY is too small, even a small increase in the
             // gesture can bump the mCellHeight beyond MAX_CELL_HEIGHT
             mStartingSpanY = spanY;
-            mCellHeight = mMinCellHeight;
-            mCellHeightBeforeScaleGesture = mMinCellHeight;
-        } else if (mCellHeight > MAX_CELL_HEIGHT) {
-            mStartingSpanY = spanY;
-            mCellHeight = MAX_CELL_HEIGHT;
+            mPreferredCellHeight = MAX_CELL_HEIGHT;
             mCellHeightBeforeScaleGesture = MAX_CELL_HEIGHT;
         }
+        mCellHeight = mPreferredCellHeight;
 
         int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
@@ -4584,7 +4593,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
 
                 Utils.setSharedPreference(mContext, GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT,
-                        mCellHeight);
+                                          mPreferredCellHeight);
                 // Clear all click animations
                 eventClickCleanup();
                 // Turn off redraw
