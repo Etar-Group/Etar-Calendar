@@ -2469,14 +2469,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void drawHours(Rect r, Canvas canvas, Paint p) {
         setupHourTextPaint(p);
 
-        int y = mCellHeight + mHoursTextHeight / 2 + HOUR_GAP;
         int totCellHeight =  mCellHeight + HOUR_GAP;
         int hourStep = (mHoursTextHeight + totCellHeight - 1)/ totCellHeight;
+        int deltaY = hourStep * totCellHeight;
+        int y = deltaY + mHoursTextHeight / 2 - HOUR_GAP;
         //Draw only from 1:00 to 23:00
         for (int i = hourStep; i < 24; i += hourStep) {
             String time = mHourStrs[i];
             canvas.drawText(time, HOURS_LEFT_MARGIN, y, p);
-            y += hourStep * totCellHeight;
+            y += deltaY;
         }
     }
 
