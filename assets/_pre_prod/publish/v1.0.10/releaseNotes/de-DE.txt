@@ -1,8 +1,8 @@
 v1.0.10:
 ★ Unterstützung für das Teilen von Kalendern via ics und den Import/Export von/zur SDkarte.
-★ Nicht benötigte Premissins entfernt.
-★ Fix für die Klangeinstellungen in Android 6.
-★ Bug fixes.
+★ Nicht benötigte Berechtigungen entfernt.
+★ Fehlerbehebung für die Klangeinstellungen in Android 6.
+★ Fehlerbehebungen.
 
 Neuigkeiten in v1.0.7:
 ★ dunkle Darstellung.
