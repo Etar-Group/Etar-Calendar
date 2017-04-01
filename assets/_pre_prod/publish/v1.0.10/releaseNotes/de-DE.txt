@@ -1,8 +1,8 @@
 v1.0.10:
-★ Support sharing calendars via ics and the ability to import/export from sdcard.
-★ Remove unused permissions.
-★ Fix sound setting on Android 6.
-★ Bug fixes.
+★ Unterstützung für das Teilen von Kalendern via ics und den Import/Export von/zur SDkarte.
+★ Nicht benötigte Berechtigungen entfernt.
+★ Fehlerbehebung für die Klangeinstellungen in Android 6.
+★ Fehlerbehebungen.
 
 Neuigkeiten in v1.0.7:
 ★ dunkle Darstellung.
