@@ -115,7 +115,6 @@
     <string name="email_guests_label" msgid="8772030932155305903">"Invia email agli invitati"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Invia email all\'organizzatore"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Invia email con"</string>
-    <string name="email_subject_prefix" translatable="false">Re:\u0020</string>
     <string name="event_not_found" msgid="8356864185947582727">"Evento non trovato."</string>
     <string name="map_label" msgid="8795383535586556038">"Mappa"</string>
     <string name="call_label" msgid="2960328220008869083">"Chiama"</string>
