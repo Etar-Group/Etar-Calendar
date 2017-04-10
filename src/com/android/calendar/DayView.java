@@ -268,8 +268,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             private static int mNewEventHintColor;
             private static int mCalendarHourLabelColor;
             private static int mMoreAlldayEventsTextAlpha = MORE_EVENTS_MAX_ALPHA;
+
+            // Actual cell height we're using (may be modified by all day
+            // events), shared among all DayViews
             private static int mCellHeight = 0; // shared among all DayViews
-            private static int mMinCellHeight = 32;
+
+            // Last cell height set by user gesture
+            private static int mPreferredCellHeight = 0;
+
             private static int mScaledPagingTouchSlop = 0;
     /**
      * Whether to use the expand or collapse icon.
@@ -671,10 +677,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mViewSwitcher = viewSwitcher;
         mGestureDetector = new GestureDetector(context, new CalendarGestureListener());
         mScaleGestureDetector = new ScaleGestureDetector(getContext(), this);
-        if (mCellHeight == 0) {
-            mCellHeight = Utils.getSharedPreference(mContext,
+        if (mPreferredCellHeight == 0) {
+            mPreferredCellHeight = Utils.getSharedPreference(mContext,
                     GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT, DEFAULT_CELL_HEIGHT);
         }
+        mCellHeight = mPreferredCellHeight;
         mScroller = new OverScroller(context);
         mHScrollInterpolator = new ScrollInterpolator();
         mEdgeEffectTop = new EdgeEffect(context);
@@ -1233,6 +1240,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         remeasure(width, height);
     }
 
+    private void adjustCellHeight() {
+        // The min is where 24 hours cover the entire visible area
+        int minCellHeight = (getHeight() - mFirstCell) / 25;
+        mCellHeight = mPreferredCellHeight;
+        if (mCellHeight < minCellHeight) {
+            mCellHeight = minCellHeight;
+        }
+    }
+
     /**
      * Measures the space needed for various parts of the view after
      * loading new events.  This can change if there are all-day events.
@@ -1254,12 +1270,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
 
         int maxAllDayEvents = mMaxAlldayEvents;
-
-        // The min is where 24 hours cover the entire visible area
-        mMinCellHeight = Math.max((height - DAY_HEADER_HEIGHT) / 24, (int) MIN_EVENT_HEIGHT);
-        if (mCellHeight < mMinCellHeight) {
-            mCellHeight = mMinCellHeight;
-        }
 
         // Calculate mAllDayHeight
         mFirstCell = DAY_HEADER_HEIGHT;
@@ -1301,6 +1311,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         } else {
             mSelectionAllday = false;
         }
+        adjustCellHeight();
         mAlldayHeight = allDayHeight;
 
         mGridAreaHeight = height - mFirstCell;
@@ -2459,12 +2470,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void drawHours(Rect r, Canvas canvas, Paint p) {
         setupHourTextPaint(p);
 
-        int y = mCellHeight + mHoursTextHeight / 2 + HOUR_GAP;
+        int totCellHeight =  mCellHeight + HOUR_GAP;
+        int hourStep = (mHoursTextHeight + totCellHeight - 1)/ totCellHeight;
+        int deltaY = hourStep * totCellHeight;
+        int y = deltaY + mHoursTextHeight / 2 - HOUR_GAP;
         //Draw only from 1:00 to 23:00
-        for (int i = 1; i < 24; i++) {
+        for (int i = hourStep; i < 24; i += hourStep) {
             String time = mHourStrs[i];
             canvas.drawText(time, HOURS_LEFT_MARGIN, y, p);
-            y += mCellHeight + HOUR_GAP;
+            y += deltaY;
         }
     }
 
@@ -2742,7 +2756,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (event.title != null) {
                 // MAX - 1 since we add a space
                 bob.append(drawTextSanitizer(event.title.toString(), MAX_EVENT_TEXT_LEN - 1));
-                bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, bob.length(), 0);
+                bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0,
+                            bob.length(), 0);
                 bob.append(' ');
             }
             if (event.location != null) {
@@ -3904,6 +3919,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // Calculate the hour that correspond to the average of the Y touch points
             mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
                     / (mCellHeight + DAY_GAP);
+            if (mGestureCenterHour < 0) {
+                mGestureCenterHour = 0;
+            }
             mRecalCenterHour = false;
         }
 
@@ -3972,6 +3990,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // Calculate the hour that correspond to the average of the Y touch points
                 mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
                         / (mCellHeight + DAY_GAP);
+                if (mGestureCenterHour < 0) {
+                    mGestureCenterHour = 0;
+                }
                 mRecalCenterHour = false;
             }
             computeFirstHour();
@@ -4084,6 +4105,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mHandleActionUp = false;
         float gestureCenterInPixels = detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mGestureCenterHour = (mViewStartY + gestureCenterInPixels) / (mCellHeight + DAY_GAP);
+        if (mGestureCenterHour < 0) {
+            mGestureCenterHour = 0;
+        }
 
         mStartingSpanY = Math.max(MIN_Y_SPAN, Math.abs(detector.getCurrentSpanY()));
         mCellHeightBeforeScaleGesture = mCellHeight;
@@ -4102,30 +4126,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     public boolean onScale(ScaleGestureDetector detector) {
         float spanY = Math.max(MIN_Y_SPAN, Math.abs(detector.getCurrentSpanY()));
 
-        mCellHeight = (int) (mCellHeightBeforeScaleGesture * spanY / mStartingSpanY);
+        mPreferredCellHeight = (int) (mCellHeightBeforeScaleGesture * spanY / mStartingSpanY);
 
-        if (mCellHeight < mMinCellHeight) {
+        if (mPreferredCellHeight > MAX_CELL_HEIGHT) {
             // If mStartingSpanY is too small, even a small increase in the
             // gesture can bump the mCellHeight beyond MAX_CELL_HEIGHT
             mStartingSpanY = spanY;
-            mCellHeight = mMinCellHeight;
-            mCellHeightBeforeScaleGesture = mMinCellHeight;
-        } else if (mCellHeight > MAX_CELL_HEIGHT) {
-            mStartingSpanY = spanY;
-            mCellHeight = MAX_CELL_HEIGHT;
+            mPreferredCellHeight = MAX_CELL_HEIGHT;
             mCellHeightBeforeScaleGesture = MAX_CELL_HEIGHT;
         }
+        adjustCellHeight();
 
         int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
-
-        if (DEBUG_SCALING) {
-            float ViewStartHour = mViewStartY / (float) (mCellHeight + DAY_GAP);
-            Log.d(TAG, "onScale: mGestureCenterHour:" + mGestureCenterHour + "\tViewStartHour: "
-                    + ViewStartHour + "\tmViewStartY:" + mViewStartY + "\tmCellHeight:"
-                    + mCellHeight + " SpanY:" + detector.getCurrentSpanY());
-        }
 
         if (mViewStartY < 0) {
             mViewStartY = 0;
@@ -4136,6 +4150,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
                     / (float) (mCellHeight + DAY_GAP);
         }
+        if (mGestureCenterHour < 0) {
+            mGestureCenterHour = 0;
+        }
+        if (DEBUG_SCALING) {
+            float ViewStartHour = mViewStartY / (float) (mCellHeight + DAY_GAP);
+            Log.d(TAG, "onScale: mGestureCenterHour:" + mGestureCenterHour + "\tViewStartHour: "
+                       + ViewStartHour + "\tmViewStartY:" + mViewStartY + "\tmCellHeight:"
+                       + mCellHeight + " SpanY:" + detector.getCurrentSpanY());
+        }
+
         computeFirstHour();
 
         mRemeasure = true;
@@ -4584,7 +4608,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
 
                 Utils.setSharedPreference(mContext, GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT,
-                        mCellHeight);
+                                          mPreferredCellHeight);
                 // Clear all click animations
                 eventClickCleanup();
                 // Turn off redraw
