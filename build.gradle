@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
     }
 }
 
@@ -75,7 +75,7 @@ project(':external:datetimepicker') {
     apply plugin: 'android-library'
 
     dependencies {
-        compile 'com.android.support:support-v4:25.0.1'
+        compile 'com.android.support:support-v4:25.3.1'
     }
 
     android {
@@ -109,7 +109,7 @@ project(':external:timezonepicker') {
     apply plugin: 'android-library'
 
     dependencies {
-        compile 'com.android.support:support-v4:25.0.1'
+        compile 'com.android.support:support-v4:25.3.1'
     }
 
     android {
@@ -172,8 +172,8 @@ project(':external:chips') {
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile project(':external:calendar')
     compile project(':external:colorpicker')
     compile project(':external:datetimepicker')
