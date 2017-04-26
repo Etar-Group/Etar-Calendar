@@ -204,4 +204,8 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     public void hideMenuButtons() {
         mHideMenuButtons = true;
     }
+
+    public void restartActivity() {
+        recreate();
+    }
 }

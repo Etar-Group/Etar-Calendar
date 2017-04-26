@@ -310,6 +310,10 @@ public class GeneralPreferences extends PreferenceFragment implements
         if (a != null) {
             BackupManager.dataChanged(a.getPackageName());
         }
+
+        if (key.equals(KEY_THEME_PREF)) {
+            ((CalendarSettingsActivity)getActivity()).restartActivity();
+        }
     }
 
     /**
