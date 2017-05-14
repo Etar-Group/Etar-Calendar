@@ -19,7 +19,7 @@
     <string name="on_permission_read_calendar">You have disabled a required permission.</string>
 
     <!-- No maps found in phone -->
-    <string name="no_map">No maps were found.</string>
+    <string name="no_map">There is no maps app installed</string>
 
     <!-- Toast message displayed when ics file to share an event can't be generated -->
     <string name="error_generating_ics">Problems encountered while sharing event</string>
@@ -65,8 +65,8 @@
     <!-- Sharing calendar event -->
     <string name="cal_share_intent_title">Send event to:</string>
 
-    <string name="cal_export_event_sdcard_title">Export to sdcard</string>
-    <string name="cal_export_succ_msg">Event exported successfully : %1s</string>
+    <string name="cal_export_event_sdcard_title">Export to SD card</string>
+    <string name="cal_export_succ_msg">Event exported successfully: %1s</string>
     <string name="cal_import_menu_title">Import event</string>
     <string name="cal_nothing_to_import">Nothing to import</string>
     <string name="cal_import_error_msg">Importing to calendar failed</string>

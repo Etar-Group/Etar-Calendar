@@ -144,7 +144,7 @@ public class ImportActivity extends Activity {
 
         @Override
         protected String[] doInBackground(Void... params) {
-            if (!hasThingsToImport(mActivity)) {
+            if (!hasThingsToImport()) {
                 return null;
             }
             File folder = EventInfoFragment.EXPORT_SDCARD_DIRECTORY;
@@ -183,9 +183,9 @@ public class ImportActivity extends Activity {
         new ListFilesTask(activity).execute();
     }
 
-    public static boolean hasThingsToImport(Context context) {
+    public static boolean hasThingsToImport() {
         File folder = EventInfoFragment.EXPORT_SDCARD_DIRECTORY;
-        return folder.exists() && folder.list().length > 0;
+        File[] files = folder.listFiles();
+        return files != null && files.length > 0;
     }
-
 }
