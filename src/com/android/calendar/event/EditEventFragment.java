@@ -42,6 +42,7 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -360,6 +361,13 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
+                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(EditEventFragment.this.getActivity(), new String[]{Manifest.permission.READ_CONTACTS},
+                0);
+        }
+
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(BUNDLE_KEY_MODEL)) {
                 mRestoreModel = (CalendarEventModel) savedInstanceState.getSerializable(
