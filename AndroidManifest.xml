@@ -21,7 +21,7 @@
     package="ws.xsoh.etar"
     android:installLocation="auto"
     android:versionCode="14"
-    android:versionName="1.0.11">
+    android:versionName="1.0.12">
 <!--         android:sharedUserLabel="@string/app_label"> -->
 
     <!--
