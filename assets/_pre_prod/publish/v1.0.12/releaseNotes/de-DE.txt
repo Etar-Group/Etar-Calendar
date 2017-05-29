@@ -1,10 +1,10 @@
 Neu in v1.0.12:
-- Berechtigungen zur Laufzeit ab Android 6
-- Absturz beim Start behoben
-- Anzeige des ganzen Tages möglich
-- Für neue Einträge werden die Sekunden auf Null gesetzt.
-- Kleine Änderungen am Layout
-- Fehlerbehebungen
+★ Berechtigungen zur Laufzeit ab Android 6.
+★ Absturz beim Start behoben.
+★ Anzeige des ganzen Tages möglich.
+★ Für neue Einträge werden die Sekunden auf Null gesetzt.
+★ Kleine Änderungen am Layout.
+★ Fehlerbehebungen.
 
 v1.0.10:
 ★ Unterstützung für das Teilen von Kalendern via ics und den Import/Export von/zur SDkarte.
@@ -12,7 +12,7 @@ v1.0.10:
 ★ Fehlerbehebung für die Klangeinstellungen in Android 6.
 ★ Fehlerbehebungen.
 
-Neuigkeiten in v1.0.7:
+v1.0.7:
 ★ dunkle Darstellung.
 
 v1.0.6
