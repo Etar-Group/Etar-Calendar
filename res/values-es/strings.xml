@@ -274,4 +274,40 @@
     <item quantity="other" msgid="8779598489398048259">"Para <xliff:g id="EVENT_COUNT">%d</xliff:g> eventos"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"cambiar fecha de finalización"</string>
+    <string name="no_map">No hay app de mapas instalado</string>
+  <string name="on_permission_read_calendar">Has deshabilitado un permiso requerido</string>
+  <string name="error_generating_ics">Problemas encontrados al compartir evento</string>
+  <string name="events_delete">Eliminar eventos</string>
+  <string name="evt_del_dlg_msg_all">Seleccionar todo</string>
+  <string name="no_events_selected">Ningún evento seleccionado</string>
+  <string name="evt_del_dlg_msg_selected">Todos los eventos serán eliminados</string>
+  <string name="evt_del_dlg_title">Eliminar eventos?</string>
+  <string name="user_rejected_calendar_write_permission">Etar requiere permisos para leer y escribir en el calendario para que funcione adecuadamente. Por favor intenté de nuevo.</string>
+  <string name="standalone_app_label">Etar</string>
+  <string name="action_select_all">Seleccionar todo</string>
+  <string name="action_delete">Acabado</string>
+  <string name="action_select_none">Deseleccionar todo</string>
+  <string name="all_events">Todos los Eventos</string>
+  <string name="cal_export_event_sdcard_title">Exporta a tarjeta SD</string>
+  <string name="cal_export_succ_msg">Evento exportado satisfactoriamente: %1s</string>
+  <string name="cal_import_error_msg">Importando a calendario falló</string>
+  <string name="cal_import_menu_title">Importar evento</string>
+  <string name="cal_nothing_to_import">Nada para importar</string>
+  <string name="cal_pick_ics">Elige un archivo para importar</string>
+  <string name="cal_share_intent_title">Envía evento a:</string>
+  <string name="calendar_permission_not_granted">Lamentamos que esta</string>
+  <string name="default_start_last">Vista previamente utilizada</string>
+  <string name="default_start_title">Vista de</string>
+  <string name="goto_date">\"Ir a...\"</string>
+  <string name="no_events">Ningún evento disponible</string>
+  <string name="preferences_theme">Tema</string>
+  <string name="preferences_light_theme">Claro</string>
+  <string name="preferences_days_per_week_default"></string>
+  <string name="preferences_dark_theme">Oscuro</string>
+  <string name="preferences_days_per_week_dialog">Días por semana</string>
+  <string name="preferences_days_per_week_title">Días por semana</string>
+  <string name="rsvp_accepted">\"Respondió si.\"</string>
+  <string name="rsvp_declined">\"Respondió no.\"</string>
+  <string name="rsvp_tentative">\"Respondió quizás.\"</string>
+  <string name="share_label">Compartir</string>
 </resources>
