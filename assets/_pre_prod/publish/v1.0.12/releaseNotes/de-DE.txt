@@ -15,7 +15,7 @@ v1.0.10:
 v1.0.7:
 ★ dunkle Darstellung.
 
-v1.0.6
+v1.0.6:
 ★ Einige UI Verbesserungen.
 ★ Aktualisierung der Übersetzung ins Schwedische.
 ★ Bugfixes.
