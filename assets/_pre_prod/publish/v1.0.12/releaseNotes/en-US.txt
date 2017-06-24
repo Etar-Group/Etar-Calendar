@@ -6,21 +6,21 @@ What's New in v1.0.12:
 ★ Minor Layout fixes.
 ★ Lots of bug fixes.
 
-v1.0.10?
+v1.0.10:
 ★ Support sharing calendars via ics and the ability to import/export from sdcard.
 ★ Remove unused permissions.
 ★ Fix sound setting on Android 6.
 ★ Lots of Bug fixes.
 
-v1.0.8?
+v1.0.8:
 ★ Add an option to choose days per Week.
 ★ Add an option for the default view to show on startup.
 ★ Bug fixes.
 
-v1.0.7?
+v1.0.7:
 ★ Add dark theme.
 
-v1.0.6
+v1.0.6:
 ★ Some better UI changes.
 ★ Update Swedish translation.
 ★ Bug fixes.
