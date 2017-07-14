@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,158 +12,279 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
+<resources>
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string-array name="reminder_methods_labels">
-    <item msgid="5172236776878811487">"Notification"</item>
-    <item msgid="1751151680520784746">"E-mail"</item>
-    <item msgid="2658001219380695677">"SMS"</item>
-    <item msgid="7926918288165444873">"Alarme"</item>
-  </string-array>
-  <string-array name="reminder_minutes_labels">
-    <item msgid="2416970002377237011">"0 minute"</item>
-    <item msgid="6681865010714743948">"1 minute"</item>
-    <item msgid="2327505114623595779">"5 minutes"</item>
-    <item msgid="1657410063332547113">"10 minutes"</item>
-    <item msgid="366087535181197780">"15 minutes"</item>
-    <item msgid="6252612791145061929">"20 minutes"</item>
-    <item msgid="7896694531989090700">"25 minutes"</item>
-    <item msgid="8754510169374808607">"30 minutes"</item>
-    <item msgid="3113380274218454394">"45 minutes"</item>
-    <item msgid="8546646645868526283">"1 heure"</item>
-    <item msgid="6467845211024768872">"2 heures"</item>
-    <item msgid="8201677619511076575">"3 heures"</item>
-    <item msgid="7172504281650128893">"12 heures"</item>
-    <item msgid="9114286702181482496">"24 heures"</item>
-    <item msgid="3107009344872997366">"2 jours"</item>
-    <item msgid="6135563708172153696">"1 semaine"</item>
-  </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"Aucun"</item>
-    <item msgid="5883344836499335043">"0 minute"</item>
-    <item msgid="4354350447805231188">"1 minute"</item>
-    <item msgid="265674592625309858">"5 minutes"</item>
-    <item msgid="8011089417728419666">"10 minutes"</item>
-    <item msgid="6177098581805412986">"15 minutes"</item>
-    <item msgid="356346660503078923">"20 minutes"</item>
-    <item msgid="992592434377054063">"25 minutes"</item>
-    <item msgid="9191353668596201944">"30 minutes"</item>
-    <item msgid="1192985682962908244">"45 minutes"</item>
-    <item msgid="1694315499429259938">"1 heure"</item>
-    <item msgid="8281019320591769635">"2 heures"</item>
-    <item msgid="2062931719019287773">"3 heures"</item>
-    <item msgid="4086495711621133006">"12 heures"</item>
-    <item msgid="3172669681920709561">"24 heures"</item>
-    <item msgid="5557836606782821910">"2 jours"</item>
-    <item msgid="8336577387266744930">"1 semaine"</item>
-  </string-array>
-  <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Paramètres régionaux par défaut"</item>
-    <item msgid="134027225275475280">"Samedi"</item>
-    <item msgid="95029346069903091">"Dimanche"</item>
-    <item msgid="5840983116375063739">"Lundi"</item>
-  </string-array>
-  <string-array name="availability">
-    <item msgid="454869065893453189">"Occupé"</item>
-    <item msgid="6228387173725732140">"Disponible"</item>
-    <item msgid="2064426942462573474">"À confirmer"</item>
-  </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"Par défaut"</item>
-    <item msgid="5200216103966973369">"Privé"</item>
-    <item msgid="9182342638433672664">"Public"</item>
-  </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"1er"</item>
-    <item msgid="5631923029483854900">"2e"</item>
-    <item msgid="148935502975250973">"3e"</item>
-    <item msgid="5124200797326669172">"4e"</item>
-    <item msgid="7564374178324652137">"dernier"</item>
-  </string-array>
-  <string-array name="response_labels1">
-    <item msgid="5605392595848194997">"Aucune réponse"</item>
-    <item msgid="3724434080904437698">"Oui"</item>
-    <item msgid="8854145743148992583">"Peut-être"</item>
-    <item msgid="6174292185978948873">"Non"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels">
-    <item msgid="4208432367651646938">"Uniquement cet événement"</item>
-    <item msgid="1536401639805370405">"Cet événement et les suivants"</item>
-    <item msgid="7833229563617435430">"Tous les événements"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Cet événement et les suivants"</item>
-    <item msgid="6315440193748139854">"Tous les événements"</item>
-  </string-array>
-  <string-array name="change_response_labels">
-    <item msgid="3466644709343519437">"Uniquement cet événement"</item>
-    <item msgid="140670561403965380">"Tous les événements de la série"</item>
-  </string-array>
-  <string-array name="buttons_list">
-    <item msgid="5917946202321434335">"Jour"</item>
-    <item msgid="6248480754959562740">"Semaine"</item>
-    <item msgid="4298472806133153766">"Mois"</item>
-    <item msgid="5033084974413793845">"Planning"</item>
-  </string-array>
-  <string-array name="preferences_skip_reminders_labels">
-    <item msgid="2285927842308686988">"Uniquement en cas de refus"</item>
-    <item msgid="6367412240524984286">"Si refus ou pas de réponse"</item>
-  </string-array>
-  <string-array name="recurrence_freq">
-    <item msgid="3388478383574917007">"TOUS LES JOURS"</item>
-    <item msgid="6300824484048337842">"TOUTES LES SEMAINES"</item>
-    <item msgid="189361731610816256">"TOUS LES MOIS"</item>
-    <item msgid="8714177874112569158">"TOUS LES ANS"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_sun">
-    <item msgid="143841313172233420">"tous les premiers dimanches"</item>
-    <item msgid="2557379346106451363">"tous les deuxièmes dimanches"</item>
-    <item msgid="7622144489915654132">"tous les troisièmes dimanches"</item>
-    <item msgid="527152448137686021">"tous les quatrièmes dimanches"</item>
-    <item msgid="5057483608824759350">"tous les derniers dimanches"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_mon">
-    <item msgid="7539974918997689048">"tous les premiers lundis"</item>
-    <item msgid="4484275849072423978">"tous les deuxièmes lundis"</item>
-    <item msgid="8956169860824371383">"tous les troisièmes lundis"</item>
-    <item msgid="6924403357659569326">"tous les quatrièmes lundis"</item>
-    <item msgid="1379608815263472161">"tous les derniers lundis"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_tues">
-    <item msgid="8690802834039790777">"tous les premiers mardis"</item>
-    <item msgid="9063613547307760928">"tous les deuxièmes mardis"</item>
-    <item msgid="6688603328729208168">"tous les troisièmes mardis"</item>
-    <item msgid="6695206006961533357">"tous les quatrièmes mardis"</item>
-    <item msgid="8619069174889809914">"tous les derniers mardis"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_wed">
-    <item msgid="3233850232075584386">"tous les premiers mercredis"</item>
-    <item msgid="5059722045367799217">"tous les deuxièmes mercredis"</item>
-    <item msgid="7986246648229272275">"tous les troisièmes mercredis"</item>
-    <item msgid="9068566169348980801">"tous les quatrièmes mercredis"</item>
-    <item msgid="7976866743069062134">"tous les derniers mercredis"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_thurs">
-    <item msgid="920673677566009313">"tous les premiers jeudis"</item>
-    <item msgid="4857419136007543270">"tous les deuxièmes jeudis"</item>
-    <item msgid="222044587450564839">"tous les troisièmes jeudis"</item>
-    <item msgid="6197927556533030945">"tous les quatrièmes jeudis"</item>
-    <item msgid="1023326923033436905">"tous les derniers jeudis"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_fri">
-    <item msgid="6534500380525126157">"tous les premiers vendredis"</item>
-    <item msgid="1935608297230506940">"tous les deuxièmes vendredis"</item>
-    <item msgid="4061877662049317599">"tous les troisièmes vendredis"</item>
-    <item msgid="6856646749131820614">"tous les quatrièmes vendredis"</item>
-    <item msgid="6533513913914859794">"tous les derniers vendredis"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_sat">
-    <item msgid="3556369572649948699">"tous les premiers samedis"</item>
-    <item msgid="9130198690512925355">"tous les deuxièmes samedis"</item>
-    <item msgid="4525736070844032405">"tous les troisièmes samedis"</item>
-    <item msgid="422053689531707709">"tous les quatrièmes samedis"</item>
-    <item msgid="5499975799312474425">"tous les derniers samedis"</item>
-  </string-array>
+
+    <!-- Choices for the "Reminder method" spinner.
+         These must be kept in sync with the reminder_methods_values array.
+         [CHAR LIMIT=10]
+    -->
+    <string-array name="reminder_methods_labels">
+        <item>"Notification"</item>
+        <item>"E-mail"</item>
+        <item>"SMS"</item>
+        <item>"Alarme"</item>
+    </string-array>
+
+    <!-- This maps reminder_methods_labels to internal constants. -->
+    <integer-array name="reminder_methods_values" translatable="false">
+          <!-- METHOD_ALERT -->
+          <!-- METHOD_EMAIL -->
+          <!-- METHOD_SMS -->
+          <!-- METHOD_ALARM -->
+    </integer-array>
+
+    <!-- Choices for the "Reminder minutes" spinner.
+         These must be kept in sync with the reminder_minutes_values array.
+         For consistency, the format should match what
+         EventViewUtils.constructReminderLabel() generates.  (TODO: eliminate
+         this and just generate the list from reminder_minutes_values?)
+         [CHAR LIMIT=15]
+    -->
+    <string-array name="reminder_minutes_labels">
+        <item>"0 minute"</item>
+        <item>"1 minute"</item>
+        <item>"5 minutes"</item>
+        <item>"10 minutes"</item>
+        <item>"15 minutes"</item>
+        <item>"20 minutes"</item>
+        <item>"25 minutes"</item>
+        <item>"30 minutes"</item>
+        <item>"45 minutes"</item>
+        <item>"1 heure"</item>
+        <item>"2 heures"</item>
+        <item>"3 heures"</item>
+        <item>"12 heures"</item>
+        <item>"24 heures"</item>
+        <item>"2 jours"</item>
+        <item>"1 semaine"</item>
+    </string-array>
+
+    <integer-array name="reminder_minutes_values" translatable="false">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </integer-array>
+
+  <!-- Choices for the "Reminder minutes" spinner in the settings.
+         These must be kept in sync with the preferences_default_reminder_values array.
+         [CHAR LIMIT=12]
+    -->
+       <string-array name="preferences_default_reminder_labels">
+        <item>"Aucun"</item>
+        <item>"0 minute"</item>
+        <item>"1 minute"</item>
+        <item>"5 minutes"</item>
+        <item>"10 minutes"</item>
+        <item>"15 minutes"</item>
+        <item>"20 minutes"</item>
+        <item>"25 minutes"</item>
+        <item>"30 minutes"</item>
+        <item>"45 minutes"</item>
+        <item>"1 heure"</item>
+        <item>"2 heures"</item>
+        <item>"3 heures"</item>
+        <item>"12 heures"</item>
+        <item>"24 heures"</item>
+        <item>"2 jours"</item>
+        <item>"1 semaine"</item>
+    </string-array>
+
+
+    <string-array name="preferences_week_start_day_labels">
+        <item>"Paramètres régionaux par défaut"</item>
+        <item>"Samedi"</item>
+        <item>"Dimanche"</item>
+        <item>"Lundi"</item>
+    </string-array>
+
+
+    <string-array name="preferences_days_per_week_labels">
+        <item>2 jours</item>
+        <item>3 jours</item>
+        <item>4 jours</item>
+        <item>5 jours</item>
+        <item>6 jours</item>
+        <item>7 jours</item>
+    </string-array>
+
+
+    <string-array name="availability">
+        <item>"Occupé"</item>
+        <item>"Disponible"</item>
+        <item>"À confirmer"</item>
+    </string-array>
+
+    <!-- This maps reminder_methods_labels to internal constants. -->
+    <integer-array name="availability_values" translatable="false">
+          <!-- Busy -->
+          <!-- Available -->
+          <!-- Tentative -->
+    </integer-array>
+
+    <string-array name="visibility">
+        <item>"Par défaut"</item>
+        <item>"Privé"</item>
+        <item>"Public"</item>
+    </string-array>
+
+    <string-array name="ordinal_labels">
+        <item>"1er"</item>
+        <item>"2e"</item>
+        <item>"3e"</item>
+        <item>"4e"</item>
+        <item>"dernier"</item>
+    </string-array>
+
+    <!-- Invitation responses -->
+    <string-array name="response_labels1">
+        <item>"Aucune réponse"</item>
+        <item>"Oui"</item>
+        <item>"Peut-être"</item>
+        <item>"Non"</item>
+    </string-array>
+
+    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <!-- This is a list of choices displayed when the user deletes an event.
+         It only is shown when deleting a recurring event.
+    -->
+    <skip/>
+    <string-array name="delete_repeating_labels">
+        <item>"Uniquement cet événement"</item>
+        <item>"Cet événement et les suivants"</item>
+        <item>"Tous les événements"</item>
+    </string-array>
+
+    <!-- DO NOT TRANSLATE These values need to correspond to the indices
+         defined in DeleteEventHelper.java-->
+    <integer-array name="delete_repeating_values">
+        
+        
+        
+    </integer-array>
+
+    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <!-- This is the same array as above (the "delete_repeating_labels" array,
+         except that the first element "Only this event" is removed.  This
+         array exists to work-around a bug in the CalendarProvider and sync
+         code where you can't delete one instance of a repeating event that
+         was created on the phone until that event has been synced to the server.
+     -->
+    <skip/>
+    <string-array name="delete_repeating_labels_no_selected">
+        <item>"Cet événement et les suivants"</item>
+        <item>"Tous les événements"</item>
+    </string-array>
+
+    <!-- The corresponding array indices are defined in EventInfoActivity.java -->
+    <skip/>
+    <!-- The list of choices displayed in a dialog box when the user wants to
+    respond to an invitation that repeats. -->
+    <string-array name="change_response_labels">
+        <!-- The choice for responding to only one instance of a repeating event -->
+        <item>"Uniquement cet événement"</item>
+        <!-- The choice for responding to all instances of a repeating event -->
+        <item>"Tous les événements de la série"</item>
+    </string-array>
+
+    <!-- Strings for buttons in drop down menu -->
+    <string-array name="buttons_list">
+        <item>"Jour"</item>
+        <item>"Semaine"</item>
+        <item>"Mois"</item>
+        <item>"Planning"</item>
+    </string-array>
+
+    <!-- Experimental options for skipping reminders. [CHAR LIMIT = 37] -->
+    <string-array name="preferences_skip_reminders_labels">
+        <!-- Default choice -->
+        <item>"Uniquement en cas de refus"</item>
+        <!-- Second option, for skipping reminders to events not yet responded to. -->
+        <item>"Si refus ou pas de réponse"</item>
+    </string-array>
+
+
+    <!-- Recurrence picker: How events are to be repeated.  [CHAR LIMIT = 20] -->
+    <string-array name="recurrence_freq">
+        <item >"TOUS LES JOURS"</item>
+        <item >"TOUTES LES SEMAINES"</item>
+        <item >"TOUS LES MOIS"</item>
+        <item >"TOUS LES ANS"</item>
+    </string-array>
+
+    <!-- The following sets of strings describe a monthly recurring event, which will repeat
+         on the Nth WEEKDAY of every month. For example, the 3rd Monday of every month, or
+         the last Sunday. These are set up like this to resolve any gender-matching issues
+         that were present in some languages.
+     -->
+    <!-- Repeat a monthly event on the same nth day of every Sunday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_sun">
+        <item >"tous les premiers dimanches"</item>
+        <item >"tous les deuxièmes dimanches"</item>
+        <item >"tous les troisièmes dimanches"</item>
+        <item >"tous les quatrièmes dimanches"</item>
+        <item >"tous les derniers dimanches"</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Monday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_mon">
+        <item >"tous les premiers lundis"</item>
+        <item >"tous les deuxièmes lundis"</item>
+        <item >"tous les troisièmes lundis"</item>
+        <item >"tous les quatrièmes lundis"</item>
+        <item >"tous les derniers lundis"</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Tuesday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_tues">
+        <item >"tous les premiers mardis"</item>
+        <item >"tous les deuxièmes mardis"</item>
+        <item >"tous les troisièmes mardis"</item>
+        <item >"tous les quatrièmes mardis"</item>
+        <item >"tous les derniers mardis"</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Wednesday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_wed">
+        <item >"tous les premiers mercredis"</item>
+        <item >"tous les deuxièmes mercredis"</item>
+        <item >"tous les troisièmes mercredis"</item>
+        <item >"tous les quatrièmes mercredis"</item>
+        <item >"tous les derniers mercredis"</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Thursday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_thurs">
+        <item >"tous les premiers jeudis"</item>
+        <item >"tous les deuxièmes jeudis"</item>
+        <item >"tous les troisièmes jeudis"</item>
+        <item >"tous les quatrièmes jeudis"</item>
+        <item >"tous les derniers jeudis"</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Friday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_fri">
+        <item >"tous les premiers vendredis"</item>
+        <item >"tous les deuxièmes vendredis"</item>
+        <item >"tous les troisièmes vendredis"</item>
+        <item >"tous les quatrièmes vendredis"</item>
+        <item >"tous les derniers vendredis"</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Saturday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_sat">
+        <item >"tous les premiers samedis"</item>
+        <item >"tous les deuxièmes samedis"</item>
+        <item >"tous les troisièmes samedis"</item>
+        <item >"tous les quatrièmes samedis"</item>
+        <item >"tous les derniers samedis"</item>
+    </string-array>
 </resources>
