@@ -22,8 +22,6 @@ import android.app.ActionBar;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,15 +66,9 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     private final DynamicTheme dynamicTheme = new DynamicTheme();
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
         dynamicTheme.onCreate(this);
-        String theme = Utils.getTheme(this);
-
-        if (theme.equals("dark")) {
-            getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-            getListView().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-        }
+        super.onCreate(savedInstanceState);
 
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.app_bar, root, false);

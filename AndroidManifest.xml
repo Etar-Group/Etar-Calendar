@@ -157,8 +157,7 @@
         <activity
             android:name="com.android.calendar.CalendarSettingsActivity"
             android:label="@string/preferences_title"
-            android:parentActivityName="com.android.calendar.AllInOneActivity"
-            android:theme="@style/Base.CalendarAppThemeWithActionBar" />
+            android:parentActivityName="com.android.calendar.AllInOneActivity" />
 
         <!-- Declarations for search -->
         <!-- Make all activities a searchable context -->
