@@ -1,0 +1,14 @@
+Etar este un calendar open source cu design material, pentru toată lumea!
+
+Caracteristici:
+★ Vedere lunară.
+★ Vedere săptămânală, zilnică sau agendă.
+★ Folosește sincronizarea din Android. Este compatibil cu Google Calendar, Exchange, etc.
+★ Design material.
+★ Temă luminoasă și întunecată.
+★ Gratuit, open source și fără reclame.
+★ Widget cu agendă.
+★ Suportă partajarea calendarului prin ics și importarea/exportarea pe sdcard.
+
+Probleme & Feedback: https://github.com/Etar-Group/Etar-Calendar/issues 
+Codul sursă: https://github.com/Etar-Group/Etar-Calendar
