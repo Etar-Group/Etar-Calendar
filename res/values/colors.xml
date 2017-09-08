@@ -189,7 +189,7 @@
     <color name="month_selected_week_bgcolor_dark">#FFDDDDDD</color>
     <color name="month_mini_day_number_dark">#FF000000</color>
     <color name="month_other_month_day_number_dark">#ff939497</color>
-    <color name="month_grid_lines_dark">#ffdedede</color>
+    <color name="month_grid_lines_dark">#616161</color>
     <color name="mini_month_today_outline_color_dark">#FF000000</color>
     <color name="month_week_num_color_dark">#41c3b1</color>
 
@@ -202,8 +202,8 @@
     <color name="calendar_hour_background_dark">#000000</color>
     <color name="calendar_hour_label_dark">#ffffff</color>
     <color name="calendar_grid_area_selected_dark">#e633b5e5</color>
-    <color name="calendar_grid_line_inner_horizontal_color_dark">#FFCCCCCC</color>
-    <color name="calendar_grid_line_inner_vertical_color_dark">#FFCCCCCC</color>
+    <color name="calendar_grid_line_inner_horizontal_color_dark">#616161</color>
+    <color name="calendar_grid_line_inner_vertical_color_dark">#616161</color>
     <color name="calendar_grid_line_highlight_color_dark">#ff707070</color>
     <color name="pressed_dark">#330066ff</color>
     <color name="day_event_clicked_background_color_dark">#8033B5E5</color>
@@ -215,8 +215,6 @@
     <color name="month_day_number_other_dark">#616161</color>
     <color name="month_today_number_dark">#ffffff</color>
     <color name="month_event_color_dark">#ffffff</color>
-    <color name="agenda_item_declined_color_dark">#616161</color>
-    <color name="agenda_item_where_declined_text_color_dark">#000000</color>
     <color name="month_event_extra_color_dark">#ffffff</color>
     <color name="month_event_extra_other_color_dark">#000000</color>
     <color name="month_today_bgcolor_dark">#6efffffa</color>
@@ -229,6 +227,8 @@
     <color name="month_sunday_dark">#f5f5f5</color>
 
     <!-- Dark Color AgendaView -->
+    <color name="agenda_item_declined_color_dark">#616161</color>
+    <color name="agenda_item_where_declined_text_color_dark">#424242</color>
     <color name="agenda_general_background_color_dark">#000000</color>
     <color name="agenda_item_standard_color_dark">#ffffff</color>
     <color name="agenda_item_where_text_color_dark">#f5f5f5</color>
