@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2016 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,10 +15,59 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- read_calendar permission -->
+    <string name="on_permission_read_calendar">Vous avez refusé une permission indispensable.</string>
+
+    <!-- No maps found in phone -->
+    <string name="no_map">Aucun logiciel de cartographie disponible</string>
+
+    <!-- Toast message displayed when ics file to share an event can't be generated -->
+    <string name="error_generating_ics">Problèmes lors du partage d\'événement</string>
+
+    <string name="share_label">Partager</string>
+
+    <!-- Check box label for using custom snooze delays -->
     <string name="preferences_alerts_custom_snooze_delay_title">Demander un délai de répétition</string>
+    <!-- Summaries for using custom snooze delays -->
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Demander le délai de répétition à chaque rappel</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Toujours utiliser le délai de répétition par défaut</string>
+    <!-- Title of custom snooze delay dialog -->
     <string name="snooze_delay_dialog_title">Définir le délai de répétition</string>
+    <!-- List item label for setting the default snooze delay -->
     <string name="preferences_default_snooze_delay_title">Délai de répétition par défaut</string>
+    <!-- Title of dialog for setting the default snooze delay -->
     <string name="preferences_default_snooze_delay_dialog">Délai par défaut</string>
+    <!-- Default value for the default snooze delay (in minutes) -->
+
+    <!-- Delete events -->
+    <string name="events_delete">Supprimer des événements</string>
+    <string name="action_select_all">Tout sélectionner</string>
+    <string name="action_select_none">Tout desélectionner</string>
+    <string name="action_delete">Terminé</string>
+    <string name="all_events">Tous les événements</string>
+    <string name="no_events">Aucun événement trouvé</string>
+    <string name="evt_del_dlg_title">Supprimer des événements ?</string>
+    <string name="evt_del_dlg_msg_selected">Les événements sélectionnés vont être supprimés</string>
+    <string name="evt_del_dlg_msg_all">Tous les événements vont être supprimés</string>
+    <string name="no_events_selected">Aucun événement sélectionné</string>
+
+  <plurals name="events_selected">
+    <item quantity="zero">Aucun événement sélectionné</item>
+    <item quantity="one">%1$d événement sélectionné</item>
+    <item quantity="other">%1$d événements sélectionnés</item>
+  </plurals>
+
+    <!-- Label values for the default start page preference. -->
+    <string name="default_start_title">Vue par défaut</string>
+    <string name="default_start_last">Vue utilisée précédemment</string>
+
+    <!-- Sharing calendar event -->
+    <string name="cal_share_intent_title">Envoyer l\'événement vers :</string>
+
+    <string name="cal_export_event_sdcard_title">Exporter sur la carte SD</string>
+    <string name="cal_export_succ_msg">Événement exporté avec succès : 1%s</string>
+    <string name="cal_import_menu_title">Importer un événement</string>
+    <string name="cal_nothing_to_import">Rien à importer</string>
+    <string name="cal_import_error_msg">L\'importation du calendrier a échoué.</string>
+    <string name="cal_pick_ics">Sélectionnez le fichier à importer</string>
 </resources>

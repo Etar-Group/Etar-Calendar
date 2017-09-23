@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2006 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,267 +12,754 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- This is the label underneath the icon for Calendar -->
+    <string name="app_label">"Agenda"</string>
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
-    <string name="what_label" msgid="1933578391985810049">"Objet"</string>
-    <string name="where_label" msgid="3472482206065595118">"Lieu"</string>
-    <string name="when_label" msgid="894636567327261599">"Date"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Fuseau horaire"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Invités"</string>
-    <string name="today" msgid="8577375020252453006">"Aujourd\'hui"</string>
-    <string name="tomorrow" msgid="614434811813859237">"Demain"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Aujourd\'hui, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Demain, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="repeats_label" msgid="7414023871434593196">"Fréquence"</string>
-    <string name="no_title_label" msgid="302177118061368042">"(Sans titre)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 minute"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 heure"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> heures"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 jour"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> jours"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"semaine <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Actualiser"</string>
-    <string name="show_day_view" msgid="5782512782605466016">"Afficher le jour"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
-    <string name="day_view" msgid="4467754504843584437">"Jour"</string>
-    <string name="week_view" msgid="6775043022159508060">"Semaine"</string>
-    <string name="month_view" msgid="7287101431749285412">"Mois"</string>
-    <string name="event_view" msgid="7621353079385122317">"Afficher l\'événement"</string>
-    <string name="event_create" msgid="6941040556709110617">"Nouvel événement"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Modifier l\'événement"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Supprimer l\'événement"</string>
-    <string name="goto_today" msgid="9162136434410891230">"Aujourd\'hui"</string>
-    <string name="goto_date">"Aller au…"</string>    
-    <string name="menu_preferences" msgid="9120238479503233925">"Paramètres"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Agendas à afficher"</string>
-    <string name="search" msgid="550656004486017426">"Rechercher"</string>
-    <string name="hide_controls" msgid="830320505938520882">"Masquer commandes"</string>
-    <string name="show_controls" msgid="715520586028062621">"Afficher commandes"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Agendas à afficher"</string>
-    <string name="synced" msgid="7913940305983383493">"synchronisé"</string>
-    <string name="not_synced" msgid="4275114941801829419">"non synchronisé"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Ce compte n\'est pas synchronisé. Il est possible que vos agendas ne soient pas à jour."</string>
-    <string name="accounts" msgid="849401841083180306">"Comptes et synchro"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Agendas à synchroniser"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Agendas à synchroniser"</string>
-    <string name="hint_what" msgid="709155115005044531">"Nom de l\'événement"</string>
-    <string name="hint_where" msgid="4972598001033801974">"Lieu"</string>
-    <string name="hint_description" msgid="1910143586169033232">"Description"</string>
-    <string name="hint_attendees" msgid="1650488163176888480">"Invités"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Événement créé."</string>
-    <string name="saving_event" msgid="7694181017411177226">"Événement enregistré."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Événement vide non créé."</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">"Les invitations vont être envoyées."</string>
-    <string name="saving_event_with_guest" msgid="9184584438475689577">"Les mises à jour vont être envoyées."</string>
-    <string name="create_event_dialog_save" msgid="1080859798521717414">"Enregistrer"</string>
-    <string name="alert_title" msgid="7869592820853066853">"Notifications de l\'agenda"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Afficher l\'événement"</string>
-    <string name="event_info_title_invite" msgid="9160326363769403865">"Invitation à une réunion"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Au"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Du"</string>
-    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Journée entière"</string>
-    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Agenda"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"Tout afficher"</string>
-    <string name="description_label" msgid="7193475046717505855">"Description"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Ma disponibilité"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"Confidentialité"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Ajouter un rappel"</string>
-    <string name="no_syncable_calendars" msgid="7019488867045436129">"Aucun agenda"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Avant d\'ajouter un événement, vous devez ajouter au moins un compte Google Agenda à votre appareil et activer la visibilité de cet agenda. Pour cela, appuyez sur \"Ajouter un compte\", ou sur \"Annuler\" si vous pensez qu\'au moins un agenda est activé (vérifiez que c\'est bien le cas). Si vous venez d\'ajouter un compte, patientez jusqu\'à la fin de la synchronisation, puis réessayez."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Tirez le meilleur parti de Google Agenda en utilisant un compte Google."\n\n"• Accédez-y depuis n\'importe quel navigateur Web. "\n"• Sauvegardez vos événements en toute sécurité."</string>
-    <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
-    <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda :"</string>
-    <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisateur :"</string>
-    <string name="choose_event_color_label" msgid="2192923501857428854">"Sélectionnez la couleur de l\'événement"</string>
-    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Couleur de l\'événement"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"Choisir la couleur de l\'agenda par défaut"</string>
-    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Couleur de l\'agenda"</string>
-    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Sélecteur de couleur"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"Participer ?"</string>
-    <string name="response_yes" msgid="2027484304899988350">"Oui"</string>
-    <string name="response_maybe" msgid="7791500973627841695">"Peut-être"</string>
-    <string name="response_no" msgid="561911691884148136">"Non"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Envoyer un e-mail aux invités"</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">"Envoyer un e-mail à l\'organisateur"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"Envoyer un e-mail via"</string>
-    <string name="event_not_found" msgid="8356864185947582727">"Événement introuvable."</string>
-    <string name="map_label" msgid="8795383535586556038">"Plan"</string>
-    <string name="call_label" msgid="2960328220008869083">"Appeler"</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"Réponses rapides"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Modifier réponses par défaut lors d\'envoi d\'e-mails aux invités"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Modif. rép. rapides"</string>
-    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Réponse rapide"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Sélectionner une réponse rapide"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Impossible de trouver un programme de messagerie électronique."</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Désolé, j\'aurai quelques minutes de retard."</item>
-    <item msgid="6215158751728689832">"Désolé, j\'arrive dans 10 minutes environ."</item>
-    <item msgid="4485794001743679338">"Commencez sans moi."</item>
-    <item msgid="8036557974294987511">"Désolé, je ne peux pas venir. Nous allons devoir reporter."</item>
-  </string-array>
-    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Réponse personnalisée"</string>
-    <string name="event_info_organizer" msgid="9138683335394832629">"Organisateur :"</string>
-    <string name="event_info_reminders_label" msgid="8913097552956388972">"Rappels"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"aujourd\'hui, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"hier, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"demain, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"Chargement…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Appuyez sur l\'écran pour afficher les événements avant le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Appuyez sur l\'écran pour afficher les événements après le <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="search_title" msgid="8898015280250716254">"Rechercher dans mes agendas"</string>
-    <string name="edit_event_label" msgid="7413222956349977161">"Infos"</string>
-    <string name="edit_label" msgid="8934331258435656534">"Modifier"</string>
-    <string name="delete_label" msgid="874742811918030739">"Supprimer"</string>
-    <string name="save_label" msgid="2133599104834432589">"OK"</string>
-    <string name="discard_label" msgid="2394623883289782541">"Annuler"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Tout répéter"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
-    <string name="snooze_label" msgid="1515893621063224666">"Répéter"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"Événement ponctuel"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; jusqu\'au <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; une seule fois"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> fois"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Quotidien"</item>
-    <item quantity="other" msgid="5455230727715859264">"Tous les <xliff:g id="NUMBER">%d</xliff:g> jours"</item>
-  </plurals>
-    <string name="every_weekday" msgid="5896574838353902978">"Jours ouvrés (lun–ven)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Hebdomadaire (le <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
-    <item quantity="other" msgid="2857390143157377867">"Toutes les <xliff:g id="NUMBER">%1$d</xliff:g> semaines le <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
-    <string name="monthly" msgid="4587116285383048586">"Tous les mois"</string>
-    <string name="yearly_plain" msgid="3652692085322162449">"Tous les ans"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"Mensuel (le <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"Annuel (le <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <!-- Shared Labels. These labels are shared among the activities. -->
+    <skip/>
+    <!-- This is the label for the title or name of an event -->
+    <string name="what_label">"Objet"</string>
+    <!-- This is the label for the location of an event -->
+    <string name="where_label">"Lieu"</string>
+    <!-- This is the label for the time of an event [CHAR LIMIT=30] -->
+    <string name="when_label">"Date"</string>
+    <!-- This is the label for the timezone of an event [CHAR LIMIT=30] -->
+    <string name="timezone_label">"Fuseau horaire"</string>
+    <!-- This is the label for the Guests/Attendees of an event -->
+    <string name="attendees_label">"Invités"</string>
+    <!-- Text to show when an event starts on the current day -->
+    <string name="today">"Aujourd\'hui"</string>
+    <!-- Text to show when an event starts on the next day -->
+    <string name="tomorrow">"Demain"</string>
+    <!-- Text for an event starting on the current day with a start and end time.
+         For ex, "Today at 5:00pm-6:00pm" [CHAR LIMIT=NONE] -->
+    <string name="today_at_time_fmt">"Aujourd\'hui, &lt;xliff:g id=\"TIME_INTERVAL\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Text for an event starting on the next day with a start and end time.
+         For ex, "Tomorrow at 5:00pm-6:00pm" [CHAR LIMIT=NONE] -->
+    <string name="tomorrow_at_time_fmt">"Demain, &lt;xliff:g id=\"TIME_INTERVAL\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Format string for a date and time description.  For ex:
+         "April 19, 2012, 3:00pm - 4:00pm" [CHAR LIMIT=NONE] -->
+    <string name="date_time_fmt">"&lt;xliff:g id=\"DATE\" &gt;%s&lt;/xliff:g&gt;, &lt;xliff:g id=\"TIME_INTERVAL\" &gt;%s&lt;/xliff:g&gt;"</string>
+
+    <!-- Some events repeat daily, weekly, monthly, or yearly.  This is the label
+         for all the choices about how often an event repeats (including the choice
+         of not repeating). -->
+    <string name="repeats_label">"Fréquence"</string>
+    <!-- Title of event when no explicit title is specified by the user -->
+    <string name="no_title_label">"(Sans titre)"</string>
+
+    <!-- Reminder format strings -->
+    <plurals name="Nminutes">
+        <!-- This is the label for a 1-minute reminder. -->
+        <item quantity="one">"1 minute"</item>
+        <!-- This is the label for 2 or more minutes. The actual number of
+             minutes is a parameter. -->
+        <item quantity="other">"&lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; minutes"</item>
+    </plurals>
+    <!-- We use the abbreviation "mins" instead of "minutes" to keep the string short.
+         This is the number of minutes displayed for a calendar reminder.  For example,
+         a reminder of 10 minutes would be displayed as '10 mins'.  The translation
+         should use the shortest acceptable abbreviation to save space. -->
+    <plurals name="Nmins">
+        <!-- This is the label for a 1-minute reminder. -->
+        <item quantity="one">"1 min"</item>
+        <!-- This is the label for 2 or more minutes. The actual number of
+             minutes is a parameter. -->
+        <item quantity="other">"&lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; min"</item>
+    </plurals>
+    <!-- This is the number of hours displayed for a calendar reminder.  For example,
+         a reminder of 1 hour would be displayed as '1 hour'.  The translation
+         should use the shortest acceptable abbreviation of 'hour' to save space. -->
+    <plurals name="Nhours">
+        <!-- This is the label for a 1-hour reminder. -->
+        <item quantity="one">"1 heure"</item>
+        <!-- This is the label for a reminder of 2 or more hours. The actual number of
+             hours is a parameter. -->
+        <item quantity="other">"&lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; heures"</item>
+    </plurals>
+    <!-- This is the number of days displayed for a calendar reminder.  For example,
+         a reminder of 2 days would be displayed as '2 days'.  The translation
+         should use the shortest acceptable abbreviation of 'day' to save space. -->
+    <plurals name="Ndays">
+        <!-- This is the label for a reminder of 1 day. -->
+        <item quantity="one">"1 jour"</item>
+        <!-- This is the label for a reminder of 2 or more days. The actual number of
+             days is a parameter. -->
+        <item quantity="other">"&lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; jours"</item>
+    </plurals>
+    <!-- This is for displaying the week of the year near the date. Eg. "January, 2011 Week 1" -->
+    <plurals name="weekN">
+        <!-- Label for displaying week of the year for all week values [CHAR LIMIT=16] -->
+        <item quantity="other">"semaine &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt;"</item>
+    </plurals>
+
+    <!-- Menu items: -->
+    <skip/>
+    <!-- This is a label on a context menu item. Pressing this menu item to initiate
+        syncing of your Calendar data with the server. [CHAR LIMIT=11] -->
+    <string name="calendar_refresh">"Actualiser"</string>
+    <!-- This is a label on a context menu item. Pressing this menu item displays the
+         Agenda view. -->
+
+    <!-- This is a label on a context menu item. Pressing this menu item displays the
+         Day view. -->
+    <string name="show_day_view">"Afficher le jour"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Agenda view. -->
+    <string name="agenda_view">"Agenda"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Day view. -->
+    <string name="day_view">"Jour"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Week view. -->
+    <string name="week_view">"Semaine"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Month view. -->
+    <string name="month_view">"Mois"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         details of an event. -->
+    <string name="event_view">"Afficher l\'événement"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to create a new event. -->
+    <string name="event_create">"Nouvel événement"</string>
+    <!-- This is a label on a menu item in a popup window. Pressing this menu
+         item allows the user to edit or change an existing event. -->
+    <string name="event_edit">"Modifier l\'événement"</string>
+    <!-- This is a label on a menu item in a popup window. Pressing this menu
+         item allows the user to delete an existing event. -->
+    <string name="event_delete">"Supprimer l\'événement"</string>
+    <!-- This is a label on a menu item. Pressing this menu
+         item takes the user to the current day (today) in whatever view
+         (Day view, Week view, Agenda view, Month view) they are currently in. -->
+    <string name="goto_today">"Aujourd\'hui"</string>
+    <!-- This is a label on a menu item. Pressing this menu
+     item opens new dialog shown the date that the user wants to go. -->
+    <string name="goto_date">"Aller au…"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to see the list of calendars that he is viewing and to then add
+         or remove selected calendars. -->
+
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to view and edit his Settings (or Preferences) -->
+    <string name="menu_preferences">"Paramètres"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to select the calendars to display [CHAR LIMIT=20] -->
+    <string name="menu_select_visible_calendars">"Agendas à afficher"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to select the calendars to display [CHAR LIMIT=20] -->
+    <string name="search">"Rechercher"</string>
+    <!-- This is a label on a menu item. Pressing this menu item hides
+         the navigation controls on the right side. [CHAR LIMIT=20] -->
+    <string name="hide_controls">"Masquer commandes"</string>
+    <!-- This is a label on a menu item. Pressing this menu item shows the
+         navigation controls on the right side. [CHAR LIMIT=20] -->
+    <string name="show_controls">"Afficher commandes"</string>
+
+    <!-- Month view -->
+    <skip/>
+
+    <!-- Select Visible Calendars activity -->
+    <skip/>
+    <!-- Title of "My calendars" screen -->
+    <string name="select_visible_calendars_title">"Agendas à afficher"</string>
+    <!-- Synced and visible status message -->
+
+    <!-- Synced but not visible status message -->
+
+    <!-- not Synced or visible status message -->
+
+    <!-- Synced status message displayed when the given calendar is stored/synced on the device
+        [CHAR LIMIT=60] -->
+    <string name="synced">"synchronisé"</string>
+    <!-- Not synced status message displayed when the given calendar is not stored/synced on the
+        device [CHAR LIMIT=60] -->
+    <string name="not_synced">"non synchronisé"</string>
+    <!-- Message displayed to user when an account with Calendars is not being auto-synced
+        [CHAR LIMIT=120]-->
+    <string name="acct_not_synced">"Ce compte n\'est pas synchronisé. Il est possible que vos agendas ne soient pas à jour."</string>
+    <!-- Label on button that takes user to the Accounts and Sync settings page [CHAR LIMIT=60] -->
+    <string name="accounts">"Comptes et synchro"</string>
+
+    <!-- Select Synced Calendars activity -->
+    <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
+    <string name="select_synced_calendars_title">"Agendas à synchroniser"</string>
+    <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
+    <string name="select_synced_calendars_button">"Agendas à synchroniser"</string>
+
+    <!-- Event edit activity -->
+    <skip/>
+    <!-- The title of the screen where the user edits an event [CHAR LIMIT=17] -->
+
+    <!-- Default value of What field (as a hint to the user) [CHAR LIMIT=15] -->
+    <string name="hint_what">"Nom de l\'événement"</string>
+    <!-- Default value of Where field (as a hint to the user)[CHAR LIMIT=15] -->
+    <string name="hint_where">"Lieu"</string>
+    <!-- Default value of Description field (as a hint to the user) [CHAR LIMIT=15]-->
+    <string name="hint_description">"Description"</string>
+    <!-- Default value of Attendees/Guests field (as a hint to the user) [CHAR LIMIT=10] -->
+    <string name="hint_attendees">"Invités"</string>
+    <!-- Toast message displayed when a new event is created -->
+    <string name="creating_event">"Événement créé."</string>
+    <!-- Toast message displayed when an existing event is saved after being modified -->
+    <string name="saving_event">"Événement enregistré."</string>
+    <!-- Toast message displayed when a new event was not saved because it was empty [CHAR LIMIT=30] -->
+    <string name="empty_event">"Événement vide non créé."</string>
+    <!-- Toast message displayed when a new event with guests is created -->
+    <string name="creating_event_with_guest">"Les invitations vont être envoyées."</string>
+    <!-- Toast message displayed when an existing event with guests is saved after being modified -->
+    <string name="saving_event_with_guest">"Les mises à jour vont être envoyées."</string>
+
+    <!-- Toast message displayed responding to an event from an email as accepted
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_accepted">"Répondu oui."</string>
+    <!-- Toast message displayed responding to an event from an email as tentative
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_tentative">"Répondu peut-être."</string>
+    <!-- Toast message displayed responding to an event from an email as declined
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_declined">"Répondu non."</string>
+
+
+    <!-- Title of message displayed to indicate available calendars are being loaded when creating
+         a new event -->
+
+    <!-- Body of message displayed to indicate available calendars are being loaded when creating
+         a new event -->
+
+
+    <!-- Create event dialog -->
+    <skip/>
+    <!-- Create event dialog save button [CHAR LIMIT=10] -->
+    <string name="create_event_dialog_save">"Enregistrer"</string>
+
+    <!-- The alert toast is not actually being displayed for some reason. -->
+    <skip/>
+    <!-- the title of the alert/notification activity -->
+    <string name="alert_title">"Notifications de l\'agenda"</string>
+    <!-- Notification window messages: -->
+    <skip/>
+
+    <!-- Event info/edit screen labels:-->
+    <skip/>
+    <!-- This is the title of the screen used to view the details of an event -->
+    <string name="event_info_title">"Afficher l\'événement"</string>
+    <!-- This is the title of the screen used to view the details of an invitation
+         to a meeting or event -->
+    <string name="event_info_title_invite">"Invitation à une réunion"</string>
+
+    <!-- EditEventActivity specific strings: -->
+    <skip/>
+    <!-- Events have a start date/time and an end date/time. The display shows
+         the start and end times like 'From start date To end date'. This is the
+         label before the 'end date'. -->
+    <string name="edit_event_to_label">"Au"</string>
+    <!-- Events have a start date/time and an end date/time. The display shows
+         the start and end times like 'From start date To end date'. This is the
+         label before the 'start date'. -->
+    <string name="edit_event_from_label">"Du"</string>
+    <!-- Check box label that specifies if this is an all-day event -->
+    <string name="edit_event_all_day_label">"Journée entière"</string>
+    <!-- Label for choosing one of the calendars -->
+    <string name="edit_event_calendar_label">"Agenda"</string>
+    <!-- Menu item to show all choices [CHAR LIMIT=22]-->
+    <string name="edit_event_show_all">"Tout afficher"</string>
+    <!-- Label for the event description -->
+    <string name="description_label">"Description"</string>
+    <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
+         or 'available'  [CHAR LIMIT=15] -->
+    <string name="presence_label">"Ma disponibilité"</string>
+    <!-- Label for the 'Privacy' of an event, which can be either 'private'
+         or 'public' [CHAR LIMIT=15] -->
+    <string name="privacy_label">"Confidentialité"</string>
+    <!-- Label for the list of reminders for an event [CHAR LIMIT=20] -->
+    <string name="reminders_label">"Ajouter un rappel"</string>
+    <!-- Title of alert shown if the user tries to create an event and has no calendars -->
+    <string name="no_syncable_calendars">"Aucun agenda"</string>
+    <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->
+    <string name="no_calendars_found">"Avant d\'ajouter un événement, vous devez ajouter au moins un compte Google Agenda à votre appareil et activer la visibilité de cet agenda. Pour cela, appuyez sur \"Ajouter un compte\", ou sur \"Annuler\" si vous pensez qu\'au moins un agenda est activé (vérifiez que c\'est bien le cas). Si vous venez d\'ajouter un compte, patientez jusqu\'à la fin de la synchronisation, puis réessayez."</string>
+    <!-- Body of dialog prompting the user to create an account.[CHAR LIMIT=NONE] -->
+    <string name="create_an_account_desc">"Tirez le meilleur parti de Google Agenda en utilisant un compte Google.\"\n
+  \n
+  \"• Accédez-y depuis n\'importe quel navigateur Web. \"\n
+  \"• Sauvegardez vos événements en toute sécurité."</string>
+    <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
+    <string name="add_account">"Ajouter un compte"</string>
+
+    <!-- View Event -->
+    <skip/>
+    <!-- Label for which calendar an event is part of -->
+    <string name="view_event_calendar_label">"Agenda :"</string>
+    <!-- Label for the event organizer -->
+    <string name="view_event_organizer_label">"Organisateur :"</string>
+    <!-- Label for the local timezone -->
+
+    <!-- Label for showing event color picker -->
+    <string name="choose_event_color_label">"Sélectionnez la couleur de l\'événement"</string>
+    <!-- Title for event color picker dialog -->
+    <string name="event_color_picker_dialog_title">"Couleur de l\'événement"</string>
+    <!-- Label for button which sets event color to default calendar color -->
+    <string name="event_color_set_to_default">"Choisir la couleur de l\'agenda par défaut"</string>
+
+    <!-- Title for calendar color picker dialog -->
+    <string name="calendar_color_picker_dialog_title">"Couleur de l\'agenda"</string>
+    <!-- Description for calendar color squares, which bring up the color picker. -->
+    <string name="calendar_square_color_picker_description">"Sélecteur de couleur"</string>
+
+    <!-- Label for whether the user is attending this event. This is shown when
+         a user is invited to a meeting or event.  The possible answers are
+         'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
+    <string name="view_event_response_label">"Participer ?"</string>
+    <!-- Response for whether attending an event - accepted [CHAR LIMIT=10]-->
+    <string name="response_yes">"Oui"</string>
+    <!-- Response for whether attending an event - tentative [CHAR LIMIT=10]-->
+    <string name="response_maybe">"Peut-être"</string>
+    <!-- Response for whether attending an event - declined [CHAR LIMIT=10]-->
+    <string name="response_no">"Non"</string>
+    <!-- Label for emailing attendees -->
+    <string name="email_guests_label">"Envoyer un e-mail aux invités"</string>
+    <!-- Label for emailing the organizer (when there are no attendees) -->
+    <string name="email_organizer_label">"Envoyer un e-mail à l\'organisateur"</string>
+    <!-- This is shown in the popup picker when emailing attendees -->
+    <string name="email_picker_label">"Envoyer un e-mail via"</string>
+    <!-- The is shown in the email subject as the prefix appended to the event title -->
+    <!-- Toast message displayed when the event id was not found LIMIT=30] -->
+    <string name="event_not_found">"Événement introuvable."</string>
+
+    <!-- Notification label for getting a map of the location. -->
+    <string name="map_label">"Plan"</string>
+    <!-- Notification label for calling a phone number in the location. -->
+    <string name="call_label">"Appeler"</string>
+
+    <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
+    <string name="quick_response_settings">"Réponses rapides"</string>
+    <!-- Summary of the quick response item in Settings [CHAR LIMIT=80]-->
+    <string name="quick_response_settings_summary">"Modifier réponses par défaut lors d\'envoi d\'e-mails aux invités"</string>
+    <!-- Title of the quick response screen in Settings->Quick Response [CHAR LIMIT=27]-->
+    <string name="quick_response_settings_title">"Modif. rép. rapides"</string>
+    <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
+    <string name="quick_response_settings_edit_title">"Réponse rapide"</string>
+
+    <!-- Title of the dialog prompting the user choose a response when emailing guests  [CHAR LIMIT=none]-->
+    <string name="quick_response_dialog_title">"Sélectionner une réponse rapide"</string>
+    <!-- Error to user when an email program can't be found[CHAR LIMIT=none]-->
+    <string name="quick_response_email_failed">"Impossible de trouver un programme de messagerie électronique."</string>
+    <!-- The is shown in the email subject as the prefix appended to the event title [CHAR LIMIT=none]-->
+    <string-array name="quick_response_defaults">
+        <item>"Désolé, j\'aurai quelques minutes de retard."</item>
+        <item>"Désolé, j\'arrive dans 10 minutes environ."</item>
+        <item>"Commencez sans moi."</item>
+        <item>"Désolé, je ne peux pas venir. Nous allons devoir reporter."</item>
+        </string-array>
+    <!-- Option to create a custom response instead of using defaults [CHAR LIMIT=none] -->
+    <string name="quick_response_custom_msg">"Réponse personnalisée"</string>
+
+    <!-- Event Info strings-->
+    <!-- Time Zone Label [CHAR LIMIT=12]-->
+
+    <!-- Repetition Label [CHAR LIMIT=12]-->
+
+    <!-- Organizer Label [CHAR LIMIT=12]-->
+    <string name="event_info_organizer">"Organisateur :"</string>
+    <!-- Reminders label [CHAR LIMIT=15]-->
+    <string name="event_info_reminders_label">"Rappels"</string>
+
+    <!-- Agenda View strings -->
+    <skip/>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_today">"aujourd\'hui, &lt;xliff:g id=\"DATE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_yesterday">"hier, &lt;xliff:g id=\"DATE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_tomorrow">"demain, &lt;xliff:g id=\"DATE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+    <!-- This is shown while the calendar events are being loading to the screen. -->
+    <string name="loading">"Chargement…"</string>
+    <!-- This is shown at the top of the agenda view showing the beginning of the searched range. If the user taps on this string and Calendar will find events older than what is visible and display them to the user -->
+    <string name="show_older_events">"Appuyez sur l\'écran pour afficher les événements avant le &lt;xliff:g id=\"OLDEST_SEARCH_RANGE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+    <!-- This is shown at the bottom of the agenda view showing the end of the searched range. If the user taps on this string and Calendar will find events later/newer than what is visible and display them to the user -->
+    <string name="show_newer_events">"Appuyez sur l\'écran pour afficher les événements après le &lt;xliff:g id=\"NEWEST_SEARCH_RANGE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+
+    <!-- Search activity strings -->
+    <skip/>
+    <!-- Title of the search screen [CHAR LIMIT=30] -->
+    <string name="search_title">"Rechercher dans mes agendas"</string>
+
+    <!-- Button labels: -->
+    <skip/>
+    <!-- This is the title of a popup window that is displayed when the user
+         edits a repeating event. [CHAR LIMIT=20]-->
+    <string name="edit_event_label">"Infos"</string>
+    <!-- This is a menu button for switching into edit mode when viewing an event.
+        [CHAR LIMIT=10] -->
+    <string name="edit_label">"Modifier"</string>
+    <!-- The button label for deleting an event -->
+    <string name="delete_label">"Supprimer"</string>
+    <!-- A menu item for deleting an event -->
+
+    <!-- The button label for saving an event -->
+    <string name="save_label">"OK"</string>
+    <!-- The button label for discarding changes to an event -->
+    <string name="discard_label">"Annuler"</string>
+
+    <!-- Button labels on expanded notification reminders: -->
+    <skip/>
+    <!-- The button label for making the reminder alarms go away temporarily.
+         The reminder alarms will fire off again in 5 minutes. -->
+    <string name="snooze_all_label">"Tout répéter"</string>
+    <!-- The button label for dismissing all the current reminder alarms. This
+         causes them to disappear from the notification screen. -->
+    <string name="dismiss_all_label">"Tout supprimer"</string>
+    <!-- The button label for making the reminder alarms go away temporarily
+         and re-fire in 5 minutes. [CHAR LIMIT=12]-->
+    <string name="snooze_label">"Répéter"</string>
+
+    <!-- Repetition dialog options: -->
+    <skip/>
+    <!-- A label in a multiple-choice list for the specifying that an event does
+         not repeat -->
+    <string name="does_not_repeat">"Événement ponctuel"</string>
+    <!-- Part of a description of an repeating event. This part states the date when a repeating
+         event ends. The part before the semi-colon describes how it repeats.
+         e.g. Every 2 weeks; until 1/1/2030 [CHAR LIMIT=21] -->
+    <string name="endByDate">"; jusqu\'au &lt;xliff:g id=\"DATE\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Part of a description of an repeating event. This part how many times the event repeats.
+         The part before the semi-colon describes how it repeats.
+         e.g. Every 2 weeks; for 15 times [CHAR LIMIT=15] -->
+    <plurals name="endByCount">
+        <item quantity="one">"; une seule fois"</item>
+        <item quantity="other">"; &lt;xliff:g id=\"NUMBER\" &gt;%d&lt;/xliff:g&gt; fois"</item>
+    </plurals>
+    <!-- A description for an event that repeats daily. For example, Every 2 days [CHAR LIMIT=15]-->
+    <plurals name="daily">
+        <item quantity="one">"Quotidien"</item>
+        <item quantity="other">"Tous les &lt;xliff:g id=\"NUMBER\" &gt;%d&lt;/xliff:g&gt; jours"</item>
+    </plurals>
+    <!-- A label in a multiple-choice list for the specifying that an event
+         repeats every weekday (Monday through Friday) -->
+    <string name="every_weekday">"Jours ouvrés (lun–ven)"</string>
+    <!-- A description for an event that repeats weekly on some day of the week. For example,
+         'Weekly on Tuesday' or Every 2 weeks on Monday, Tuesday.  [CHAR LIMIT=25]-->
+    <plurals name="weekly">
+        <item quantity="one">"Hebdomadaire (le &lt;xliff:g id=\"DAYS_OF_WEEK\" &gt;%2$s&lt;/xliff:g&gt;)"</item>
+        <item quantity="other">"Toutes les &lt;xliff:g id=\"NUMBER\" &gt;%1$d&lt;/xliff:g&gt; semaines le &lt;xliff:g id=\"DAYS_OF_WEEK\" &gt;%2$s&lt;/xliff:g&gt;"</item>
+    </plurals>
+
+    <!-- The common portion of a string describing how often an event repeats,
+         example: 'Monthly (on day 2)' -->
+    <string name="monthly">"Tous les mois"</string>
+    <!-- Calendar spinner item, to select that an event recurs every year. -->
+    <string name="yearly_plain">"Tous les ans"</string>
+    <!-- Example: "Monthly (on day 15)" -->
+    <string name="monthly_on_day">"Mensuel (le &lt;xliff:g id=\"DAY_OF_MONTH\" &gt;%s&lt;/xliff:g&gt;)"</string>
+    <!-- Example: "Yearly (on April 15)" -->
+    <string name="yearly">"Annuel (le &lt;xliff:g id=\"DATES\" &gt;%s&lt;/xliff:g&gt;)"</string>
+    <!-- This is a label for telling the user that this event repeats in
+         custom (non-standard) way from the usual repeat rates (such as daily,
+         weekly, etc.) and that the user cannot change this on the phone
+         (but only on the web). -->
     
-    <string name="custom" product="default" msgid="4137468716966004993">"Personnalisé (non paramétrable depuis le téléphone)"</string>
-    <string name="modify_event" msgid="5982876409997142690">"Modifier uniquement cet événement"</string>
-    <string name="modify_all" msgid="4421657265864209041">"Modifier tous les événements de la série"</string>
-    <string name="modify_all_following" msgid="3017428541066390380">"Modifier cet événement et tous les suivants"</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"Nouvel événement"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"Nouvel événement"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">"Supprimer cet événement ?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Supprimer l\'événement \"<xliff:g id="EVENTTITLE">%s</xliff:g>\" ?"</string>
-    <string name="change_response_title" msgid="7704714776070974984">"Modifier la réponse"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"Paramètres généraux"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"À propos de Etar"</string>
-    <string name="preferences_title" msgid="8045855493262131773">"Paramètres"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Paramètres d\'affichage de l\'agenda"</string>
-    <string name="preferences_reminder_title" msgid="5199606534191180129">"Notifications et rappels"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Masquer événements refusés"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"1er jour de la semaine :"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"1er jour de la semaine :"</string>
-    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Effacer historique des recherches"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Supprimer toutes les recherches effectuées"</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"Historique des recherches effacé."</string>
-    <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifications"</string>
-    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibreur"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Sonnerie"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notification dans pop-up"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Rappel par défaut"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Rappel par défaut"</string>
-    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Mon fuseau horaire"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Afficher les agendas et les événements dans votre fuseau horaire habituel, même en  déplacement"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Mon fuseau horaire"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Afficher numéro semaine"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"À propos"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"Version"</string>
-    <string name="gadget_title" msgid="939918875331310945">"Agenda"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+ 1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"Aucun événement à venir"</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Test"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"Rappels"</string>
-    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Ignorer les rappels"</string>
-    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Ignorer les rappels"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Heures coupure du son"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Couper le son des rappels d\'événements pendant certaines heures"</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Heure début coupure son"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Heure fin coupure son"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"Débogage"</string>
-    <string name="copy_db" msgid="437691290566699292">"Envoyer la base de données"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Recherche en cours dans <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Supprimer participant"</string>
-    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Date de début"</string>
-    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Heure de début"</string>
-    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Date de fin"</string>
-    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Heure de fin"</string>
-    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Fuseau horaire"</string>
-    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Répéter l\'événement"</string>
-    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Ajouter un rappel"</string>
-    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Supprimer le rappel"</string>
-    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Ajouter un participant"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synchroniser l\'agenda"</string>
-    <string name="accessibility_all_day" msgid="4146955438811915282">"Toute la journée"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Récurrence"</string>
-    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Heure de rappel"</string>
-    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Type de rappel"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Ma disponibilité"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Confidentialité"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Notification de l\'agenda"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Notification de répétition d\'alarme"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"Envoyer un e-mail aux invités"</string>
-    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nouvel événement"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Événement <xliff:g id="ITEM_INDEX">%1$s</xliff:g> sur <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 événement"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> événements"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 événement"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> événements"</item>
-  </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Événement sélectionné"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"Ne PAS cocher -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Répéter"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Ne jamais répéter"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Tous les <xliff:g id="COUNT">%d</xliff:g> jour"</item>
-    <item quantity="other" msgid="707566499994398250">"Tous les <xliff:g id="COUNT">%d</xliff:g> jours"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Toutes les <xliff:g id="COUNT">%d</xliff:g> semaine"</item>
-    <item quantity="other" msgid="7094801039989237061">"Toutes les <xliff:g id="COUNT">%d</xliff:g> semaines"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Tous les <xliff:g id="COUNT">%d</xliff:g> mois"</item>
-    <item quantity="other" msgid="5419723710346646523">"Tous les <xliff:g id="COUNT">%d</xliff:g> mois"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Tous les <xliff:g id="COUNT">%d</xliff:g> an"</item>
-    <item quantity="other" msgid="5678653649746562060">"Tous les <xliff:g id="COUNT">%d</xliff:g> ans"</item>
-  </plurals>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"le même jour chaque mois"</string>
-    <string name="recurrence_end_continously" msgid="6898950241634912991">"Toujours"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Jusqu\'à une certaine date"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"Jusqu\'au <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Pour une série d\'événements"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Pour <xliff:g id="EVENT_COUNT">%d</xliff:g> événement"</item>
-    <item quantity="other" msgid="8779598489398048259">"Pour <xliff:g id="EVENT_COUNT">%d</xliff:g> événements"</item>
-  </plurals>
-    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifier la date de fin"</string>
+    <!-- This is a label for telling the user that this event repeats in
+         custom (non-standard) way from the usual repeat rates (such as daily,
+         weekly, etc.) and that the user cannot change this on the phone
+         (but only on the web). -->
+    <string name="custom" product="default">"Personnalisé (non paramétrable depuis le téléphone)"</string>
+
+    <!-- This is a choice in a list that the user sees when he tries to modify
+         a repeating event.  This choice says to change just this one instance
+         of this repeating event. -->
+    <string name="modify_event">"Modifier uniquement cet événement"</string>
+    <!-- This is a choice in a list that the user sees when he tries to modify
+         a repeating event.  This choice says to change all occurrences of
+         this repeating event. -->
+    <string name="modify_all">"Modifier tous les événements de la série"</string>
+    <!-- This is a choice in a list that the user sees when he tries to modify
+         a repeating event.  This choice says to change this instance and all
+         future occurrences of this repeating event. -->
+    <string name="modify_all_following">"Modifier cet événement et tous les suivants"</string>
+
+    <!-- Dialogs -->
+
+    <!-- This is a label on the dialog for creating a new event. [CHAR LIMIT=30] -->
+    <string name="new_event_dialog_label">"Nouvel événement"</string>
+    <!-- This is the button to create a new event in a dialog window. [CHAR LIMIT=30] -->
+    <string name="new_event_dialog_option">"Nouvel événement"</string>
+    <!-- Confirmation dialog message -->
+    <skip/>
+    <!-- This is a confirmation message in a popup dialog that appears when the
+         user has asked to delete an event. The user still has a chance to cancel
+         this operation. -->
+    <string name="delete_this_event_title">"Supprimer cet événement ?"</string>
+    <!-- This is a confirmation message in a popup dialog that appears when the
+         user has asked to delete an event that is recurring. The user still has a chance to cancel
+         this operation. -->
+    <string name="delete_recurring_event_title">"Supprimer l\'événement \"&lt;xliff:g id=\"EVENTTITLE\" &gt;%s&lt;/xliff:g&gt;\" ?"</string>
+    <!-- This is the title of a popup dialog that asks for confirmation before
+         changing the response to an invitation. -->
+    <string name="change_response_title">"Modifier la réponse"</string>
+
+    <!-- This the title of a menu for General Preferences.
+         Pressing the menu item lets user to view and edit his general settings
+         (or preferences) [CHAR LIMIT=30] -->
+    <string name="menu_general_preferences">"Paramètres généraux"</string>
+
+    <!-- This the title of a menu for "About Calendar" Preferences.
+         Pressing the menu item lets user to view the current settings
+         [CHAR LIMIT=30] -->
+    <string name="menu_about_preferences">"À propos de Etar"</string>
+
+    <!-- This is the title of the screen for setting user preferences. -->
+    <string name="preferences_title">"Paramètres"</string>
+    <!-- This is the title of a section in the Settings screen for settings
+         related to viewing calendar events -->
+    <string name="preferences_general_title">"Paramètres d\'affichage de l\'agenda"</string>
+    <!-- This is the title of a section in the Settings screen for settings
+         related to reminders for calendar events -->
+    <string name="preferences_theme">Thème</string>
+    <string name="preferences_light_theme">Clair</string>
+    <string name="preferences_dark_theme">Sombre</string>
+    <string name="preferences_reminder_title">"Notifications et rappels"</string>
+    <!-- Settings check box label to hide events that the user has declined to attend -->
+    <string name="preferences_hide_declined_title">"Masquer événements refusés"</string>
+    <!-- Settings week start label to start week on specific day-->
+    <string name="preferences_week_start_day_title">"1er jour de la semaine :"</string>
+    <!-- Title of popup for week start day setting-->
+    <string name="preferences_week_start_day_dialog">"1er jour de la semaine :"</string>
+    <!-- DO NOT TRANSLATE -->
+    <string name="preferences_week_start_day_default">-1</string>
+
+    <string name="preferences_days_per_week_title">Jours par semaine</string>
+    <string name="preferences_days_per_week_dialog">Jours par semaine</string>
+    <string name="preferences_days_per_week_default">7</string>
+
+    <!-- Title of the settings item to clear the recent search history [CHAR LIMIT=40] -->
+    <string name="preferences_clear_search_history_title">"Effacer historique des recherches"</string>
+    <!-- Summary of the settings item to clear the recent search history [CHAR LIMIT=70]-->
+    <string name="preferences_clear_search_history_summary">"Supprimer toutes les recherches effectuées"</string>
+    <!-- Message to show in a toast when the history is cleared [CHAR LIMIT=40] -->
+    <string name="search_history_cleared">"Historique des recherches effacé."</string>
+    <!-- Settings check box label to enable or disable notifications -->
+    <string name="preferences_alerts_title">"Notifications"</string>
+    <!-- Settings dialog label that specifies when the phone should vibrate -->
+    <string name="preferences_alerts_vibrateWhen_title">"Vibreur"</string>
+    <!-- The old value for enabling vibration. used only for migrating -->
+    <!-- Title of ringtone selector dialog -->
+    <string name="preferences_alerts_ringtone_title">"Sonnerie"</string>
+    <!-- Title of check box label to enable or disable pop-up notifications -->
+    <string name="preferences_alerts_popup_title">"Notification dans pop-up"</string>
+    <!-- List item label for setting the default number of reminder minutes -->
+    <string name="preferences_default_reminder_title">"Rappel par défaut"</string>
+    <!-- Title of dialog for setting the default number of reminder minutes -->
+    <string name="preferences_default_reminder_dialog">"Rappel par défaut"</string>
+    <!-- Default value for the number of reminder minutes -->
+    <string name="preferences_default_reminder_default">"10"</string>
+    <!-- Settings check box label to keep Calendar in a fixed 'home' time zone [CHAR LIMIT = 18] -->
+    <string name="preferences_use_home_tz_title">"Mon fuseau horaire"</string>
+    <!-- Settings description of what setting Calendar to use a fixed 'home' time
+        zone does [CHAR LIMIT = 60]-->
+    <string name="preferences_use_home_tz_descrip">"Afficher les agendas et les événements dans votre fuseau horaire habituel, même en  déplacement"</string>
+    <!-- Settings title for selecting a 'home' time zone to display Calendar in [CHAR LIMIT = 18] -->
+    <string name="preferences_home_tz_title">"Mon fuseau horaire"</string>
+    <!-- DO NOT TRANSLATE -->
+    <string name="preferences_home_tz_default">Amérique/Los_Angeles</string>
+
+    <!-- Title of the settings item to show week number in week view [CHAR LIMIT=40] -->
+    <string name="preferences_show_week_num_title">"Afficher numéro semaine"</string>
+
+    <!-- This is the title of a section in the Settings screen for "About" this application -->
+    <string name="preferences_about_title">"À propos"</string>
+    <!-- Build version of the application -->
+    <string name="preferences_build_version">"Version"</string>
+
+    <!-- Widget -->
+    <skip/>
+    <!-- Title for calendar gadget when displayed in list of all other gadgets -->
+    <string name="gadget_title">"Agenda"</string>
+
+    <!-- Shown in month view next to event icon when additional events exist for that day, but no
+        room remaining -->
+    <plurals name="month_more_events">
+        <!-- additional events message for 1 event, the quotes force a literal interpretation of the
+            string [CHAR LIMIT = 10] -->
+        <item quantity="one">"+ 1"</item>
+        <!-- additional events message for multiple events [CHAR LIMIT = 10] -->
+        <item quantity="other">"+ &lt;xliff:g id=\"NUMBER\" &gt;%d&lt;/xliff:g&gt;"</item>
+    </plurals>
+
+    <!-- Caption to show on gadget when there are no upcoming calendar events -->
+    <string name="gadget_no_events">"Aucun événement à venir"</string>
+
+    <!-- Text to show on gadget when an event is currently in progress -->
+
+
+    <!-- Text to show on gadget when an all-day event is in progress -->
+
+
+    <!-- DO NOT TRANSLATE -->
+
+    <!-- Experimental settings [CHAR LIMIT = 30]-->
+    <string name="preferences_experimental_category">"Test"</string>
+
+    <!-- Reminders settings [CHAR LIMIT = 30]-->
+    <string name="preferences_reminders_category">"Rappels"</string>
+    <!-- Preference label for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_label">"Ignorer les rappels"</string>
+    <!-- Dialog title for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_dialog">"Ignorer les rappels"</string>
+    <!-- Preference label for quiet hours [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_label">"Heures coupure du son"</string>
+    <!-- Preference description for quiet hours [CHAR LIMIT = NONE]-->
+    <string name="preferences_reminders_quiet_hours_description">"Couper le son des rappels d\'événements pendant certaines heures"</string>
+    <!-- Preference label for quiet hours start time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_start">"Heure début coupure son"</string>
+    <!-- Preference label for quiet hours end time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_end">"Heure fin coupure son"</string>
+
+    <!-- Preferences used for debugging purposes [CHAR LIMIT = 30]-->
+    <string name="preferences_debug_category">"Débogage"</string>
+
+    <!-- Send a copy of the database to developers for debugging [CHAR LIMIT="NONE"] -->
+    <string name="copy_db">"Envoyer la base de données"</string>
+
+    <!-- Displayed in email address autocomplete list when searching for contacts
+         in corporate directories. Example:  "Searching bigcompany.com..." [CHAR LIMIT=64] -->
+    <string name="directory_searching_fmt">"Recherche en cours dans &lt;xliff:g id=\"DOMAIN\" &gt;%s&lt;/xliff:g&gt;…"</string>
+
+    <!-- Accessibility Events -->
+    <!-- Strings that describes actions for buttons without text -->
+    <!-- Create a new calendar event [CHAR LIMIT = NONE]-->
+
+    <!-- Remove a name of an attendee from a calendar event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_remove_attendee">"Supprimer participant"</string>
+    <!-- Pick a starting date for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_start_date">"Date de début"</string>
+    <!-- Pick a starting time for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_start_time">"Heure de début"</string>
+    <!-- Pick the ending date for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_end_date">"Date de fin"</string>
+    <!-- Pick the ending time for a new event[CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_end_time">"Heure de fin"</string>
+    <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_time_zone">"Fuseau horaire"</string>
+    <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_recurrence">"Répéter l\'événement"</string>
+    <!-- Add a reminder to an event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_add_reminder">"Ajouter un rappel"</string>
+    <!-- Remove a reminder from an event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_remove_reminder">"Supprimer le rappel"</string>
+    <!-- Add a new attendee to an event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_add_attendee">"Ajouter un participant"</string>
+    <!-- Choose if to sync/unsync this calendar with its server [CHAR LIMIT = NONE]-->
+    <string name="accessibility_sync_cal">"Synchroniser l\'agenda"</string>
+    <!-- Mark this event as an "all day event" [CHAR LIMIT = NONE]-->
+    <string name="accessibility_all_day">"Toute la journée"</string>
+    <!-- Refresh the data in the calendar [CHAR LIMIT = NONE]-->
+
+    <!-- Choose the type of repetition for the event (daily, weekly, etc.[CHAR LIMIT = NONE]-->
+    <string name="accessibility_repeats">"Récurrence"</string>
+    <!-- Set the time for the reminder[CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_time">"Heure de rappel"</string>
+    <!-- Set the type of the reminder (popup/email/sms)[CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_type">"Type de rappel"</string>
+    <!-- Select the way you are visible for the event (busy/free) [CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_showmeas">"Ma disponibilité"</string>
+    <!-- Set the event as private/public/default [CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_privacy">"Confidentialité"</string>
+    <!-- Calendar notification [CHAR LIMIT = NONE]-->
+    <string name="acessibility_cal_notification">"Notification de l\'agenda"</string>
+    <!-- Calendar notification snooze button [CHAR LIMIT = NONE]-->
+    <string name="acessibility_snooze_notification">"Notification de répétition d\'alarme"</string>
+    <!-- Calendar notification email button [CHAR LIMIT = NONE]-->
+    <string name="accessibility_email_notification">"Envoyer un e-mail aux invités"</string>
+
+    <!-- A "new event" hint for the user when selecting a specific hour in the day view [CHAR LIMIT = 30]-->
+    <string name="day_view_new_event_hint">"+ Nouvel événement"</string>
+
+    <!--
+      Source: A value for announcing the current event index (example: "Event 2 of 6").
+      Description: This is spoken to the user. [CHAR LIMIT="NONE"]
+    -->
+    <string name="template_announce_item_index">"Événement &lt;xliff:g id=\"ITEM_INDEX\" &gt;%1$s&lt;/xliff:g&gt; sur &lt;xliff:g id=\"ITEM_COUNT\" &gt;%2$s&lt;/xliff:g&gt;"</string>
+
+        <!-- number of events in the notification bar -->
+    <plurals name="Nevents">
+        <!-- This is the label for a 1 event. -->
+        <item quantity="one">"1 événement"</item>
+        <!-- This is the label for 2 or more events. -->
+        <item quantity="other">"&lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; événements"</item>
+    </plurals>
+
+    <!-- number of remaining events for an alert digest in the notification bar [CHAR LIMIT = 30] -->
+    <plurals name="N_remaining_events">
+        <!-- This is the label for 1 event. -->
+        <item quantity="one">"+1 événement"</item>
+        <!-- This is the label for 2 or more events. -->
+        <item quantity="other">"+&lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; événements"</item>
+    </plurals>
+
+    <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
+    <string name="acessibility_selected_marker_description">"Événement sélectionné"</string>
+
+    <!-- Tell user not to check a checkbox [CHAR LIMIT=30] -->
+    <string name="do_not_check">"Ne PAS cocher ->"</string>
+
+    <!-- Dialog title for recurrence picker for configuring a repeating event[CHAR LIMIT=20] -->
+    <string name="recurrence_dialog_title">"Répéter"</string>
+    <!-- Dialog title for recurrence picker when one-time event is selected [CHAR LIMIT=20] -->
+    <string name="recurrence_dialog_title_never">"Ne jamais répéter"</string>
+
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 days) -->
+    <plurals name="recurrence_interval_daily">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">"Tous les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; jour"</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">"Tous les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; jours"</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 weeks) -->
+    <plurals name="recurrence_interval_weekly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">"Toutes les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; semaine"</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">"Toutes les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; semaines"</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 months) -->
+    <plurals name="recurrence_interval_monthly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">"Tous les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; mois"</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">"Tous les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; mois"</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 years) -->
+    <plurals name="recurrence_interval_yearly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">"Tous les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; an"</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">"Tous les &lt;xliff:g id=\"COUNT\" &gt;%d&lt;/xliff:g&gt; ans"</item>
+    </plurals>
+
+    <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
+    <string name="recurrence_month_pattern_by_day">"le même jour chaque mois"</string>
+
+    <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=20] -->
+    <string name="recurrence_end_continously">"Toujours"</string>
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
+    <string name="recurrence_end_date_label">"Jusqu\'à une certaine date"</string>
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=20] -->
+    <string name="recurrence_end_date">"Jusqu\'au &lt;xliff:g id=\"DATE\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Specifies that a repeating event to repeat for a number of times. A repeating event can repeat forever, repeat in a certain frequency until a certain date, or repeat for a number of times. e.g. repeat 10 times and stop. This string is for the last case [CHAR LIMIT=25] -->
+    <string name="recurrence_end_count_label">"Pour une série d\'événements"</string>
+
+    <!-- Specifies that a repeating event should repeat for a certain number of iterations. [CHAR LIMIT=20]-->
+    <plurals name="recurrence_end_count">
+        <item quantity="one">"Pour &lt;xliff:g id=\"EVENT_COUNT\" &gt;%d&lt;/xliff:g&gt; événement"</item>
+        <item quantity="other">"Pour &lt;xliff:g id=\"EVENT_COUNT\" &gt;%d&lt;/xliff:g&gt; événements"</item>
+    </plurals>
+
+    <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
+    <string name="acessibility_recurrence_choose_end_date_description">"modifier la date de fin"</string>
+
+    <!-- Do Not Translate.  Sender identity for global notification synchronization. -->
+
+    <string name="user_rejected_calendar_write_permission">Etar a besoin des droits en lecture et écriture pour fonctionner correctement. Veuillez réessayer.</string>
+    <string name="calendar_permission_not_granted">Désolé, cela ne peut pas fonctionner. Etar a besoin des droits en lecture et écriture sur les calendriers pour fonctionner.</string>
 </resources>
