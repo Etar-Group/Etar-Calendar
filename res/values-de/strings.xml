@@ -196,7 +196,7 @@
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Heimatzeitzone"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Wochennummer anzeigen"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Details"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"Build-Version"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">Version</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
@@ -308,4 +308,5 @@
   <string name="rsvp_accepted">Zugesagt</string>
   <string name="rsvp_declined">Abgelehnt</string>
   <string name="rsvp_tentative">Vielleicht</string>
+    <string name="preferences_issues">Fehler melden</string>
 </resources>

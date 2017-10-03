@@ -21,6 +21,11 @@
         <Preference
             android:key="build_version"
             android:title="@string/preferences_build_version" />
+        <Preference
+            android:title="@string/preferences_issues">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://github.com/Etar-Group/Etar-Calendar/issues" />
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>
