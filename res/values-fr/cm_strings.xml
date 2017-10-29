@@ -20,4 +20,7 @@
     <string name="snooze_delay_dialog_title">Définir le délai de répétition</string>
     <string name="preferences_default_snooze_delay_title">Délai de répétition par défaut</string>
     <string name="preferences_default_snooze_delay_dialog">Délai par défaut</string>
+    <!-- Label values for the default start page preference. -->
+    <string name="default_start_title">Vue par défaut</string>
+    <string name="default_start_last">Dernière vue utilisée</string>
 </resources>
