@@ -178,10 +178,15 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"À propos de Etar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Paramètres"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Paramètres d\'affichage de l\'agenda"</string>
+    <string name="preferences_theme">Thème</string>
+    <string name="preferences_light_theme">Clair</string>
+    <string name="preferences_dark_theme">Sombre</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notifications et rappels"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Masquer événements refusés"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"1er jour de la semaine :"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"1er jour de la semaine :"</string>
+    <string name="preferences_days_per_week_title">Jours par semaine</string>
+    <string name="preferences_days_per_week_dialog">Jours par semaine</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Effacer historique des recherches"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Supprimer toutes les recherches effectuées"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Historique des recherches effacé."</string>

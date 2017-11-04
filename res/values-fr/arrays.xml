@@ -166,4 +166,18 @@
     <item msgid="422053689531707709">"tous les quatrièmes samedis"</item>
     <item msgid="5499975799312474425">"tous les derniers samedis"</item>
   </string-array>
+
+    <string-array name="pref_theme_entries">
+        <item>@string/preferences_light_theme</item>
+        <item>@string/preferences_dark_theme</item>
+    </string-array>
+
+    <string-array name="preferences_days_per_week_labels">
+        <item>2 jours</item>
+        <item>3 jours</item>
+        <item>4 jours</item>
+        <item>5 jours</item>
+        <item>6 jours</item>
+        <item>7 jours</item>
+    </string-array>
 </resources>
