@@ -41,6 +41,7 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.GeneralPreferences;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.EventRecurrence;
@@ -612,13 +613,13 @@ public class EditEventHelper {
     }
 
     /**
-     * When we aren't given an explicit end time, we default to an hour after
-     * the start time.
+     * When we aren't given an explicit end time, we calculate according to user preference.
      * @param startTime the start time
+     * @param context a {@link Context} with which to look up user preference
      * @return a default end time
      */
-    protected long constructDefaultEndTime(long startTime) {
-        return startTime + DateUtils.HOUR_IN_MILLIS;
+    protected long constructDefaultEndTime(long startTime, Context context) {
+        return startTime + Utils.getDefaultEventDurationInMillis(context);
     }
 
     // TODO think about how useful this is. Probably check if our event has
