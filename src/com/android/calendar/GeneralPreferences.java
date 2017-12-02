@@ -96,6 +96,11 @@ public class GeneralPreferences extends PreferenceFragment implements
      */
     public static final String KEY_DETAILED_VIEW = "preferred_detailedView";
     public static final String KEY_DEFAULT_CALENDAR = "preference_defaultCalendar";
+
+    /** Key to preference for default new event duration (if provider doesn't indicate one) */
+    public static final String KEY_DEFAULT_EVENT_DURATION = "preferences_default_event_duration";
+    public static final String EVENT_DURATION_DEFAULT="60";
+
     // These must be in sync with the array preferences_week_start_day_values
     public static final String WEEK_START_DEFAULT = "-1";
     public static final String WEEK_START_SATURDAY = "7";
@@ -134,6 +139,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     ListPreference mWeekStart;
     ListPreference mDayWeek;
     ListPreference mDefaultReminder;
+    ListPreference mDefaultEventDuration;
     ListPreference mSnoozeDelay;
     ListPreference mDefaultStart;
 
@@ -212,6 +218,9 @@ public class GeneralPreferences extends PreferenceFragment implements
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
         mDayWeek = (ListPreference) preferenceScreen.findPreference(KEY_DAYS_PER_WEEK);
         mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
+        mDefaultEventDuration = (ListPreference) preferenceScreen.findPreference(
+                KEY_DEFAULT_EVENT_DURATION);
+        mDefaultEventDuration.setSummary(mDefaultEventDuration.getEntry());
         mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ);
         mSnoozeDelay = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY);
         buildSnoozeDelayEntries();
@@ -349,6 +358,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDefaultReminder.setOnPreferenceChangeListener(listener);
         mSnoozeDelay.setOnPreferenceChangeListener(listener);
         mHideDeclined.setOnPreferenceChangeListener(listener);
+        mDefaultEventDuration.setOnPreferenceChangeListener(listener);
         if (Utils.isOreoOrLater()) {
             mNotification.setOnPreferenceChangeListener(listener);
         } else {
@@ -419,6 +429,9 @@ public class GeneralPreferences extends PreferenceFragment implements
         } else if (preference == mDayWeek) {
             mDayWeek.setValue((String) newValue);
             mDayWeek.setSummary(mDayWeek.getEntry());
+        } else if (preference == mDefaultEventDuration) {
+            mDefaultEventDuration.setValue((String) newValue);
+            mDefaultEventDuration.setSummary(mDefaultEventDuration.getEntry());
         } else if (preference == mDefaultReminder) {
             mDefaultReminder.setValue((String) newValue);
             mDefaultReminder.setSummary(mDefaultReminder.getEntry());

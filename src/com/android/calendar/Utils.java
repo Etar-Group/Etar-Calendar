@@ -637,6 +637,19 @@ public class Utils {
     }
 
     /**
+     * Get the default length for the duration of an event, in milliseconds.
+     *
+     * @return the default event length, in milliseconds
+     */
+    public static long getDefaultEventDurationInMillis(Context context) {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        String pref = prefs.getString(GeneralPreferences.KEY_DEFAULT_EVENT_DURATION,
+                GeneralPreferences.EVENT_DURATION_DEFAULT);
+        final int defaultDurationInMins = Integer.parseInt(pref);
+        return defaultDurationInMins * DateUtils.MINUTE_IN_MILLIS;
+    }
+
+    /**
      * Get first day of week as java.util.Calendar constant.
      *
      * @return the first day of week as a java.util.Calendar constant

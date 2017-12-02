@@ -185,6 +185,24 @@
         <item>"7"</item>
     </string-array>
 
+    <string-array name="preferences_default_duration_labels">
+        <item>0 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>1.5 hours</item>
+        <item>2 hours</item>
+    </string-array>
+
+    <string-array name="preferences_default_duration_values" translatable="false">
+        <item>0</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </string-array>
+
     <string-array name="availability">
         <item>Busy</item>
         <item>Available</item>
