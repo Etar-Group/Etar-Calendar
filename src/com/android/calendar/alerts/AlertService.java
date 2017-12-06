@@ -911,7 +911,8 @@ public class AlertService extends Service {
         if (providerReminder ||
                 action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
                 action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
-                action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) ||
+                (action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) &&
+                 !Boolean.TRUE.equals(sReceivedProviderReminderBroadcast)) ||
                 action.equals(Intent.ACTION_LOCALE_CHANGED)) {
 
             // b/7652098: Add a delay after the provider-changed event before refreshing
