@@ -395,23 +395,18 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     private void checkAppPermissions() {
         // Here, thisActivity is the current activity
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
+        if (Build.VERSION.SDK_INT >= 23 && (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)) {
 
             // No explanation needed, we can request the permission.
 
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_CALENDAR},
+                    new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST_WRITE_CALENDAR);
-
-
-        }
-
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                PERMISSIONS_REQUEST_WRITE_CALENDAR);
         }
     }
 
