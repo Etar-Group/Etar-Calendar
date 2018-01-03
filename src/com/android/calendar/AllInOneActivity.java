@@ -428,7 +428,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.user_rejected_calendar_write_permission, Toast.LENGTH_LONG).show();
-                    this.finish();
                 }
                 return;
             }
