@@ -39,5 +39,6 @@
         <attr name="calendar_owner_text_color" format="color"/>
         <attr name="calendar_date_banner_bgcolor" format="color"/>
         <attr name="app_bar_color" format="color"/>
+        <attr name="minus_button" format="reference"/>
     </declare-styleable>
 </resources>

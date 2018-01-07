@@ -31,5 +31,6 @@
         <item name="calendar_owner_text_color">@color/calendar_owner_text_color_dark</item>
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_dark</item>
         <item name="app_bar_color">@color/app_bar</item>
+        <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
     </style>
 </resources>

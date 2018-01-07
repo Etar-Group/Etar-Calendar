@@ -55,6 +55,7 @@
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
         <item name="app_bar_color">@color/colorPrimary</item>
         <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
+        <item name="minus_button">@drawable/ic_menu_remove_field_holo_light</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -108,7 +109,7 @@
 
     <style name="MinusButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:src">@drawable/ic_menu_remove_field_holo_light</item>
+        <item name="android:src">?attr/minus_button</item>
     </style>
 
     <style name="MonthView_DayLabel">
