@@ -1,18 +1,24 @@
 [submodule "external/colorpicker"]
 	path = external/colorpicker
 	url = https://github.com/Etar-Group/android_frameworks_opt_colorpicker.git
+	branch = master
 [submodule "external/datetimepicker"]
 	path = external/datetimepicker
 	url = https://github.com/Etar-Group/android_frameworks_opt_datetimepicker.git
+	branch = rebase
 [submodule "external/timezonepicker"]
 	path = external/timezonepicker
 	url = https://github.com/Etar-Group/standalone-calendar-timezonepicker.git
+	branch = rebase
 [submodule "external/calendar"]
 	path = external/calendar
 	url = https://github.com/Etar-Group/android_frameworks_opt_calendar.git
+	branch = master
 [submodule "external/ex"]
 	path = external/ex
 	url = https://github.com/Etar-Group/standalone-calendar-frameworks-ex.git
+	branch = master
 [submodule "external/chips"]
 	path = external/chips
 	url = https://github.com/Etar-Group/android_frameworks_opt_chips
+	branch = master
