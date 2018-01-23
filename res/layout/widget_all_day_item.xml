@@ -31,18 +31,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:layout_alignParentLeft="true"/>
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="4dip"
-        android:singleLine="true"
-        android:textSize="14sp"
+        android:paddingStart="8dip"
+        android:paddingEnd="8dip"
+        android:maxLines="1"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:ellipsize="marquee"
         android:textColor="@color/appwidget_title"
-        android:gravity="center_vertical|left"
+        android:gravity="center_vertical|start"
         style="?android:attr/textAppearanceMediumInverse" />
 </FrameLayout>
