@@ -31,26 +31,25 @@
         android:minHeight="48dp" >
         <ImageView
             android:id="@+id/agenda_item_color"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_width="16dip"
             android:layout_height="16dip"
             android:scaleType="fitXY"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="4dip" />
+            android:layout_marginEnd="4dip" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="4dip"
+            android:layout_marginEnd="4dip"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:ellipsize="marquee"
                 android:textColor="@color/appwidget_title"
@@ -62,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
                 android:layout_alignLeft="@+id/title"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textSize="12sp"
                 android:ellipsize="marquee"
                 android:textColor="@color/appwidget_when"
@@ -74,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/when"
                 android:layout_alignLeft="@+id/title"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:ellipsize="marquee"
                 android:paddingBottom="2dip"
                 android:textSize="12sp"

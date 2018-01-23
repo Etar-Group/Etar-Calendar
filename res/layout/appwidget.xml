@@ -28,15 +28,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        android:gravity="center_vertical|left"
+        android:gravity="center_vertical|start"
         android:minHeight="48dip"
         android:orientation="vertical"
-        android:paddingLeft="8dip"
-        android:paddingRight="2dip">
+        android:paddingStart="8dip"
+        android:paddingEnd="2dip">
         <TextView
             android:id="@+id/day_of_week"
             style="@style/WidgetDayOfWeekStyle"
-            android:layout_marginTop="4dip"
+            android:layout_marginTop="3dip"
             android:shadowColor="#0dffffff"
             android:shadowRadius="3"
             android:textColor="@color/appwidget_week" />
