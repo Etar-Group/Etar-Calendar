@@ -10,6 +10,7 @@ import ws.xsoh.etar.R;
 public class DynamicTheme {
 
     public static final String DARK  = "dark";
+    public static final String BLACK = "black";
     private int currentTheme;
 
     public void onCreate(Activity activity) {
@@ -32,6 +33,8 @@ public class DynamicTheme {
 
         if (theme.equals(DARK))
             return R.style.CalendarAppThemeDark;
+        else if (theme.equals(BLACK))
+            return R.style.CalendarAppThemeBlack;
 
         return R.style.CalendarAppTheme;
     }
