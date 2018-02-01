@@ -44,6 +44,7 @@
         <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background</item>
         <item name="done_text_recurrence">@color/recurrence_done_text_color</item>
         <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground</item>
+        <item name="event_info_bgcolor">@color/background_color</item>
         <item name="event_info_scrollview_bgcolor">@android:color/white</item>
         <item name="event_info_organizer_color">@color/event_info_organizer_color</item>
         <item name="event_info_description_color">@color/event_info_description_color</item>
@@ -56,6 +57,7 @@
         <item name="app_bar_color">@color/colorPrimary</item>
         <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_light</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
