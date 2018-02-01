@@ -45,10 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <include layout="@layout/app_bar" />
+            <include layout="@layout/app_bar" />
 
-    </android.support.design.widget.AppBarLayout>
-
+        </android.support.design.widget.AppBarLayout>
 
         <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -326,6 +325,6 @@
                 android:contentDescription="@string/accessibility_add_reminder"
                 style="@style/TextAppearance.EditEvent_LabelSmall" />
         </LinearLayout>
-    </ScrollView>
+        </ScrollView>
     </RelativeLayout>
 </FrameLayout>
