@@ -22,6 +22,7 @@
         <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background_dark</item>
         <item name="done_text_recurrence">@color/recurrence_done_text_color_black</item>
         <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground_dark</item>
+        <item name="event_info_bgcolor">@color/dark</item>
         <item name="event_info_scrollview_bgcolor">@color/dark</item>
         <item name="event_info_organizer_color">@color/event_info_organizer_color_dark</item>
         <item name="event_info_description_color">@color/event_info_description_color_dark</item>
@@ -32,5 +33,6 @@
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_dark</item>
         <item name="app_bar_color">@color/app_bar</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
+        <item name="ic_menu_email">@drawable/event_info_mail_button_dark</item>
     </style>
 </resources>

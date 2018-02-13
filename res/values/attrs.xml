@@ -30,6 +30,7 @@
         <attr name="recurrence_picker_bgcolor" format="color"/>
         <attr name="done_text_recurrence" format="reference|color"/>
         <attr name="spinner_privacy_presence_bgcolor" format="color"/>
+        <attr name="event_info_bgcolor" format="color"/>
         <attr name="event_info_scrollview_bgcolor" format="color"/>
         <attr name="event_info_organizer_color" format="color"/>
         <attr name="event_info_description_color" format="color"/>
@@ -40,5 +41,6 @@
         <attr name="calendar_date_banner_bgcolor" format="color"/>
         <attr name="app_bar_color" format="color"/>
         <attr name="minus_button" format="reference"/>
+        <attr name="ic_menu_email" format="reference"/>
     </declare-styleable>
 </resources>
