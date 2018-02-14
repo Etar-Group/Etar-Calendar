@@ -56,6 +56,7 @@ import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.QuickContact;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.content.FileProvider;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -118,6 +119,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import ws.xsoh.etar.BuildConfig;
 import ws.xsoh.etar.R;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
@@ -1200,9 +1202,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (IcalendarUtils.writeCalendarToFile(calendar, inviteFile)) {
                 if (type == ShareType.INTENT) {
                     inviteFile.setReadable(true, false);     // Set world-readable
+                    Uri icsFile = FileProvider.getUriForFile(getContext(),
+                            BuildConfig.APPLICATION_ID + ".provider", inviteFile);
                     Intent shareIntent = new Intent();
                     shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(inviteFile));
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, icsFile);
                     // The ics file is sent as an extra, the receiving application decides whether
                     // to parse the file to extract calendar events or treat it as a regular file
                     shareIntent.setType("application/octet-stream");
@@ -1219,10 +1223,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     // For now, we are duplicating ics file and using that as the vcs file
                     // TODO: revisit above
                     if (IcalendarUtils.copyFile(inviteFile, vcsInviteFile)) {
+                        Uri vcsFile = FileProvider.getUriForFile(getContext(),
+                                BuildConfig.APPLICATION_ID + ".provider", vcsInviteFile);
                         Intent mmsShareIntent = new Intent();
                         mmsShareIntent.setAction(Intent.ACTION_SEND);
                         mmsShareIntent.setPackage("com.android.mms");
-                        mmsShareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(vcsInviteFile));
+                        mmsShareIntent.putExtra(Intent.EXTRA_STREAM, vcsFile);
                         mmsShareIntent.setType("text/x-vcalendar");
                         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
                                 new Intent[]{mmsShareIntent});
