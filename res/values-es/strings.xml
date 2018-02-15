@@ -302,7 +302,6 @@
   <string name="no_events">Ningún evento disponible</string>
   <string name="preferences_theme">Tema</string>
   <string name="preferences_light_theme">Claro</string>
-  <string name="preferences_days_per_week_default"></string>
   <string name="preferences_dark_theme">Oscuro</string>
   <string name="preferences_days_per_week_dialog">Días por semana</string>
   <string name="preferences_days_per_week_title">Días por semana</string>
