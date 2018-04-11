@@ -176,7 +176,7 @@
     <string name="menu_general_preferences" msgid="2812705323334260708">"Generelle innstillinger"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Om Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Innstillinger"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Kalender visningsinnstilling"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Kalender-visningsinnstillinger"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Varsler og påminnelser"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul avslåtte aktiviteter"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Uke starter på"</string>
@@ -274,4 +274,24 @@
     <item quantity="other" msgid="8779598489398048259">"For <xliff:g id="EVENT_COUNT">%d</xliff:g> aktiviteter"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"endre sluttdato"</string>
+    <string name="goto_date">"Gå til …"</string>
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_light_theme">Lys</string>
+    <string name="preferences_dark_theme">Mørk</string>
+    <string name="preferences_days_per_week_title">Dager i uken</string>
+    <string name="preferences_days_per_week_dialog">Dager i uken</string>
+    <string name="preferences_days_per_week_default">7</string>
+    <plurals name="recurrence_interval_daily">
+    <item quantity="one">Hver <xliff:g id="count">%d</xliff:g> dag</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g>. dag</item>
+    </plurals>
+    <plurals name="Ndays">
+        <!-- This is the label for a reminder of 1 day. -->
+        <item quantity="one">1 dag</item>
+        <!-- This is the label for a reminder of 2 or more days. The actual number of
+             days is a parameter. -->
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> dager</item>
+    </plurals>
+    
 </resources>
