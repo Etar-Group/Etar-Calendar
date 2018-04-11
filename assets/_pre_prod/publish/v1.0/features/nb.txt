@@ -1,0 +1,11 @@
+Etar er en Material Design-kalender som passer for alle!
+
+Egenskaper:
+★ Støtte for Google Calender og Exchange.
+★ Måneds-, ukes-, dags-, og agenda-oversikt.
+★ Agenda-widget.
+★ Bruk av Androids kalendersynkronisering.
+★ Gratis, friprog, og uten reklamer.
+
+Bugs, feilmeldinger og tilbakemeldinger: https://github.com/xsoh/Etar-Calendar/issues
+Kildekode: https://github.com/xsoh/Etar-Calendar
