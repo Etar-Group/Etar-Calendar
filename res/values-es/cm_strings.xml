@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2016 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,10 +15,54 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- read_calendar permission -->
+    <string name="on_permission_read_calendar">Has deshabilitado un permiso requerido</string>
+
+    <!-- No maps found in phone -->
+    <string name="no_map">No hay app de mapas instalado</string>
+
+    <!-- Toast message displayed when ics file to share an event can't be generated -->
+    <string name="error_generating_ics">Problemas encontrados al compartir evento</string>
+
+    <string name="share_label">Compartir</string>
+
+    <!-- Check box label for using custom snooze delays -->
     <string name="preferences_alerts_custom_snooze_delay_title">Recordatorios</string>
+    <!-- Summaries for using custom snooze delays -->
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Preguntar por el intervalo de tiempo entre recordatorios en cada recordatorio</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Usar siempre el intervalo de tiempo entre recordatorios por defecto</string>
+    <!-- Title of custom snooze delay dialog -->
     <string name="snooze_delay_dialog_title">Intervalo de tiempo</string>
+    <!-- List item label for setting the default snooze delay -->
     <string name="preferences_default_snooze_delay_title">Intervalo entre recordatorios</string>
+    <!-- Title of dialog for setting the default snooze delay -->
     <string name="preferences_default_snooze_delay_dialog">Intervalo entre recordatorios por defecto</string>
+    <!-- Default value for the default snooze delay (in minutes) -->
+
+    <!-- Delete events -->
+    <string name="events_delete">Eliminar eventos</string>
+    <string name="action_select_all">Seleccionar todo</string>
+    <string name="action_select_none">Deseleccionar todo</string>
+    <string name="action_delete">Acabado</string>
+    <string name="all_events">Todos los Eventos</string>
+    <string name="no_events">Ningún evento disponible</string>
+    <string name="evt_del_dlg_title">Eliminar eventos?</string>
+    <string name="evt_del_dlg_msg_selected">Todos los eventos serán eliminados</string>
+    <string name="evt_del_dlg_msg_all">Seleccionar todo</string>
+    <string name="no_events_selected">Ningún evento seleccionado</string>
+
+
+    <!-- Label values for the default start page preference. -->
+    <string name="default_start_title">Vista de</string>
+    <string name="default_start_last">Vista previamente utilizada</string>
+
+    <!-- Sharing calendar event -->
+    <string name="cal_share_intent_title">Envía evento a:</string>
+
+    <string name="cal_export_event_sdcard_title">Exporta a tarjeta SD</string>
+    <string name="cal_export_succ_msg">Evento exportado satisfactoriamente: %1s</string>
+    <string name="cal_import_menu_title">Importar evento</string>
+    <string name="cal_nothing_to_import">Nada para importar</string>
+    <string name="cal_import_error_msg">Importando a calendario falló</string>
+    <string name="cal_pick_ics">Elige un archivo para importar</string>
 </resources>
