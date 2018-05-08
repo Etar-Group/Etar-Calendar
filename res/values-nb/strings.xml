@@ -284,10 +284,10 @@
     <item quantity="other" msgid="8779598489398048259">"For <xliff:g id="EVENT_COUNT">%d</xliff:g> aktiviteter"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"endre sluttdato"</string>
-    <item quantity="one">Hver dag</item>
+    <item quantity="one">"Hver dag"</item>
         <!-- Plural form [CHAR LIMIT=30] -->
-        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g>. dag</item>
+        <item quantity="other">"Hver <xliff:g id="count">%d</xliff:g>. dag"</item>
     </plurals>
-    <string name="preferences_issues">Meld ifra om problemer</string>
+    <string name="preferences_issues">"Meld ifra om problemer"</string>
     
 </resources>
