@@ -42,7 +42,7 @@
     <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> timer"</item>
   </plurals>
   <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"En dag"</item>
+    <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dager"</item>
   </plurals>
   <plurals name="weekN">
@@ -249,7 +249,7 @@
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Gjenta"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Gjentas aldri"</string>
   <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
+    <item quantity="one" msgid="1205422710088692631">"Hver <xliff:g id="COUNT">%d</xliff:g> dag"</item>
     <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">
@@ -274,4 +274,10 @@
     <item quantity="other" msgid="8779598489398048259">"For <xliff:g id="EVENT_COUNT">%d</xliff:g> aktiviteter"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"endre sluttdato"</string>
+  <string name="goto_date">Gå til…</string>
+  <string name="preferences_theme">Tema</string>
+  <string name="preferences_light_theme">Lys</string>
+  <string name="preferences_dark_theme">Mørk</string>
+  <string name="preferences_days_per_week_title">Dager i uken</string>
+  <string name="preferences_days_per_week_dialog">Dager i uken</string>
 </resources>
