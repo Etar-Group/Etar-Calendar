@@ -59,14 +59,15 @@
     <string name="event_edit" msgid="4006961928830064662">"Rediger aktivitet"</string>
     <string name="event_delete" msgid="2386667193277770442">"Slett aktivitet"</string>
     <string name="goto_today" msgid="9162136434410891230">"I dag"</string>
+    <string name="goto_date">"Gå til …"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Innstillinger"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendere som skal vises"</string>
     <string name="search" msgid="550656004486017426">"Søk"</string>
-    <string name="hide_controls" msgid="830320505938520882">"Skjul kontroller"</string>
-    <string name="show_controls" msgid="715520586028062621">"Vis kontroller"</string>
+    <string name="hide_controls" msgid="830320505938520882">"Skjul kontrollere"</string>
+    <string name="show_controls" msgid="715520586028062621">"Vis kontrollere"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendere som skal vises"</string>
-    <string name="synced" msgid="7913940305983383493">"synkronisert"</string>
-    <string name="not_synced" msgid="4275114941801829419">"ikke synkronisert"</string>
+    <string name="synced" msgid="7913940305983383493">"er synkronisert"</string>
+    <string name="not_synced" msgid="4275114941801829419">"er ikke synkronisert"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Denne kontoen blir ikke synkronisert, så kalendrene dine er muligens ikke oppdaterte."</string>
     <string name="accounts" msgid="849401841083180306">"Kontoer og synkronisering"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendere som skal synkroniseres"</string>
@@ -77,9 +78,12 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Deltakere"</string>
     <string name="creating_event" msgid="7516249252554059980">"Aktiviteten er opprettet."</string>
     <string name="saving_event" msgid="7694181017411177226">"Aktiviteten er lagret."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Tom aktivitet ble opprettet."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Tom aktivitet ikke opprettet."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Invitasjoner sendes."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Oppdateringer sendes."</string>
+    <string name="rsvp_accepted">"Svarte «Ja»."</string>
+    <string name="rsvp_tentative">"Svarte «Kanskje»."</string>
+    <string name="rsvp_declined">"Svarte «Nei»."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Lagre"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalendervarslinger"</string>
     <string name="event_info_title" msgid="56024222340421620">"Vis aktivitet"</string>
@@ -96,7 +100,7 @@
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ingen kalendre"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Før du kan legge til en aktivitet, må du tilordne enheten din minst én Kalender-konto samt sørge for at du har en synlig kalender. Trykk på Legg til konto for å legge til en konto (Hvis du akkurat har gjort det, bør du vente til kontoen er synkronisert og prøve på nytt). Alternativt kan du trykke på Avbryt og sørge for at minst én kalender er synlig."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender fungerer bedre med en konto."\n\n"• Du får tilgang til den fra en hvilken som helst nettleser"\n"• Ta trygge sikkerhetskopier av aktivitetene dine"</string>
-    <string name="add_account" msgid="1669072099756774952">"Legg til konto"</string>
+    <string name="add_account" msgid="1669072099756774952">"Legg til en konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Arrangør:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Velg aktivitetsfarge"</string>
@@ -108,25 +112,25 @@
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Kanskje"</string>
     <string name="response_no" msgid="561911691884148136">"Nei"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Send e-post til gjester"</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">"Send e-post til arrangøren"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"E-post med"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Send E-post til gjester"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Send E-post til arrangøren"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"Send E-post med"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Finner ikke aktiviteten."</string>
     <string name="map_label" msgid="8795383535586556038">"Kart"</string>
     <string name="call_label" msgid="2960328220008869083">"Ring"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Hurtigsvar"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Rediger standardsvar for e-poster til gjester"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Rediger hurtigsvar"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Rediger standardsvaret for E-poster til gjester"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Rediger hurtigsvarene"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Hurtigsvar"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Velg hurtigsvar"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Kunne ikke finne et e-postprogram"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Kunne ikke finne et E-postprogram"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Forsinkelse på noen få minutter."</item>
+    <item msgid="1524421198348168403">"Er noen minutter forsinket."</item>
     <item msgid="6215158751728689832">"Er der om cirka 10 minutter."</item>
     <item msgid="4485794001743679338">"Sett i gang uten meg."</item>
     <item msgid="8036557974294987511">"Beklager, jeg rekker det ikke. Vi må avtale nytt tidspunkt."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv din egen"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv din egen\u2026"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Arrangør:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Påminnelser"</string>
     <string name="agenda_today" msgid="5965841338467422191">"i dag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -139,13 +143,13 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Detaljer"</string>
     <string name="edit_label" msgid="8934331258435656534">"Rediger"</string>
     <string name="delete_label" msgid="874742811918030739">"Slett"</string>
-    <string name="save_label" msgid="2133599104834432589">"OK"</string>
+    <string name="save_label" msgid="2133599104834432589">"Lagre"</string>
     <string name="discard_label" msgid="2394623883289782541">"Avbryt"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Slumre alle"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Skjul alle"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Slumre"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Engangsaktivitet"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; inntil <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; frem til <xliff:g id="DATE">%s</xliff:g>"</string>
   <plurals name="endByCount">
     <item quantity="one" msgid="3727754565990691816">"; én gang"</item>
     <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> ganger"</item>
@@ -164,7 +168,7 @@
     <string name="monthly_on_day" msgid="5370155265278821156">"Hver måned (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>.)"</string>
     <string name="yearly" msgid="8576208380302949002">"Hvert år (<xliff:g id="DATES">%s</xliff:g>)"</string>
     
-    <string name="custom" product="default" msgid="4137468716966004993">"Egendefinert (kan ikke tilpasses på telefon)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Egendefinert (Kan ikke tilpasses på telefon)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Endre bare denne aktiviteten"</string>
     <string name="modify_all" msgid="4421657265864209041">"Endre alle aktivitetene i denne serien"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Endre denne og alle framtidige aktiviteter"</string>
@@ -172,19 +176,25 @@
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Ny aktivitet"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Vil du slette denne aktiviteten?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Vil du slette <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
-    <string name="change_response_title" msgid="7704714776070974984">"Endre svar"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Endre svaret"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Generelle innstillinger"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Om Kalender"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Om Etar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Innstillinger"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Kalender-visningsinnstillinger"</string>
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_light_theme">Lyst</string>
+    <string name="preferences_dark_theme">Mørkt</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Varsler og påminnelser"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul avslåtte aktiviteter"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Uke starter på"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Uke starter på"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Uken starter på"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Uken starter på"</string>
+    <string name="preferences_days_per_week_title">Dager i uken</string>
+    <string name="preferences_days_per_week_dialog">Dager i uken</string>
+    <string name="preferences_days_per_week_default">7</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Tøm søkeloggen"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Fjern alle søkene du har utført"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Søkeloggen er tømt."</string>
-    <string name="preferences_alerts_title" msgid="6636088008103904020">"Varsler"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Varslinger"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrering"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Lyd"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Forgrunnsvinduvarsel"</string>
@@ -192,10 +202,10 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard påminnelsestid"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Bruk egen tidssone"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Viser kalender- og aktivitetstidspunkter i din egen tidssone når du er på reise"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Viser kalender- og aktivitets-tidspunkter i din egen tidssone når du er på reise"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Egen tidssone"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Vis ukenummer"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Info"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Vis ukenumre"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Om"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Delversjon"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
   <plurals name="month_more_events">
@@ -212,7 +222,7 @@
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Starttid for lydløse varsler"</string>
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Sluttid for lydløse varsler"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Feilsøking"</string>
-    <string name="copy_db" msgid="437691290566699292">"Send database"</string>
+    <string name="copy_db" msgid="437691290566699292">"Send databasen"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Søker på <xliff:g id="DOMAIN">%s</xliff:g> …"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Fjern deltaker"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Startdato"</string>
@@ -274,14 +284,6 @@
     <item quantity="other" msgid="8779598489398048259">"For <xliff:g id="EVENT_COUNT">%d</xliff:g> aktiviteter"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"endre sluttdato"</string>
-    <string name="goto_date">"Gå til …"</string>
-    <string name="preferences_theme">Tema</string>
-    <string name="preferences_light_theme">Lys</string>
-    <string name="preferences_dark_theme">Mørk</string>
-    <string name="preferences_days_per_week_title">Dager i uken</string>
-    <string name="preferences_days_per_week_dialog">Dager i uken</string>
-    <string name="preferences_days_per_week_default">7</string>
-    <plurals name="recurrence_interval_daily">
     <item quantity="one">Hver <xliff:g id="count">%d</xliff:g> dag</item>
         <!-- Plural form [CHAR LIMIT=30] -->
         <item quantity="other">Hver <xliff:g id="count">%d</xliff:g>. dag</item>
