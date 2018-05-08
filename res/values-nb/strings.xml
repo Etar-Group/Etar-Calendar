@@ -295,5 +295,6 @@
              days is a parameter. -->
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dager</item>
     </plurals>
+    <string name="preferences_issues">Meld ifra om problemer</string>
     
 </resources>
