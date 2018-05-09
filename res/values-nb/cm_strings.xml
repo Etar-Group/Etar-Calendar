@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2012-2016 The CyanogenMod Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- read_calendar permission -->
+    <string name="on_permission_read_calendar">Du har skrudd av en påkrevd tillatelse.</string>
+
+    <!-- No maps found in phone -->
+    <string name="no_map">Ingen kartapper er installert</string>
+
+    <!-- Toast message displayed when ics file to share an event can't be generated -->
+    <string name="error_generating_ics">Problemer oppstod under deling av hendelsen</string>
+
+    <string name="share_label">Del</string>
+
+    <!-- Check box label for using custom snooze delays -->
+    <string name="preferences_alerts_custom_snooze_delay_title">Be om påminnelsesslumring</string>
+    <!-- Summaries for using custom snooze delays -->
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Spør om slumrelengde når enn det er slumrepåminnelser</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Alltid bruk standardslumrelengden</string>
+    <!-- Title of custom snooze delay dialog -->
+    <string name="snooze_delay_dialog_title">Bestem slumrelengden</string>
+    <!-- List item label for setting the default snooze delay -->
+    <string name="preferences_default_snooze_delay_title">Standard-slumretid</string>
+    <!-- Title of dialog for setting the default snooze delay -->
+    <string name="preferences_default_snooze_delay_dialog">Standard-slumretid</string>
+    <!-- Default value for the default snooze delay (in minutes) -->
+    <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
+
+    <!-- Delete events -->
+    <string name="events_delete">Slett hendelser</string>
+    <string name="action_select_all">Velg alle</string>
+    <string name="action_select_none">Avvelg alle</string>
+    <string name="action_delete">Ferdig</string>
+    <string name="all_events">Alle aktiviteter</string>
+    <string name="no_events">Ingen aktiviteter er tilgjengelige</string>
+    <string name="evt_del_dlg_title">Vil du slette aktiviteter?</string>
+    <string name="evt_del_dlg_msg_selected">De valgte aktivitetene vil bli slettet</string>
+    <string name="evt_del_dlg_msg_all">Alle aktiviteter vil bli slettet</string>
+    <string name="no_events_selected">Ingen aktiviteter er valgt</string>
+
+  <plurals name="events_selected">
+    <item quantity="zero">Ingen aktiviteter er valgt</item>
+    <item quantity="one">%1$d aktivitet er valgt</item>
+    <item quantity="other">%1$d aktiviteter er valgt</item>
+  </plurals>
+
+    <!-- Label values for the default start page preference. -->
+    <string name="default_start_title">Standardvisningen</string>
+    <string name="default_start_last">Forrige valgte visning</string>
+
+    <!-- Sharing calendar event -->
+    <string name="cal_share_intent_title">Send aktiviteten til:</string>
+
+    <string name="cal_export_event_sdcard_title">Eksporter til SD-kortet</string>
+    <string name="cal_export_succ_msg">Eksporteringen av aktiviteten var vellykket: %1s</string>
+    <string name="cal_import_menu_title">Importer hendelse</string>
+    <string name="cal_nothing_to_import">Det er ingenting å importere</string>
+    <string name="cal_import_error_msg">Importering til kalenderen mislyktes</string>
+    <string name="cal_pick_ics">Velg en fil å importere</string>
+</resources>
