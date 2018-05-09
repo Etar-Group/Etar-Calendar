@@ -260,7 +260,7 @@
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Gjentas aldri"</string>
   <plurals name="recurrence_interval_daily">
     <item quantity="one" msgid="1205422710088692631">"Hver dag"</item>
-    <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="count">%d</xliff:g>. dag"</item>
+    <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">
     <item quantity="one" msgid="4948681635464488351">"Hver uke"</item>
