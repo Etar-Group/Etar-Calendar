@@ -263,15 +263,15 @@
     <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="count">%d</xliff:g>. dag"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Hver <xliff:g id="COUNT">%d</xliff:g>. uke"</item>
+    <item quantity="one" msgid="4948681635464488351">"Hver uke"</item>
     <item quantity="other" msgid="7094801039989237061">"Hver <xliff:g id="COUNT">%d</xliff:g>. uke"</item>
   </plurals>
   <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Hver <xliff:g id="COUNT">%d</xliff:g>. måned"</item>
+    <item quantity="one" msgid="4768178401603139718">"Hver måned"</item>
     <item quantity="other" msgid="5419723710346646523">"Hver <xliff:g id="COUNT">%d</xliff:g>. måned"</item>
   </plurals>
   <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Hvert <xliff:g id="COUNT">%d</xliff:g>. år"</item>
+    <item quantity="one" msgid="5819562634008179102">"Hvert år"</item>
     <item quantity="other" msgid="5678653649746562060">"Hvert <xliff:g id="COUNT">%d</xliff:g>. år"</item>
   </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"på samme dag hver måned"</string>
