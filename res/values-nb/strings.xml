@@ -190,7 +190,6 @@
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Uken starter på"</string>
     <string name="preferences_days_per_week_title">Dager i uken</string>
     <string name="preferences_days_per_week_dialog">Dager i uken</string>
-    <string name="preferences_days_per_week_default">7</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Tøm søkeloggen"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Fjern alle søkene du har utført"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Søkeloggen er tømt."</string>
