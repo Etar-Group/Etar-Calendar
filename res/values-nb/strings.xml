@@ -259,8 +259,9 @@
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Gjenta"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Gjentas aldri"</string>
   <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
-    <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
+    <item quantity="one">"Hver dag"</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">"Hver <xliff:g id="count">%d</xliff:g>. dag"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">
     <item quantity="one" msgid="4948681635464488351">"Hver <xliff:g id="COUNT">%d</xliff:g>. uke"</item>
@@ -284,11 +285,6 @@
     <item quantity="other" msgid="8779598489398048259">"For <xliff:g id="EVENT_COUNT">%d</xliff:g> aktiviteter"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"endre sluttdato"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one">"Hver dag"</item>
-        <!-- Plural form [CHAR LIMIT=30] -->
-        <item quantity="other">"Hver <xliff:g id="count">%d</xliff:g>. dag"</item>
-  </plurals>
     <string name="preferences_issues">"Meld ifra om problemer"</string>
     
 </resources>
