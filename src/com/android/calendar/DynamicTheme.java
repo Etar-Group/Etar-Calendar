@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 
 import ws.xsoh.etar.R;
 
@@ -44,7 +43,8 @@ public class DynamicTheme {
     }
 
     public int getColor(Context context, String id) {
-        String theme = Utils.getTheme(context), suffix = "";
+        String theme = Utils.getTheme(context);
+        String suffix = "";
         if (theme.equals(DARK)) {
             suffix = "_dark";
         } else if (theme.equals(BLACK)) {
