@@ -6,11 +6,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="light_dark">@android:color/white</item>
-        <item name="android:windowBackground">@android:color/background_material_dark</item>
-        <item name="android:textColorPrimary">@android:color/foreground_material_dark</item>
-        <item name="android:textColor">@android:color/foreground_material_dark</item>
+        <item name="android:windowBackground">@android:color/background_dark</item>
+        <item name="android:textColorPrimary">@android:color/primary_text_dark</item>
+        <item name="android:textColor">@android:color/primary_text_dark</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="android:textColorSecondary">@android:color/foreground_material_dark</item>
+        <item name="android:textColorSecondary">@android:color/secondary_text_dark</item>
         <item name="settings_titleText">?android:attr/textAppearanceLarge</item>
         <item name="month_header_bgcolor">@color/month_bgcolor_dark</item>
         <item name="agenda_general_bgcolor">@color/agenda_general_background_color_dark</item>
