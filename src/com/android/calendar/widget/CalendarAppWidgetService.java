@@ -16,6 +16,7 @@
 
 package com.android.calendar.widget;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -24,6 +25,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -32,6 +34,7 @@ import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -570,7 +573,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         }
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, Intent intent) {
             if (LOGD)
                 Log.d(TAG, "AppWidgetService received an intent. It was " + intent.toString());
             mContext = context;
@@ -601,6 +604,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
+                                if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                                    return;
+                                }
                                 initLoader(selection);
                                 result.finish();
                             }
