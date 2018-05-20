@@ -16,6 +16,7 @@
 
 package com.android.calendar.month;
 
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.Event;
 import com.android.calendar.LunarUtils;
 import com.android.calendar.Utils;
@@ -235,47 +236,26 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     protected void loadColors(Context context) {
         Resources res = context.getResources();
-        String theme = Utils.getTheme(context);
+        DynamicTheme dynamicTheme = new DynamicTheme();
 
-        if (theme.equals("dark")) {
-            mMonthWeekNumColor = res.getColor(R.color.month_week_num_color_dark);
-            mMonthNumColor = res.getColor(R.color.month_day_number_dark);
-            mMonthNumOtherColor = res.getColor(R.color.month_day_number_other_dark);
-            mMonthNumTodayColor = res.getColor(R.color.month_today_number_dark);
-            mMonthEventColor = res.getColor(R.color.month_event_color_dark);
-            mMonthDeclinedEventColor = res.getColor(R.color.agenda_item_declined_color_dark);
-            mMonthDeclinedExtrasColor = res.getColor(R.color.agenda_item_where_declined_text_color_dark);
-            mMonthEventExtraColor = res.getColor(R.color.month_event_extra_color_dark);
-            mMonthEventOtherColor = res.getColor(R.color.month_event_other_color_dark);
-            mMonthEventExtraOtherColor = res.getColor(R.color.month_event_extra_other_color_dark);
-            mMonthBGTodayColor = res.getColor(R.color.month_today_bgcolor_dark);
-            mMonthBGFocusMonthColor = res.getColor(R.color.month_focus_month_bgcolor_dark);
-            mMonthBGOtherColor = res.getColor(R.color.month_other_bgcolor_dark);
-            mMonthBGColor = res.getColor(R.color.month_bgcolor_dark);
-            mDaySeparatorInnerColor = res.getColor(R.color.month_grid_lines_dark);
-            mTodayAnimateColor = res.getColor(R.color.today_highlight_color_dark);
-            mClickedDayColor = res.getColor(R.color.day_clicked_background_color_dark);
-            mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
-        } else {
-            mMonthWeekNumColor = res.getColor(R.color.month_week_num_color);
-            mMonthNumColor = res.getColor(R.color.month_day_number);
-            mMonthNumOtherColor = res.getColor(R.color.month_day_number_other);
-            mMonthNumTodayColor = res.getColor(R.color.month_today_number);
-            mMonthEventColor = res.getColor(R.color.month_event_color);
-            mMonthDeclinedEventColor = res.getColor(R.color.agenda_item_declined_color);
-            mMonthDeclinedExtrasColor = res.getColor(R.color.agenda_item_where_declined_text_color);
-            mMonthEventExtraColor = res.getColor(R.color.month_event_extra_color);
-            mMonthEventOtherColor = res.getColor(R.color.month_event_other_color);
-            mMonthEventExtraOtherColor = res.getColor(R.color.month_event_extra_other_color);
-            mMonthBGTodayColor = res.getColor(R.color.month_today_bgcolor);
-            mMonthBGFocusMonthColor = res.getColor(R.color.month_focus_month_bgcolor);
-            mMonthBGOtherColor = res.getColor(R.color.month_other_bgcolor);
-            mMonthBGColor = res.getColor(R.color.month_bgcolor);
-            mDaySeparatorInnerColor = res.getColor(R.color.month_grid_lines);
-            mTodayAnimateColor = res.getColor(R.color.today_highlight_color);
-            mClickedDayColor = res.getColor(R.color.day_clicked_background_color);
-            mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
-        }
+        mMonthWeekNumColor = dynamicTheme.getColor(context, "month_week_num_color");
+        mMonthNumColor = dynamicTheme.getColor(context, "month_day_number");
+        mMonthNumOtherColor = dynamicTheme.getColor(context, "month_day_number_other");
+        mMonthNumTodayColor = dynamicTheme.getColor(context, "month_today_number");
+        mMonthEventColor = dynamicTheme.getColor(context, "month_event_color");
+        mMonthDeclinedEventColor = dynamicTheme.getColor(context, "agenda_item_declined_color");
+        mMonthDeclinedExtrasColor = dynamicTheme.getColor(context, "agenda_item_where_declined_text_color");
+        mMonthEventExtraColor = dynamicTheme.getColor(context, "month_event_extra_color");
+        mMonthEventOtherColor = dynamicTheme.getColor(context, "month_event_other_color");
+        mMonthEventExtraOtherColor = dynamicTheme.getColor(context, "month_event_extra_other_color");
+        mMonthBGTodayColor = dynamicTheme.getColor(context, "month_today_bgcolor");
+        mMonthBGFocusMonthColor = dynamicTheme.getColor(context, "month_focus_month_bgcolor");
+        mMonthBGOtherColor = dynamicTheme.getColor(context, "month_other_bgcolor");
+        mMonthBGColor = dynamicTheme.getColor(context, "month_bgcolor");
+        mDaySeparatorInnerColor = dynamicTheme.getColor(context, "month_grid_lines");
+        mTodayAnimateColor = dynamicTheme.getColor(context, "today_highlight_color");
+        mClickedDayColor = dynamicTheme.getColor(context, "day_clicked_background_color");
+        mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
 
     /**
