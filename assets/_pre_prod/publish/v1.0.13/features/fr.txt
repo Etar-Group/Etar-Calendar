@@ -1,0 +1,17 @@
+## Title:
+
+
+## Short description:
+Etar est l\'agenda Material design et open source pour tous !
+
+## Full description:
+Caractéristiques :
+★ Vue par mois.
+★ Vue par semaine, jour et agenda.
+★ Utilise la synchronisation d\'Android Agenda. Fonctionne avec Google Agenda, Exchange, etc.
+★ Material design.
+★ Gratuit, open source et sans publicité.
+★ Widget agenda.
+
+Aide et commentaires : https://github.com/Etar-Group/Etar-Calendar/issues
+Code source : https://github.com/Etar-Group/Etar-Calendar
