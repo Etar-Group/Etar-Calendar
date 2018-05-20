@@ -186,6 +186,8 @@
 
     <!-- Black Color SimpleWeekView -->
     <color name="bg_black">#000000</color>
+    <color name="fg_black_primary">#deffffff</color>
+    <color name="fg_black_secondary">#99ffffff</color>
     <color name="app_bar_black">#ff111111</color>
 
     <color name="grid_line_black">#303030</color>
@@ -286,6 +288,8 @@
 
     <!-- Dark Color SimpleWeekView -->
     <color name="bg_dark">#303030</color>
+    <color name="fg_dark_primary">#deffffff</color>
+    <color name="fg_dark_secondary">#99ffffff</color>
     <color name="app_bar_dark">@color/colorPrimary</color>
 
     <color name="grid_line_dark">#424242</color>
