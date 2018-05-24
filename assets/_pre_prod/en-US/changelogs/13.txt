@@ -1,0 +1,4 @@
+★ Support sharing calendars via ics and the ability to import/export from sdcard.
+★ Remove unused permissions.
+★ Fix sound setting on Android 6.
+★ Lots of Bug fixes.
