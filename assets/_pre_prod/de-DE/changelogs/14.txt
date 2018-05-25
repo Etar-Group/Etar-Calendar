@@ -1,6 +1,6 @@
-★ Berechtigungen zur Laufzeit ab Android 6.
-★ Absturz beim Start behoben.
-★ Anzeige des ganzen Tages möglich.
-★ Für neue Einträge werden die Sekunden auf Null gesetzt.
-★ Kleine Änderungen am Layout.
-★ Fehlerbehebungen.
+- Berechtigungen zur Laufzeit ab Android 6.
+- Absturz beim Start behoben.
+- Anzeige des ganzen Tages möglich.
+- Für neue Einträge werden die Sekunden auf Null gesetzt.
+- Kleine Änderungen am Layout.
+- Fehlerbehebungen.

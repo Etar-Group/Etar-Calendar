@@ -1,5 +1,5 @@
-★ Request permissions at runtime on Android 6 upwards.
-★ Support display lunar/festival when Language is Chinese.
-★ Update translations.
-★ Minor Layout fixes.
-★ Lots of bug fixes.
+- Request permissions at runtime on Android 6 upwards.
+- Support display lunar/festival when Language is Chinese.
+- Update translations.
+- Minor Layout fixes.
+- Lots of bug fixes.
