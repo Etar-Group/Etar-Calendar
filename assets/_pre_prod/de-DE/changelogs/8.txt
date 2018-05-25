@@ -1,0 +1,3 @@
+★ Nutze den zuletzt ausgewählten Kalender für neue Einträge.
+★ Aktualisierung vieler Übersetzungen.
+★ Fiele Bugfixes.
