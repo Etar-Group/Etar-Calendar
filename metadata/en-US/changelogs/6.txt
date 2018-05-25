@@ -1,0 +1,3 @@
+- Removing Internet permission while keeping the same functionality.
+- Add 'Go To...'.
+- Fix: Agenda widget doesn't update daily.
