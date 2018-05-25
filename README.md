@@ -27,9 +27,11 @@ this app would be just a dream. So thanks to them!
 You can update/add your own language [here](metadata). Also, all artwork files are available [here](metadata)
 
 ### Build instructions
+Install and extract Android SDK command line tools.
 ```
+tools/bin/sdkmanager platform-tools
+export ANDROID_HOME=/path/to/android-sdk/
 git submodule update --init --remote
-
 gradle build
 ```
 
