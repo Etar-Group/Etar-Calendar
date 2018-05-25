@@ -1,10 +1,10 @@
-![Etar Calendar](./assets/_pre_prod/Feature%20Graphic.png)
+![Etar Calendar](metadata/en-US/images/featureGraphic.png)
 # Etar Calendar
 Etar (from Arabic:  `إِيتَار`)  is an open source material designed calendar made for everyone!
 
-[![](./assets/_pre_prod/en_fdroid.png)](https://f-droid.org/app/ws.xsoh.etar)[![](./assets/_pre_prod/en_google_play.png)](https://play.google.com/store/apps/details?id=ws.xsoh.etar)
+[![](metadata/en_fdroid.png)](https://f-droid.org/app/ws.xsoh.etar)[![](metadataod/en_google_play.png)](https://play.google.com/store/apps/details?id=ws.xsoh.etar)
 
-![Etar Calendar](./assets/_pre_prod/publish/v1.0/animation.gif)
+![Etar Calendar](metadata/animation.gif)
 
 ## Why?
 Well, I wanted a simple, material designed and state of the art open source calendar that anyone can make it better.
@@ -24,7 +24,7 @@ this app would be just a dream. So thanks to them!
 
 ## Contribute
 ### Translations in Google Play app description
-You can update/add your own language [here](./assets/_pre_prod/publish/v1.0/features/). Also, all artwork files are available [here](./assets/_pre_prod/)
+You can update/add your own language [here](metadata). Also, all artwork files are available [here](metadata)
 
 ### Build instructions
 ```
