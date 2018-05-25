@@ -1,10 +1,10 @@
 Besonderheiten:
-★ Monatsansicht
-★ Wochen, Tag und Agendaansicht.
-★ Benutzt Android Calendar sync. Arbeitet mit Google-Kalender, Exchange usw. zusammen.
-★ Material design.
-★ Agenda Widget.
-★ Frei, quelloffen und ohne Werbung.
+- Monatsansicht
+- Wochen, Tag und Agendaansicht.
+- Benutzt Android Calendar sync. Arbeitet mit Google-Kalender, Exchange usw. zusammen.
+- Material design.
+- Agenda Widget.
+- Frei, quelloffen und ohne Werbung.
 
 Bugs, Fehler & Feedback: https://github.com/Etar-Group/Etar-Calendar/issues
 Quellcode: https://github.com/Etar-Group/Etar-Calendar

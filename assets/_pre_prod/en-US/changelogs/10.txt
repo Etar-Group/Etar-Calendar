@@ -1,1 +1,1 @@
-★ Add dark theme.
+- Add dark theme.

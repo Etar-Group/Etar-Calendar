@@ -1,5 +1,5 @@
-★ Berechtigungen zur Laufzeit ab Android 6.
-★ Unterstützung chinesischer Feiertage.
-★ Übersetzungen aktualisiert.
-★ Kleine Änderungen am Layout.
-★ Fehlerbehebungen.
+- Berechtigungen zur Laufzeit ab Android 6.
+- Unterstützung chinesischer Feiertage.
+- Übersetzungen aktualisiert.
+- Kleine Änderungen am Layout.
+- Fehlerbehebungen.

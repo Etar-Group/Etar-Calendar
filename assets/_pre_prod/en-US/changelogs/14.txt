@@ -1,6 +1,6 @@
-★ Request permissions at runtime on Android 6 upwards.
-★ Fix crash at startup.
-★ Allow user to squeeze display so that whole day is visible.
-★ Set seconds to zero when creating a new event.
-★ Minor Layout fixes.
-★ Lots of bug fixes.
+- Request permissions at runtime on Android 6 upwards.
+- Fix crash at startup.
+- Allow user to squeeze display so that whole day is visible.
+- Set seconds to zero when creating a new event.
+- Minor Layout fixes.
+- Lots of bug fixes.
