@@ -28,8 +28,7 @@ You can update/add your own language [here](metadata). Also, all artwork files a
 
 ### Build instructions
 ```
-git submodule init
-git submodule update
+git submodule update --init --remote
 
 gradle build
 ```
