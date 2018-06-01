@@ -12,6 +12,8 @@ import ws.xsoh.etar.R;
  */
 public class DynamicTheme {
 
+    private static final String THEME_PREF = "pref_theme";
+    private static final String LIGHT = "light";
     private static final String DARK  = "dark";
     private static final String BLACK = "black";
     private int currentTheme;
@@ -31,8 +33,12 @@ public class DynamicTheme {
         }
     }
 
+    private static String getTheme(Context context) {
+        return Utils.getSharedPreference(context, THEME_PREF, LIGHT);
+    }
+
     private static int getSelectedTheme(Activity activity) {
-        String theme = Utils.getTheme(activity);
+        String theme = getTheme(activity);
         if (theme.equals(DARK)) {
             return R.style.CalendarAppThemeDark;
         } else if (theme.equals(BLACK)) {
@@ -49,19 +55,19 @@ public class DynamicTheme {
     }
 
     public static int getColor(Context context, String id) {
-        String suffix = getSuffix(Utils.getTheme(context));
+        String suffix = getSuffix(getTheme(context));
         Resources res = context.getResources();
         return res.getColor(res.getIdentifier(id + suffix, "color", context.getPackageName()));
     }
 
     public static int getDrawableId(Context context, String id) {
-        String suffix = getSuffix(Utils.getTheme(context));
+        String suffix = getSuffix(getTheme(context));
         Resources res = context.getResources();
         return res.getIdentifier(id + suffix, "drawable", context.getPackageName());
     }
 
     public static int getDialogStyle(Context context) {
-        String theme = Utils.getTheme(context);
+        String theme = getTheme(context);
         if (theme.equals(DARK) || theme.equals(BLACK)) {
             return android.R.style.Theme_DeviceDefault_Dialog;
         }
