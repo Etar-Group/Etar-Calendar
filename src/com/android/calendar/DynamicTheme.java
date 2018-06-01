@@ -12,8 +12,8 @@ import ws.xsoh.etar.R;
  */
 public class DynamicTheme {
 
-    public static final String DARK  = "dark";
-    public static final String BLACK = "black";
+    private static final String DARK  = "dark";
+    private static final String BLACK = "black";
     private int currentTheme;
 
     public void onCreate(Activity activity) {
@@ -31,27 +31,41 @@ public class DynamicTheme {
         }
     }
 
-    protected int getSelectedTheme(Activity activity) {
+    private static int getSelectedTheme(Activity activity) {
         String theme = Utils.getTheme(activity);
-
-        if (theme.equals(DARK))
+        if (theme.equals(DARK)) {
             return R.style.CalendarAppThemeDark;
-        else if (theme.equals(BLACK))
+        } else if (theme.equals(BLACK)) {
             return R.style.CalendarAppThemeBlack;
-
+        }
         return R.style.CalendarAppTheme;
     }
 
-    public int getColor(Context context, String id) {
-        String theme = Utils.getTheme(context);
-        String suffix = "";
-        if (theme.equals(DARK)) {
-            suffix = "_dark";
-        } else if (theme.equals(BLACK)) {
-            suffix = "_black";
+    private static String getSuffix(String theme) {
+        if (theme.equals(DARK) || theme.equals(BLACK)) {
+            return "_" + theme;
         }
+        return "";
+    }
+
+    public int getColor(Context context, String id) {
+        String suffix = getSuffix(Utils.getTheme(context));
         Resources res = context.getResources();
         return res.getColor(res.getIdentifier(id + suffix, "color", context.getPackageName()));
+    }
+
+    public int getDrawableId(Context context, String id) {
+        String suffix = getSuffix(Utils.getTheme(context));
+        Resources res = context.getResources();
+        return res.getIdentifier(id + suffix, "drawable", context.getPackageName());
+    }
+
+    public static int getDialogStyle(Context context) {
+        String theme = Utils.getTheme(context);
+        if (theme.equals(DARK) || theme.equals(BLACK)) {
+            return android.R.style.Theme_DeviceDefault_Dialog;
+        }
+        return android.R.style.Theme_DeviceDefault_Light_Dialog;
     }
 
     private static final class OverridePendingTransition {
