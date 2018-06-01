@@ -38,20 +38,28 @@ public class DynamicTheme {
     }
 
     private static int getSelectedTheme(Activity activity) {
-        String theme = getTheme(activity);
-        if (theme.equals(DARK)) {
-            return R.style.CalendarAppThemeDark;
-        } else if (theme.equals(BLACK)) {
-            return R.style.CalendarAppThemeBlack;
+        switch (getTheme(activity)) {
+            case LIGHT:
+                return R.style.CalendarAppTheme;
+            case DARK:
+                return R.style.CalendarAppThemeDark;
+            case BLACK:
+                return R.style.CalendarAppThemeBlack;
+            default:
+                throw new UnsupportedOperationException("Unknown theme: " + getTheme(activity));
         }
-        return R.style.CalendarAppTheme;
     }
 
     private static String getSuffix(String theme) {
-        if (theme.equals(DARK) || theme.equals(BLACK)) {
-            return "_" + theme;
+        switch (theme) {
+            case LIGHT:
+                return "";
+            case DARK:
+            case BLACK:
+                return "_" + theme;
+            default:
+                throw new IllegalArgumentException("Unknown theme: " + theme);
         }
-        return "";
     }
 
     public static int getColor(Context context, String id) {
@@ -68,10 +76,15 @@ public class DynamicTheme {
 
     public static int getDialogStyle(Context context) {
         String theme = getTheme(context);
-        if (theme.equals(DARK) || theme.equals(BLACK)) {
-            return android.R.style.Theme_DeviceDefault_Dialog;
+        switch (getTheme(context)) {
+            case LIGHT:
+                return android.R.style.Theme_DeviceDefault_Light_Dialog;
+            case DARK:
+            case BLACK:
+                return android.R.style.Theme_DeviceDefault_Dialog;
+            default:
+                throw new UnsupportedOperationException("Unknown theme: " + theme);
         }
-        return android.R.style.Theme_DeviceDefault_Light_Dialog;
     }
 
     private static final class OverridePendingTransition {
