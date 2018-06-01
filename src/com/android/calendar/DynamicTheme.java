@@ -48,13 +48,13 @@ public class DynamicTheme {
         return "";
     }
 
-    public int getColor(Context context, String id) {
+    public static int getColor(Context context, String id) {
         String suffix = getSuffix(Utils.getTheme(context));
         Resources res = context.getResources();
         return res.getColor(res.getIdentifier(id + suffix, "color", context.getPackageName()));
     }
 
-    public int getDrawableId(Context context, String id) {
+    public static int getDrawableId(Context context, String id) {
         String suffix = getSuffix(Utils.getTheme(context));
         Resources res = context.getResources();
         return res.getIdentifier(id + suffix, "drawable", context.getPackageName());
