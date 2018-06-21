@@ -7,7 +7,7 @@ Etar (from Arabic:  `إِيتَار`)  is an open source material designed calen
 ![Etar Calendar](metadata/animation.gif)
 
 ## Why?
-Well, I wanted a simple, material designed and state of the art open source calendar that anyone can make it better.
+Well, I wanted a simple, material designed and state of the art open source calendar that anyone can make better.
 
 ## Special thanks
 
