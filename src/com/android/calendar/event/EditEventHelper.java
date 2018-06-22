@@ -1056,7 +1056,10 @@ public class EditEventHelper {
         model.mCalendarId = cursor.getInt(EVENT_INDEX_CALENDAR_ID);
         model.mStart = cursor.getLong(EVENT_INDEX_DTSTART);
         String tz = cursor.getString(EVENT_INDEX_TIMEZONE);
-        if (!TextUtils.isEmpty(tz)) {
+        if (TextUtils.isEmpty(tz)) {
+            Log.w(TAG, "Query did not return a timezone for the event.");
+            model.mTimezone = TimeZone.getDefault().getID();
+        } else {
             model.mTimezone = tz;
         }
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
