@@ -66,7 +66,7 @@ import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Rfc822Token;
 import android.util.Log;
-import android.util.SparseIntArray;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -381,7 +381,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     };
     private EventColorPickerDialog mColorPickerDialog;
-    private SparseIntArray mDisplayColorKeyMap = new SparseIntArray();
+    private SparseArray<String> mDisplayColorKeyMap = new SparseArray<String>();
     private int[] mColors;
     private int mOriginalColor = -1;
     private boolean mOriginalColorInitialized = false;
@@ -389,7 +389,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mCalendarColorInitialized = false;
     private int mCurrentColor = -1;
     private boolean mCurrentColorInitialized = false;
-    private int mCurrentColorKey = -1;
+    private String mCurrentColorKey = NO_EVENT_COLOR;
     private boolean mNoCrossFade = false;  // Used to prevent repeated cross-fade
     private RadioGroup mResponseRadioGroup;
     private int mDefaultReminderMinutes;
@@ -738,7 +738,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mCurrentColor = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR);
             mCurrentColorInitialized = savedInstanceState.getBoolean(
                     BUNDLE_KEY_CURRENT_COLOR_INIT);
-            mCurrentColorKey = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR_KEY);
+            mCurrentColorKey = savedInstanceState.getString(BUNDLE_KEY_CURRENT_COLOR_KEY);
 
             mTentativeUserSetResponse = savedInstanceState.getInt(
                             BUNDLE_KEY_TENTATIVE_USER_RESPONSE,
@@ -1019,7 +1019,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putBoolean(BUNDLE_KEY_ORIGINAL_COLOR_INIT, mOriginalColorInitialized);
         outState.putInt(BUNDLE_KEY_CURRENT_COLOR, mCurrentColor);
         outState.putBoolean(BUNDLE_KEY_CURRENT_COLOR_INIT, mCurrentColorInitialized);
-        outState.putInt(BUNDLE_KEY_CURRENT_COLOR_KEY, mCurrentColorKey);
+        outState.putString(BUNDLE_KEY_CURRENT_COLOR_KEY, mCurrentColorKey);
 
         // We'll need the temporary response for configuration changes.
         outState.putInt(BUNDLE_KEY_TENTATIVE_USER_RESPONSE, mTentativeUserSetResponse);
@@ -2330,7 +2330,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     ArrayList<Integer> colors = new ArrayList<Integer>();
                     if (cursor.moveToFirst()) {
                         do {
-                            int colorKey = cursor.getInt(COLORS_INDEX_COLOR_KEY);
+                            String colorKey = cursor.getString(COLORS_INDEX_COLOR_KEY);
                             int rawColor = cursor.getInt(COLORS_INDEX_COLOR);
                             int displayColor = Utils.getDisplayColorFromColor(rawColor);
                             mDisplayColorKeyMap.put(displayColor, colorKey);
