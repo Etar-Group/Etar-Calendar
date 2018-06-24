@@ -774,12 +774,12 @@ public class CalendarEventModel implements Serializable {
         return null;
     }
 
-    public int getEventColorKey() {
+    public String getEventColorKey() {
         if (mEventColorCache != null) {
             return mEventColorCache.getColorKey(mCalendarAccountName, mCalendarAccountType,
                     mEventColor);
         }
-        return -1;
+        return "";
     }
 
     public static class Attendee implements Serializable {
