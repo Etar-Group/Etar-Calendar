@@ -17,11 +17,13 @@
     <string-array name="pref_theme_entries">
         <item>@string/preferences_light_theme</item>
         <item>@string/preferences_dark_theme</item>
+        <item>@string/preferences_black_theme</item>
     </string-array>
 
     <string-array name="pref_theme_values" translatable="false">
         <item>light</item>
         <item>dark</item>
+        <item>black</item>
     </string-array>
 
     <!-- Choices for the "Reminder method" spinner.

@@ -309,4 +309,5 @@
   <string name="rsvp_declined">Abgelehnt</string>
   <string name="rsvp_tentative">Vielleicht</string>
     <string name="preferences_issues">Fehler melden</string>
+  <string name="preferences_black_theme">Schwarz</string>
 </resources>

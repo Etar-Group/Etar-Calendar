@@ -33,7 +33,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="light_dark">@color/dark</item>
+        <item name="light_dark">@color/bg_black</item>
         <item name="settings_titleText">?android:attr/textAppearanceLargeInverse</item>
         <item name="month_header_bgcolor">@color/month_other_bgcolor</item>
         <item name="agenda_general_bgcolor">@color/agenda_general_background_color</item>
@@ -54,7 +54,7 @@
         <item name="create_event_date_color">@color/create_event_date_color</item>
         <item name="calendar_owner_text_color">@color/calendar_owner_text_color</item>
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
-        <item name="app_bar_color">@color/colorPrimary</item>
+        <item name="app_bar_color">@color/app_bar</item>
         <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light</item>
         <item name="ic_menu_email">@drawable/ic_menu_email_holo_light</item>
