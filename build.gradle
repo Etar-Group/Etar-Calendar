@@ -1,16 +1,18 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:3.1.3'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
 
@@ -18,12 +20,12 @@ project(':external:calendar') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 25
-        buildToolsVersion '25.0.1'
+        compileSdkVersion 27
+        buildToolsVersion '27.0.3'
 
         defaultConfig {
             minSdkVersion 19
-            targetSdkVersion 25
+            targetSdkVersion 27
         }
 
         sourceSets {
@@ -49,12 +51,12 @@ project(':external:colorpicker') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 25
-        buildToolsVersion '25.0.1'
+        compileSdkVersion 27
+        buildToolsVersion '27.0.3'
 
         defaultConfig {
             minSdkVersion 19
-            targetSdkVersion 25
+            targetSdkVersion 27
         }
 
         sourceSets {
@@ -75,16 +77,16 @@ project(':external:datetimepicker') {
     apply plugin: 'android-library'
 
     dependencies {
-        compile 'com.android.support:support-v4:25.3.1'
+        implementation 'com.android.support:support-v4:27.1.1'
     }
 
     android {
-        compileSdkVersion 25
-        buildToolsVersion '25.0.1'
+        compileSdkVersion 27
+        buildToolsVersion '27.0.3'
 
         defaultConfig {
             minSdkVersion 19
-            targetSdkVersion 25
+            targetSdkVersion 27
         }
 
         sourceSets {
@@ -109,16 +111,16 @@ project(':external:timezonepicker') {
     apply plugin: 'android-library'
 
     dependencies {
-        compile 'com.android.support:support-v4:25.3.1'
+        implementation 'com.android.support:support-v4:27.1.1'
     }
 
     android {
-        compileSdkVersion 25
-        buildToolsVersion '25.0.1'
+        compileSdkVersion 27
+        buildToolsVersion '27.0.3'
 
         defaultConfig {
             minSdkVersion 19
-            targetSdkVersion 25
+            targetSdkVersion 27
         }
 
         sourceSets {
@@ -142,12 +144,12 @@ project(':external:chips') {
     apply plugin: 'android-library'
 
     android {
-        compileSdkVersion 25
-        buildToolsVersion '25.0.1'
+        compileSdkVersion 27
+        buildToolsVersion '27.0.3'
 
         defaultConfig {
             minSdkVersion 19
-            targetSdkVersion 25
+            targetSdkVersion 27
         }
 
         sourceSets {
@@ -172,22 +174,22 @@ project(':external:chips') {
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile project(':external:calendar')
-    compile project(':external:colorpicker')
-    compile project(':external:datetimepicker')
-    compile project(':external:timezonepicker')
-    compile project(':external:chips')
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation project(':external:calendar')
+    implementation project(':external:colorpicker')
+    implementation project(':external:datetimepicker')
+    implementation project(':external:timezonepicker')
+    implementation project(':external:chips')
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
     }
 
     useLibrary 'org.apache.http.legacy'
