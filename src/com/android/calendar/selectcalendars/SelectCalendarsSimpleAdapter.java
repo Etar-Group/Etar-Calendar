@@ -47,7 +47,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     OnCalendarColorsLoadedListener {
     private static final String TAG = "SelectCalendarsAdapter";
     private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
-    private static final int IS_SELECTED = 1 << 0;
+    private static final int IS_SELECTED = 1;
     private static final int IS_TOP = 1 << 1;
     private static final int IS_BOTTOM = 1 << 2;
     private static final int IS_BELOW_SELECTED = 1 << 3;

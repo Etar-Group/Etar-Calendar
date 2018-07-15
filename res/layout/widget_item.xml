@@ -59,11 +59,9 @@
                 android:id="@+id/when"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:layout_alignLeft="@+id/title"
                 android:maxLines="1"
-                android:textSize="12sp"
                 android:ellipsize="marquee"
+                android:textSize="12sp"
                 android:textColor="@color/appwidget_when"
                 style="?android:attr/textAppearanceSmallInverse" />
 
@@ -71,8 +69,6 @@
                 android:id="@+id/where"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/when"
-                android:layout_alignLeft="@+id/title"
                 android:maxLines="1"
                 android:ellipsize="marquee"
                 android:paddingBottom="2dip"
