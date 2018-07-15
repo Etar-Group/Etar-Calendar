@@ -191,7 +191,7 @@ public class CalendarViewAdapter extends BaseAdapter {
                 v = mInflater.inflate(R.layout.actionbar_pulldown_menu_top_button, parent, false);
                 // Set the tag to make sure you can recycle it when you get it
                 // as a convert view
-                v.setTag(new Integer(R.layout.actionbar_pulldown_menu_top_button));
+                v.setTag(R.layout.actionbar_pulldown_menu_top_button);
             } else {
                 v = convertView;
             }
@@ -250,7 +250,7 @@ public class CalendarViewAdapter extends BaseAdapter {
                         R.layout.actionbar_pulldown_menu_top_button_no_date, parent, false);
                 // Set the tag to make sure you can recycle it when you get it
                 // as a convert view
-                v.setTag(new Integer(R.layout.actionbar_pulldown_menu_top_button_no_date));
+                v.setTag(R.layout.actionbar_pulldown_menu_top_button_no_date);
             } else {
                 v = convertView;
             }

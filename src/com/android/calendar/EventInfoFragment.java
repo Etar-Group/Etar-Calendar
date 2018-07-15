@@ -194,7 +194,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final String PERIOD_SPACE = ". ";
     private static final String NO_EVENT_COLOR = "";
     // Query tokens for QueryHandler
-    private static final int TOKEN_QUERY_EVENT = 1 << 0;
+    private static final int TOKEN_QUERY_EVENT = 1;
     private static final int TOKEN_QUERY_CALENDARS = 1 << 1;
     private static final int TOKEN_QUERY_ATTENDEES = 1 << 2;
     private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 1 << 3;

@@ -1157,7 +1157,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                             found = true;
                             break;
                         }
-                    };
+                    }
 
                     if (!found) {
                         mSelectedInstanceId = -1;

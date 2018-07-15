@@ -26,8 +26,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:paddingLeft="20dip"
+        android:paddingStart="20dip"
         android:background="@color/calendar_future_bg_color" >
         <TextView
             android:id="@+id/date_bar"
@@ -40,15 +39,15 @@
             android:layout_width="wrap_content"
             android:layout_height="42dip"
             android:gravity="center_vertical"
-            android:paddingLeft="8dip"
+            android:paddingStart="8dip"
             android:textSize="18sp"
             android:visibility="gone" />
         <TextView
             android:id="@+id/home_time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="42dip"
-            android:layout_gravity="center_vertical|right"
-            android:gravity="center_vertical|right"
+            android:layout_gravity="center_vertical|end"
+            android:gravity="center_vertical|end"
             android:layout_weight="1"
             android:paddingLeft="8dip"
             android:paddingRight="8dip"
@@ -92,11 +91,10 @@
             android:layout_width="wrap_content" />
         <FrameLayout
             android:id="@+id/calendar_list"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/mini_month"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/mini_month"
             android:layout_marginTop="16dip"
             android:layout_height="@dimen/calendar_controls_height"
-            android:layout_weight="1"
             android:layout_width="0dip" />
     </RelativeLayout>
 </LinearLayout>

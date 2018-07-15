@@ -73,7 +73,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private final Runnable mPastEventUpdater = new Runnable() {
         @Override
         public void run() {
-            if (updatePastEvents() == true) {
+            if (updatePastEvents()) {
                 refresh(true);
             }
             setPastEventsUpdater();
