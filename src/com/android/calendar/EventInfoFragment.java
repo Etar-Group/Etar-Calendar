@@ -769,10 +769,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mView = inflater.inflate(R.layout.event_info, container, false);
         }
 
-        Toolbar myToolbar= (Toolbar) mView.findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-        myToolbar.setNavigationIcon(R.drawable.ic_ab_back);
+        Toolbar myToolbar = (Toolbar) mView.findViewById(R.id.toolbar);
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        if (myToolbar != null && activity != null) {
+            activity.setSupportActionBar(myToolbar);
+            activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            myToolbar.setNavigationIcon(R.drawable.ic_ab_back);
+        }
 
         mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
         mLoadingMsgView = mView.findViewById(R.id.event_info_loading_msg);
