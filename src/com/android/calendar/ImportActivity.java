@@ -22,6 +22,7 @@ import com.android.calendar.icalendar.VEvent;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.TimeZone;
 
@@ -40,17 +41,49 @@ public class ImportActivity extends Activity {
         }
     }
 
-    private long getLocalTimeFromString(String iCalDate) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+    private long getLocalTimeFromString(String iCalDate, String iCalDateParam) {
+        // see https://tools.ietf.org/html/rfc5545#section-3.3.5
+
+        // FORM #2: DATE WITH UTC TIME, e.g. 19980119T070000Z
+        if (iCalDate.endsWith("Z")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+            try {
+                format.parse(iCalDate);
+                format.setTimeZone(TimeZone.getDefault());
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) { }
+        }
+
+        // FORM #3: DATE WITH LOCAL TIME AND TIME ZONE REFERENCE, e.g. TZID=America/New_York:19980119T020000
+        if (iCalDateParam != null && iCalDateParam.startsWith("TZID=")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+            String timeZone = iCalDateParam.substring(5).replace("\"", "");
+            // This is a pretty hacky workaround to prevent exact parsing of VTimezones.
+            // It assumes the TZID to be refered to with one of the names recognizable by Java.
+            // (which are quite a lot, see e.g. http://tutorials.jenkov.com/java-date-time/java-util-timezone.html)
+            if (Arrays.asList(TimeZone.getAvailableIDs()).contains(timeZone)) {
+                format.setTimeZone(TimeZone.getTimeZone(timeZone));
+                try {
+                    format.parse(iCalDate);
+                    format.setTimeZone(TimeZone.getDefault());
+                    return format.getCalendar().getTimeInMillis();
+                } catch (ParseException e) {  }
+            }
+        }
+
+        // FORM #1: DATE WITH LOCAL TIME, e.g. 19980118T230000
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+        format.setTimeZone(TimeZone.getDefault());
 
         try {
             format.parse(iCalDate);
-            format.setTimeZone(TimeZone.getDefault());
             return format.getCalendar().getTimeInMillis();
         } catch (ParseException e) {
-            e.printStackTrace();
         }
+
+        Toast.makeText(this, getString(R.string.cal_import_error_date_msg, iCalDate), Toast.LENGTH_SHORT).show();
 
         return System.currentTimeMillis();
     }
@@ -98,15 +131,17 @@ public class ImportActivity extends Activity {
         }
 
         String dtStart = firstEvent.getProperty(VEvent.DTSTART);
+        String dtStartParam = firstEvent.getPropertyParameters(VEvent.DTSTART);
         if (!TextUtils.isEmpty(dtStart)) {
             calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-                    getLocalTimeFromString(dtStart));
+                    getLocalTimeFromString(dtStart, dtStartParam));
         }
 
         String dtEnd = firstEvent.getProperty(VEvent.DTEND);
+        String dtEndParam = firstEvent.getPropertyParameters(VEvent.DTEND);
         if (!TextUtils.isEmpty(dtEnd)) {
             calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
-                    getLocalTimeFromString(dtEnd));
+                    getLocalTimeFromString(dtEnd, dtEndParam));
         }
 
         calIntent.putExtra(EditEventActivity.EXTRA_READ_ONLY, true);
