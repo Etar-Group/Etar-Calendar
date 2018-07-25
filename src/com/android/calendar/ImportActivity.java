@@ -57,7 +57,7 @@ public class ImportActivity extends Activity {
         }
 
         // FORM #3: DATE WITH LOCAL TIME AND TIME ZONE REFERENCE, e.g. TZID=America/New_York:19980119T020000
-        if (iCalDateParam != null && iCalDateParam.startsWith("TZID=")) {
+        else if (iCalDateParam != null && iCalDateParam.startsWith("TZID=")) {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
             String timeZone = iCalDateParam.substring(5).replace("\"", "");
             // This is a pretty hacky workaround to prevent exact parsing of VTimezones.
@@ -74,13 +74,15 @@ public class ImportActivity extends Activity {
         }
 
         // FORM #1: DATE WITH LOCAL TIME, e.g. 19980118T230000
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
-        format.setTimeZone(TimeZone.getDefault());
+        else {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+            format.setTimeZone(TimeZone.getDefault());
 
-        try {
-            format.parse(iCalDate);
-            return format.getCalendar().getTimeInMillis();
-        } catch (ParseException e) {
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {
+            }
         }
 
         Toast.makeText(this, getString(R.string.cal_import_error_date_msg, iCalDate), Toast.LENGTH_SHORT).show();
