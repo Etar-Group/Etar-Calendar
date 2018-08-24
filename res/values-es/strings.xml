@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2006 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,301 +12,656 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- This is the label underneath the icon for Calendar -->
+    <string name="app_label">"Calendario"</string>
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
-    <string name="what_label" msgid="1933578391985810049">"Asunto"</string>
-    <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
-    <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Zona horaria"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Invitados"</string>
-    <string name="today" msgid="8577375020252453006">"Hoy"</string>
-    <string name="tomorrow" msgid="614434811813859237">"Mañana"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Hoy a las <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Mañana a las <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="repeats_label" msgid="7414023871434593196">"Repetición"</string>
-    <string name="no_title_label" msgid="302177118061368042">"(Sin título)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutos"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 minuto"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> minutos"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 hora"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> horas"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 día"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> días"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"semana <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
-    <string name="show_day_view" msgid="5782512782605466016">"Mostrar día"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
-    <string name="day_view" msgid="4467754504843584437">"Día"</string>
-    <string name="week_view" msgid="6775043022159508060">"Semana"</string>
-    <string name="month_view" msgid="7287101431749285412">"Mes"</string>
-    <string name="event_view" msgid="7621353079385122317">"Ver evento"</string>
-    <string name="event_create" msgid="6941040556709110617">"Nuevo evento"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Editar evento"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Eliminar evento"</string>
-    <string name="goto_today" msgid="9162136434410891230">"Hoy"</string>
-    <string name="menu_preferences" msgid="9120238479503233925">"Ajustes"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendarios visibles"</string>
-    <string name="search" msgid="550656004486017426">"Buscar"</string>
-    <string name="hide_controls" msgid="830320505938520882">"Ocultar controles"</string>
-    <string name="show_controls" msgid="715520586028062621">"Mostrar controles"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendarios"</string>
-    <string name="synced" msgid="7913940305983383493">"sincronizado"</string>
-    <string name="not_synced" msgid="4275114941801829419">"no sincronizado"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Esta cuenta no está sincronizada, por lo que es posible que tus calendarios no estén actualizados."</string>
-    <string name="accounts" msgid="849401841083180306">"Cuentas y sincronización"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendarios para sincronizar"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendarios para sincronizar"</string>
-    <string name="hint_what" msgid="709155115005044531">"Nombre del evento"</string>
-    <string name="hint_where" msgid="4972598001033801974">"Ubicación"</string>
-    <string name="hint_description" msgid="1910143586169033232">"Descripción"</string>
-    <string name="hint_attendees" msgid="1650488163176888480">"Invitados"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Evento creado"</string>
-    <string name="saving_event" msgid="7694181017411177226">"Evento guardado"</string>
-    <string name="empty_event" msgid="9018699257414338634">"Evento vacío no creado"</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">"Se enviarán las invitaciones."</string>
-    <string name="saving_event_with_guest" msgid="9184584438475689577">"Se enviarán las actualizaciones."</string>
-    <string name="create_event_dialog_save" msgid="1080859798521717414">"Guardar"</string>
-    <string name="alert_title" msgid="7869592820853066853">"Notificaciones de Calendar"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Ver evento"</string>
-    <string name="event_info_title_invite" msgid="9160326363769403865">"Invitación a un evento"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Hasta"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Desde"</string>
-    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Todo el día"</string>
-    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendario"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"Mostrar todo"</string>
-    <string name="description_label" msgid="7193475046717505855">"Descripción"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Mostrarme como"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"Privacidad"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Añadir recordatorio"</string>
-    <string name="no_syncable_calendars" msgid="7019488867045436129">"No hay calendarios."</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Para añadir eventos, añade al menos una cuenta de Calendar al dispositivo y haz visible un calendario. Para ello, toca Añadir cuenta (si ya lo has hecho, espera a que finalice la sincronización y vuelve a intentarlo). También puedes tocar Cancelar y comprobar que al menos un calendario sea visible."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"La aplicación Calendario funciona mejor con una cuenta."\n\n"• Accede a tu calendario desde cualquier navegador web."\n"• Haz copias de seguridad de tus eventos de forma segura."</string>
-    <string name="add_account" msgid="1669072099756774952">"Añadir cuenta"</string>
-    <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendario:"</string>
-    <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
-    <string name="choose_event_color_label" msgid="2192923501857428854">"Seleccionar color del evento"</string>
-    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Color del evento"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"Cambiar a color predeterminado del calendario"</string>
-    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Color del calendario"</string>
-    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Selector de color"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"¿Asistirás?"</string>
-    <string name="response_yes" msgid="2027484304899988350">"Sí"</string>
-    <string name="response_maybe" msgid="7791500973627841695">"Quizás"</string>
-    <string name="response_no" msgid="561911691884148136">"No"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Escribir a invitados"</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">"Escribir al organizador"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"Correo electrónico con"</string>
-    <string name="event_not_found" msgid="8356864185947582727">"No se ha encontrado el evento."</string>
-    <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
-    <string name="call_label" msgid="2960328220008869083">"Llamar"</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"Respuestas rápidas"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Editar respuestas predeterminadas al enviar correos electrónicos a los invitados"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Editar respuestas rápidas"</string>
-    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Respuesta rápida"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Seleccionar respuesta rápida"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Error al buscar un programa de correo electrónico"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Llego un par de minutos tarde"</item>
-    <item msgid="6215158751728689832">"Llegaré en unos diez minutos"</item>
-    <item msgid="4485794001743679338">"Empezad sin mí"</item>
-    <item msgid="8036557974294987511">"No puedo, mejor en otro momento"</item>
-  </string-array>
-    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escribe tu propia respuesta…"</string>
-    <string name="event_info_organizer" msgid="9138683335394832629">"Organizador:"</string>
-    <string name="event_info_reminders_label" msgid="8913097552956388972">"Recordatorios"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"hoy, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"ayer, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"mañana (<xliff:g id="DATE">%1$s</xliff:g>)"</string>
-    <string name="loading" msgid="3772533493214331230">"Cargando..."</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Tocar para ver eventos anteriores al <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Tocar para ver eventos posteriores al <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="search_title" msgid="8898015280250716254">"Buscar en mis calendarios"</string>
-    <string name="edit_event_label" msgid="7413222956349977161">"Detalles"</string>
-    <string name="edit_label" msgid="8934331258435656534">"Editar"</string>
-    <string name="delete_label" msgid="874742811918030739">"Eliminar"</string>
-    <string name="save_label" msgid="2133599104834432589">"Listo"</string>
-    <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Posponer recordatorios"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">"Descartar todo"</string>
-    <string name="snooze_label" msgid="1515893621063224666">"Posponer"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; hasta <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; una vez"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> veces"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Diariamente"</item>
-    <item quantity="other" msgid="5455230727715859264">"Cada <xliff:g id="NUMBER">%d</xliff:g> días"</item>
-  </plurals>
-    <string name="every_weekday" msgid="5896574838353902978">"Cada día laborable (lunes-viernes)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Semanalmente el <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Cada <xliff:g id="NUMBER">%1$d</xliff:g> semanas el <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
-    <string name="monthly" msgid="4587116285383048586">"Mensualmente"</string>
-    <string name="yearly_plain" msgid="3652692085322162449">"Anualmente"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"Cada mes (el día <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"Cada año (el <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <!-- Shared Labels. These labels are shared among the activities. -->
+    <skip/>
+    <!-- This is the label for the title or name of an event -->
+    <string name="what_label">Asunto</string>
+    <!-- This is the label for the location of an event -->
+    <string name="where_label">Dónde</string>
+    <!-- This is the label for the time of an event [CHAR LIMIT=30] -->
+    <string name="when_label">Cuándo</string>
+    <!-- This is the label for the timezone of an event [CHAR LIMIT=30] -->
+    <string name="timezone_label">Zona horaria</string>
+    <!-- This is the label for the Guests/Attendees of an event -->
+    <string name="attendees_label">"Invitados"</string>
+    <!-- Text to show when an event starts on the current day -->
+    <string name="today">Hoy</string>
+    <!-- Text to show when an event starts on the next day -->
+    <string name="tomorrow">Mañana</string>
+    <!-- Text for an event starting on the current day with a start and end time.
+         For ex, "Today at 5:00pm-6:00pm" [CHAR LIMIT=NONE] -->
+    <string name="today_at_time_fmt">"Hoy a las &lt;xliff:g id=\"TIME_INTERVAL\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Text for an event starting on the next day with a start and end time.
+         For ex, "Tomorrow at 5:00pm-6:00pm" [CHAR LIMIT=NONE] -->
+    <string name="tomorrow_at_time_fmt">"Mañana a las &lt;xliff:g id=\"TIME_INTERVAL\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Format string for a date and time description.  For ex:
+         "April 19, 2012, 3:00pm - 4:00pm" [CHAR LIMIT=NONE] -->
+    <string name="date_time_fmt">"&lt;xliff:g id=\"DATE\" &gt;%s&lt;/xliff:g&gt;, &lt;xliff:g id=\"TIME_INTERVAL\" &gt;%s&lt;/xliff:g&gt;"</string>
+
+    <!-- Some events repeat daily, weekly, monthly, or yearly.  This is the label
+         for all the choices about how often an event repeats (including the choice
+         of not repeating). -->
+    <string name="repeats_label">"Repetición"</string>
+    <!-- Title of event when no explicit title is specified by the user -->
+    <string name="no_title_label">"(Sin título)"</string>
+
+    <!-- Reminder format strings -->
+    <!-- We use the abbreviation "mins" instead of "minutes" to keep the string short.
+         This is the number of minutes displayed for a calendar reminder.  For example,
+         a reminder of 10 minutes would be displayed as '10 mins'.  The translation
+         should use the shortest acceptable abbreviation to save space. -->
+    <!-- This is the number of hours displayed for a calendar reminder.  For example,
+         a reminder of 1 hour would be displayed as '1 hour'.  The translation
+         should use the shortest acceptable abbreviation of 'hour' to save space. -->
+    <!-- This is the number of days displayed for a calendar reminder.  For example,
+         a reminder of 2 days would be displayed as '2 days'.  The translation
+         should use the shortest acceptable abbreviation of 'day' to save space. -->
+    <!-- This is for displaying the week of the year near the date. Eg. "January, 2011 Week 1" -->
+
+    <!-- Menu items: -->
+    <skip/>
+    <!-- This is a label on a context menu item. Pressing this menu item to initiate
+        syncing of your Calendar data with the server. [CHAR LIMIT=11] -->
+    <string name="calendar_refresh">"Actualizar"</string>
+    <!-- This is a label on a context menu item. Pressing this menu item displays the
+         Agenda view. -->
+
+    <!-- This is a label on a context menu item. Pressing this menu item displays the
+         Day view. -->
+    <string name="show_day_view">"Mostrar día"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Agenda view. -->
+    <string name="agenda_view">"Agenda"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Day view. -->
+    <string name="day_view">"Día"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Week view. -->
+    <string name="week_view">"Semana"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         Month view. -->
+    <string name="month_view">"Mes"</string>
+    <!-- This is a label on a menu item. Pressing this menu item displays the
+         details of an event. -->
+    <string name="event_view">"Ver evento"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to create a new event. -->
+    <string name="event_create">"Nuevo evento"</string>
+    <!-- This is a label on a menu item in a popup window. Pressing this menu
+         item allows the user to edit or change an existing event. -->
+    <string name="event_edit">"Editar evento"</string>
+    <!-- This is a label on a menu item in a popup window. Pressing this menu
+         item allows the user to delete an existing event. -->
+    <string name="event_delete">"Eliminar evento"</string>
+    <!-- This is a label on a menu item. Pressing this menu
+         item takes the user to the current day (today) in whatever view
+         (Day view, Week view, Agenda view, Month view) they are currently in. -->
+    <string name="goto_today">"Hoy"</string>
+    <!-- This is a label on a menu item. Pressing this menu
+     item opens new dialog shown the date that the user wants to go. -->
+    <string name="goto_date">"Ir a..."</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to see the list of calendars that he is viewing and to then add
+         or remove selected calendars. -->
+
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to view and edit his Settings (or Preferences) -->
+    <string name="menu_preferences">"Ajustes"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to select the calendars to display [CHAR LIMIT=20] -->
+    <string name="menu_select_visible_calendars">"Calendarios visibles"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to select the calendars to display [CHAR LIMIT=20] -->
+    <string name="search">"Buscar"</string>
+    <!-- This is a label on a menu item. Pressing this menu item hides
+         the navigation controls on the right side. [CHAR LIMIT=20] -->
+    <string name="hide_controls">"Ocultar controles"</string>
+    <!-- This is a label on a menu item. Pressing this menu item shows the
+         navigation controls on the right side. [CHAR LIMIT=20] -->
+    <string name="show_controls">"Mostrar controles"</string>
+
+    <!-- Month view -->
+    <skip/>
+
+    <!-- Select Visible Calendars activity -->
+    <skip/>
+    <!-- Title of "My calendars" screen -->
+    <string name="select_visible_calendars_title">"Calendarios"</string>
+    <!-- Synced and visible status message -->
+
+    <!-- Synced but not visible status message -->
+
+    <!-- not Synced or visible status message -->
+
+    <!-- Synced status message displayed when the given calendar is stored/synced on the device
+        [CHAR LIMIT=60] -->
+    <string name="synced">"sincronizado"</string>
+    <!-- Not synced status message displayed when the given calendar is not stored/synced on the
+        device [CHAR LIMIT=60] -->
+    <string name="not_synced">"no sincronizado"</string>
+    <!-- Message displayed to user when an account with Calendars is not being auto-synced
+        [CHAR LIMIT=120]-->
+    <string name="acct_not_synced">"Esta cuenta no está sincronizada, por lo que es posible que tus calendarios no estén actualizados."</string>
+    <!-- Label on button that takes user to the Accounts and Sync settings page [CHAR LIMIT=60] -->
+    <string name="accounts">"Cuentas y sincronización"</string>
+
+    <!-- Select Synced Calendars activity -->
+    <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
+    <string name="select_synced_calendars_title">"Calendarios para sincronizar"</string>
+    <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
+    <string name="select_synced_calendars_button">"Calendarios para sincronizar"</string>
+
+    <!-- Event edit activity -->
+    <skip/>
+    <!-- The title of the screen where the user edits an event [CHAR LIMIT=17] -->
+
+    <!-- Default value of What field (as a hint to the user) [CHAR LIMIT=15] -->
+    <string name="hint_what">"Nombre del evento"</string>
+    <!-- Default value of Where field (as a hint to the user)[CHAR LIMIT=15] -->
+    <string name="hint_where">"Ubicación"</string>
+    <!-- Default value of Description field (as a hint to the user) [CHAR LIMIT=15]-->
+    <string name="hint_description">"Descripción"</string>
+    <!-- Default value of Attendees/Guests field (as a hint to the user) [CHAR LIMIT=10] -->
+    <string name="hint_attendees">"Invitados"</string>
+    <!-- Toast message displayed when a new event is created -->
+    <string name="creating_event">"Evento creado"</string>
+    <!-- Toast message displayed when an existing event is saved after being modified -->
+    <string name="saving_event">"Evento guardado"</string>
+    <!-- Toast message displayed when a new event was not saved because it was empty [CHAR LIMIT=30] -->
+    <string name="empty_event">"Evento vacío no creado"</string>
+    <!-- Toast message displayed when a new event with guests is created -->
+    <string name="creating_event_with_guest">"Se enviarán las invitaciones."</string>
+    <!-- Toast message displayed when an existing event with guests is saved after being modified -->
+    <string name="saving_event_with_guest">"Se enviarán las actualizaciones."</string>
+
+    <!-- Toast message displayed responding to an event from an email as accepted
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_accepted">"Respondió si."</string>
+    <!-- Toast message displayed responding to an event from an email as tentative
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_tentative">"Respondió quizás."</string>
+    <!-- Toast message displayed responding to an event from an email as declined
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_declined">"Respondió no."</string>
+
+
+    <!-- Title of message displayed to indicate available calendars are being loaded when creating
+         a new event -->
+
+    <!-- Body of message displayed to indicate available calendars are being loaded when creating
+         a new event -->
+
+
+    <!-- Create event dialog -->
+    <skip/>
+    <!-- Create event dialog save button [CHAR LIMIT=10] -->
+    <string name="create_event_dialog_save">"Guardar"</string>
+
+    <!-- The alert toast is not actually being displayed for some reason. -->
+    <skip/>
+    <!-- the title of the alert/notification activity -->
+    <string name="alert_title">"Notificaciones de Calendar"</string>
+    <!-- Notification window messages: -->
+    <skip/>
+
+    <!-- Event info/edit screen labels:-->
+    <skip/>
+    <!-- This is the title of the screen used to view the details of an event -->
+    <string name="event_info_title">"Ver evento"</string>
+    <!-- This is the title of the screen used to view the details of an invitation
+         to a meeting or event -->
+    <string name="event_info_title_invite">"Invitación a un evento"</string>
+
+    <!-- EditEventActivity specific strings: -->
+    <skip/>
+    <!-- Events have a start date/time and an end date/time. The display shows
+         the start and end times like 'From start date To end date'. This is the
+         label before the 'end date'. -->
+    <string name="edit_event_to_label">"Hasta"</string>
+    <!-- Events have a start date/time and an end date/time. The display shows
+         the start and end times like 'From start date To end date'. This is the
+         label before the 'start date'. -->
+    <string name="edit_event_from_label">"Desde"</string>
+    <!-- Check box label that specifies if this is an all-day event -->
+    <string name="edit_event_all_day_label">"Todo el día"</string>
+    <!-- Label for choosing one of the calendars -->
+    <string name="edit_event_calendar_label">"Calendario"</string>
+    <!-- Menu item to show all choices [CHAR LIMIT=22]-->
+    <string name="edit_event_show_all">"Mostrar todo"</string>
+    <!-- Label for the event description -->
+    <string name="description_label">"Descripción"</string>
+    <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
+         or 'available'  [CHAR LIMIT=15] -->
+    <string name="presence_label">"Mostrarme como"</string>
+    <!-- Label for the 'Privacy' of an event, which can be either 'private'
+         or 'public' [CHAR LIMIT=15] -->
+    <string name="privacy_label">"Privacidad"</string>
+    <!-- Label for the list of reminders for an event [CHAR LIMIT=20] -->
+    <string name="reminders_label">"Añadir recordatorio"</string>
+    <!-- Title of alert shown if the user tries to create an event and has no calendars -->
+    <string name="no_syncable_calendars">"No hay calendarios."</string>
+    <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->
+    <string name="no_calendars_found">"Para añadir eventos, añade al menos una cuenta de Calendar al dispositivo y haz visible un calendario. Para ello, toca Añadir cuenta (si ya lo has hecho, espera a que finalice la sincronización y vuelve a intentarlo). También puedes tocar Cancelar y comprobar que al menos un calendario sea visible."</string>
+    <!-- Body of dialog prompting the user to create an account.[CHAR LIMIT=NONE] -->
+    <string name="create_an_account_desc">"La aplicación Calendario funciona mejor con una cuenta.\"\n
+  \n
+  \"• Accede a tu calendario desde cualquier navegador web.\"\n
+  \"• Haz copias de seguridad de tus eventos de forma segura."</string>
+    <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
+    <string name="add_account">"Añadir cuenta"</string>
+
+    <!-- View Event -->
+    <skip/>
+    <!-- Label for which calendar an event is part of -->
+    <string name="view_event_calendar_label">Calendario:</string>
+    <!-- Label for the event organizer -->
+    <string name="view_event_organizer_label">Organizador:</string>
+    <!-- Label for the local timezone -->
+
+    <!-- Label for showing event color picker -->
+    <string name="choose_event_color_label">"Seleccionar color del evento"</string>
+    <!-- Title for event color picker dialog -->
+    <string name="event_color_picker_dialog_title">"Color del evento"</string>
+    <!-- Label for button which sets event color to default calendar color -->
+    <string name="event_color_set_to_default">"Cambiar a color predeterminado del calendario"</string>
+
+    <!-- Title for calendar color picker dialog -->
+    <string name="calendar_color_picker_dialog_title">"Color del calendario"</string>
+    <!-- Description for calendar color squares, which bring up the color picker. -->
+    <string name="calendar_square_color_picker_description">"Selector de color"</string>
+
+    <!-- Label for whether the user is attending this event. This is shown when
+         a user is invited to a meeting or event.  The possible answers are
+         'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
+    <string name="view_event_response_label">¿Asistirás?</string>
+    <!-- Response for whether attending an event - accepted [CHAR LIMIT=10]-->
+    <string name="response_yes">"Sí"</string>
+    <!-- Response for whether attending an event - tentative [CHAR LIMIT=10]-->
+    <string name="response_maybe">"Quizás"</string>
+    <!-- Response for whether attending an event - declined [CHAR LIMIT=10]-->
+    <string name="response_no">"No"</string>
+    <!-- Label for emailing attendees -->
+    <string name="email_guests_label">"Escribir a invitados"</string>
+    <!-- Label for emailing the organizer (when there are no attendees) -->
+    <string name="email_organizer_label">"Escribir al organizador"</string>
+    <!-- This is shown in the popup picker when emailing attendees -->
+    <string name="email_picker_label">"Correo electrónico con"</string>
+    <!-- The is shown in the email subject as the prefix appended to the event title -->
+    <!-- Toast message displayed when the event id was not found LIMIT=30] -->
+    <string name="event_not_found">"No se ha encontrado el evento."</string>
+
+    <!-- Notification label for getting a map of the location. -->
+    <string name="map_label">"Mapa"</string>
+    <!-- Notification label for calling a phone number in the location. -->
+    <string name="call_label">"Llamar"</string>
+
+    <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
+    <string name="quick_response_settings">"Respuestas rápidas"</string>
+    <!-- Summary of the quick response item in Settings [CHAR LIMIT=80]-->
+    <string name="quick_response_settings_summary">"Editar respuestas predeterminadas al enviar correos electrónicos a los invitados"</string>
+    <!-- Title of the quick response screen in Settings->Quick Response [CHAR LIMIT=27]-->
+    <string name="quick_response_settings_title">"Editar respuestas rápidas"</string>
+    <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
+    <string name="quick_response_settings_edit_title">"Respuesta rápida"</string>
+
+    <!-- Title of the dialog prompting the user choose a response when emailing guests  [CHAR LIMIT=none]-->
+    <string name="quick_response_dialog_title">"Seleccionar respuesta rápida"</string>
+    <!-- Error to user when an email program can't be found[CHAR LIMIT=none]-->
+    <string name="quick_response_email_failed">"Error al buscar un programa de correo electrónico"</string>
+    <!-- The is shown in the email subject as the prefix appended to the event title [CHAR LIMIT=none]-->
+    <!-- Option to create a custom response instead of using defaults [CHAR LIMIT=none] -->
+    <string name="quick_response_custom_msg">"Escribe tu propia respuesta…"</string>
+
+    <!-- Event Info strings-->
+    <!-- Time Zone Label [CHAR LIMIT=12]-->
+
+    <!-- Repetition Label [CHAR LIMIT=12]-->
+
+    <!-- Organizer Label [CHAR LIMIT=12]-->
+    <string name="event_info_organizer">"Organizador:"</string>
+    <!-- Reminders label [CHAR LIMIT=15]-->
+    <string name="event_info_reminders_label">"Recordatorios"</string>
+
+    <!-- Agenda View strings -->
+    <skip/>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_today">"hoy, &lt;xliff:g id=\"DATE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_yesterday">"ayer, &lt;xliff:g id=\"DATE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_tomorrow">"mañana (&lt;xliff:g id=\"DATE\" &gt;%1$s&lt;/xliff:g&gt;)"</string>
+    <!-- This is shown while the calendar events are being loading to the screen. -->
+    <string name="loading">"Cargando..."</string>
+    <!-- This is shown at the top of the agenda view showing the beginning of the searched range. If the user taps on this string and Calendar will find events older than what is visible and display them to the user -->
+    <string name="show_older_events">"Tocar para ver eventos anteriores al &lt;xliff:g id=\"OLDEST_SEARCH_RANGE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+    <!-- This is shown at the bottom of the agenda view showing the end of the searched range. If the user taps on this string and Calendar will find events later/newer than what is visible and display them to the user -->
+    <string name="show_newer_events">"Tocar para ver eventos posteriores al &lt;xliff:g id=\"NEWEST_SEARCH_RANGE\" &gt;%1$s&lt;/xliff:g&gt;"</string>
+
+    <!-- Search activity strings -->
+    <skip/>
+    <!-- Title of the search screen [CHAR LIMIT=30] -->
+    <string name="search_title">"Buscar en mis calendarios"</string>
+
+    <!-- Button labels: -->
+    <skip/>
+    <!-- This is the title of a popup window that is displayed when the user
+         edits a repeating event. [CHAR LIMIT=20]-->
+    <string name="edit_event_label">"Detalles"</string>
+    <!-- This is a menu button for switching into edit mode when viewing an event.
+        [CHAR LIMIT=10] -->
+    <string name="edit_label">"Editar"</string>
+    <!-- The button label for deleting an event -->
+    <string name="delete_label">"Eliminar"</string>
+    <!-- A menu item for deleting an event -->
+
+    <!-- The button label for saving an event -->
+    <string name="save_label">"Listo"</string>
+    <!-- The button label for discarding changes to an event -->
+    <string name="discard_label">"Cancelar"</string>
+
+    <!-- Button labels on expanded notification reminders: -->
+    <skip/>
+    <!-- The button label for making the reminder alarms go away temporarily.
+         The reminder alarms will fire off again in 5 minutes. -->
+    <string name="snooze_all_label">"Posponer recordatorios"</string>
+    <!-- The button label for dismissing all the current reminder alarms. This
+         causes them to disappear from the notification screen. -->
+    <string name="dismiss_all_label">"Descartar todo"</string>
+    <!-- The button label for making the reminder alarms go away temporarily
+         and re-fire in 5 minutes. [CHAR LIMIT=12]-->
+    <string name="snooze_label">"Posponer"</string>
+
+    <!-- Repetition dialog options: -->
+    <skip/>
+    <!-- A label in a multiple-choice list for the specifying that an event does
+         not repeat -->
+    <string name="does_not_repeat">"Evento único"</string>
+    <!-- Part of a description of an repeating event. This part states the date when a repeating
+         event ends. The part before the semi-colon describes how it repeats.
+         e.g. Every 2 weeks; until 1/1/2030 [CHAR LIMIT=21] -->
+    <string name="endByDate">"; hasta &lt;xliff:g id=\"DATE\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Part of a description of an repeating event. This part how many times the event repeats.
+         The part before the semi-colon describes how it repeats.
+         e.g. Every 2 weeks; for 15 times [CHAR LIMIT=15] -->
+    <!-- A description for an event that repeats daily. For example, Every 2 days [CHAR LIMIT=15]-->
+    <!-- A label in a multiple-choice list for the specifying that an event
+         repeats every weekday (Monday through Friday) -->
+    <string name="every_weekday">"Cada día laborable (lunes-viernes)"</string>
+    <!-- A description for an event that repeats weekly on some day of the week. For example,
+         'Weekly on Tuesday' or Every 2 weeks on Monday, Tuesday.  [CHAR LIMIT=25]-->
+
+    <!-- The common portion of a string describing how often an event repeats,
+         example: 'Monthly (on day 2)' -->
+    <string name="monthly">"Mensualmente"</string>
+    <!-- Calendar spinner item, to select that an event recurs every year. -->
+    <string name="yearly_plain">Anualmente</string>
+    <!-- Example: "Monthly (on day 15)" -->
+    <string name="monthly_on_day">"Cada mes (el día &lt;xliff:g id=\"DAY_OF_MONTH\" &gt;%s&lt;/xliff:g&gt;)"</string>
+    <!-- Example: "Yearly (on April 15)" -->
+    <string name="yearly">"Cada año (el &lt;xliff:g id=\"DATES\" &gt;%s&lt;/xliff:g&gt;)"</string>
+    <!-- This is a label for telling the user that this event repeats in
+         custom (non-standard) way from the usual repeat rates (such as daily,
+         weekly, etc.) and that the user cannot change this on the phone
+         (but only on the web). -->
     
-    <string name="custom" product="default" msgid="4137468716966004993">"Personalizar (no se puede personalizar en el teléfono)"</string>
-    <string name="modify_event" msgid="5982876409997142690">"Cambiar solo este evento"</string>
-    <string name="modify_all" msgid="4421657265864209041">"Cambiar todos los eventos de la serie"</string>
-    <string name="modify_all_following" msgid="3017428541066390380">"Cambiar este y todos los eventos posteriores"</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"Nuevo evento"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"Nuevo evento"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">"¿Eliminar este evento?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"¿Quieres eliminar <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
-    <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"Ajustes generales"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Acerca de Calendario"</string>
-    <string name="preferences_title" msgid="8045855493262131773">"Ajustes"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Configuración de la vista de calendario"</string>
-    <string name="preferences_reminder_title" msgid="5199606534191180129">"Notificaciones y recordatorios"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rechazados"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La semana empieza el"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La semana empieza el"</string>
-    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Borrar historial de búsqueda"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Eliminar todas las búsquedas anteriores"</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"Se ha borrado el historial de búsqueda."</string>
-    <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificaciones"</string>
-    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Sonido"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificación emergente"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Antelación del recordatorio"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Antelación del recordatorio"</string>
-    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora local"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostrar calendarios y eventos en la hora local al viajar"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horaria local"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número de semana"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"Versión de la compilación"</string>
-    <string name="gadget_title" msgid="939918875331310945">"Calendario"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"No hay futuros eventos en el calendario."</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimental"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"Recordatorios"</string>
-    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Omitir recordatorios"</string>
-    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Omitir recordatorios"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Horas de silencio"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Silenciar recordatorios de eventos durante un tiempo especificado"</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Inicio horas de silencio"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Final horas de silencio"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"Depuración"</string>
-    <string name="copy_db" msgid="437691290566699292">"Enviar base de datos"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Buscando <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Eliminar asistente"</string>
-    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Fecha de inicio"</string>
-    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Hora de inicio"</string>
-    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Fecha de finalización"</string>
-    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Hora de finalización"</string>
-    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Zona horaria"</string>
-    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Repetir evento"</string>
-    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Añadir recordatorio"</string>
-    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Eliminar recordatorio"</string>
-    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Añadir asistente"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Sincronizar calendario"</string>
-    <string name="accessibility_all_day" msgid="4146955438811915282">"Todo el día"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Repetición"</string>
-    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Duración del recordatorio"</string>
-    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Tipo de recordatorio"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mostrarme como"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacidad"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Notificación de Calendar"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Posponer notificación"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"Escribir a invitados"</string>
-    <string name="day_view_new_event_hint" msgid="2131483437911536229">"Añadir evento"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Evento <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 evento"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
-  </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento seleccionado"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"NO seleccionar -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Repetir"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"No se repite"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Cada <xliff:g id="COUNT">%d</xliff:g> día"</item>
-    <item quantity="other" msgid="707566499994398250">"Cada <xliff:g id="COUNT">%d</xliff:g> días"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Cada <xliff:g id="COUNT">%d</xliff:g> semana"</item>
-    <item quantity="other" msgid="7094801039989237061">"Cada <xliff:g id="COUNT">%d</xliff:g> semanas"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Cada <xliff:g id="COUNT">%d</xliff:g> mes"</item>
-    <item quantity="other" msgid="5419723710346646523">"Cada <xliff:g id="COUNT">%d</xliff:g> meses"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Cada <xliff:g id="COUNT">%d</xliff:g> año"</item>
-    <item quantity="other" msgid="5678653649746562060">"Cada <xliff:g id="COUNT">%d</xliff:g> años"</item>
-  </plurals>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mismo día de cada mes"</string>
-    <string name="recurrence_end_continously" msgid="6898950241634912991">"Siempre"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Hasta una fecha"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"Hasta el <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Para un número de eventos"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Para <xliff:g id="EVENT_COUNT">%d</xliff:g> evento"</item>
-    <item quantity="other" msgid="8779598489398048259">"Para <xliff:g id="EVENT_COUNT">%d</xliff:g> eventos"</item>
-  </plurals>
-    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"cambiar fecha de finalización"</string>
-    <string name="no_map">No hay app de mapas instalado</string>
-  <string name="on_permission_read_calendar">Has deshabilitado un permiso requerido</string>
-  <string name="error_generating_ics">Problemas encontrados al compartir evento</string>
-  <string name="events_delete">Eliminar eventos</string>
-  <string name="evt_del_dlg_msg_all">Seleccionar todo</string>
-  <string name="no_events_selected">Ningún evento seleccionado</string>
-  <string name="evt_del_dlg_msg_selected">Todos los eventos serán eliminados</string>
-  <string name="evt_del_dlg_title">Eliminar eventos?</string>
-  <string name="user_rejected_calendar_write_permission">Etar requiere permisos para leer y escribir en el calendario para que funcione adecuadamente. Por favor intenté de nuevo.</string>
-  <string name="standalone_app_label">Etar</string>
-  <string name="action_select_all">Seleccionar todo</string>
-  <string name="action_delete">Acabado</string>
-  <string name="action_select_none">Deseleccionar todo</string>
-  <string name="all_events">Todos los Eventos</string>
-  <string name="cal_export_event_sdcard_title">Exporta a tarjeta SD</string>
-  <string name="cal_export_succ_msg">Evento exportado satisfactoriamente: %1s</string>
-  <string name="cal_import_error_msg">Importando a calendario falló</string>
-  <string name="cal_import_menu_title">Importar evento</string>
-  <string name="cal_nothing_to_import">Nada para importar</string>
-  <string name="cal_pick_ics">Elige un archivo para importar</string>
-  <string name="cal_share_intent_title">Envía evento a:</string>
-  <string name="calendar_permission_not_granted">Lamentamos que esta</string>
-  <string name="default_start_last">Vista previamente utilizada</string>
-  <string name="default_start_title">Vista de</string>
-  <string name="goto_date">\"Ir a...\"</string>
-  <string name="no_events">Ningún evento disponible</string>
-  <string name="preferences_theme">Tema</string>
-  <string name="preferences_light_theme">Claro</string>
-  <string name="preferences_dark_theme">Oscuro</string>
-  <string name="preferences_days_per_week_dialog">Días por semana</string>
-  <string name="preferences_days_per_week_title">Días por semana</string>
-  <string name="rsvp_accepted">\"Respondió si.\"</string>
-  <string name="rsvp_declined">\"Respondió no.\"</string>
-  <string name="rsvp_tentative">\"Respondió quizás.\"</string>
-  <string name="share_label">Compartir</string>
+    <!-- This is a label for telling the user that this event repeats in
+         custom (non-standard) way from the usual repeat rates (such as daily,
+         weekly, etc.) and that the user cannot change this on the phone
+         (but only on the web). -->
+    <string name="custom" product="default">"Personalizar (no se puede personalizar en el teléfono)"</string>
+
+    <!-- This is a choice in a list that the user sees when he tries to modify
+         a repeating event.  This choice says to change just this one instance
+         of this repeating event. -->
+    <string name="modify_event">"Cambiar solo este evento"</string>
+    <!-- This is a choice in a list that the user sees when he tries to modify
+         a repeating event.  This choice says to change all occurrences of
+         this repeating event. -->
+    <string name="modify_all">"Cambiar todos los eventos de la serie"</string>
+    <!-- This is a choice in a list that the user sees when he tries to modify
+         a repeating event.  This choice says to change this instance and all
+         future occurrences of this repeating event. -->
+    <string name="modify_all_following">"Cambiar este y todos los eventos posteriores"</string>
+
+    <!-- Dialogs -->
+
+    <!-- This is a label on the dialog for creating a new event. [CHAR LIMIT=30] -->
+    <string name="new_event_dialog_label">"Nuevo evento"</string>
+    <!-- This is the button to create a new event in a dialog window. [CHAR LIMIT=30] -->
+    <string name="new_event_dialog_option">"Nuevo evento"</string>
+    <!-- Confirmation dialog message -->
+    <skip/>
+    <!-- This is a confirmation message in a popup dialog that appears when the
+         user has asked to delete an event. The user still has a chance to cancel
+         this operation. -->
+    <string name="delete_this_event_title">"¿Eliminar este evento?"</string>
+    <!-- This is a confirmation message in a popup dialog that appears when the
+         user has asked to delete an event that is recurring. The user still has a chance to cancel
+         this operation. -->
+    <string name="delete_recurring_event_title">"¿Quieres eliminar &lt;xliff:g id=\"EVENTTITLE\" &gt;%s&lt;/xliff:g&gt;?"</string>
+    <!-- This is the title of a popup dialog that asks for confirmation before
+         changing the response to an invitation. -->
+    <string name="change_response_title">"Cambiar respuesta"</string>
+
+    <!-- This the title of a menu for General Preferences.
+         Pressing the menu item lets user to view and edit his general settings
+         (or preferences) [CHAR LIMIT=30] -->
+    <string name="menu_general_preferences">"Ajustes generales"</string>
+
+    <!-- This the title of a menu for "About Calendar" Preferences.
+         Pressing the menu item lets user to view the current settings
+         [CHAR LIMIT=30] -->
+    <string name="menu_about_preferences">"Acerca de Calendario"</string>
+
+    <!-- This is the title of the screen for setting user preferences. -->
+    <string name="preferences_title">"Ajustes"</string>
+    <!-- This is the title of a section in the Settings screen for settings
+         related to viewing calendar events -->
+    <string name="preferences_general_title">"Configuración de la vista de calendario"</string>
+    <!-- This is the title of a section in the Settings screen for settings
+         related to reminders for calendar events -->
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_light_theme">Claro</string>
+    <string name="preferences_dark_theme">Oscuro</string>
+    <string name="preferences_reminder_title">"Notificaciones y recordatorios"</string>
+    <!-- Settings check box label to hide events that the user has declined to attend -->
+    <string name="preferences_hide_declined_title">"Ocultar eventos rechazados"</string>
+    <!-- Settings week start label to start week on specific day-->
+    <string name="preferences_week_start_day_title">"La semana empieza el"</string>
+    <!-- Title of popup for week start day setting-->
+    <string name="preferences_week_start_day_dialog">"La semana empieza el"</string>
+    <!-- DO NOT TRANSLATE -->
+
+    <string name="preferences_days_per_week_title">Días por semana</string>
+    <string name="preferences_days_per_week_dialog">Días por semana</string>
+
+    <!-- Title of the settings item to clear the recent search history [CHAR LIMIT=40] -->
+    <string name="preferences_clear_search_history_title">"Borrar historial de búsqueda"</string>
+    <!-- Summary of the settings item to clear the recent search history [CHAR LIMIT=70]-->
+    <string name="preferences_clear_search_history_summary">"Eliminar todas las búsquedas anteriores"</string>
+    <!-- Message to show in a toast when the history is cleared [CHAR LIMIT=40] -->
+    <string name="search_history_cleared">"Se ha borrado el historial de búsqueda."</string>
+    <!-- Settings check box label to enable or disable notifications -->
+    <string name="preferences_alerts_title">"Notificaciones"</string>
+    <!-- Settings dialog label that specifies when the phone should vibrate -->
+    <string name="preferences_alerts_vibrateWhen_title">"Vibrar"</string>
+    <!-- The old value for enabling vibration. used only for migrating -->
+    <!-- Title of ringtone selector dialog -->
+    <string name="preferences_alerts_ringtone_title">"Sonido"</string>
+    <!-- Title of check box label to enable or disable pop-up notifications -->
+    <string name="preferences_alerts_popup_title">"Notificación emergente"</string>
+    <!-- List item label for setting the default number of reminder minutes -->
+    <string name="preferences_default_reminder_title">"Antelación del recordatorio"</string>
+    <!-- Title of dialog for setting the default number of reminder minutes -->
+    <string name="preferences_default_reminder_dialog">"Antelación del recordatorio"</string>
+    <!-- Default value for the number of reminder minutes -->
+    <string name="preferences_default_reminder_default">"10"</string>
+    <!-- Settings check box label to keep Calendar in a fixed 'home' time zone [CHAR LIMIT = 18] -->
+    <string name="preferences_use_home_tz_title">"Usar hora local"</string>
+    <!-- Settings description of what setting Calendar to use a fixed 'home' time
+        zone does [CHAR LIMIT = 60]-->
+    <string name="preferences_use_home_tz_descrip">"Mostrar calendarios y eventos en la hora local al viajar"</string>
+    <!-- Settings title for selecting a 'home' time zone to display Calendar in [CHAR LIMIT = 18] -->
+    <string name="preferences_home_tz_title">"Zona horaria local"</string>
+    <!-- DO NOT TRANSLATE -->
+
+    <!-- Title of the settings item to show week number in week view [CHAR LIMIT=40] -->
+    <string name="preferences_show_week_num_title">"Mostrar número de semana"</string>
+
+    <!-- This is the title of a section in the Settings screen for "About" this application -->
+    <string name="preferences_about_title">"Acerca de"</string>
+    <!-- Build version of the application -->
+    <string name="preferences_build_version">"Versión de la compilación"</string>
+    <!-- Report application issues  -->
+    <string name="preferences_issues">Informar de fallos</string>
+
+    <!-- Widget -->
+    <skip/>
+    <!-- Title for calendar gadget when displayed in list of all other gadgets -->
+    <string name="gadget_title">"Calendario"</string>
+
+    <!-- Shown in month view next to event icon when additional events exist for that day, but no
+        room remaining -->
+
+    <!-- Caption to show on gadget when there are no upcoming calendar events -->
+    <string name="gadget_no_events">"No hay futuros eventos en el calendario."</string>
+
+    <!-- Text to show on gadget when an event is currently in progress -->
+
+
+    <!-- Text to show on gadget when an all-day event is in progress -->
+
+
+    <!-- DO NOT TRANSLATE -->
+
+    <!-- Experimental settings [CHAR LIMIT = 30]-->
+    <string name="preferences_experimental_category">"Experimental"</string>
+
+    <!-- Reminders settings [CHAR LIMIT = 30]-->
+    <string name="preferences_reminders_category">"Recordatorios"</string>
+    <!-- Preference label for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_label">"Omitir recordatorios"</string>
+    <!-- Dialog title for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_dialog">"Omitir recordatorios"</string>
+    <!-- Preference label for quiet hours [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_label">"Horas de silencio"</string>
+    <!-- Preference description for quiet hours [CHAR LIMIT = NONE]-->
+    <string name="preferences_reminders_quiet_hours_description">"Silenciar recordatorios de eventos durante un tiempo especificado"</string>
+    <!-- Preference label for quiet hours start time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_start">"Inicio horas de silencio"</string>
+    <!-- Preference label for quiet hours end time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_end">"Final horas de silencio"</string>
+
+    <!-- Preferences used for debugging purposes [CHAR LIMIT = 30]-->
+    <string name="preferences_debug_category">"Depuración"</string>
+
+    <!-- Send a copy of the database to developers for debugging [CHAR LIMIT="NONE"] -->
+    <string name="copy_db">"Enviar base de datos"</string>
+
+    <!-- Displayed in email address autocomplete list when searching for contacts
+         in corporate directories. Example:  "Searching bigcompany.com..." [CHAR LIMIT=64] -->
+    <string name="directory_searching_fmt">"Buscando &lt;xliff:g id=\"DOMAIN\" &gt;%s&lt;/xliff:g&gt;…"</string>
+
+    <!-- Accessibility Events -->
+    <!-- Strings that describes actions for buttons without text -->
+    <!-- Create a new calendar event [CHAR LIMIT = NONE]-->
+
+    <!-- Remove a name of an attendee from a calendar event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_remove_attendee">"Eliminar asistente"</string>
+    <!-- Pick a starting date for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_start_date">"Fecha de inicio"</string>
+    <!-- Pick a starting time for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_start_time">"Hora de inicio"</string>
+    <!-- Pick the ending date for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_end_date">"Fecha de finalización"</string>
+    <!-- Pick the ending time for a new event[CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_end_time">"Hora de finalización"</string>
+    <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_time_zone">"Zona horaria"</string>
+    <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_recurrence">"Repetir evento"</string>
+    <!-- Add a reminder to an event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_add_reminder">"Añadir recordatorio"</string>
+    <!-- Remove a reminder from an event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_remove_reminder">"Eliminar recordatorio"</string>
+    <!-- Add a new attendee to an event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_add_attendee">"Añadir asistente"</string>
+    <!-- Choose if to sync/unsync this calendar with its server [CHAR LIMIT = NONE]-->
+    <string name="accessibility_sync_cal">"Sincronizar calendario"</string>
+    <!-- Mark this event as an "all day event" [CHAR LIMIT = NONE]-->
+    <string name="accessibility_all_day">"Todo el día"</string>
+    <!-- Refresh the data in the calendar [CHAR LIMIT = NONE]-->
+
+    <!-- Choose the type of repetition for the event (daily, weekly, etc.[CHAR LIMIT = NONE]-->
+    <string name="accessibility_repeats">"Repetición"</string>
+    <!-- Set the time for the reminder[CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_time">"Duración del recordatorio"</string>
+    <!-- Set the type of the reminder (popup/email/sms)[CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_type">"Tipo de recordatorio"</string>
+    <!-- Select the way you are visible for the event (busy/free) [CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_showmeas">"Mostrarme como"</string>
+    <!-- Set the event as private/public/default [CHAR LIMIT = NONE]-->
+    <string name="accessibility_reminder_privacy">"Privacidad"</string>
+    <!-- Calendar notification [CHAR LIMIT = NONE]-->
+    <string name="acessibility_cal_notification">"Notificación de Calendar"</string>
+    <!-- Calendar notification snooze button [CHAR LIMIT = NONE]-->
+    <string name="acessibility_snooze_notification">"Posponer notificación"</string>
+    <!-- Calendar notification email button [CHAR LIMIT = NONE]-->
+    <string name="accessibility_email_notification">"Escribir a invitados"</string>
+
+    <!-- A "new event" hint for the user when selecting a specific hour in the day view [CHAR LIMIT = 30]-->
+    <string name="day_view_new_event_hint">"Añadir evento"</string>
+
+    <!--
+      Source: A value for announcing the current event index (example: "Event 2 of 6").
+      Description: This is spoken to the user. [CHAR LIMIT="NONE"]
+    -->
+    <string name="template_announce_item_index">"Evento &lt;xliff:g id=\"ITEM_INDEX\" &gt;%1$s&lt;/xliff:g&gt; de &lt;xliff:g id=\"ITEM_COUNT\" &gt;%2$s&lt;/xliff:g&gt;"</string>
+
+        <!-- number of events in the notification bar -->
+
+    <!-- number of remaining events for an alert digest in the notification bar [CHAR LIMIT = 30] -->
+
+    <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
+    <string name="acessibility_selected_marker_description">"Evento seleccionado"</string>
+
+    <!-- Tell user not to check a checkbox [CHAR LIMIT=30] -->
+    <string name="do_not_check">"NO seleccionar ->"</string>
+
+    <!-- Dialog title for recurrence picker for configuring a repeating event[CHAR LIMIT=20] -->
+    <string name="recurrence_dialog_title">"Repetir"</string>
+    <!-- Dialog title for recurrence picker when one-time event is selected [CHAR LIMIT=20] -->
+    <string name="recurrence_dialog_title_never">"No se repite"</string>
+
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 days) -->
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 weeks) -->
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 months) -->
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 years) -->
+
+    <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
+    <string name="recurrence_month_pattern_by_day">"el mismo día de cada mes"</string>
+
+    <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=20] -->
+    <string name="recurrence_end_continously">"Siempre"</string>
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
+    <string name="recurrence_end_date_label">"Hasta una fecha"</string>
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=20] -->
+    <string name="recurrence_end_date">"Hasta el &lt;xliff:g id=\"DATE\" &gt;%s&lt;/xliff:g&gt;"</string>
+    <!-- Specifies that a repeating event to repeat for a number of times. A repeating event can repeat forever, repeat in a certain frequency until a certain date, or repeat for a number of times. e.g. repeat 10 times and stop. This string is for the last case [CHAR LIMIT=25] -->
+    <string name="recurrence_end_count_label">"Para un número de eventos"</string>
+
+    <!-- Specifies that a repeating event should repeat for a certain number of iterations. [CHAR LIMIT=20]-->
+
+    <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
+    <string name="acessibility_recurrence_choose_end_date_description">"cambiar fecha de finalización"</string>
+
+    <!-- Do Not Translate.  Sender identity for global notification synchronization. -->
+
+    <string name="user_rejected_calendar_write_permission">Etar requiere permisos para leer y escribir en el calendario para que funcione adecuadamente. Por favor inténtelo de nuevo.</string>
+    <string name="calendar_permission_not_granted">Lamentamos que esta</string>
 </resources>
