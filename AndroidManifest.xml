@@ -20,8 +20,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ws.xsoh.etar"
     android:installLocation="auto"
-    android:versionCode="15"
-    android:versionName="1.0.13">
+    android:versionCode="16"
+    android:versionName="1.0.14">
 <!--         android:sharedUserLabel="@string/app_label"> -->
 
     <!--

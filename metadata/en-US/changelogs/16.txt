@@ -1,0 +1,4 @@
+- Support for custom color events.
+- Better support for ics files.
+- Add grey theme.
+- Lots of bug fixes.

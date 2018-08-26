@@ -1,0 +1,4 @@
+- Unterstützung benutzerdefinierter Terminfarben.
+- Import von ics Dateien verbessert
+- Graues Theme hinzugefügt
+- Fehlerbehebungen.
