@@ -144,7 +144,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
                         public void onClick(DialogInterface dialog, int which) {
                             mController.sendEventRelatedEventWithExtraWithTitleWithCalendarId(this,
                                     EventType.CREATE_EVENT, -1, mDateInMillis,
-                                    mDateInMillis + DateUtils.DAY_IN_MILLIS, 0, 0,
+                                    mDateInMillis + -1, 0, 0,
                                     CalendarController.EXTRA_CREATE_ALL_DAY, -1,
                                     mEventTitle.getText().toString(),
                                     mCalendarId);
