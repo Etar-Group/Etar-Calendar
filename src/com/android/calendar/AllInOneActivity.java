@@ -1478,10 +1478,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                                             GeneralPreferences.KEY_SKIP_SETUP, true);
                                 }
 
-                            } catch (OperationCanceledException ignore) {
+                            } catch (OperationCanceledException | IOException | AuthenticatorException ignore) {
                                 // The account creation process was canceled
-                            } catch (IOException ignore) {
-                            } catch (AuthenticatorException ignore) {
                             }
                         }
                     }, null);
