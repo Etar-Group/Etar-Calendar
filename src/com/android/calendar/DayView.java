@@ -16,6 +16,7 @@
 
 package com.android.calendar;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -26,6 +27,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -37,10 +39,12 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout.Alignment;
 import android.text.SpannableStringBuilder;
 import android.text.StaticLayout;
@@ -737,6 +741,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
                 Uri uri = Calendars.CONTENT_URI;
                 String where = String.format(CALENDARS_WHERE, calId);
+                if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.READ_CALENDAR)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //If permission is not granted then just return.
+                    Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+                    return 0;
+                }
                 cursor = cr.query(uri, CALENDARS_PROJECTION, where, null, null);
 
                 String calendarOwnerAccount = null;

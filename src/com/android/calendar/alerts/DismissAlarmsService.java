@@ -16,16 +16,21 @@
 
 package com.android.calendar.alerts;
 
+import android.Manifest;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.alerts.GlobalDismissManager.AlarmId;
@@ -37,6 +42,7 @@ import java.util.List;
  * Service for asynchronously marking fired alarms as dismissed.
  */
 public class DismissAlarmsService extends IntentService {
+    private static final String TAG = "DismissAlarmsService";
     private static final String[] PROJECTION = new String[] {
             CalendarAlerts.STATE,
     };
@@ -87,6 +93,13 @@ public class DismissAlarmsService extends IntentService {
         ContentResolver resolver = getContentResolver();
         ContentValues values = new ContentValues();
         values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
+            return;
+        }
         resolver.update(uri, values, selection, null);
 
         // Remove from notification bar.

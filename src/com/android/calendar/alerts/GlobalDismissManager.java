@@ -16,19 +16,23 @@
 
 package com.android.calendar.alerts;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.Pair;
 
@@ -275,6 +279,13 @@ public class GlobalDismissManager extends BroadcastReceiver {
         Map<Long, Long> eventsToCalendars = new HashMap<Long, Long>();
         ContentResolver resolver = context.getContentResolver();
         String eventSelection = buildMultipleIdQuery(eventIds, Events._ID);
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+            return null;
+        }
         Cursor eventCursor = resolver.query(Events.CONTENT_URI, EVENT_PROJECTION,
                 eventSelection, null, null);
         try {
@@ -304,6 +315,13 @@ public class GlobalDismissManager extends BroadcastReceiver {
                 new HashMap<Long, Pair<String, String>>();
         ContentResolver resolver = context.getContentResolver();
         String calendarSelection = buildMultipleIdQuery(calendars, Calendars._ID);
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+            return null;
+        }
         Cursor calendarCursor = resolver.query(Calendars.CONTENT_URI, CALENDARS_PROJECTION,
                 calendarSelection, null, null);
         try {
@@ -354,6 +372,13 @@ public class GlobalDismissManager extends BroadcastReceiver {
                                     CalendarAlerts.EVENT_ID + "=" + eventId + " AND " +
                                     CalendarAlerts.BEGIN + "=" + startTime;
                             values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
+                            if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                                    Manifest.permission.WRITE_CALENDAR)
+                                    != PackageManager.PERMISSION_GRANTED) {
+                                //If permission is not granted then just return.
+                                Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+                                return null;
+                            }
                             int rows = resolver.update(CalendarAlerts.CONTENT_URI, values,
                                     selection, null);
                             updated = rows > 0;
