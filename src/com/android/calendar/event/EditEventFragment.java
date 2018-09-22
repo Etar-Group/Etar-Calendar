@@ -568,12 +568,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
 
     @Override
     public void onPause() {
-        Activity act = getActivity();
-        if (mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
-                && mView.prepareForSave()) {
-            mOnDone.setDoneCode(Utils.DONE_SAVE);
-            mOnDone.run();
-        }
         super.onPause();
     }
 
