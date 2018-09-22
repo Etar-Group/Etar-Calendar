@@ -16,6 +16,7 @@
 
 package com.android.calendar.alerts;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -29,12 +30,14 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -553,6 +556,13 @@ public class AlertReceiver extends BroadcastReceiver {
     }
 
     private static Cursor getAttendeesCursor(Context context, long eventId) {
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+            return null;
+        }
         return context.getContentResolver().query(Attendees.CONTENT_URI,
                 ATTENDEES_PROJECTION, ATTENDEES_WHERE, new String[] { Long.toString(eventId) },
                 ATTENDEES_SORT_ORDER);

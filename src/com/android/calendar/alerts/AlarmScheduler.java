@@ -245,6 +245,13 @@ public class AlarmScheduler {
             // Query the reminders table for the events found.
             Cursor cursor = null;
             try {
+                if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.READ_CALENDAR)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //If permission is not granted then just return.
+                    Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+                    return;
+                }
                 cursor = contentResolver.query(Reminders.CONTENT_URI, REMINDERS_PROJECTION,
                         REMINDERS_WHERE + eventIdsForQuery, null, null);
 
