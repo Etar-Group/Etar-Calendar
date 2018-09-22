@@ -574,6 +574,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mOnDone.setDoneCode(Utils.DONE_SAVE);
             mOnDone.run();
         }
+        act.finish();
         super.onPause();
     }
 
