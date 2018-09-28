@@ -17,7 +17,9 @@
 package com.android.calendar.alerts;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ContentResolver;
@@ -61,6 +63,9 @@ import ws.xsoh.etar.R;
  * This service is used to handle calendar event reminders.
  */
 public class AlertService extends Service {
+
+    public static final String ALERT_CHANNEL_ID = "alert_channel_01";// The id of the channel.
+
     // Hard limit to the number of notifications displayed.
     public static final int MAX_NOTIFICATIONS = 20;
     static final boolean DEBUG = true;
@@ -149,6 +154,13 @@ public class AlertService extends Service {
         ContentResolver cr = context.getContentResolver();
         NotificationMgr nm = new NotificationMgrWrapper(
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String appName = context.getString(R.string.standalone_app_label);
+            NotificationChannel channel  = new NotificationChannel(ALERT_CHANNEL_ID, appName, NotificationManager.IMPORTANCE_HIGH);
+            nm.createNotificationChannel(channel);
+        }
+
         final long currentTime = System.currentTimeMillis();
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
 
@@ -1045,6 +1057,12 @@ public class AlertService extends Service {
         @Override
         public void cancel(int id) {
             mNm.cancel(id);
+        }
+
+        @TargetApi(Build.VERSION_CODES.O)
+        @Override
+        public void createNotificationChannel(NotificationChannel channel) {
+            mNm.createNotificationChannel(channel);
         }
 
         @Override

@@ -59,6 +59,8 @@ import java.util.regex.Pattern;
 
 import ws.xsoh.etar.R;
 
+import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
+
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
  * event reminders.  The intent URI specifies an alert id in the
@@ -258,6 +260,12 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
+
+        // Add setting channel ID for Oreo or later
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationBuilder.setChannelId(ALERT_CHANNEL_ID);
+        }
+
         if (doPopup) {
             notificationBuilder.setFullScreenIntent(createAlertActivityIntent(context), true);
         }
@@ -319,7 +327,7 @@ public class AlertReceiver extends BroadcastReceiver {
                         resources.getString(R.string.snooze_label), snoozeIntent);
                 numActions++;
             }
-            return notificationBuilder.getNotification();
+            return notificationBuilder.build();
 
         } else {
             // Old-style notification (pre-JB).  Use custom view with buttons to provide
