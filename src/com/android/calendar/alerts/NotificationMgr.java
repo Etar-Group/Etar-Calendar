@@ -16,11 +16,14 @@
 
 package com.android.calendar.alerts;
 
+import android.app.NotificationChannel;
+
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
 
 public abstract class NotificationMgr {
     public abstract void notify(int id, NotificationWrapper notification);
     public abstract void cancel(int id);
+    public abstract void createNotificationChannel(NotificationChannel channel);
 
     /**
      * Don't actually use the notification framework's cancelAll since the SyncAdapter
