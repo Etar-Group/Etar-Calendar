@@ -59,6 +59,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener, OnTimeZoneSetListener {
     // Preference keys
     public static final String KEY_THEME_PREF = "pref_theme";
+    public static final String KEY_COLOR_PREF = "pref_color";
     public static final String KEY_DEFAULT_START = "preferences_default_start";
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     public static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
@@ -123,6 +124,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     Preference mHomeTZ;
     TimeZonePickerUtils mTzPickerUtils;
     ListPreference mTheme;
+    ListPreference mColor;
     ListPreference mWeekStart;
     ListPreference mDayWeek;
     ListPreference mDefaultReminder;
@@ -181,6 +183,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
         mTheme = (ListPreference) preferenceScreen.findPreference(KEY_THEME_PREF);
+        mColor = (ListPreference) preferenceScreen.findPreference(KEY_COLOR_PREF);
         mDefaultStart = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_START);
         mHideDeclined = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HIDE_DECLINED);
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
@@ -273,6 +276,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mUseHomeTZ.setOnPreferenceChangeListener(listener);
         mHomeTZ.setOnPreferenceChangeListener(listener);
         mTheme.setOnPreferenceChangeListener(listener);
+        mColor.setOnPreferenceChangeListener(listener);
         mDefaultStart.setOnPreferenceChangeListener(listener);
         mWeekStart.setOnPreferenceChangeListener(listener);
         mDayWeek.setOnPreferenceChangeListener(listener);
@@ -310,7 +314,7 @@ public class GeneralPreferences extends PreferenceFragment implements
             BackupManager.dataChanged(a.getPackageName());
         }
 
-        if (key.equals(KEY_THEME_PREF)) {
+        if (key.equals(KEY_THEME_PREF) || key.equals(KEY_COLOR_PREF)) {
             ((CalendarSettingsActivity)getActivity()).restartActivity();
         }
     }

@@ -26,6 +26,19 @@
         <item>black</item>
     </string-array>
 
+    <!--Entries for the primary color-->
+    <string-array name="pref_color_entries">
+        <item>@string/preferences_color_teal</item>
+        <item>@string/preferences_color_blue</item>
+        <item>@string/preferences_color_orange</item>
+    </string-array>
+
+    <string-array name="pref_color_values" translatable="false">
+        <item>teal</item>
+        <item>blue</item>
+        <item>orange</item>
+    </string-array>
+
     <!-- Choices for the "Reminder method" spinner.
          These must be kept in sync with the reminder_methods_values array.
          [CHAR LIMIT=10]

@@ -22,6 +22,12 @@
     <color name="colorPrimary">#41c3b1</color>
     <color name="colorPrimaryDark">#388d7f</color>
     <color name="colorAccent">#1dc1ab</color>
+    <color name="colorOrangePrimary">#f1922d</color>
+    <color name="colorOrangePrimaryDark">#b36f28</color>
+    <color name="colorOrangeAccent">#de7302</color>
+    <color name="colorBluePrimary">#4b7bea</color>
+    <color name="colorBluePrimaryDark">#365db7</color>
+    <color name="colorBlueAccent">#3564d4</color>
     <color name="titleTextColor">@android:color/white</color>
     <color name="app_bar">@color/colorPrimary</color>
 
@@ -290,7 +296,7 @@
     <color name="bg_dark">#303030</color>
     <color name="fg_dark_primary">#deffffff</color>
     <color name="fg_dark_secondary">#99ffffff</color>
-    <color name="app_bar_dark">@color/colorPrimary</color>
+    <color name="app_bar_dark">@color/bg_dark</color>
 
     <color name="grid_line_dark">#424242</color>
 

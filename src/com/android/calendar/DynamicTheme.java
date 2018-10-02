@@ -13,10 +13,23 @@ import ws.xsoh.etar.R;
 public class DynamicTheme {
 
     private static final String THEME_PREF = "pref_theme";
+    private static final String COLOR_PREF = "pref_color";
     private static final String LIGHT = "light";
     private static final String DARK  = "dark";
     private static final String BLACK = "black";
+    private static final String TEAL = "teal";
+    private static final String ORANGE  = "orange";
+    private static final String LIGHTTEAL = "lightteal";
+    private static final String DARKTEAL  = "darkteal";
+    private static final String BLACKTEAL = "blackteal";
+    private static final String LIGHTORANGE = "lightorange";
+    private static final String DARKORANGE  = "darkorange";
+    private static final String BLACKORANGE = "blackorange";
+    private static final String LIGHTBLUE = "lightblue";
+    private static final String DARKBLUE  = "darkblue";
+    private static final String BLACKBLUE= "blackblue";
     private int currentTheme;
+
 
     public void onCreate(Activity activity) {
         currentTheme = getSelectedTheme(activity);
@@ -38,16 +51,33 @@ public class DynamicTheme {
     }
 
     private static int getSelectedTheme(Activity activity) {
-        switch (getTheme(activity)) {
-            case LIGHT:
-                return R.style.CalendarAppTheme;
-            case DARK:
-                return R.style.CalendarAppThemeDark;
-            case BLACK:
-                return R.style.CalendarAppThemeBlack;
+        String theme = getTheme(activity) + getPrimaryColor(activity);
+        switch (theme) {
+            case LIGHTTEAL:
+                return R.style.CalendarAppThemeLightTeal;
+            case DARKTEAL:
+                return R.style.CalendarAppThemeDarkTeal;
+            case BLACKTEAL:
+                return R.style.CalendarAppThemeBlackTeal;
+            case LIGHTORANGE:
+                return R.style.CalendarAppThemeLightOrange;
+            case DARKORANGE:
+                return R.style.CalendarAppThemeDarkOrange;
+            case BLACKORANGE:
+                return R.style.CalendarAppThemeBlackOrange;
+            case LIGHTBLUE:
+                return R.style.CalendarAppThemeLightBlue;
+            case DARKBLUE:
+                return R.style.CalendarAppThemeDarkBlue;
+            case BLACKBLUE:
+                return R.style.CalendarAppThemeBlackBlue;
             default:
                 throw new UnsupportedOperationException("Unknown theme: " + getTheme(activity));
         }
+    }
+
+    private static String getPrimaryColor(Context context) {
+        return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
     }
 
     private static String getSuffix(String theme) {

@@ -31,7 +31,7 @@
         <item name="create_event_date_color">@color/create_event_date_color_dark</item>
         <item name="calendar_owner_text_color">@color/calendar_owner_text_color_dark</item>
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_dark</item>
-        <item name="app_bar_color">@color/app_bar</item>
+        <item name="app_bar_color">@color/app_bar_dark</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
         <item name="ic_menu_email">@drawable/event_info_mail_button_dark</item>
     </style>
@@ -68,4 +68,65 @@
         <item name="app_bar_color">@color/app_bar_black</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
     </style>
+
+
+    <!--All color + theme (light/dark/black) combinations-->
+    <style name="CalendarAppThemeLightTeal" parent="CalendarAppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="app_bar_color">@color/app_bar</item>
+    </style>
+    <style name="CalendarAppThemeLightOrange" parent="CalendarAppTheme">
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
+        <item name="colorAccent">@color/colorOrangeAccent</item>
+        <item name="app_bar_color">@color/colorOrangePrimary</item>
+    </style>
+    <style name="CalendarAppThemeLightBlue" parent="CalendarAppTheme">
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
+        <item name="colorAccent">@color/colorBlueAccent</item>
+        <item name="app_bar_color">@color/colorBluePrimary</item>
+    </style>
+
+    <style name="CalendarAppThemeDarkTeal" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/bg_dark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="app_bar_color">@color/app_bar_dark</item>
+    </style>
+    <style name="CalendarAppThemeDarkOrange" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/bg_dark</item>
+        <item name="colorAccent">@color/colorOrangeAccent</item>
+        <item name="app_bar_color">@color/app_bar_dark</item>
+    </style>
+    <style name="CalendarAppThemeDarkBlue" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/bg_dark</item>
+        <item name="colorAccent">@color/colorBlueAccent</item>
+        <item name="app_bar_color">@color/bg_dark</item>
+    </style>
+
+    <style name="CalendarAppThemeBlackTeal" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+    <style name="CalendarAppThemeBlackOrange" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorOrangeAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+    <style name="CalendarAppThemeBlackBlue" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorBlueAccent</item>
+        <item name="app_bar_color">@color/bg_black</item>
+    </style>
+
+
 </resources>
