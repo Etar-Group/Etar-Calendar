@@ -522,6 +522,9 @@
     <string name="preferences_color_teal">Teal</string>
     <string name="preferences_color_blue">Blue</string>
     <string name="preferences_color_orange">Orange</string>
+    <string name="preferences_color_green">Green</string>
+    <string name="preferences_color_red">Red</string>
+    <string name="preferences_color_purple">Purple</string>
     <string name="preferences_color_pick">Primary color</string>
     <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->

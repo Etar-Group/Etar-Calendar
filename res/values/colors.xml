@@ -28,6 +28,15 @@
     <color name="colorBluePrimary">#4b7bea</color>
     <color name="colorBluePrimaryDark">#365db7</color>
     <color name="colorBlueAccent">#3564d4</color>
+    <color name="colorGreenPrimary">#3abe3f</color>
+    <color name="colorGreenPrimaryDark">#30a320</color>
+    <color name="colorGreenAccent">#5ae42c</color>
+    <color name="colorRedPrimary">#c72c14</color>
+    <color name="colorRedPrimaryDark">#9c2513</color>
+    <color name="colorRedAccent">#d1270c</color>
+    <color name="colorPurplePrimary">#9c27b0</color>
+    <color name="colorPurplePrimaryDark">#862297</color>
+    <color name="colorPurpleAccent">#9c10b4</color>
     <color name="titleTextColor">@android:color/white</color>
     <color name="app_bar">@color/colorPrimary</color>
 

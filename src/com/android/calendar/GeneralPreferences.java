@@ -265,7 +265,10 @@ public class GeneralPreferences extends PreferenceFragment implements
                 new int[]{
                     getResources().getColor(R.color.colorPrimary),
                         getResources().getColor(R.color.colorBluePrimary),
-                        getResources().getColor(R.color.colorOrangePrimary)
+                        getResources().getColor(R.color.colorPurplePrimary),
+                        getResources().getColor(R.color.colorRedPrimary),
+                        getResources().getColor(R.color.colorOrangePrimary),
+                        getResources().getColor(R.color.colorGreenPrimary)
                 },selectedColor,3,2);
 
         colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
@@ -283,6 +286,9 @@ public class GeneralPreferences extends PreferenceFragment implements
         colorMap.put(getResources().getColor(R.color.colorPrimary),R.color.colorPrimary);
         colorMap.put(getResources().getColor(R.color.colorBluePrimary),R.color.colorBluePrimary);
         colorMap.put(getResources().getColor(R.color.colorOrangePrimary),R.color.colorOrangePrimary);
+        colorMap.put(getResources().getColor(R.color.colorGreenPrimary),R.color.colorGreenPrimary);
+        colorMap.put(getResources().getColor(R.color.colorRedPrimary),R.color.colorRedPrimary);
+        colorMap.put(getResources().getColor(R.color.colorPurplePrimary),R.color.colorPurplePrimary);
     }
 
     private void showTimezoneDialog() {

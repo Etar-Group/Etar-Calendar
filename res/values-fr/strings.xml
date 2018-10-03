@@ -186,6 +186,9 @@
     <string name="preferences_color_teal">Turquoise</string>
     <string name="preferences_color_blue">Bleu</string>
     <string name="preferences_color_orange">Orange</string>
+    <string name="preferences_color_green">Vert</string>
+    <string name="preferences_color_red">Rouge</string>
+    <string name="preferences_color_purple">Violet</string>
     <string name="preferences_color_pick">Couleur principale</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notifications et rappels"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Masquer événements refusés"</string>

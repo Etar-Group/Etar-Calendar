@@ -31,12 +31,18 @@
         <item>@string/preferences_color_teal</item>
         <item>@string/preferences_color_blue</item>
         <item>@string/preferences_color_orange</item>
+        <item>@string/preferences_color_green</item>
+        <item>@string/preferences_color_red</item>
+        <item>@string/preferences_color_purple</item>
     </string-array>
 
     <string-array name="pref_color_values" translatable="false">
         <item>teal</item>
         <item>blue</item>
         <item>orange</item>
+        <item>green</item>
+        <item>red</item>
+        <item>purple</item>
     </string-array>
 
     <!-- Choices for the "Reminder method" spinner.

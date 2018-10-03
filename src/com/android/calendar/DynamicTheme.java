@@ -22,6 +22,9 @@ public class DynamicTheme {
     private static final String TEAL = "teal";
     private static final String BLUE = "blue";
     private static final String ORANGE  = "orange";
+    private static final String GREEN  = "gree";
+    private static final String RED  = "red";
+    private static final String PURPLE = "purple";
     private int currentTheme;
 
 
@@ -65,6 +68,24 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeDarkBlue;
             case BLACK+BLUE:
                 return R.style.CalendarAppThemeBlackBlue;
+            case LIGHT+GREEN:
+                return R.style.CalendarAppThemeLightGreen;
+            case DARK+GREEN:
+                return R.style.CalendarAppThemeDarkGreen;
+            case BLACK+GREEN:
+                return R.style.CalendarAppThemeBlackGreen;
+            case LIGHT+RED:
+                return R.style.CalendarAppThemeLightRed;
+            case DARK+RED:
+                return R.style.CalendarAppThemeDarkRed;
+            case BLACK+RED:
+                return R.style.CalendarAppThemeBlackRed;
+            case LIGHT+PURPLE:
+                return R.style.CalendarAppThemeLightPurple;
+            case DARK+PURPLE:
+                return R.style.CalendarAppThemeDarkPurple;
+            case BLACK+PURPLE:
+                return R.style.CalendarAppThemeBlackPurple;
             default:
                 throw new UnsupportedOperationException("Unknown theme: " + getTheme(activity));
         }
@@ -93,6 +114,12 @@ public class DynamicTheme {
                 return R.color.colorBluePrimary;
             case ORANGE:
                 return R.color.colorOrangePrimary;
+            case GREEN:
+                return R.color.colorGreenPrimary;
+            case RED:
+                return R.color.colorRedPrimary;
+            case PURPLE:
+                return R.color.colorPurplePrimary;
             default:
                 throw new UnsupportedOperationException("Unknown color name : " + name);
         }
@@ -106,6 +133,12 @@ public class DynamicTheme {
                 return BLUE;
             case R.color.colorOrangePrimary:
                 return ORANGE;
+            case R.color.colorGreenPrimary:
+                return GREEN;
+            case R.color.colorRedPrimary:
+                return RED;
+            case R.color.colorPurplePrimary:
+                return PURPLE;
             default:
                 throw new UnsupportedOperationException("Unknown color id : " + id);
         }
