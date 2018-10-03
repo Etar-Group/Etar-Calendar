@@ -78,19 +78,22 @@
             android:key="preferences_alerts_ringtone"
             android:title="@string/preferences_alerts_ringtone_title"
             android:ringtoneType="notification"
-            android:defaultValue="content://settings/system/notification_sound" />
+            android:defaultValue="content://settings/system/notification_sound"
+            android:dependency="preferences_alerts" />
 
         <CheckBoxPreference
             android:layout="?android:attr/preferenceLayoutChild"
             android:key="preferences_alerts_vibrate"
             android:title="@string/preferences_alerts_vibrateWhen_title"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            android:dependency="preferences_alerts" />
 
         <CheckBoxPreference
             android:layout="?android:attr/preferenceLayoutChild"
             android:key="preferences_alerts_popup"
             android:defaultValue="false"
-            android:title="@string/preferences_alerts_popup_title" />
+            android:title="@string/preferences_alerts_popup_title"
+            android:dependency="preferences_alerts" />
 
         <CheckBoxPreference
             android:key="preferences_custom_snooze_delay"

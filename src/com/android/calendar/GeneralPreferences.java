@@ -233,7 +233,6 @@ public class GeneralPreferences extends PreferenceFragment implements
 
         migrateOldPreferences(sharedPreferences);
 
-        updateChildPreferences();
     }
 
     private void showTimezoneDialog() {
@@ -295,7 +294,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Activity a = getActivity();
         if (key.equals(KEY_ALERTS)) {
-            updateChildPreferences();
+
             if (a != null) {
                 Intent intent = new Intent();
                 intent.setClass(a, AlertReceiver.class);
@@ -412,23 +411,6 @@ public class GeneralPreferences extends PreferenceFragment implements
             }
             // clear out the old setting
             prefs.edit().remove(KEY_ALERTS_TYPE).commit();
-        }
-    }
-
-    /**
-     * Keeps the dependent settings in sync with the parent preference, so for
-     * example, when notifications are turned off, we disable the preferences
-     * for configuring the exact notification behavior.
-     */
-    private void updateChildPreferences() {
-        if (mAlert.isChecked()) {
-            mVibrate.setEnabled(true);
-            mRingtone.setEnabled(true);
-            mPopup.setEnabled(true);
-        } else {
-            mVibrate.setEnabled(false);
-            mRingtone.setEnabled(false);
-            mPopup.setEnabled(false);
         }
     }
 
