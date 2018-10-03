@@ -44,10 +44,14 @@ import android.provider.CalendarContract.CalendarCache;
 import android.provider.SearchRecentSuggestions;
 import android.text.TextUtils;
 import android.text.format.Time;
+import android.util.Log;
+import android.util.SparseIntArray;
 import android.widget.Toast;
 
 import com.android.calendar.alerts.AlertReceiver;
 import com.android.calendar.event.EventViewUtils;
+import com.android.colorpicker.ColorPickerDialog;
+import com.android.colorpicker.ColorPickerSwatch;
 import com.android.timezonepicker.TimeZoneInfo;
 import com.android.timezonepicker.TimeZonePickerDialog;
 import com.android.timezonepicker.TimeZonePickerDialog.OnTimeZoneSetListener;
@@ -124,7 +128,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     Preference mHomeTZ;
     TimeZonePickerUtils mTzPickerUtils;
     ListPreference mTheme;
-    ListPreference mColor;
+    Preference mColor;
     ListPreference mWeekStart;
     ListPreference mDayWeek;
     ListPreference mDefaultReminder;
@@ -132,6 +136,9 @@ public class GeneralPreferences extends PreferenceFragment implements
     ListPreference mDefaultStart;
 
     private String mTimeZoneId;
+
+    // Used to retrieve the color id from the color picker
+    private SparseIntArray colorMap = new SparseIntArray();
 
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
@@ -149,6 +156,8 @@ public class GeneralPreferences extends PreferenceFragment implements
         super.onCreate(icicle);
 
         final Activity activity = getActivity();
+
+        initializeColorMap();
 
         // Make sure to always use the same preferences file regardless of the package name
         // we're running under
@@ -183,7 +192,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
         mTheme = (ListPreference) preferenceScreen.findPreference(KEY_THEME_PREF);
-        mColor = (ListPreference) preferenceScreen.findPreference(KEY_COLOR_PREF);
+        mColor = preferenceScreen.findPreference(KEY_COLOR_PREF);
         mDefaultStart = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_START);
         mHideDeclined = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HIDE_DECLINED);
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
@@ -199,6 +208,14 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDefaultReminder.setSummary(mDefaultReminder.getEntry());
         mSnoozeDelay.setSummary(mSnoozeDelay.getEntry());
         mDefaultStart.setSummary(mDefaultStart.getEntry());
+
+        mColor.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                showColorPickerDialog();
+                return true;
+            }
+        });
 
         // This triggers an asynchronous call to the provider to refresh the data in shared pref
         mTimeZoneId = Utils.getTimeZone(activity, null);
@@ -236,6 +253,36 @@ public class GeneralPreferences extends PreferenceFragment implements
 
         migrateOldPreferences(sharedPreferences);
 
+    }
+
+    private void showColorPickerDialog() {
+        final ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+        // Retrieve current color to show it as selected
+        String selectedColorName = Utils.getSharedPreference(getActivity(), KEY_COLOR_PREF,"teal");
+        int selectedColor = getResources().getColor(DynamicTheme.getColorId(selectedColorName));
+
+        colorPickerDialog.initialize(R.string.preferences_color_pick,
+                new int[]{
+                    getResources().getColor(R.color.colorPrimary),
+                        getResources().getColor(R.color.colorBluePrimary),
+                        getResources().getColor(R.color.colorOrangePrimary)
+                },selectedColor,3,2);
+
+        colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+            @Override
+            public void onColorSelected(int colour) {
+                Utils.setSharedPreference(getActivity(), KEY_COLOR_PREF, DynamicTheme.getColorName(colorMap.get(colour)));
+            }
+        });
+
+        android.app.FragmentManager fm = this.getFragmentManager();
+        colorPickerDialog.show(fm, "colorpicker");
+    }
+
+    private void initializeColorMap () {
+        colorMap.put(getResources().getColor(R.color.colorPrimary),R.color.colorPrimary);
+        colorMap.put(getResources().getColor(R.color.colorBluePrimary),R.color.colorBluePrimary);
+        colorMap.put(getResources().getColor(R.color.colorOrangePrimary),R.color.colorOrangePrimary);
     }
 
     private void showTimezoneDialog() {

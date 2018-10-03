@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
+import android.util.SparseIntArray;
 
 import ws.xsoh.etar.R;
 
@@ -18,16 +20,8 @@ public class DynamicTheme {
     private static final String DARK  = "dark";
     private static final String BLACK = "black";
     private static final String TEAL = "teal";
+    private static final String BLUE = "blue";
     private static final String ORANGE  = "orange";
-    private static final String LIGHTTEAL = "lightteal";
-    private static final String DARKTEAL  = "darkteal";
-    private static final String BLACKTEAL = "blackteal";
-    private static final String LIGHTORANGE = "lightorange";
-    private static final String DARKORANGE  = "darkorange";
-    private static final String BLACKORANGE = "blackorange";
-    private static final String LIGHTBLUE = "lightblue";
-    private static final String DARKBLUE  = "darkblue";
-    private static final String BLACKBLUE= "blackblue";
     private int currentTheme;
 
 
@@ -53,23 +47,23 @@ public class DynamicTheme {
     private static int getSelectedTheme(Activity activity) {
         String theme = getTheme(activity) + getPrimaryColor(activity);
         switch (theme) {
-            case LIGHTTEAL:
+            case LIGHT+TEAL:
                 return R.style.CalendarAppThemeLightTeal;
-            case DARKTEAL:
+            case DARK+TEAL:
                 return R.style.CalendarAppThemeDarkTeal;
-            case BLACKTEAL:
+            case BLACK+TEAL:
                 return R.style.CalendarAppThemeBlackTeal;
-            case LIGHTORANGE:
+            case LIGHT+ORANGE:
                 return R.style.CalendarAppThemeLightOrange;
-            case DARKORANGE:
+            case DARK+ORANGE:
                 return R.style.CalendarAppThemeDarkOrange;
-            case BLACKORANGE:
+            case BLACK+ORANGE:
                 return R.style.CalendarAppThemeBlackOrange;
-            case LIGHTBLUE:
+            case LIGHT+BLUE:
                 return R.style.CalendarAppThemeLightBlue;
-            case DARKBLUE:
+            case DARK+BLUE:
                 return R.style.CalendarAppThemeDarkBlue;
-            case BLACKBLUE:
+            case BLACK+BLUE:
                 return R.style.CalendarAppThemeBlackBlue;
             default:
                 throw new UnsupportedOperationException("Unknown theme: " + getTheme(activity));
@@ -89,6 +83,31 @@ public class DynamicTheme {
                 return "_" + theme;
             default:
                 throw new IllegalArgumentException("Unknown theme: " + theme);
+        }
+    }
+    public static int getColorId(String name) {
+        switch (name) {
+            case TEAL:
+                return R.color.colorPrimary;
+            case BLUE:
+                return R.color.colorBluePrimary;
+            case ORANGE:
+                return R.color.colorOrangePrimary;
+            default:
+                throw new UnsupportedOperationException("Unknown color name : " + name);
+        }
+    }
+
+    public static String getColorName(int id) {
+        switch (id) {
+            case  R.color.colorPrimary :
+                return TEAL;
+            case R.color.colorBluePrimary:
+                return BLUE;
+            case R.color.colorOrangePrimary:
+                return ORANGE;
+            default:
+                throw new UnsupportedOperationException("Unknown color id : " + id);
         }
     }
 
