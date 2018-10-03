@@ -44,7 +44,6 @@ import android.provider.CalendarContract.CalendarCache;
 import android.provider.SearchRecentSuggestions;
 import android.text.TextUtils;
 import android.text.format.Time;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.widget.Toast;
 
@@ -278,7 +277,7 @@ public class GeneralPreferences extends PreferenceFragment implements
             }
         });
 
-        android.app.FragmentManager fm = this.getFragmentManager();
+        FragmentManager fm = this.getFragmentManager();
         colorPickerDialog.show(fm, "colorpicker");
     }
 
