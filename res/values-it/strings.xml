@@ -206,6 +206,7 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostra numero settimana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Informazioni"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versione build"</string>
+    <string name="preferences_issues">Segnala problemi</string>
     <string name="gadget_title" msgid="939918875331310945">"Calendario"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
