@@ -20,7 +20,7 @@ public class DynamicTheme {
     private static final String TEAL = "teal";
     private static final String BLUE = "blue";
     private static final String ORANGE  = "orange";
-    private static final String GREEN  = "gree";
+    private static final String GREEN  = "green";
     private static final String RED  = "red";
     private static final String PURPLE = "purple";
     private int currentTheme;
