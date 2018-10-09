@@ -63,17 +63,17 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
 
         dynamicTheme.onCreate(this);
         setContentView(R.layout.simple_frame_layout_material);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mController = CalendarController.getInstance(this);
         mFragment = (SelectVisibleCalendarsFragment) getFragmentManager().findFragmentById(
-                R.id.main_frame);
+                R.id.body_frame);
 
         if (mFragment == null) {
             mFragment = new SelectVisibleCalendarsFragment(R.layout.calendar_sync_item);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main_frame, mFragment);
+            ft.replace(R.id.body_frame, mFragment);
             ft.show(mFragment);
             ft.commit();
         }

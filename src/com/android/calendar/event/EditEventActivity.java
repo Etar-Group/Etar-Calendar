@@ -72,10 +72,10 @@ public class EditEventActivity extends AbstractCalendarActivity {
         mReminders = getReminderEntriesFromIntent();
         mEventColorInitialized = getIntent().hasExtra(EXTRA_EVENT_COLOR);
         mEventColor = getIntent().getIntExtra(EXTRA_EVENT_COLOR, -1);
-        Toolbar myToolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.main_frame);
+        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.body_frame);
 
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
 
@@ -108,7 +108,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main_frame, mEditFragment);
+            ft.replace(R.id.body_frame, mEditFragment);
             ft.show(mEditFragment);
             ft.commit();
         }

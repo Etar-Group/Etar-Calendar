@@ -141,7 +141,7 @@ public class EventInfoActivity extends AppCompatActivity {
 
         // Get the fragment if exists
         mInfoFragment = (EventInfoFragment)
-                getFragmentManager().findFragmentById(R.id.main_frame);
+                getFragmentManager().findFragmentById(R.id.body_frame);
 
 
         // Create a new fragment if none exists
@@ -153,7 +153,7 @@ public class EventInfoActivity extends AppCompatActivity {
                             EventInfoFragment.DIALOG_WINDOW_STYLE :
                                 EventInfoFragment.FULL_WINDOW_STYLE),
                     reminders);
-            ft.replace(R.id.main_frame, mInfoFragment);
+            ft.replace(R.id.body_frame, mInfoFragment);
             ft.commit();
         }
     }
