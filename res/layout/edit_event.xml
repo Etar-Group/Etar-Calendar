@@ -43,7 +43,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
@@ -80,9 +80,9 @@
                 android:layout_width="25dip"
                 android:layout_height="25dip"
                 android:visibility="gone"
-                android:layout_marginLeft="0dip"
+                android:layout_marginStart="0dip"
                 android:layout_marginTop="0dip"
-                android:layout_gravity="left|top"/>
+                android:layout_gravity="start|top"/>
         </FrameLayout>
     </ScrollView>
 </LinearLayout>

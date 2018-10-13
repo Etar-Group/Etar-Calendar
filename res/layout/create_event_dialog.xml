@@ -27,7 +27,8 @@
         android:layout_height="48dp"
         android:hint="@string/hint_what"
         android:paddingBottom="4dp"
-        android:paddingTop="4dp" />
+        android:paddingTop="4dp"
+        android:inputType="text" />
 
     <TextView
         android:id="@+id/event_day"
