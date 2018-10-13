@@ -41,8 +41,8 @@
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginLeft="16dip"
-            android:layout_marginRight="8dip"
+            android:layout_marginStart="16dip"
+            android:layout_marginEnd="8dip"
             android:paddingTop="5dip">
             <RadioButton
                 android:id="@+id/response_yes"
@@ -140,8 +140,7 @@
             android:hint="@string/hint_description"
             android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
             style="@style/TextAppearance.EditEvent_Value"
-            android:imeOptions="actionDone"
-            android:capitalize="sentences" />
+            android:imeOptions="actionDone" />
     </LinearLayout>
 
     <View
@@ -167,7 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="-12dip"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:contentDescription="@string/accessibility_pick_recurrence"
             style="@style/TextAppearance.EditEvent_SpinnerButton" />
     </LinearLayout>
@@ -196,7 +195,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="-8dip"
             android:layout_marginBottom="8dip"
-            android:layout_marginRight="8dip"
+            android:layout_marginEnd="8dip"
             android:orientation="vertical" />
         <Button
             android:id="@+id/reminder_add"
@@ -230,7 +229,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_LabelSmall"
-            android:paddingRight="4dip" />
+            android:paddingEnd="4dip" />
         <Spinner
             android:id="@+id/availability"
             android:entries="@array/availability"

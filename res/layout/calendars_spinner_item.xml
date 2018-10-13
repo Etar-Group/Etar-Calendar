@@ -26,14 +26,12 @@
         android:singleLine="true"
         android:ellipsize="end"
         android:textColor="#FFFFFFFF"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/calendar_name"
-        android:layout_alignLeft="@id/calendar_name"
         android:ellipsize="marquee"
         android:singleLine="true"
         style="?android:attr/spinnerItemStyle"
