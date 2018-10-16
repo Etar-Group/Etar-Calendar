@@ -28,6 +28,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Suppress;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 
 import java.util.TimeZone;
@@ -163,13 +164,14 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
         eventInfo.where = location + i;
         eventInfo.title = title + i;
-        expected.mEventInfos.add(eventInfo);
         cursor.addRow(getRow(1, start, end, title + i, location + i, 0));
 
         // Test
         CalendarAppWidgetModel actual = CalendarAppWidgetService.CalendarFactory.buildAppWidgetModel(
                 context, cursor, Time.getCurrentTimezone());
 
+        Log.e("Test", " expected: " + expected.toString()
+            + " actual: " + actual.toString());
         assertEquals(expected.toString(), actual.toString());
     }
 
