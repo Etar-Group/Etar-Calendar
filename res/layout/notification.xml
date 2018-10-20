@@ -29,12 +29,12 @@
         android:layout_width="wrap_content"
         android:paddingLeft="20dip"
         android:paddingRight="20dip"
-        android:contentDescription="@string/acessibility_cal_notification"
+        android:contentDescription="@string/accessibility_cal_notification"
         android:src="@drawable/stat_notify_calendar" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content">
@@ -59,7 +59,7 @@
         android:id="@+id/map_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical|right"
+        android:layout_gravity="center_vertical|end"
         android:src="@drawable/ic_map"
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dip"
@@ -68,7 +68,7 @@
         android:id="@+id/call_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical|right"
+        android:layout_gravity="center_vertical|end"
         android:src="@drawable/ic_call"
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dip"
@@ -77,7 +77,7 @@
         android:id="@+id/email_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical|right"
+        android:layout_gravity="center_vertical|end"
         android:src="@drawable/ic_menu_email_holo_dark"
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dip"
@@ -86,11 +86,11 @@
         android:id="@+id/snooze_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical|right"
+        android:layout_gravity="center_vertical|end"
         android:src="@drawable/ic_alarm_holo_dark"
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dip"
-        android:contentDescription="@string/acessibility_snooze_notification" />
+        android:contentDescription="@string/accessibility_snooze_notification" />
 
     <!-- Add right padding if no buttons so notification text does not run too
          close to edge.
@@ -99,6 +99,6 @@
         android:id="@+id/end_padding"
         android:layout_width="12dp"
         android:layout_height="match_parent"
-        android:paddingRight="12dp" />
+        android:paddingEnd="12dp" />
 
 </LinearLayout>

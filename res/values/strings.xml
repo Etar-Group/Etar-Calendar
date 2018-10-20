@@ -14,6 +14,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- This is the app label used for alert notifications -->
+    <string name="standalone_app_label" translatable="false">Etar</string>
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
 
@@ -678,9 +680,9 @@
     <!-- Set the event as private/public/default [CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_privacy">Privacy</string>
     <!-- Calendar notification [CHAR LIMIT = NONE]-->
-    <string name="acessibility_cal_notification">Calendar Notification</string>
+    <string name="accessibility_cal_notification">Calendar Notification</string>
     <!-- Calendar notification snooze button [CHAR LIMIT = NONE]-->
-    <string name="acessibility_snooze_notification">Snooze Notification</string>
+    <string name="accessibility_snooze_notification">Snooze Notification</string>
     <!-- Calendar notification email button [CHAR LIMIT = NONE]-->
     <string name="accessibility_email_notification">Email guests</string>
 
