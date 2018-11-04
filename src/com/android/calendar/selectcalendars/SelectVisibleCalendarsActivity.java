@@ -23,6 +23,7 @@ import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,17 +62,18 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
         super.onCreate(icicle);
 
         dynamicTheme.onCreate(this);
-        setContentView(R.layout.simple_frame_layout);
-
+        setContentView(R.layout.simple_frame_layout_material);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mController = CalendarController.getInstance(this);
         mFragment = (SelectVisibleCalendarsFragment) getFragmentManager().findFragmentById(
-                R.id.main_frame);
+                R.id.body_frame);
 
         if (mFragment == null) {
             mFragment = new SelectVisibleCalendarsFragment(R.layout.calendar_sync_item);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main_frame, mFragment);
+            ft.replace(R.id.body_frame, mFragment);
             ft.show(mFragment);
             ft.commit();
         }

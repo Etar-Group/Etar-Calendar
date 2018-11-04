@@ -17,6 +17,7 @@
 package com.android.calendar.event;
 
 import android.Manifest;
+import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -342,8 +343,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             cancelActionView.setOnClickListener(mActionBarListener);
             View doneActionView = actionBarButtons.findViewById(R.id.action_done);
             doneActionView.setOnClickListener(mActionBarListener);
-
-            mContext.getSupportActionBar().setCustomView(actionBarButtons);
+            ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+            mContext.getSupportActionBar().setCustomView(actionBarButtons, layout);
         }
 
         return view;
