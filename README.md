@@ -44,3 +44,5 @@ gradle build
 
 The calendar shows Montly, Dayly, Weekly 
 schedules and this commit is made by Aybuke Kucukbezirci..
+
+The commit is made by Deniz
