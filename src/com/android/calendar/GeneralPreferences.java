@@ -149,16 +149,15 @@ public class GeneralPreferences extends PreferenceFragment implements
 
     /** Set the default shared preferences in the proper context */
     public static void setDefaultValues(Context context) {
-
         if (Utils.isOreoOrLater()) {
             PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
                 R.xml.general_preferences_oreo_and_up, false);
         } else {
             PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
                     R.xml.general_preferences, false);
+        }
+    }
 
-        }
-        }
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -180,7 +179,6 @@ public class GeneralPreferences extends PreferenceFragment implements
             addPreferencesFromResource(R.xml.general_preferences);
         }
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
-        //mAlert = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS);
 
         if (Utils.isOreoOrLater()) {
             mNotification = preferenceScreen.findPreference(KEY_NOTIFICATION);
