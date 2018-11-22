@@ -276,4 +276,7 @@
   <string name="goto_date">"الذهاب إلى…"</string>
   <string name="calendar_permission_not_granted">"يتعذر التطبيق عن تشغيل هذه الخاصية، يتطلب تطبيق إيتار صلاحياتي القراءة والكتابة على التقويم حتى يعمل بالشكل المطلوب"</string>
   <string name="user_rejected_calendar_write_permission">"يتعذر التطبيق عن التشغيل، إيتار يتطلب صلاحياتي القراءة والكتابة على التقويم حتى يعمل بالشكل المطلوب"</string>
+    <string name="visibility_default">افتراضي</string>
+  <string name="visibility_private">خاص</string>
+  <string name="visibility_public">عام</string>
 </resources>

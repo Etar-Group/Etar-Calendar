@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"ለ<xliff:g id="EVENT_COUNT">%d</xliff:g> ክስተቶች"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"የመጨረሻውን ቀን ቀይር"</string>
+    <string name="visibility_default">ነባሪ</string>
+  <string name="visibility_private">የግል</string>
+  <string name="visibility_public">ሕዝብ</string>
 </resources>

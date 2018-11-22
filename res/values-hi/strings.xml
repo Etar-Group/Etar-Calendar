@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ईवेंट के लिए"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"समाप्ति दिनांक बदलें"</string>
+    <string name="visibility_default">डिफ़ॉल्ट</string>
+  <string name="visibility_private">निजी</string>
+  <string name="visibility_public">सार्वजनिक</string>
 </resources>

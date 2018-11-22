@@ -70,11 +70,6 @@
     <item msgid="6228387173725732140">"有空"</item>
     <item msgid="2064426942462573474">"暂定"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"默认"</item>
-    <item msgid="5200216103966973369">"私人"</item>
-    <item msgid="9182342638433672664">"公开"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"第一个"</item>
     <item msgid="5631923029483854900">"第二个"</item>

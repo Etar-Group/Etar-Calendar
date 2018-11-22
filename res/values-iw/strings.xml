@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"עבור <xliff:g id="EVENT_COUNT">%d</xliff:g> אירועים"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"שינוי של תאריך הסיום"</string>
+    <string name="visibility_default">ברירת מחדל</string>
+  <string name="visibility_private">פרטי</string>
+  <string name="visibility_public">ציבורי</string>
 </resources>

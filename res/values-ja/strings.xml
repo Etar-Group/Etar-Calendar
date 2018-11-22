@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g>回繰り返す"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"終了日を変更します"</string>
+    <string name="visibility_default">デフォルト</string>
+  <string name="visibility_private">限定公開</string>
+  <string name="visibility_public">一般公開</string>
 </resources>

@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Vykstant <xliff:g id="EVENT_COUNT">%d</xliff:g> įvyk."</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"keisti pabaigos datą"</string>
+    <string name="visibility_default">Numatytasis</string>
+  <string name="visibility_private">Privatus</string>
+  <string name="visibility_public">Viešas</string>
 </resources>

@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Для стількох подій: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"змінити дату завершення"</string>
+    <string name="visibility_default">За умовч.</string>
+  <string name="visibility_private">Приватно</string>
+  <string name="visibility_public">Заг.-дост.</string>
 </resources>

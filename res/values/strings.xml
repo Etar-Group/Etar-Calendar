@@ -775,4 +775,10 @@
 
     <string name="user_rejected_calendar_write_permission">Etar requires calendar read and write permissions to work properly. Please try again.</string>
     <string name="calendar_permission_not_granted">Sorry this feature can\'t work. Etar requires calendar read and write permissions to work properly</string>
+
+    <!-- Strings to describe visibility array -->
+    <string name="visibility_default">Default</string>
+    <string name="visibility_confidential">Confidential</string>
+    <string name="visibility_private">Private</string>
+    <string name="visibility_public">Public</string>
 </resources>

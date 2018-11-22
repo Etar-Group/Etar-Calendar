@@ -171,11 +171,6 @@ public class CalendarEventModel implements Serializable {
 
         int accessLevel = intent.getIntExtra(Events.ACCESS_LEVEL, -1);
         if (accessLevel != -1) {
-            if (accessLevel > 0) {
-                // TODO remove this if we add support for
-                // Events.ACCESS_CONFIDENTIAL
-                accessLevel--;
-            }
             mAccessLevel = accessLevel;
         }
 

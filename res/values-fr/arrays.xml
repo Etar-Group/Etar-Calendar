@@ -70,11 +70,6 @@
     <item msgid="6228387173725732140">"Disponible"</item>
     <item msgid="2064426942462573474">"À confirmer"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"Par défaut"</item>
-    <item msgid="5200216103966973369">"Privé"</item>
-    <item msgid="9182342638433672664">"Public"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"1er"</item>
     <item msgid="5631923029483854900">"2e"</item>

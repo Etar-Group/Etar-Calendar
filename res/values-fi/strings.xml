@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> tapahtuman ajan"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"muuta lopetuspäivää"</string>
+    <string name="visibility_default">Oletus</string>
+  <string name="visibility_private">Yksityinen</string>
+  <string name="visibility_public">Julkinen</string>
 </resources>

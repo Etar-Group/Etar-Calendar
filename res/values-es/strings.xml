@@ -309,4 +309,7 @@
   <string name="rsvp_declined">\"Respondió no.\"</string>
   <string name="rsvp_tentative">\"Respondió quizás.\"</string>
   <string name="share_label">Compartir</string>
+    <string name="visibility_default">Predeterminado</string>
+  <string name="visibility_private">Privado</string>
+  <string name="visibility_public">Público</string>
 </resources>

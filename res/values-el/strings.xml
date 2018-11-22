@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Για <xliff:g id="EVENT_COUNT">%d</xliff:g> συμβάντα"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"αλλαγή ημερομηνίας λήξης"</string>
+    <string name="visibility_default">Προεπιλογή</string>
+  <string name="visibility_private">Ιδιωτικό</string>
+  <string name="visibility_public">Δημόσιο</string>
 </resources>

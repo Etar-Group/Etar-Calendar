@@ -199,9 +199,10 @@
     </integer-array>
 
     <string-array name="visibility">
-        <item>Default</item>
-        <item>Private</item>
-        <item>Public</item>
+        <item>@string/visibility_default</item>
+        <item>@string/visibility_confidential</item>
+        <item>@string/visibility_private</item>
+        <item>@string/visibility_public</item>
     </string-array>
 
     <string-array name="ordinal_labels">

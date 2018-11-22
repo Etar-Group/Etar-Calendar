@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Untuk <xliff:g id="EVENT_COUNT">%d</xliff:g> acara"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"ubah tanggal akhir"</string>
+    <string name="visibility_default">Default</string>
+  <string name="visibility_private">Pribadi</string>
+  <string name="visibility_public">Umum</string>
 </resources>

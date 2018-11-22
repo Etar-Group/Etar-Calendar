@@ -70,11 +70,6 @@
     <item msgid="6228387173725732140">"متواجد"</item>
     <item msgid="2064426942462573474">"مبدئي"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"افتراضي"</item>
-    <item msgid="5200216103966973369">"خاص"</item>
-    <item msgid="9182342638433672664">"عام"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"أول"</item>
     <item msgid="5631923029483854900">"ثانية"</item>

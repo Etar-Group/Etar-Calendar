@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Para sa <xliff:g id="EVENT_COUNT">%d</xliff:g> (na) kaganapan"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"baguhin ang petsa ng pagtatapos"</string>
+    <string name="visibility_default">Default</string>
+  <string name="visibility_private">Pribado</string>
+  <string name="visibility_public">Pampubliko</string>
 </resources>

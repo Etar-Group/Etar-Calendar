@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"重複 <xliff:g id="EVENT_COUNT">%d</xliff:g> 次活動"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"變更結束日期"</string>
+    <string name="visibility_default">預設</string>
+  <string name="visibility_private">私人</string>
+  <string name="visibility_public">公開</string>
 </resources>

@@ -70,11 +70,6 @@
     <item msgid="6228387173725732140">"उपलब्ध"</item>
     <item msgid="2064426942462573474">"अस्‍थायी"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"डिफ़ॉल्ट"</item>
-    <item msgid="5200216103966973369">"निजी"</item>
-    <item msgid="9182342638433672664">"सार्वजनिक"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"पहला"</item>
     <item msgid="5631923029483854900">"सेकंड"</item>
