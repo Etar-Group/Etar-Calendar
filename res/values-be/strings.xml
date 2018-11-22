@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Для мерапрыемства <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"змяніць дату заканчэння"</string>
+    <string name="visibility_default">Па змаўчанні</string>
+  <string name="visibility_private">Прыватны</string>
+  <string name="visibility_public">Агульнадаступнае</string>
 </resources>

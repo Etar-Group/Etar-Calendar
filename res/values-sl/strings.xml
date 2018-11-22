@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Za toliko dogodkov: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"sprememba končnega datuma"</string>
+    <string name="visibility_default">Privzeto</string>
+  <string name="visibility_private">Zasebno</string>
+  <string name="visibility_public">Javno</string>
 </resources>

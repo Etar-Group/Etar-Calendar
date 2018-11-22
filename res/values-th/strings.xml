@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"สำหรับกิจกรรม <xliff:g id="EVENT_COUNT">%d</xliff:g> รายการ"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"เปลี่ยนวันที่สิ้นสุด"</string>
+    <string name="visibility_default">เริ่มต้น</string>
+  <string name="visibility_private">ส่วนบุคคล</string>
+  <string name="visibility_public">สาธารณะ</string>
 </resources>

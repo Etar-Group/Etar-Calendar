@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"За <xliff:g id="EVENT_COUNT">%d</xliff:g> събития"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"промяна на крайната дата"</string>
+    <string name="visibility_default">Стандартно</string>
+  <string name="visibility_private">Частно</string>
+  <string name="visibility_public">Обществено</string>
 </resources>

@@ -286,4 +286,7 @@
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifica data di fine"</string>
     <string name="user_rejected_calendar_write_permission">Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare. Riprova.</string>
 <string name="calendar_permission_not_granted">Spiacenti, questo non può funzionare. Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare</string>
+    <string name="visibility_default">Predefinito</string>
+  <string name="visibility_private">Privato</string>
+  <string name="visibility_public">Pubblico</string>
 </resources>

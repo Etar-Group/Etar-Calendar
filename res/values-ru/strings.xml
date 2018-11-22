@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Повторов: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"изменить дату окончания"</string>
+    <string name="visibility_default">По умолчанию</string>
+  <string name="visibility_private">Закрытое</string>
+  <string name="visibility_public">Для всех</string>
 </resources>

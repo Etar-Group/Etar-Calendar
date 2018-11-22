@@ -272,4 +272,7 @@
     <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> قېتىم"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"ئاخىرلىشىش چېسلاسىنى ئۆزگەرت"</string>
+    <string name="visibility_default">كۆڭۈلدىكى</string>
+  <string name="visibility_private">خۇسۇسىي</string>
+  <string name="visibility_public">ئاممىۋى</string>
 </resources>

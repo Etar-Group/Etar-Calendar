@@ -284,5 +284,8 @@
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"endre sluttdato"</string>
     <string name="preferences_issues">"Meld ifra om problemer"</string>
-    
+    <string name="visibility_default">Standard</string>
+  <string name="visibility_private">Privat</string>
+  <string name="visibility_public">Offentlig</string>
+
 </resources>

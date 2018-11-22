@@ -274,4 +274,7 @@
     <item quantity="other" msgid="8779598489398048259">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenementen"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"einddatum wijzigen"</string>
+    <string name="visibility_default">Standaard</string>
+  <string name="visibility_private">Privé</string>
+  <string name="visibility_public">Openbaar</string>
 </resources>

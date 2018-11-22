@@ -289,4 +289,8 @@
     <item quantity="other" msgid="8779598489398048259">"Pour <xliff:g id="EVENT_COUNT">%d</xliff:g> événements"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifier la date de fin"</string>
+    <string name="visibility_default">Par défaut</string>
+  <string name="visibility_private">Privé</string>
+  <string name="visibility_public">Public</string>
+    <string name="visibility_confidential">Confidentiel</string>
 </resources>

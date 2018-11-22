@@ -1083,12 +1083,6 @@ public class EditEventHelper {
         }
         model.setEventColor(Utils.getDisplayColorFromColor(rawEventColor));
 
-        if (accessLevel > 0) {
-            // For now the array contains the values 0, 2, and 3. We subtract
-            // one to make it easier to handle in code as 0,1,2.
-            // Default (0), Private (1), Public (2)
-            accessLevel--;
-        }
         model.mAccessLevel = accessLevel;
         model.mEventStatus = cursor.getInt(EVENT_INDEX_EVENT_STATUS);
 
@@ -1285,11 +1279,6 @@ public class EditEventHelper {
         values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
 
         int accessLevel = model.mAccessLevel;
-        if (accessLevel > 0) {
-            // For now the array contains the values 0, 2, and 3. We add one to match.
-            // Default (0), Private (2), Public (3)
-            accessLevel++;
-        }
         values.put(Events.ACCESS_LEVEL, accessLevel);
         values.put(Events.STATUS, model.mEventStatus);
         if (model.isEventColorInitialized()) {

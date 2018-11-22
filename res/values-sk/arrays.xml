@@ -70,11 +70,6 @@
     <item msgid="6228387173725732140">"K dispozícii"</item>
     <item msgid="2064426942462573474">"Predbežný"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"Predvolené"</item>
-    <item msgid="5200216103966973369">"Súkromné"</item>
-    <item msgid="9182342638433672664">"Verejné"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"prvý"</item>
     <item msgid="5631923029483854900">"sekunda"</item>

@@ -311,4 +311,8 @@
   <string name="rsvp_tentative">Vielleicht</string>
     <string name="preferences_issues">Fehler melden</string>
   <string name="preferences_black_theme">Schwarz</string>
+    <string name="visibility_default">Standard</string>
+  <string name="visibility_private">Privat</string>
+  <string name="visibility_public">Öffentlich</string>
+  <string name="visibility_confidential">Vertraulich</string>
 </resources>
