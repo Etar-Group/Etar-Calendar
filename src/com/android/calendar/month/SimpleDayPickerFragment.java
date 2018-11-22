@@ -37,6 +37,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.calendar.DayFragment;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 
@@ -148,7 +149,8 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     };
 
     public SimpleDayPickerFragment(long initialTime) {
-        goTo(initialTime, false, true, true);
+        DayFragment dayFragment = new DayFragment(initialTime,1);
+        goTo(dayFragment.getSelectedTimeInMillis(), false, true, true);
         mHandler = new Handler();
     }
 
