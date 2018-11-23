@@ -190,19 +190,19 @@ public class GeneralPreferences extends PreferenceFragment implements
                 PreferenceCategory mAlertGroup = (PreferenceCategory) preferenceScreen
                         .findPreference(KEY_ALERTS_CATEGORY);
                 mAlertGroup.removePreference(mVibrate);
-
-                mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
-                String ringToneUri = Utils.getRingTonePreference(activity);
-
-                // Set the ringToneUri to the backup-able shared pref only so that
-                // the Ringtone dialog will open up with the correct value.
-                final Editor editor = preferenceScreen.getEditor();
-                editor.putString(GeneralPreferences.KEY_ALERTS_RINGTONE, ringToneUri).apply();
-
-                String ringtoneDisplayString = getRingtoneTitleFromUri(activity, ringToneUri);
-                mRingtone.setSummary(ringtoneDisplayString == null ? "" : ringtoneDisplayString);
             }
+            mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
+            String ringToneUri = Utils.getRingTonePreference(activity);
+
+            // Set the ringToneUri to the backup-able shared pref only so that
+            // the Ringtone dialog will open up with the correct value.
+            final Editor editor = preferenceScreen.getEditor();
+            editor.putString(GeneralPreferences.KEY_ALERTS_RINGTONE, ringToneUri).apply();
+
+            String ringtoneDisplayString = getRingtoneTitleFromUri(activity, ringToneUri);
+            mRingtone.setSummary(ringtoneDisplayString == null ? "" : ringtoneDisplayString);
         }
+
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
         mTheme = (ListPreference) preferenceScreen.findPreference(KEY_THEME_PREF);
@@ -213,7 +213,6 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDayWeek = (ListPreference) preferenceScreen.findPreference(KEY_DAYS_PER_WEEK);
         mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
         mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ);
-
         mSnoozeDelay = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY);
         buildSnoozeDelayEntries();
         mTheme.setSummary(mTheme.getEntry());
