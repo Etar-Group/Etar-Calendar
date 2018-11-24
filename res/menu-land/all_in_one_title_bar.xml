@@ -14,7 +14,8 @@
      limitations under the License.
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_today"
@@ -52,4 +53,10 @@
         android:alphabeticShortcut="h"
         android:title="@string/hide_controls"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/Colour_Reminder"
+        android:title="Colour_Reminder"
+        app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
+        app:showAsAction="never"
+        tools:icon="@drawable/mr_button_light" />
 </menu>

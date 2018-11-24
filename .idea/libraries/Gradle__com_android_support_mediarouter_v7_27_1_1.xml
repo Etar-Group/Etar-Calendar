@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.android.support:mediarouter-v7-27.1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mediarouter-v7-27.1.1.aar/b64c7bc9900d6d21fea9823c09860e20/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mediarouter-v7-27.1.1.aar/b64c7bc9900d6d21fea9823c09860e20/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/mediarouter-v7/27.1.1/c98543909ae439ba5618ad28d97389c39e8be19b/mediarouter-v7-27.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

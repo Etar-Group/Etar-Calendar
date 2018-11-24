@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
 
@@ -181,11 +181,12 @@ dependencies {
     implementation project(':external:datetimepicker')
     implementation project(':external:timezonepicker')
     implementation project(':external:chips')
+    implementation 'com.android.support:mediarouter-v7:27.1.1'
 }
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 19
