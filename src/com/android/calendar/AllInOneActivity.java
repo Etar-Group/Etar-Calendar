@@ -17,6 +17,7 @@
 package com.android.calendar;
 
 import android.Manifest;
+import com.android.calendar.Event;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
@@ -67,6 +68,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.LinearLayout;
@@ -83,6 +85,7 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 import com.android.datetimepicker.date.DatePickerDialog;
+import com.android.calendar.month.MonthWeekEventsView;
 
 import java.io.File;
 import java.io.IOException;
@@ -398,11 +401,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 Manifest.permission.WRITE_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED ||
+                        Manifest.permission.READ_CALENDAR)
+                        != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)) {
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED)) {
 
             // No explanation needed, we can request the permission.
 
@@ -542,7 +545,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                         mIntentEventStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
-                            ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
+                                ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
                         mIntentAllDay = intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false);
                         timeMillis = mIntentEventStartMillis;
                     }
@@ -818,6 +821,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         MenuItem item = menu.findItem(R.id.action_import);
         item.setVisible(ImportActivity.hasThingsToImport());
+        MenuItem item2 = menu.findItem(R.id.action_nextEvent);
+        item2.setVisible(true);
 
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenu);
@@ -893,6 +898,40 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 }
             }, t.year, t.month, t.monthDay);
             datePickerDialog.show(getFragmentManager(), "datePickerDialog");
+
+        }else if(itemId==R.id.action_nextEvent){
+            Time todayTime;
+            t = new Time(mTimeZone);
+            MonthWeekEventsView m=new MonthWeekEventsView();
+            DayView d=null;
+
+
+            todayTime = new Time(mTimeZone);
+            todayTime.setToNow();
+            if (todayTime.month == t.month) {
+                t = todayTime;
+            }
+            Event nexteventis;
+            if(m.forotherclass!=null) {
+                nexteventis= m.forotherclass.get(0).get(0);
+                int day=nexteventis.startDay;
+                todayTime.set(day,todayTime.month,todayTime.year);
+
+                d.setSelected(todayTime,true,true);
+
+
+
+
+
+
+            }else{
+                return false;
+            }
+
+
+
+
+
 
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
@@ -1194,7 +1233,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         if (mHomeTime != null
                 && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK
-                        || mCurrentView == ViewType.AGENDA)
+                || mCurrentView == ViewType.AGENDA)
                 && !TextUtils.equals(mTimeZone, Time.getCurrentTimezone())) {
             Time time = new Time(mTimeZone);
             time.setToNow();
@@ -1255,12 +1294,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     // hide minimonth and calendar frag
                     mShowSideViews = false;
                     if (!mHideControls) {
-                            final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
-                                    "controlsOffset", 0, animationSize);
-                            slideAnimation.addListener(mSlideAnimationDoneListener);
-                            slideAnimation.setDuration(mCalendarControlsAnimationTime);
-                            ObjectAnimator.setFrameDelay(0);
-                            slideAnimation.start();
+                        final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
+                                "controlsOffset", 0, animationSize);
+                        slideAnimation.addListener(mSlideAnimationDoneListener);
+                        slideAnimation.setDuration(mCalendarControlsAnimationTime);
+                        ObjectAnimator.setFrameDelay(0);
+                        slideAnimation.start();
                     } else {
                         mMiniMonth.setVisibility(View.GONE);
                         mCalendarsList.setVisibility(View.GONE);
@@ -1274,7 +1313,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mMiniMonthContainer.setVisibility(View.VISIBLE);
                     if (!mHideControls &&
                             (mController.getPreviousViewType() == ViewType.MONTH ||
-                             mController.getPreviousViewType() == ViewType.AGENDA)) {
+                                    mController.getPreviousViewType() == ViewType.AGENDA)) {
                         final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
                                 "controlsOffset", animationSize, 0);
                         slideAnimation.setDuration(mCalendarControlsAnimationTime);
@@ -1308,7 +1347,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                             CalendarController.EXTRA_GOTO_TIME, null, null);
                 } else if (event.selectedTime != null) {
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
-                        event.selectedTime, event.id, ViewType.AGENDA);
+                            event.selectedTime, event.id, ViewType.AGENDA);
                 }
             } else {
                 // TODO Fix the temp hack below: && mCurrentView !=

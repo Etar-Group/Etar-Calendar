@@ -30,6 +30,8 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:alphabeticShortcut="r"
         android:icon="@drawable/ic_menu_refresh"
         android:title="@string/calendar_refresh"
@@ -45,8 +47,8 @@
     <item
         android:id="@+id/action_import"
         android:alphabeticShortcut="i"
-        android:title="@string/cal_import_menu_title"
         android:icon="@drawable/ic_menu_export"
+        android:title="@string/cal_import_menu_title"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_hide_controls"
@@ -54,9 +56,9 @@
         android:title="@string/hide_controls"
         app:showAsAction="never" />
     <item
-        android:id="@+id/Colour_Reminder"
-        android:title="Colour_Reminder"
-        app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
-        app:showAsAction="never"
-        tools:icon="@drawable/mr_button_light" />
+        android:id="@+id/action_nextEvent"
+        android:title="goto_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </menu>

@@ -14,7 +14,8 @@
      limitations under the License.
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_today"
@@ -27,6 +28,11 @@
         android:alphabeticShortcut="g"
         android:title="@string/goto_date"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nextEvent"
+        android:title="go to Next Event"
+        android:alphabeticShortcut="e"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
@@ -50,4 +56,5 @@
         android:title="@string/cal_import_menu_title"
         android:icon="@drawable/ic_menu_export"
         app:showAsAction="never" />
+
 </menu>

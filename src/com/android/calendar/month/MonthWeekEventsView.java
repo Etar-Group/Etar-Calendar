@@ -178,6 +178,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     // arraylist sorted by start time to generate the dna version.
     public void setEvents(List<ArrayList<Event>> sortedEvents, ArrayList<Event> unsortedEvents) {
         setEvents(sortedEvents);
+        forotherclass=sortedEvents;
         // The MIN_WEEK_WIDTH is a hack to prevent the view from trying to
         // generate dna bits before its width has been fixed.
         createDna(unsortedEvents);
@@ -188,6 +189,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * isn't in a state that will create a valid set of dna yet (such as the
      * views width not being set correctly yet).
      */
+
+    public List<ArrayList<Event>> forotherclass;
     public void createDna(ArrayList<Event> unsortedEvents) {
         if (unsortedEvents == null || mWidth <= MIN_WEEK_WIDTH || getContext() == null) {
             // Stash the list of events for use when this view is ready, or
@@ -234,6 +237,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
     }
 
+
     protected void loadColors(Context context) {
         Resources res = context.getResources();
         DynamicTheme dynamicTheme = new DynamicTheme();
@@ -262,6 +266,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * Sets up the text and style properties for painting. Override this if you
      * want to use a different paint.
      */
+    public MonthWeekEventsView() {
+        this(null);
+    }
     @Override
     protected void initView() {
         super.initView();
