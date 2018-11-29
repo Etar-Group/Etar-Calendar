@@ -42,6 +42,7 @@ import android.preference.RingtonePreference;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarCache;
 import android.provider.SearchRecentSuggestions;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.SparseIntArray;
@@ -73,6 +74,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     public static final String KEY_CLEAR_SEARCH_HISTORY = "preferences_clear_search_history";
     public static final String KEY_ALERTS_CATEGORY = "preferences_alerts_category";
     public static final String KEY_ALERTS = "preferences_alerts";
+    public static final String KEY_NOTIFICATION = "preferences_notification";
     public static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
     public static final String KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone";
     public static final String KEY_ALERTS_POPUP = "preferences_alerts_popup";
@@ -119,6 +121,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     private static final String ALERT_TYPE_STATUS_BAR = "1";
     private static final String ALERT_TYPE_OFF = "2";
     CheckBoxPreference mAlert;
+    Preference mNotification;
     CheckBoxPreference mVibrate;
     RingtonePreference mRingtone;
     CheckBoxPreference mPopup;
@@ -146,8 +149,13 @@ public class GeneralPreferences extends PreferenceFragment implements
 
     /** Set the default shared preferences in the proper context */
     public static void setDefaultValues(Context context) {
-        PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                R.xml.general_preferences, false);
+        if (Utils.isOreoOrLater()) {
+            PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
+                R.xml.general_preferences_oreo_and_up, false);
+        } else {
+            PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
+                    R.xml.general_preferences, false);
+        }
     }
 
     @Override
@@ -165,28 +173,35 @@ public class GeneralPreferences extends PreferenceFragment implements
         preferenceManager.setSharedPreferencesName(SHARED_PREFS_NAME);
 
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.general_preferences);
-
-        final PreferenceScreen preferenceScreen = getPreferenceScreen();
-        mAlert = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS);
-        mVibrate = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE);
-        Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-        if (vibrator == null || !vibrator.hasVibrator()) {
-            PreferenceCategory mAlertGroup = (PreferenceCategory) preferenceScreen
-                    .findPreference(KEY_ALERTS_CATEGORY);
-            mAlertGroup.removePreference(mVibrate);
+        if (Utils.isOreoOrLater()) {
+            addPreferencesFromResource(R.xml.general_preferences_oreo_and_up);
+        } else {
+            addPreferencesFromResource(R.xml.general_preferences);
         }
+        final PreferenceScreen preferenceScreen = getPreferenceScreen();
 
-        mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
-        String ringToneUri = Utils.getRingTonePreference(activity);
+        if (Utils.isOreoOrLater()) {
+            mNotification = preferenceScreen.findPreference(KEY_NOTIFICATION);
+        } else {
+            mAlert = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS);
+            mVibrate = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE);
+            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+            if (vibrator == null || !vibrator.hasVibrator()) {
+                PreferenceCategory mAlertGroup = (PreferenceCategory) preferenceScreen
+                        .findPreference(KEY_ALERTS_CATEGORY);
+                mAlertGroup.removePreference(mVibrate);
+            }
+            mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
+            String ringToneUri = Utils.getRingTonePreference(activity);
 
-        // Set the ringToneUri to the backup-able shared pref only so that
-        // the Ringtone dialog will open up with the correct value.
-        final Editor editor = preferenceScreen.getEditor();
-        editor.putString(GeneralPreferences.KEY_ALERTS_RINGTONE, ringToneUri).apply();
+            // Set the ringToneUri to the backup-able shared pref only so that
+            // the Ringtone dialog will open up with the correct value.
+            final Editor editor = preferenceScreen.getEditor();
+            editor.putString(GeneralPreferences.KEY_ALERTS_RINGTONE, ringToneUri).apply();
 
-        String ringtoneDisplayString = getRingtoneTitleFromUri(activity, ringToneUri);
-        mRingtone.setSummary(ringtoneDisplayString == null ? "" : ringtoneDisplayString);
+            String ringtoneDisplayString = getRingtoneTitleFromUri(activity, ringToneUri);
+            mRingtone.setSummary(ringtoneDisplayString == null ? "" : ringtoneDisplayString);
+        }
 
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
@@ -198,7 +213,6 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDayWeek = (ListPreference) preferenceScreen.findPreference(KEY_DAYS_PER_WEEK);
         mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
         mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ);
-
         mSnoozeDelay = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY);
         buildSnoozeDelayEntries();
         mTheme.setSummary(mTheme.getEntry());
@@ -334,9 +348,13 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDayWeek.setOnPreferenceChangeListener(listener);
         mDefaultReminder.setOnPreferenceChangeListener(listener);
         mSnoozeDelay.setOnPreferenceChangeListener(listener);
-        mRingtone.setOnPreferenceChangeListener(listener);
         mHideDeclined.setOnPreferenceChangeListener(listener);
-        mVibrate.setOnPreferenceChangeListener(listener);
+        if (Utils.isOreoOrLater()) {
+            mNotification.setOnPreferenceChangeListener(listener);
+        } else {
+            mVibrate.setOnPreferenceChangeListener(listener);
+            mRingtone.setOnPreferenceChangeListener(listener);
+        }
     }
 
     @Override
@@ -446,9 +464,9 @@ public class GeneralPreferences extends PreferenceFragment implements
      */
     private void migrateOldPreferences(SharedPreferences prefs) {
         // If needed, migrate vibration setting from a previous version
-
-        mVibrate.setChecked(Utils.getDefaultVibrate(getActivity(), prefs));
-
+        if (!Utils.isOreoOrLater()) {
+            mVibrate.setChecked(Utils.getDefaultVibrate(getActivity(), prefs));
+        }
         // If needed, migrate the old alerts type settin
         if (!prefs.contains(KEY_ALERTS) && prefs.contains(KEY_ALERTS_TYPE)) {
             String type = prefs.getString(KEY_ALERTS_TYPE, ALERT_TYPE_STATUS_BAR);
@@ -494,6 +512,12 @@ public class GeneralPreferences extends PreferenceFragment implements
             suggestions.clearHistory();
             Toast.makeText(getActivity(), R.string.search_history_cleared,
                     Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (KEY_NOTIFICATION.equals(key)) {
+                    Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                    intent.putExtra(Settings.EXTRA_CHANNEL_ID, "alert_channel_01");
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+                    startActivity(intent);
             return true;
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
