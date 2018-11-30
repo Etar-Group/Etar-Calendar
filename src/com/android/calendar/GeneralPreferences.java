@@ -218,8 +218,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
         mDayWeek = (ListPreference) preferenceScreen.findPreference(KEY_DAYS_PER_WEEK);
         mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
-        mDefaultEventDuration = (ListPreference) preferenceScreen.findPreference(
-                KEY_DEFAULT_EVENT_DURATION);
+        mDefaultEventDuration = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_EVENT_DURATION);
         mDefaultEventDuration.setSummary(mDefaultEventDuration.getEntry());
         mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ);
         mSnoozeDelay = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY);

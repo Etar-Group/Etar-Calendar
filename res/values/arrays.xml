@@ -186,12 +186,12 @@
     </string-array>
 
     <string-array name="preferences_default_duration_labels">
-        <item>0 minutes</item>
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>1.5 hours</item>
-        <item>2 hours</item>
+        <item>@string/zero_minutes</item>
+        <item>@string/fifteen_minutes</item>
+        <item>@string/thirty_minutes</item>
+        <item>@string/one_hour</item>
+        <item>@string/one_and_a_half_hours</item>
+        <item>@string/two_hours</item>
     </string-array>
 
     <string-array name="preferences_default_duration_values" translatable="false">

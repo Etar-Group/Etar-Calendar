@@ -315,4 +315,12 @@
   <string name="visibility_private">Privat</string>
   <string name="visibility_public">Öffentlich</string>
   <string name="visibility_confidential">Vertraulich</string>
+    <string name="preferences_color">Primäre Farbe</string>
+    <string name="preferences_default_event_duration_title">Standard Termindauer</string>
+    <string name="zero_minutes">0 Minuten</string>
+  <string name="fifteen_minutes">15 Minuten</string>
+  <string name="thirty_minutes">30 Minuten</string>
+  <string name="one_hour">1 Stunde</string>
+  <string name="two_hours">2 Stunden</string>
+  <string name="one_and_a_half_hours">1,5 Stunden</string>
 </resources>
