@@ -259,7 +259,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
         if (mEnd < mBegin) {
             // use a default value instead
-            mEnd = mHelper.constructDefaultEndTime(mBegin, mActivity);
+            mEnd = mHelper.constructDefaultEndTime(mBegin, mContext);
         }
 
         // Kick off the query for the event

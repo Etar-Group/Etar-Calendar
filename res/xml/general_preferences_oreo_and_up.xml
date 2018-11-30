@@ -56,6 +56,13 @@
             android:entries="@array/preferences_days_per_week_labels"
             android:entryValues="@array/preferences_days_per_week_values"
             android:dialogTitle="@string/preferences_days_per_week_dialog" />
+        <ListPreference
+            android:key="preferences_default_event_duration"
+            android:defaultValue="60"
+            android:title="@string/preferences_default_event_duration_title"
+            android:entries="@array/preferences_default_duration_labels"
+            android:entryValues="@array/preferences_default_duration_values"
+            />
         <CheckBoxPreference
             android:key="preferences_home_tz_enabled"
             android:defaultValue="false"

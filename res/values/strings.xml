@@ -536,12 +536,13 @@
     <!-- Title of popup for week start day setting-->
     <string name="preferences_week_start_day_dialog">Week starts on</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="preferences_week_start_day_default">-1</string>
+    <string name="preferences_week_start_day_default" translatable="false">-1</string>
 
     <string name="preferences_days_per_week_title">Days per week</string>
     <string name="preferences_days_per_week_dialog">Days per week</string>
-    <string name="preferences_days_per_week_default">7</string>
-
+    <string name="preferences_days_per_week_default" translatable="false">7</string>
+    <!-- Title of the default event duration setting-->
+    <string name="preferences_default_event_duration_title">Default event duration</string>
     <!-- Title of the settings item to clear the recent search history [CHAR LIMIT=40] -->
     <string name="preferences_clear_search_history_title">Clear search history</string>
     <!-- Summary of the settings item to clear the recent search history [CHAR LIMIT=70]-->
@@ -609,7 +610,7 @@
 
 
     <!-- DO NOT TRANSLATE -->
-    <string name="tardis">TARDIS</string>
+    <string name="tardis" translatable="false">TARDIS</string>
 
     <!-- Experimental settings [CHAR LIMIT = 30]-->
     <string name="preferences_experimental_category">Experimental</string>
@@ -783,4 +784,13 @@
     <string name="visibility_confidential">Confidential</string>
     <string name="visibility_private">Private</string>
     <string name="visibility_public">Public</string>
+
+    <!-- Strings to describe default duration array -->
+    <string name="zero_minutes">0 minutes</string>
+    <string name="fifteen_minutes">15 minutes</string>
+    <string name="thirty_minutes">30 minutes</string>
+    <string name="one_hour">1 hour</string>
+    <string name="one_and_a_half_hours">1.5 hours</string>
+    <string name="two_hours">2 hours</string>
+
 </resources>
