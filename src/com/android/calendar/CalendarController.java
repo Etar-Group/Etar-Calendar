@@ -39,6 +39,7 @@ import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -60,6 +61,7 @@ public class CalendarController {
      * Pass to the ExtraLong parameter for EventType.CREATE_EVENT to create
      * an all-day event
      */
+    public static ArrayList<EventInfo> eventArrayList=new ArrayList<>();
     public static final long EXTRA_CREATE_ALL_DAY = 0x10;
     /**
      * Pass to the ExtraLong parameter for EventType.GO_TO to signal the time
@@ -426,6 +428,7 @@ public class CalendarController {
                 launchCreateEvent(event.startTime.toMillis(false), endTime,
                         event.extraLong == EXTRA_CREATE_ALL_DAY, event.eventTitle,
                         event.calendarId);
+                eventArrayList.add(event);
                 return;
             } else if (event.eventType == EventType.VIEW_EVENT) {
                 launchViewEvent(event.id, event.startTime.toMillis(false), endTime,
@@ -439,6 +442,12 @@ public class CalendarController {
                 return;
             } else if (event.eventType == EventType.DELETE_EVENT) {
                 launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
+                for(int i=0;i<eventArrayList.size();i++){
+                    if(eventArrayList.get(i).equals(event)){
+                        eventArrayList.remove(i);
+                        break;
+                    }
+                }
                 return;
             } else if (event.eventType == EventType.SEARCH) {
                 launchSearch(event.id, event.query, event.componentName);

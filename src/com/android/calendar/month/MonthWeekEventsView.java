@@ -16,10 +16,6 @@
 
 package com.android.calendar.month;
 
-import com.android.calendar.DynamicTheme;
-import com.android.calendar.Event;
-import com.android.calendar.LunarUtils;
-import com.android.calendar.Utils;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -44,6 +40,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.Toast;
+
+import com.android.calendar.AllInOneActivity;
+import com.android.calendar.DynamicTheme;
+import com.android.calendar.Event;
+import com.android.calendar.LunarUtils;
+import com.android.calendar.Utils;
+import com.android.calendar.agenda.AgendaListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,6 +60,8 @@ import java.util.Locale;
 import ws.xsoh.etar.R;
 
 public class MonthWeekEventsView extends SimpleWeekView {
+
+
 
     public static final String VIEW_PARAMS_ORIENTATION = "orientation";
     public static final String VIEW_PARAMS_ANIMATE_TODAY = "animate_today";
@@ -169,9 +175,16 @@ public class MonthWeekEventsView extends SimpleWeekView {
     /**
      * Shows up as an error if we don't include this.
      */
+    private Context con;
+
     public MonthWeekEventsView(Context context) {
         super(context);
+        con=context;
+
     }
+
+
+
 
     // Sets the list of events for this week. Takes a sorted list of arrays
     // divided up by day for generating the large month version and the full
@@ -182,6 +195,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         // The MIN_WEEK_WIDTH is a hack to prevent the view from trying to
         // generate dna bits before its width has been fixed.
         createDna(unsortedEvents);
+
     }
 
     /**
@@ -224,6 +238,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     public void setEvents(List<ArrayList<Event>> sortedEvents) {
         mEvents = sortedEvents;
+        AllInOneActivity all=new AllInOneActivity();
+       // AllInOneActivity.sorevent=sortedEvents;
+
         if (sortedEvents == null) {
             return;
         }
@@ -266,9 +283,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * Sets up the text and style properties for painting. Override this if you
      * want to use a different paint.
      */
-    public MonthWeekEventsView() {
-        this(null);
-    }
+
     @Override
     protected void initView() {
         super.initView();
@@ -719,6 +734,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
 
         int day = -1;
+        forotherclass=mEvents;
         for (ArrayList<Event> eventDay : mEvents) {
             day++;
             if (eventDay == null || eventDay.size() == 0) {
@@ -735,8 +751,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
             boolean showTimes = mShowTimeInMonth;
             Iterator<Event> iter = eventDay.iterator();
             int yTest = ySquare;
+            int i=0;
             while (iter.hasNext()) {
                 Event event = iter.next();
+                if(i==0){
+                    firstevent(event);
+                    i++;
+                }
                 int newY = drawEvent(canvas, event, xSquare, yTest, rightEdge, iter.hasNext(),
                         showTimes, /*doDraw*/ false);
                 if (newY == yTest) {
@@ -748,8 +769,18 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
             int eventCount = 0;
             iter = eventDay.iterator();
+            int j=0;
+
             while (iter.hasNext()) {
                 Event event = iter.next();
+
+
+                //Toast.makeText(AllInOneActivity.CONTEXT_IGNORE_SECURITY,":"+event.startDay+"**",Toast.LENGTH_SHORT).show();
+                if(j==0){
+                    gonderim=event;
+                     firstevent(event);
+                     j++;
+                }
                 int newY = drawEvent(canvas, event, xSquare, ySquare, rightEdge, iter.hasNext(),
                         showTimes, /*doDraw*/ true);
                 if (newY == ySquare) {
@@ -766,6 +797,14 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
     }
 
+    static Event gonderim;
+    public void firstevent(Event event){
+
+        AllInOneActivity.e=event;
+
+        com.android.calendar.AllInOneActivity.seteventE(event);
+
+    }
     protected int addChipOutline(FloatRef lines, int count, int x, int y) {
         lines.ensureSize(count + 16);
         // top of box

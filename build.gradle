@@ -21,7 +21,7 @@ project(':external:calendar') {
 
     android {
         compileSdkVersion 27
-        buildToolsVersion '27.0.3'
+        buildToolsVersion '28.0.3'
 
         defaultConfig {
             minSdkVersion 19
@@ -29,14 +29,14 @@ project(':external:calendar') {
         }
 
         sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
+            main {
+                manifest.srcFile 'AndroidManifest.xml'
+                java.srcDirs = ['src']
+                resources.srcDirs = ['src']
+                aidl.srcDirs = ['src']
+                renderscript.srcDirs = ['src']
+                res.srcDirs = ['res']
+                assets.srcDirs = ['assets']
             }
 
         }
@@ -52,7 +52,7 @@ project(':external:colorpicker') {
 
     android {
         compileSdkVersion 27
-        buildToolsVersion '27.0.3'
+        buildToolsVersion '28.0.3'
 
         defaultConfig {
             minSdkVersion 19
@@ -60,14 +60,14 @@ project(':external:colorpicker') {
         }
 
         sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
+            main {
+                manifest.srcFile 'AndroidManifest.xml'
+                java.srcDirs = ['src']
+                resources.srcDirs = ['src']
+                aidl.srcDirs = ['src']
+                renderscript.srcDirs = ['src']
+                res.srcDirs = ['res']
+                assets.srcDirs = ['assets']
             }
         }
     }
@@ -82,7 +82,7 @@ project(':external:datetimepicker') {
 
     android {
         compileSdkVersion 27
-        buildToolsVersion '27.0.3'
+        buildToolsVersion '28.0.3'
 
         defaultConfig {
             minSdkVersion 19
@@ -90,14 +90,14 @@ project(':external:datetimepicker') {
         }
 
         sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
+            main {
+                manifest.srcFile 'AndroidManifest.xml'
+                java.srcDirs = ['src']
+                resources.srcDirs = ['src']
+                aidl.srcDirs = ['src']
+                renderscript.srcDirs = ['src']
+                res.srcDirs = ['res']
+                assets.srcDirs = ['assets']
             }
         }
 
@@ -116,7 +116,7 @@ project(':external:timezonepicker') {
 
     android {
         compileSdkVersion 27
-        buildToolsVersion '27.0.3'
+        buildToolsVersion '28.0.3'
 
         defaultConfig {
             minSdkVersion 19
@@ -124,13 +124,13 @@ project(':external:timezonepicker') {
         }
 
         sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
+            main {
+                manifest.srcFile 'AndroidManifest.xml'
+                java.srcDirs = ['src']
+                resources.srcDirs = ['src']
+                aidl.srcDirs = ['src']
+                renderscript.srcDirs = ['src']
+                res.srcDirs = ['res']
             }
         }
 
@@ -145,7 +145,7 @@ project(':external:chips') {
 
     android {
         compileSdkVersion 27
-        buildToolsVersion '27.0.3'
+        buildToolsVersion '28.0.3'
 
         defaultConfig {
             minSdkVersion 19
@@ -153,14 +153,14 @@ project(':external:chips') {
         }
 
         sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
+            main {
+                manifest.srcFile 'AndroidManifest.xml'
+                java.srcDirs = ['src']
+                resources.srcDirs = ['src']
+                aidl.srcDirs = ['src']
+                renderscript.srcDirs = ['src']
+                res.srcDirs = ['res']
+                assets.srcDirs = ['assets']
             }
         }
 
@@ -196,14 +196,14 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     sourceSets {
-            main {
-                manifest.srcFile 'AndroidManifest.xml'
-                java.srcDirs = ['src', 'external/ex/common/java'] // NOTE: this includes external/ex/common/java!
-                resources.srcDirs = ['src']
-                aidl.srcDirs = ['src']
-                renderscript.srcDirs = ['src']
-                res.srcDirs = ['res']
-                assets.srcDirs = ['assets']
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src', 'external/ex/common/java'] // NOTE: this includes external/ex/common/java!
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
         }
     }
 
@@ -220,7 +220,7 @@ android {
             project.hasProperty('signingKeyAlias') &&
             project.hasProperty('signingKeyPassword')) {
         println "Found sign properties in gradle.properties! Signing build…"
-        
+
         signingConfigs {
             release {
                 storeFile file(signingStoreLocation)

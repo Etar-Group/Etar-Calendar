@@ -82,13 +82,17 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.agenda.AgendaListView;
 import com.android.calendar.month.MonthByWeekFragment;
+import com.android.calendar.month.SimpleWeeksAdapter;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.calendar.month.MonthWeekEventsView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -99,6 +103,7 @@ import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import android.widget.Toast;
 
 public class AllInOneActivity extends AbstractCalendarActivity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, NavigationView.OnNavigationItemSelectedListener {
@@ -725,9 +730,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     private void initFragments(long timeMillis, int viewType, Bundle icicle) {
         if (DEBUG) {
-            Log.d(TAG, "Initializing to " + timeMillis + " for view " + viewType);
         }
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Log.d(TAG, "Initializing to " + timeMillis + " for view " + viewType);
 
         if (mShowCalendarControls) {
             Fragment miniMonthFrag = new MonthByWeekFragment(timeMillis, true);
@@ -862,6 +867,13 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         return true;
     }
 
+
+    public static ArrayList<Event> sorevent;
+    public static Event e=null;
+    public static void seteventE(Event event){
+        e=event;
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Time t = null;
@@ -899,34 +911,53 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }, t.year, t.month, t.monthDay);
             datePickerDialog.show(getFragmentManager(), "datePickerDialog");
 
+
         }else if(itemId==R.id.action_nextEvent){
-            Time todayTime;
+
+            ArrayList<EventInfo> arr=CalendarController.eventArrayList;
+            EventInfo eventInfo=arr.get(0);
+
+            for(int i=0;i<arr.size();i++){
+                if(eventInfo.startTime.weekDay>arr.get(i).startTime.weekDay){
+                    if(eventInfo.startTime.month>=arr.get(i).startTime.month){
+                        if(eventInfo.startTime.year>=arr.get(i).startTime.year){
+                            eventInfo=arr.get(i);
+                        }
+                    }
+                }
+            }
+
+            mController.sendEvent(this,eventInfo);
+
+
+          /*  Time todayTime;
             t = new Time(mTimeZone);
-            MonthWeekEventsView m=new MonthWeekEventsView();
-            DayView d=null;
-
-
+            t.set(mController.getTime());
             todayTime = new Time(mTimeZone);
             todayTime.setToNow();
-            if (todayTime.month == t.month) {
-                t = todayTime;
-            }
-            Event nexteventis;
-            if(m.forotherclass!=null) {
-                nexteventis= m.forotherclass.get(0).get(0);
-                int day=nexteventis.startDay;
-                todayTime.set(day,todayTime.month,todayTime.year);
-
-                d.setSelected(todayTime,true,true);
-
-
-
-
+            if(e!=null){
+            t.weekDay=e.startDay;
+            t.setJulianDay(e.startDay);
 
 
             }else{
-                return false;
+                Toast.makeText(this,"You are in the day ",Toast.LENGTH_SHORT).show();
             }
+
+            if (todayTime.month == t.month) {
+                t = todayTime;
+            }
+
+*/
+          // todayTime.yearDay;
+
+
+
+
+           // DatePickerDialog date=DatePickerDialog.donus(t.year,t.month,t.weekDay);
+            //   date.show(getFragmentManager(), "eventPickerDialog");
+
+
 
 
 

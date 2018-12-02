@@ -204,6 +204,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     }
 
+
     public void goTo(Time time, long id, String searchQuery, boolean forced,
             boolean refreshEventInfo) {
         if (time == null) {

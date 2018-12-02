@@ -310,7 +310,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 //        Utils.setDefaultView(this, CalendarApplication.AGENDA_VIEW_ID);
     }
 
-    private void goTo(EventInfo event, boolean animate) {
+    public void goTo(EventInfo event, boolean animate) {
         if (event.selectedTime != null) {
             mTime.set(event.selectedTime);
         } else if (event.startTime != null) {

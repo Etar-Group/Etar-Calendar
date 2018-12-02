@@ -84,7 +84,7 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
     protected static int WEEK_7_OVERHANG_HEIGHT = 7;
 
     protected static float mScale = 0;
-    protected Context mContext;
+    public Context mContext;
     // The day to highlight as selected
     protected Time mSelectedDay;
     // The week since 1970 that the selected day is in

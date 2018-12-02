@@ -41,6 +41,7 @@ import java.util.HashMap;
 
 import ws.xsoh.etar.R;
 
+
 public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";
     private static final String TAG = "MonthByWeekAdapter";
