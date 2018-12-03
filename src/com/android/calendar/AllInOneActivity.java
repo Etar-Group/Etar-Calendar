@@ -927,17 +927,22 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 }
             }
 
-            mController.sendEvent(this,eventInfo);
 
+            if(eventInfo!=null){
+                Toast.makeText(this,"You nearest event in this day ",Toast.LENGTH_SHORT).show();
+            }
+           mController.sendEvent(this,EventType.GO_TO,eventInfo.startTime,eventInfo.endTime,eventInfo.id,ViewType.DAY);
+          // mController.sendEvent(this,eventInfo);
 
-          /*  Time todayTime;
+/*
+           Time todayTime;
             t = new Time(mTimeZone);
             t.set(mController.getTime());
             todayTime = new Time(mTimeZone);
             todayTime.setToNow();
-            if(e!=null){
-            t.weekDay=e.startDay;
-            t.setJulianDay(e.startDay);
+            if(eventInfo!=null){
+            t.weekDay=eventInfo.startDay;
+            t.setJulianDay(eventInfo.startDay);
 
 
             }else{
@@ -947,15 +952,16 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             if (todayTime.month == t.month) {
                 t = todayTime;
             }
+            */
 
-*/
+
           // todayTime.yearDay;
 
 
 
 
-           // DatePickerDialog date=DatePickerDialog.donus(t.year,t.month,t.weekDay);
-            //   date.show(getFragmentManager(), "eventPickerDialog");
+        //  DatePickerDialog date=DatePickerDialog.donus(t.year,t.month,t.weekDay);
+          //     date.show(getFragmentManager(), "eventPickerDialog");
 
 
 

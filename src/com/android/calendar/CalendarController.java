@@ -428,6 +428,7 @@ public class CalendarController {
                 launchCreateEvent(event.startTime.toMillis(false), endTime,
                         event.extraLong == EXTRA_CREATE_ALL_DAY, event.eventTitle,
                         event.calendarId);
+
                 eventArrayList.add(event);
                 return;
             } else if (event.eventType == EventType.VIEW_EVENT) {

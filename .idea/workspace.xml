@@ -15,10 +15,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d948259-4938-4e92-aea6-423a09330336" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/481.iml" beforeDir="false" afterPath="$PROJECT_DIR$/481.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/calendar" beforeDir="false" afterPath="$PROJECT_DIR$/external/calendar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/chips" beforeDir="false" afterPath="$PROJECT_DIR$/external/chips" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/colorpicker" beforeDir="false" afterPath="$PROJECT_DIR$/external/colorpicker" afterDir="false" />
@@ -26,11 +23,6 @@
       <change beforePath="$PROJECT_DIR$/external/timezonepicker" beforeDir="false" afterPath="$PROJECT_DIR$/external/timezonepicker" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/android/calendar/AllInOneActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/android/calendar/AllInOneActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/android/calendar/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/android/calendar/CalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/android/calendar/agenda/AgendaFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/android/calendar/agenda/AgendaFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/android/calendar/agenda/AgendaListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/android/calendar/agenda/AgendaListView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/android/calendar/month/MonthByWeekAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/android/calendar/month/MonthByWeekAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/android/calendar/month/MonthWeekEventsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/android/calendar/month/MonthWeekEventsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/android/calendar/month/SimpleWeeksAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/android/calendar/month/SimpleWeeksAdapter.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -74,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalendarController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CalendarController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/android/calendar/CalendarController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="353" column="46" lean-forward="true" selection-start-line="353" selection-start-column="46" selection-end-line="353" selection-end-column="46" />
+            <state relative-caret-position="11374">
+              <caret line="875" column="5" selection-start-line="875" selection-start-column="5" selection-end-line="875" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -92,17 +84,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AllInOneActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AllInOneActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/android/calendar/AllInOneActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="933" column="12" lean-forward="true" selection-start-line="933" selection-start-column="12" selection-end-line="933" selection-end-column="12" />
+            <state relative-caret-position="311">
+              <caret line="931" column="68" selection-start-line="931" selection-start-column="68" selection-end-line="931" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#60287#60288#0" expanded="true" />
-                <element signature="e#60315#60316#0" expanded="true" />
-                <element signature="e#62176#62177#0" expanded="true" />
-                <element signature="e#62204#62205#0" expanded="true" />
+                <element signature="e#8721#9066#0" expanded="true" />
+                <element signature="e#9065#9066#0" expanded="true" />
+                <element signature="e#9186#9487#0" expanded="true" />
+                <element signature="e#9486#9487#0" expanded="true" />
+                <element signature="e#13198#13235#0" expanded="true" />
+                <element signature="e#13259#13296#0" expanded="true" />
+                <element signature="e#13466#13515#0" expanded="true" />
+                <element signature="e#13938#14000#0" expanded="true" />
+                <element signature="e#14097#14159#0" expanded="true" />
+                <element signature="e#14212#14262#0" expanded="true" />
+                <element signature="e#15135#15193#0" expanded="true" />
+                <element signature="e#18739#18787#0" expanded="true" />
+                <element signature="e#19657#19677#0" expanded="true" />
+                <element signature="e#19777#19794#0" expanded="true" />
+                <element signature="e#19896#19915#0" expanded="true" />
+                <element signature="e#20041#20059#0" expanded="true" />
+                <element signature="e#20352#20520#0" expanded="true" />
+                <element signature="e#20519#20520#0" expanded="true" />
+                <element signature="e#21256#21875#0" expanded="true" />
+                <element signature="e#21874#21875#0" expanded="true" />
+                <element signature="e#36562#37236#0" expanded="true" />
+                <element signature="e#37235#37236#0" expanded="true" />
+                <element signature="e#45207#45227#0" expanded="true" />
+                <element signature="e#45523#45540#0" expanded="true" />
+                <element signature="e#45983#46002#0" expanded="true" />
+                <element signature="e#46346#46364#0" expanded="true" />
+                <element signature="e#50440#50529#0" expanded="true" />
+                <element signature="e#61067#61068#0" expanded="true" />
+                <element signature="e#61095#61096#0" expanded="true" />
+                <element signature="e#62956#62957#0" expanded="true" />
+                <element signature="e#62984#62985#0" expanded="true" />
+                <element signature="e#64043#64100#0" expanded="true" />
+                <element signature="e#64376#65372#0" expanded="true" />
+                <element signature="e#65371#65372#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -7057,7 +7079,7 @@
     <property name="android.project.structure.last.selected" value="datetimepicker" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="Nexus_5X_API_28_10" />
+    <property name="device.picker.selection" value="4100da39c8813297" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
@@ -7204,8 +7226,8 @@
       <window_info id="Captures" order="7" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.23557048" />
-      <window_info anchor="bottom" id="Build" order="4" visible="true" weight="0.32909605" />
+      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.23557048" />
+      <window_info active="true" anchor="bottom" id="Build" order="4" visible="true" weight="0.29661018" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -7223,6 +7245,11 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/android/calendar/month/MonthByWeekAdapter.java">
@@ -7245,10 +7272,40 @@
           <caret line="914" column="8" selection-start-line="914" selection-start-column="8" selection-end-line="914" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#60287#60288#0" expanded="true" />
-            <element signature="e#60315#60316#0" expanded="true" />
-            <element signature="e#62176#62177#0" expanded="true" />
-            <element signature="e#62204#62205#0" expanded="true" />
+            <element signature="e#8721#9066#0" expanded="true" />
+            <element signature="e#9065#9066#0" expanded="true" />
+            <element signature="e#9186#9487#0" expanded="true" />
+            <element signature="e#9486#9487#0" expanded="true" />
+            <element signature="e#13198#13235#0" expanded="true" />
+            <element signature="e#13259#13296#0" expanded="true" />
+            <element signature="e#13466#13515#0" expanded="true" />
+            <element signature="e#13938#14000#0" expanded="true" />
+            <element signature="e#14097#14159#0" expanded="true" />
+            <element signature="e#14212#14262#0" expanded="true" />
+            <element signature="e#15135#15193#0" expanded="true" />
+            <element signature="e#18739#18787#0" expanded="true" />
+            <element signature="e#19657#19677#0" expanded="true" />
+            <element signature="e#19777#19794#0" expanded="true" />
+            <element signature="e#19896#19915#0" expanded="true" />
+            <element signature="e#20041#20059#0" expanded="true" />
+            <element signature="e#20352#20520#0" expanded="true" />
+            <element signature="e#20519#20520#0" expanded="true" />
+            <element signature="e#21256#21875#0" expanded="true" />
+            <element signature="e#21874#21875#0" expanded="true" />
+            <element signature="e#36562#37236#0" expanded="true" />
+            <element signature="e#37235#37236#0" expanded="true" />
+            <element signature="e#45207#45227#0" expanded="true" />
+            <element signature="e#45523#45540#0" expanded="true" />
+            <element signature="e#45983#46002#0" expanded="true" />
+            <element signature="e#46346#46364#0" expanded="true" />
+            <element signature="e#50440#50529#0" expanded="true" />
+            <element signature="e#61067#61068#0" expanded="true" />
+            <element signature="e#61095#61096#0" expanded="true" />
+            <element signature="e#62956#62957#0" expanded="true" />
+            <element signature="e#62984#62985#0" expanded="true" />
+            <element signature="e#64043#64100#0" expanded="true" />
+            <element signature="e#64376#65372#0" expanded="true" />
+            <element signature="e#65371#65372#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -7462,24 +7519,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/android/calendar/AllInOneActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/android/calendar/CalendarController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="933" column="12" lean-forward="true" selection-start-line="933" selection-start-column="12" selection-end-line="933" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#60287#60288#0" expanded="true" />
-            <element signature="e#60315#60316#0" expanded="true" />
-            <element signature="e#62176#62177#0" expanded="true" />
-            <element signature="e#62204#62205#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="11374">
+          <caret line="875" column="5" selection-start-line="875" selection-start-column="5" selection-end-line="875" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/android/calendar/CalendarController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/android/calendar/AllInOneActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="353" column="46" lean-forward="true" selection-start-line="353" selection-start-column="46" selection-end-line="353" selection-end-column="46" />
+        <state relative-caret-position="311">
+          <caret line="931" column="68" selection-start-line="931" selection-start-column="68" selection-end-line="931" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8721#9066#0" expanded="true" />
+            <element signature="e#9065#9066#0" expanded="true" />
+            <element signature="e#9186#9487#0" expanded="true" />
+            <element signature="e#9486#9487#0" expanded="true" />
+            <element signature="e#13198#13235#0" expanded="true" />
+            <element signature="e#13259#13296#0" expanded="true" />
+            <element signature="e#13466#13515#0" expanded="true" />
+            <element signature="e#13938#14000#0" expanded="true" />
+            <element signature="e#14097#14159#0" expanded="true" />
+            <element signature="e#14212#14262#0" expanded="true" />
+            <element signature="e#15135#15193#0" expanded="true" />
+            <element signature="e#18739#18787#0" expanded="true" />
+            <element signature="e#19657#19677#0" expanded="true" />
+            <element signature="e#19777#19794#0" expanded="true" />
+            <element signature="e#19896#19915#0" expanded="true" />
+            <element signature="e#20041#20059#0" expanded="true" />
+            <element signature="e#20352#20520#0" expanded="true" />
+            <element signature="e#20519#20520#0" expanded="true" />
+            <element signature="e#21256#21875#0" expanded="true" />
+            <element signature="e#21874#21875#0" expanded="true" />
+            <element signature="e#36562#37236#0" expanded="true" />
+            <element signature="e#37235#37236#0" expanded="true" />
+            <element signature="e#45207#45227#0" expanded="true" />
+            <element signature="e#45523#45540#0" expanded="true" />
+            <element signature="e#45983#46002#0" expanded="true" />
+            <element signature="e#46346#46364#0" expanded="true" />
+            <element signature="e#50440#50529#0" expanded="true" />
+            <element signature="e#61067#61068#0" expanded="true" />
+            <element signature="e#61095#61096#0" expanded="true" />
+            <element signature="e#62956#62957#0" expanded="true" />
+            <element signature="e#62984#62985#0" expanded="true" />
+            <element signature="e#64043#64100#0" expanded="true" />
+            <element signature="e#64376#65372#0" expanded="true" />
+            <element signature="e#65371#65372#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
