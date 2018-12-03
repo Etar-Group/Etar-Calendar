@@ -846,14 +846,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         }
 
         MenuItem menuItem = menu.findItem(R.id.action_today);
-        if (Utils.isJellybeanOrLater()) {
-            // replace the default top layer drawable of the today icon with a
-            // custom drawable that shows the day of the month of today
-            LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
-            Utils.setTodayIcon(icon, this, mTimeZone);
-        } else {
-            menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
-        }
+
+        // replace the default top layer drawable of the today icon with a
+        // custom drawable that shows the day of the month of today
+        LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+        Utils.setTodayIcon(icon, this, mTimeZone);
+
         return true;
     }
 

@@ -246,13 +246,9 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         // replace the default top layer drawable of the today icon with a custom drawable
         // that shows the day of the month of today
         MenuItem menuItem = menu.findItem(R.id.action_today);
-        if (Utils.isJellybeanOrLater()) {
-            LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
-            Utils.setTodayIcon(
-                    icon, this, Utils.getTimeZone(SearchActivity.this, mTimeChangesUpdater));
-        } else {
-            menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
-        }
+        LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+        Utils.setTodayIcon(
+                icon, this, Utils.getTimeZone(SearchActivity.this, mTimeChangesUpdater));
 
         MenuItem item = menu.findItem(R.id.action_search);
 

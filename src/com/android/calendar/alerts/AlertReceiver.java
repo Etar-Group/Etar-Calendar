@@ -290,95 +290,43 @@ public class AlertReceiver extends BroadcastReceiver {
                     notificationId);
         }
 
-        if (Utils.isJellybeanOrLater()) {
-            // Turn off timestamp.
-            notificationBuilder.setWhen(0);
+        // Turn off timestamp.
+        notificationBuilder.setWhen(0);
 
-            // Should be one of the values in Notification (ie. Notification.PRIORITY_HIGH, etc).
-            // A higher priority will encourage notification manager to expand it.
-            notificationBuilder.setPriority(priority);
+        // Should be one of the values in Notification (ie. Notification.PRIORITY_HIGH, etc).
+        // A higher priority will encourage notification manager to expand it.
+        notificationBuilder.setPriority(priority);
 
-            // Add action buttons. Show at most three, using the following priority ordering:
-            // 1. Map
-            // 2. Call
-            // 3. Email
-            // 4. Snooze
-            // Actions will only be shown if they are applicable; i.e. with no location, map will
-            // not be shown, and with no recipients, snooze will not be shown.
-            // TODO: Get icons, get strings. Maybe show preview of actual location/number?
-            int numActions = 0;
-            if (mapIntent != null && numActions < MAX_NOTIF_ACTIONS) {
-                notificationBuilder.addAction(R.drawable.ic_map,
-                        resources.getString(R.string.map_label), mapIntent);
-                numActions++;
-            }
-            if (callIntent != null && numActions < MAX_NOTIF_ACTIONS) {
-                notificationBuilder.addAction(R.drawable.ic_call,
-                        resources.getString(R.string.call_label), callIntent);
-                numActions++;
-            }
-            if (emailIntent != null && numActions < MAX_NOTIF_ACTIONS) {
-                notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
-                        resources.getString(R.string.email_guests_label), emailIntent);
-                numActions++;
-            }
-            if (snoozeIntent != null && numActions < MAX_NOTIF_ACTIONS) {
-                notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
-                        resources.getString(R.string.snooze_label), snoozeIntent);
-                numActions++;
-            }
-            return notificationBuilder.build();
-
-        } else {
-            // Old-style notification (pre-JB).  Use custom view with buttons to provide
-            // JB-like functionality (snooze/email).
-            Notification n = notificationBuilder.getNotification();
-
-            // Use custom view with buttons to provide JB-like functionality (snooze/email).
-            RemoteViews contentView = new RemoteViews(context.getPackageName(),
-                    R.layout.notification);
-            contentView.setImageViewResource(R.id.image, R.drawable.stat_notify_calendar);
-            contentView.setTextViewText(R.id.title,  title);
-            contentView.setTextViewText(R.id.text, summaryText);
-
-            int numActions = 0;
-            if (mapIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
-                contentView.setViewVisibility(R.id.map_button, View.GONE);
-            } else {
-                contentView.setViewVisibility(R.id.map_button, View.VISIBLE);
-                contentView.setOnClickPendingIntent(R.id.map_button, mapIntent);
-                contentView.setViewVisibility(R.id.end_padding, View.GONE);
-                numActions++;
-            }
-            if (callIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
-                contentView.setViewVisibility(R.id.call_button, View.GONE);
-            } else {
-                contentView.setViewVisibility(R.id.call_button, View.VISIBLE);
-                contentView.setOnClickPendingIntent(R.id.call_button, callIntent);
-                contentView.setViewVisibility(R.id.end_padding, View.GONE);
-                numActions++;
-            }
-            if (emailIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
-                contentView.setViewVisibility(R.id.email_button, View.GONE);
-            } else {
-                contentView.setViewVisibility(R.id.email_button, View.VISIBLE);
-                contentView.setOnClickPendingIntent(R.id.email_button, emailIntent);
-                contentView.setViewVisibility(R.id.end_padding, View.GONE);
-                numActions++;
-            }
-            if (snoozeIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
-                contentView.setViewVisibility(R.id.snooze_button, View.GONE);
-            } else {
-                contentView.setViewVisibility(R.id.snooze_button, View.VISIBLE);
-                contentView.setOnClickPendingIntent(R.id.snooze_button, snoozeIntent);
-                contentView.setViewVisibility(R.id.end_padding, View.GONE);
-                numActions++;
-            }
-
-            n.contentView = contentView;
-
-            return n;
+        // Add action buttons. Show at most three, using the following priority ordering:
+        // 1. Map
+        // 2. Call
+        // 3. Email
+        // 4. Snooze
+        // Actions will only be shown if they are applicable; i.e. with no location, map will
+        // not be shown, and with no recipients, snooze will not be shown.
+        // TODO: Get icons, get strings. Maybe show preview of actual location/number?
+        int numActions = 0;
+        if (mapIntent != null && numActions < MAX_NOTIF_ACTIONS) {
+            notificationBuilder.addAction(R.drawable.ic_map,
+                    resources.getString(R.string.map_label), mapIntent);
+            numActions++;
         }
+        if (callIntent != null && numActions < MAX_NOTIF_ACTIONS) {
+            notificationBuilder.addAction(R.drawable.ic_call,
+                    resources.getString(R.string.call_label), callIntent);
+            numActions++;
+        }
+        if (emailIntent != null && numActions < MAX_NOTIF_ACTIONS) {
+            notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
+                    resources.getString(R.string.email_guests_label), emailIntent);
+            numActions++;
+        }
+        if (snoozeIntent != null && numActions < MAX_NOTIF_ACTIONS) {
+            notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
+                    resources.getString(R.string.snooze_label), snoozeIntent);
+            numActions++;
+        }
+        return notificationBuilder.build();
     }
 
     /**
@@ -392,29 +340,29 @@ public class AlertReceiver extends BroadcastReceiver {
         Notification notification = buildBasicNotification(basicBuilder, context, title,
                 summaryText, startMillis, endMillis, eventId, notificationId, doPopup,
                 priority, true);
-        if (Utils.isJellybeanOrLater()) {
-            // Create a new-style expanded notification
-            Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
-                    basicBuilder);
-            if (description != null) {
-                description = mBlankLinePattern.matcher(description).replaceAll("");
-                description = description.trim();
-            }
-            CharSequence text;
-            if (TextUtils.isEmpty(description)) {
-                text = summaryText;
-            } else {
-                SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-                stringBuilder.append(summaryText);
-                stringBuilder.append("\n\n");
-                stringBuilder.setSpan(new RelativeSizeSpan(0.5f), summaryText.length(),
-                        stringBuilder.length(), 0);
-                stringBuilder.append(description);
-                text = stringBuilder;
-            }
-            expandedBuilder.bigText(text);
-            notification = expandedBuilder.build();
+
+        // Create a new-style expanded notification
+        Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
+                basicBuilder);
+        if (description != null) {
+            description = mBlankLinePattern.matcher(description).replaceAll("");
+            description = description.trim();
         }
+        CharSequence text;
+        if (TextUtils.isEmpty(description)) {
+            text = summaryText;
+        } else {
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+            stringBuilder.append(summaryText);
+            stringBuilder.append("\n\n");
+            stringBuilder.setSpan(new RelativeSizeSpan(0.5f), summaryText.length(),
+                    stringBuilder.length(), 0);
+            stringBuilder.append(description);
+            text = stringBuilder;
+        }
+        expandedBuilder.bigText(text);
+        notification = expandedBuilder.build();
+
         return new NotificationWrapper(notification, notificationId, eventId, startMillis,
                 endMillis, doPopup);
     }
@@ -464,87 +412,63 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setContentTitle(nEventsStr);
 
         Notification n;
-        if (Utils.isJellybeanOrLater()) {
-            // New-style notification...
+        // New-style notification...
 
-            // Set to min priority to encourage the notification manager to collapse it.
-            notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+        // Set to min priority to encourage the notification manager to collapse it.
+        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
 
-            if (expandable) {
-                // Multiple reminders.  Combine into an expanded digest notification.
-                Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
-                        notificationBuilder);
-                int i = 0;
-                for (AlertService.NotificationInfo info : notificationInfos) {
-                    if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
-                        String name = info.eventName;
-                        if (TextUtils.isEmpty(name)) {
-                            name = context.getResources().getString(R.string.no_title_label);
-                        }
-                        String timeLocation = AlertUtils.formatTimeLocation(context,
-                                info.startMillis, info.allDay, info.location);
-
-                        TextAppearanceSpan primaryTextSpan = new TextAppearanceSpan(context,
-                                R.style.NotificationPrimaryText);
-                        TextAppearanceSpan secondaryTextSpan = new TextAppearanceSpan(context,
-                                R.style.NotificationSecondaryText);
-
-                        // Event title in bold.
-                        SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-                        stringBuilder.append(name);
-                        stringBuilder.setSpan(primaryTextSpan, 0, stringBuilder.length(), 0);
-                        stringBuilder.append("  ");
-
-                        // Followed by time and location.
-                        int secondaryIndex = stringBuilder.length();
-                        stringBuilder.append(timeLocation);
-                        stringBuilder.setSpan(secondaryTextSpan, secondaryIndex,
-                                stringBuilder.length(), 0);
-                        expandedBuilder.addLine(stringBuilder);
-                        i++;
-                    } else {
-                        break;
+        if (expandable) {
+            // Multiple reminders.  Combine into an expanded digest notification.
+            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
+                    notificationBuilder);
+            int i = 0;
+            for (AlertService.NotificationInfo info : notificationInfos) {
+                if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
+                    String name = info.eventName;
+                    if (TextUtils.isEmpty(name)) {
+                        name = context.getResources().getString(R.string.no_title_label);
                     }
+                    String timeLocation = AlertUtils.formatTimeLocation(context,
+                            info.startMillis, info.allDay, info.location);
+
+                    TextAppearanceSpan primaryTextSpan = new TextAppearanceSpan(context,
+                            R.style.NotificationPrimaryText);
+                    TextAppearanceSpan secondaryTextSpan = new TextAppearanceSpan(context,
+                            R.style.NotificationSecondaryText);
+
+                    // Event title in bold.
+                    SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+                    stringBuilder.append(name);
+                    stringBuilder.setSpan(primaryTextSpan, 0, stringBuilder.length(), 0);
+                    stringBuilder.append("  ");
+
+                    // Followed by time and location.
+                    int secondaryIndex = stringBuilder.length();
+                    stringBuilder.append(timeLocation);
+                    stringBuilder.setSpan(secondaryTextSpan, secondaryIndex,
+                            stringBuilder.length(), 0);
+                    expandedBuilder.addLine(stringBuilder);
+                    i++;
+                } else {
+                    break;
                 }
-
-                // If there are too many to display, add "+X missed events" for the last line.
-                int remaining = numEvents - i;
-                if (remaining > 0) {
-                    String nMoreEventsStr = res.getQuantityString(R.plurals.N_remaining_events,
-                            remaining, remaining);
-                    // TODO: Add highlighting and icon to this last entry once framework allows it.
-                    expandedBuilder.setSummaryText(nMoreEventsStr);
-                }
-
-                // Remove the title in the expanded form (redundant with the listed items).
-                expandedBuilder.setBigContentTitle("");
-
-                n = expandedBuilder.build();
-            } else {
-                n = notificationBuilder.build();
             }
+
+            // If there are too many to display, add "+X missed events" for the last line.
+            int remaining = numEvents - i;
+            if (remaining > 0) {
+                String nMoreEventsStr = res.getQuantityString(R.plurals.N_remaining_events,
+                            remaining, remaining);
+                // TODO: Add highlighting and icon to this last entry once framework allows it.
+                expandedBuilder.setSummaryText(nMoreEventsStr);
+            }
+
+            // Remove the title in the expanded form (redundant with the listed items).
+            expandedBuilder.setBigContentTitle("");
+
+            n = expandedBuilder.build();
         } else {
-            // Old-style notification (pre-JB).  We only need a standard notification (no
-            // buttons) but use a custom view so it is consistent with the others.
-            n = notificationBuilder.getNotification();
-
-            // Use custom view with buttons to provide JB-like functionality (snooze/email).
-            RemoteViews contentView = new RemoteViews(context.getPackageName(),
-                    R.layout.notification);
-            contentView.setImageViewResource(R.id.image, R.drawable.stat_notify_calendar_multiple);
-            contentView.setTextViewText(R.id.title, nEventsStr);
-            contentView.setTextViewText(R.id.text, digestTitle);
-            contentView.setViewVisibility(R.id.time, View.VISIBLE);
-            contentView.setViewVisibility(R.id.map_button, View.GONE);
-            contentView.setViewVisibility(R.id.call_button, View.GONE);
-            contentView.setViewVisibility(R.id.email_button, View.GONE);
-            contentView.setViewVisibility(R.id.snooze_button, View.GONE);
-            contentView.setViewVisibility(R.id.end_padding, View.VISIBLE);
-            n.contentView = contentView;
-
-            // Use timestamp to force expired digest notification to the bottom (there is no
-            // priority setting before JB release).  This is hidden by the custom view.
-            n.when = 1;
+            n = notificationBuilder.build();
         }
 
         NotificationWrapper nw = new NotificationWrapper(n);
