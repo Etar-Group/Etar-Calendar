@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Etar-Calendar.iml" filepath="$PROJECT_DIR$/Etar-Calendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external/calendar/calendar.iml" filepath="$PROJECT_DIR$/external/calendar/calendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external/chips/chips.iml" filepath="$PROJECT_DIR$/external/chips/chips.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external/colorpicker/colorpicker.iml" filepath="$PROJECT_DIR$/external/colorpicker/colorpicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external/datetimepicker/datetimepicker.iml" filepath="$PROJECT_DIR$/external/datetimepicker/datetimepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external/external.iml" filepath="$PROJECT_DIR$/external/external.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external/timezonepicker/timezonepicker.iml" filepath="$PROJECT_DIR$/external/timezonepicker/timezonepicker.iml" />
+    </modules>
+  </component>
+</project>

@@ -181,6 +181,11 @@ dependencies {
     implementation project(':external:datetimepicker')
     implementation project(':external:timezonepicker')
     implementation project(':external:chips')
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.test:core:1.0.0'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    compile 'junit:junit:4.12'
+    compile 'org.mockito:mockito-core:1.10.19'
 }
 
 android {
