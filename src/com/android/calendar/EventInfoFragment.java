@@ -297,15 +297,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static int mDialogHeight = 600;
     private static int DIALOG_TOP_MARGIN = 8;
 
-    static {
-        if (!Utils.isJellybeanOrLater()) {
-            EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_PACKAGE] = Events._ID; // dummy value
-            EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_URI] = Events._ID; // dummy value
-
-            ATTENDEES_PROJECTION[ATTENDEES_INDEX_IDENTITY] = Attendees._ID; // dummy value
-            ATTENDEES_PROJECTION[ATTENDEES_INDEX_ID_NAMESPACE] = Attendees._ID; // dummy value
-        }
-    }
 
     private final ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
     public ArrayList<ReminderEntry> mReminders;
@@ -966,13 +957,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     } else {
-                        String identity = null;
-                        String idNamespace = null;
-
-                        if (Utils.isJellybeanOrLater()) {
-                            identity = mAttendeesCursor.getString(ATTENDEES_INDEX_IDENTITY);
-                            idNamespace = mAttendeesCursor.getString(ATTENDEES_INDEX_ID_NAMESPACE);
-                        }
+                        String identity = mAttendeesCursor.getString(ATTENDEES_INDEX_IDENTITY);
+                        String idNamespace = mAttendeesCursor.getString(ATTENDEES_INDEX_ID_NAMESPACE);
 
                         // Don't show your own status in the list because:
                         //  1) it doesn't make sense for event without other guests.
@@ -1583,9 +1569,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // Launch Custom App
-        if (Utils.isJellybeanOrLater()) {
-            updateCustomAppButton();
-        }
+        updateCustomAppButton();
     }
 
     private void updateCustomAppButton() {

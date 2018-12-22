@@ -68,7 +68,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.EVENT_ID,
         Instances.START_DAY,
         Instances.END_DAY,
-        Instances.DISPLAY_COLOR, // If SDK < 16, set to Instances.CALENDAR_COLOR.
+        Instances.DISPLAY_COLOR,
         Instances.SELF_ATTENDEE_STATUS,
     };
     static final int INDEX_ALL_DAY = 0;
@@ -96,11 +96,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
      */
     private static final long UPDATE_TIME_NO_EVENTS = DateUtils.HOUR_IN_MILLIS * 6;
 
-    static {
-        if (!Utils.isJellybeanOrLater()) {
-            EVENT_PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
-        }
-    }
 
     /**
      * Format given time for debugging output.

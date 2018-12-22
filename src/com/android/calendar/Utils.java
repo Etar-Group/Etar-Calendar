@@ -189,12 +189,8 @@ public class Utils {
     private static String sVersion = null;
 
     /**
-     * Returns whether the SDK is the Jellybean release or later.
+     * Returns whether the SDK is the Oreo release or later.
      */
-    public static boolean isJellybeanOrLater() {
-      return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
-    }
-
     public static boolean isOreoOrLater() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
@@ -852,10 +848,6 @@ public class Utils {
      * @param color
      */
     public static int getDisplayColorFromColor(int color) {
-        if (!isJellybeanOrLater()) {
-            return color;
-        }
-
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[1] = Math.min(hsv[1] * SATURATION_ADJUST, 1.0f);

@@ -19,7 +19,6 @@ package com.android.calendar.month;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.os.Handler;

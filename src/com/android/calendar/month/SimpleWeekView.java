@@ -25,7 +25,6 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.MotionEvent;

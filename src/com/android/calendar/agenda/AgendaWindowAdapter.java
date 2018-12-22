@@ -107,7 +107,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.EVENT_LOCATION, // 2
             Instances.ALL_DAY, // 3
             Instances.HAS_ALARM, // 4
-            Instances.DISPLAY_COLOR, // 5 If SDK < 16, set to Instances.CALENDAR_COLOR.
+            Instances.DISPLAY_COLOR, // 5
             Instances.RRULE, // 6
             Instances.BEGIN, // 7
             Instances.END, // 8
@@ -136,11 +136,6 @@ public class AgendaWindowAdapter extends BaseAdapter
     private static final int QUERY_TYPE_NEWER = 1; // Query for newer events
     private static final int QUERY_TYPE_CLEAN = 2; // Delete everything and query around a date
 
-    static {
-        if (!Utils.isJellybeanOrLater()) {
-            PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
-        }
-    }
 
     private final Context mContext;
     private final Resources mResources;

@@ -69,7 +69,7 @@ public class Event implements Cloneable {
             Instances.TITLE,                 // 0
             Instances.EVENT_LOCATION,        // 1
             Instances.ALL_DAY,               // 2
-            Instances.DISPLAY_COLOR,         // 3 If SDK < 16, set to Instances.CALENDAR_COLOR.
+            Instances.DISPLAY_COLOR,         // 3
             Instances.EVENT_TIMEZONE,        // 4
             Instances.EVENT_ID,              // 5
             Instances.BEGIN,                 // 6
@@ -113,11 +113,6 @@ public class Event implements Cloneable {
     private static String mNoTitleString;
     private static int mNoColorColor;
 
-    static {
-        if (!Utils.isJellybeanOrLater()) {
-            EVENT_PROJECTION[PROJECTION_COLOR_INDEX] = Instances.CALENDAR_COLOR;
-        }
-    }
 
     public long id;
     public int color;
