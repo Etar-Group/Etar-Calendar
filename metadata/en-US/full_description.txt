@@ -5,7 +5,6 @@ Features:
 - Material design.
 - Dark & Light Theme.
 - Free, open source and absolutely no Ads.
-- Agenda widget.
 - Support sharing calendars via ics and the ability to import/export from sdcard.
 
 Bugs & feedback: https://github.com/Etar-Group/Etar-Calendar/issues

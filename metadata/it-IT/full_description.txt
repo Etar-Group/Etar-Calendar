@@ -5,7 +5,6 @@ Caratteristiche:
 - Material design.
 - Temi chiaro e scuro.
 - Libero, open source e assolutamente nessuna pubblicità.
-- Widget per agenda.
 - Supporta la condivisione di calendari via ics e la possibilità di importare/esportare dalla scheda sd.
 
 Errori e feedback: https://github.com/Etar-Group/Etar-Calendar/issues
