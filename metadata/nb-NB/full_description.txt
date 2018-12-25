@@ -1,7 +1,6 @@
 Egenskaper:
 - Støtte for Google Calender og Exchange.
 - Måneds-, ukes-, dags-, og agenda-oversikt.
-- Agenda-widget.
 - Bruk av Androids kalendersynkronisering.
 - Gratis, friprog, og uten reklamer.
 

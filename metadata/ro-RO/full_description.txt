@@ -5,7 +5,6 @@ Caracteristici:
 - Design material.
 - Temă luminoasă și întunecată.
 - Gratuit, open source și fără reclame.
-- Widget cu agendă.
 - Suportă partajarea calendarului prin ics și importarea/exportarea pe sdcard.
 
 Probleme & Feedback: https://github.com/Etar-Group/Etar-Calendar/issues

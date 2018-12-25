@@ -5,7 +5,6 @@ Características:
 - Material design.
 - Tema claro y oscuro.
 - Libre, de código abierto y sin anuncios.
-- Widget para la agenda.
 
 Errores y feedback: https://github.com/Etar-Group/Etar-Calendar/issues
 Código fuente: https://github.com/Etar-Group/Etar-Calendar
