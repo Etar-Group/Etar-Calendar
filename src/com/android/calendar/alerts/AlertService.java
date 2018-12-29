@@ -155,11 +155,6 @@ public class AlertService extends Service {
         NotificationMgr nm = new NotificationMgrWrapper(
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String appName = context.getString(R.string.standalone_app_label);
-            NotificationChannel channel  = new NotificationChannel(ALERT_CHANNEL_ID, appName, NotificationManager.IMPORTANCE_HIGH);
-            nm.createNotificationChannel(channel);
-        }
 
         final long currentTime = System.currentTimeMillis();
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
