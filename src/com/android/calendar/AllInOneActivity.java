@@ -285,7 +285,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         // Create notification channel
         NotificationMgr nm = new AlertService.NotificationMgrWrapper(
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Utils.isOreoOrLater()) {
             String appName = this.getString(R.string.standalone_app_label);
             NotificationChannel channel  = new NotificationChannel(ALERT_CHANNEL_ID, appName, NotificationManager.IMPORTANCE_HIGH);
             nm.createNotificationChannel(channel);
