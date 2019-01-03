@@ -1,4 +1,7 @@
+- Widget deaktiviert, alternativ Calendar Widget: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
 - Unterstützung benutzerdefinierter Terminfarben.
 - Import von ics Dateien verbessert
 - Graues Theme hinzugefügt
+- Unterstützung für Sichtbarkeit Vertraulich.
+- Neue Benachrichtigungseinstellungen.
 - Fehlerbehebungen.

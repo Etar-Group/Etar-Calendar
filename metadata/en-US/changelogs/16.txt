@@ -1,4 +1,7 @@
+- Dropped the widget, use Calendar Widget for now: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
 - Support for custom color events.
 - Better support for ics files.
 - Add grey theme.
+- Support visibility confidential.
+- Support new Android notification channels.
 - Lots of bug fixes.
