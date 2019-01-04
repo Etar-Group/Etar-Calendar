@@ -22,7 +22,7 @@
 
     <!-- Application theme. -->
     <style name="CalendarAppTheme" parent="Base.CalendarAppTheme">
-
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="CalendarAppThemeWithActionBar" parent="Base.CalendarAppThemeWithActionBar">
