@@ -262,6 +262,7 @@
     <style name="CalendarTheme.WithoutActionBar" parent="CalendarAppTheme">
         <item name="android:endYear">2036</item>
         <item name="android:startYear">1970</item>
+        <item name="android:windowBackground">@color/bg_black</item>
     </style>
 
     <style name="CalendarTheme.WithActionBar" parent="CalendarAppThemeWithActionBar">
