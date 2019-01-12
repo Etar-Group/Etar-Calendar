@@ -1604,7 +1604,7 @@ public class Utils {
 
         // Reuse current drawable if possible
         Drawable currentDrawable = icon.findDrawableByLayerId(R.id.today_icon_day);
-        if (currentDrawable != null && currentDrawable instanceof DayOfMonthDrawable) {
+        if (currentDrawable instanceof DayOfMonthDrawable) {
             today = (DayOfMonthDrawable)currentDrawable;
         } else {
             today = new DayOfMonthDrawable(c);
