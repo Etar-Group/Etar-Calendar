@@ -41,8 +41,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 public class EventInfoActivity extends AppCompatActivity {
-//        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
-//        SearchView.OnCloseListener {
 
     private static final String TAG = "EventInfoActivity";
     private EventInfoFragment mInfoFragment;
