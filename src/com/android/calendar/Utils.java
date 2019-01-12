@@ -101,7 +101,6 @@ public class Utils {
     public static final int YEAR_MIN = 1970;
     public static final int YEAR_MAX = 2036;
     public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
-    public static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
@@ -297,21 +296,8 @@ public class Utils {
 
     public static boolean getDefaultVibrate(Context context, SharedPreferences prefs) {
         boolean vibrate;
-        if (prefs.contains(KEY_ALERTS_VIBRATE_WHEN)) {
-            // Migrate setting to new 4.2 behavior
-            //
-            // silent and never -> off
-            // always -> on
-            String vibrateWhen = prefs.getString(KEY_ALERTS_VIBRATE_WHEN, null);
-            vibrate = vibrateWhen != null && vibrateWhen.equals(context
-                    .getString(R.string.prefDefault_alerts_vibrate_true));
-            prefs.edit().remove(KEY_ALERTS_VIBRATE_WHEN).commit();
-            Log.d(TAG, "Migrating KEY_ALERTS_VIBRATE_WHEN(" + vibrateWhen
-                    + ") to KEY_ALERTS_VIBRATE = " + vibrate);
-        } else {
-            vibrate = prefs.getBoolean(GeneralPreferences.KEY_ALERTS_VIBRATE,
+        vibrate = prefs.getBoolean(GeneralPreferences.KEY_ALERTS_VIBRATE,
                     false);
-        }
         return vibrate;
     }
 

@@ -553,8 +553,6 @@
     <string name="preferences_alerts_title">Notifications</string>
     <!-- Settings dialog label that specifies when the phone should vibrate -->
     <string name="preferences_alerts_vibrateWhen_title">Vibrate</string>
-    <!-- The old value for enabling vibration. used only for migrating -->
-    <string name="prefDefault_alerts_vibrate_true" translatable="false">always</string>
     <!-- Title of ringtone selector dialog -->
     <string name="preferences_alerts_ringtone_title">Sound</string>
     <!-- Title of check box label to enable or disable pop-up notifications -->

@@ -120,11 +120,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     static final String KEY_HOME_TZ_ENABLED = "preferences_home_tz_enabled";
     static final String KEY_HOME_TZ = "preferences_home_tz";
     private static final String FRAG_TAG_TIME_ZONE_PICKER = "TimeZonePicker";
-    // These keys are kept to enable migrating users from previous versions
-    private static final String KEY_ALERTS_TYPE = "preferences_alerts_type";
-    private static final String ALERT_TYPE_ALERTS = "0";
-    private static final String ALERT_TYPE_STATUS_BAR = "1";
-    private static final String ALERT_TYPE_OFF = "2";
+
     CheckBoxPreference mAlert;
     Preference mNotification;
     CheckBoxPreference mVibrate;
@@ -478,25 +474,6 @@ public class GeneralPreferences extends PreferenceFragment implements
         // If needed, migrate vibration setting from a previous version
         if (!Utils.isOreoOrLater()) {
             mVibrate.setChecked(Utils.getDefaultVibrate(getActivity(), prefs));
-        }
-        // If needed, migrate the old alerts type settin
-        if (!prefs.contains(KEY_ALERTS) && prefs.contains(KEY_ALERTS_TYPE)) {
-            String type = prefs.getString(KEY_ALERTS_TYPE, ALERT_TYPE_STATUS_BAR);
-            if (type.equals(ALERT_TYPE_OFF)) {
-                mAlert.setChecked(false);
-                mPopup.setChecked(false);
-                mPopup.setEnabled(false);
-            } else if (type.equals(ALERT_TYPE_STATUS_BAR)) {
-                mAlert.setChecked(true);
-                mPopup.setChecked(false);
-                mPopup.setEnabled(true);
-            } else if (type.equals(ALERT_TYPE_ALERTS)) {
-                mAlert.setChecked(true);
-                mPopup.setChecked(true);
-                mPopup.setEnabled(true);
-            }
-            // clear out the old setting
-            prefs.edit().remove(KEY_ALERTS_TYPE).commit();
         }
     }
 
