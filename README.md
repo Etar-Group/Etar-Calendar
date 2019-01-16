@@ -43,6 +43,14 @@ could provide a calendar. Those "provided" calendars can be used by Etar.
 You can even configure in Etar which ones are to be shown and when adding
 an event to which calendar it should be added.
 
+### Important permissions Etar requires
+- READ_EXTERNAL_STORAGE & WRITE_EXTERNAL_STORAGE  
+->import and export ics calendar files  
+- READ_CONTACTS  
+->allows search and location suggestions when adding guests to an event  
+- READ_CALENDAR & WRITE_CALENDAR  
+->read and create calendar events
+
 ## Contribute
 ### Translations in Google Play app description
 You can update/add your own language and all artwork files [here](metadata)
