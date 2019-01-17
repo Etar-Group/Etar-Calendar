@@ -57,4 +57,5 @@
     <dimen name="recurrence_picker_width">300dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="widget_margin">5dp</dimen>
 </resources>

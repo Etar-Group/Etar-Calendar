@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/month_bgcolor">
+
+        <LinearLayout
+            android:id="@+id/day_0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date_day_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:textColor="@color/agenda_day_item_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/month_bgcolor">
+
+        <LinearLayout
+            android:id="@+id/day_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date_day_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:textColor="@color/agenda_day_item_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/month_bgcolor">
+
+        <LinearLayout
+            android:id="@+id/day_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date_day_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:textColor="@color/agenda_day_item_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/month_bgcolor">
+
+        <LinearLayout
+            android:id="@+id/day_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date_day_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:textColor="@color/agenda_day_item_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/month_bgcolor">
+
+        <LinearLayout
+            android:id="@+id/day_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date_day_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:textColor="@color/agenda_day_item_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/month_bgcolor">
+
+        <LinearLayout
+            android:id="@+id/day_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date_day_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:textColor="@color/agenda_day_item_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/month_bgcolor">
+
+        <LinearLayout
+            android:id="@+id/day_6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date_day_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:textColor="@color/agenda_day_item_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
