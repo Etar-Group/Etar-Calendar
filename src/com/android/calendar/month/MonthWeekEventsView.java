@@ -51,6 +51,7 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 import ws.xsoh.etar.R;
@@ -103,6 +104,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_BOTTOM_PADDING = 1;
     private static int TODAY_HIGHLIGHT_WIDTH = 2;
     private static int SPACING_WEEK_NUMBER = 0;
+    private static int BORDER_SPACE;
+    private static int STROKE_WIDTH_ADJ;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
     private static boolean mShowTimeInMonth;
@@ -310,6 +313,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 DNA_ALL_DAY_WIDTH *= mScale;
                 TODAY_HIGHLIGHT_WIDTH *= mScale;
             }
+            BORDER_SPACE = EVENT_SQUARE_BORDER + 1;       // want a 1-pixel gap inside border
+            STROKE_WIDTH_ADJ = EVENT_SQUARE_BORDER / 2;   // adjust bounds for stroke width
             if (!mShowDetailsInMonth) {
                 TOP_PADDING_MONTH_NUMBER += DNA_ALL_DAY_HEIGHT + DNA_MARGIN;
             }
@@ -725,34 +730,20 @@ public class MonthWeekEventsView extends SimpleWeekView {
             rightEdge -= 1;
 
             // Determine if everything will fit when time ranges are shown.
-            boolean showTimes = mShowTimeInMonth;
+            EventFormatter formatter = new EventFormatter(eventDay, mShowTimeInMonth);
+            int availableSpace = mHeight - ySquare - EVENT_BOTTOM_PADDING;
+            formatter.formatItems(availableSpace);
+            boolean showTimes = formatter.getShowTimes();
+
+            int eventCount = formatter.getNumberOfEventsFittingAvailableSpace();
             Iterator<Event> iter = eventDay.iterator();
-            int yTest = ySquare;
-            while (iter.hasNext()) {
+            while (iter.hasNext() && eventCount > 0) {
                 Event event = iter.next();
-                int newY = drawEvent(canvas, event, xSquare, yTest, rightEdge, iter.hasNext(),
-                        showTimes, /*doDraw*/ false);
-                if (newY == yTest) {
-                    showTimes = false;
-                    break;
-                }
-                yTest = newY;
+                ySquare = drawEvent(canvas, event, xSquare, ySquare, rightEdge, showTimes);
+                --eventCount;
             }
 
-            int eventCount = 0;
-            iter = eventDay.iterator();
-            while (iter.hasNext()) {
-                Event event = iter.next();
-                int newY = drawEvent(canvas, event, xSquare, ySquare, rightEdge, iter.hasNext(),
-                        showTimes, /*doDraw*/ true);
-                if (newY == ySquare) {
-                    break;
-                }
-                eventCount++;
-                ySquare = newY;
-            }
-
-            int remaining = eventDay.size() - eventCount;
+            int remaining = eventDay.size() - formatter.getNumberOfEventsFittingAvailableSpace();
             if (remaining > 0) {
                 drawMoreEvents(canvas, remaining, xSquare);
             }
@@ -785,26 +776,20 @@ public class MonthWeekEventsView extends SimpleWeekView {
         return count;
     }
 
-    /**
-     * Attempts to draw the given event. Returns the y for the next event or the
-     * original y if the event will not fit. An event is considered to not fit
-     * if the event and its extras won't fit or if there are more events and the
-     * more events line would not fit after drawing this event.
-     *
-     * @param canvas the canvas to draw on
-     * @param event the event to draw
-     * @param x the top left corner for this event's color chip
-     * @param y the top left corner for this event's color chip
-     * @param rightEdge the rightmost point we're allowed to draw on (exclusive)
-     * @param moreEvents indicates whether additional events will follow this one
-     * @param showTimes if set, a second line with a time range will be displayed for non-all-day
-     *   events
-     * @param doDraw if set, do the actual drawing; otherwise this just computes the height
-     *   and returns
-     * @return the y for the next event or the original y if it won't fit
-     */
-    protected int drawEvent(Canvas canvas, Event event, int x, int y, int rightEdge,
-            boolean moreEvents, boolean showTimes, boolean doDraw) {
+    protected class EventFormatter {
+        private ArrayList<Event> mEventDay;
+        private boolean mShowTimes;
+        private int mFullDayEventsCount;
+        private int mEventsFittingAvailableSpace;
+        public EventFormatter(ArrayList<Event> eventDay, boolean showTimes) {
+            mEventDay = eventDay;
+            mShowTimes = showTimes;
+            for (Event event : mEventDay) {
+                if (event.allDay) {
+                    ++mFullDayEventsCount;
+                }
+            }
+        }
         /*
          * Vertical layout:
          *   (top of box)
@@ -821,35 +806,75 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * f. EVENT_BOTTOM_PADDING (overlaps EVENT_LINE_PADDING)
          *   (bottom of box)
          */
-        final int BORDER_SPACE = EVENT_SQUARE_BORDER + 1;       // want a 1-pixel gap inside border
-        final int STROKE_WIDTH_ADJ = EVENT_SQUARE_BORDER / 2;   // adjust bounds for stroke width
-        boolean allDay = event.allDay;
-        int eventRequiredSpace = mEventHeight;
-        if (allDay) {
+        public void formatItems(int availableSpace) {
+            int height = getEventsHeight();
+            mEventsFittingAvailableSpace = mEventDay.size();
+            if ((height > availableSpace) && mShowTimes) {
+                mShowTimes = false;
+                height = getEventsHeight();
+            }
+            if (availableSpace < height) {
+                // Make sure we have room for the "+ more" line.  (The "+ more" line is expected
+                // to be <= the height of an event line, so we won't show "+1" when we could be
+                // showing the event.)
+                height += mExtrasHeight;
+                ListIterator<Event> backIterator = mEventDay.listIterator(mEventDay.size());
+                while ((height > availableSpace) && backIterator.hasPrevious()) {
+                    height -= getEventHeight(backIterator.previous()) - EVENT_LINE_PADDING;
+                    --mEventsFittingAvailableSpace;
+                }
+            }
+        }
+
+        public int getNumberOfEventsFittingAvailableSpace() {
+            return mEventsFittingAvailableSpace;
+        }
+
+        public boolean getShowTimes() {
+            return mShowTimes;
+        }
+
+        private int getEventsHeight() {
+           return (mEventDay.size() - mFullDayEventsCount) * getRegularEventHeight()
+                   + mFullDayEventsCount * getFullDayEventHeight()
+                   + (mEventDay.size() - 1) * EVENT_LINE_PADDING; // Leave a bit of space between events.
+        }
+
+        private int getRegularEventHeight() {
+                                               // Need room for the "1pm - 2pm" line.
+            return mShowTimes ? mEventHeight + mExtrasHeight : mEventHeight;
+        }
+
+        private int getFullDayEventHeight() {
             // Add a few pixels for the box we draw around all-day events.
-            eventRequiredSpace += BORDER_SPACE * 2;
-        } else if (showTimes) {
-            // Need room for the "1pm - 2pm" line.
-            eventRequiredSpace += mExtrasHeight;
-        }
-        int reservedSpace = EVENT_BOTTOM_PADDING;   // leave a bit of room at the bottom
-        if (moreEvents) {
-            // More events follow.  Leave a bit of space between events.
-            eventRequiredSpace += EVENT_LINE_PADDING;
-
-            // Make sure we have room for the "+ more" line.  (The "+ more" line is expected
-            // to be <= the height of an event line, so we won't show "+1" when we could be
-            // showing the event.)
-            reservedSpace += mExtrasHeight;
+            return mEventHeight + BORDER_SPACE * 2;
         }
 
-        if (y + eventRequiredSpace + reservedSpace > mHeight) {
-            // Not enough space, return original y
-            return y;
-        } else if (!doDraw) {
-            return y + eventRequiredSpace;
+        private int getEventHeight(Event event) {
+            return event.allDay ? getFullDayEventHeight() : getRegularEventHeight();
         }
+    }
 
+
+    /**
+     * Attempts to draw the given event. Returns the y for the next event or the
+     * original y if the event will not fit. An event is considered to not fit
+     * if the event and its extras won't fit or if there are more events and the
+     * more events line would not fit after drawing this event.
+     *
+     * @param canvas the canvas to draw on
+     * @param event the event to draw
+     * @param x the top left corner for this event's color chip
+     * @param y the top left corner for this event's color chip
+     * @param rightEdge the rightmost point we're allowed to draw on (exclusive)
+     * @param showTimes if set, a second line with a time range will be displayed for non-all-day
+     *   events
+     * @return the y for the next event or the original y if it won't fit
+     */
+    protected int drawEvent(Canvas canvas, Event event, int x, int y, int rightEdge,
+            boolean showTimes) {
+
+        boolean allDay = event.allDay;
         boolean isDeclined = event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED;
         int color = event.color;
         if (isDeclined) {
