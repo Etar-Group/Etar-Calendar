@@ -32,6 +32,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Attendees;
@@ -716,37 +717,23 @@ public class MonthWeekEventsView extends SimpleWeekView {
             return;
         }
 
-        int day = -1;
+        DayBoxBoundaries boxBoundaries = new DayBoxBoundaries();
         for (ArrayList<Event> eventDay : mEvents) {
-            day++;
             if (eventDay == null || eventDay.size() == 0) {
+                boxBoundaries.nextDay();
                 continue;
             }
-            int ySquare;
-            int xSquare = computeDayLeftPosition(day) + 1;
-            int rightEdge = computeDayLeftPosition(day + 1);
 
-            ySquare = EVENT_Y_OFFSET_PORTRAIT + mMonthNumHeight + TOP_PADDING_MONTH_NUMBER;
-            rightEdge -= 1;
-
-            // Determine if everything will fit when time ranges are shown.
-            EventFormatter formatter = new EventFormatter(eventDay, mShowTimeInMonth);
-            int availableSpace = mHeight - ySquare - EVENT_BOTTOM_PADDING;
-            formatter.formatItems(availableSpace);
-            boolean showTimes = formatter.getShowTimes();
-
-            int eventCount = formatter.getNumberOfEventsFittingAvailableSpace();
-            Iterator<Event> iter = eventDay.iterator();
-            while (iter.hasNext() && eventCount > 0) {
-                Event event = iter.next();
-                ySquare = drawEvent(canvas, event, xSquare, ySquare, rightEdge, showTimes);
-                --eventCount;
+            EventFormatter formatter = new EventFormatter(eventDay, mShowTimeInMonth, boxBoundaries);
+            for (FormattedEvent event : formatter.formatItems()) {
+                event.draw(canvas);
             }
 
-            int remaining = eventDay.size() - formatter.getNumberOfEventsFittingAvailableSpace();
+            int remaining = formatter.getNumberOfInvisibleEvents();
             if (remaining > 0) {
-                drawMoreEvents(canvas, remaining, xSquare);
+                drawMoreEvents(canvas, remaining, boxBoundaries.getX());
             }
+            boxBoundaries.nextDay();
         }
     }
 
@@ -780,10 +767,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
         private ArrayList<Event> mEventDay;
         private boolean mShowTimes;
         private int mFullDayEventsCount;
-        private int mEventsFittingAvailableSpace;
-        public EventFormatter(ArrayList<Event> eventDay, boolean showTimes) {
+        private int mNumberOfNotVisibleEvents;
+        private DayBoxBoundaries mBoxBoundaries;
+        public EventFormatter(ArrayList<Event> eventDay, boolean showTimes,
+                              DayBoxBoundaries boxBoundaries) {
             mEventDay = eventDay;
             mShowTimes = showTimes;
+            mBoxBoundaries = boxBoundaries;
             for (Event event : mEventDay) {
                 if (event.allDay) {
                     ++mFullDayEventsCount;
@@ -806,9 +796,11 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * f. EVENT_BOTTOM_PADDING (overlaps EVENT_LINE_PADDING)
          *   (bottom of box)
          */
-        public void formatItems(int availableSpace) {
+        public ArrayList<FormattedEvent> formatItems() {
             int height = getEventsHeight();
-            mEventsFittingAvailableSpace = mEventDay.size();
+            int eventsFittingAvailableSpace = mEventDay.size();
+            mNumberOfNotVisibleEvents = 0;
+            int availableSpace = mBoxBoundaries.getAvailableYSpace();
             if ((height > availableSpace) && mShowTimes) {
                 mShowTimes = false;
                 height = getEventsHeight();
@@ -821,17 +813,24 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 ListIterator<Event> backIterator = mEventDay.listIterator(mEventDay.size());
                 while ((height > availableSpace) && backIterator.hasPrevious()) {
                     height -= getEventHeight(backIterator.previous()) - EVENT_LINE_PADDING;
-                    --mEventsFittingAvailableSpace;
+                    --eventsFittingAvailableSpace;
+                    ++mNumberOfNotVisibleEvents;
                 }
             }
+            EventFormat format = new EventFormat(mShowTimes);
+            ArrayList<FormattedEvent> formattedEvents = new ArrayList<>(mEventDay.size());
+            for (int i = 0; i < mEventDay.size(); ++i) {
+                if (i == eventsFittingAvailableSpace) {
+                    format = new EventFormat(mShowTimes);
+                    format.mVisible = false;
+                }
+                formattedEvents.add(new FormattedEvent(mEventDay.get(i), mBoxBoundaries, format));
+            }
+            return formattedEvents;
         }
 
-        public int getNumberOfEventsFittingAvailableSpace() {
-            return mEventsFittingAvailableSpace;
-        }
-
-        public boolean getShowTimes() {
-            return mShowTimes;
+        public int getNumberOfInvisibleEvents() {
+            return mNumberOfNotVisibleEvents;
         }
 
         private int getEventsHeight() {
@@ -855,107 +854,198 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
     }
 
+    protected class DayBoxBoundaries {
+        private int mX;
+        private int mY;
+        private int mRightEdge;
+        private int mYOffset;
+        private int mXWidth;
 
-    /**
-     * Attempts to draw the given event. Returns the y for the next event or the
-     * original y if the event will not fit. An event is considered to not fit
-     * if the event and its extras won't fit or if there are more events and the
-     * more events line would not fit after drawing this event.
-     *
-     * @param canvas the canvas to draw on
-     * @param event the event to draw
-     * @param x the top left corner for this event's color chip
-     * @param y the top left corner for this event's color chip
-     * @param rightEdge the rightmost point we're allowed to draw on (exclusive)
-     * @param showTimes if set, a second line with a time range will be displayed for non-all-day
-     *   events
-     * @return the y for the next event or the original y if it won't fit
-     */
-    protected int drawEvent(Canvas canvas, Event event, int x, int y, int rightEdge,
-            boolean showTimes) {
-
-        boolean allDay = event.allDay;
-        boolean isDeclined = event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED;
-        int color = event.color;
-        if (isDeclined) {
-            color = Utils.getDeclinedColorFromColor(color);
+        public DayBoxBoundaries() {
+            mXWidth = mWidth / mNumDays;
+            mYOffset = 0;
+            mX = 1;
+            mY = EVENT_Y_OFFSET_PORTRAIT + mMonthNumHeight + TOP_PADDING_MONTH_NUMBER;
+            mRightEdge = mXWidth - 1;
         }
 
-        int textX, textY, textRightEdge;
+        public void nextDay() {
+            mX += mXWidth;
+            mRightEdge += mXWidth;
+            mYOffset = 0;
+        }
 
-        if (allDay) {
+        public int getX() { return  mX;}
+        public int getY() { return  mY + mYOffset;}
+        public int getRightEdge() {return mRightEdge;}
+        public int getAvailableYSpace() { return  mHeight - getY() - EVENT_BOTTOM_PADDING;}
+        public void moveDown(int y) {
+            mYOffset += y;
+        }
+    }
+
+    protected abstract class BoundariesSetter {
+        protected DayBoxBoundaries mBoxBoundaries;
+        protected int mBorderSpace;
+        protected int mXPadding;
+        public BoundariesSetter(DayBoxBoundaries boxBoundaries, int borderSpace, int xPadding) {
+            mBoxBoundaries = boxBoundaries;
+            mBorderSpace = borderSpace;
+            mXPadding = xPadding;
+        }
+        public int getY() { return mBoxBoundaries.getY(); }
+        public abstract void setRectangle();
+        public int getTextX() {
+            return mBoxBoundaries.getX() + mBorderSpace + mXPadding;
+        }
+        public int getTextY() {
+            return mBoxBoundaries.getY() + mEventAscentHeight + mBorderSpace;
+        }
+        public int getTextRightEdge() {
+            return mBoxBoundaries.getRightEdge() - mBorderSpace;
+        }
+        public void moveToNextLine() {
+            mBoxBoundaries.moveDown(mEventHeight + mBorderSpace * 2);
+        }
+        public void moveToNextItem() {
+            mBoxBoundaries.moveDown(EVENT_LINE_PADDING);
+        }
+    }
+
+    protected class AllDayBoundariesSetter extends BoundariesSetter {
+        public AllDayBoundariesSetter(DayBoxBoundaries boxBoundaries) {
+            super(boxBoundaries, BORDER_SPACE, 0);
+        }
+        @Override
+        public void setRectangle() {
             // We shift the render offset "inward", because drawRect with a stroke width greater
             // than 1 draws outside the specified bounds.  (We don't adjust the left edge, since
             // we want to match the existing appearance of the "event square".)
-            r.left = x;
-            r.right = rightEdge - STROKE_WIDTH_ADJ;
-            r.top = y + STROKE_WIDTH_ADJ;
-            r.bottom = y + mEventHeight + BORDER_SPACE * 2 - STROKE_WIDTH_ADJ;
-            textX = x + BORDER_SPACE;
-            textY = y + mEventAscentHeight + BORDER_SPACE;
-            textRightEdge = rightEdge - BORDER_SPACE;
-        } else {
-            r.left = x;
-            r.right = x + EVENT_SQUARE_WIDTH;
-            r.bottom = y + mEventAscentHeight;
+            r.left = mBoxBoundaries.getX();
+            r.right = mBoxBoundaries.getRightEdge() - STROKE_WIDTH_ADJ;
+            r.top = mBoxBoundaries.getY() + STROKE_WIDTH_ADJ;
+            r.bottom = mBoxBoundaries.getY() + mEventHeight + BORDER_SPACE * 2 - STROKE_WIDTH_ADJ;
+        }
+    }
+
+    protected class RegularBoundariesSetter extends BoundariesSetter {
+        public RegularBoundariesSetter(DayBoxBoundaries boxBoundaries) {
+            super(boxBoundaries, 0, EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING);
+        }
+        @Override
+        public void setRectangle() {
+            r.left = mBoxBoundaries.getX();
+            r.right = mBoxBoundaries.getX() + EVENT_SQUARE_WIDTH;
+            r.bottom = mBoxBoundaries.getY() + mEventAscentHeight;
             r.top = r.bottom - EVENT_SQUARE_HEIGHT;
-            textX = x + EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING;
-            textY = y + mEventAscentHeight;
-            textRightEdge = rightEdge;
+        }
+    }
+
+    protected class EventFormat {
+        public boolean mShowTimes;
+        public boolean mVisible;
+        public EventFormat(boolean showTimes) {
+            mShowTimes = showTimes;
+            mVisible = true;
+        }
+    }
+
+    protected class FormattedEvent {
+        private Event mEvent;
+        private BoundariesSetter mBoundaries;
+        private EventFormat mFormat;
+        public  FormattedEvent(Event event, DayBoxBoundaries boundaries, EventFormat format) {
+            mEvent = event;
+            mBoundaries = (event.allDay) ? new AllDayBoundariesSetter(boundaries) :
+                    new RegularBoundariesSetter(boundaries);
+            mFormat = format;
         }
 
-        Style boxStyle = Style.STROKE;
-        boolean solidBackground = false;
-        if (event.selfAttendeeStatus != Attendees.ATTENDEE_STATUS_INVITED) {
-            boxStyle = Style.FILL_AND_STROKE;
-            if (allDay) {
-                solidBackground = true;
+        protected boolean isDeclined() {
+            return mEvent.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED;
+        }
+
+        protected boolean isAtendeeStatusInvited() {
+            return mEvent.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_INVITED;
+        }
+
+        protected Paint.Style getRectanglePaintStyle() {
+           return (isAtendeeStatusInvited()) ?
+                            Style.STROKE : Style.FILL_AND_STROKE;
+        }
+        protected int getRectangleColor() {
+            return isDeclined() ? Utils.getDeclinedColorFromColor(mEvent.color) : mEvent.color;
+        }
+
+        protected void drawEventRectangle(Canvas canvas)  {
+            mBoundaries.setRectangle();
+            mEventSquarePaint.setStyle(getRectanglePaintStyle());
+            mEventSquarePaint.setColor(getRectangleColor());
+            canvas.drawRect(r, mEventSquarePaint);
+        }
+
+        protected int getAvailableSpaceForText() {
+            return mBoundaries.getTextRightEdge() - mBoundaries.getTextX();
+        }
+
+        protected CharSequence getFormattedText() {
+            float avail = getAvailableSpaceForText();
+            return TextUtils.ellipsize(mEvent.title, mEventPaint, avail, TextUtils.TruncateAt.END);
+        }
+
+        protected Paint getTextPaint() {
+            if (!isAtendeeStatusInvited() && mEvent.allDay){
+                // Text color needs to contrast with solid background.
+                return mSolidBackgroundEventPaint;
+            } else if (isDeclined()) {
+                // Use "declined event" color.
+                return mDeclinedEventPaint;
+            } else if (mEvent.allDay) {
+                // Text inside frame is same color as frame.
+                mFramedEventPaint.setColor(getRectangleColor());
+                return mFramedEventPaint;
             }
-        }
-        mEventSquarePaint.setStyle(boxStyle);
-        mEventSquarePaint.setColor(color);
-        canvas.drawRect(r, mEventSquarePaint);
-
-        float avail = textRightEdge - textX;
-        CharSequence text = TextUtils.ellipsize(
-                event.title, mEventPaint, avail, TextUtils.TruncateAt.END);
-        Paint textPaint;
-        if (solidBackground) {
-            // Text color needs to contrast with solid background.
-            textPaint = mSolidBackgroundEventPaint;
-        } else if (isDeclined) {
-            // Use "declined event" color.
-            textPaint = mDeclinedEventPaint;
-        } else if (allDay) {
-            // Text inside frame is same color as frame.
-            mFramedEventPaint.setColor(color);
-            textPaint = mFramedEventPaint;
-        } else {
             // Use generic event text color.
-            textPaint = mEventPaint;
-        }
-        canvas.drawText(text.toString(), textX, textY, textPaint);
-        y += mEventHeight;
-        if (allDay) {
-            y += BORDER_SPACE * 2;
+            return mEventPaint;
         }
 
-        if (showTimes && !allDay) {
-            // show start/end time, e.g. "1pm - 2pm"
-            textY = y + mExtrasAscentHeight;
+        protected void drawText(Canvas canvas) {
+            canvas.drawText(getFormattedText().toString(), mBoundaries.getTextX(),
+                    mBoundaries.getTextY(), getTextPaint());
+        }
+
+        protected boolean areTimesVisible() {
+            return mFormat.mShowTimes && !mEvent.allDay;
+        }
+
+        protected Paint getTimesPaint() {
+            return isDeclined() ? mEventDeclinedExtrasPaint : mEventExtrasPaint;
+        }
+
+        protected void drawTimes(Canvas canvas) {
             mStringBuilder.setLength(0);
-            text = DateUtils.formatDateRange(getContext(), mFormatter, event.startMillis,
-                    event.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
+            CharSequence text = DateUtils.formatDateRange(getContext(), mFormatter, mEvent.startMillis,
+                    mEvent.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
                     Utils.getTimeZone(getContext(), null)).toString();
+            float avail = getAvailableSpaceForText();
             text = TextUtils.ellipsize(text, mEventExtrasPaint, avail, TextUtils.TruncateAt.END);
-            canvas.drawText(text.toString(), textX, textY, isDeclined ? mEventDeclinedExtrasPaint
-                    : mEventExtrasPaint);
-            y += mExtrasHeight;
+            canvas.drawText(text.toString(), mBoundaries.getTextX(),
+                    mBoundaries.getTextY(), getTimesPaint());
         }
 
-        y += EVENT_LINE_PADDING;
-
-        return y;
+        public void draw(Canvas canvas) {
+           if (mFormat.mVisible) {
+               drawEventRectangle(canvas);
+               drawText(canvas);
+               mBoundaries.moveToNextLine();
+               if (areTimesVisible())
+               {
+                   drawTimes(canvas);
+                   mBoundaries.moveToNextLine();
+               }
+               mBoundaries.moveToNextItem();
+           }
+        }
     }
 
     protected void drawMoreEvents(Canvas canvas, int remainingEvents, int x) {
