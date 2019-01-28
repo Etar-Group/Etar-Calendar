@@ -45,7 +45,10 @@ You can even configure in Etar which ones are to be shown and when adding
 an event to which calendar it should be added.
 
 ## Contribute
-### Translations in Google Play app description
+### Translations
+Interested in helping to translate Etar? Contribute here: https://hosted.weblate.org/projects/etar-calendar/strings/
+
+##### Google Play app description:
 You can update/add your own language and all artwork files [here](metadata)
 
 ### Build instructions
