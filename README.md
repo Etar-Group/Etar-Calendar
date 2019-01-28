@@ -34,8 +34,7 @@ Sync your calendar to a server:
   need yet another app, e. g. DAVx5. That’s necessary because a Caldav client
   isn't included in Etar.
 
-  The following [link](https://ownyourbits.com/2017/12/30/sync-nextcloud-tasks-calendars-and-contacts-on-your-android-device/) provides a tutorial how to use Nextcloud + DAVx5 +
-  Etar.
+  The following [link](https://ownyourbits.com/2017/12/30/sync-nextcloud-tasks-calendars-and-contacts-on-your-android-device/) provides   a tutorial how to use Nextcloud + DAVx5 + Etar.
 
 ### Technical explanation
 On Android there are "Calendar providers". These can be calendars that are
@@ -43,6 +42,14 @@ synchronized with a cloud service or local calendars. Basically any app
 could provide a calendar. Those "provided" calendars can be used by Etar.
 You can even configure in Etar which ones are to be shown and when adding
 an event to which calendar it should be added.
+
+### Important permissions Etar requires
+- READ_EXTERNAL_STORAGE & WRITE_EXTERNAL_STORAGE  
+->import and export ics calendar files  
+- READ_CONTACTS  
+->allows search and location suggestions when adding guests to an event  
+- READ_CALENDAR & WRITE_CALENDAR  
+->read and create calendar events
 
 ## Contribute
 ### Translations
