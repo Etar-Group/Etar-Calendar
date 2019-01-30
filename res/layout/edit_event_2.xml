@@ -104,21 +104,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dip">
-        <TextView
-            android:text="@string/attendees_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="8dip"
-            style="@style/TextAppearance.EditEvent_LabelSmall" />
-        <com.android.ex.chips.RecipientEditTextView
-            android:id="@+id/attendees"
-            android:layout_marginTop="2dip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress|textMultiLine|textCapWords"
-            android:hint="@string/hint_attendees"
-            android:imeOptions="actionNext"
-            style="@style/TextAppearance.EditEvent_Value" />
+		<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+			<com.android.ex.chips.RecipientEditTextView
+				android:id="@+id/attendees"
+				android:layout_marginTop="2dip"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textEmailAddress|textMultiLine|textCapWords"
+				android:hint="@string/hint_attendees"
+				android:imeOptions="actionNext"
+				style="@style/TextAppearance.EditEvent_Value" />
+		</android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <View
@@ -131,16 +130,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dip"
         android:focusable="true">
-        <EditText
-            android:id="@+id/description"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_gravity="bottom"
-            android:minHeight="48dip"
-            android:hint="@string/hint_description"
-            android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:imeOptions="actionDone" />
+		<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+			<EditText
+				android:id="@+id/description"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_gravity="bottom"
+				android:minHeight="48dip"
+				android:hint="@string/hint_description"
+				android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
+				style="@style/TextAppearance.EditEvent_Value"
+				android:imeOptions="actionDone" />
+		</android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <View
