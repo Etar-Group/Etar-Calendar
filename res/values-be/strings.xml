@@ -231,8 +231,8 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Тып напаміну"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Паказваць як"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Канфідэнцыяльнасть"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Апавяшчэннi календара"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Адключыць апавяшчэнне"</string>
+    <string name="accessibility_cal_notification" msgid="7267601064994839394">"Апавяшчэннi календара"</string>
+    <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Адключыць апавяшчэнне"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Напiсаць гасцям"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Новае мерапрыемства"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Падзея <xliff:g id="ITEM_INDEX">%1$s</xliff:g> з <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>

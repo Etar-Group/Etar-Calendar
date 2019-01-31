@@ -231,9 +231,7 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Art der Erinnerung"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mein Status"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Datenschutz"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Kalenderbenachrichtigung"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Später erinnern"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"E-Mail an Gäste senden"</string>
+  <string name="accessibility_email_notification" msgid="9124064701968129831">"E-Mail an Gäste senden"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ neuer Termin"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Termin <xliff:g id="ITEM_INDEX">%1$s</xliff:g> von <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
   <plurals name="Nevents">
@@ -323,4 +321,6 @@
   <string name="one_hour">1 Stunde</string>
   <string name="two_hours">2 Stunden</string>
   <string name="one_and_a_half_hours">1,5 Stunden</string>
+  <string name="accessibility_cal_notification">Kalenderbenachrichtigung</string>
+  <string name="accessibility_snooze_notification">Später erinnern</string>
 </resources>

@@ -231,8 +231,8 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"알림 유형"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"내 상태"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"개인정보 보호"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"캘린더 알림"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"알림 일시중지"</string>
+    <string name="accessibility_cal_notification" msgid="7267601064994839394">"캘린더 알림"</string>
+    <string name="accessibility_snooze_notification" msgid="5007852779125102681">"알림 일시중지"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"참석자에게 이메일 보내기"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ 새 일정"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"일정 <xliff:g id="ITEM_INDEX">%1$s</xliff:g>/<xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>

@@ -230,8 +230,8 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Reminder type"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Show me as"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacy"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Calendar Notification"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Snooze Notification"</string>
+    <string name="accessibility_cal_notification" msgid="7267601064994839394">"Calendar Notification"</string>
+    <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Snooze Notification"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Email guests"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ New event"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Event <xliff:g id="ITEM_INDEX">%1$s</xliff:g> of <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
