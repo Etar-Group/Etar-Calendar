@@ -101,17 +101,22 @@
     </LinearLayout>
 
     <!-- WHAT -->
-    <EditText
-        android:id="@+id/title"
-        style="@style/TextAppearance.EditEvent_Value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dip"
-        android:focusable="true"
-        android:hint="@string/hint_what"
-        android:inputType="textAutoCorrect|textCapSentences"
-        android:minHeight="48dip"
-        android:singleLine="true" />
+    <android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+        <android.support.design.widget.TextInputEditText
+			android:id="@+id/title"
+			style="@style/TextAppearance.EditEvent_Value"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dip"
+			android:focusable="true"
+			android:hint="@string/hint_what"
+			android:inputType="textAutoCorrect|textCapSentences"
+			android:minHeight="48dip"
+			android:singleLine="true" />
+	</android.support.design.widget.TextInputLayout>
 
     <!-- WHERE -->
     <LinearLayout android:id="@+id/where_row"
@@ -120,18 +125,23 @@
         android:layout_marginBottom="6dip"
         android:focusable="true"
         android:orientation="vertical">
-        <AutoCompleteTextView
-            android:id="@+id/location"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_where"
-            android:imeOptions="actionDone"
-            android:inputType="textAutoCorrect|textCapSentences"
-            android:minHeight="48dip"
-            android:singleLine="false" />
-    <View
-        style="@style/EditEventSeparator"/>
+		<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+			<AutoCompleteTextView
+				android:id="@+id/location"
+				style="@style/TextAppearance.EditEvent_Value"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/hint_where"
+				android:imeOptions="actionDone"
+				android:inputType="textAutoCorrect|textCapSentences"
+				android:minHeight="48dip"
+				android:singleLine="false" />
+		</android.support.design.widget.TextInputLayout>
+		<View
+			style="@style/EditEventSeparator"/>
     </LinearLayout>
 
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->
