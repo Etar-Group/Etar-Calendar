@@ -754,42 +754,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     protected class DayEventSorter {
-        ArrayList<FormattedEvent> sort(ArrayList<FormattedEvent> dayEvents) {
-            if (dayEvents.isEmpty()) {
-                return new ArrayList<>();
-            }
-            LinkedList<FormattedEvent> remainingEvents = new LinkedList<>();
-            FormattedEvent[] indexedEvents = new FormattedEvent[countRequiredYSize(dayEvents)];
-            for (FormattedEvent event : dayEvents) {
-                if (event.getFormat().getYIndex() != -1) {
-                    indexedEvents[event.getFormat().getYIndex()] = event;
-                } else {
-                    sortedAddRemainingEventToList(remainingEvents, event);
-                }
-            }
-            int index = 0;
-            for (FormattedEvent event : remainingEvents) {
-                if (!event.getFormat().isVisible()) {
-                    continue;
-                }
-                while (index < indexedEvents.length) {
-                    if (indexedEvents[index] == null) {
-                        event.getFormat().setYIndex(index);
-                        indexedEvents[index] = event;
-                        index = getNextIndexAndFixHeight(indexedEvents, index);
-                        break;
-                    }
-                    index = getNextIndexAndFixHeight(indexedEvents, index);
-                }
-            }
-            ArrayList<FormattedEvent> sortedEvents = new ArrayList<>(dayEvents.size());
-            for (FormattedEvent event : indexedEvents) {
-                if (event != null) {
-                    sortedEvents.add(event);
-                }
-            }
-            return sortedEvents;
+
+        private LinkedList<FormattedEvent> mRemainingEvents;
+        public DayEventSorter() {
+            mRemainingEvents = new LinkedList<>();
         }
+
         /**
          * Adds event to list of remaining events putting events spanning most days first.
          * @param remainingEvents
@@ -849,6 +819,57 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 }
             }
             return newIndex;
+        }
+
+        protected FormattedEvent[] fillInIndexedEvents(ArrayList<FormattedEvent> dayEvents) {
+            FormattedEvent[] indexedEvents = new FormattedEvent[countRequiredYSize(dayEvents)];
+            for (FormattedEvent event : dayEvents) {
+                if (event.getFormat().getYIndex() != -1) {
+                    indexedEvents[event.getFormat().getYIndex()] = event;
+                } else {
+                    sortedAddRemainingEventToList(mRemainingEvents, event);
+                }
+            }
+            return indexedEvents;
+        }
+
+        protected ArrayList<FormattedEvent> getSortedEvents(FormattedEvent[] indexedEvents,
+                                                            int expectedSize) {
+            ArrayList<FormattedEvent> sortedEvents = new ArrayList<>(expectedSize);
+            for (FormattedEvent event : indexedEvents) {
+                if (event != null) {
+                    sortedEvents.add(event);
+                }
+            }
+            return sortedEvents;
+        }
+
+        protected void fillInRemainingEvents(FormattedEvent[] indexedEvents) {
+            int index = 0;
+            for (FormattedEvent event : mRemainingEvents) {
+                if (!event.getFormat().isVisible()) {
+                    continue;
+                }
+                while (index < indexedEvents.length) {
+                    if (indexedEvents[index] == null) {
+                        event.getFormat().setYIndex(index);
+                        indexedEvents[index] = event;
+                        index = getNextIndexAndFixHeight(indexedEvents, index);
+                        break;
+                    }
+                    index = getNextIndexAndFixHeight(indexedEvents, index);
+                }
+            }
+        }
+
+        public ArrayList<FormattedEvent> sort(ArrayList<FormattedEvent> dayEvents) {
+            if (dayEvents.isEmpty()) {
+                return new ArrayList<>();
+            }
+            mRemainingEvents.clear();
+            FormattedEvent[] indexedEvents = fillInIndexedEvents(dayEvents);
+            fillInRemainingEvents(indexedEvents);
+            return getSortedEvents(indexedEvents, dayEvents.size());
         }
     }
 
