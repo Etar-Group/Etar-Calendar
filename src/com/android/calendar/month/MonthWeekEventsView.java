@@ -753,50 +753,43 @@ public class MonthWeekEventsView extends SimpleWeekView {
         return count;
     }
 
-    protected class WeekEventFormatter {
-        private List<ArrayList<FormattedEvent>> mFormattedEvents;
-
-        /**
-         * Prepares events to be drawn. It creates FormattedEvents from mEvent.
-         * @param boxBoundaries
-         * @return ArrayList of DayEventFormatters
-         */
-        public ArrayList<DayEventFormatter> prepareFormattedEvents(DayBoxBoundaries boxBoundaries) {
-            prepareFormattedEventsWithEventDaySpan(boxBoundaries);
-            preFormatEventText();
-            setYindexInEvents();
-            return formatDays(boxBoundaries.getAvailableYSpace());
-        }
-
-        /**
-         * Handles text formatting in events - sets number of lines in in each event.
-         * In order to produce right values DaySpan needs to be set first (in EventFormat)
-         */
-        protected void preFormatEventText() {
-            for (ArrayList<FormattedEvent> dayEvents : mFormattedEvents) {
-                for (FormattedEvent event : dayEvents) {
-                    event.initialPreFormatText();
+    protected class DayEventSorter {
+        ArrayList<FormattedEvent> sort(ArrayList<FormattedEvent> dayEvents) {
+            if (dayEvents.isEmpty()) {
+                return new ArrayList<>();
+            }
+            LinkedList<FormattedEvent> remainingEvents = new LinkedList<>();
+            FormattedEvent[] indexedEvents = new FormattedEvent[countRequiredYSize(dayEvents)];
+            for (FormattedEvent event : dayEvents) {
+                if (event.getFormat().getYIndex() != -1) {
+                    indexedEvents[event.getFormat().getYIndex()] = event;
+                } else {
+                    sortedAddRemainingEventToList(remainingEvents, event);
                 }
             }
-        }
-
-        /**
-         * Creates DayEventFormatters for each day and formats each day to prepare it for drawing.
-         * @param availableSpace
-         * @return
-         */
-        protected ArrayList<DayEventFormatter> formatDays(int availableSpace) {
-            int dayIndex = 0;
-            ArrayList<DayEventFormatter> dayFormatters = new ArrayList<>(mFormattedEvents.size());
-            for (ArrayList<FormattedEvent> dayEvents : mFormattedEvents) {
-                DayEventFormatter dayEventFormatter = new DayEventFormatter(dayEvents, dayIndex);
-                dayEventFormatter.formatDay(availableSpace);
-                dayFormatters.add(dayEventFormatter);
-                ++dayIndex;
+            int index = 0;
+            for (FormattedEvent event : remainingEvents) {
+                if (!event.getFormat().isVisible()) {
+                    continue;
+                }
+                while (index < indexedEvents.length) {
+                    if (indexedEvents[index] == null) {
+                        event.getFormat().setYIndex(index);
+                        indexedEvents[index] = event;
+                        index = getNextIndexAndFixHeight(indexedEvents, index);
+                        break;
+                    }
+                    index = getNextIndexAndFixHeight(indexedEvents, index);
+                }
             }
-            return dayFormatters;
+            ArrayList<FormattedEvent> sortedEvents = new ArrayList<>(dayEvents.size());
+            for (FormattedEvent event : indexedEvents) {
+                if (event != null) {
+                    sortedEvents.add(event);
+                }
+            }
+            return sortedEvents;
         }
-
         /**
          * Adds event to list of remaining events putting events spanning most days first.
          * @param remainingEvents
@@ -857,6 +850,51 @@ public class MonthWeekEventsView extends SimpleWeekView {
             }
             return newIndex;
         }
+    }
+
+    protected class WeekEventFormatter {
+        private List<ArrayList<FormattedEvent>> mFormattedEvents;
+
+        /**
+         * Prepares events to be drawn. It creates FormattedEvents from mEvent.
+         * @param boxBoundaries
+         * @return ArrayList of DayEventFormatters
+         */
+        public ArrayList<DayEventFormatter> prepareFormattedEvents(DayBoxBoundaries boxBoundaries) {
+            prepareFormattedEventsWithEventDaySpan(boxBoundaries);
+            preFormatEventText();
+            setYindexInEvents();
+            return formatDays(boxBoundaries.getAvailableYSpace());
+        }
+
+        /**
+         * Handles text formatting in events - sets number of lines in in each event.
+         * In order to produce right values DaySpan needs to be set first (in EventFormat)
+         */
+        protected void preFormatEventText() {
+            for (ArrayList<FormattedEvent> dayEvents : mFormattedEvents) {
+                for (FormattedEvent event : dayEvents) {
+                    event.initialPreFormatText();
+                }
+            }
+        }
+
+        /**
+         * Creates DayEventFormatters for each day and formats each day to prepare it for drawing.
+         * @param availableSpace
+         * @return
+         */
+        protected ArrayList<DayEventFormatter> formatDays(int availableSpace) {
+            int dayIndex = 0;
+            ArrayList<DayEventFormatter> dayFormatters = new ArrayList<>(mFormattedEvents.size());
+            for (ArrayList<FormattedEvent> dayEvents : mFormattedEvents) {
+                DayEventFormatter dayEventFormatter = new DayEventFormatter(dayEvents, dayIndex);
+                dayEventFormatter.formatDay(availableSpace);
+                dayFormatters.add(dayEventFormatter);
+                ++dayIndex;
+            }
+            return dayFormatters;
+        }
 
         /**
          * Sets y-index in events (and sorts the list according to it). Events spanning multiple
@@ -866,42 +904,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
          */
         protected void setYindexInEvents() {
             ArrayList<ArrayList<FormattedEvent>> newFormattedEvents = new ArrayList<>(mFormattedEvents.size());
+            DayEventSorter sorter = new DayEventSorter();
             for (ArrayList<FormattedEvent> dayEvents : mFormattedEvents) {
-                if (dayEvents.isEmpty()) {
-                    newFormattedEvents.add(new ArrayList<FormattedEvent>());
-                    continue;
-                }
-                LinkedList<FormattedEvent> remainingEvents = new LinkedList<>();
-                FormattedEvent[] indexedEvents = new FormattedEvent[countRequiredYSize(dayEvents)];
-                for (FormattedEvent event : dayEvents) {
-                    if (event.getFormat().getYIndex() != -1) {
-                        indexedEvents[event.getFormat().getYIndex()] = event;
-                    } else {
-                        sortedAddRemainingEventToList(remainingEvents, event);
-                    }
-                }
-                int index = 0;
-                for (FormattedEvent event : remainingEvents) {
-                    if (!event.getFormat().isVisible()) {
-                        continue;
-                    }
-                    while (index < indexedEvents.length) {
-                        if (indexedEvents[index] == null) {
-                            event.getFormat().setYIndex(index);
-                            indexedEvents[index] = event;
-                            index = getNextIndexAndFixHeight(indexedEvents, index);
-                            break;
-                        }
-                        index = getNextIndexAndFixHeight(indexedEvents, index);
-                    }
-                }
-                ArrayList<FormattedEvent> sortedEvents = new ArrayList<>(dayEvents.size());
-                for (FormattedEvent event : indexedEvents) {
-                    if (event != null) {
-                        sortedEvents.add(event);
-                    }
-                }
-                newFormattedEvents.add(sortedEvents);
+                newFormattedEvents.add(sorter.sort(dayEvents));
             }
             mFormattedEvents = newFormattedEvents;
         }
@@ -1447,8 +1452,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
         public void initialPreFormatText() {
             if (mTextLayout == null) {
-                preFormatText(mFormat.getTotalSpan());
-                mFormat.setEventLines(Math.min(mTextLayout.getLineCount(), mMaxLinesInEvent));
+                final int span = mFormat.getTotalSpan();
+                preFormatText(span);
+                if (span == 1) {
+                    /* make events higher only if they are not spanning multiple days to avoid
+                        tricky situations */
+                    mFormat.setEventLines(Math.min(mTextLayout.getLineCount(), mMaxLinesInEvent));
+                }
             }
         }
 
