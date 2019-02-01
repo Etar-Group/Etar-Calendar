@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
     <string name="what_label" msgid="1933578391985810049">"Hva"</string>
     <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
@@ -46,8 +43,9 @@
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dager"</item>
   </plurals>
   <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"uke <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <item quantity="one">uke <xliff:g id="COUNT">%d</xliff:g></item>
+    <item quantity="other">uke <xliff:g id="COUNT">%d</xliff:g></item>
+</plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Last inn"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Vis dag"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -287,5 +285,26 @@
     <string name="visibility_default">Standard</string>
   <string name="visibility_private">Privat</string>
   <string name="visibility_public">Offentlig</string>
-
+    <string name="preferences_black_theme">Svart</string>
+    <string name="preferences_color">Hovedfarge</string>
+    <string name="preferences_color_teal">Turkis</string>
+    <string name="preferences_color_blue">Blå</string>
+    <string name="preferences_color_orange">Oransje</string>
+    <string name="preferences_color_green">Grønn</string>
+    <string name="preferences_color_red">Rød</string>
+    <string name="preferences_color_purple">Lilla</string>
+    <string name="preferences_color_pick">Hovedfarge</string>
+    <string name="preferences_default_event_duration_title">Forvalgt hendelsesvarighet</string>
+    <string name="preferences_home_tz_default">America/Los_Angeles</string>
+    <string name="accessibility_cal_notification">Kalendermerknad</string>
+    <string name="accessibility_snooze_notification">Slumringsmerknad</string>
+    <string name="user_rejected_calendar_write_permission">Etar krever tilgang til å lese og skrive kalender for å virke. Prøv igjen.</string>
+    <string name="calendar_permission_not_granted">Denne funksjonen kan ikke virke siden Etar krever tilgang til lesing og skriving av kalender for å virke</string>
+    <string name="visibility_confidential">Konfidensiell</string>
+    <string name="zero_minutes">Umiddelbart</string>
+    <string name="fifteen_minutes">Ett kvarter</string>
+    <string name="thirty_minutes">En halvtime</string>
+    <string name="one_hour">Én time</string>
+    <string name="one_and_a_half_hours">Én og en halv time</string>
+    <string name="two_hours">To timer</string>
 </resources>
