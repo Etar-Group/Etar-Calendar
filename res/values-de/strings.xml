@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
     <string name="what_label" msgid="1933578391985810049">"Was"</string>
     <string name="where_label" msgid="3472482206065595118">"Wo"</string>
@@ -323,4 +320,5 @@
   <string name="one_hour">1 Stunde</string>
   <string name="two_hours">2 Stunden</string>
   <string name="one_and_a_half_hours">1,5 Stunden</string>
+    <string name="preferences_color_pick">Primäre Farbe</string>
 </resources>
