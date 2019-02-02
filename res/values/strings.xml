@@ -521,12 +521,12 @@
     <string name="preferences_dark_theme">Dark</string>
     <string name="preferences_black_theme">Black</string>
     <string name="preferences_color">Primary Color</string>
-    <string name="preferences_color_teal">Teal</string>
-    <string name="preferences_color_blue">Blue</string>
-    <string name="preferences_color_orange">Orange</string>
-    <string name="preferences_color_green">Green</string>
-    <string name="preferences_color_red">Red</string>
-    <string name="preferences_color_purple">Purple</string>
+    <string name="preferences_color_teal" translatable="false">Teal</string>
+    <string name="preferences_color_blue" translatable="false">Blue</string>
+    <string name="preferences_color_orange" translatable="false">Orange</string>
+    <string name="preferences_color_green" translatable="false">Green</string>
+    <string name="preferences_color_red" translatable="false">Red</string>
+    <string name="preferences_color_purple" translatable="false">Purple</string>
     <string name="preferences_color_pick">Primary color</string>
     <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
@@ -571,7 +571,7 @@
     <!-- Settings title for selecting a 'home' time zone to display Calendar in [CHAR LIMIT = 18] -->
     <string name="preferences_home_tz_title">Home time zone</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="preferences_home_tz_default">America/Los_Angeles</string>
+    <string name="preferences_home_tz_default" translatable="false">America/Los_Angeles</string>
 
     <!-- Title of the settings item to show week number in week view [CHAR LIMIT=40] -->
     <string name="preferences_show_week_num_title">Show week number</string>
