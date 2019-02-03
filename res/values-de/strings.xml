@@ -191,7 +191,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Heimatzeitzone beibehalten"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Zeigt unterwegs Kalender-/Terminzeiten in Heimatzeitzone"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Heimatzeitzone"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Wochennummer anzeigen"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">Kalenderwoche anzeigen</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Details"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">Version</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
