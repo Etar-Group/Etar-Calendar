@@ -1173,7 +1173,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
          */
         protected void reduceHeightOfEventsToOne() {
             final int cap = 1;
-            for (int i = 2; i < mMaxNumverOfLines; ++i) {
+            for (int i = 2; i <= mMaxNumverOfLines; ++i) {
                 for (FormattedEvent event : mEventsByHeight.get(i)) {
                     event.getFormat().capEventLinesAt(cap);
                 }
