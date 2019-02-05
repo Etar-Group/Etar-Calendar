@@ -1514,7 +1514,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         /**
          * Null object has no text to be formatted
          */
-        public void initialPreFormatText() {}
+        public void initialPreFormatText() { /*nop*/ }
         protected boolean areTimesVisible(boolean showTimes) { return false; }
 
         /**
@@ -1523,7 +1523,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * @param showTimes
          * @param day
          */
-        public void draw(Canvas canvas, boolean showTimes, int day) {}
+        public void draw(Canvas canvas, boolean showTimes, int day) { /*nop*/ }
     }
 
     protected class FormattedEvent extends FormattedEventBase {
