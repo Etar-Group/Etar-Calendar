@@ -1107,7 +1107,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * @param availableSpace
          */
         protected void hideTimeRangeIfNeeded(int availableSpace) {
-            if (mShowTimes && (getEventsHeight() > availableSpace)) {
+            if (mShowTimes && (getMaxNumberOfLines(availableSpace) < mVisibleEvents)) {
                 mShowTimes = false;
             }
         }
@@ -1153,12 +1153,17 @@ public class MonthWeekEventsView extends SimpleWeekView {
             return mEventsByHeight.get(mMaxNumverOfLines).size();
         }
 
+        protected int getMaxNumberOfLines(int availableSpace) {
+            final int textSpace = availableSpace - getOverheadHeight() - getHeightOfTimeRanges();
+            return textSpace / mEventHeight;
+        }
+
         /**
          * Reduces height of events in order to allow all of them to fit the screen
          * @param availableSpace
          */
         protected void fitAllItemsOnScrean(int availableSpace) {
-            final int maxNumberOfLines = (availableSpace - getOverheadHeight()) / mEventHeight;
+            final int maxNumberOfLines = getMaxNumberOfLines(availableSpace);
             int numberOfLines = getTotalEventLines();
             while (maxNumberOfLines < numberOfLines - getNumberOfHighestEvents()) {
                 numberOfLines -= getNumberOfHighestEvents();
@@ -1214,8 +1219,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
          */
         public void formatDay(int availableSpace) {
             hideTimeRangeIfNeeded(availableSpace);
-            int height = getEventsHeight();
-            if (height > availableSpace) {
+            if (getEventsHeight() > availableSpace) {
                 if (willAllItemsFitOnScreen(availableSpace)) {
                     fitAllItemsOnScrean(availableSpace);
                 } else {
@@ -1263,6 +1267,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
                     + (mVisibleEvents - 1) * EVENT_LINE_PADDING;
         }
 
+        protected int getHeightOfTimeRanges() {
+            return mShowTimes ? mExtrasHeight  * (mVisibleEvents - mFullDayEventsCount) : 0;
+        }
+
         /**
          * Returns Current height required to fit all events
          * @return
@@ -1270,7 +1278,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         protected int getEventsHeight() {
             return getOverheadHeight()
                     + getTotalEventLines() * mEventHeight
-                    + (mShowTimes ? mExtrasHeight  * (mVisibleEvents - mFullDayEventsCount) : 0);
+                    + getHeightOfTimeRanges();
         }
     }
 
@@ -1609,7 +1617,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
         @Override
         protected boolean areTimesVisible(boolean showTimes) {
-            return showTimes && !mEvent.drawAsAllday();
+            return showTimes && !mBoundaries.hasBorder();
         }
 
         protected Paint getTimesPaint() {
