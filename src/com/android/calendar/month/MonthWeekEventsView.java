@@ -1510,8 +1510,19 @@ public class MonthWeekEventsView extends SimpleWeekView {
         NullFormattedEvent(EventFormat format, BoundariesSetter boundaries) {
             super(format, boundaries);
         }
+
+        /**
+         * Null object has no text to be formatted
+         */
         public void initialPreFormatText() {}
         protected boolean areTimesVisible(boolean showTimes) { return false; }
+
+        /**
+         * Null object won't be drawn
+         * @param canvas
+         * @param showTimes
+         * @param day
+         */
         public void draw(Canvas canvas, boolean showTimes, int day) {}
     }
 
