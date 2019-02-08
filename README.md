@@ -34,7 +34,7 @@ Sync your calendar to a server:
   need yet another app, e. g. DAVx5. That’s necessary because a Caldav client
   isn't included in Etar.
 
-  The following [link](https://ownyourbits.com/2017/12/30/sync-nextcloud-tasks-calendars-and-contacts-on-your-android-device/) provides   a tutorial how to use Nextcloud + DAVx5 + Etar.
+  The following [link](https://ownyourbits.com/2017/12/30/sync-nextcloud-tasks-calendars-and-contacts-on-your-android-device/) provides a tutorial how to use Nextcloud + DAVx5 + Etar.
 
 ### Technical explanation
 On Android there are "Calendar providers". These can be calendars that are
@@ -66,9 +66,3 @@ export ANDROID_HOME=/path/to/android-sdk/
 git submodule update --init --remote
 gradle build
 ```
-
-### How this was done
-- see ``build.gradle`` and the modifications to ``AndroidManifest.xml``
-- ``fix_strings_and_import.py`` was created to fix a build problem and rename imports of R.java
-- get time zone data from http://www.iana.org/time-zones write ``backward`` and ``zone.tab`` to assets and to assets of https://github.com/dschuermann/standalone-calendar-timezonepicker
-- comment out code in https://github.com/dschuermann/standalone-calendar-frameworks-ex
