@@ -1035,10 +1035,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
         private ArrayList<FormattedEventBase> mEventDay;
         private boolean mShowTimes;
         private int mDay;
-        //info
+        //members initialized by the init function:
         private int mFullDayEventsCount;
         private ArrayList<ArrayList<FormattedEventBase>> mEventsByHeight;
-        private int mMaxNumverOfLines;
+        private int mMaxNumberOfLines;
         private int mVisibleEvents;
 
         public DayEventFormatter(ArrayList<FormattedEventBase> eventDay, int day) {
@@ -1052,7 +1052,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * Initializes members storing information about events in mEventDay
          */
         protected void init() {
-            mMaxNumverOfLines = mMaxLinesInEvent;
+            mMaxNumberOfLines = mMaxLinesInEvent;
             mEventsByHeight = new ArrayList<>(mMaxLinesInEvent + 1);
             for (int i = 0; i < mMaxLinesInEvent + 1; i++) {
                 mEventsByHeight.add(new ArrayList<FormattedEventBase>());
@@ -1117,11 +1117,11 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * limit will be capped)
          */
         protected void reduceNumberOfLines() {
-            if (mMaxNumverOfLines > 0) {
-                final int index = mMaxNumverOfLines;
-                mMaxNumverOfLines--;
+            if (mMaxNumberOfLines > 0) {
+                final int index = mMaxNumberOfLines;
+                mMaxNumberOfLines--;
                 for (FormattedEventBase event : mEventsByHeight.get(index)) {
-                    event.getFormat().capEventLinesAt(mMaxNumverOfLines);
+                    event.getFormat().capEventLinesAt(mMaxNumberOfLines);
                 }
                 mEventsByHeight.get(index - 1).addAll(mEventsByHeight.get(index));
                 mEventsByHeight.get(index).clear();
@@ -1135,8 +1135,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         protected void reduceHeightOfEvents(int numberOfEventsToReduce) {
             final int nonReducedEvents = getNumberOfHighestEvents() - numberOfEventsToReduce;
             ListIterator<FormattedEventBase> iterator =
-                    mEventsByHeight.get(mMaxNumverOfLines).listIterator(nonReducedEvents);
-            final int cap = mMaxNumverOfLines - 1;
+                    mEventsByHeight.get(mMaxNumberOfLines).listIterator(nonReducedEvents);
+            final int cap = mMaxNumberOfLines - 1;
             while (iterator.hasNext()) {
                 FormattedEventBase event = iterator.next();
                 event.getFormat().capEventLinesAt(cap);
@@ -1150,7 +1150,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * @return
          */
         protected int getNumberOfHighestEvents() {
-            return mEventsByHeight.get(mMaxNumverOfLines).size();
+            return mEventsByHeight.get(mMaxNumberOfLines).size();
         }
 
         protected int getMaxNumberOfLines(int availableSpace) {
@@ -1178,14 +1178,14 @@ public class MonthWeekEventsView extends SimpleWeekView {
          */
         protected void reduceHeightOfEventsToOne() {
             final int cap = 1;
-            for (int i = 2; i <= mMaxNumverOfLines; i++) {
+            for (int i = 2; i <= mMaxNumberOfLines; i++) {
                 for (FormattedEventBase event : mEventsByHeight.get(i)) {
                     event.getFormat().capEventLinesAt(cap);
                 }
                 mEventsByHeight.get(cap).addAll(mEventsByHeight.get(i));
                 mEventsByHeight.get(i).clear();
             }
-            mMaxNumverOfLines = cap;
+            mMaxNumberOfLines = cap;
         }
 
         /**
