@@ -69,45 +69,45 @@ public class MonthWeekEventsView extends SimpleWeekView {
     // TODO recreate formatter when locale changes
     protected static Formatter mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
     /* NOTE: these are not constants, and may be multiplied by a scale factor */
-    private static int TEXT_SIZE_MONTH_NUMBER = 28;
-    private static int TEXT_SIZE_LUNAR = 10;
-    private static int TEXT_SIZE_EVENT = 12;
-    private static int TEXT_SIZE_EVENT_TITLE = 14;
-    private static int TEXT_SIZE_MORE_EVENTS = 12;
-    private static int TEXT_SIZE_MONTH_NAME = 14;
-    private static int TEXT_SIZE_WEEK_NUM = 9;
-    private static int DNA_MARGIN = 4;
-    private static int DNA_ALL_DAY_HEIGHT = 4;
-    private static int DNA_MIN_SEGMENT_HEIGHT = 4;
-    private static int DNA_WIDTH = 8;
-    private static int DNA_ALL_DAY_WIDTH = 32;
-    private static int DNA_SIDE_PADDING = 6;
-    private static int CONFLICT_COLOR = Color.BLACK;
-    private static int EVENT_TEXT_COLOR = Color.WHITE;
-    private static int DEFAULT_EDGE_SPACING = 0;
-    private static int SIDE_PADDING_MONTH_NUMBER = 4;
-    private static int TOP_PADDING_MONTH_NUMBER = 3;
-    private static int TOP_PADDING_WEEK_NUMBER = 4;
-    private static int SIDE_PADDING_WEEK_NUMBER = 12;
-    private static int DAY_SEPARATOR_OUTER_WIDTH = 0;
-    private static int DAY_SEPARATOR_INNER_WIDTH = 1;
-    private static int DAY_SEPARATOR_VERTICAL_LENGTH = 53;
-    private static int DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT = 64;
-    private static int MIN_WEEK_WIDTH = 50;
-    private static int LUNAR_PADDING_LUNAR = 2;
-    private static int EVENT_X_OFFSET_LANDSCAPE = 38;
-    private static int EVENT_Y_OFFSET_LANDSCAPE = 8;
-    private static int EVENT_Y_OFFSET_PORTRAIT = 2;
-    private static int EVENT_SQUARE_WIDTH = 3;
-    private static int EVENT_SQUARE_HEIGHT = 10;
-    private static int EVENT_SQUARE_BORDER = 0;
-    private static int EVENT_LINE_PADDING = 2;
-    private static int EVENT_RIGHT_PADDING = 4;
-    private static int EVENT_BOTTOM_PADDING = 1;
-    private static int TODAY_HIGHLIGHT_WIDTH = 2;
-    private static int SPACING_WEEK_NUMBER = 0;
-    private static int BORDER_SPACE;
-    private static int STROKE_WIDTH_ADJ;
+    private static int mTextSizeMonthNumber = 28;
+    private static int mTextSizeLunar = 10;
+    private static int mTextSizeEvent = 12;
+    private static int mTextSizeEventTitle = 14;
+    private static int mTextSizeMoreEvents = 12;
+    private static int mTextSizeMonthName = 14;
+    private static int mTextSizeWeekNum = 9;
+    private static int mDnaMargin = 4;
+    private static int mDnaAllDayHeight = 4;
+    private static int mDnaMinSegmentHeight = 4;
+    private static int mDnaWidth = 8;
+    private static int mDnaAllDayWidth = 32;
+    private static int mDnaSidePadding = 6;
+    private static int mConflictColor = Color.BLACK;
+    private static int mEventTextColor = Color.WHITE;
+    private static int mDefaultEdgeSpacing = 0;
+    private static int mSidePaddingMonthNumber = 4;
+    private static int mTopPaddingMonthNumber = 3;
+    private static int mTopPaddingWeekNumber = 4;
+    private static int mSidePaddingWeekNumber = 12;
+    private static int mDaySeparatorOuterWidth = 0;
+    private static int mDaySeparatorInnerWidth = 1;
+    private static int mDaySeparatorVerticalLength = 53;
+    private static int mDaySeparatorVerticalLenghtPortrait = 64;
+    private static int mMinWeekWidth = 50;
+    private static int mLunarPaddingLunar = 2;
+    private static int mEventXOffsetLandscape = 38;
+    private static int mEventYOffsetLandscape = 8;
+    private static int mEventYOffsetPortrait = 2;
+    private static int mEventSquareWidth = 3;
+    private static int mEventSquareHeight = 10;
+    private static int mEventSquareBorder = 0;
+    private static int mEventLinePadding = 2;
+    private static int mEventRightPadding = 4;
+    private static int mEventBottomPadding = 1;
+    private static int mTodayHighlightWidth = 2;
+    private static int mSpacingWeekNumber = 0;
+    private static int mBorderSpace;
+    private static int mStrokeWidthAdj;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
     private static boolean mShowTimeInMonth;
@@ -184,7 +184,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     // arraylist sorted by start time to generate the dna version.
     public void setEvents(List<ArrayList<Event>> sortedEvents, ArrayList<Event> unsortedEvents) {
         setEvents(sortedEvents);
-        // The MIN_WEEK_WIDTH is a hack to prevent the view from trying to
+        // The mMinWeekWidth is a hack to prevent the view from trying to
         // generate dna bits before its width has been fixed.
         createDna(unsortedEvents);
     }
@@ -195,7 +195,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * views width not being set correctly yet).
      */
     public void createDna(ArrayList<Event> unsortedEvents) {
-        if (unsortedEvents == null || mWidth <= MIN_WEEK_WIDTH || getContext() == null) {
+        if (unsortedEvents == null || mWidth <= mMinWeekWidth || getContext() == null) {
             // Stash the list of events for use when this view is ready, or
             // just clear it if a null set has been passed to this view
             mUnsortedEvents = unsortedEvents;
@@ -210,18 +210,18 @@ public class MonthWeekEventsView extends SimpleWeekView {
             int numDays = mEvents.size();
             int effectiveWidth = mWidth - mPadding * 2;
 
-            DNA_ALL_DAY_WIDTH = effectiveWidth / numDays - 2 * DNA_SIDE_PADDING;
-            mDNAAllDayPaint.setStrokeWidth(DNA_ALL_DAY_WIDTH);
+            mDnaAllDayWidth = effectiveWidth / numDays - 2 * mDnaSidePadding;
+            mDNAAllDayPaint.setStrokeWidth(mDnaAllDayWidth);
             mDayXs = new int[numDays];
             for (int day = 0; day < numDays; day++) {
-                mDayXs[day] = computeDayLeftPosition(day) + DNA_WIDTH / 2 + DNA_SIDE_PADDING;
+                mDayXs[day] = computeDayLeftPosition(day) + mDnaWidth / 2 + mDnaSidePadding;
 
             }
 
-            int top = DAY_SEPARATOR_INNER_WIDTH + DNA_MARGIN + DNA_ALL_DAY_HEIGHT + 1;
-            int bottom = mHeight - DNA_MARGIN;
+            int top = mDaySeparatorInnerWidth + mDnaMargin + mDnaAllDayHeight + 1;
+            int bottom = mHeight - mDnaMargin;
             mDna = Utils.createDNAStrands(mFirstJulianDay, unsortedEvents, top, bottom,
-                    DNA_MIN_SEGMENT_HEIGHT, mDayXs, getContext());
+                    mDnaMinSegmentHeight, mDayXs, getContext());
         }
     }
 
@@ -276,61 +276,61 @@ public class MonthWeekEventsView extends SimpleWeekView {
             Resources resources = getContext().getResources();
             mShowDetailsInMonth = Utils.getConfigBool(getContext(), R.bool.show_details_in_month);
             mShowTimeInMonth = Utils.getConfigBool(getContext(), R.bool.show_time_in_month);
-            TEXT_SIZE_EVENT_TITLE = resources.getInteger(R.integer.text_size_event_title);
-            TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
-            SIDE_PADDING_MONTH_NUMBER = resources.getInteger(R.integer.month_day_number_margin);
-            CONFLICT_COLOR = resources.getColor(R.color.month_dna_conflict_time_color);
-            EVENT_TEXT_COLOR = resources.getColor(R.color.calendar_event_text_color);
+            mTextSizeEventTitle = resources.getInteger(R.integer.text_size_event_title);
+            mTextSizeMonthNumber = resources.getInteger(R.integer.text_size_month_number);
+            mSidePaddingMonthNumber = resources.getInteger(R.integer.month_day_number_margin);
+            mConflictColor = resources.getColor(R.color.month_dna_conflict_time_color);
+            mEventTextColor = resources.getColor(R.color.calendar_event_text_color);
             if (mScale != 1) {
-                TOP_PADDING_MONTH_NUMBER *= mScale;
-                TOP_PADDING_WEEK_NUMBER *= mScale;
-                SIDE_PADDING_MONTH_NUMBER *= mScale;
-                SIDE_PADDING_WEEK_NUMBER *= mScale;
-                SPACING_WEEK_NUMBER *= mScale;
-                TEXT_SIZE_MONTH_NUMBER *= mScale;
-                TEXT_SIZE_LUNAR *= mScale;
-                TEXT_SIZE_EVENT *= mScale;
-                TEXT_SIZE_EVENT_TITLE *= mScale;
-                TEXT_SIZE_MORE_EVENTS *= mScale;
-                TEXT_SIZE_MONTH_NAME *= mScale;
-                TEXT_SIZE_WEEK_NUM *= mScale;
-                DAY_SEPARATOR_OUTER_WIDTH *= mScale;
-                DAY_SEPARATOR_INNER_WIDTH *= mScale;
-                DAY_SEPARATOR_VERTICAL_LENGTH *= mScale;
-                DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT *= mScale;
-                EVENT_X_OFFSET_LANDSCAPE *= mScale;
-                EVENT_Y_OFFSET_LANDSCAPE *= mScale;
-                EVENT_Y_OFFSET_PORTRAIT *= mScale;
-                EVENT_SQUARE_WIDTH *= mScale;
-                EVENT_SQUARE_HEIGHT *= mScale;
-                EVENT_SQUARE_BORDER *= mScale;
-                EVENT_LINE_PADDING *= mScale;
-                EVENT_BOTTOM_PADDING *= mScale;
-                EVENT_RIGHT_PADDING *= mScale;
-                DNA_MARGIN *= mScale;
-                DNA_WIDTH *= mScale;
-                DNA_ALL_DAY_HEIGHT *= mScale;
-                DNA_MIN_SEGMENT_HEIGHT *= mScale;
-                DNA_SIDE_PADDING *= mScale;
-                DEFAULT_EDGE_SPACING *= mScale;
-                DNA_ALL_DAY_WIDTH *= mScale;
-                TODAY_HIGHLIGHT_WIDTH *= mScale;
+                mTopPaddingMonthNumber *= mScale;
+                mTopPaddingWeekNumber *= mScale;
+                mSidePaddingMonthNumber *= mScale;
+                mSidePaddingWeekNumber *= mScale;
+                mSpacingWeekNumber *= mScale;
+                mTextSizeMonthNumber *= mScale;
+                mTextSizeLunar *= mScale;
+                mTextSizeEvent *= mScale;
+                mTextSizeEventTitle *= mScale;
+                mTextSizeMoreEvents *= mScale;
+                mTextSizeMonthName *= mScale;
+                mTextSizeWeekNum *= mScale;
+                mDaySeparatorOuterWidth *= mScale;
+                mDaySeparatorInnerWidth *= mScale;
+                mDaySeparatorVerticalLength *= mScale;
+                mDaySeparatorVerticalLenghtPortrait *= mScale;
+                mEventXOffsetLandscape *= mScale;
+                mEventYOffsetLandscape *= mScale;
+                mEventYOffsetPortrait *= mScale;
+                mEventSquareWidth *= mScale;
+                mEventSquareHeight *= mScale;
+                mEventSquareBorder *= mScale;
+                mEventLinePadding *= mScale;
+                mEventBottomPadding *= mScale;
+                mEventRightPadding *= mScale;
+                mDnaMargin *= mScale;
+                mDnaWidth *= mScale;
+                mDnaAllDayHeight *= mScale;
+                mDnaMinSegmentHeight *= mScale;
+                mDnaSidePadding *= mScale;
+                mDefaultEdgeSpacing *= mScale;
+                mDnaAllDayWidth *= mScale;
+                mTodayHighlightWidth *= mScale;
             }
-            BORDER_SPACE = EVENT_SQUARE_BORDER + 1;       // want a 1-pixel gap inside border
-            STROKE_WIDTH_ADJ = EVENT_SQUARE_BORDER / 2;   // adjust bounds for stroke width
+            mBorderSpace = mEventSquareBorder + 1;       // want a 1-pixel gap inside border
+            mStrokeWidthAdj = mEventSquareBorder / 2;   // adjust bounds for stroke width
             if (!mShowDetailsInMonth) {
-                TOP_PADDING_MONTH_NUMBER += DNA_ALL_DAY_HEIGHT + DNA_MARGIN;
+                mTopPaddingMonthNumber += mDnaAllDayHeight + mDnaMargin;
             }
             mInitialized = true;
         }
-        mPadding = DEFAULT_EDGE_SPACING;
+        mPadding = mDefaultEdgeSpacing;
         loadColors(getContext());
         // TODO modify paint properties depending on isMini
 
         mMonthNumPaint = new Paint();
         mMonthNumPaint.setFakeBoldText(false);
         mMonthNumPaint.setAntiAlias(true);
-        mMonthNumPaint.setTextSize(TEXT_SIZE_MONTH_NUMBER);
+        mMonthNumPaint.setTextSize(mTextSizeMonthNumber);
         mMonthNumPaint.setColor(mMonthNumColor);
         mMonthNumPaint.setStyle(Style.FILL);
         mMonthNumPaint.setTextAlign(Align.RIGHT);
@@ -342,17 +342,17 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventPaint = new TextPaint();
         mEventPaint.setFakeBoldText(true);
         mEventPaint.setAntiAlias(true);
-        mEventPaint.setTextSize(TEXT_SIZE_EVENT_TITLE);
+        mEventPaint.setTextSize(mTextSizeEventTitle);
         mEventPaint.setColor(mMonthEventColor);
 
         mSolidBackgroundEventPaint = new TextPaint(mEventPaint);
-        mSolidBackgroundEventPaint.setColor(EVENT_TEXT_COLOR);
+        mSolidBackgroundEventPaint.setColor(mEventTextColor);
         mFramedEventPaint = new TextPaint(mSolidBackgroundEventPaint);
 
         mDeclinedEventPaint = new TextPaint();
         mDeclinedEventPaint.setFakeBoldText(true);
         mDeclinedEventPaint.setAntiAlias(true);
-        mDeclinedEventPaint.setTextSize(TEXT_SIZE_EVENT_TITLE);
+        mDeclinedEventPaint.setTextSize(mTextSizeEventTitle);
         mDeclinedEventPaint.setColor(mMonthDeclinedEventColor);
 
         mEventAscentHeight = (int) (-mEventPaint.ascent() + 0.5f);
@@ -361,8 +361,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventExtrasPaint = new TextPaint();
         mEventExtrasPaint.setFakeBoldText(false);
         mEventExtrasPaint.setAntiAlias(true);
-        mEventExtrasPaint.setStrokeWidth(EVENT_SQUARE_BORDER);
-        mEventExtrasPaint.setTextSize(TEXT_SIZE_EVENT);
+        mEventExtrasPaint.setStrokeWidth(mEventSquareBorder);
+        mEventExtrasPaint.setTextSize(mTextSizeEvent);
         mEventExtrasPaint.setColor(mMonthEventExtraColor);
         mEventExtrasPaint.setStyle(Style.FILL);
         mEventExtrasPaint.setTextAlign(Align.LEFT);
@@ -373,8 +373,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventDeclinedExtrasPaint = new TextPaint();
         mEventDeclinedExtrasPaint.setFakeBoldText(false);
         mEventDeclinedExtrasPaint.setAntiAlias(true);
-        mEventDeclinedExtrasPaint.setStrokeWidth(EVENT_SQUARE_BORDER);
-        mEventDeclinedExtrasPaint.setTextSize(TEXT_SIZE_EVENT);
+        mEventDeclinedExtrasPaint.setStrokeWidth(mEventSquareBorder);
+        mEventDeclinedExtrasPaint.setTextSize(mTextSizeEvent);
         mEventDeclinedExtrasPaint.setColor(mMonthDeclinedExtrasColor);
         mEventDeclinedExtrasPaint.setStyle(Style.FILL);
         mEventDeclinedExtrasPaint.setTextAlign(Align.LEFT);
@@ -382,7 +382,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mWeekNumPaint = new Paint();
         mWeekNumPaint.setFakeBoldText(false);
         mWeekNumPaint.setAntiAlias(true);
-        mWeekNumPaint.setTextSize(TEXT_SIZE_WEEK_NUM);
+        mWeekNumPaint.setTextSize(mTextSizeWeekNum);
         mWeekNumPaint.setColor(mWeekNumColor);
         mWeekNumPaint.setStyle(Style.FILL);
         mWeekNumPaint.setTextAlign(Align.RIGHT);
@@ -393,15 +393,15 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mDNATimePaint = new Paint();
         mDNATimePaint.setColor(mMonthBusyBitsBusyTimeColor);
         mDNATimePaint.setStyle(Style.FILL_AND_STROKE);
-        mDNATimePaint.setStrokeWidth(DNA_WIDTH);
+        mDNATimePaint.setStrokeWidth(mDnaWidth);
         mDNATimePaint.setAntiAlias(false);
         mDNAAllDayPaint.setColor(mMonthBusyBitsConflictTimeColor);
         mDNAAllDayPaint.setStyle(Style.FILL_AND_STROKE);
-        mDNAAllDayPaint.setStrokeWidth(DNA_ALL_DAY_WIDTH);
+        mDNAAllDayPaint.setStrokeWidth(mDnaAllDayWidth);
         mDNAAllDayPaint.setAntiAlias(false);
 
         mEventSquarePaint = new Paint();
-        mEventSquarePaint.setStrokeWidth(EVENT_SQUARE_BORDER);
+        mEventSquarePaint.setStrokeWidth(mEventSquareBorder);
         mEventSquarePaint.setAntiAlias(false);
 
         if (DEBUG_LAYOUT) {
@@ -490,13 +490,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     protected void drawToday(Canvas canvas) {
-        r.top = DAY_SEPARATOR_INNER_WIDTH + (TODAY_HIGHLIGHT_WIDTH / 2);
-        r.bottom = mHeight - (int) Math.ceil(TODAY_HIGHLIGHT_WIDTH / 2.0f);
+        r.top = mDaySeparatorInnerWidth + (mTodayHighlightWidth / 2);
+        r.bottom = mHeight - (int) Math.ceil(mTodayHighlightWidth / 2.0f);
         p.setStyle(Style.STROKE);
-        p.setStrokeWidth(TODAY_HIGHLIGHT_WIDTH);
-        r.left = computeDayLeftPosition(mTodayIndex) + (TODAY_HIGHLIGHT_WIDTH / 2);
+        p.setStrokeWidth(mTodayHighlightWidth);
+        r.left = computeDayLeftPosition(mTodayIndex) + (mTodayHighlightWidth / 2);
         r.right = computeDayLeftPosition(mTodayIndex + 1)
-                - (int) Math.ceil(TODAY_HIGHLIGHT_WIDTH / 2.0f);
+                - (int) Math.ceil(mTodayHighlightWidth / 2.0f);
         p.setColor(mTodayAnimateColor | (mAnimateTodayAlpha << 24));
         canvas.drawRect(r, p);
         p.setStyle(Style.FILL);
@@ -534,7 +534,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             lines[i++] = y1;
         }
         p.setColor(mDaySeparatorInnerColor);
-        p.setStrokeWidth(DAY_SEPARATOR_INNER_WIDTH);
+        p.setStrokeWidth(mDaySeparatorInnerWidth);
         canvas.drawLines(lines, 0, count, p);
     }
 
@@ -542,7 +542,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected void drawBackground(Canvas canvas) {
         int i = 0;
         int offset = 0;
-        r.top = DAY_SEPARATOR_INNER_WIDTH;
+        r.top = mDaySeparatorInnerWidth;
         r.bottom = mHeight;
         if (mShowWeekNum) {
             i++;
@@ -599,7 +599,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             p.setAlpha(mClickedAlpha);
             r.left = computeDayLeftPosition(mClickedDayIndex);
             r.right = computeDayLeftPosition(mClickedDayIndex + 1);
-            r.top = DAY_SEPARATOR_INNER_WIDTH;
+            r.top = mDaySeparatorInnerWidth;
             r.bottom = mHeight;
             canvas.drawRect(r, p);
             p.setAlpha(alpha);
@@ -616,8 +616,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         int x = 0;
         int numCount = mNumDays;
         if (mShowWeekNum) {
-            x = SIDE_PADDING_WEEK_NUMBER + mPadding;
-            y = mWeekNumAscentHeight + TOP_PADDING_WEEK_NUMBER;
+            x = mSidePaddingWeekNumber + mPadding;
+            y = mWeekNumAscentHeight + mTopPaddingWeekNumber;
             canvas.drawText(mDayNumbers[0], x, y, mWeekNumPaint);
             numCount++;
             i++;
@@ -626,7 +626,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
         }
 
-        y = mMonthNumAscentHeight + TOP_PADDING_MONTH_NUMBER;
+        y = mMonthNumAscentHeight + mTopPaddingMonthNumber;
 
         boolean isFocusMonth = mFocusDay[i];
         boolean isBold = false;
@@ -650,7 +650,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 isFocusMonth = mFocusDay[i];
                 mMonthNumPaint.setColor(isFocusMonth ? mMonthNumColor : mMonthNumOtherColor);
             }
-            x = computeDayLeftPosition(i - offset) - (SIDE_PADDING_MONTH_NUMBER);
+            x = computeDayLeftPosition(i - offset) - (mSidePaddingMonthNumber);
             canvas.drawText(mDayNumbers[i], x, y, mMonthNumPaint);
             if (isBold) {
                 mMonthNumPaint.setFakeBoldText(isBold = false);
@@ -685,7 +685,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                         infos);
                 if (infos.size() > 0) {
                     float originalTextSize = mMonthNumPaint.getTextSize();
-                    mMonthNumPaint.setTextSize(TEXT_SIZE_LUNAR);
+                    mMonthNumPaint.setTextSize(mTextSizeLunar);
                     Resources res = getResources();
                     int mOrientation = res.getConfiguration().orientation;
 
@@ -697,11 +697,11 @@ public class MonthWeekEventsView extends SimpleWeekView {
                         int infoX = 0;
                         int infoY = 0;
                         if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-                            infoX = x - mMonthNumHeight - TOP_PADDING_MONTH_NUMBER;
-                            infoY = y + (mMonthNumHeight + LUNAR_PADDING_LUNAR) * num;
+                            infoX = x - mMonthNumHeight - mTopPaddingMonthNumber;
+                            infoY = y + (mMonthNumHeight + mLunarPaddingLunar) * num;
                         } else {
                             infoX = x;
-                            infoY = y + (mMonthNumHeight + LUNAR_PADDING_LUNAR) * (num + 1);
+                            infoY = y + (mMonthNumHeight + mLunarPaddingLunar) * (num + 1);
                         }
                         canvas.drawText(info, infoX, infoY, mMonthNumPaint);
                         num = num + 1;
@@ -732,23 +732,23 @@ public class MonthWeekEventsView extends SimpleWeekView {
         // top of box
         lines.array[count++] = x;
         lines.array[count++] = y;
-        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = x + mEventSquareWidth;
         lines.array[count++] = y;
         // right side of box
-        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = x + mEventSquareWidth;
         lines.array[count++] = y;
-        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
-        lines.array[count++] = y + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = x + mEventSquareWidth;
+        lines.array[count++] = y + mEventSquareWidth;
         // left side of box
         lines.array[count++] = x;
         lines.array[count++] = y;
         lines.array[count++] = x;
-        lines.array[count++] = y + EVENT_SQUARE_WIDTH + 1;
+        lines.array[count++] = y + mEventSquareWidth + 1;
         // bottom of box
         lines.array[count++] = x;
-        lines.array[count++] = y + EVENT_SQUARE_WIDTH;
-        lines.array[count++] = x + EVENT_SQUARE_WIDTH + 1;
-        lines.array[count++] = y + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = y + mEventSquareWidth;
+        lines.array[count++] = x + mEventSquareWidth + 1;
+        lines.array[count++] = y + mEventSquareWidth;
 
         return count;
     }
@@ -1018,17 +1018,17 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * Takes care of laying events out vertically.
      * Vertical layout:
      *   (top of box)
-     * a. EVENT_Y_OFFSET_LANDSCAPE or portrait equivalent
+     * a. mEventYOffsetLandscape or portrait equivalent
      * b. Event title: mEventHeight for a normal event, + 2xBORDER_SPACE for all-day event
      * c. [optional] Time range (mExtrasHeight)
-     * d. EVENT_LINE_PADDING
+     * d. mEventLinePadding
      *
      * Repeat (b,c,d) as needed and space allows.  If we have more events than fit, we need
      * to leave room for something like "+2" at the bottom:
      *
      * e. "+ more" line (mExtrasHeight)
      *
-     * f. EVENT_BOTTOM_PADDING (overlaps EVENT_LINE_PADDING)
+     * f. mEventBottomPadding (overlaps mEventLinePadding)
      *   (bottom of box)
      */
     protected class DayEventFormatter {
@@ -1263,8 +1263,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * @return
          */
         protected int getOverheadHeight() {
-            return getHeightOfMoreLine() + mFullDayEventsCount * BORDER_SPACE * 2
-                    + (mVisibleEvents - 1) * EVENT_LINE_PADDING;
+            return getHeightOfMoreLine() + mFullDayEventsCount * mBorderSpace * 2
+                    + (mVisibleEvents - 1) * mEventLinePadding;
         }
 
         protected int getHeightOfTimeRanges() {
@@ -1297,7 +1297,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mXWidth = mWidth / mNumDays;
             mYOffset = 0;
             mX = 1;
-            mY = EVENT_Y_OFFSET_PORTRAIT + mMonthNumHeight + TOP_PADDING_MONTH_NUMBER;
+            mY = mEventYOffsetPortrait + mMonthNumHeight + mTopPaddingMonthNumber;
             mRightEdge = - 1;
         }
 
@@ -1310,30 +1310,30 @@ public class MonthWeekEventsView extends SimpleWeekView {
         public int getX() { return  mX;}
         public int getY() { return  mY + mYOffset;}
         public int getRightEdge(int spanningDays) {return spanningDays * mXWidth + mRightEdge;}
-        public int getAvailableYSpace() { return  mHeight - getY() - EVENT_BOTTOM_PADDING;}
+        public int getAvailableYSpace() { return  mHeight - getY() - mEventBottomPadding;}
         public void moveDown(int y) { mYOffset += y; }
     }
 
     protected abstract class BoundariesSetter {
         protected DayBoxBoundaries mBoxBoundaries;
-        protected int mBorderSpace;
+        protected int mBorderThickness;
         protected int mXPadding;
         public BoundariesSetter(DayBoxBoundaries boxBoundaries, int borderSpace, int xPadding) {
             mBoxBoundaries = boxBoundaries;
-            mBorderSpace = borderSpace;
+            mBorderThickness = borderSpace;
             mXPadding = xPadding;
         }
         public int getY() { return mBoxBoundaries.getY(); }
         public abstract void setRectangle(int spanningDays, int numberOfLines);
-        public int getTextX() { return mBoxBoundaries.getX() + mBorderSpace + mXPadding; }
+        public int getTextX() { return mBoxBoundaries.getX() + mBorderThickness + mXPadding; }
         public int getTextY() {
             return mBoxBoundaries.getY() + mEventAscentHeight;
         }
         public int getTextRightEdge(int spanningDays) {
-            return mBoxBoundaries.getRightEdge(spanningDays) - mBorderSpace;
+            return mBoxBoundaries.getRightEdge(spanningDays) - mBorderThickness;
         }
         public void moveToFirstLine() {
-            mBoxBoundaries.moveDown(mBorderSpace);
+            mBoxBoundaries.moveDown(mBorderThickness);
         }
         public void moveLinesDown(int count) {
             mBoxBoundaries.moveDown(mEventHeight * count);
@@ -1342,19 +1342,19 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mBoxBoundaries.moveDown(mExtrasHeight);
         }
         public void moveToNextItem() {
-            mBoxBoundaries.moveDown(EVENT_LINE_PADDING + mBorderSpace);
+            mBoxBoundaries.moveDown(mEventLinePadding + mBorderThickness);
         }
         public int getHeight(int numberOfLines) {
-            return numberOfLines * mEventHeight + 2* mBorderSpace + EVENT_LINE_PADDING;
+            return numberOfLines * mEventHeight + 2* mBorderThickness + mEventLinePadding;
         }
         public boolean hasBorder() {
-            return mBorderSpace > 0;
+            return mBorderThickness > 0;
         }
     }
 
     protected class AllDayBoundariesSetter extends BoundariesSetter {
         public AllDayBoundariesSetter(DayBoxBoundaries boxBoundaries) {
-            super(boxBoundaries, BORDER_SPACE, 0);
+            super(boxBoundaries, mBorderSpace, 0);
         }
         @Override
         public void setRectangle(int spanningDays, int numberOfLines) {
@@ -1362,30 +1362,30 @@ public class MonthWeekEventsView extends SimpleWeekView {
             // than 1 draws outside the specified bounds.  (We don't adjust the left edge, since
             // we want to match the existing appearance of the "event square".)
             r.left = mBoxBoundaries.getX();
-            r.right = mBoxBoundaries.getRightEdge(spanningDays) - STROKE_WIDTH_ADJ;
-            r.top = mBoxBoundaries.getY() + STROKE_WIDTH_ADJ;
-            r.bottom = mBoxBoundaries.getY() + mEventHeight * numberOfLines + BORDER_SPACE * 2 - STROKE_WIDTH_ADJ;
+            r.right = mBoxBoundaries.getRightEdge(spanningDays) - mStrokeWidthAdj;
+            r.top = mBoxBoundaries.getY() + mStrokeWidthAdj;
+            r.bottom = mBoxBoundaries.getY() + mEventHeight * numberOfLines + mBorderSpace * 2 - mStrokeWidthAdj;
         }
     }
 
     protected class RegularBoundariesSetter extends BoundariesSetter {
         public RegularBoundariesSetter(DayBoxBoundaries boxBoundaries) {
-            super(boxBoundaries, 0, EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING);
+            super(boxBoundaries, 0, mEventSquareWidth + mEventRightPadding);
         }
         protected RegularBoundariesSetter(DayBoxBoundaries boxBoundaries, int border) {
-            super(boxBoundaries, border, EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING - border);
+            super(boxBoundaries, border, mEventSquareWidth + mEventRightPadding - border);
         }
         @Override
         public void setRectangle(int spanningDays, int numberOfLines) {
             r.left = mBoxBoundaries.getX();
-            r.right = mBoxBoundaries.getX() + EVENT_SQUARE_WIDTH;
-            r.top = mBoxBoundaries.getY() + mEventAscentHeight - EVENT_SQUARE_HEIGHT;
+            r.right = mBoxBoundaries.getX() + mEventSquareWidth;
+            r.top = mBoxBoundaries.getY() + mEventAscentHeight - mEventSquareHeight;
             r.bottom = mBoxBoundaries.getY() + mEventAscentHeight + (numberOfLines - 1) * mEventHeight;
         }
     }
     protected class FixedHeightRegularBoundariesSetter extends RegularBoundariesSetter {
         public FixedHeightRegularBoundariesSetter(DayBoxBoundaries boxBoundaries) {
-            super(boxBoundaries, BORDER_SPACE);
+            super(boxBoundaries, mBorderSpace);
         }
     }
 
@@ -1662,7 +1662,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     protected void drawMoreEvents(Canvas canvas, int remainingEvents, int x) {
-        int y = mHeight - (mExtrasDescent + EVENT_BOTTOM_PADDING);
+        int y = mHeight - (mExtrasDescent + mEventBottomPadding);
         String text = getContext().getResources().getQuantityString(
                 R.plurals.month_more_events, remainingEvents);
         mEventExtrasPaint.setAntiAlias(true);
@@ -1682,7 +1682,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         // Draw event and conflict times
         if (mDna != null) {
             for (Utils.DNAStrand strand : mDna.values()) {
-                if (strand.color == CONFLICT_COLOR || strand.points == null
+                if (strand.color == mConflictColor || strand.points == null
                         || strand.points.length == 0) {
                     continue;
                 }
@@ -1690,7 +1690,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 canvas.drawLines(strand.points, mDNATimePaint);
             }
             // Draw black last to make sure it's on top
-            Utils.DNAStrand strand = mDna.get(CONFLICT_COLOR);
+            Utils.DNAStrand strand = mDna.get(mConflictColor);
             if (strand != null && strand.points != null && strand.points.length != 0) {
                 mDNATimePaint.setColor(strand.color);
                 canvas.drawLines(strand.points, mDNATimePaint);
@@ -1699,15 +1699,15 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 return;
             }
             int numDays = mDayXs.length;
-            int xOffset = (DNA_ALL_DAY_WIDTH - DNA_WIDTH) / 2;
+            int xOffset = (mDnaAllDayWidth - mDnaWidth) / 2;
             if (strand != null && strand.allDays != null && strand.allDays.length == numDays) {
                 for (int i = 0; i < numDays; i++) {
                     // this adds at most 7 draws. We could sort it by color and
                     // build an array instead but this is easier.
                     if (strand.allDays[i] != 0) {
                         mDNAAllDayPaint.setColor(strand.allDays[i]);
-                        canvas.drawLine(mDayXs[i] + xOffset, DNA_MARGIN, mDayXs[i] + xOffset,
-                                DNA_MARGIN + DNA_ALL_DAY_HEIGHT, mDNAAllDayPaint);
+                        canvas.drawLine(mDayXs[i] + xOffset, mDnaMargin, mDayXs[i] + xOffset,
+                                mDnaMargin + mDnaAllDayHeight, mDNAAllDayPaint);
                     }
                 }
             }
@@ -1781,7 +1781,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                         .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
                 accessEvent.getText().add(date);
                 if (mShowDetailsInMonth && mEvents != null) {
-                    int dayStart = SPACING_WEEK_NUMBER + mPadding;
+                    int dayStart = mSpacingWeekNumber + mPadding;
                     int dayPosition = (int) ((event.getX() - dayStart) * mNumDays / (mWidth
                             - dayStart - mPadding));
                     ArrayList<Event> events = mEvents.get(dayPosition);
