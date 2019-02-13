@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Month view layout (Portrait)">
+        <ListPreference
+            android:key="pref_display_time_vertical"
+            android:title="Display time"
+            android:summary="%s"
+            android:entries="@array/show_time"
+            android:entryValues="@array/show_time_values" />
+        <CheckBoxPreference
+            android:key="pref_display_location_vertical"
+            android:title="Display location"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Month view layout (Landscape)">
+        <ListPreference
+            android:key="pref_display_time_horizontal"
+            android:title="Display time"
+            android:summary="%s"
+            android:entries="@array/show_time"
+            android:entryValues="@array/show_time_values" />
+        <CheckBoxPreference
+            android:key="pref_display_location_horizontal"
+            android:title="Display location"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

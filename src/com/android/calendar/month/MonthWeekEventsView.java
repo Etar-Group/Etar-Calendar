@@ -20,6 +20,8 @@ import com.android.calendar.DynamicTheme;
 import com.android.calendar.Event;
 import com.android.calendar.LunarUtils;
 import com.android.calendar.Utils;
+import com.android.calendar.ViewDetailsPreferences;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -110,7 +112,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int mStrokeWidthAdj;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
-    private static boolean mShowTimeInMonth;
     private static int mMaxLinesInEvent = 7; //todo - should be configurable
     private final TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
     protected Time mToday = new Time();
@@ -275,7 +276,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (!mInitialized) {
             Resources resources = getContext().getResources();
             mShowDetailsInMonth = Utils.getConfigBool(getContext(), R.bool.show_details_in_month);
-            mShowTimeInMonth = Utils.getConfigBool(getContext(), R.bool.show_time_in_month);
             mTextSizeEventTitle = resources.getInteger(R.integer.text_size_event_title);
             mTextSizeMonthNumber = resources.getInteger(R.integer.text_size_month_number);
             mSidePaddingMonthNumber = resources.getInteger(R.integer.month_day_number_margin);
@@ -902,19 +902,21 @@ public class MonthWeekEventsView extends SimpleWeekView {
          */
         public ArrayList<DayEventFormatter> prepareFormattedEvents() {
             prepareFormattedEventsWithEventDaySpan();
-            preFormatEventText();
+            ViewDetailsPreferences.Preferences preferences =
+                    ViewDetailsPreferences.getPreferences(getContext());
+            preFormatEventText(preferences);
             setYindexInEvents();
-            return formatDays(mBoxBoundaries.getAvailableYSpace());
+            return formatDays(mBoxBoundaries.getAvailableYSpace(), preferences);
         }
 
         /**
          * Handles text formatting in events - sets number of lines in in each event.
          * In order to produce right values DaySpan needs to be set first (in EventFormat)
          */
-        protected void preFormatEventText() {
+        protected void preFormatEventText(ViewDetailsPreferences.Preferences preferences) {
             for (ArrayList<FormattedEventBase> dayEvents : mFormattedEvents) {
                 for (FormattedEventBase event : dayEvents) {
-                    event.initialPreFormatText();
+                    event.initialPreFormatText(preferences);
                 }
             }
         }
@@ -924,11 +926,11 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * @param availableSpace
          * @return
          */
-        protected ArrayList<DayEventFormatter> formatDays(int availableSpace) {
+        protected ArrayList<DayEventFormatter> formatDays(int availableSpace, ViewDetailsPreferences.Preferences preferences) {
             int dayIndex = 0;
             ArrayList<DayEventFormatter> dayFormatters = new ArrayList<>(mFormattedEvents.size());
             for (ArrayList<FormattedEventBase> dayEvents : mFormattedEvents) {
-                DayEventFormatter dayEventFormatter = new DayEventFormatter(dayEvents, dayIndex);
+                DayEventFormatter dayEventFormatter = new DayEventFormatter(dayEvents, dayIndex, preferences);
                 dayEventFormatter.formatDay(availableSpace);
                 dayFormatters.add(dayEventFormatter);
                 dayIndex++;
@@ -1033,18 +1035,20 @@ public class MonthWeekEventsView extends SimpleWeekView {
      */
     protected class DayEventFormatter {
         private ArrayList<FormattedEventBase> mEventDay;
-        private boolean mShowTimes;
         private int mDay;
+        private ViewDetailsPreferences.Preferences mViewPreferences;
         //members initialized by the init function:
         private int mFullDayEventsCount;
         private ArrayList<ArrayList<FormattedEventBase>> mEventsByHeight;
         private int mMaxNumberOfLines;
         private int mVisibleEvents;
 
-        public DayEventFormatter(ArrayList<FormattedEventBase> eventDay, int day) {
+        public DayEventFormatter(ArrayList<FormattedEventBase> eventDay,
+                                 int day,
+                                 ViewDetailsPreferences.Preferences viewPreferences) {
             mEventDay = eventDay;
-            mShowTimes = mShowTimeInMonth;
             mDay = day;
+            mViewPreferences = viewPreferences;
             init();
         }
 
@@ -1089,9 +1093,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
         public void drawDay(Canvas canvas, DayBoxBoundaries boxBoundaries) {
             for (FormattedEventBase event : mEventDay) {
                 if (eventShouldBeSkipped(event)) {
-                    event.skip(mShowTimes);
+                    event.skip(mViewPreferences);
                 } else {
-                    event.draw(canvas, mShowTimes, mDay);
+                    event.draw(canvas, mViewPreferences, mDay);
                 }
             }
             if (moreLinesWillBeDisplayed()) {
@@ -1107,8 +1111,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * @param availableSpace
          */
         protected void hideTimeRangeIfNeeded(int availableSpace) {
-            if (mShowTimes && (getMaxNumberOfLines(availableSpace) < mVisibleEvents)) {
-                mShowTimes = false;
+            if (mViewPreferences.isTimeShownBelow()
+                    && (getMaxNumberOfLines(availableSpace) < mVisibleEvents)) {
+                mViewPreferences = mViewPreferences.hideTime();
             }
         }
 
@@ -1205,7 +1210,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 if (event == null || event.getFormat().getEventLines() == 0) {
                     continue;
                 }
-                height -= event.getHeight(mShowTimes);
+                height -= event.getHeight(mViewPreferences);
                 event.getFormat().hide(mDay);
                 mVisibleEvents--;
                 mEventsByHeight.get(0).add(event);
@@ -1268,7 +1273,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
 
         protected int getHeightOfTimeRanges() {
-            return mShowTimes ? mExtrasHeight  * (mVisibleEvents - mFullDayEventsCount) : 0;
+            return mViewPreferences.isTimeShownBelow() ?
+                    mExtrasHeight  * (mVisibleEvents - mFullDayEventsCount) : 0;
         }
 
         /**
@@ -1485,23 +1491,23 @@ public class MonthWeekEventsView extends SimpleWeekView {
         public void setBoundaries(BoundariesSetter boundaries) { mBoundaries = boundaries; }
         public boolean isBordered() { return mBoundaries.hasBorder(); }
         public EventFormat getFormat() { return mFormat; }
-        public abstract void initialPreFormatText();
-        protected abstract boolean areTimesVisible(boolean showTimes);
-        public abstract void draw(Canvas canvas, boolean showTimes, int day);
+        public abstract void initialPreFormatText(ViewDetailsPreferences.Preferences preferences);
+        protected abstract boolean isTimeInNextLine(ViewDetailsPreferences.Preferences preferences);
+        public abstract void draw(Canvas canvas, ViewDetailsPreferences.Preferences preferences, int day);
 
-        public void skip(boolean showTimes) {
+        public void skip(ViewDetailsPreferences.Preferences preferences) {
             if (mFormat.isVisible()) {
                 mBoundaries.moveToFirstLine();
                 mBoundaries.moveLinesDown(mFormat.getEventLines());
-                if (areTimesVisible(showTimes)) {
+                if (isTimeInNextLine(preferences)) {
                     mBoundaries.moveAfterDrawingTimes();
                 }
                 mBoundaries.moveToNextItem();
             }
         }
 
-        public int getHeight(boolean showTimes) {
-            int timesHeight = areTimesVisible(showTimes) ? mExtrasHeight : 0;
+        public int getHeight(ViewDetailsPreferences.Preferences preferences) {
+            int timesHeight = isTimeInNextLine(preferences) ? mExtrasHeight : 0;
             return mBoundaries.getHeight(mFormat.getEventLines()) + timesHeight;
         }
     }
@@ -1514,16 +1520,16 @@ public class MonthWeekEventsView extends SimpleWeekView {
         /**
          * Null object has no text to be formatted
          */
-        public void initialPreFormatText() { /*nop*/ }
-        protected boolean areTimesVisible(boolean showTimes) { return false; }
+        public void initialPreFormatText(ViewDetailsPreferences.Preferences preferences) { /*nop*/ }
+        protected boolean isTimeInNextLine(ViewDetailsPreferences.Preferences preferences) { return false; }
 
         /**
          * Null object won't be drawn
          * @param canvas
-         * @param showTimes
+         * @param preferences
          * @param day
          */
-        public void draw(Canvas canvas, boolean showTimes, int day) { /*nop*/ }
+        public void draw(Canvas canvas, ViewDetailsPreferences.Preferences preferences, int day) { /*nop*/ }
     }
 
     protected class FormattedEvent extends FormattedEventBase {
@@ -1562,10 +1568,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
 
         @Override
-        public void initialPreFormatText() {
+        public void initialPreFormatText(ViewDetailsPreferences.Preferences preferences) {
             if (mTextLayout == null) {
                 final int span = mFormat.getTotalSpan();
-                preFormatText(span);
+                preFormatText(preferences, span);
                 if (span == 1) {
                     /* make events higher only if they are not spanning multiple days to avoid
                         tricky situations */
@@ -1574,11 +1580,29 @@ public class MonthWeekEventsView extends SimpleWeekView {
             }
         }
 
-        protected void preFormatText(int span) {
+        protected boolean isTimeInline(ViewDetailsPreferences.Preferences preferences) {
+            return preferences.isTimeVisible() && !isTimeInNextLine(preferences) && !mEvent.allDay;
+        }
+
+        protected CharSequence getBaseText(ViewDetailsPreferences.Preferences preferences) {
+            StringBuilder baseText = new StringBuilder();
+            if (isTimeInline(preferences)) {
+                baseText.append(getFormattedTime(preferences));
+                baseText.append(" ");
+            }
+            baseText.append(mEvent.title);
+            if (preferences.SHOW_LOCATION && mEvent.location != null && mEvent.location.length() > 0) {
+                baseText.append("\n@ ");
+                baseText.append(mEvent.location);
+            }
+            return baseText;
+        }
+
+        protected void preFormatText(ViewDetailsPreferences.Preferences preferences, int span) {
             if (mEvent == null) {
                 return;
             }
-            mTextLayout = new DynamicLayout(mEvent.title, mEventPaint,
+            mTextLayout = new DynamicLayout(getBaseText(preferences), mEventPaint,
                     getAvailableSpaceForText(span), Layout.Alignment.ALIGN_NORMAL,
                     0.0f, 0.0f, false);
         }
@@ -1604,12 +1628,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
             return mEventPaint;
         }
 
-        protected void drawText(Canvas canvas, int day) {
-            CharSequence baseText = mEvent.title;
+        protected void drawText(Canvas canvas, ViewDetailsPreferences.Preferences preferences, int day) {
+            CharSequence baseText = getBaseText(preferences);
             final int linesNo = mFormat.getEventLines();
             final int span = mFormat.getDaySpan(day);
             if (mFormat.isPartiallyHidden()) {
-                preFormatText(span);
+                preFormatText(preferences, span);
             }
             for (int i = 0; i < linesNo; i++) {
                 CharSequence lineText;
@@ -1627,19 +1651,49 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
 
         @Override
-        protected boolean areTimesVisible(boolean showTimes) {
-            return showTimes && !mBoundaries.hasBorder();
+        protected boolean isTimeInNextLine(ViewDetailsPreferences.Preferences preferences) {
+            return preferences.isTimeShownBelow() && !mBoundaries.hasBorder();
         }
 
         protected Paint getTimesPaint() {
             return isDeclined() ? mEventDeclinedExtrasPaint : mEventExtrasPaint;
         }
 
-        protected void drawTimes(Canvas canvas) {
-            mStringBuilder.setLength(0);
-            CharSequence text = DateUtils.formatDateRange(getContext(), mFormatter, mEvent.startMillis,
-                    mEvent.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
-                    Utils.getTimeZone(getContext(), null)).toString();
+        protected CharSequence getFormattedTime(ViewDetailsPreferences.Preferences preferences) {
+            StringBuilder time = new StringBuilder();
+            if (preferences.isStartTimeVisible()) {
+                mStringBuilder.setLength(0);
+                time.append(DateUtils.formatDateRange(getContext(), mFormatter, mEvent.startMillis,
+                    mEvent.startMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
+                    Utils.getTimeZone(getContext(), null)));
+            }
+            if (preferences.isEndTimeVisible()) {
+                time.append(" \u2013 ");
+                if (mEvent.startDay != mEvent.endDay) {
+                    mStringBuilder.setLength(0);
+                    time.append(DateUtils.formatDateRange(getContext(), mFormatter, mEvent.endMillis,
+                    mEvent.endMillis, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL,
+                    Utils.getTimeZone(getContext(), null)));
+                    time.append(", ");
+                }
+                mStringBuilder.setLength(0);
+                time.append(DateUtils.formatDateRange(getContext(), mFormatter, mEvent.endMillis,
+                        mEvent.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
+                        Utils.getTimeZone(getContext(), null)));
+            }
+            if (preferences.isDurationVisible()) {
+                if (time.length() > 0) {
+                    time.append(' ');
+                }
+                time.append('[');
+                time.append(DateUtils.formatElapsedTime((mEvent.endMillis - mEvent.startMillis)/1000));
+                time.append(']');
+            }
+            return time;
+        }
+
+        protected void drawTimes(Canvas canvas, ViewDetailsPreferences.Preferences preferences) {
+            CharSequence text = getFormattedTime(preferences);
             float avail = getAvailableSpaceForText(1);
             text = TextUtils.ellipsize(text, mEventExtrasPaint, avail, TextUtils.TruncateAt.END);
             canvas.drawText(text.toString(), mBoundaries.getTextX(),
@@ -1648,13 +1702,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
 
         @Override
-        public void draw(Canvas canvas, boolean showTimes, int day) {
+        public void draw(Canvas canvas, ViewDetailsPreferences.Preferences preferences, int day) {
            if (mFormat.isVisible() && mEvent != null) {
                drawEventRectangle(canvas, day);
                mBoundaries.moveToFirstLine();
-               drawText(canvas, day);
-               if (areTimesVisible(showTimes)) {
-                   drawTimes(canvas);
+               drawText(canvas, preferences, day);
+               if (isTimeInNextLine(preferences)) {
+                   drawTimes(canvas, preferences);
                }
                mBoundaries.moveToNextItem();
            }

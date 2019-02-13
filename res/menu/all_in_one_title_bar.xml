@@ -53,4 +53,10 @@
         android:icon="@drawable/ic_menu_export"
         app:showAsAction="never"
         android:orderInCategory="7" />
+    <item
+        android:id="@+id/action_view_settings"
+        android:alphabeticShortcut="v"
+        android:title="View settings"
+        android:orderInCategory="8"
+        app:showAsAction="never" />
 </menu>
