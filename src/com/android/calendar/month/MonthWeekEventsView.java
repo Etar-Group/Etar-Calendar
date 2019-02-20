@@ -1579,13 +1579,18 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 }
             }
         }
+
         CharSequence getBaseText(ViewDetailsPreferences.Preferences preferences) {
             StringBuilder baseText = new StringBuilder();
-            if (!isTimeInNextLine(preferences)) {
+            if (!isTimeInNextLine(preferences) && !mEvent.allDay) {
                 baseText.append(getFormattedTime(preferences));
                 baseText.append(" ");
             }
             baseText.append(mEvent.title);
+            if (preferences.SHOW_LOCATION && mEvent.location != null && mEvent.location.length() > 0) {
+                baseText.append("\n@ ");
+                baseText.append(mEvent.location);
+            }
             return baseText;
         }
 
