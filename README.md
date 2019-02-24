@@ -66,3 +66,14 @@ export ANDROID_HOME=/path/to/android-sdk/
 git submodule update --init --remote
 gradle build
 ```
+## License
+
+Copyright (c) 2005-2013, The Android Open Source Project
+
+Copyright (c) 2013, Dominik Schürmann
+
+Copyright (c) 2015-, The Etar Project
+
+Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
+
+Google Play and the Google Play logo are trademarks of Google Inc.
