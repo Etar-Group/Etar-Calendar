@@ -14,6 +14,17 @@ import ws.xsoh.etar.R;
 
 public class ViewDetailsPreferences extends PreferenceFragment {
     protected final static boolean DISPLAY_LOCATION_DEFAULT = false;
+
+    protected final static String KEY_DISPLAY_TIME_V_PREF = "pref_display_time_vertical";
+    protected final static String KEY_DISPLAY_TIME_H_PREF = "pref_display_time_horizontal";
+    protected final static String KEY_DISPLAY_LOCATION_V_PREF = "pref_display_location_vertical";
+    protected final static String KEY_DISPLAY_LOCATION_H_PREF = "pref_display_location_horizontal";
+    protected final static PreferenceKeys LANDSCAPE_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_H_PREF, KEY_DISPLAY_LOCATION_H_PREF);
+    protected final static PreferenceKeys PORTRAIT_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_V_PREF, KEY_DISPLAY_LOCATION_V_PREF);
+
+    protected ListPreference mDisplayTimeH;
+    protected ListPreference mDisplayTimeV;
+
     public enum TimeVisibility {
         SHOW_NONE(0),
         SHOW_START_TIME(1),
@@ -29,14 +40,18 @@ public class ViewDetailsPreferences extends PreferenceFragment {
         }
     }
     protected static class PreferenceKeys {
+        public final String KEY_DISPLAY_TIME;
+        public final String KEY_DISPLAY_LOCATION;
+
         public PreferenceKeys(String keyDisplayTime, String keyDisplayLocation) {
             KEY_DISPLAY_TIME = keyDisplayTime;
             KEY_DISPLAY_LOCATION = keyDisplayLocation;
         }
-        public final String KEY_DISPLAY_TIME;
-        public final String KEY_DISPLAY_LOCATION;
     }
     public static class Preferences {
+        public final TimeVisibility TIME_VISIBILITY;
+        public final boolean SHOW_LOCATION;
+
         protected Preferences(TimeVisibility timeVisibility, boolean showLocation) {
             TIME_VISIBILITY = timeVisibility;
             SHOW_LOCATION = showLocation;
@@ -60,12 +75,11 @@ public class ViewDetailsPreferences extends PreferenceFragment {
         public boolean isDurationVisible() {
             return (TIME_VISIBILITY == TimeVisibility.SHOW_START_TIME_AND_DURATION);
         }
-        public final TimeVisibility TIME_VISIBILITY;
-        public final boolean SHOW_LOCATION;
     }
     protected static class PreferenceFactory {
         protected SharedPreferences mPrefs;
         protected Context mContext;
+
         public PreferenceFactory(Context context) {
             mContext = context;
             mPrefs = GeneralPreferences.getSharedPreferences(context);
@@ -87,17 +101,6 @@ public class ViewDetailsPreferences extends PreferenceFragment {
             return new Preferences(getTimeVisibility(keys), getShowTime(keys));
         }
     }
-
-    protected final static String KEY_DISPLAY_TIME_V_PREF = "pref_display_time_vertical";
-    protected final static String KEY_DISPLAY_TIME_H_PREF = "pref_display_time_horizontal";
-    protected final static String KEY_DISPLAY_LOCATION_V_PREF = "pref_display_location_vertical";
-    protected final static String KEY_DISPLAY_LOCATION_H_PREF = "pref_display_location_horizontal";
-    protected final static PreferenceKeys LANDSCAPE_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_H_PREF, KEY_DISPLAY_LOCATION_H_PREF);
-    protected final static PreferenceKeys PORTRAIT_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_V_PREF, KEY_DISPLAY_LOCATION_V_PREF);
-
-    protected ListPreference mDisplayTimeH;
-    protected ListPreference mDisplayTimeV;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
