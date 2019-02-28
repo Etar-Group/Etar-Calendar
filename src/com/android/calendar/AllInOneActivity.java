@@ -49,6 +49,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceActivity;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -207,6 +208,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private SearchView mSearchView;
     private MenuItem mSearchMenu;
     private MenuItem mControlsMenu;
+    private MenuItem mViewSettings;
     private Menu mOptionsMenu;
     private QueryHandler mHandler;
     private final Runnable mHomeTimeUpdater = new Runnable() {
@@ -819,6 +821,14 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         }
     }
 
+    protected void updateViewSettingsVisiblility() {
+        if (mViewSettings != null) {
+            boolean viewSettingsVisible = mController.getViewType() == ViewType.MONTH;
+            mViewSettings.setVisible(viewSettingsVisible);
+            mViewSettings.setEnabled(viewSettingsVisible);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -859,6 +869,10 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         } else if (mControlsMenu != null) {
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
+
+        mViewSettings = menu.findItem(R.id.action_view_settings);
+        updateViewSettingsVisiblility();
+
 
         MenuItem menuItem = menu.findItem(R.id.action_today);
 
@@ -928,8 +942,13 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             return false;
         } else if (itemId == R.id.action_import) {
             ImportActivity.pickImportFile(this);
+        } else if (itemId == R.id.action_view_settings) {
+            Intent intent = new Intent(this, CalendarSettingsActivity.class);
+            intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, ViewDetailsPreferences.class.getName());
+            intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+            startActivity(intent);
         } else {
-            return mExtensions.handleItemSelected(item, this);
+                return mExtensions.handleItemSelected(item, this);
         }
         mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
         return true;
@@ -1264,6 +1283,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mControlsMenu.setVisible(!noControlsView);
                     mControlsMenu.setEnabled(!noControlsView);
                 }
+                updateViewSettingsVisiblility();
                 if (noControlsView || mHideControls) {
                     // hide minimonth and calendar frag
                     mShowSideViews = false;
