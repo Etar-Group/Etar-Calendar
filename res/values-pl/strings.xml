@@ -277,4 +277,10 @@
     <string name="visibility_default">Domyślne</string>
   <string name="visibility_private">Prywatne</string>
   <string name="visibility_public">Publiczne</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Pytaj po jakim czasie przypomnieć o wydarzeniu</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Pytaj o długość drzemki za każdym razem</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Zawsze używaj domyślnej długości drzemki</string>
+  <string name="snooze_delay_dialog_title">Ustaw długość drzemki</string>
+  <string name="preferences_default_snooze_delay_title">Domyślny czas trwania drzemki</string>
+  <string name="preferences_default_snooze_delay_dialog">Domyślna długość drzemki</string>
 </resources>

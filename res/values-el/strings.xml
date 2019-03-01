@@ -277,4 +277,10 @@
     <string name="visibility_default">Προεπιλογή</string>
   <string name="visibility_private">Ιδιωτικό</string>
   <string name="visibility_public">Δημόσιο</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Καθυστέρηση αναβολής υπενθύμισης</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Ερώτηση για την καθυστέρηση αναβολής όποτε αναβάλλετε υπενθυμίσεις</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Να χρησιμοποιείται πάντα η προεπιλεγμένη καθυστέρηση αναβολής</string>
+  <string name="snooze_delay_dialog_title">Ορισμός καθυστέρησης αναβολής</string>
+  <string name="preferences_default_snooze_delay_title">Προεπιλεγμένος χρόνος καθυστέρησης αναβολής</string>
+  <string name="preferences_default_snooze_delay_dialog">Προεπιλεγμένη καθυστέρηση αναβολής</string>
 </resources>

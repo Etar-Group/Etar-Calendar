@@ -277,4 +277,10 @@
     <string name="visibility_default">Standard</string>
   <string name="visibility_private">Privat</string>
   <string name="visibility_public">Offentlig</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Spørg efter udsættelse ved påmindelse</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Spørg efter udsættelse ved hver påmindelse</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Brug altid standard-udsættelsen</string>
+  <string name="snooze_delay_dialog_title">Sæt udsættelse</string>
+  <string name="preferences_default_snooze_delay_title">Tid for standard-udsættelse</string>
+  <string name="preferences_default_snooze_delay_dialog">Standard-udsættelse</string>
 </resources>

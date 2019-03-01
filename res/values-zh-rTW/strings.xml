@@ -277,4 +277,10 @@
     <string name="visibility_default">預設</string>
   <string name="visibility_private">私人</string>
   <string name="visibility_public">公開</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">要求提醒重響延遲</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">每當重響提醒時要求重響延遲</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">總是使用預設重響延遲</string>
+  <string name="snooze_delay_dialog_title">設定重響延遲</string>
+  <string name="preferences_default_snooze_delay_title">預設重響延遲時間</string>
+  <string name="preferences_default_snooze_delay_dialog">預設重響延遲</string>
 </resources>

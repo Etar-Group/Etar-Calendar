@@ -275,4 +275,10 @@
     <string name="visibility_default">كۆڭۈلدىكى</string>
   <string name="visibility_private">خۇسۇسىي</string>
   <string name="visibility_public">ئاممىۋى</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">ئەسكەرتىشنى ۋاقىتلىق توختىتىدىغان ۋاقىت ئۇزۇنلۇقىنى سورا</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">ئەسكەرتىشنى ۋاقىتلىق توختاتقاندا داۋاملىشىش ۋاقتىنى سورا</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">ھەمىشە ئەسكەرتىشنى ۋاقىتلىق توختىتىدىغان ۋاقىت ئۇزۇنلۇقىنى ئىشلەت</string>
+  <string name="snooze_delay_dialog_title">ئەسكەرتىشنى ۋاقىتلىق توختىتىدىغان قايتىلىنىش ۋاقتىنى بەلگىلەش</string>
+  <string name="preferences_default_snooze_delay_title">كۆڭۈلدىكى ئەسكەرتىشنى ۋاقىتلىق توختىتىش ۋاقتىنىڭ ئۇزۇنلۇقى</string>
+  <string name="preferences_default_snooze_delay_dialog">كۆڭۈلدىكى ئەسكەرتىشنى ۋاقىتلىق توختىتىش ۋاقتى</string>
 </resources>

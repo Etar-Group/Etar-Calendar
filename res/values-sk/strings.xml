@@ -277,4 +277,10 @@
     <string name="visibility_default">Predvolené</string>
   <string name="visibility_private">Súkromné</string>
   <string name="visibility_public">Verejné</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Pýtať sa na dĺžku odloženia upomienky</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Pýtať sa na dĺžku odloženia pri odložení upomienky</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Vždy použiť predvolenú dĺžku odloženia</string>
+  <string name="snooze_delay_dialog_title">Nastaviť dĺžku odloženia</string>
+  <string name="preferences_default_snooze_delay_title">Predvolená dĺžka odloženia</string>
+  <string name="preferences_default_snooze_delay_dialog">Predvolená dĺžka odloženia</string>
 </resources>

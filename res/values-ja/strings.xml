@@ -277,4 +277,10 @@
     <string name="visibility_default">デフォルト</string>
   <string name="visibility_private">限定公開</string>
   <string name="visibility_public">一般公開</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">スヌーズ遅延を尋ねる</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">リマインダーをスヌーズする場合、その都度スヌーズ遅延時間を尋ねる</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">リマインダーをスヌーズする場合、デフォルトのスヌーズ遅延を使用する</string>
+  <string name="snooze_delay_dialog_title">スヌーズ遅延を設定</string>
+  <string name="preferences_default_snooze_delay_title">デフォルトのスヌーズ遅延時間</string>
+  <string name="preferences_default_snooze_delay_dialog">デフォルトのスヌーズ遅延</string>
 </resources>

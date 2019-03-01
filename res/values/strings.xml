@@ -132,6 +132,7 @@
     <!-- This is a label on a menu item in a popup window. Pressing this menu
          item allows the user to delete an existing event. -->
     <string name="event_delete">"Delete event"</string>
+    <string name="share_label">Share</string>
     <!-- This is a label on a menu item. Pressing this menu
          item takes the user to the current day (today) in whatever view
          (Day view, Week view, Agenda view, Month view) they are currently in. -->
@@ -330,6 +331,8 @@
 
     <!-- Notification label for getting a map of the location. -->
     <string name="map_label">Map</string>
+    <!-- No maps found in phone -->
+    <string name="no_map">There is no maps app installed</string>
     <!-- Notification label for calling a phone number in the location. -->
     <string name="call_label">Call</string>
 
@@ -531,6 +534,9 @@
     <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
     <string name="preferences_hide_declined_title">Hide declined events</string>
+    <!-- Label values for the default start page preference. -->
+    <string name="default_start_title">Default view</string>
+    <string name="default_start_last">Previously used view</string>
     <!-- Settings week start label to start week on specific day-->
     <string name="preferences_week_start_day_title">Week starts on</string>
     <!-- Title of popup for week start day setting-->
@@ -575,6 +581,20 @@
 
     <!-- Title of the settings item to show week number in week view [CHAR LIMIT=40] -->
     <string name="preferences_show_week_num_title">Show week number</string>
+
+    <!-- Check box label for using custom snooze delays -->
+    <string name="preferences_alerts_custom_snooze_delay_title">Ask for reminder snooze delay</string>
+    <!-- Summaries for using custom snooze delays -->
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Ask for snooze delay whenever snoozing reminders</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Always use default snooze delay</string>
+    <!-- Title of custom snooze delay dialog -->
+    <string name="snooze_delay_dialog_title">Set snooze delay</string>
+    <!-- List item label for setting the default snooze delay -->
+    <string name="preferences_default_snooze_delay_title">Default snooze delay time</string>
+    <!-- Title of dialog for setting the default snooze delay -->
+    <string name="preferences_default_snooze_delay_dialog">Default snooze delay</string>
+    <!-- Default value for the default snooze delay (in minutes) -->
+    <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
 
     <!-- This is the title of a section in the Settings screen for "About" this application -->
     <string name="preferences_about_title">About</string>
@@ -791,4 +811,16 @@
     <string name="one_and_a_half_hours">1.5 hours</string>
     <string name="two_hours">2 hours</string>
 
+    <!-- Toast message displayed when ics file to share an event can't be generated -->
+    <string name="error_generating_ics">Problems encountered while sharing event</string>
+
+    <!-- Sharing calendar event -->
+    <string name="cal_share_intent_title">Send event to:</string>
+    <string name="cal_export_event_sdcard_title">Export to SD card</string>
+    <string name="cal_export_succ_msg">Event exported successfully: %1s</string>
+    <string name="cal_import_menu_title">Import event</string>
+    <string name="cal_nothing_to_import">Nothing to import</string>
+    <string name="cal_import_error_msg">Importing to calendar failed</string>
+    <string name="cal_import_error_date_msg">Unable to understand given date: %s</string>
+    <string name="cal_pick_ics">Pick file to import</string>
 </resources>

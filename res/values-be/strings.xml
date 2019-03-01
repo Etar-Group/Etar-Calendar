@@ -308,8 +308,6 @@
     <string name="preferences_days_per_week_dialog">Дзён у тыдні</string>
     <string name="preferences_default_event_duration_title">Агаданая працягласць падзеі</string>
     <string name="preferences_issues">Паведаміць аб праблеме</string>
-    <string name="accessibility_cal_notification">Апавяшчэння каляндара</string>
-    <string name="accessibility_snooze_notification">Адкласць апавяшчэнне</string>
     <string name="user_rejected_calendar_write_permission">Etar патрабуе дазволы на чатанне і запіс календара каб працаваць належным чынам. Калі ласка, паспрабуйце зноў.</string>
     <string name="calendar_permission_not_granted">На жаль, гэтая функцыя не працуе. Etar патрабуе дазволы на чатанне і запіс календара каб працаваць належным чынам</string>
     <string name="visibility_confidential">Канфідэнцыйная</string>

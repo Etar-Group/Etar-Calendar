@@ -296,8 +296,6 @@
     <string name="preferences_color_pick">Hovedfarge</string>
     <string name="preferences_default_event_duration_title">Forvalgt hendelsesvarighet</string>
     <string name="preferences_home_tz_default">America/Los_Angeles</string>
-    <string name="accessibility_cal_notification">Kalendermerknad</string>
-    <string name="accessibility_snooze_notification">Slumringsmerknad</string>
     <string name="user_rejected_calendar_write_permission">Etar krever tilgang til å lese og skrive kalender for å virke. Prøv igjen.</string>
     <string name="calendar_permission_not_granted">Denne funksjonen kan ikke virke siden Etar krever tilgang til lesing og skriving av kalender for å virke</string>
     <string name="visibility_confidential">Konfidensiell</string>
@@ -307,4 +305,23 @@
     <string name="one_hour">Én time</string>
     <string name="one_and_a_half_hours">Én og en halv time</string>
     <string name="two_hours">To timer</string>
+    <string name="no_map">Ingen kartapper er installert</string>
+    <string name="error_generating_ics">Problemer oppstod under deling av hendelsen</string>
+    <string name="share_label">Del</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Be om påminnelsesslumring</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Spør om slumrelengde når enn det er slumrepåminnelser</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Alltid bruk standardslumrelengden</string>
+    <string name="snooze_delay_dialog_title">Bestem slumrelengden</string>
+    <string name="preferences_default_snooze_delay_title">Standard-slumretid</string>
+    <string name="preferences_default_snooze_delay_dialog">Standard-slumretid</string>
+    <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
+    <string name="default_start_title">Standardvisningen</string>
+    <string name="default_start_last">Forrige valgte visning</string>
+    <string name="cal_share_intent_title">Send aktiviteten til:</string>
+    <string name="cal_export_event_sdcard_title">Eksporter til SD-kortet</string>
+    <string name="cal_export_succ_msg">Eksporteringen av aktiviteten var vellykket: %1s</string>
+    <string name="cal_import_menu_title">Importer hendelse</string>
+    <string name="cal_nothing_to_import">Det er ingenting å importere</string>
+    <string name="cal_import_error_msg">Importering til kalenderen mislyktes</string>
+    <string name="cal_pick_ics">Velg en fil å importere</string>
 </resources>

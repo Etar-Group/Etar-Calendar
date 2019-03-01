@@ -289,4 +289,10 @@
     <string name="visibility_default">Predefinito</string>
   <string name="visibility_private">Privato</string>
   <string name="visibility_public">Pubblico</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Chiedi ritardo rinvio allarme</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Chiedi il tempo per il ritardo del rinvio dell\'allarme ogni volta che si pospone</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Usa sempre il tempo di ritardo predefinito per il rinvio dell\'allarme</string>
+  <string name="snooze_delay_dialog_title">Imposta tempo ritardo</string>
+  <string name="preferences_default_snooze_delay_title">Tempo ritardo rinvio</string>
+  <string name="preferences_default_snooze_delay_dialog">Tempo ritardo rinvio predefinito</string>
 </resources>
