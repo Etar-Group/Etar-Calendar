@@ -62,6 +62,9 @@ public class ViewDetailsPreferences extends PreferenceFragment {
             }
             return this;
         }
+        public boolean isTimeVisible() {
+            return TIME_VISIBILITY != TimeVisibility.SHOW_NONE;
+        }
         public boolean isTimeShownBelow() {
             return (TIME_VISIBILITY == TimeVisibility.SHOW_TIME_RANGE_BELOW);
         }

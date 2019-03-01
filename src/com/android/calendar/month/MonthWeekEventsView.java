@@ -1580,9 +1580,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
             }
         }
 
-        CharSequence getBaseText(ViewDetailsPreferences.Preferences preferences) {
+        protected boolean isTimeInline(ViewDetailsPreferences.Preferences preferences) {
+            return preferences.isTimeVisible() && !isTimeInNextLine(preferences) && !mEvent.allDay;
+        }
+
+        protected CharSequence getBaseText(ViewDetailsPreferences.Preferences preferences) {
             StringBuilder baseText = new StringBuilder();
-            if (!isTimeInNextLine(preferences) && !mEvent.allDay) {
+            if (isTimeInline(preferences)) {
                 baseText.append(getFormattedTime(preferences));
                 baseText.append(" ");
             }
