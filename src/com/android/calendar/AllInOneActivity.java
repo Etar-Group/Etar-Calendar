@@ -1283,7 +1283,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mControlsMenu.setVisible(!noControlsView);
                     mControlsMenu.setEnabled(!noControlsView);
                 }
-                updateViewSettingsVisiblility();
                 if (noControlsView || mHideControls) {
                     // hide minimonth and calendar frag
                     mShowSideViews = false;
@@ -1316,6 +1315,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     }
                 }
             }
+            updateViewSettingsVisiblility();
             displayTime = event.selectedTime != null ? event.selectedTime.toMillis(true)
                     : event.startTime.toMillis(true);
             if (!mIsTabletConfig) {
