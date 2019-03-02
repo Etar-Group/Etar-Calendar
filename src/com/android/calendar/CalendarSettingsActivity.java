@@ -73,7 +73,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.app_bar, root, false);
         root.addView(bar, 0); // insert at top
-        bar.setNavigationIcon(R.drawable.ic_ab_back);
+        bar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         bar.setTitle(getTitle());
         bar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

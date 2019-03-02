@@ -45,7 +45,7 @@
         android:id="@+id/action_import"
         android:alphabeticShortcut="i"
         android:title="@string/cal_import_menu_title"
-        android:icon="@drawable/ic_menu_export"
+        android:icon="@drawable/ic_sd_storage_white_24dp"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_hide_controls"
