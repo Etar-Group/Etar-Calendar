@@ -312,4 +312,10 @@
     <string name="visibility_default">Predeterminado</string>
   <string name="visibility_private">Privado</string>
   <string name="visibility_public">Público</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Recordatorios</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Preguntar por el intervalo de tiempo entre recordatorios en cada recordatorio</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Usar siempre el intervalo de tiempo entre recordatorios por defecto</string>
+  <string name="snooze_delay_dialog_title">Intervalo de tiempo</string>
+  <string name="preferences_default_snooze_delay_title">Intervalo entre recordatorios</string>
+  <string name="preferences_default_snooze_delay_dialog">Intervalo entre recordatorios por defecto</string>
 </resources>

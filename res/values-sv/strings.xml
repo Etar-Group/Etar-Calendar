@@ -277,4 +277,10 @@
     <string name="visibility_default">Standardinställning</string>
   <string name="visibility_private">Privat</string>
   <string name="visibility_public">Offentligt</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Fråga efter snoozelängd</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Fråga efter snoozelängd vid snooze av påminnelser</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Använd alltid standardsnoozelängd</string>
+  <string name="snooze_delay_dialog_title">Välj snoozelängd</string>
+  <string name="preferences_default_snooze_delay_title">Standardsnoozelängd</string>
+  <string name="preferences_default_snooze_delay_dialog">Standardsnoozelängd</string>
 </resources>

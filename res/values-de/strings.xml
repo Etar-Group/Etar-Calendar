@@ -321,4 +321,10 @@
   <string name="two_hours">2 Stunden</string>
   <string name="one_and_a_half_hours">1,5 Stunden</string>
     <string name="preferences_color_pick">Primäre Farbe</string>
+  <string name="preferences_alerts_custom_snooze_delay_title">Erinnerungs-Wiederholungszeit</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_on">Jedesmal nach Verzögerung fragen, wenn später erinnert werden soll</string>
+  <string name="preferences_alerts_custom_snooze_delay_summary_off">Immer nach Standardzeit erinnern</string>
+  <string name="snooze_delay_dialog_title">Erinnern in\u2026</string>
+  <string name="preferences_default_snooze_delay_title">Standard-Wiederholungszeit</string>
+  <string name="preferences_default_snooze_delay_dialog">Erinnerung wiederholen nach\u2026</string>
 </resources>
