@@ -377,14 +377,14 @@
         <item>No</item>
         <item>Only start time</item>
         <item>Start and end time</item>
-        <item>Start time and duration</item>
+        <!--<item>Start time and duration</item>-->
         <item>Start and end time below the event</item>
     </string-array>
     <string-array name="show_time_values" translatable="false">
         <item>"0"</item>
         <item>"1"</item>
         <item>"2"</item>
-        <item>"3"</item>
+        <!--<item>"3"</item>-->
         <item>"4"</item>
     </string-array>
 </resources>
