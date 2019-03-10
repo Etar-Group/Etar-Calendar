@@ -27,20 +27,23 @@
     <string name="repeats_label" msgid="7414023871434593196">"Wiederholung"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Kein Titel)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 Minute"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> Minuten"</item>
+        <item quantity="one">Eine Minute</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> Minuten</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 Min."</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> Min."</item>
+        <item quantity="one">1 Minute</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> Min.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one" msgid="4793697728599296830">"1 Stunde"</item>
         <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> Stunden"</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 Tag"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> Tag(e)"</item>
+        <item quantity="one">1 Tag</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> Tage</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="other" msgid="8085184869561028365">"Woche <xliff:g id="COUNT">%d</xliff:g>"</item>
