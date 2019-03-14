@@ -34,6 +34,10 @@
             android:title="@string/default_start_title"
             android:entries="@array/default_start_entries"
             android:entryValues="@array/default_start_values" />
+        <PreferenceScreen
+            android:key="pref_view_details"
+            android:title="View details"
+            android:fragment="com.android.calendar.ViewDetailsPreferences" />
         <CheckBoxPreference
             android:key="preferences_hide_declined"
             android:defaultValue="false"
