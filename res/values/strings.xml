@@ -159,6 +159,10 @@
     <!-- This is a label on a menu item. Pressing this menu item shows the
          navigation controls on the right side. [CHAR LIMIT=20] -->
     <string name="show_controls">"Show controls"</string>
+    <!-- This is a label on a menu item. Pressing this menu item shows the
+         View settings menu [CHAR LIMIT=20] -->
+    <string name="view_settings">"View settings"</string>
+
 
     <!-- Month view -->
     <skip/>
@@ -518,6 +522,12 @@
          related to viewing calendar events -->
     <string name="preferences_general_title">Calendar view setting</string>
     <!-- This is the title of a section in the Settings screen for settings
+         related to viewing calendar events in Month view for portrait orientation -->
+    <string name="preferences_month_view_portrait">Month view layout (Portrait)</string>
+    <!-- This is the title of a section in the Settings screen for settings
+         related to viewing calendar events in Month view for landscape orientation -->
+    <string name="preferences_month_view_landscape">Month view layout (Landscape)</string>
+    <!-- This is the title of a section in the Settings screen for settings
          related to reminders for calendar events -->
     <string name="preferences_theme">Theme</string>
     <string name="preferences_light_theme">Light</string>
@@ -536,6 +546,10 @@
     <string name="preferences_hide_declined_title">Hide declined events</string>
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>
+    <string name="view_details">View Details</string>
+    <string name="display_time">Display Time</string>
+    <string name="display_location">Display Location</string>
+
     <string name="default_start_last">Previously used view</string>
     <!-- Settings week start label to start week on specific day-->
     <string name="preferences_week_start_day_title">Week starts on</string>
@@ -823,4 +837,5 @@
     <string name="cal_import_error_msg">Importing to calendar failed</string>
     <string name="cal_import_error_date_msg">Unable to understand given date: %s</string>
     <string name="cal_pick_ics">Pick file to import</string>
+
 </resources>
