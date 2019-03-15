@@ -325,4 +325,11 @@
     <string name="cal_nothing_to_import">Det er ingenting å importere</string>
     <string name="cal_import_error_msg">Importering til kalenderen mislyktes</string>
     <string name="cal_pick_ics">Velg en fil å importere</string>
+    <string name="view_settings">Vis innstillinger</string>
+    <string name="preferences_month_view_portrait">Månedsvisning (portrett)</string>
+    <string name="preferences_month_view_landscape">Månedsvisning (landskap)</string>
+    <string name="view_details">Vis detaljer</string>
+    <string name="display_time">Vis tid</string>
+    <string name="display_location">Vis plassering</string>
+    <string name="cal_import_error_date_msg">Forsto ikke gitt dato: %s</string>
 </resources>
