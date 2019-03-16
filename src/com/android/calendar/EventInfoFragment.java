@@ -1191,7 +1191,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (IcalendarUtils.writeCalendarToFile(calendar, inviteFile)) {
                 if (type == ShareType.INTENT) {
                     inviteFile.setReadable(true, false);     // Set world-readable
-                    Uri icsFile = FileProvider.getUriForFile(getContext(),
+                    Uri icsFile = FileProvider.getUriForFile(getActivity(),
                             BuildConfig.APPLICATION_ID + ".provider", inviteFile);
                     Intent shareIntent = new Intent();
                     shareIntent.setAction(Intent.ACTION_SEND);
@@ -1212,7 +1212,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     // For now, we are duplicating ics file and using that as the vcs file
                     // TODO: revisit above
                     if (IcalendarUtils.copyFile(inviteFile, vcsInviteFile)) {
-                        Uri vcsFile = FileProvider.getUriForFile(getContext(),
+                        Uri vcsFile = FileProvider.getUriForFile(getActivity(),
                                 BuildConfig.APPLICATION_ID + ".provider", vcsInviteFile);
                         Intent mmsShareIntent = new Intent();
                         mmsShareIntent.setAction(Intent.ACTION_SEND);
