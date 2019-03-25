@@ -838,4 +838,10 @@
     <string name="cal_import_error_date_msg">Unable to understand given date: %s</string>
     <string name="cal_pick_ics">Pick file to import</string>
 
+    <!-- Strings to describe view details array -->
+    <string name="show_time_no">No</string>
+    <string name="show_time_start">Only start time</string>
+    <string name="show_time_start_end">Start and end time</string>
+    <string name="show_time_start_end_below">Start and end time below the event</string>
+
 </resources>

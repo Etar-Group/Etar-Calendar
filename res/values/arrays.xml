@@ -406,11 +406,11 @@
     </string-array>
     
     <string-array name="show_time">
-        <item>No</item>
-        <item>Only start time</item>
-        <item>Start and end time</item>
+        <item>@string/show_time_no</item>
+        <item>@string/show_time_start</item>
+        <item>@string/show_time_start_end</item>
         <!--<item>Start time and duration</item>-->
-        <item>Start and end time below the event</item>
+        <item>@string/show_time_start_end_below</item>
     </string-array>
     <string-array name="show_time_values" translatable="false">
         <item>"0"</item>
