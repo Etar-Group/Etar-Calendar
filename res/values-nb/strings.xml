@@ -332,4 +332,8 @@
     <string name="display_time">Vis tid</string>
     <string name="display_location">Vis plassering</string>
     <string name="cal_import_error_date_msg">Forsto ikke gitt dato: %s</string>
+    <string name="show_time_no">Nei</string>
+    <string name="show_time_start">Kun starttid</string>
+    <string name="show_time_start_end">Start- og slutttid</string>
+    <string name="show_time_start_end_below">Start- og sluttid under hendelsen</string>
 </resources>
