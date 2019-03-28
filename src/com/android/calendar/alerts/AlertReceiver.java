@@ -62,9 +62,7 @@ import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
  * event reminders.  The intent URI specifies an alert id in the
- * CalendarAlerts database table.  This class also receives the
- * BOOT_COMPLETED intent so that it can add a status bar notification
- * if there are Calendar event alarms that have not been dismissed.
+ * CalendarAlerts database table.
  * It also receives the TIME_CHANGED action so that it can fire off
  * snoozed alarms that have become ready.  The real work is done in
  * the AlertService class.
@@ -833,7 +831,7 @@ public class AlertReceiver extends BroadcastReceiver {
             i.putExtra("action", intent.getAction());
             Uri uri = intent.getData();
 
-            // This intent might be a BOOT_COMPLETED so it might not have a Uri.
+
             if (uri != null) {
                 i.putExtra("uri", uri.toString());
             }
