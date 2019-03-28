@@ -225,7 +225,6 @@
         <receiver android:name="com.android.calendar.alerts.AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <data android:scheme="content" />
             </intent-filter>

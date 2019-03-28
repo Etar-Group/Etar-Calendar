@@ -941,8 +941,7 @@ public class AlertService extends Service {
             }
 
             updateAlertNotification(this);
-        } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)
-                || action.equals(Intent.ACTION_TIME_CHANGED)) {
+        } else if (action.equals(Intent.ACTION_TIME_CHANGED)) {
             doTimeChanged();
         } else if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
             dismissOldAlerts(this);
