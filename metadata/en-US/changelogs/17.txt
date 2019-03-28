@@ -1,0 +1,4 @@
+- Improved month view.
+- Permission to read contacts is optional again.
+- Fancier text boxes during event creation.
+- Minor bug fixes.
