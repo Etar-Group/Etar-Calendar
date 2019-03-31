@@ -575,7 +575,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mOnDone.setDoneCode(Utils.DONE_SAVE);
             mOnDone.run();
         }
-        act.finish();
+        if (act !=null && (Build.VERSION.SDK_INT < 23 ||
+                    ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
+                        Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED))
+            act.finish();
         super.onPause();
     }
 
