@@ -58,6 +58,7 @@
         <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light</item>
         <item name="ic_menu_email">@drawable/ic_menu_email_holo_light</item>
+        <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
