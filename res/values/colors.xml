@@ -241,7 +241,7 @@
     <color name="month_event_extra_other_color_black">#000000</color>
     <color name="month_today_bgcolor_black">#6efffffa</color>
     <color name="month_focus_month_bgcolor_black">#212121</color>
-    <color name="month_other_bgcolor_black">#000000</color>
+    <color name="month_other_bgcolor_black">#ff111111</color>
     <color name="today_highlight_color_black">#0033b5e5</color>
     <color name="day_clicked_background_color_black">#FF33B5E5</color>
     <color name="month_day_names_color_black">#ffffff</color>

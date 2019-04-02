@@ -43,5 +43,6 @@
         <attr name="minus_button" format="reference"/>
         <attr name="ic_menu_email" format="reference"/>
         <attr name="calendar_future_bg_color" format="color"/>
+        <attr name="month_other_bgcolor" format="color"/>
     </declare-styleable>
 </resources>
