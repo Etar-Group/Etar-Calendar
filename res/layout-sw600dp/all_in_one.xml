@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="20dip"
-        android:background="@color/calendar_future_bg_color" >
+        android:background="?attr/calendar_future_bg_color" >
         <TextView
             android:id="@+id/date_bar"
             android:layout_width="wrap_content"
