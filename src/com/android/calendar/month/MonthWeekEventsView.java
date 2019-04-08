@@ -965,8 +965,21 @@ public class MonthWeekEventsView extends SimpleWeekView {
             return new FormattedEvent(event, format, getBoundariesSetter(event));
         }
 
+        // day is provided as an optimisation to look only on a certain day
+        protected EventFormat getFormatByEvent(Event event, int day) {
+            if (day < 0 || mFormattedEvents.size() <= day) {
+                return null;
+            }
+            for (FormattedEventBase formattedEvent : mFormattedEvents.get(day)) {
+                if (formattedEvent.containsEvent(event))
+                {
+                    return formattedEvent.getFormat();
+                }
+            }
+            return null;
+        }
+
         protected ArrayList<FormattedEventBase> prepareFormattedEventDay(ArrayList<Event> dayEvents,
-                                                                     ArrayList<Event> lastDayEvents,
                                                                      int day,
                                                                      int daysInWeek) {
             final int eventCount = (dayEvents == null) ? 0 : dayEvents.size();
@@ -981,13 +994,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
                     formattedDayEvents.add(new NullFormattedEvent(format, mFullDayBoundaries));
                     continue;
                 }
-                int eventIndex = lastDayEvents.indexOf(event);
-                if ((eventIndex >= 0) && (event.drawAsAllday())) {
-                    EventFormat format = mFormattedEvents.get(day-1).get(eventIndex).getFormat();
-                    format.extendDaySpan(day);
-                    formattedDayEvents.add(makeFormattedEvent(event, format));
+                EventFormat lastFormat = getFormatByEvent(event, day -1);
+                if ((lastFormat != null) && (event.drawAsAllday())) {
+                    lastFormat.extendDaySpan(day);
+                    formattedDayEvents.add(makeFormattedEvent(event, lastFormat));
                 }
-                else if (eventIndex < 0) {
+                else if (lastFormat == null) {
                     EventFormat format = new EventFormat(day, daysInWeek);
                     formattedDayEvents.add(makeFormattedEvent(event, format));
                 }
@@ -1006,12 +1018,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 return;
             }
             int day = 0;
-            ArrayList<Event> lastDayEvents = new ArrayList<>();
             final int daysInWeek = mEvents.size();
             for (ArrayList<Event> dayEvents : mEvents) {
-                mFormattedEvents.add(prepareFormattedEventDay(dayEvents, lastDayEvents, day, daysInWeek));
+                mFormattedEvents.add(prepareFormattedEventDay(dayEvents, day, daysInWeek));
                 day++;
-                lastDayEvents = (dayEvents == null) ? new ArrayList<Event>() : dayEvents;
             }
         }
     }
@@ -1494,6 +1504,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         public abstract void initialPreFormatText(ViewDetailsPreferences.Preferences preferences);
         protected abstract boolean isTimeInNextLine(ViewDetailsPreferences.Preferences preferences);
         public abstract void draw(Canvas canvas, ViewDetailsPreferences.Preferences preferences, int day);
+        public abstract boolean containsEvent(Event event);
 
         public void skip(ViewDetailsPreferences.Preferences preferences) {
             if (mFormat.isVisible()) {
@@ -1530,6 +1541,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * @param day
          */
         public void draw(Canvas canvas, ViewDetailsPreferences.Preferences preferences, int day) { /*nop*/ }
+        public boolean containsEvent(Event event) { return false; }
     }
 
     protected class FormattedEvent extends FormattedEventBase {
@@ -1713,6 +1725,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                mBoundaries.moveToNextItem();
            }
         }
+        public boolean containsEvent(Event event) { return event.equals(mEvent); }
     }
 
     protected void drawMoreEvents(Canvas canvas, int remainingEvents, int x) {
