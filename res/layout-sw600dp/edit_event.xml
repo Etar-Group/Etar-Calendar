@@ -21,7 +21,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:layout_marginTop="0dip"
-    android:background="#FFE9E9E9"
+    android:background="?attr/edit_event_bgcolor"
     style="@style/EditEvent_Layout">
     <TextView
         android:id="@+id/loading_message"
@@ -31,7 +31,7 @@
         android:gravity="center"
         android:text="@string/loading"
         style="?android:attr/textAppearanceLarge"
-        android:background="#FFFFFFFF"/>
+        android:background="?attr/edit_event_bgcolor"/>
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -43,13 +43,13 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|top"
-                android:background="#FFFFFFFF"/>
+                android:background="?attr/edit_event_bgcolor"/>
 
             <LinearLayout
                 android:id="@+id/two_pane"
@@ -57,8 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="28dip"
-                android:paddingLeft="@dimen/edit_event_view_padding_left"
-                android:paddingRight="@dimen/edit_event_view_padding_right"
+                android:paddingStart="@dimen/edit_event_view_padding_left"
+                android:paddingEnd="@dimen/edit_event_view_padding_right"
                 android:layout_gravity="center_horizontal|top">
 
                 <include
@@ -71,7 +71,7 @@
             <View android:id="@+id/color_chip"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-                android:layout_gravity="left|top"/>
+                android:layout_gravity="start|top"/>
         </FrameLayout>
     </ScrollView>
 </LinearLayout>
