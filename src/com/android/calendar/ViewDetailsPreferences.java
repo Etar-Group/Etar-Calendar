@@ -133,10 +133,10 @@ public class ViewDetailsPreferences extends PreferenceFragment {
             mDisplayTimeV.setEntries(newEntries);
         }
         if (mDisplayTimeH.getEntry() == null || mDisplayTimeH.getEntry().length() == 0) {
-            mDisplayTimeH.setValueIndex(getDefaultTimeToShow(getActivity()));
+            mDisplayTimeH.setValue(getDefaultTimeToShow(getActivity()).toString());
         }
         if (mDisplayTimeV.getEntry() == null || mDisplayTimeV.getEntry().length() == 0) {
-            mDisplayTimeV.setValueIndex(getDefaultTimeToShow(getActivity()));
+            mDisplayTimeV.setValue(getDefaultTimeToShow(getActivity()).toString());
         }
     }
 
