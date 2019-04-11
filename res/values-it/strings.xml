@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
     <string name="what_label" msgid="1933578391985810049">"Che cosa"</string>
     <string name="where_label" msgid="3472482206065595118">"Dove"</string>
@@ -29,25 +26,28 @@
     <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Ripetizione"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Senza titolo)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuti"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 ora"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ore"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 giorno"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> giorni"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"settimana <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuti"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 ora"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ore"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 giorno"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> giorni"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="one">settimana <xliff:g id="COUNT">%d</xliff:g>
+        </item>
+        <item quantity="other">settimana <xliff:g id="COUNT">%d</xliff:g>
+        </item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aggiorna"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostra giorno"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -76,7 +76,7 @@
     <string name="hint_where" msgid="4972598001033801974">"Luogo"</string>
     <string name="hint_description" msgid="1910143586169033232">"Descrizione"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Invitati"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Evento creato"</string>
+    <string name="creating_event" msgid="7516249252554059980">Evento creato.</string>
     <string name="saving_event" msgid="7694181017411177226">"Evento salvato."</string>
     <string name="empty_event" msgid="9018699257414338634">"Evento vuoto non creato."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gli inviti verranno inviati."</string>
@@ -124,19 +124,19 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Risposta rapida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Scegli risposta rapida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Reperimento di un programma di posta elettronica non riuscito"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Esecuzione con un paio di minuti di ritardo."</item>
-    <item msgid="6215158751728689832">"Disponibile tra circa 10 minuti."</item>
-    <item msgid="4485794001743679338">"Continua e inizia senza di me."</item>
-    <item msgid="8036557974294987511">"Spiacenti, impossibile portare a termine l\'operazione. È necessario stabilire una nuova pianificazione."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Esecuzione con un paio di minuti di ritardo."</item>
+        <item msgid="6215158751728689832">"Disponibile tra circa 10 minuti."</item>
+        <item msgid="4485794001743679338">"Continua e inizia senza di me."</item>
+        <item msgid="8036557974294987511">"Spiacenti, impossibile portare a termine l\'operazione. È necessario stabilire una nuova pianificazione."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Scrivi la tua risposta personale…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Agenda:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Promemoria"</string>
     <string name="agenda_today" msgid="5965841338467422191">"oggi, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"ieri, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"domani, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"Caricamento..."</string>
+    <string name="loading" msgid="3772533493214331230">Caricamento…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tocca per visualizzare eventi precedenti a: <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tocca per visualizzare eventi successivi a: <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Cerca nei miei calendari"</string>
@@ -150,24 +150,23 @@
     <string name="snooze_label" msgid="1515893621063224666">"Posticipa"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento occasionale"</string>
     <string name="endByDate" msgid="7654221304929538201">"; fino al <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; per una volta"</item>
-    <item quantity="other" msgid="4855496837834652446">"; per <xliff:g id="NUMBER">%d</xliff:g> volte"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Ogni giorno"</item>
-    <item quantity="other" msgid="5455230727715859264">"Ogni <xliff:g id="NUMBER">%d</xliff:g> giorni"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"; per una volta"</item>
+        <item quantity="other" msgid="4855496837834652446">"; per <xliff:g id="NUMBER">%d</xliff:g> volte"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Ogni giorno"</item>
+        <item quantity="other" msgid="5455230727715859264">"Ogni <xliff:g id="NUMBER">%d</xliff:g> giorni"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Ogni giorno della sett. (lun-ven)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Ogni settimana di <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Ogni <xliff:g id="NUMBER">%1$d</xliff:g> settimane di <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Ogni settimana di <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"Ogni <xliff:g id="NUMBER">%1$d</xliff:g> settimane di <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Ogni mese"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Ogni anno"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Ogni mese (il <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Ogni anno (il <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Personalizzato (impossibile personalizzare sul telefono)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Modifica solo questo evento"</string>
     <string name="modify_all" msgid="4421657265864209041">"Modifica tutti gli eventi nella serie"</string>
@@ -208,10 +207,10 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Versione build"</string>
     <string name="preferences_issues">Segnala problemi</string>
     <string name="gadget_title" msgid="939918875331310945">"Calendario"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Nessun evento di calendario imminente"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Sperimentali"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Promemoria"</string>
@@ -223,7 +222,7 @@
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Fine orari disattiv. audio"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Debug"</string>
     <string name="copy_db" msgid="437691290566699292">"Invia database"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Ricerca in <xliff:g id="DOMAIN">%s</xliff:g> in corso..."</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Cercando <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Rimuovi partecipante"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Data inizio"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Ora di inizio"</string>
@@ -246,53 +245,87 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Invia email a ospiti"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nuovo evento"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Evento <xliff:g id="ITEM_INDEX">%1$s</xliff:g> di <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventi"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"Un altro evento"</item>
-    <item quantity="other" msgid="3609243840882275136">"Altri <xliff:g id="COUNT">%d</xliff:g> eventi"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventi"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"Un altro evento"</item>
+        <item quantity="other" msgid="3609243840882275136">"Altri <xliff:g id="COUNT">%d</xliff:g> eventi"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento selezionato"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NON controllare -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ripeti"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nessuna ripetizione"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorni"</item>
-    <item quantity="other" msgid="707566499994398250">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorni"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Ogni <xliff:g id="COUNT">%d</xliff:g> settimana"</item>
-    <item quantity="other" msgid="7094801039989237061">"Ogni <xliff:g id="COUNT">%d</xliff:g> settimane"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Ogni <xliff:g id="COUNT">%d</xliff:g> mesi"</item>
-    <item quantity="other" msgid="5419723710346646523">"Ogni <xliff:g id="COUNT">%d</xliff:g> mesi"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Ogni <xliff:g id="COUNT">%d</xliff:g> anni"</item>
-    <item quantity="other" msgid="5678653649746562060">"Ogni <xliff:g id="COUNT">%d</xliff:g> anni"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Ogni <xliff:g id="count">%d</xliff:g> giorno</item>
+        <item quantity="other">Ogni <xliff:g id="COUNT">%d</xliff:g> giorni</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Ogni <xliff:g id="COUNT">%d</xliff:g> settimana"</item>
+        <item quantity="other" msgid="7094801039989237061">"Ogni <xliff:g id="COUNT">%d</xliff:g> settimane"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one">Ogni <xliff:g id="COUNT">%d</xliff:g> mese</item>
+        <item quantity="other">Ogni <xliff:g id="COUNT">%d</xliff:g> mesi</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Ogni <xliff:g id="COUNT">%d</xliff:g> anno</item>
+        <item quantity="other">Ogni <xliff:g id="COUNT">%d</xliff:g> anni</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"lo stesso giorno ogni mese"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Sempre"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Fino a una data"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Fino al giorno: <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Per una serie di eventi"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Per <xliff:g id="EVENT_COUNT">%d</xliff:g> evento"</item>
-    <item quantity="other" msgid="8779598489398048259">"Per <xliff:g id="EVENT_COUNT">%d</xliff:g> eventi"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Per <xliff:g id="EVENT_COUNT">%d</xliff:g> evento"</item>
+        <item quantity="other" msgid="8779598489398048259">"Per <xliff:g id="EVENT_COUNT">%d</xliff:g> eventi"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifica data di fine"</string>
     <string name="user_rejected_calendar_write_permission">Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare. Riprova.</string>
-<string name="calendar_permission_not_granted">Spiacenti, questo non può funzionare. Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare</string>
+    <string name="calendar_permission_not_granted">Spiacenti, questo non può funzionare. Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare</string>
     <string name="visibility_default">Predefinito</string>
-  <string name="visibility_private">Privato</string>
-  <string name="visibility_public">Pubblico</string>
-  <string name="preferences_alerts_custom_snooze_delay_title">Chiedi ritardo rinvio allarme</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Chiedi il tempo per il ritardo del rinvio dell\'allarme ogni volta che si pospone</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Usa sempre il tempo di ritardo predefinito per il rinvio dell\'allarme</string>
-  <string name="snooze_delay_dialog_title">Imposta tempo ritardo</string>
-  <string name="preferences_default_snooze_delay_title">Tempo ritardo rinvio</string>
-  <string name="preferences_default_snooze_delay_dialog">Tempo ritardo rinvio predefinito</string>
+    <string name="visibility_private">Privato</string>
+    <string name="visibility_public">Pubblico</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Chiedi ritardo rinvio allarme</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Chiedi il tempo per il ritardo del rinvio dell\'allarme ogni volta che si pospone</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Usa sempre il tempo di ritardo predefinito per il rinvio dell\'allarme</string>
+    <string name="snooze_delay_dialog_title">Imposta tempo ritardo</string>
+    <string name="preferences_default_snooze_delay_title">Tempo ritardo rinvio</string>
+    <string name="preferences_default_snooze_delay_dialog">Tempo ritardo rinvio predefinito</string>
+    <string name="share_label">Condividi</string>
+    <string name="view_settings">Apri le impostazioni</string>
+    <string name="no_map">Nessun\'app di mappe installata</string>
+    <string name="preferences_month_view_portrait">Vista mese (Verticale)</string>
+    <string name="preferences_month_view_landscape">Vista mese (Orizzontale)</string>
+    <string name="preferences_black_theme">Nero</string>
+    <string name="preferences_color">Colore Principale</string>
+    <string name="preferences_color_pick">Colore principale</string>
+    <string name="default_start_title">Vista predefinita</string>
+    <string name="view_details">Vedi Dettagli</string>
+    <string name="display_time">Mostra Ora</string>
+    <string name="display_location">Mostra Luogo</string>
+    <string name="default_start_last">Vista utilizzata in precedenza</string>
+    <string name="preferences_default_event_duration_title">Durata evento predefinita</string>
+    <string name="visibility_confidential">Confidenziale</string>
+    <string name="zero_minutes">0 minuti</string>
+    <string name="fifteen_minutes">15 minuti</string>
+    <string name="thirty_minutes">30 minuti</string>
+    <string name="one_hour">1 ora</string>
+    <string name="one_and_a_half_hours">1.5 ore</string>
+    <string name="two_hours">2 ore</string>
+    <string name="error_generating_ics">Si sono verificati dei problemi durante la condivisione dell\'evento</string>
+    <string name="cal_share_intent_title">Invia evento a:</string>
+    <string name="cal_export_event_sdcard_title">Esporta sulla scheda SD</string>
+    <string name="cal_export_succ_msg">Evento esportato con successo: %1s</string>
+    <string name="cal_import_menu_title">Importa evento</string>
+    <string name="cal_nothing_to_import">Niente da importare</string>
+    <string name="cal_import_error_msg">Importazione del calendario non riuscita</string>
+    <string name="cal_import_error_date_msg">Impossibile interpretare la data inserita: %s</string>
+    <string name="cal_pick_ics">Scegli file da importare</string>
+    <string name="show_time_no">No</string>
+    <string name="show_time_start">Solo tempo di inizio</string>
+    <string name="show_time_start_end">Ora di inizio e fine</string>
+    <string name="show_time_start_end_below">Ora di inizio e fine sotto all\'evento</string>
 </resources>
