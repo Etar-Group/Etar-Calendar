@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/EditEvent_Layout"
-    android:paddingLeft="0dip">
+    android:paddingStart="0dip">
     <TextView
         android:id="@+id/loading_message"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:layout_marginRight="20dip"
         android:layout_marginTop="12dip"
         android:layout_marginBottom="12dip"
-        android:background="#FFFFFFFF"/>
+        android:background="?attr/edit_event_bgcolor"/>
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -48,7 +48,7 @@
         <FrameLayout
             android:background="#FFEEEEEE"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 android:layout_marginTop="3dip"
                 android:layout_marginBottom="12dip"
                 android:layout_gravity="center_horizontal|top"
-                android:background="#FFFFFFFF"/>
+                android:background="?attr/edit_event_bgcolor"/>
 
             <LinearLayout
                 android:id="@+id/two_pane"
@@ -83,9 +83,9 @@
             <View android:id="@+id/color_chip"
                 android:layout_width="30dip"
                 android:layout_height="30dip"
-                android:layout_marginLeft="5dip"
+                android:layout_marginStart="5dip"
                 android:layout_marginTop="17dip"
-                android:layout_gravity="left|top" />
+                android:layout_gravity="start|top" />
         </FrameLayout>
     </ScrollView>
 </LinearLayout>
