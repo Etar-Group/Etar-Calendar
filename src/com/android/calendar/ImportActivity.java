@@ -72,6 +72,18 @@ public class ImportActivity extends Activity {
             }
         }
 
+        // ONLY DATE, e.g. 20190415
+        else if (iCalDateParam != null && iCalDateParam.equals("VALUE=DATE")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            format.setTimeZone(TimeZone.getDefault());
+
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {
+            }
+        }
+
         // FORM #1: DATE WITH LOCAL TIME, e.g. 19980118T230000
         else {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
