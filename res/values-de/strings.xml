@@ -111,7 +111,7 @@
     <string name="email_guests_label" msgid="8772030932155305903">"E-Mail an Gäste senden"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"E-Mail an Organisator senden"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-Mail über"</string>
-    <string name="event_not_found" msgid="8356864185947582727">"Ereignis nicht gefunden"</string>
+    <string name="event_not_found" msgid="8356864185947582727">Ereignis nicht gefunden.</string>
     <string name="map_label" msgid="8795383535586556038">"Karte"</string>
     <string name="call_label" msgid="2960328220008869083">"Anrufen"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Kurzantworten"</string>
@@ -119,7 +119,7 @@
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Kurzantworten bearbeiten"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Kurzantwort"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Kurzantwort auswählen"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Das E-Mail-Programm konnte nicht gefunden werden."</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">Es konnte kein E-Mail-Programm gefunden werden</string>
     <string-array name="quick_response_defaults">
         <item msgid="1524421198348168403">"Bin einige Minuten verspätet"</item>
         <item msgid="6215158751728689832">"Bin in etwa 10 Minuten da"</item>
@@ -182,7 +182,7 @@
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Suchverlauf löschen"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Alle Suchen aus dem Verlauf entfernen"</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"Suchverlauf gelöscht"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">Suchverlauf gelöscht.</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Benachrichtigungen"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibration"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Töne"</string>
@@ -207,7 +207,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Erinnerungen überspringen"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Erinnerungen überspringen"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Ruhezeit"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Terminerinnerung zu bestimmten Zeiten stummschalten"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">Terminerinnerung zu bestimmten Zeiten stummschalten.</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Start der Ruhezeit"</string>
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Ende der Ruhezeit"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Debugging"</string>
@@ -234,7 +234,7 @@
     <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Später erinnern"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"E-Mail an Gäste senden"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ neuer Termin"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Termin <xliff:g id="ITEM_INDEX">%1$s</xliff:g> von <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">Termin <xliff:g id="ITEM_INDEX">%1$s</xliff:g> von <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one" msgid="5230907142214104485">"1 Ereignis"</item>
         <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> Ereignisse"</item>
@@ -294,9 +294,9 @@
     <string name="cal_import_error_date_msg">Konnte Datum nicht erkennen: %s</string>
     <string name="cal_export_succ_msg">Termin erfolgreich exportiert: %1s</string>
     <string name="cal_export_event_sdcard_title">Export auf SD-Karte</string>
-    <string name="rsvp_accepted">Zugesagt</string>
-    <string name="rsvp_declined">Abgelehnt</string>
-    <string name="rsvp_tentative">Vielleicht</string>
+    <string name="rsvp_accepted">Zugesagt.</string>
+    <string name="rsvp_declined">Abgelehnt.</string>
+    <string name="rsvp_tentative">Vielleicht.</string>
     <string name="preferences_issues">Fehler melden</string>
     <string name="preferences_black_theme">Schwarz</string>
     <string name="visibility_default">Standard</string>
