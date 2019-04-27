@@ -93,7 +93,7 @@
     <string name="call_label">Chamar</string>
     <string name="quick_response_settings">Respostas rápidas</string>
     <string name="quick_response_settings_summary">Editar resposta padrão em e-mail p/ convidados</string>
-    <string name="quick_response_settings_title">Editar resp. ráp.</string>
+    <string name="quick_response_settings_title">Editar respostas rápidas</string>
     <string name="quick_response_settings_edit_title">Resposta rápida</string>
     <string name="quick_response_dialog_title">Escolher resposta rápida</string>
     <string name="quick_response_email_failed">Falha ao localar um programa de e-mail</string>
@@ -239,4 +239,96 @@
     <string name="error_generating_ics">Ocorreram erros ao compartilhar evento</string>
     <string name="cal_share_intent_title">Enviar evento para:</string>
     <string name="show_time_no">Não</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minuto</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> minutos</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 min.</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> min.</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 hora</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> horas</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 dia</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> dias</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="one">semana <xliff:g id="count">%d</xliff:g>
+        </item>
+        <item quantity="other">semana <xliff:g id="count">%d</xliff:g>
+        </item>
+    </plurals>
+    <string name="goto_date">Ir para…</string>
+    <string name="no_map">Não existe nenhum aplicativo de mapas instalado</string>
+    <plurals name="endByCount">
+        <item quantity="one">; uma vez</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> vezes</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one">Diariamente</item>
+        <item quantity="other">Cada <xliff:g id="number">%d</xliff:g> dias</item>
+    </plurals>
+    <plurals name="weekly">
+        <item quantity="one">Semanalmente às <xliff:g id="days_of_week">%2$s</xliff:g>
+        </item>
+        <item quantity="other">Cada <xliff:g id="number">%1$d</xliff:g> semanas, às <xliff:g id="days_of_week">%2$s</xliff:g>
+        </item>
+    </plurals>
+    <string name="default_start_title">Vista padrão</string>
+    <string name="default_start_last">Vista anterior usada</string>
+    <string name="preferences_default_event_duration_title">Duração padrão dos eventos</string>
+    <plurals name="month_more_events">
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
+        </item>
+    </plurals>
+    <plurals name="Nevents">
+        <item quantity="one">1 evento</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> eventos</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one">+1 evento</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> eventos</item>
+    </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> dia</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> dias</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> semana</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> semanas</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> mês</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> meses</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> ano</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> anos</item>
+    </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one">Para <xliff:g id="event_count">%d</xliff:g> evento</item>
+        <item quantity="other">Para <xliff:g id="event_count">%d</xliff:g> eventos</item>
+    </plurals>
+    <string name="user_rejected_calendar_write_permission">Etar necessita de permissões para ler e escrever no calendário para funcionar corretamente. Tente novamente.</string>
+    <string name="calendar_permission_not_granted">Esta funcionalidade não pode ser executada. Etar necessita de permissões para ler e escrever no calendário para funcionar corretamente</string>
+    <string name="one_and_a_half_hours">1 hora e meia</string>
+    <string name="cal_export_event_sdcard_title">Exportar para cartão SD</string>
+    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1s</string>
+    <string name="cal_import_menu_title">Importar evento</string>
+    <string name="cal_nothing_to_import">Nada a importar</string>
+    <string name="cal_import_error_msg">Falha importando para o calendário</string>
+    <string name="cal_import_error_date_msg">Não foi possível processar a data indicada: %1</string>
+    <string name="cal_pick_ics">Escolha o arquivo a importar</string>
+    <string name="show_time_start">Apenas hora de início</string>
+    <string name="show_time_start_end">Hora de início e de fim</string>
+    <string name="show_time_start_end_below">Hora de início e de fim para além do evento</string>
 </resources>
