@@ -64,12 +64,15 @@ public class ImportActivity extends Activity {
             // (which are quite a lot, see e.g. http://tutorials.jenkov.com/java-date-time/java-util-timezone.html)
             if (Arrays.asList(TimeZone.getAvailableIDs()).contains(timeZone)) {
                 format.setTimeZone(TimeZone.getTimeZone(timeZone));
-                try {
-                    format.parse(iCalDate);
-                    format.setTimeZone(TimeZone.getDefault());
-                    return format.getCalendar().getTimeInMillis();
-                } catch (ParseException e) {  }
             }
+            else {
+                format.setTimeZone(TimeZone.getDefault());
+                Toast.makeText(this, getString(R.string.cal_import_error_time_zone_msg, timeZone), Toast.LENGTH_SHORT).show();
+            }
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {  }
         }
 
         // ONLY DATE, e.g. 20190415

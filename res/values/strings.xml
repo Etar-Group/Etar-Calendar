@@ -841,6 +841,7 @@
     <string name="cal_import_menu_title">Import event</string>
     <string name="cal_nothing_to_import">Nothing to import</string>
     <string name="cal_import_error_msg">Importing to calendar failed</string>
+    <string name="cal_import_error_time_zone_msg">Unable to understand given time zone: %s</string>
     <string name="cal_import_error_date_msg">Unable to understand given date: %s</string>
     <string name="cal_pick_ics">Pick file to import</string>
 
