@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
@@ -66,8 +67,27 @@ public class ImportActivity extends Activity {
                 format.setTimeZone(TimeZone.getTimeZone(timeZone));
             }
             else {
-                format.setTimeZone(TimeZone.getDefault());
-                Toast.makeText(this, getString(R.string.cal_import_error_time_zone_msg, timeZone), Toast.LENGTH_SHORT).show();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    String convertedTimeZoneId = android.icu.util.TimeZone
+                            .getIDForWindowsID(timeZone, "001");
+                    if (convertedTimeZoneId != null && !convertedTimeZoneId.equals("")) {
+                        format.setTimeZone(TimeZone.getTimeZone(convertedTimeZoneId));
+                    }
+                    else {
+                        format.setTimeZone(TimeZone.getDefault());
+                        Toast.makeText(
+                                this,
+                                getString(R.string.cal_import_error_time_zone_msg, timeZone),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    format.setTimeZone(TimeZone.getDefault());
+                    Toast.makeText(
+                            this,
+                            getString(R.string.cal_import_error_time_zone_msg, timeZone),
+                            Toast.LENGTH_SHORT).show();
+                }
             }
             try {
                 format.parse(iCalDate);
