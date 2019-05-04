@@ -33,7 +33,7 @@
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_dark</item>
         <item name="app_bar_color">@color/app_bar_dark</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
-        <item name="ic_menu_email">@drawable/event_info_mail_button_dark</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_dark</item>
         <item name="calendar_future_bg_color">@color/calendar_future_bg_color_dark</item>
         <item name="month_other_bgcolor">@color/month_other_bgcolor_dark</item>
     </style>
@@ -69,6 +69,7 @@
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_black</item>
         <item name="app_bar_color">@color/app_bar_black</item>
         <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_dark</item>
         <item name="calendar_future_bg_color">@color/calendar_future_bg_color_black</item>
         <item name="month_other_bgcolor">@color/month_other_bgcolor_black</item>
     </style>

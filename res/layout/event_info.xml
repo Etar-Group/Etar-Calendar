@@ -50,7 +50,6 @@
         </android.support.design.widget.AppBarLayout>
 
         <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/event_info_scroll_view"
         android:orientation="vertical"
         android:layout_width="match_parent"
