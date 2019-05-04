@@ -39,7 +39,6 @@
         android:alphabeticShortcut="x"
         android:title="@string/cal_export_event_sdcard_title"
         android:icon="@drawable/ic_sd_storage_white_24dp"
-        android:showAsAction="always"
         android:enabled="true"
         android:visible="true"
         app:showAsAction="always"/>
