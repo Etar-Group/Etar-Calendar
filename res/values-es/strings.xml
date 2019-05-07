@@ -281,7 +281,7 @@
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_pick_ics">Elige un archivo para importar</string>
     <string name="cal_share_intent_title">Envía evento a:</string>
-    <string name="calendar_permission_not_granted">Lamentamos que esta</string>
+    <string name="calendar_permission_not_granted"></string>
     <string name="default_start_last">Vista previamente utilizada</string>
     <string name="default_start_title">Vista de</string>
     <string name="goto_date">Ir a…</string>
