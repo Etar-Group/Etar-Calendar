@@ -42,6 +42,7 @@ import android.os.Process;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.CalendarAlerts;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -980,6 +981,17 @@ public class AlertService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                Notification notification = new NotificationCompat.Builder(this, ALERT_CHANNEL_ID)
+                        .setContentTitle("Update alerts")
+                        .setSmallIcon(R.drawable.ic_alarm_white)
+                        .setShowWhen(false)
+                        .build();
+                startForeground(1337, notification);
+                //Log.d(TAG, "startForeground did happen.");
+            }
+
             Message msg = mServiceHandler.obtainMessage();
             msg.arg1 = startId;
             msg.obj = intent.getExtras();

@@ -132,7 +132,13 @@ public class AlertReceiver extends BroadcastReceiver {
                 mStartingService.setReferenceCounted(false);
             }
             mStartingService.acquire();
-            context.startService(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+                //Log.d(TAG, "startForeground.");
+            } else {
+                context.startService(intent);
+            }
+
         }
     }
 
