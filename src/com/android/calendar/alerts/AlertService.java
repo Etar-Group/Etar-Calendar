@@ -982,14 +982,13 @@ public class AlertService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (Utils.isOreoOrLater()) {
                 Notification notification = new NotificationCompat.Builder(this, ALERT_CHANNEL_ID)
                         .setContentTitle("Update alerts")
-                        .setSmallIcon(R.drawable.ic_alarm_white)
+                        .setSmallIcon(R.drawable.stat_notify_calendar)
                         .setShowWhen(false)
                         .build();
                 startForeground(1337, notification);
-                //Log.d(TAG, "startForeground did happen.");
             }
 
             Message msg = mServiceHandler.obtainMessage();

@@ -132,9 +132,8 @@ public class AlertReceiver extends BroadcastReceiver {
                 mStartingService.setReferenceCounted(false);
             }
             mStartingService.acquire();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Utils.isOreoOrLater()) {
                 context.startForegroundService(intent);
-                //Log.d(TAG, "startForeground.");
             } else {
                 context.startService(intent);
             }
