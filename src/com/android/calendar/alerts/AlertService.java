@@ -173,7 +173,7 @@ public class AlertService extends Service {
         }
 
 
-        if (!prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true)) {
+        if (!prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true) && !Utils.isOreoOrLater()) {
             if (DEBUG) {
                 Log.d(TAG, "alert preference is OFF");
             }
