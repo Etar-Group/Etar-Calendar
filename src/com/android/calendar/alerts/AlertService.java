@@ -984,7 +984,7 @@ public class AlertService extends Service {
 
             if (Utils.isOreoOrLater()) {
                 Notification notification = new NotificationCompat.Builder(this, ALERT_CHANNEL_ID)
-                        .setContentTitle("Update alerts")
+                        .setContentTitle("Event notifications")
                         .setSmallIcon(R.drawable.stat_notify_calendar)
                         .setShowWhen(false)
                         .build();
