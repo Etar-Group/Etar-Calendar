@@ -128,7 +128,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 PowerManager pm =
                     (PowerManager)context.getSystemService(Context.POWER_SERVICE);
                 mStartingService = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                        "StartingAlertService");
+                        "Etar:StartingAlertService");
                 mStartingService.setReferenceCounted(false);
             }
             mStartingService.acquire();
