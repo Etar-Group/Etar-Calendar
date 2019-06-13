@@ -321,7 +321,7 @@
     <string name="one_hour">1 hora</string>
     <string name="one_and_a_half_hours">1.5 horas</string>
     <string name="two_hours">2 horas</string>
-    <string name="view_settings">Ver ajustes</string>
+    <string name="view_settings">Ajustes de visualización</string>
     <string name="preferences_month_view_portrait">Diseño de vista mensual (vertical)</string>
     <string name="preferences_month_view_landscape">Diseño de vista mensual (horizontal)</string>
     <string name="view_details">Ver detalles</string>
