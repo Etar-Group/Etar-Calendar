@@ -64,6 +64,7 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
         dynamicTheme.onCreate(this);
         setContentView(R.layout.simple_frame_layout_material);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         setSupportActionBar(toolbar);
         mController = CalendarController.getInstance(this);
         mFragment = (SelectVisibleCalendarsFragment) getFragmentManager().findFragmentById(
