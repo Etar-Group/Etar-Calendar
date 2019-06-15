@@ -70,7 +70,7 @@
 
     <style name="Widget.CalendarAppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">?attr/app_bar_color</item>
-        <item name="theme">@style/ThemeOverlay.CalendarAppTheme.ActionBar</item>
+        <item name="android:theme">@style/ThemeOverlay.CalendarAppTheme.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
