@@ -230,10 +230,10 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"רטט"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"צליל"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"התראה קופצת"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"ברירת מחדל של מועד תזכורת"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"ברירת מחדל של מועד תזכורת"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">בררת מחדל של מועד תזכורת</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">בררת מחדל של מועד תזכורת</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"השתמש באזור הזמן המקומי"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">להשתמש באזור הזמן המקומי</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"מציג לוחות שנה ושעות אירועים באזור הזמן המקומי שלך בנסיעות"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"אזור זמן מקומי"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">הצגת מספר שבוע</string>
@@ -252,35 +252,35 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"אין אירועים צפויים בלוח השנה"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"ניסיוני"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"תזכורות"</string>
-    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"דלג על תזכורות"</string>
-    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"דלג על תזכורות"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">דילוג על תזכורות</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">דילוג על תזכורות</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"שעות שקטות"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"השתק תזכורות לאירועים למשך פרק זמן שצוין."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"זמן התחלה של שעות שקטות"</string>
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"זמן הסיום של שעות שקטות"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"ניקוי באגים"</string>
-    <string name="copy_db" msgid="437691290566699292">"שלח מסד נתונים"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"מחפש את <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"הסר משתתף"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">ניפוי באגים</string>
+    <string name="copy_db" msgid="437691290566699292">שליחת מסד נתונים</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">בחיפוש אחר <xliff:g id="domain">%s</xliff:g>…</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">הסרת משתתף</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"תאריך התחלה"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"שעת התחלה"</string>
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"תאריך סיום"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"שעת סיום"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"אזור זמן"</string>
-    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"חזור על האירוע"</string>
-    <string name="accessibility_add_reminder" msgid="2267950744060950152">"הוסף תזכורת"</string>
-    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"הסר תזכורת"</string>
-    <string name="accessibility_add_attendee" msgid="5654014177472600916">"הוסף משתתף"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"סנכרן יומן"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">חזרה על האירוע</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">הוספת תזכורת</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">הסרת תזכורת</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">הוספת משתתף</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">סנכרון לוח שנה</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"אירוע הנמשך יום שלם"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"חזרה"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"שעת תזכורת"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"סוג תזכורת"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"הצג אותי כ"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">להציג אותי בתור</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"פרטיות"</string>
     <string name="accessibility_cal_notification" msgid="7267601064994839394">"התראת יומן"</string>
     <string name="accessibility_snooze_notification" msgid="5007852779125102681">"התראת נודניק"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"שלח דוא\"ל לאורחים"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">שליחת דוא״ל לאורחים</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ אירוע חדש"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
@@ -299,7 +299,7 @@
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> אירועים</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"אירוע נבחר"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"אל תסמן -&gt;"</string>
+    <string name="do_not_check" msgid="7815441673853466129">לא לסמן -&gt;</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"חזרה"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ללא חזרה"</string>
     <plurals name="recurrence_interval_daily">
@@ -337,7 +337,8 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"באותו יום בכל חודש"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"ללא תאריך סיום"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"עד תאריך מסוים"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"עד <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">עד <xliff:g id="date">%s</xliff:g>
+    </string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">עבור אירוע <xliff:g id="event_count">אחד</xliff:g>
@@ -347,7 +348,7 @@
         <item quantity="other">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">שינוי תאריך הסיום</string>
-    <string name="visibility_default">ברירת מחדל</string>
+    <string name="visibility_default">בררת מחדל</string>
     <string name="visibility_private">פרטי</string>
     <string name="visibility_public">ציבורי</string>
     <string name="goto_date">מעבר אל…</string>
