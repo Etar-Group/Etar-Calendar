@@ -15,9 +15,6 @@
 -->
 
 <resources>
-    <!-- MultiStateButton doesn't define any special attributes -->
-    <declare-styleable name="com.android.calendar.MultiStateButton">
-    </declare-styleable>
     <declare-styleable name="CustomWidget">
         <attr name="light_dark" format="color"/>
         <attr name="settings_titleText" format="reference|color" />
