@@ -55,7 +55,12 @@
             <xliff:g id="COUNT">%d</xliff:g> dni</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"tydzień <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">tydzień <xliff:g id="COUNT">%d</xliff:g>
+        </item>
+        <item quantity="few">tygodni <xliff:g id="COUNT">%d</xliff:g>
+        </item>
+        <item quantity="many">tygodnie <xliff:g id="COUNT">%d</xliff:g>
+        </item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Odśwież"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Pokaż dzień"</string>
@@ -104,7 +109,10 @@
     <string name="reminders_label" msgid="7292389181815525676">"Dodaj przypomnienie"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Brak kalendarzy"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Przed utworzeniem wydarzenia musisz dodać do urządzenia konto z Kalendarzem i ustawić wybrany kalendarz jako widoczny. Wybierz „Dodaj konto” (jeśli właśnie to zrobiłeś, poczekaj na zakończenie synchronizacji i spróbuj ponownie). Możesz też dotknąć Anuluj i upewnić się, że co najmniej jeden kalendarz jest widoczny."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendarz działa lepiej z kontem."\n\n"• Używaj go w dowolnej przeglądarce."\n"• Twórz kopie zapasowe wydarzeń."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">Kalendarz działa lepiej z kontem.
+\n
+\n• Używaj go w dowolnej przeglądarce
+\n• Twórz kopie zapasowe wydarzeń</string>
     <string name="add_account" msgid="1669072099756774952">"Dodaj konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendarz:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
@@ -156,8 +164,9 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Wydarzenie jednorazowe"</string>
     <string name="endByDate" msgid="7654221304929538201">"; do <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; jeden raz"</item>
-        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> razy"</item>
+        <item quantity="one">; jeden raz</item>
+        <item quantity="few">; <xliff:g id="number">%d</xliff:g> razy</item>
+        <item quantity="many">; co <xliff:g id="number">%d</xliff:g> razy</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one" msgid="5169052946627480942">"Codziennie"</item>
@@ -243,10 +252,11 @@
     <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Uśpij powiadomienie"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Wyślij e-maila do gości"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nowe wydarzenie"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Wydarzenie <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">Wydarzenie <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 wydarzenie"</item>
-        <item quantity="other" msgid="6093072093209431078">"Nowe wydarzenia (<xliff:g id="COUNT">%d</xliff:g>)"</item>
+        <item quantity="one">1 wydarzenie.</item>
+        <item quantity="few">Nowe wydarzenia (<xliff:g id="COUNT">%d</xliff:g>)</item>
+        <item quantity="many"></item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one" msgid="431585781647034528">"+1 wydarzenie"</item>
@@ -261,12 +271,14 @@
         <item quantity="other" msgid="707566499994398250">"Co <xliff:g id="COUNT">%d</xliff:g> dni"</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Co <xliff:g id="COUNT">%d</xliff:g> tydzień"</item>
-        <item quantity="other" msgid="7094801039989237061">"Co <xliff:g id="COUNT">%d</xliff:g> tyg."</item>
+        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> tydzień</item>
+        <item quantity="few">Co <xliff:g id="COUNT">%d</xliff:g> tygodni</item>
+        <item quantity="many"></item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Co <xliff:g id="COUNT">%d</xliff:g> miesiąc"</item>
-        <item quantity="other" msgid="5419723710346646523">"Co <xliff:g id="COUNT">%d</xliff:g> mies."</item>
+        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> miesiąc</item>
+        <item quantity="few">Co <xliff:g id="COUNT">%d</xliff:g> miesięcy</item>
+        <item quantity="many"></item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one" msgid="5819562634008179102">"Co <xliff:g id="COUNT">%d</xliff:g> rok"</item>
@@ -332,4 +344,9 @@
     <string name="show_time_start">Tylko czas rozpoczęcia</string>
     <string name="show_time_start_end">Czas rozpoczęcia i zakończenia</string>
     <string name="show_time_start_end_below">Czas rozpoczęcia i zakończenia poniżej wydarzenia</string>
+    <string name="share_label">Udostępnij</string>
+    <string name="no_map">Nie zainstalowano aplikacji do obsługi map</string>
+    <string name="cal_export_succ_msg">Zdarzenie zostało pomyślnie wyeksportowane: %1s</string>
+    <string name="preferences_month_view_portrait">Układ widoku miesiąca (Portret)</string>
+    <string name="preferences_month_view_landscape">Układ widoku miesiąca (Krajobraz)</string>
 </resources>
