@@ -27,28 +27,28 @@
     <string name="repeats_label" msgid="7414023871434593196">"Powtarzanie"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Bez tytułu)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">1 minuta</item>
+        <item quantity="one">1 minuta.</item>
         <item quantity="few">
             <xliff:g id="COUNT">%d</xliff:g> minuty</item>
         <item quantity="many">
             <xliff:g id="COUNT">%d</xliff:g> minut</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 min</item>
+        <item quantity="one">1 minuta.</item>
         <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> min</item>
+            <xliff:g id="COUNT">%d</xliff:g> minuty</item>
         <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> min</item>
+            <xliff:g id="COUNT">%d</xliff:g> minut</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 godzina</item>
+        <item quantity="one">1 godzina.</item>
         <item quantity="few">
             <xliff:g id="COUNT">%d</xliff:g> godziny</item>
         <item quantity="many">
             <xliff:g id="COUNT">%d</xliff:g> godzin</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">1 dzień</item>
+        <item quantity="one">1 dzień.</item>
         <item quantity="few">
             <xliff:g id="COUNT">%d</xliff:g> dni</item>
         <item quantity="many">
@@ -169,13 +169,18 @@
         <item quantity="many">; co <xliff:g id="number">%d</xliff:g> razy</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Codziennie"</item>
-        <item quantity="other" msgid="5455230727715859264">"Co <xliff:g id="NUMBER">%d</xliff:g> dni"</item>
+        <item quantity="one">Codziennie</item>
+        <item quantity="few">Co <xliff:g id="NUMBER">%d</xliff:g> dni</item>
+        <item quantity="many">Co <xliff:g id="NUMBER">%d</xliff:g> dni</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Codziennie (pn-pt)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Co tydzień w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Co <xliff:g id="NUMBER">%1$d</xliff:g> tygodni(e) w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Co tydzień w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
+        </item>
+        <item quantity="few">Co <xliff:g id="NUMBER">%1$d</xliff:g> tygodni w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
+        </item>
+        <item quantity="many">Co <xliff:g id="NUMBER">%1$d</xliff:g> tygodnie w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
+        </item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Co miesiąc"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Co rok"</string>
@@ -216,8 +221,11 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Wersja kompilacji"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalendarz"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="few">+<xliff:g id="NUMBER">%d</xliff:g>
+        </item>
+        <item quantity="many">+<xliff:g id="number">%d</xliff:g>
+        </item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Brak zbliżających się wydarzeń w kalendarzu"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperymentalny"</string>
@@ -255,34 +263,39 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">Wydarzenie <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 wydarzenie.</item>
-        <item quantity="few">Nowe wydarzenia (<xliff:g id="COUNT">%d</xliff:g>)</item>
-        <item quantity="many"></item>
+        <item quantity="few">Nowe wydarzenia <xliff:g id="count">%d</xliff:g>
+        </item>
+        <item quantity="many">Nowych wydarzeń <xliff:g id="count">%d</xliff:g>
+        </item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"+1 wydarzenie"</item>
-        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> wydarzenia(ń)"</item>
+        <item quantity="one">+1 wydarzenie.</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> wydarzenia</item>
+        <item quantity="many">+<xliff:g id="count">%d</xliff:g> wydarzeń</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Wybrane wydarzenie"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NIE zaznaczaj -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Powtarzanie"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nigdy nie powtarzaj"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Co <xliff:g id="COUNT">%d</xliff:g> dzień"</item>
-        <item quantity="other" msgid="707566499994398250">"Co <xliff:g id="COUNT">%d</xliff:g> dni"</item>
+        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> dzień</item>
+        <item quantity="few">Co <xliff:g id="COUNT">%d</xliff:g> dni</item>
+        <item quantity="many">Co <xliff:g id="COUNT">%d</xliff:g> dni</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> tydzień</item>
-        <item quantity="few">Co <xliff:g id="COUNT">%d</xliff:g> tygodni</item>
-        <item quantity="many"></item>
+        <item quantity="one">"Co  "<xliff:g id="count">%d</xliff:g> tydzień</item>
+        <item quantity="few">Co <xliff:g id="count">%d</xliff:g> tygodni</item>
+        <item quantity="many">Co <xliff:g id="count">%d</xliff:g> tygodnie</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> miesiąc</item>
-        <item quantity="few">Co <xliff:g id="COUNT">%d</xliff:g> miesięcy</item>
-        <item quantity="many"></item>
+        <item quantity="few">Co <xliff:g id="count">%d</xliff:g> miesięcy</item>
+        <item quantity="many">Co <xliff:g id="count">%d</xliff:g> miesięce</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Co <xliff:g id="COUNT">%d</xliff:g> rok"</item>
-        <item quantity="other" msgid="5678653649746562060">"Co <xliff:g id="COUNT">%d</xliff:g> lat(a)"</item>
+        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> rok</item>
+        <item quantity="few">Co <xliff:g id="count">%d</xliff:g> lat</item>
+        <item quantity="many">Co <xliff:g id="count">%d</xliff:g> lata</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"tego samego dnia miesiąca"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Bez końca"</string>
@@ -290,8 +303,9 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Określona liczba powtórzeń"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"Do <xliff:g id="EVENT_COUNT">%d</xliff:g> wydarzenia"</item>
-        <item quantity="other" msgid="8779598489398048259">"Dla <xliff:g id="EVENT_COUNT">%d</xliff:g> wydarzeń"</item>
+        <item quantity="one">Dla <xliff:g id="event_count">%d</xliff:g> wydarzenia</item>
+        <item quantity="few">Dla <xliff:g id="event_count">%d</xliff:g> wydarzeń</item>
+        <item quantity="many">Dla <xliff:g id="event_count">%d</xliff:g> wydarzeń</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"zmień datę zakończenia"</string>
     <string name="visibility_default">Domyślne</string>
