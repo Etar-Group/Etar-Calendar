@@ -199,7 +199,7 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">Waktu pengingat baku</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Waktu pengingat baku</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210"></string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Gunakan zona waktu domestik</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Tmplkn kalender &amp; wkt dlm zona waktu domestik saat bepergian</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">Zona wkt domestik</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Tampilkan angka minggu"</string>
@@ -267,7 +267,7 @@
     <plurals name="recurrence_interval_yearly">
         <item quantity="other">Setiap <xliff:g id="count">%d</xliff:g> tahun</item>
     </plurals>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">hari sama tiap bulan</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">hari yang sama setiap bulan</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Selamanya"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Sampai tanggal tertentu"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">Sampai <xliff:g id="date">%s</xliff:g>
