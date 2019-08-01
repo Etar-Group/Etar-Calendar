@@ -50,7 +50,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -75,8 +74,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int mTextSizeLunar = 10;
     private static int mTextSizeEvent = 12;
     private static int mTextSizeEventTitle = 14;
-    private static int mTextSizeMoreEvents = 12;
-    private static int mTextSizeMonthName = 14;
     private static int mTextSizeWeekNum = 9;
     private static int mDnaMargin = 4;
     private static int mDnaAllDayHeight = 4;
@@ -91,14 +88,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int mTopPaddingMonthNumber = 3;
     private static int mTopPaddingWeekNumber = 4;
     private static int mSidePaddingWeekNumber = 12;
-    private static int mDaySeparatorOuterWidth = 0;
     private static int mDaySeparatorInnerWidth = 1;
-    private static int mDaySeparatorVerticalLength = 53;
-    private static int mDaySeparatorVerticalLenghtPortrait = 64;
     private static int mMinWeekWidth = 50;
     private static int mLunarPaddingLunar = 2;
-    private static int mEventXOffsetLandscape = 38;
-    private static int mEventYOffsetLandscape = 8;
     private static int mEventYOffsetPortrait = 2;
     private static int mEventSquareWidth = 3;
     private static int mEventSquareHeight = 10;
@@ -122,8 +114,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected ArrayList<Event> mUnsortedEvents = null;
     // This is for drawing the outlines around event chips and supports up to 10
     // events being drawn on each day. The code will expand this if necessary.
-    protected FloatRef mEventOutlines = new FloatRef(10 * 4 * 4 * 7);
-    protected Paint mMonthNamePaint;
     protected TextPaint mEventPaint;
     protected TextPaint mSolidBackgroundEventPaint;
     protected TextPaint mFramedEventPaint;
@@ -150,8 +140,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mMonthNumColor;
     protected int mMonthNumOtherColor;
     protected int mMonthNumTodayColor;
-    protected int mMonthNameColor;
-    protected int mMonthNameOtherColor;
     protected int mMonthEventColor;
     protected int mMonthDeclinedEventColor;
     protected int mMonthDeclinedExtrasColor;
@@ -159,10 +147,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mMonthEventOtherColor;
     protected int mMonthEventExtraOtherColor;
     protected int mMonthWeekNumColor;
-    protected int mMonthBusyBitsBgColor;
     protected int mMonthBusyBitsBusyTimeColor;
     protected int mMonthBusyBitsConflictTimeColor;
-    protected int mEventChipOutlineColor = 0xFFFFFFFF;
     protected int mDaySeparatorInnerColor;
     protected int mTodayAnimateColor;
     HashMap<Integer, Utils.DNAStrand> mDna = null;
@@ -291,15 +277,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 mTextSizeLunar *= mScale;
                 mTextSizeEvent *= mScale;
                 mTextSizeEventTitle *= mScale;
-                mTextSizeMoreEvents *= mScale;
-                mTextSizeMonthName *= mScale;
                 mTextSizeWeekNum *= mScale;
-                mDaySeparatorOuterWidth *= mScale;
                 mDaySeparatorInnerWidth *= mScale;
-                mDaySeparatorVerticalLength *= mScale;
-                mDaySeparatorVerticalLenghtPortrait *= mScale;
-                mEventXOffsetLandscape *= mScale;
-                mEventYOffsetLandscape *= mScale;
                 mEventYOffsetPortrait *= mScale;
                 mEventSquareWidth *= mScale;
                 mEventSquareHeight *= mScale;
@@ -316,7 +295,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 mDnaAllDayWidth *= mScale;
                 mTodayHighlightWidth *= mScale;
             }
-            mBorderSpace = mEventSquareBorder + 1;       // want a 1-pixel gap inside border
+            mBorderSpace = mEventSquareBorder + 1;      // want a 1-pixel gap inside border
             mStrokeWidthAdj = mEventSquareBorder / 2;   // adjust bounds for stroke width
             if (!mShowDetailsInMonth) {
                 mTopPaddingMonthNumber += mDnaAllDayHeight + mDnaMargin;
@@ -448,7 +427,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     /**
-     * @param tz
+     * @param tz - time zone
      */
     public boolean updateToday(String tz) {
         mToday.timezone = tz;
@@ -505,20 +484,16 @@ public class MonthWeekEventsView extends SimpleWeekView {
     // TODO move into SimpleWeekView
     // Computes the x position for the left side of the given day
     private int computeDayLeftPosition(int day) {
-        int effectiveWidth = mWidth;
-        int x = 0;
-        x = day * effectiveWidth / mNumDays;
-        return x;
+        return day * mWidth / mNumDays;
     }
 
     @Override
     protected void drawDaySeparators(Canvas canvas) {
-        float lines[] = new float[8 * 4];
-        int count = 6 * 4;
-        int wkNumOffset = 0;
+        final int coordinatesPerLine = 4;
+        float lines[] = new float[7 * coordinatesPerLine];
         int i = 0;
 
-        count += 4;
+        // Horizontal line
         lines[i++] = 0;
         lines[i++] = 0;
         lines[i++] = mWidth;
@@ -526,8 +501,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
         int y0 = 0;
         int y1 = mHeight;
 
-        while (i < count) {
-            int x = computeDayLeftPosition(i / 4 - wkNumOffset);
+        // 6 vertical lines
+        while (i < lines.length) {
+            int x = computeDayLeftPosition(i / coordinatesPerLine);
             lines[i++] = x;
             lines[i++] = y0;
             lines[i++] = x;
@@ -535,7 +511,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
         p.setColor(mDaySeparatorInnerColor);
         p.setStrokeWidth(mDaySeparatorInnerWidth);
-        canvas.drawLines(lines, 0, count, p);
+        canvas.drawLines(lines, 0, lines.length, p);
     }
 
     @Override
@@ -725,32 +701,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
         for (DayEventFormatter dayEventFormatter : dayFormatters) {
             dayEventFormatter.drawDay(canvas, boxBoundaries);
         }
-    }
-
-    protected int addChipOutline(FloatRef lines, int count, int x, int y) {
-        lines.ensureSize(count + 16);
-        // top of box
-        lines.array[count++] = x;
-        lines.array[count++] = y;
-        lines.array[count++] = x + mEventSquareWidth;
-        lines.array[count++] = y;
-        // right side of box
-        lines.array[count++] = x + mEventSquareWidth;
-        lines.array[count++] = y;
-        lines.array[count++] = x + mEventSquareWidth;
-        lines.array[count++] = y + mEventSquareWidth;
-        // left side of box
-        lines.array[count++] = x;
-        lines.array[count++] = y;
-        lines.array[count++] = x;
-        lines.array[count++] = y + mEventSquareWidth + 1;
-        // bottom of box
-        lines.array[count++] = x;
-        lines.array[count++] = y + mEventSquareWidth;
-        lines.array[count++] = x + mEventSquareWidth + 1;
-        lines.array[count++] = y + mEventSquareWidth;
-
-        return count;
     }
 
     protected class DayEventSorter {
@@ -1030,17 +980,16 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * Takes care of laying events out vertically.
      * Vertical layout:
      *   (top of box)
-     * a. mEventYOffsetLandscape or portrait equivalent
-     * b. Event title: mEventHeight for a normal event, + 2xBORDER_SPACE for all-day event
-     * c. [optional] Time range (mExtrasHeight)
-     * d. mEventLinePadding
+     * a. Event title: mEventHeight for a normal event, + 2xBORDER_SPACE for all-day event
+     * b. [optional] Time range (mExtrasHeight)
+     * c. mEventLinePadding
      *
-     * Repeat (b,c,d) as needed and space allows.  If we have more events than fit, we need
+     * Repeat (a,b,c) as needed and space allows.  If we have more events than fit, we need
      * to leave room for something like "+2" at the bottom:
      *
-     * e. "+ more" line (mExtrasHeight)
+     * d. "+ more" line (mExtrasHeight)
      *
-     * f. mEventBottomPadding (overlaps mEventLinePadding)
+     * e. mEventBottomPadding (overlaps mEventLinePadding)
      *   (bottom of box)
      */
     protected class DayEventFormatter {
@@ -1930,22 +1879,4 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     }
 
-    /**
-     * This provides a reference to a float array which allows for easy size
-     * checking and reallocation. Used for drawing lines.
-     */
-    private class FloatRef {
-        float[] array;
-
-        public FloatRef(int size) {
-            array = new float[size];
-        }
-
-        public void ensureSize(int newSize) {
-            if (newSize >= array.length) {
-                // Add enough space for 7 more boxes to be drawn
-                array = Arrays.copyOf(array, newSize + 16 * 7);
-            }
-        }
-    }
 }
