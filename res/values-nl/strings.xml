@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
     <string name="what_label" msgid="1933578391985810049">"Wat"</string>
     <string name="where_label" msgid="3472482206065595118">"Waar"</string>
@@ -29,25 +26,25 @@
     <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Herhaling"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Geen titel)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 minuut"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuten"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 min."</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 uur"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> uur"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagen"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"week <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 minuut"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuten"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 min."</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 uur"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> uur"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagen"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"week <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Vernieuwen"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Geef dag weer"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -120,12 +117,12 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Snelle reactie"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Snelle reactie kiezen"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Het vinden van een e-mailprogramma is mislukt"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Ik ben een paar minuten te laat."</item>
-    <item msgid="6215158751728689832">"Ik ben er over ongeveer 10 minuten."</item>
-    <item msgid="4485794001743679338">"Begin maar vast zonder mij."</item>
-    <item msgid="8036557974294987511">"Ik red het helaas niet. Laten we een nieuwe afspraak maken."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Ik ben een paar minuten te laat."</item>
+        <item msgid="6215158751728689832">"Ik ben er over ongeveer 10 minuten."</item>
+        <item msgid="4485794001743679338">"Begin maar vast zonder mij."</item>
+        <item msgid="8036557974294987511">"Ik red het helaas niet. Laten we een nieuwe afspraak maken."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Eigen reactie opstellen…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringen"</string>
@@ -146,24 +143,23 @@
     <string name="snooze_label" msgid="1515893621063224666">"Snooze"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Eenmalige afspraak"</string>
     <string name="endByDate" msgid="7654221304929538201">"; tot <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; één keer"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> keer"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Dagelijks"</item>
-    <item quantity="other" msgid="5455230727715859264">"Elke <xliff:g id="NUMBER">%d</xliff:g> dagen"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"; één keer"</item>
+        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> keer"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Dagelijks"</item>
+        <item quantity="other" msgid="5455230727715859264">"Elke <xliff:g id="NUMBER">%d</xliff:g> dagen"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Elke werkdag (ma - vr)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Wekelijks op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Elke <xliff:g id="NUMBER">%1$d</xliff:g> weken op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Wekelijks op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"Elke <xliff:g id="NUMBER">%1$d</xliff:g> weken op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Maandelijks"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Jaarlijks"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Maandelijks (op dag <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Jaarlijks (op <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Aangepast (kan niet op de telefoon worden aangepast)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Alleen deze afspraak wijzigen"</string>
     <string name="modify_all" msgid="4421657265864209041">"Alle afspraken in de reeks wijzigen"</string>
@@ -198,10 +194,10 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"Over"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build-versie"</string>
     <string name="gadget_title" msgid="939918875331310945">"Agenda"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Geen lopende agenda-afspraken"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimenteel"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Herinneringen"</string>
@@ -236,51 +232,97 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Gasten e-mailen"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nieuwe afspraak"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Afspraak <xliff:g id="ITEM_INDEX">%1$s</xliff:g> van <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 afspraak"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> afspraken"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 afspraak"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> afspraken"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 afspraak"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> afspraken"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 afspraak"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> afspraken"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Geselecteerde afspraak"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NIET aanvinken -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Herhalen"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Wordt nooit herhaald"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Elke <xliff:g id="COUNT">%d</xliff:g> dag"</item>
-    <item quantity="other" msgid="707566499994398250">"Elke <xliff:g id="COUNT">%d</xliff:g> dagen"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Elke <xliff:g id="COUNT">%d</xliff:g> week"</item>
-    <item quantity="other" msgid="7094801039989237061">"Elke <xliff:g id="COUNT">%d</xliff:g> weken"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Elke <xliff:g id="COUNT">%d</xliff:g> maand"</item>
-    <item quantity="other" msgid="5419723710346646523">"Elke <xliff:g id="COUNT">%d</xliff:g> maanden"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Elk <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
-    <item quantity="other" msgid="5678653649746562060">"Elke <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"Elke <xliff:g id="COUNT">%d</xliff:g> dag"</item>
+        <item quantity="other" msgid="707566499994398250">"Elke <xliff:g id="COUNT">%d</xliff:g> dagen"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Elke <xliff:g id="COUNT">%d</xliff:g> week"</item>
+        <item quantity="other" msgid="7094801039989237061">"Elke <xliff:g id="COUNT">%d</xliff:g> weken"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"Elke <xliff:g id="COUNT">%d</xliff:g> maand"</item>
+        <item quantity="other" msgid="5419723710346646523">"Elke <xliff:g id="COUNT">%d</xliff:g> maanden"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"Elk <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
+        <item quantity="other" msgid="5678653649746562060">"Elke <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"elke maand op dezelfde dag"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Voor altijd"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Tot een datum"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Tot <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Voor een aantal evenementen"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenement"</item>
-    <item quantity="other" msgid="8779598489398048259">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenementen"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenement"</item>
+        <item quantity="other" msgid="8779598489398048259">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenementen"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"einddatum wijzigen"</string>
     <string name="visibility_default">Standaard</string>
-  <string name="visibility_private">Privé</string>
-  <string name="visibility_public">Openbaar</string>
-  <string name="preferences_alerts_custom_snooze_delay_title">Snoozeduur vragen</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Duur vragen bij het snoozen van een herinnering</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Altijd de standaardduur gebruiken</string>
-  <string name="snooze_delay_dialog_title">Snoozeduur instellen</string>
-  <string name="preferences_default_snooze_delay_title">Standaardsnoozeduur</string>
-  <string name="preferences_default_snooze_delay_dialog">Standaardsnoozeduur</string>
+    <string name="visibility_private">Privé</string>
+    <string name="visibility_public">Openbaar</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Snoozeduur vragen</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Duur vragen bij het snoozen van een herinnering</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Altijd de standaardduur gebruiken</string>
+    <string name="snooze_delay_dialog_title">Snoozeduur instellen</string>
+    <string name="preferences_default_snooze_delay_title">Standaardsnoozeduur</string>
+    <string name="preferences_default_snooze_delay_dialog">Standaardsnoozeduur</string>
+    <string name="goto_date">Ga naar...</string>
+    <string name="rsvp_accepted">Geantwoord ja.</string>
+    <string name="rsvp_tentative">Geantwoord misschien.</string>
+    <string name="rsvp_declined">Geantwoord nee.</string>
+    <string name="preferences_theme">Thema</string>
+    <string name="preferences_light_theme">Licht</string>
+    <string name="preferences_dark_theme">Donker</string>
+    <string name="preferences_black_theme">Zwart</string>
+    <string name="preferences_color">Primaire kleur</string>
+    <string name="preferences_color_pick">Primaire kleur</string>
+    <string name="preferences_days_per_week_title">Dagen per week</string>
+    <string name="preferences_days_per_week_dialog">Dagen per week</string>
+    <string name="preferences_default_event_duration_title">Standaard evenement duur</string>
+    <string name="preferences_issues">Rapporteer problemen</string>
+    <string name="user_rejected_calendar_write_permission">Etar heeft lees en schrijf bevoegdheden nodig om juist te kunnen werken. Probeer het svp nog een keer.</string>
+    <string name="calendar_permission_not_granted">Sorry deze functie werkt niet. Etar heeft kalender lees- en schrijfbevoegdheden nodig om juist te kunnen werken</string>
+    <string name="visibility_confidential">Vertrouwelijk</string>
+    <string name="zero_minutes">0 minuten</string>
+    <string name="fifteen_minutes">15 minuten</string>
+    <string name="thirty_minutes">30 minuten</string>
+    <string name="one_hour">1 uur</string>
+    <string name="one_and_a_half_hours">1.5 uur</string>
+    <string name="two_hours">2 uren</string>
+    <string name="share_label">Delen</string>
+    <string name="no_map">Er is geen kaart app geinstalleerd</string>
+    <string name="default_start_title">Standaard overzicht</string>
+    <string name="default_start_last">Vorig overzicht</string>
+    <string name="error_generating_ics">Problemen ondervonden tijdens het delen van een evenement</string>
+    <string name="cal_share_intent_title">Stuur evenement naar:</string>
+    <string name="cal_export_event_sdcard_title">Export naar SD kaart</string>
+    <string name="cal_export_succ_msg">Evenement succesvol geëxporteerd: %1s</string>
+    <string name="cal_import_menu_title">Importeer evenement</string>
+    <string name="cal_nothing_to_import">Niets te importeren</string>
+    <string name="cal_import_error_msg">Import naar kalender mislukt</string>
+    <string name="cal_import_error_date_msg">Begrijp de opgegeven datum niet: %s</string>
+    <string name="cal_pick_ics">kies bestand voor import</string>
+    <string name="view_settings">Bekijk instellingen</string>
+    <string name="preferences_month_view_portrait">Maand overzicht (Staand)</string>
+    <string name="preferences_month_view_landscape">Maand overzicht (Liggend)</string>
+    <string name="view_details">Laat details zien</string>
+    <string name="display_time">Laat tijd zien</string>
+    <string name="display_location">Toon locatie</string>
+    <string name="show_time_no">Nee</string>
+    <string name="show_time_start">Alleen starttijd</string>
+    <string name="show_time_start_end">Start- en eindtijd</string>
+    <string name="show_time_start_end_below">Start- en eindtijd onder het evenement</string>
 </resources>

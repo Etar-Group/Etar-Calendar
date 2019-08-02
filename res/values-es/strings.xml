@@ -286,7 +286,8 @@
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_pick_ics">Elige un archivo para importar</string>
     <string name="cal_share_intent_title">Envía evento a:</string>
-    <string name="calendar_permission_not_granted"/>
+    <string name="calendar_permission_not_granted">Lo siento, esta característica no puede funcionar.
+\nEtar requiere permisos de lectura y escritura en el calendario para funcionar correctamente</string>
     <string name="default_start_last">Vista previamente utilizada</string>
     <string name="default_start_title">Vista de</string>
     <string name="goto_date">Ir a…</string>
@@ -320,7 +321,7 @@
     <string name="one_hour">1 hora</string>
     <string name="one_and_a_half_hours">1.5 horas</string>
     <string name="two_hours">2 horas</string>
-    <string name="view_settings">Ver ajustes</string>
+    <string name="view_settings">Ajustes de visualización</string>
     <string name="preferences_month_view_portrait">Diseño de vista mensual (vertical)</string>
     <string name="preferences_month_view_landscape">Diseño de vista mensual (horizontal)</string>
     <string name="view_details">Ver detalles</string>
@@ -330,4 +331,5 @@
     <string name="show_time_start">Solo hora de comienzo</string>
     <string name="show_time_start_end">Hora de comienzo y de terminación</string>
     <string name="show_time_start_end_below">Hora de comienzo y de terminación debajo del evento</string>
+    <string name="cal_import_error_date_msg">No entiendo la fecha proporcionada: %s</string>
 </resources>

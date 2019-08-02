@@ -12,9 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
-     -->
-
-    <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+     --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"التقويم"</string>
     <string name="what_label" msgid="1933578391985810049">"الحدث"</string>
     <string name="where_label" msgid="3472482206065595118">"المكان"</string>
@@ -280,4 +278,6 @@
     <string name="visibility_public">عام</string>
     <string name="share_label">مشاركة</string>
     <string name="rsvp_accepted">تمت الإجابة بنعم.</string>
+    <string name="no_map">لا يوجد تطبيق خرائط مثبت</string>
+    <string name="view_settings">عرض الإعدادات</string>
 </resources>
