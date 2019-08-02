@@ -153,10 +153,10 @@ public class GeneralPreferences extends PreferenceFragment implements
     public static void setDefaultValues(Context context) {
         if (Utils.isOreoOrLater()) {
             PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                R.xml.general_preferences_oreo_and_up, false);
+                R.xml.general_preferences_oreo_and_up, true);
         } else {
             PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                    R.xml.general_preferences, false);
+                    R.xml.general_preferences, true);
         }
     }
 

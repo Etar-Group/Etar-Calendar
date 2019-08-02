@@ -17,6 +17,7 @@
 package com.android.calendar;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 public class CalendarApplication extends Application {
     @Override
@@ -26,8 +27,17 @@ public class CalendarApplication extends Application {
         /*
          * Ensure the default values are set for any receiver, activity,
          * service, etc. of Calendar
+         * please increment SHARED_PREFS_VERSION each time the new default value appears
+         * in a layout xml file in order to make sure it will be initialized
          */
-        GeneralPreferences.setDefaultValues(this);
+        final int SHARED_PREFS_VERSION = 1;
+        final String VERSION_KEY = "spv";
+        SharedPreferences preferences = GeneralPreferences.getSharedPreferences(this);
+        if (preferences.getInt(VERSION_KEY, 0) != SHARED_PREFS_VERSION) {
+            GeneralPreferences.setDefaultValues(this);
+            ViewDetailsPreferences.setDefaultValues(this);
+            preferences.edit().putInt(VERSION_KEY, SHARED_PREFS_VERSION).apply();
+        }
 
         // Save the version number, for upcoming 'What's new' screen.  This will be later be
         // moved to that implementation.
