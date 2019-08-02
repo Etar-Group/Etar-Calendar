@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -44,9 +43,9 @@ public class ViewDetailsPreferences extends PreferenceFragment {
         }
     }
     private static class PreferenceKeys {
-        final String KEY_DISPLAY_TIME;
-        final String KEY_DISPLAY_LOCATION;
-        final String KEY_MAX_NUMBER_OF_LINES;
+        protected final String KEY_DISPLAY_TIME;
+        protected final String KEY_DISPLAY_LOCATION;
+        protected final String KEY_MAX_NUMBER_OF_LINES;
         PreferenceKeys(String keyDisplayTime, String keyDisplayLocation, String keyMaxNumberOfLInes) {
             KEY_DISPLAY_TIME = keyDisplayTime;
             KEY_DISPLAY_LOCATION = keyDisplayLocation;
@@ -55,20 +54,16 @@ public class ViewDetailsPreferences extends PreferenceFragment {
     }
 
     protected static class PreferenceConfiguration {
-        PreferenceKeys mKeys;
-        ListPreference mDisplayTime;
-        ListPreference mMaxLines;
-        CheckBoxPreference mDisplayLocation;
+        private PreferenceKeys mKeys;
+        private ListPreference mDisplayTime;
 
         PreferenceConfiguration(PreferenceKeys keys) {
             mKeys = keys;
         }
 
-        void onCreate(PreferenceScreen preferenceScreen, Activity activity)
+        protected void onCreate(PreferenceScreen preferenceScreen, Activity activity)
         {
             mDisplayTime = (ListPreference) preferenceScreen.findPreference(mKeys.KEY_DISPLAY_TIME);
-            mMaxLines = (ListPreference) preferenceScreen.findPreference(mKeys.KEY_MAX_NUMBER_OF_LINES);
-            mDisplayLocation = (CheckBoxPreference) preferenceScreen.findPreference(mKeys.KEY_DISPLAY_LOCATION);
             initDisplayTime(activity);
         }
         private void initDisplayTime(Activity activity) {
@@ -90,19 +85,19 @@ public class ViewDetailsPreferences extends PreferenceFragment {
             mContext = context;
             mPrefs = GeneralPreferences.getSharedPreferences(context);
         }
-        PreferenceKeys getPreferenceKeys() {
+        public PreferenceKeys getPreferenceKeys() {
             int orientation = mContext.getResources().getConfiguration().orientation;
             boolean landscape = (orientation == Configuration.ORIENTATION_LANDSCAPE);
             return landscape ? LANDSCAPE_PREFS : PORTRAIT_PREFS;
         }
-        TimeVisibility getTimeVisibility(PreferenceKeys keys) {
+        public TimeVisibility getTimeVisibility(PreferenceKeys keys) {
             String visibility = mPrefs.getString(keys.KEY_DISPLAY_TIME, getDefaultTimeToShow(mContext).toString());
             return TimeVisibility.values()[Integer.parseInt(visibility)];
         }
-        boolean getShowLocation(PreferenceKeys keys) {
+        public boolean getShowLocation(PreferenceKeys keys) {
             return mPrefs.getBoolean(keys.KEY_DISPLAY_LOCATION, false);
         }
-        Integer getMaxNumberOfLines(PreferenceKeys keys) {
+        public Integer getMaxNumberOfLines(PreferenceKeys keys) {
             return Integer.parseInt(mPrefs.getString(keys.KEY_MAX_NUMBER_OF_LINES, null));
         }
     }
