@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendár"</string>
     <string name="what_label" msgid="1933578391985810049">"Čo"</string>
     <string name="where_label" msgid="3472482206065595118">"Kde"</string>
@@ -29,25 +26,25 @@
     <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Opakovanie"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Bez názvu)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 minúta"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 min."</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 hodina"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> hod."</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 deň"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> d."</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"týždeň <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 minúta"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 min."</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 hodina"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> hod."</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 deň"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> d."</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"týždeň <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Obnoviť"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Zobraziť deň"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -120,12 +117,12 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Rýchla odpoveď"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Vyberte rýchlu odpoveď"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"E-mailový program sa nepodarilo nájsť"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Budem pár minút meškať."</item>
-    <item msgid="6215158751728689832">"Budem tam o 10 minút."</item>
-    <item msgid="4485794001743679338">"Začnite bezo mňa."</item>
-    <item msgid="8036557974294987511">"Je mi ľúto, ale nestíham. Naplánujeme to na inokedy."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Budem pár minút meškať."</item>
+        <item msgid="6215158751728689832">"Budem tam o 10 minút."</item>
+        <item msgid="4485794001743679338">"Začnite bezo mňa."</item>
+        <item msgid="8036557974294987511">"Je mi ľúto, ale nestíham. Naplánujeme to na inokedy."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napíšte vlastnú..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizátor:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Pripomienky"</string>
@@ -146,24 +143,23 @@
     <string name="snooze_label" msgid="1515893621063224666">"Odložiť"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Jednorazová udalosť"</string>
     <string name="endByDate" msgid="7654221304929538201">", do <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">", jednorazovo"</item>
-    <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g>-krát"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Denne"</item>
-    <item quantity="other" msgid="5455230727715859264">"Vždy po <xliff:g id="NUMBER">%d</xliff:g> dňoch"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">", jednorazovo"</item>
+        <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g>-krát"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Denne"</item>
+        <item quantity="other" msgid="5455230727715859264">"Vždy po <xliff:g id="NUMBER">%d</xliff:g> dňoch"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Každý pracovný deň (Po. – Pi.)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Každý týždeň v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Raz za <xliff:g id="NUMBER">%1$d</xliff:g> týžd. v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Každý týždeň v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"Raz za <xliff:g id="NUMBER">%1$d</xliff:g> týžd. v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Mesačne"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Ročne"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mesačne (dňa <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Ročne (vždy <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Vlastné (nie je možné prispôsobiť v telefóne)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Zmeniť iba túto udalosť"</string>
     <string name="modify_all" msgid="4421657265864209041">"Zmeniť všetky udalosti v rade"</string>
@@ -198,10 +194,10 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"O službe"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Verzia zostavy"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalendár"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Žiadne ďalšie udalosti v kalendári"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimentálne"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Pripomienky"</string>
@@ -236,51 +232,97 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Poslať e-mail hosťom"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"Pridať novú udalosť"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Udalosť <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 udalosť"</item>
-    <item quantity="other" msgid="6093072093209431078">"Počet udalostí: <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 udalosť"</item>
-    <item quantity="other" msgid="3609243840882275136">"+ďalšie udalosti (<xliff:g id="COUNT">%d</xliff:g>)"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 udalosť"</item>
+        <item quantity="other" msgid="6093072093209431078">"Počet udalostí: <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 udalosť"</item>
+        <item quantity="other" msgid="3609243840882275136">"+ďalšie udalosti (<xliff:g id="COUNT">%d</xliff:g>)"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Vybratá udalosť"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NEzačiarknite -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakovať"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nikdy neopakovať"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>
-    <item quantity="other" msgid="707566499994398250">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Raz za <xliff:g id="COUNT">%d</xliff:g> týžd."</item>
-    <item quantity="other" msgid="7094801039989237061">"Raz za <xliff:g id="COUNT">%d</xliff:g> týžd."</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Raz za <xliff:g id="COUNT">%d</xliff:g> mes."</item>
-    <item quantity="other" msgid="5419723710346646523">"Raz za <xliff:g id="COUNT">%d</xliff:g> mes."</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Raz za <xliff:g id="COUNT">%d</xliff:g> r."</item>
-    <item quantity="other" msgid="5678653649746562060">"Raz za <xliff:g id="COUNT">%d</xliff:g> r."</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>
+        <item quantity="other" msgid="707566499994398250">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Raz za <xliff:g id="COUNT">%d</xliff:g> týžd."</item>
+        <item quantity="other" msgid="7094801039989237061">"Raz za <xliff:g id="COUNT">%d</xliff:g> týžd."</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"Raz za <xliff:g id="COUNT">%d</xliff:g> mes."</item>
+        <item quantity="other" msgid="5419723710346646523">"Raz za <xliff:g id="COUNT">%d</xliff:g> mes."</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"Raz za <xliff:g id="COUNT">%d</xliff:g> r."</item>
+        <item quantity="other" msgid="5678653649746562060">"Raz za <xliff:g id="COUNT">%d</xliff:g> r."</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"mesačne v ten istý deň"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Stále"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do dátumu"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Pre určitý počet udalostí"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Pre <xliff:g id="EVENT_COUNT">%d</xliff:g> udalosť"</item>
-    <item quantity="other" msgid="8779598489398048259">"Pre <xliff:g id="EVENT_COUNT">%d</xliff:g> udalosti/-í"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Pre <xliff:g id="EVENT_COUNT">%d</xliff:g> udalosť"</item>
+        <item quantity="other" msgid="8779598489398048259">"Pre <xliff:g id="EVENT_COUNT">%d</xliff:g> udalosti/-í"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"zmeniť dátum ukončenia"</string>
     <string name="visibility_default">Predvolené</string>
-  <string name="visibility_private">Súkromné</string>
-  <string name="visibility_public">Verejné</string>
-  <string name="preferences_alerts_custom_snooze_delay_title">Pýtať sa na dĺžku odloženia upomienky</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Pýtať sa na dĺžku odloženia pri odložení upomienky</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Vždy použiť predvolenú dĺžku odloženia</string>
-  <string name="snooze_delay_dialog_title">Nastaviť dĺžku odloženia</string>
-  <string name="preferences_default_snooze_delay_title">Predvolená dĺžka odloženia</string>
-  <string name="preferences_default_snooze_delay_dialog">Predvolená dĺžka odloženia</string>
+    <string name="visibility_private">Súkromné</string>
+    <string name="visibility_public">Verejné</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Pýtať sa na dĺžku odloženia upomienky</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Pýtať sa na dĺžku odloženia pri odložení upomienky</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Vždy použiť predvolenú dĺžku odloženia</string>
+    <string name="snooze_delay_dialog_title">Nastaviť dĺžku odloženia</string>
+    <string name="preferences_default_snooze_delay_title">Predvolená dĺžka odloženia</string>
+    <string name="preferences_default_snooze_delay_dialog">Predvolená dĺžka odloženia</string>
+    <string name="goto_date">ísť na…</string>
+    <string name="rsvp_accepted">Odpovedal „Áno“.</string>
+    <string name="rsvp_tentative">Odpovedal „Možno“.</string>
+    <string name="rsvp_declined">Odpovedal „Nie“.</string>
+    <string name="preferences_theme">Motív</string>
+    <string name="preferences_light_theme">Svetlý</string>
+    <string name="preferences_dark_theme">Tmavý</string>
+    <string name="preferences_black_theme">Čierny</string>
+    <string name="preferences_color">Primárna farba</string>
+    <string name="preferences_color_pick">Primárna farba</string>
+    <string name="preferences_days_per_week_title">Dni v týždni</string>
+    <string name="preferences_days_per_week_dialog">Dni v týždni</string>
+    <string name="preferences_default_event_duration_title">Predvolená doba trvania udalosti</string>
+    <string name="preferences_issues">Nahlásiť problémy</string>
+    <string name="user_rejected_calendar_write_permission">Etar vyžaduje na správne fungovanie písanie a zápis do kalendára. Prosím skúste znova.</string>
+    <string name="calendar_permission_not_granted">Ľutujeme, táto funkcia nemôže fungovať. Etar vyžaduje na správne fungovanie písanie a zápis do kalendára</string>
+    <string name="visibility_confidential">Dôverné</string>
+    <string name="zero_minutes">0 minút</string>
+    <string name="fifteen_minutes">15 minút</string>
+    <string name="thirty_minutes">30 minút</string>
+    <string name="one_hour">1 hodina</string>
+    <string name="one_and_a_half_hours">1,5 hodiny</string>
+    <string name="two_hours">2 hodiny</string>
+    <string name="share_label">Zdieľať</string>
+    <string name="no_map">Nie je nainštalovaná žiadna aplikácia máp</string>
+    <string name="default_start_title">Predvolené zobrazenie</string>
+    <string name="default_start_last">Predtým použité zobrazenie</string>
+    <string name="error_generating_ics">Pri zdieľaní udalosti sa vyskytli problémy</string>
+    <string name="cal_share_intent_title">Odoslať udalosť na:</string>
+    <string name="cal_export_event_sdcard_title">Exportovať na kartu SD</string>
+    <string name="cal_export_succ_msg">Udalosť bola úspešne exportovaná: %1s</string>
+    <string name="cal_import_menu_title">Importovať udalosť</string>
+    <string name="cal_nothing_to_import">Nič na importovanie</string>
+    <string name="cal_import_error_msg">Importovanie do kalendára zlyhalo</string>
+    <string name="cal_import_error_date_msg">Nepodarilo sa porozumieť danému dátumu: %s</string>
+    <string name="cal_pick_ics">Vyberte súbor pre importovanie</string>
+    <string name="view_settings">Nastavenia zobrazenia</string>
+    <string name="preferences_month_view_portrait">Rozloženie zobrazenia mesiaca (na výšku)</string>
+    <string name="preferences_month_view_landscape">Rozloženie zobrazenia mesiaca (na šírku)</string>
+    <string name="view_details">Zobraziť podrobnosti</string>
+    <string name="display_time">Čas zobrazenia</string>
+    <string name="display_location">Zobrazenie polohy</string>
+    <string name="show_time_no">Nie</string>
+    <string name="show_time_start">Len čas začatia</string>
+    <string name="show_time_start_end">Čas začatia a ukončenia</string>
+    <string name="show_time_start_end_below">Počiatočný a koncový čas pod udalosťou</string>
 </resources>
