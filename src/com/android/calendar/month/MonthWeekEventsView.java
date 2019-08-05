@@ -641,13 +641,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 int monthDay = Integer.parseInt(mDayNumbers[i]);
                 if (monthDay != julianMondayDay) {
                     int offsetDay = monthDay - julianMondayDay;
-                    if (offsetDay > 0 && offsetDay > 6) {
+                    if (offsetDay > 6) {
                         month = month - 1;
                         if (month < 0) {
                             month = 11;
                             year = year - 1;
                         }
-                    } else if (offsetDay < 0 && offsetDay < -6) {
+                    } else if (offsetDay < -6) {
                         month = month + 1;
                         if (month > 11) {
                             month = 0;
