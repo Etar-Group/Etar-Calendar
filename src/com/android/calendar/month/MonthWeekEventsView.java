@@ -490,7 +490,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
     @Override
     protected void drawDaySeparators(Canvas canvas) {
         final int coordinatesPerLine = 4;
-        float lines[] = new float[7 * coordinatesPerLine];
+        // There are mNumDays - 1 vertical lines and 1 horizontal, so the total is mNumDays
+        float[] lines = new float[mNumDays * coordinatesPerLine];
         int i = 0;
 
         // Horizontal line
@@ -1735,7 +1736,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (mHasSelectedDay) {
             int selectedPosition = mSelectedDay - mWeekStart;
             if (selectedPosition < 0) {
-                selectedPosition += 7;
+                selectedPosition += mNumDays;
             }
             int effectiveWidth = mWidth - mPadding * 2;
             mSelectedLeft = selectedPosition * effectiveWidth / mNumDays + mPadding;
