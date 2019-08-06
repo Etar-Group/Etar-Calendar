@@ -324,8 +324,9 @@
     <string name="view_details">Details anzeigen</string>
     <string name="display_time">Zeit anzeigen</string>
     <string name="display_location">Ort anzeigen</string>
-    <string name="show_time_no">Nein</string>
+    <string name="show_time_no">Zeit nicht anzeigen</string>
     <string name="show_time_start">Nur Startzeit</string>
     <string name="show_time_start_end">Start- und Endzeit</string>
     <string name="show_time_start_end_below">Start- und Endzeit unterhalb des Termins</string>
+    <string name="maximum_number_of_lines">Maximale Zeilenanzahl pro Kalendereintrag</string>
 </resources>
