@@ -27,25 +27,29 @@
     <string name="repeats_label" msgid="7414023871434593196">"Gjentas"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Ingen tittel)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"Et minutt"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutter"</item>
+        <item quantity="one">1 minutt</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> minutter</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 min"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+        <item quantity="one">1 min</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> minutter</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"En time"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> timer"</item>
+        <item quantity="one">én time</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> timer</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"En dag"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dager"</item>
+        <item quantity="one">én dag</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> dager</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">uke <xliff:g id="COUNT">%d</xliff:g>
         </item>
-        <item quantity="other">uke <xliff:g id="COUNT">%d</xliff:g>
+        <item quantity="other">uke <xliff:g id="count">%d</xliff:g>
         </item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Last inn"</string>
@@ -233,7 +237,7 @@
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Fjern påminnelse"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Legg til deltaker"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synkroniser kalender"</string>
-    <string name="accessibility_all_day" msgid="4146955438811915282">"Heldagshendelse"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">Heldagsaktivitet</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"Repetisjon"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Påminnelsestid"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Påminnelsestype"</string>
@@ -242,15 +246,16 @@
     <string name="accessibility_cal_notification" msgid="7267601064994839394">"Kalendervarsling"</string>
     <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Slumrevarsling"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Send e-post til gjestene"</string>
-    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ ny hendelse"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">+ ny aktivitet</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Aktivitet <xliff:g id="ITEM_INDEX">%1$s</xliff:g> av <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 aktivitet"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> aktiviteter"</item>
+        <item quantity="one">én aktivitet</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> aktiviteter</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"+1 aktivitet"</item>
-        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> aktiviteter"</item>
+        <item quantity="one">+1 aktivitet</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> aktiviteter</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valgt aktivitet"</string>
     <string name="do_not_check" msgid="7815441673853466129">"IKKE merk av -&gt;"</string>
@@ -295,7 +300,7 @@
     <string name="preferences_color_red">Rød</string>
     <string name="preferences_color_purple">Lilla</string>
     <string name="preferences_color_pick">Hovedfarge</string>
-    <string name="preferences_default_event_duration_title">Forvalgt hendelsesvarighet</string>
+    <string name="preferences_default_event_duration_title">Forvalgt aktivitetsvarighet</string>
     <string name="preferences_home_tz_default">America/Los_Angeles</string>
     <string name="user_rejected_calendar_write_permission">Etar krever tilgang til å lese og skrive kalender for å virke. Prøv igjen.</string>
     <string name="calendar_permission_not_granted">Denne funksjonen kan ikke virke siden Etar krever tilgang til lesing og skriving av kalender for å virke</string>
@@ -307,7 +312,7 @@
     <string name="one_and_a_half_hours">Én og en halv time</string>
     <string name="two_hours">To timer</string>
     <string name="no_map">Ingen kartapper er installert</string>
-    <string name="error_generating_ics">Problemer oppstod under deling av hendelsen</string>
+    <string name="error_generating_ics">Problemer oppstod under deling av aktivitet</string>
     <string name="share_label">Del</string>
     <string name="preferences_alerts_custom_snooze_delay_title">Be om påminnelsesslumring</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Spør om slumrelengde når enn det er slumrepåminnelser</string>
@@ -321,7 +326,7 @@
     <string name="cal_share_intent_title">Send aktiviteten til:</string>
     <string name="cal_export_event_sdcard_title">Eksporter til SD-kortet</string>
     <string name="cal_export_succ_msg">Eksporteringen av aktiviteten var vellykket: %1s</string>
-    <string name="cal_import_menu_title">Importer hendelse</string>
+    <string name="cal_import_menu_title">Importer aktivitet</string>
     <string name="cal_nothing_to_import">Det er ingenting å importere</string>
     <string name="cal_import_error_msg">Importering til kalenderen mislyktes</string>
     <string name="cal_pick_ics">Velg en fil å importere</string>
@@ -332,8 +337,9 @@
     <string name="display_time">Vis tid</string>
     <string name="display_location">Vis plassering</string>
     <string name="cal_import_error_date_msg">Forsto ikke gitt dato: %s</string>
-    <string name="show_time_no">Nei</string>
+    <string name="show_time_no">Ikke vis tid</string>
     <string name="show_time_start">Kun starttid</string>
     <string name="show_time_start_end">Start- og slutttid</string>
-    <string name="show_time_start_end_below">Start- og sluttid under hendelsen</string>
+    <string name="show_time_start_end_below">Start- og sluttid under aktiviteten</string>
+    <string name="maximum_number_of_lines">Maksimalt antall linjer i aktivitet</string>
 </resources>
