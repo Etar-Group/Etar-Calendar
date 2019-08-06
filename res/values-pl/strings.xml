@@ -342,9 +342,10 @@
     <string name="two_hours">2 godziny</string>
     <string name="view_settings">Ustawienia widoku</string>
     <string name="default_start_title">Widok domyślny</string>
-    <string name="view_details">Pokaż szczegóły</string>
-    <string name="display_time">Czas wyświetlania</string>
+    <string name="view_details">Szczegóły widoku</string>
+    <string name="display_time">Wyśietl czas</string>
     <string name="display_location">Wyświetl lokalizację</string>
+    <string name="maximum_number_of_lines">Maksymalna ilość lini w wydarzeniu</string>
     <string name="default_start_last">Poprzednio używany widok</string>
     <string name="error_generating_ics">Podczas udostępniania zdarzenia wystąpiły problemy</string>
     <string name="cal_share_intent_title">Wyślij zdarzenie, aby:</string>
@@ -354,7 +355,7 @@
     <string name="cal_import_error_msg">Importowanie do kalendarza nie powiodło się</string>
     <string name="cal_import_error_date_msg">Nie można zrozumieć podanej daty: %s</string>
     <string name="cal_pick_ics">Wybierz plik do zaimportowania</string>
-    <string name="show_time_no">Nie</string>
+    <string name="show_time_no">Nie wyświetlaj</string>
     <string name="show_time_start">Tylko czas rozpoczęcia</string>
     <string name="show_time_start_end">Czas rozpoczęcia i zakończenia</string>
     <string name="show_time_start_end_below">Czas rozpoczęcia i zakończenia poniżej wydarzenia</string>

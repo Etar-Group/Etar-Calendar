@@ -546,9 +546,11 @@
     <string name="preferences_hide_declined_title">Hide declined events</string>
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>
-    <string name="view_details">View Details</string>
-    <string name="display_time">Display Time</string>
-    <string name="display_location">Display Location</string>
+    <string name="view_details">View details</string>
+    <string name="display_time">Display time</string>
+    <string name="display_location">Display location</string>
+    <string name="maximum_number_of_lines">Max number of lines in event</string>
+
 
     <string name="default_start_last">Previously used view</string>
     <!-- Settings week start label to start week on specific day-->
@@ -839,7 +841,7 @@
     <string name="cal_pick_ics">Pick file to import</string>
 
     <!-- Strings to describe view details array -->
-    <string name="show_time_no">No</string>
+    <string name="show_time_no">Don't show time</string>
     <string name="show_time_start">Only start time</string>
     <string name="show_time_start_end">Start and end time</string>
     <string name="show_time_start_end_below">Start and end time below the event</string>

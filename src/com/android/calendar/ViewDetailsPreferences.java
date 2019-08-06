@@ -1,5 +1,6 @@
 package com.android.calendar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -9,21 +10,23 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
+import java.util.Arrays;
+
 import ws.xsoh.etar.R;
 
 
 public class ViewDetailsPreferences extends PreferenceFragment {
-    protected final static boolean DISPLAY_LOCATION_DEFAULT = false;
+    private final static String KEY_DISPLAY_TIME_V_PREF = "pref_display_time_vertical";
+    private final static String KEY_DISPLAY_TIME_H_PREF = "pref_display_time_horizontal";
+    private final static String KEY_DISPLAY_LOCATION_V_PREF = "pref_display_location_vertical";
+    private final static String KEY_DISPLAY_LOCATION_H_PREF = "pref_display_location_horizontal";
+    private final static String KEY_MAX_NUMBER_OF_LINES_V_PREF = "pref_number_of_lines_vertical";
+    private final static String KEY_MAX_NUMBER_OF_LINES_H_PREF = "pref_number_of_lines_horizontal";
+    private final static PreferenceKeys LANDSCAPE_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_H_PREF, KEY_DISPLAY_LOCATION_H_PREF, KEY_MAX_NUMBER_OF_LINES_H_PREF);
+    private final static PreferenceKeys PORTRAIT_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_V_PREF, KEY_DISPLAY_LOCATION_V_PREF, KEY_MAX_NUMBER_OF_LINES_V_PREF);
 
-    protected final static String KEY_DISPLAY_TIME_V_PREF = "pref_display_time_vertical";
-    protected final static String KEY_DISPLAY_TIME_H_PREF = "pref_display_time_horizontal";
-    protected final static String KEY_DISPLAY_LOCATION_V_PREF = "pref_display_location_vertical";
-    protected final static String KEY_DISPLAY_LOCATION_H_PREF = "pref_display_location_horizontal";
-    protected final static PreferenceKeys LANDSCAPE_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_H_PREF, KEY_DISPLAY_LOCATION_H_PREF);
-    protected final static PreferenceKeys PORTRAIT_PREFS = new PreferenceKeys(KEY_DISPLAY_TIME_V_PREF, KEY_DISPLAY_LOCATION_V_PREF);
-
-    protected ListPreference mDisplayTimeH;
-    protected ListPreference mDisplayTimeV;
+    private PreferenceConfiguration mLandscapeConf = new PreferenceConfiguration(LANDSCAPE_PREFS);
+    private PreferenceConfiguration mPortraitConf = new PreferenceConfiguration(PORTRAIT_PREFS);
 
     public enum TimeVisibility {
         SHOW_NONE(0),
@@ -39,26 +42,85 @@ public class ViewDetailsPreferences extends PreferenceFragment {
             return mValue;
         }
     }
-    protected static class PreferenceKeys {
-        public final String KEY_DISPLAY_TIME;
-        public final String KEY_DISPLAY_LOCATION;
-
-        public PreferenceKeys(String keyDisplayTime, String keyDisplayLocation) {
+    private static class PreferenceKeys {
+        protected final String KEY_DISPLAY_TIME;
+        protected final String KEY_DISPLAY_LOCATION;
+        protected final String KEY_MAX_NUMBER_OF_LINES;
+        PreferenceKeys(String keyDisplayTime, String keyDisplayLocation, String keyMaxNumberOfLInes) {
             KEY_DISPLAY_TIME = keyDisplayTime;
             KEY_DISPLAY_LOCATION = keyDisplayLocation;
+            KEY_MAX_NUMBER_OF_LINES = keyMaxNumberOfLInes;
+        }
+    }
+
+    protected static class PreferenceConfiguration {
+        private PreferenceKeys mKeys;
+        private ListPreference mDisplayTime;
+
+        PreferenceConfiguration(PreferenceKeys keys) {
+            mKeys = keys;
+        }
+
+        protected void onCreate(PreferenceScreen preferenceScreen, Activity activity)
+        {
+            mDisplayTime = (ListPreference) preferenceScreen.findPreference(mKeys.KEY_DISPLAY_TIME);
+            initDisplayTime(activity);
+        }
+        private void initDisplayTime(Activity activity) {
+            if (!Utils.getConfigBool(activity, R.bool.show_time_in_month)) {
+                CharSequence[] entries = mDisplayTime.getEntries();
+                CharSequence[] newEntries = Arrays.copyOf(entries, entries.length-1);
+                mDisplayTime.setEntries(newEntries);
+            }
+            if (mDisplayTime.getEntry() == null || mDisplayTime.getEntry().length() == 0) {
+                mDisplayTime.setValue(getDefaultTimeToShow(activity).toString());
+            }
+        }
+    }
+    static class DynamicPreferences {
+        private Context mContext;
+        private SharedPreferences mPrefs;
+        DynamicPreferences(Context context)
+        {
+            mContext = context;
+            mPrefs = GeneralPreferences.getSharedPreferences(context);
+        }
+        public PreferenceKeys getPreferenceKeys() {
+            int orientation = mContext.getResources().getConfiguration().orientation;
+            boolean landscape = (orientation == Configuration.ORIENTATION_LANDSCAPE);
+            return landscape ? LANDSCAPE_PREFS : PORTRAIT_PREFS;
+        }
+        public TimeVisibility getTimeVisibility(PreferenceKeys keys) {
+            String visibility = mPrefs.getString(keys.KEY_DISPLAY_TIME, getDefaultTimeToShow(mContext).toString());
+            return TimeVisibility.values()[Integer.parseInt(visibility)];
+        }
+        public boolean getShowLocation(PreferenceKeys keys) {
+            return mPrefs.getBoolean(keys.KEY_DISPLAY_LOCATION, false);
+        }
+        public Integer getMaxNumberOfLines(PreferenceKeys keys) {
+            return Integer.parseInt(mPrefs.getString(keys.KEY_MAX_NUMBER_OF_LINES, null));
         }
     }
     public static class Preferences {
         public final TimeVisibility TIME_VISIBILITY;
-        public final boolean SHOW_LOCATION;
+        public final boolean LOCATION_VISIBILITY;
+        public final int MAX_LINES;
 
-        protected Preferences(TimeVisibility timeVisibility, boolean showLocation) {
-            TIME_VISIBILITY = timeVisibility;
-            SHOW_LOCATION = showLocation;
+        protected Preferences(Context context) {
+            DynamicPreferences prefs = new DynamicPreferences(context);
+            PreferenceKeys keys = prefs.getPreferenceKeys();
+            TIME_VISIBILITY = prefs.getTimeVisibility(keys);
+            LOCATION_VISIBILITY = prefs.getShowLocation(keys);
+            MAX_LINES = prefs.getMaxNumberOfLines(keys);
+        }
+        private Preferences(Preferences prefs) {
+            TIME_VISIBILITY = TimeVisibility.SHOW_NONE;
+            LOCATION_VISIBILITY = prefs.LOCATION_VISIBILITY;
+            MAX_LINES = prefs.MAX_LINES;
         }
         public Preferences hideTime() {
             if (TIME_VISIBILITY == TimeVisibility.SHOW_TIME_RANGE_BELOW) {
-                return new Preferences(TimeVisibility.SHOW_NONE, SHOW_LOCATION);
+                return new Preferences(this);
             }
             return this;
         }
@@ -79,31 +141,6 @@ public class ViewDetailsPreferences extends PreferenceFragment {
             return (TIME_VISIBILITY == TimeVisibility.SHOW_START_TIME_AND_DURATION);
         }
     }
-    protected static class PreferenceFactory {
-        protected SharedPreferences mPrefs;
-        protected Context mContext;
-
-        public PreferenceFactory(Context context) {
-            mContext = context;
-            mPrefs = GeneralPreferences.getSharedPreferences(context);
-        }
-        public PreferenceKeys getPreferenceKeys() {
-            int orientation = mContext.getResources().getConfiguration().orientation;
-            boolean landscape = (orientation == Configuration.ORIENTATION_LANDSCAPE);
-            return landscape ? LANDSCAPE_PREFS : PORTRAIT_PREFS;
-        }
-        protected TimeVisibility getTimeVisibility(PreferenceKeys keys) {
-            String visibility = mPrefs.getString(keys.KEY_DISPLAY_TIME, getDefaultTimeToShow(mContext).toString());
-            return TimeVisibility.values()[Integer.parseInt(visibility)];
-        }
-        protected boolean getShowTime(PreferenceKeys keys) {
-            return mPrefs.getBoolean(keys.KEY_DISPLAY_LOCATION, DISPLAY_LOCATION_DEFAULT);
-        }
-        public Preferences getPreferences() {
-            PreferenceKeys keys = getPreferenceKeys();
-            return new Preferences(getTimeVisibility(keys), getShowTime(keys));
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,9 +149,9 @@ public class ViewDetailsPreferences extends PreferenceFragment {
         preferenceManager.setSharedPreferencesName(GeneralPreferences.SHARED_PREFS_NAME);
         addPreferencesFromResource(R.xml.view_details_preferences);
         PreferenceScreen preferenceScreen = getPreferenceScreen();
-        mDisplayTimeH = (ListPreference) preferenceScreen.findPreference(KEY_DISPLAY_TIME_H_PREF);
-        mDisplayTimeV = (ListPreference) preferenceScreen.findPreference(KEY_DISPLAY_TIME_V_PREF);
-        initDisplayTime();
+        Activity activity = getActivity();
+        mLandscapeConf.onCreate(preferenceScreen, activity);
+        mPortraitConf.onCreate(preferenceScreen, activity);
     }
 
     protected static Integer getDefaultTimeToShow(Context context) {
@@ -122,26 +159,12 @@ public class ViewDetailsPreferences extends PreferenceFragment {
                 TimeVisibility.SHOW_TIME_RANGE_BELOW.getValue() : TimeVisibility.SHOW_NONE.getValue();
     }
 
-    protected void initDisplayTime() {
-        if (!Utils.getConfigBool(getActivity(), R.bool.show_time_in_month)) {
-            CharSequence[] entries = mDisplayTimeH.getEntries();
-            CharSequence[] newEntries = new CharSequence[entries.length - 1];
-            for (int i = 0; i < newEntries.length; ++i) {
-                newEntries[i] = entries[i];
-            }
-            mDisplayTimeH.setEntries(newEntries);
-            mDisplayTimeV.setEntries(newEntries);
-        }
-        if (mDisplayTimeH.getEntry() == null || mDisplayTimeH.getEntry().length() == 0) {
-            mDisplayTimeH.setValue(getDefaultTimeToShow(getActivity()).toString());
-        }
-        if (mDisplayTimeV.getEntry() == null || mDisplayTimeV.getEntry().length() == 0) {
-            mDisplayTimeV.setValue(getDefaultTimeToShow(getActivity()).toString());
-        }
+    public static Preferences getPreferences(Context context) {
+        return new Preferences(context);
     }
 
-    public static Preferences getPreferences(Context context) {
-        //consider using static factory instead
-        return new PreferenceFactory(context).getPreferences();
+    public static void setDefaultValues(Context context) {
+        PreferenceManager.setDefaultValues(context, GeneralPreferences.SHARED_PREFS_NAME, Context.MODE_PRIVATE,
+                    R.xml.view_details_preferences, true);
     }
 }

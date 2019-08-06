@@ -104,7 +104,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int mStrokeWidthAdj;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
-    private static int mMaxLinesInEvent = 7; //todo - should be configurable
     private final TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
     protected Time mToday = new Time();
     protected boolean mHasToday = false;
@@ -1016,9 +1015,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
          * Initializes members storing information about events in mEventDay
          */
         protected void init() {
-            mMaxNumberOfLines = mMaxLinesInEvent;
-            mEventsByHeight = new ArrayList<>(mMaxLinesInEvent + 1);
-            for (int i = 0; i < mMaxLinesInEvent + 1; i++) {
+            mMaxNumberOfLines = mViewPreferences.MAX_LINES;
+            mEventsByHeight = new ArrayList<>(mMaxNumberOfLines + 1);
+            for (int i = 0; i < mMaxNumberOfLines + 1; i++) {
                 mEventsByHeight.add(new ArrayList<FormattedEventBase>());
             }
             ListIterator<FormattedEventBase> iterator = mEventDay.listIterator();
@@ -1537,7 +1536,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 if (span == 1) {
                     /* make events higher only if they are not spanning multiple days to avoid
                         tricky situations */
-                    mFormat.setEventLines(Math.min(mTextLayout.getLineCount(), mMaxLinesInEvent));
+                    mFormat.setEventLines(Math.min(mTextLayout.getLineCount(), preferences.MAX_LINES));
                 }
             }
         }
@@ -1553,7 +1552,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 baseText.append(" ");
             }
             baseText.append(mEvent.title);
-            if (preferences.SHOW_LOCATION && mEvent.location != null && mEvent.location.length() > 0) {
+            if (preferences.LOCATION_VISIBILITY && mEvent.location != null && mEvent.location.length() > 0) {
                 baseText.append("\n@ ");
                 baseText.append(mEvent.location);
             }
