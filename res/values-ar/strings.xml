@@ -280,4 +280,27 @@
     <string name="rsvp_accepted">تمت الإجابة بنعم.</string>
     <string name="no_map">لا يوجد تطبيق خرائط مثبت</string>
     <string name="view_settings">عرض الإعدادات</string>
+    <string name="preferences_theme">المظهر</string>
+    <string name="preferences_light_theme">فاتح</string>
+    <string name="preferences_dark_theme">داكن</string>
+    <string name="preferences_black_theme">أسود</string>
+    <string name="preferences_color">اللون الأساسي</string>
+    <string name="preferences_color_pick">اللون الأساسي</string>
+    <string name="preferences_days_per_week_title">أيام في الأسبوع</string>
+    <string name="preferences_days_per_week_dialog">أيام في الأسبوع</string>
+    <string name="preferences_default_event_duration_title">مدة الحدث الافتراضية</string>
+    <string name="preferences_issues">الإبلاغ عن المشاكل</string>
+    <string name="visibility_confidential">سري</string>
+    <string name="zero_minutes">0 دقيقة</string>
+    <string name="fifteen_minutes">15 دقيقة</string>
+    <string name="thirty_minutes">30 دقيقة</string>
+    <string name="one_hour">ساعة</string>
+    <string name="two_hours">ساعتان</string>
+    <string name="default_start_title">العرض الافتراضي</string>
+    <string name="cal_import_menu_title">استيراد حدث</string>
+    <string name="cal_nothing_to_import">لا شيء للاستيراد</string>
+    <string name="view_details">عرض التفاصيل</string>
+    <string name="display_time">عرض الوقت</string>
+    <string name="display_location">عرض الموقع</string>
+    <string name="show_time_no">لا تظهر الوقت</string>
 </resources>
