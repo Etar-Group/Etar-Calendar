@@ -36,7 +36,7 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> menit</item>
+            <xliff:g id="count">%d</xliff:g> mnt</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="other">
@@ -325,11 +325,12 @@
     <string name="view_settings">Tampilkan pengaturan</string>
     <string name="preferences_month_view_portrait">Tata letak tampilan bulan (Potret)</string>
     <string name="preferences_month_view_landscape">Tata letak tampilan bulan (Lanskap)</string>
-    <string name="view_details">Detail Tampilan</string>
-    <string name="display_time">Tampilkan Waktu</string>
-    <string name="display_location">Tampilkan Lokasi</string>
-    <string name="show_time_no">Tidak</string>
+    <string name="view_details">Detail tampilan</string>
+    <string name="display_time">Tampilkan waktu</string>
+    <string name="display_location">Tampilkan lokasi</string>
+    <string name="show_time_no">Jangan tampilkan waktu</string>
     <string name="show_time_start">Hanya waktu mulai</string>
     <string name="show_time_start_end">Waktu mulai dan selesai</string>
     <string name="show_time_start_end_below">Waktu mulai dan selesai di bawah acara</string>
+    <string name="maximum_number_of_lines">Jumlah baris maks. acara</string>
 </resources>

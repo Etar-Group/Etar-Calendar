@@ -327,9 +327,10 @@
     <string name="view_details">Ver detalles</string>
     <string name="display_time">Mostrar hora</string>
     <string name="display_location">Mostrar ubicación</string>
-    <string name="show_time_no">No</string>
+    <string name="show_time_no">No mostrar la hora</string>
     <string name="show_time_start">Solo hora de comienzo</string>
     <string name="show_time_start_end">Hora de comienzo y de terminación</string>
     <string name="show_time_start_end_below">Hora de comienzo y de terminación debajo del evento</string>
     <string name="cal_import_error_date_msg">No entiendo la fecha proporcionada: %s</string>
+    <string name="maximum_number_of_lines">Número máximo de líneas en el evento</string>
 </resources>
