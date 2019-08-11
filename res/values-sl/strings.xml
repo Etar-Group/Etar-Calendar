@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Koledar"</string>
     <string name="what_label" msgid="1933578391985810049">"Kaj"</string>
     <string name="where_label" msgid="3472482206065595118">"Kje"</string>
@@ -26,28 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"Jutri"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Danes ob <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Jutri ob <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"Ponovitev"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Brez naslova)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 minuta"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 ura"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ur"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 dan"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dni"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g>. teden"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 minuta"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 ura"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ur"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 dan"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dni"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g>. teden"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Osveži"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Pokaži dan"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Dnevni red"</string>
@@ -120,12 +119,12 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Jedrnat odgovor"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Izberite jedrnat odgovor"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"E-poštnega programa ni mogoče najti"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Čisto malo zamujam."</item>
-    <item msgid="6215158751728689832">"Pridem čez 10 minut."</item>
-    <item msgid="4485794001743679338">"Kar brez mene začnite."</item>
-    <item msgid="8036557974294987511">"Ne bo mi uspelo, žal. Zmenimo se za drugič."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Čisto malo zamujam."</item>
+        <item msgid="6215158751728689832">"Pridem čez 10 minut."</item>
+        <item msgid="4485794001743679338">"Kar brez mene začnite."</item>
+        <item msgid="8036557974294987511">"Ne bo mi uspelo, žal. Zmenimo se za drugič."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napišite lastno besedilo …"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Opomniki"</string>
@@ -146,24 +145,23 @@
     <string name="snooze_label" msgid="1515893621063224666">"Dremež"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Enkraten dogodek"</string>
     <string name="endByDate" msgid="7654221304929538201">"– do <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"– enkrat"</item>
-    <item quantity="other" msgid="4855496837834652446">"– tolikokrat: <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Dnevno"</item>
-    <item quantity="other" msgid="5455230727715859264">"Vsakih toliko dni: <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"– enkrat"</item>
+        <item quantity="other" msgid="4855496837834652446">"– tolikokrat: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Dnevno"</item>
+        <item quantity="other" msgid="5455230727715859264">"Vsakih toliko dni: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Vsak delovni dan (pon–pet)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Tedensko: <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> – na vsakih toliko tednov: <xliff:g id="NUMBER">%1$d</xliff:g>"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Tedensko: <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> – na vsakih toliko tednov: <xliff:g id="NUMBER">%1$d</xliff:g>"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Mesečno"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Letno"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mesečno (na dan <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Letno (na <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Po meri (prilagajanje ni mogoče v telefonu)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Spremeni samo ta dogodek"</string>
     <string name="modify_all" msgid="4421657265864209041">"Spremeni vse dogodke v nizu"</string>
@@ -198,10 +196,10 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"O programu"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Delovna različica"</string>
     <string name="gadget_title" msgid="939918875331310945">"Koledar"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Ni prihajajočih dogodkov v koledarju"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Poskusne"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Opomniki"</string>
@@ -236,45 +234,45 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Pošiljanje e-pošte gostom"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nov dogodek"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Dogodek <xliff:g id="ITEM_INDEX">%1$s</xliff:g> od <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 dogodek"</item>
-    <item quantity="other" msgid="6093072093209431078">"Št. dogodkov: <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"Še 1 dogodek"</item>
-    <item quantity="other" msgid="3609243840882275136">"Še toliko dogodkov: <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 dogodek"</item>
+        <item quantity="other" msgid="6093072093209431078">"Št. dogodkov: <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"Še 1 dogodek"</item>
+        <item quantity="other" msgid="3609243840882275136">"Še toliko dogodkov: <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Izbrani dogodek"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NE potrdite polja -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ponovi"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Se ne ponovi"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Vsakih toliko dni: <xliff:g id="COUNT">%d</xliff:g>"</item>
-    <item quantity="other" msgid="707566499994398250">"Vsakih toliko dni: <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Vsakih toliko tednov: <xliff:g id="COUNT">%d</xliff:g>"</item>
-    <item quantity="other" msgid="7094801039989237061">"Vsakih toliko tednov: <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Vsakih toliko mesecev: <xliff:g id="COUNT">%d</xliff:g>"</item>
-    <item quantity="other" msgid="5419723710346646523">"Vsakih toliko mesecev: <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Vsakih toliko let: <xliff:g id="COUNT">%d</xliff:g>"</item>
-    <item quantity="other" msgid="5678653649746562060">"Vsakih toliko let: <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"Vsakih toliko dni: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="other" msgid="707566499994398250">"Vsakih toliko dni: <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Vsakih toliko tednov: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="other" msgid="7094801039989237061">"Vsakih toliko tednov: <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"Vsakih toliko mesecev: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="other" msgid="5419723710346646523">"Vsakih toliko mesecev: <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"Vsakih toliko let: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="other" msgid="5678653649746562060">"Vsakih toliko let: <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"istega dne vsak mesec"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Za vedno"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do datuma"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Za določeno št. dogodkov"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Za toliko dogodkov: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
-    <item quantity="other" msgid="8779598489398048259">"Za toliko dogodkov: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Za toliko dogodkov: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+        <item quantity="other" msgid="8779598489398048259">"Za toliko dogodkov: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"sprememba končnega datuma"</string>
     <string name="visibility_default">Privzeto</string>
-  <string name="visibility_private">Zasebno</string>
-  <string name="visibility_public">Javno</string>
+    <string name="visibility_private">Zasebno</string>
+    <string name="visibility_public">Javno</string>
 </resources>
