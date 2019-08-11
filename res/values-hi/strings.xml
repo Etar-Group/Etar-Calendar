@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"कैलेंडर"</string>
     <string name="what_label" msgid="1933578391985810049">"क्या"</string>
     <string name="where_label" msgid="3472482206065595118">"कहां"</string>
@@ -26,28 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"आने वाला कल"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"आज <xliff:g id="TIME_INTERVAL">%s</xliff:g> पर"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"कल <xliff:g id="TIME_INTERVAL">%s</xliff:g> पर"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"दोहराव"</string>
     <string name="no_title_label" msgid="302177118061368042">"(कोई शीर्षक नहीं)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 मिनट"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> मिनट"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 मिनट"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> मि"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 घंटा"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> घंटे"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 दिन"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> दिन"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g> सप्ताह"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 मिनट"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> मिनट"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 मिनट"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> मि"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 घंटा"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> घंटे"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 दिन"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> दिन"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g> सप्ताह"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"रीफ़्रेश करें"</string>
     <string name="show_day_view" msgid="5782512782605466016">"दिन दिखाएं"</string>
     <string name="agenda_view" msgid="5566084759423843245">"कार्यसूची"</string>
@@ -120,12 +119,12 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"त्वरित प्रतिसाद"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"त्‍वरित प्रतिसाद चुनें"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"ईमेल प्रोग्राम ढूंढने में विफल रहा"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"केवल कुछ मिनटों के विलंब से चल रहा है."</item>
-    <item msgid="6215158751728689832">"लगभग 10 मिनट में वहां पहुंचें."</item>
-    <item msgid="4485794001743679338">"आगे बढ़ें और मेरे बिना प्रारंभ करें."</item>
-    <item msgid="8036557974294987511">"क्षमा करें, मुझसे यह कार्य नहीं हो पा रहा है. हमें पुन: शेड्यूल करना होगा."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"केवल कुछ मिनटों के विलंब से चल रहा है."</item>
+        <item msgid="6215158751728689832">"लगभग 10 मिनट में वहां पहुंचें."</item>
+        <item msgid="4485794001743679338">"आगे बढ़ें और मेरे बिना प्रारंभ करें."</item>
+        <item msgid="8036557974294987511">"क्षमा करें, मुझसे यह कार्य नहीं हो पा रहा है. हमें पुन: शेड्यूल करना होगा."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"अपना स्वयं का लिखें…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"आयोजक:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"अनुस्मारक"</string>
@@ -146,24 +145,23 @@
     <string name="snooze_label" msgid="1515893621063224666">"स्‍नूज़ करें"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"एक-बार का ईवेंट"</string>
     <string name="endByDate" msgid="7654221304929538201">"; <xliff:g id="DATE">%s</xliff:g> तक"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; एक बार के लिए"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> बार के लिए"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"दैनिक"</item>
-    <item quantity="other" msgid="5455230727715859264">"प्रत्‍येक <xliff:g id="NUMBER">%d</xliff:g> दिन"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"; एक बार के लिए"</item>
+        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> बार के लिए"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"दैनिक"</item>
+        <item quantity="other" msgid="5455230727715859264">"प्रत्‍येक <xliff:g id="NUMBER">%d</xliff:g> दिन"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"प्रत्‍येक कार्य-दिवस (सोम–शुक्र)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> को साप्ताहिक रूप से"</item>
-    <item quantity="other" msgid="2857390143157377867">"हर <xliff:g id="NUMBER">%1$d</xliff:g> सप्ताह में <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> को"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> को साप्ताहिक रूप से"</item>
+        <item quantity="other" msgid="2857390143157377867">"हर <xliff:g id="NUMBER">%1$d</xliff:g> सप्ताह में <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> को"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"मासिक"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"वार्षिक"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"मासिक (इस दिन <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"वार्षिक (दिनांक <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"कस्टम (फ़ोन पर कस्टमाइज़ नहीं किया जा सकता)"</string>
     <string name="modify_event" msgid="5982876409997142690">"केवल यह ईवेंट बदलें"</string>
     <string name="modify_all" msgid="4421657265864209041">"श्रृंखला के सभी ईवेंट बदलें"</string>
@@ -198,10 +196,10 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"इसके बारे में"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"बिल्ड संस्करण"</string>
     <string name="gadget_title" msgid="939918875331310945">"कैलेंडर"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"कोई आगामी कैलेंडर ईवेंट नहीं"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"प्रयोगात्मक"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"अनुस्मारक"</string>
@@ -236,45 +234,45 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"अतिथियों को ईमेल करें"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ नया ईवेंट"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_COUNT">%2$s</xliff:g> में से <xliff:g id="ITEM_INDEX">%1$s</xliff:g> ईवेंट."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 ईवेंट"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ईवेंट"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 ईवेंट"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ईवेंट"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 ईवेंट"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ईवेंट"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 ईवेंट"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ईवेंट"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"चयनित ईवेंट"</string>
     <string name="do_not_check" msgid="7815441673853466129">"चेक न करें -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"दोहराएं"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"कभी न दोहराएं"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> दिन में"</item>
-    <item quantity="other" msgid="707566499994398250">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> दिन में"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> सप्ताह में"</item>
-    <item quantity="other" msgid="7094801039989237061">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> सप्ताह में"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> माह में"</item>
-    <item quantity="other" msgid="5419723710346646523">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> माह में"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> वर्ष में"</item>
-    <item quantity="other" msgid="5678653649746562060">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> वर्ष में"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> दिन में"</item>
+        <item quantity="other" msgid="707566499994398250">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> दिन में"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> सप्ताह में"</item>
+        <item quantity="other" msgid="7094801039989237061">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> सप्ताह में"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> माह में"</item>
+        <item quantity="other" msgid="5419723710346646523">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> माह में"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> वर्ष में"</item>
+        <item quantity="other" msgid="5678653649746562060">"प्रत्येक <xliff:g id="COUNT">%d</xliff:g> वर्ष में"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"प्रत्येक माह उसी दिन"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"हमेशा"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"इस दिनांक तक"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"<xliff:g id="DATE">%s</xliff:g> तक"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"कई ईवेंट के लिए"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ईवेंट के लिए"</item>
-    <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ईवेंट के लिए"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ईवेंट के लिए"</item>
+        <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> ईवेंट के लिए"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"समाप्ति दिनांक बदलें"</string>
     <string name="visibility_default">डिफ़ॉल्ट</string>
-  <string name="visibility_private">निजी</string>
-  <string name="visibility_public">सार्वजनिक</string>
+    <string name="visibility_private">निजी</string>
+    <string name="visibility_public">सार्वजनिक</string>
 </resources>
