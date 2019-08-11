@@ -23,7 +23,9 @@
     <string name="tomorrow" msgid="614434811813859237">"Sutra"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Danas u <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Sutra u <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"Ponavljanje"</string>
     <string name="no_title_label" msgid="302177118061368042">"(bez naslova)"</string>
     <plurals name="Nminutes">
@@ -247,12 +249,12 @@
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Svakog <xliff:g id="count">%d</xliff:g> dana</item>
         <item quantity="few">Svakog <xliff:g id="count">%d</xliff:g> dana</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one">Svakog <xliff:g id="COUNT">%d</xliff:g> tjedna</item>
         <item quantity="few">Svakog <xliff:g id="COUNT">%d</xliff:g> tjedna</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one" msgid="4768178401603139718">"Svakog <xliff:g id="COUNT">%d</xliff:g>. mjeseca"</item>
@@ -261,7 +263,7 @@
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Svake <xliff:g id="COUNT">%d</xliff:g> godine</item>
         <item quantity="few">Svake <xliff:g id="COUNT">%d</xliff:g> godine</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">istog dana svakog mjeseca</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Zauvijek"</string>
@@ -271,7 +273,7 @@
     <plurals name="recurrence_end_count">
         <item quantity="one">Za <xliff:g id="event_count">%d</xliff:g> događaj</item>
         <item quantity="few">Za <xliff:g id="event_count">%d</xliff:g> događaja</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"promjena datuma završetka"</string>
     <string name="visibility_default">Zadano</string>
