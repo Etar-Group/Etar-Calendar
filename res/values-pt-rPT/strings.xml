@@ -26,7 +26,7 @@
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Amanhã, às <xliff:g id="time_interval">%s</xliff:g>
     </string>
     <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%s</xliff:g>, <xliff:g id="time_interval">%s</xliff:g>
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
     <string name="repeats_label" msgid="7414023871434593196">Repetições</string>
     <string name="no_title_label" msgid="302177118061368042">(sem título)</string>
