@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"ปฏิทิน"</string>
     <string name="what_label" msgid="1933578391985810049">"อะไร"</string>
     <string name="where_label" msgid="3472482206065595118">"สถานที่"</string>
@@ -26,28 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"วันพรุ่งนี้"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"วันนี้เวลา <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"พรุ่งนี้เวลา <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"การเกิดซ้ำ"</string>
     <string name="no_title_label" msgid="302177118061368042">"(ไม่มีชื่อ)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 นาที"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> นาที"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 นาที"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> นาที"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 ชั่วโมง"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ชั่วโมง"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 วัน"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> วัน"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"สัปดาห์ที่ <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 นาที"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> นาที"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 นาที"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> นาที"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 ชั่วโมง"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ชั่วโมง"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 วัน"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> วัน"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"สัปดาห์ที่ <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"รีเฟรช"</string>
     <string name="show_day_view" msgid="5782512782605466016">"แสดงวัน"</string>
     <string name="agenda_view" msgid="5566084759423843245">"กำหนดการ"</string>
@@ -120,12 +119,12 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"คำตอบด่วน"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"เลือกคำตอบด่วน"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"การค้นหาโปรแกรมอีเมลล้มเหลว"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"ไปช้าสักสองสามนาที"</item>
-    <item msgid="6215158751728689832">"ไปถึงในอีกประมาณ 10 นาที"</item>
-    <item msgid="4485794001743679338">"เริ่มไปเลย ไม่ต้องรอ"</item>
-    <item msgid="8036557974294987511">"ขอโทษ ฉันไปไม่ได้ เราต้องกำหนดเวลากันใหม่"</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"ไปช้าสักสองสามนาที"</item>
+        <item msgid="6215158751728689832">"ไปถึงในอีกประมาณ 10 นาที"</item>
+        <item msgid="4485794001743679338">"เริ่มไปเลย ไม่ต้องรอ"</item>
+        <item msgid="8036557974294987511">"ขอโทษ ฉันไปไม่ได้ เราต้องกำหนดเวลากันใหม่"</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"เขียนคำตอบของคุณเอง…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"ผู้จัด:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"การแจ้งเตือน"</string>
@@ -146,24 +145,23 @@
     <string name="snooze_label" msgid="1515893621063224666">"ปิดเสียงเตือนชั่วคราว"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"กิจกรรมที่เกิดขึ้นครั้งเดียว"</string>
     <string name="endByDate" msgid="7654221304929538201">"จนถึง <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"รวมหนึ่งครั้ง"</item>
-    <item quantity="other" msgid="4855496837834652446">"รวม <xliff:g id="NUMBER">%d</xliff:g> ครั้ง"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"รายวัน"</item>
-    <item quantity="other" msgid="5455230727715859264">"ทุก <xliff:g id="NUMBER">%d</xliff:g> วัน"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"รวมหนึ่งครั้ง"</item>
+        <item quantity="other" msgid="4855496837834652446">"รวม <xliff:g id="NUMBER">%d</xliff:g> ครั้ง"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"รายวัน"</item>
+        <item quantity="other" msgid="5455230727715859264">"ทุก <xliff:g id="NUMBER">%d</xliff:g> วัน"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"ทุกวันทำการ (จันทร์-ศุกร์)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"ทุก <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> ของแต่ละสัปดาห์"</item>
-    <item quantity="other" msgid="2857390143157377867">"ทุก <xliff:g id="NUMBER">%1$d</xliff:g> สัปดาห์ใน <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"ทุก <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> ของแต่ละสัปดาห์"</item>
+        <item quantity="other" msgid="2857390143157377867">"ทุก <xliff:g id="NUMBER">%1$d</xliff:g> สัปดาห์ใน <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"รายเดือน"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"รายปี"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"รายเดือน (ในวันที่ <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"รายปี (วันที่ <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"กำหนดเอง (ไม่สามารถกำหนดค่าบนโทรศัพท์)"</string>
     <string name="modify_event" msgid="5982876409997142690">"เปลี่ยนเฉพาะกิจกรรมนี้"</string>
     <string name="modify_all" msgid="4421657265864209041">"เปลี่ยนกิจกรรมทั้งหมดในชุด"</string>
@@ -198,10 +196,10 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"เกี่ยวกับ"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"รุ่น"</string>
     <string name="gadget_title" msgid="939918875331310945">"ปฏิทิน"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"ไม่มีกิจกรรมในปฏิทินที่กำลังมาถึง"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"ทดลอง"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"การแจ้งเตือน"</string>
@@ -236,45 +234,45 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"ส่งอีเมลถึงผู้เข้าร่วม"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ กิจกรรมใหม่"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"กิจกรรม <xliff:g id="ITEM_INDEX">%1$s</xliff:g> จาก <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 กิจกรรม"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> กิจกรรม"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 กิจกรรม"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> กิจกรรม"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 กิจกรรม"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> กิจกรรม"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 กิจกรรม"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> กิจกรรม"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"กิจกรรมที่เลือก"</string>
     <string name="do_not_check" msgid="7815441673853466129">"อย่าเลือก -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"ตั้งซ้ำ"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ไม่เกิดซ้ำ"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"ทุก <xliff:g id="COUNT">%d</xliff:g> วัน"</item>
-    <item quantity="other" msgid="707566499994398250">"ทุก <xliff:g id="COUNT">%d</xliff:g> วัน"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"ทุก <xliff:g id="COUNT">%d</xliff:g> สัปดาห์"</item>
-    <item quantity="other" msgid="7094801039989237061">"ทุก <xliff:g id="COUNT">%d</xliff:g> สัปดาห์"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"ทุก <xliff:g id="COUNT">%d</xliff:g> เดือน"</item>
-    <item quantity="other" msgid="5419723710346646523">"ทุก <xliff:g id="COUNT">%d</xliff:g> เดือน"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"ทุก <xliff:g id="COUNT">%d</xliff:g> ปี"</item>
-    <item quantity="other" msgid="5678653649746562060">"ทุก <xliff:g id="COUNT">%d</xliff:g> ปี"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"ทุก <xliff:g id="COUNT">%d</xliff:g> วัน"</item>
+        <item quantity="other" msgid="707566499994398250">"ทุก <xliff:g id="COUNT">%d</xliff:g> วัน"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"ทุก <xliff:g id="COUNT">%d</xliff:g> สัปดาห์"</item>
+        <item quantity="other" msgid="7094801039989237061">"ทุก <xliff:g id="COUNT">%d</xliff:g> สัปดาห์"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"ทุก <xliff:g id="COUNT">%d</xliff:g> เดือน"</item>
+        <item quantity="other" msgid="5419723710346646523">"ทุก <xliff:g id="COUNT">%d</xliff:g> เดือน"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"ทุก <xliff:g id="COUNT">%d</xliff:g> ปี"</item>
+        <item quantity="other" msgid="5678653649746562060">"ทุก <xliff:g id="COUNT">%d</xliff:g> ปี"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ในวันเดียวกันในแต่ละเดือน"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"ตลอดไป"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"จนถึงวันที่"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"จนถึงวันที่ <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"กำหนดจำนวนกิจกรรม"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"สำหรับกิจกรรม <xliff:g id="EVENT_COUNT">%d</xliff:g> รายการ"</item>
-    <item quantity="other" msgid="8779598489398048259">"สำหรับกิจกรรม <xliff:g id="EVENT_COUNT">%d</xliff:g> รายการ"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"สำหรับกิจกรรม <xliff:g id="EVENT_COUNT">%d</xliff:g> รายการ"</item>
+        <item quantity="other" msgid="8779598489398048259">"สำหรับกิจกรรม <xliff:g id="EVENT_COUNT">%d</xliff:g> รายการ"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"เปลี่ยนวันที่สิ้นสุด"</string>
     <string name="visibility_default">เริ่มต้น</string>
-  <string name="visibility_private">ส่วนบุคคล</string>
-  <string name="visibility_public">สาธารณะ</string>
+    <string name="visibility_private">ส่วนบุคคล</string>
+    <string name="visibility_public">สาธารณะ</string>
 </resources>
