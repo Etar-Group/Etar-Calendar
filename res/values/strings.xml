@@ -841,7 +841,7 @@
     <string name="cal_pick_ics">Pick file to import</string>
 
     <!-- Strings to describe view details array -->
-    <string name="show_time_no">Don't show time</string>
+    <string name="show_time_no">Don\'t show time</string>
     <string name="show_time_start">Only start time</string>
     <string name="show_time_start_end">Start and end time</string>
     <string name="show_time_start_end_below">Start and end time below the event</string>
