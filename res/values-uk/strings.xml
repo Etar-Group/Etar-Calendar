@@ -31,37 +31,40 @@
     <plurals name="Nminutes">
         <item quantity="one">1 хвилина</item>
         <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> хвилин</item>
+            <xliff:g id="COUNT">%d</xliff:g> хвилини</item>
         <item quantity="many">
             <xliff:g id="count">%d</xliff:g> хвилин</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 хвилина</item>
         <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> хвилин</item>
+            <xliff:g id="COUNT">%d</xliff:g> хвилини</item>
         <item quantity="many">
             <xliff:g id="count">%d</xliff:g> хвилин</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 година</item>
         <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> годин</item>
+            <xliff:g id="COUNT">%d</xliff:g> години</item>
         <item quantity="many">
             <xliff:g id="count">%d</xliff:g> годин</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 день</item>
         <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> днів</item>
+            <xliff:g id="count">%d</xliff:g> дні</item>
         <item quantity="many">
             <xliff:g id="count">%d</xliff:g> днів</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"ТИЖДЕНЬ <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">тиждень <xliff:g id="count">%d</xliff:g>
+        </item>
+        <item quantity="few">тижні</item>
+        <item quantity="many">тижнів</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Оновити"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показ. день"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"Поряд. ден."</string>
+    <string name="agenda_view" msgid="5566084759423843245">Порядок денний</string>
     <string name="day_view" msgid="4467754504843584437">"День"</string>
     <string name="week_view" msgid="6775043022159508060">"Тиждень"</string>
     <string name="month_view" msgid="7287101431749285412">"Місяць"</string>
@@ -73,8 +76,8 @@
     <string name="menu_preferences" msgid="9120238479503233925">"Налаштування"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Календарі"</string>
     <string name="search" msgid="550656004486017426">"Пошук"</string>
-    <string name="hide_controls" msgid="830320505938520882">"Сховати елем. керув."</string>
-    <string name="show_controls" msgid="715520586028062621">"Показати елем.керув."</string>
+    <string name="hide_controls" msgid="830320505938520882">Сховати елементи керування</string>
+    <string name="show_controls" msgid="715520586028062621">Показати елементи керування</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Календарі для показу"</string>
     <string name="synced" msgid="7913940305983383493">"синхронізовано"</string>
     <string name="not_synced" msgid="4275114941801829419">"не синхронізовано"</string>
@@ -102,9 +105,9 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"Показати все"</string>
     <string name="description_label" msgid="7193475046717505855">"Опис"</string>
     <string name="presence_label" msgid="6169724148441175862">"Мій статус"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"Конфіденц."</string>
+    <string name="privacy_label" msgid="9215031965259597335">Конфіденційність</string>
     <string name="reminders_label" msgid="7292389181815525676">"Додати нагадування"</string>
-    <string name="no_syncable_calendars" msgid="7019488867045436129">"Немає календ."</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">Немає календарів</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Перш ніж додавати подію, потрібно додати в пристрій хоча б один обліковий запис служби Календар і зробити календар видимим. Щоб додати обліковий запис, торкніться опції \"Додати обліковий запис\" (якщо ви його щойно додали, зачекайте завершення синхронізації та повторіть спробу). Або торкніться опції \"Скасувати\" та переконайтеся, що принаймні один календар видимий."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Календар пропонує більше можливостей, якщо у вас є обліковий запис Google."\n\n"•Отримуйте доступ до нього з будь-якого веб-переглядача"\n"•Створюйте надійні резервні копії своїх подій"</string>
     <string name="add_account" msgid="1669072099756774952">"Додати обліковий запис"</string>
@@ -158,17 +161,23 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Одноразова подія"</string>
     <string name="endByDate" msgid="7654221304929538201">"; до <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; один раз"</item>
-        <item quantity="other" msgid="4855496837834652446">"; стільки разів: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">; один раз</item>
+        <item quantity="few">; <xliff:g id="NUMBER">%d</xliff:g> рази</item>
+        <item quantity="many">; <xliff:g id="NUMBER">%d</xliff:g> разів</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Щодня"</item>
-        <item quantity="other" msgid="5455230727715859264">"Кожні <xliff:g id="NUMBER">%d</xliff:g> дн."</item>
+        <item quantity="one">Щодня</item>
+        <item quantity="few">Кожні <xliff:g id="number">%d</xliff:g> дні</item>
+        <item quantity="many">Кожні <xliff:g id="number">%d</xliff:g> днів</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Будні дні (пн.-пт.)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Щотижня в <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Кожні <xliff:g id="NUMBER">%1$d</xliff:g> тжн. у <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Щотижня у <xliff:g id="days_of_week">%2$s</xliff:g>
+        </item>
+        <item quantity="few">Кожні <xliff:g id="number">%1$d</xliff:g> тижні у <xliff:g id="days_of_week">%2$s</xliff:g>
+        </item>
+        <item quantity="many">Кожні <xliff:g id="number">%1$d</xliff:g> тижнів у <xliff:g id="days_of_week">%2$s</xliff:g>
+        </item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Щомісяця"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Щороку"</string>
@@ -186,11 +195,11 @@
     <string name="menu_general_preferences" msgid="2812705323334260708">"Загальні налаштування"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Про Календар"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Налаштування"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Налаш. перегляду календ."</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">Налаштування перегляду календаря</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Сповіщення й нагадування"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Сховати відхилені події"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Початок тижня:"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Початок тижня:"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">Початок тижня</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">Початок тижня</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Очистити історію пошуку"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Видалити всі здійснені вами пошуки"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Історію пошуку очищено."</string>
@@ -198,19 +207,22 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вібросигнал"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Звук"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Спливаюче сповіщення"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Час нагад. за умовч."</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Час нагад. за умовч."</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">Типовий час нагадування</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Типовий час нагадування</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Викор.рідн.час.пояс"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Показувати календарі й час подій у рідному час. поясі під час подорожі"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Рідний час. пояс"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показувати номер тижня"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Про"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">Про додаток</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версія складання"</string>
     <string name="gadget_title" msgid="939918875331310945">"Календар"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="few">+<xliff:g id="number">%d</xliff:g>
+        </item>
+        <item quantity="many">+<xliff:g id="number">%d</xliff:g>
+        </item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Немає майбутніх подій календаря"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Експериментальна функція"</string>
@@ -247,32 +259,40 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Нова подія"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Подія <xliff:g id="ITEM_INDEX">%1$s</xliff:g> з <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 подія"</item>
-        <item quantity="other" msgid="6093072093209431078">"Подій: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">1 подія</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> події</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> подій</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"і ще 1 подія"</item>
-        <item quantity="other" msgid="3609243840882275136">"та інші події (<xliff:g id="COUNT">%d</xliff:g>)"</item>
+        <item quantity="one">+1 подія</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> події</item>
+        <item quantity="many">+<xliff:g id="count">%d</xliff:g> подій</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Вибрана подія"</string>
     <string name="do_not_check" msgid="7815441673853466129">"НЕ ставте прапорець -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Повторити"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Не повторюється"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Кожен <xliff:g id="COUNT">%d</xliff:g> день"</item>
-        <item quantity="other" msgid="707566499994398250">"Кожні <xliff:g id="COUNT">%d</xliff:g> дн."</item>
+        <item quantity="one">Кожен <xliff:g id="count">%d</xliff:g> день</item>
+        <item quantity="few">Кожні <xliff:g id="count">%d</xliff:g> дні</item>
+        <item quantity="many">Кожні <xliff:g id="count">%d</xliff:g> дні</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Кожен <xliff:g id="COUNT">%d</xliff:g> тжн."</item>
-        <item quantity="other" msgid="7094801039989237061">"Інтервал: <xliff:g id="COUNT">%d</xliff:g> тжн."</item>
+        <item quantity="one">Кожен <xliff:g id="COUNT">%d</xliff:g> тиждень</item>
+        <item quantity="few">Кожні <xliff:g id="COUNT">%d</xliff:g> тижні</item>
+        <item quantity="many">Кожні <xliff:g id="COUNT">%d</xliff:g> тижнів</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Кожен <xliff:g id="COUNT">%d</xliff:g> міс."</item>
-        <item quantity="other" msgid="5419723710346646523">"Кожні <xliff:g id="COUNT">%d</xliff:g> міс."</item>
+        <item quantity="one">Кожен <xliff:g id="COUNT">%d</xliff:g> місяць</item>
+        <item quantity="few">Кожні <xliff:g id="COUNT">%d</xliff:g> місяці</item>
+        <item quantity="many">Кожні <xliff:g id="COUNT">%d</xliff:g> місяців</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Кожен <xliff:g id="COUNT">%d</xliff:g> рік"</item>
-        <item quantity="other" msgid="5678653649746562060">"Кожні <xliff:g id="COUNT">%d</xliff:g> р."</item>
+        <item quantity="one">Кожен <xliff:g id="COUNT">%d</xliff:g> рік</item>
+        <item quantity="few">Кожні <xliff:g id="COUNT">%d</xliff:g> роки</item>
+        <item quantity="many">Кожні <xliff:g id="COUNT">%d</xliff:g> років</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"певного дня щомісяця"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Постійно"</string>
@@ -280,11 +300,65 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"До <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Для ряду подій"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"Для стількох подій: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
-        <item quantity="other" msgid="8779598489398048259">"Для стількох подій: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+        <item quantity="one">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> події</item>
+        <item quantity="few">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> подій</item>
+        <item quantity="many">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> подій</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"змінити дату завершення"</string>
-    <string name="visibility_default">За умовч.</string>
+    <string name="visibility_default">Типово</string>
     <string name="visibility_private">Приватно</string>
-    <string name="visibility_public">Заг.-дост.</string>
+    <string name="visibility_public">Публічно</string>
+    <string name="goto_date">Перейти до…</string>
+    <string name="rsvp_accepted">Надано відповідь: так.</string>
+    <string name="rsvp_tentative">Надано відповідь: можливо.</string>
+    <string name="rsvp_declined">Надано відповідь: ні.</string>
+    <string name="preferences_theme">Тема</string>
+    <string name="preferences_light_theme">Світла</string>
+    <string name="preferences_dark_theme">Темна</string>
+    <string name="preferences_black_theme">Чорна</string>
+    <string name="preferences_color">Основний колір</string>
+    <string name="preferences_color_pick">Основний колір</string>
+    <string name="preferences_days_per_week_title">Днів на тиждень</string>
+    <string name="preferences_days_per_week_dialog">Днів на тиждень</string>
+    <string name="preferences_default_event_duration_title">Типова тривалість події</string>
+    <string name="preferences_issues">Повідомити про проблеми</string>
+    <string name="user_rejected_calendar_write_permission">Для коректної роботи Etar потребує дозволу на читання та запис до календаря. Спробуйте ще раз, будь ласка.</string>
+    <string name="calendar_permission_not_granted">На жаль, ця функція не може працювати. Для коректної роботи Etar потребує дозволу на читання та запис до календаря.</string>
+    <string name="visibility_confidential">Конфіденційно</string>
+    <string name="zero_minutes">0 хвилин</string>
+    <string name="fifteen_minutes">15 хвилин</string>
+    <string name="thirty_minutes">30 хвилин</string>
+    <string name="one_hour">1 година</string>
+    <string name="one_and_a_half_hours">1,5 години</string>
+    <string name="two_hours">2 години</string>
+    <string name="share_label">Поділитися</string>
+    <string name="no_map">"Додатки з  мапами не встановлені"</string>
+    <string name="default_start_title">Типовий вигляд</string>
+    <string name="default_start_last">Вигляд, що використовувався раніше</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Запитувати про інтервал повторного нагадування</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Запитувати про інтервал повторного нагадування при кожному відкладанні</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Завжди використовувати типовий інтервал повторного нагадування</string>
+    <string name="snooze_delay_dialog_title">Встановити інтервал повторного нагадування</string>
+    <string name="preferences_default_snooze_delay_title">Типовий інтервал часу до повторного нагадування</string>
+    <string name="preferences_default_snooze_delay_dialog">Типовий інтервал до повторного нагадування</string>
+    <string name="error_generating_ics">Під час поширення події виникли проблеми</string>
+    <string name="cal_share_intent_title">Надіслати подію до:</string>
+    <string name="cal_export_event_sdcard_title">Експортувати на SD-карту</string>
+    <string name="cal_export_succ_msg">Подія успішно експортована: %1s</string>
+    <string name="cal_import_menu_title">Імпортувати подію</string>
+    <string name="cal_nothing_to_import">Нічого імпортувати</string>
+    <string name="cal_import_error_msg">Не вдалося імпортувати до календаря</string>
+    <string name="cal_import_error_date_msg">Не вдалося розпізнати надану дату: %s</string>
+    <string name="cal_pick_ics">Оберіть файл для імпорту</string>
+    <string name="view_settings">Опції перегляду</string>
+    <string name="preferences_month_view_portrait">Макет помісячного відображення (портретний режим)</string>
+    <string name="preferences_month_view_landscape">Макет помісячного відображення (ландшафтний режим)</string>
+    <string name="view_details">Подробиці</string>
+    <string name="display_time">Показувати час</string>
+    <string name="display_location">Показувати місце</string>
+    <string name="show_time_no">Не показувати час</string>
+    <string name="show_time_start">Тільки час початку</string>
+    <string name="show_time_start_end">Час початку і закінчення</string>
+    <string name="show_time_start_end_below">Час початку і закінчення нижче події</string>
+    <string name="maximum_number_of_lines">Максимальна кількість рядків у події</string>
 </resources>
