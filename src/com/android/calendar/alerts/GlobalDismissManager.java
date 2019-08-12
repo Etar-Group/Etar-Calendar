@@ -32,7 +32,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.util.Pair;
 

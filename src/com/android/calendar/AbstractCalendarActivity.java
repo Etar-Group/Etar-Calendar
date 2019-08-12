@@ -16,7 +16,7 @@
 
 package com.android.calendar;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class AbstractCalendarActivity extends AppCompatActivity {
     protected AsyncQueryService mService;

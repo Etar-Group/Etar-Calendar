@@ -101,11 +101,11 @@
     </LinearLayout>
 
     <!-- WHAT -->
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			>
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
 			android:id="@+id/title"
 			style="@style/TextAppearance.EditEvent_Value"
 			android:layout_width="match_parent"
@@ -116,7 +116,7 @@
 			android:inputType="textAutoCorrect|textCapSentences"
 			android:minHeight="48dip"
 			android:singleLine="true" />
-	</android.support.design.widget.TextInputLayout>
+	</com.google.android.material.textfield.TextInputLayout>
 
     <!-- WHERE -->
     <LinearLayout android:id="@+id/where_row"
@@ -125,7 +125,7 @@
         android:layout_marginBottom="6dip"
         android:focusable="true"
         android:orientation="vertical">
-		<android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				>
@@ -139,7 +139,7 @@
 				android:inputType="textAutoCorrect|textCapSentences"
 				android:minHeight="48dip"
 				android:singleLine="false" />
-		</android.support.design.widget.TextInputLayout>
+		</com.google.android.material.textfield.TextInputLayout>
 		<View
 			style="@style/EditEventSeparator"/>
     </LinearLayout>
