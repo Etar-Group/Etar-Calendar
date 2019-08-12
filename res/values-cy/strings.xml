@@ -13,7 +13,7 @@
     <string name="tomorrow_at_time_fmt">Yfory am <xliff:g id="time_interval">%s</xliff:g>
     </string>
     <string name="date_time_fmt">
-        <xliff:g id="date">%s</xliff:g>, <xliff:g id="time_interval">%s</xliff:g>
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
     <string name="repeats_label">Ailadrodd</string>
     <string name="no_title_label">(Dim teitl)</string>
@@ -243,9 +243,9 @@
     <string name="preferences_reminder_title">Hysbysiadau a nodiadau atgoffa</string>
     <string name="preferences_hide_declined_title">Cuddio pob digwyddiad gwrthodwyd</string>
     <string name="default_start_title">Golwg arferol</string>
-    <string name="view_details">Gweld Manylion</string>
-    <string name="display_time">Amser Arddangos</string>
-    <string name="display_location">Lleoliad Arddangos</string>
+    <string name="view_details">Gweld manylion</string>
+    <string name="display_time">Dangos amser</string>
+    <string name="display_location">Dangos lleoliad</string>
     <string name="default_start_last">Golwg a ddefnyddiwyd gynt</string>
     <string name="preferences_week_start_day_title">Wythnos yn dechrau ar</string>
     <string name="preferences_week_start_day_dialog">Wythnos yn dechrau ar</string>
@@ -385,7 +385,7 @@
     </string>
     <string name="recurrence_end_count_label">Am nifer o ddigwyddiadau</string>
     <plurals name="recurrence_end_count">
-        <item quantity="zero">Am 0 digwyddiadau</item>
+        <item quantity="zero">Am <xliff:g id="event_count">%d</xliff:g> digwyddiadau</item>
         <item quantity="one">Am <xliff:g id="event_count">%d</xliff:g> digwyddiad</item>
         <item quantity="two">Am <xliff:g id="event_count">%d</xliff:g> ddigwyddiad</item>
         <item quantity="few">Am <xliff:g id="event_count">%d</xliff:g> digwyddiad</item>
@@ -414,8 +414,9 @@
     <string name="cal_import_error_msg">Methwyd â mewnforio i\'r calendr</string>
     <string name="cal_import_error_date_msg">Methu â deall y dyddiad a roddwyd: %s</string>
     <string name="cal_pick_ics">Dewisa ffeil i\'w mewnforio</string>
-    <string name="show_time_no">Na</string>
+    <string name="show_time_no">Peidio â dangos yr amser</string>
     <string name="show_time_start">Amser dechrau yn unig</string>
     <string name="show_time_start_end">Amseroedd dechrau a diwedd</string>
     <string name="show_time_start_end_below">Amseroedd dechrau a diwedd islaw\'r digwyddiad</string>
+    <string name="maximum_number_of_lines">Uchafswm o linellau ar gyfer digwyddiad</string>
 </resources>

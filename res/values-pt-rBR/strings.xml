@@ -13,7 +13,7 @@
     <string name="tomorrow_at_time_fmt">Amanhã, às <xliff:g id="TIME_INTERVAL">%s</xliff:g>
     </string>
     <string name="date_time_fmt">
-        <xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
     <string name="repeats_label">Repetições</string>
     <string name="no_title_label">(Sem título)</string>

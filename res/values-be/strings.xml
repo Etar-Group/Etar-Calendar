@@ -23,34 +23,47 @@
     <string name="tomorrow" msgid="614434811813859237">"Заўтра"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Сёння ў <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Заўтра ў <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"Паўтарэнне"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Без назвы)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one">1 хвіліна</item>
-    <item quantity="few"><xliff:g id="count">%d</xliff:g> хвіліны</item>
-    <item quantity="many"><xliff:g id="count">%d</xliff:g> хвілін</item>
-</plurals>
-  <plurals name="Nmins">
-    <item quantity="one">1 хвіл</item>
-    <item quantity="few"><xliff:g id="count">%d</xliff:g> хвіл</item>
-    <item quantity="many"><xliff:g id="count">%d</xliff:g> хвіл</item>
-</plurals>
-  <plurals name="Nhours">
-    <item quantity="one">1 гадзіна</item>
-    <item quantity="few"><xliff:g id="count">%d</xliff:g> гадзіны</item>
-    <item quantity="many"><xliff:g id="count">%d</xliff:g> гадзін</item>
-</plurals>
-  <plurals name="Ndays">
-    <item quantity="one">1 дзень</item>
-    <item quantity="few"><xliff:g id="count">%d</xliff:g> дні</item>
-    <item quantity="many"><xliff:g id="count">%d</xliff:g> дзён</item>
-</plurals>
-  <plurals name="weekN">
-    <item quantity="one">тыдзень <xliff:g id="COUNT">%d</xliff:g></item>
-    <item quantity="few">тыдзень <xliff:g id="COUNT">%d</xliff:g></item>
-    <item quantity="many">тыдзень <xliff:g id="COUNT">%d</xliff:g></item>
-</plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">1 хвіліна</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> хвіліны</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> хвілін</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 хвіл</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> хвіл</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> хвіл</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 гадзіна</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> гадзіны</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> гадзін</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 дзень</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> дні</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> дзён</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="one">тыдзень <xliff:g id="COUNT">%d</xliff:g>
+        </item>
+        <item quantity="few">тыдзень <xliff:g id="COUNT">%d</xliff:g>
+        </item>
+        <item quantity="many">тыдзень <xliff:g id="COUNT">%d</xliff:g>
+        </item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Абнавіць"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Паказаць дзень"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Парадак дня"</string>
@@ -123,12 +136,12 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Хуткі адказ"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Выбраць хуткі адказ"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Не атрымалася знайсці паштовую праграму"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Запуск ўсяго за пару хвілін пазней."</item>
-    <item msgid="6215158751728689832">"Будзь там прыкладна праз 10 хвілін."</item>
-    <item msgid="4485794001743679338">"Працягваць і пачаць без мяне."</item>
-    <item msgid="8036557974294987511">"На жаль, я не паспяваю. Нам прыйдзецца перанесці мерапрыемства."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Запуск ўсяго за пару хвілін пазней."</item>
+        <item msgid="6215158751728689832">"Будзь там прыкладна праз 10 хвілін."</item>
+        <item msgid="4485794001743679338">"Працягваць і пачаць без мяне."</item>
+        <item msgid="8036557974294987511">"На жаль, я не паспяваю. Нам прыйдзецца перанесці мерапрыемства."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">Напісаць сваё…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Арганізатар:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напаміны"</string>
@@ -149,27 +162,29 @@
     <string name="snooze_label" msgid="1515893621063224666">"Адкласці"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Аднаразовая падзея"</string>
     <string name="endByDate" msgid="7654221304929538201">"; да <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one">; адзін раз</item>
-    <item quantity="few">; <xliff:g id="number">%d</xliff:g> разы</item>
-    <item quantity="many">; <xliff:g id="number">%d</xliff:g> раз</item>
-</plurals>
-  <plurals name="daily">
-    <item quantity="one">Штодзённа</item>
-    <item quantity="few">Кожныя <xliff:g id="NUMBER">%d</xliff:g> дні</item>
-    <item quantity="many">Кожныя <xliff:g id="NUMBER">%d</xliff:g> дзён</item>
-</plurals>
+    <plurals name="endByCount">
+        <item quantity="one">; адзін раз</item>
+        <item quantity="few">; <xliff:g id="number">%d</xliff:g> разы</item>
+        <item quantity="many">; <xliff:g id="number">%d</xliff:g> раз</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one">Штодзённа</item>
+        <item quantity="few">Кожныя <xliff:g id="NUMBER">%d</xliff:g> дні</item>
+        <item quantity="many">Кожныя <xliff:g id="NUMBER">%d</xliff:g> дзён</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Кожны будны дзень (Пн–Пт)"</string>
-  <plurals name="weekly">
-    <item quantity="one">Штотыднёва па <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g></item>
-    <item quantity="few">Кожныя <xliff:g id="NUMBER">%1$d</xliff:g> тыдні па <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g></item>
-    <item quantity="many">Кожныя <xliff:g id="NUMBER">%1$d</xliff:g> тыдняў па <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g></item>
-</plurals>
+    <plurals name="weekly">
+        <item quantity="one">Штотыднёва па <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
+        </item>
+        <item quantity="few">Кожныя <xliff:g id="NUMBER">%1$d</xliff:g> тыдні па <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
+        </item>
+        <item quantity="many">Кожныя <xliff:g id="NUMBER">%1$d</xliff:g> тыдняў па <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
+        </item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Штомесяц"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Штогод"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Штомесяц (у дзень <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Штогод (па <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Карыстальніцкія (не атрымліваецца наладзіць на тэлефоне)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Змяніць толькі гэта мерапрыемства"</string>
     <string name="modify_all" msgid="4421657265864209041">Змяніць усе падзеі ў серыі</string>
@@ -204,11 +219,13 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"Звесткі"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версія зборкі"</string>
     <string name="gadget_title" msgid="939918875331310945">"Каляндар"</string>
-  <plurals name="month_more_events">
-    <item quantity="one">+1</item>
-    <item quantity="few">+<xliff:g id="NUMBER">%d</xliff:g></item>
-    <item quantity="many">+<xliff:g id="NUMBER">%d</xliff:g></item>
-</plurals>
+    <plurals name="month_more_events">
+        <item quantity="one">+1</item>
+        <item quantity="few">+<xliff:g id="NUMBER">%d</xliff:g>
+        </item>
+        <item quantity="many">+<xliff:g id="NUMBER">%d</xliff:g>
+        </item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Няма падзей календара, якія павiнны адбыцца"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Эксперыментальнае"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Напаміны"</string>
@@ -243,54 +260,56 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Напiсаць гасцям"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Новае мерапрыемства"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Падзея <xliff:g id="ITEM_INDEX">%1$s</xliff:g> з <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one">1 падзея</item>
-    <item quantity="few"><xliff:g id="count">%d</xliff:g> падзеі</item>
-    <item quantity="many"><xliff:g id="count">%d</xliff:g> падзей</item>
-</plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one">+1 падзея</item>
-    <item quantity="few">+<xliff:g id="count">%d</xliff:g> падзеі</item>
-    <item quantity="many">+<xliff:g id="count">%d</xliff:g> падзей</item>
-</plurals>
+    <plurals name="Nevents">
+        <item quantity="one">1 падзея</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> падзеі</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> падзей</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one">+1 падзея</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> падзеі</item>
+        <item quantity="many">+<xliff:g id="count">%d</xliff:g> падзей</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Выдзеленыя мерапрыемствы"</string>
     <string name="do_not_check" msgid="7815441673853466129">"НЕ правяраць -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Паўтарыць"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Ніколі не паўтараецца"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one">Кожны <xliff:g id="COUNT">%d</xliff:g> дзень</item>
-    <item quantity="few">Кожныя <xliff:g id="COUNT">%d</xliff:g> дні</item>
-    <item quantity="many">Кожныя <xliff:g id="COUNT">%d</xliff:g> дзён</item>
-</plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one">Штотыднёва</item>
-    <item quantity="few">Кожныя <xliff:g id="count">%d</xliff:g> тыдні</item>
-    <item quantity="many">Кожныя <xliff:g id="count">%d</xliff:g> тыдняў</item>
-</plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one">Штомесячна</item>
-    <item quantity="few">Кожныя <xliff:g id="count">%d</xliff:g> месяцы</item>
-    <item quantity="many">Кожныя <xliff:g id="count">%d</xliff:g> месяцаў</item>
-</plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one">Штогодна</item>
-    <item quantity="few">Кожныя <xliff:g id="count">%d</xliff:g> гады</item>
-    <item quantity="many">Кожныя <xliff:g id="count">%d</xliff:g> гадоў</item>
-</plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Кожны <xliff:g id="COUNT">%d</xliff:g> дзень</item>
+        <item quantity="few">Кожныя <xliff:g id="COUNT">%d</xliff:g> дні</item>
+        <item quantity="many">Кожныя <xliff:g id="COUNT">%d</xliff:g> дзён</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one">Штотыднёва</item>
+        <item quantity="few">Кожныя <xliff:g id="count">%d</xliff:g> тыдні</item>
+        <item quantity="many">Кожныя <xliff:g id="count">%d</xliff:g> тыдняў</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one">Штомесячна</item>
+        <item quantity="few">Кожныя <xliff:g id="count">%d</xliff:g> месяцы</item>
+        <item quantity="many">Кожныя <xliff:g id="count">%d</xliff:g> месяцаў</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Штогодна</item>
+        <item quantity="few">Кожныя <xliff:g id="count">%d</xliff:g> гады</item>
+        <item quantity="many">Кожныя <xliff:g id="count">%d</xliff:g> гадоў</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"у той жа дзень кожнага месяца"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Назаўсёды"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Да даты"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"да <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Для некалькiх мерапрыемстваў"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> падзеі</item>
-    <item quantity="few">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> падзей</item>
-    <item quantity="many">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> падзей</item>
-</plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> падзеі</item>
+        <item quantity="few">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> падзей</item>
+        <item quantity="many">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> падзей</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"змяніць дату заканчэння"</string>
     <string name="visibility_default">Па змаўчанні</string>
-  <string name="visibility_private">Прыватны</string>
-  <string name="visibility_public">Агульнадаступнае</string>
+    <string name="visibility_private">Прыватны</string>
+    <string name="visibility_public">Агульнадаступнае</string>
     <string name="goto_date">Перайсці…</string>
     <string name="preferences_theme">Тэма</string>
     <string name="preferences_light_theme">Светлая</string>

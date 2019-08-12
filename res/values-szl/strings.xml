@@ -234,7 +234,7 @@
     <string name="recurrence_end_date_label">Do daty</string>
     <string name="no_map">Żodno aplikacyjo mapy niyma zainstalowano</string>
     <string name="date_time_fmt">
-        <xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
     <string name="response_maybe">Możno</string>
     <string name="accessibility_reminder_showmeas">Pokoż mōj sztand za</string>
@@ -322,7 +322,7 @@
     <plurals name="weekN">
         <item quantity="one">tydziyń <xliff:g id="count">%d</xliff:g>
         </item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="edit_event_to_label">Do</string>
     <string name="preferences_month_view_portrait">Widok miesiōnca (portret)</string>

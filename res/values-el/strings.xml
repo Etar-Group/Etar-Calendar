@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Ημερολόγιο"</string>
     <string name="what_label" msgid="1933578391985810049">"Τι"</string>
     <string name="where_label" msgid="3472482206065595118">"Που"</string>
@@ -26,28 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"Αύριο"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Σήμερα στις <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Αύριο στις <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"Επανάληψη"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Χωρίς τίτλο)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 λεπτό"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 λεπτό"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 ώρα"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ώρες"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 ημέρα"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ημέρες"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"ΕΒΔΟΜΑΔΑ <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 λεπτό"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 λεπτό"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 ώρα"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ώρες"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 ημέρα"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ημέρες"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"ΕΒΔΟΜΑΔΑ <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Ανανέωση"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Εμφάνιση ημέρας"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Ατζέντα"</string>
@@ -120,12 +119,12 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Γρήγορη απάντηση"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Επιλογή γρήγορης απάντησης"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Αποτυχία εύρεσης προγράμματος ηλεκτρονικού ταχυδρομείου"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Άφιξη με μια μικρή καθυστέρηση."</item>
-    <item msgid="6215158751728689832">"Θα είμαι εκεί σε 10 λεπτά."</item>
-    <item msgid="4485794001743679338">"Προχωρήστε και συνεχίστε χωρίς εμένα."</item>
-    <item msgid="8036557974294987511">"Λυπάμαι, δεν θα καταφέρω να παρευρεθώ. Θα πρέπει να επαναπρογραμματίσουμε τη συνάντηση."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Άφιξη με μια μικρή καθυστέρηση."</item>
+        <item msgid="6215158751728689832">"Θα είμαι εκεί σε 10 λεπτά."</item>
+        <item msgid="4485794001743679338">"Προχωρήστε και συνεχίστε χωρίς εμένα."</item>
+        <item msgid="8036557974294987511">"Λυπάμαι, δεν θα καταφέρω να παρευρεθώ. Θα πρέπει να επαναπρογραμματίσουμε τη συνάντηση."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Συντάξτε τη δική σας…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Διοργανωτής:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Υπενθυμίσεις"</string>
@@ -146,24 +145,23 @@
     <string name="snooze_label" msgid="1515893621063224666">"Αναβολή"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Συμβάν που δεν επαναλαμβάνεται"</string>
     <string name="endByDate" msgid="7654221304929538201">"; έως τις <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; για μία φορά"</item>
-    <item quantity="other" msgid="4855496837834652446">"; για <xliff:g id="NUMBER">%d</xliff:g> φορές"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Ημερησίως"</item>
-    <item quantity="other" msgid="5455230727715859264">"Κάθε <xliff:g id="NUMBER">%d</xliff:g> ημέρες"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"; για μία φορά"</item>
+        <item quantity="other" msgid="4855496837834652446">"; για <xliff:g id="NUMBER">%d</xliff:g> φορές"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Ημερησίως"</item>
+        <item quantity="other" msgid="5455230727715859264">"Κάθε <xliff:g id="NUMBER">%d</xliff:g> ημέρες"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Καθημερινά (Δευ-Παρ)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Κάθε εβδομάδα, μέρα <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Κάθε εβδομάδες <xliff:g id="NUMBER">%1$d</xliff:g>, μέρες <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Κάθε εβδομάδα, μέρα <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"Κάθε εβδομάδες <xliff:g id="NUMBER">%1$d</xliff:g>, μέρες <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Μηνιαία"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Ετήσια"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Κάθε μήνα (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Κάθε χρόνο (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Προσαρμοσμένο (δεν είναι δυνατή η προσαρμογή στο τηλέφωνο)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Αλλαγή μόνο αυτού του συμβάντος"</string>
     <string name="modify_all" msgid="4421657265864209041">"Αλλαγή όλων των συμβάντων στη σειρά."</string>
@@ -198,10 +196,10 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"Σχετικά με"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Έκδοση Build"</string>
     <string name="gadget_title" msgid="939918875331310945">"Ημερολόγιο"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Δεν υπάρχουν προσεχή συμβάντα ημερολογίου"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Σε πειραματικό στάδιο"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Υπενθυμίσεις"</string>
@@ -236,51 +234,51 @@
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου σε προσκεκλημένους"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Νέο συμβάν"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Συμβάντα <xliff:g id="ITEM_INDEX">%1$s</xliff:g> από <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 συμβάν"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> συμβάντα"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 συμβάν"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> συμβάντα"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 συμβάν"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> συμβάντα"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 συμβάν"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> συμβάντα"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Επιλεγμένο συμβάν"</string>
     <string name="do_not_check" msgid="7815441673853466129">"ΜΗΝ επιλέξετε -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Επανάληψη"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Δεν επαναλαμβάνεται"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Κάθε <xliff:g id="COUNT">%d</xliff:g> ημέρα"</item>
-    <item quantity="other" msgid="707566499994398250">"Κάθε <xliff:g id="COUNT">%d</xliff:g> ημέρες"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Κάθε <xliff:g id="COUNT">%d</xliff:g> εβδομάδα"</item>
-    <item quantity="other" msgid="7094801039989237061">"Κάθε <xliff:g id="COUNT">%d</xliff:g> εβδομάδες"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Κάθε <xliff:g id="COUNT">%d</xliff:g> μήνα"</item>
-    <item quantity="other" msgid="5419723710346646523">"Κάθε <xliff:g id="COUNT">%d</xliff:g> μήνες"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Κάθε <xliff:g id="COUNT">%d</xliff:g> έτος"</item>
-    <item quantity="other" msgid="5678653649746562060">"Κάθε <xliff:g id="COUNT">%d</xliff:g> έτη"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"Κάθε <xliff:g id="COUNT">%d</xliff:g> ημέρα"</item>
+        <item quantity="other" msgid="707566499994398250">"Κάθε <xliff:g id="COUNT">%d</xliff:g> ημέρες"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Κάθε <xliff:g id="COUNT">%d</xliff:g> εβδομάδα"</item>
+        <item quantity="other" msgid="7094801039989237061">"Κάθε <xliff:g id="COUNT">%d</xliff:g> εβδομάδες"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"Κάθε <xliff:g id="COUNT">%d</xliff:g> μήνα"</item>
+        <item quantity="other" msgid="5419723710346646523">"Κάθε <xliff:g id="COUNT">%d</xliff:g> μήνες"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"Κάθε <xliff:g id="COUNT">%d</xliff:g> έτος"</item>
+        <item quantity="other" msgid="5678653649746562060">"Κάθε <xliff:g id="COUNT">%d</xliff:g> έτη"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ίδια ημέρα κάθε μήνα"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Για πάντα"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Μέχρι μια ορισμένη ημ/νία"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Έως τις <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Για έναν αριθμό συμβάντων"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Για <xliff:g id="EVENT_COUNT">%d</xliff:g> συμβάν"</item>
-    <item quantity="other" msgid="8779598489398048259">"Για <xliff:g id="EVENT_COUNT">%d</xliff:g> συμβάντα"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Για <xliff:g id="EVENT_COUNT">%d</xliff:g> συμβάν"</item>
+        <item quantity="other" msgid="8779598489398048259">"Για <xliff:g id="EVENT_COUNT">%d</xliff:g> συμβάντα"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"αλλαγή ημερομηνίας λήξης"</string>
     <string name="visibility_default">Προεπιλογή</string>
-  <string name="visibility_private">Ιδιωτικό</string>
-  <string name="visibility_public">Δημόσιο</string>
-  <string name="preferences_alerts_custom_snooze_delay_title">Καθυστέρηση αναβολής υπενθύμισης</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_on">Ερώτηση για την καθυστέρηση αναβολής όποτε αναβάλλετε υπενθυμίσεις</string>
-  <string name="preferences_alerts_custom_snooze_delay_summary_off">Να χρησιμοποιείται πάντα η προεπιλεγμένη καθυστέρηση αναβολής</string>
-  <string name="snooze_delay_dialog_title">Ορισμός καθυστέρησης αναβολής</string>
-  <string name="preferences_default_snooze_delay_title">Προεπιλεγμένος χρόνος καθυστέρησης αναβολής</string>
-  <string name="preferences_default_snooze_delay_dialog">Προεπιλεγμένη καθυστέρηση αναβολής</string>
+    <string name="visibility_private">Ιδιωτικό</string>
+    <string name="visibility_public">Δημόσιο</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Καθυστέρηση αναβολής υπενθύμισης</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Ερώτηση για την καθυστέρηση αναβολής όποτε αναβάλλετε υπενθυμίσεις</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Να χρησιμοποιείται πάντα η προεπιλεγμένη καθυστέρηση αναβολής</string>
+    <string name="snooze_delay_dialog_title">Ορισμός καθυστέρησης αναβολής</string>
+    <string name="preferences_default_snooze_delay_title">Προεπιλεγμένος χρόνος καθυστέρησης αναβολής</string>
+    <string name="preferences_default_snooze_delay_dialog">Προεπιλεγμένη καθυστέρηση αναβολής</string>
 </resources>
