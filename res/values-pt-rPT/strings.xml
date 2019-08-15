@@ -67,15 +67,15 @@
     <string name="event_edit" msgid="4006961928830064662">"Editar evento"</string>
     <string name="event_delete" msgid="2386667193277770442">"Eliminar evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hoje"</string>
-    <string name="menu_preferences" msgid="9120238479503233925">Configurações</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">Calendár. mostrados</string>
+    <string name="menu_preferences" msgid="9120238479503233925">Definições</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">Calendários a exibir</string>
     <string name="search" msgid="550656004486017426">"Pesquisar"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ocultar controlos"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostrar controlos"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">Calendários a mostrar</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">Calendários a exibir</string>
     <string name="synced" msgid="7913940305983383493">"sincronizado"</string>
     <string name="not_synced" msgid="4275114941801829419">"não sincronizado"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">Esta conta não está a ser sincronizada, por isso os calendários podem não estar atualizados.</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">Esta conta não está a ser sincronizada, por isso os calendários poderão não estar atualizados.</string>
     <string name="accounts" msgid="849401841083180306">"Contas e sincronização"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendários a sincronizar"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendários a sincronizar"</string>
@@ -112,7 +112,7 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Escolher cor do evento</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">Cor do evento</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">Definir como cor padrão do calendário</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">Definir como cor predefinida do calendário</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">Cor do calendário</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Seletor de cores"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">Vai estar presente\?</string>
@@ -300,7 +300,7 @@
     <string name="visibility_public">Público</string>
     <string name="share_label">Partilhar</string>
     <string name="goto_date">Ir para…</string>
-    <string name="view_settings">Ver configurações</string>
+    <string name="view_settings">Ver definições</string>
     <string name="rsvp_accepted">Respondeu sim.</string>
     <string name="rsvp_tentative">Respondeu talvez.</string>
     <string name="rsvp_declined">Respondeu não.</string>
@@ -316,7 +316,7 @@
     <string name="default_start_title">Vista padrão</string>
     <string name="view_details">Ver detalhes</string>
     <string name="display_time">Mostrar hora</string>
-    <string name="display_location">Mostrar localização</string>
+    <string name="display_location">Exibir localização</string>
     <string name="default_start_last">Vista utilizada anteriormente</string>
     <string name="preferences_days_per_week_title">Dias por semana</string>
     <string name="preferences_days_per_week_dialog">Dias por semana</string>
@@ -346,8 +346,9 @@
     <string name="cal_import_error_msg">Falha ao importar para o calendário</string>
     <string name="cal_import_error_date_msg">Não foi possível processar a data indicada: %1</string>
     <string name="cal_pick_ics">Escolha o ficheiro a importar</string>
-    <string name="show_time_no">Não</string>
+    <string name="show_time_no">Não mostrar hora</string>
     <string name="show_time_start">Apenas hora de início</string>
     <string name="show_time_start_end">Hora de início e de término</string>
     <string name="show_time_start_end_below">Hora de início e de término para além do evento</string>
+    <string name="maximum_number_of_lines">Númnero máximo de linhas no evento</string>
 </resources>
