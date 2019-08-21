@@ -259,6 +259,7 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
+        notificationBuilder.setColor(context.getResources().getColor(R.color.colorPrimary));
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
 
