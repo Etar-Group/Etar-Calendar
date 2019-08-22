@@ -818,6 +818,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mEventTextPaint.setTextAlign(Paint.Align.LEFT);
         mEventTextPaint.setAntiAlias(true);
 
+        float lineHeight = new StaticLayout(" ", 0, 1, new TextPaint(mEventTextPaint), 1000,
+                Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true, null, 1000).getLineBottom(0);
+        float totalLineHeight = lineHeight + EVENT_RECT_TOP_MARGIN + EVENT_RECT_BOTTOM_MARGIN
+                + EVENT_ALL_DAY_TEXT_TOP_MARGIN + EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN + ALL_DAY_EVENT_RECT_BOTTOM_MARGIN;
+        MIN_EVENT_HEIGHT = Math.max(MIN_EVENT_HEIGHT, totalLineHeight);
+        MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
+
         int gridLineColor = mResources.getColor(R.color.calendar_grid_line_highlight_color);
         Paint p = mSelectionPaint;
         p.setColor(gridLineColor);
