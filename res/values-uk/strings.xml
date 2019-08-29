@@ -36,11 +36,11 @@
             <xliff:g id="count">%d</xliff:g> хвилин</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 хвилина</item>
+        <item quantity="one">1 хв.</item>
         <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> хвилини</item>
+            <xliff:g id="COUNT">%d</xliff:g> хв.</item>
         <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> хвилин</item>
+            <xliff:g id="count">%d</xliff:g> хв.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 година</item>
@@ -57,10 +57,11 @@
             <xliff:g id="count">%d</xliff:g> днів</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">тиждень <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="few">тижні</item>
-        <item quantity="many">тижнів</item>
+        <item quantity="one">тиждень</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> тижні</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> тижнів</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Оновити"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показ. день"</string>
