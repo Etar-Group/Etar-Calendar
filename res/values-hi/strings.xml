@@ -131,7 +131,7 @@
     <string name="agenda_today" msgid="5965841338467422191">"आज, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"कल, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"कल, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"लोड हो रहा है..."</string>
+    <string name="loading" msgid="3772533493214331230">लोड हो रहा है…</string>
     <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> से पहले के ईवेंट देखने के लिए स्पर्श करें"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> के बाद के ईवेंट देखने के लिए स्पर्श करें"</string>
     <string name="search_title" msgid="8898015280250716254">"मेरे कैलेंडर में खोजें"</string>
@@ -211,7 +211,8 @@
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"मौन घंटों का समाप्ति समय"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"डीबग करना"</string>
     <string name="copy_db" msgid="437691290566699292">"डेटाबेस भेजें"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> खोज रहा है..."</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">
+        <xliff:g id="DOMAIN">%s</xliff:g> खोज रहा है…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"अतिथि निकालें"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"प्रारंभ दिनांक"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"प्रारंभ समय"</string>

@@ -275,4 +275,5 @@
     <string name="visibility_default">Default</string>
     <string name="visibility_private">Private</string>
     <string name="visibility_public">Public</string>
+    <string name="share_label">Partilhar</string>
 </resources>
