@@ -104,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dip">
-		<android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				>
@@ -117,7 +117,7 @@
 				android:hint="@string/hint_attendees"
 				android:imeOptions="actionNext"
 				style="@style/TextAppearance.EditEvent_Value" />
-		</android.support.design.widget.TextInputLayout>
+		</com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <View
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dip"
         android:focusable="true">
-		<android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				>
@@ -144,7 +144,7 @@
 				android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
 				style="@style/TextAppearance.EditEvent_Value"
 				android:imeOptions="actionDone" />
-		</android.support.design.widget.TextInputLayout>
+		</com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <View
