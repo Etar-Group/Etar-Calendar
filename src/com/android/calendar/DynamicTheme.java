@@ -89,7 +89,7 @@ public class DynamicTheme {
         }
     }
 
-    private static String getPrimaryColor(Context context) {
+    public static String getPrimaryColor(Context context) {
         return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
     }
 

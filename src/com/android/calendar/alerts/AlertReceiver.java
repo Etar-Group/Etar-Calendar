@@ -48,6 +48,7 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
 
@@ -259,6 +260,8 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
+        int color = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
+        notificationBuilder.setColor(context.getResources().getColor(color));
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
 
