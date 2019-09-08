@@ -765,7 +765,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (myToolbar != null && activity != null) {
             activity.setSupportActionBar(myToolbar);
             activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-            myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+            myToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         }
 
         mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
