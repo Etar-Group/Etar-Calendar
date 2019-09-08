@@ -49,7 +49,7 @@
             android:enabled="false"
             android:padding="8dip"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_menu_colorpicker_dialog"
+            android:src="@drawable/ic_colorpicker"
             android:visibility="invisible" />
     </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:enabled="false"
             android:padding="8dip"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_menu_colorpicker_dialog"
+            android:src="@drawable/ic_colorpicker"
             android:visibility="gone"  />
     </LinearLayout>
 

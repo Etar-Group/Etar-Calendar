@@ -7,5 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
-    android:theme="@style/Widget.CalendarAppTheme.ActionBar"
+    app:theme="@style/Widget.CalendarAppTheme.ActionBar"
     app:titleTextAppearance="?attr/settings_titleText" />
