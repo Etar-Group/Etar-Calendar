@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Events;
 import android.provider.SearchRecentSuggestions;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -104,7 +105,9 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         mShowEventDetailsWithAgenda =
             Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
 
-        setContentView(R.layout.search);
+        setContentView(R.layout.simple_frame_layout_material);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
@@ -168,8 +171,8 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
         AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis, true);
-        ft.replace(R.id.search_results, searchResultsFragment);
-        mController.registerEventHandler(R.id.search_results, searchResultsFragment);
+        ft.replace(R.id.body_frame, searchResultsFragment);
+        mController.registerEventHandler(R.id.body_frame, searchResultsFragment);
 
         ft.commit();
         Time t = new Time();
