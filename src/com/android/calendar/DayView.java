@@ -601,8 +601,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
         EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(eventTextSizeId);
         NEW_EVENT_HINT_FONT_SIZE = (int) mResources.getDimension(R.dimen.new_event_hint_text_size);
-        MIN_EVENT_HEIGHT = mResources.getDimension(R.dimen.event_min_height);
-        MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
         EVENT_TEXT_TOP_MARGIN = (int) mResources.getDimension(R.dimen.event_text_vertical_margin);
         EVENT_TEXT_BOTTOM_MARGIN = EVENT_TEXT_TOP_MARGIN;
         EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
@@ -627,7 +625,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 HOURS_TOP_MARGIN *= mScale;
                 MIN_CELL_WIDTH_FOR_TEXT *= mScale;
                 MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
-                mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
 
                 CURRENT_TIME_LINE_SIDE_BUFFER *= mScale;
                 CURRENT_TIME_LINE_TOP_OFFSET *= mScale;
@@ -654,6 +651,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 NEW_EVENT_MAX_LENGTH *= mScale;
             }
         }
+
+        mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
+        mEventTextPaint.setTextAlign(Paint.Align.LEFT);
+        mEventTextPaint.setAntiAlias(true);
+
+        Paint.FontMetrics fm = mEventTextPaint.getFontMetrics();
+        float fontHeight = Math.round(fm.bottom  - fm.top) + 1;
+        MIN_EVENT_HEIGHT = fontHeight + EVENT_RECT_TOP_MARGIN + EVENT_RECT_BOTTOM_MARGIN
+                + EVENT_ALL_DAY_TEXT_TOP_MARGIN + EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN + ALL_DAY_EVENT_RECT_BOTTOM_MARGIN;
+        MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
+
+        mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
+
         HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
         DAY_HEADER_HEIGHT = mNumDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
         if (LunarUtils.showLunar(mContext) && mNumDays != 1) {
@@ -813,10 +823,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mClickedColor = dynTheme.getColor(mContext, "day_event_clicked_background_color");
         mEventTextColor = dynTheme.getColor(mContext, "calendar_event_text_color");
         mMoreEventsTextColor = dynTheme.getColor(mContext, "month_event_other_color");
-
-        mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
-        mEventTextPaint.setTextAlign(Paint.Align.LEFT);
-        mEventTextPaint.setAntiAlias(true);
 
         int gridLineColor = mResources.getColor(R.color.calendar_grid_line_highlight_color);
         Paint p = mSelectionPaint;
