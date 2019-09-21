@@ -322,7 +322,7 @@
     <plurals name="weekN">
         <item quantity="one">tydziyń <xliff:g id="count">%d</xliff:g>
         </item>
-        <item quantity="other"/>
+        <item quantity="other"></item>
     </plurals>
     <string name="edit_event_to_label">Do</string>
     <string name="preferences_month_view_portrait">Widok miesiōnca (portret)</string>

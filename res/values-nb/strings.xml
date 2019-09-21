@@ -256,8 +256,8 @@
             <xliff:g id="count">%d</xliff:g> aktiviteter</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">+1 aktivitet</item>
-        <item quantity="other">+<xliff:g id="count">%d</xliff:g> aktiviteter</item>
+        <item quantity="one">Én aktivitet.</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g>aktiviteter</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valgt aktivitet"</string>
     <string name="do_not_check" msgid="7815441673853466129">"IKKE merk av -&gt;"</string>
