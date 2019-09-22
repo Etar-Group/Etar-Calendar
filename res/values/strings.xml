@@ -248,6 +248,10 @@
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
     <skip/>
+    <string name="foreground_notification_channel_name">Calendar Sync</string>
+    <string name="foreground_notification_channel_description">
+        Foreground notification required for calendar sync
+    </string>
 
     <!-- Event info/edit screen labels:-->
     <skip/>
