@@ -53,8 +53,8 @@
                     <Spinner
                         android:id="@+id/freqSpinner"
                         style="@style/TextAppearance.RecurrencePickerStyle"
-                        android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:entries="@array/recurrence_freq"
@@ -63,6 +63,7 @@
 
                     <Switch
                         android:id="@+id/repeat_switch"
+                        android:layout_weight="0.04"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

@@ -16,10 +16,18 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/switch_thumb_disabled_holo_light" android:state_enabled="false"/>
-    <item android:drawable="@drawable/switch_thumb_pressed_holo_light" android:state_pressed="true"/>
-    <item android:drawable="@drawable/switch_thumb_activated_holo_light" android:state_checked="true"/>
-    <item android:drawable="@drawable/switch_thumb_holo_light_v2"/>
-
+    <item android:state_checked="true" >
+        <shape android:shape="line">
+            <solid android:color="#467fda" />
+            <size android:width="20dp" />
+            <size android:height="20dp"/>
+        </shape>
+    </item>
+    <item android:state_checked="false" >
+        <shape android:shape="oval">
+            <solid android:color="#5b5b5b" />
+            <size android:width="40dp" />
+            <size android:height="35dp"/>
+        </shape>
+    </item>
 </selector>
