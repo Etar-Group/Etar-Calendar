@@ -248,9 +248,9 @@
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
     <skip/>
-    <string name="foreground_notification_channel_name">Calendar Sync</string>
+    <string name="foreground_notification_channel_name">Alert Sync</string>
     <string name="foreground_notification_channel_description">
-        Foreground notification required for calendar sync
+        Foreground notification required for internal alert sync. Please mute
     </string>
 
     <!-- Event info/edit screen labels:-->
