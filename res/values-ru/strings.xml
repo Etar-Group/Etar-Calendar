@@ -262,11 +262,11 @@
         <item quantity="one" msgid="5819562634008179102">"Интервал: <xliff:g id="COUNT">%d</xliff:g> г."</item>
         <item quantity="other" msgid="5678653649746562060">"Интервал: <xliff:g id="COUNT">%d</xliff:g> гг./лет"</item>
     </plurals>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ежемесячно"</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">Ежемесячно</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Всегда"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"до определенной даты"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">До определенной даты</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"До <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"несколько раз"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Несколько раз"</string>
     <plurals name="recurrence_end_count">
         <item quantity="one" msgid="1400782968090516215">"Повторов: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
         <item quantity="other" msgid="8779598489398048259">"Повторов: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
@@ -281,4 +281,51 @@
     <string name="snooze_delay_dialog_title">Отложить на\u2026</string>
     <string name="preferences_default_snooze_delay_title">Повтор по умолчанию</string>
     <string name="preferences_default_snooze_delay_dialog">Повтор по умолчанию</string>
+    <string name="cal_export_event_sdcard_title">Экспорт на SD-карту</string>
+    <string name="cal_export_succ_msg">Экспортировано: %1s</string>
+    <string name="cal_import_error_msg">Ошибка импорта в календарь</string>
+    <string name="cal_import_menu_title">Импортировать событие</string>
+    <string name="cal_nothing_to_import">Нечего импортировать</string>
+    <string name="cal_pick_ics">Выберите файл для импорта</string>
+    <string name="cal_share_intent_title">Отправить событие:</string>
+    <string name="calendar_permission_not_granted">Эта функция недоступна. Необходимо разрешение на чтение и запись.</string>
+    <string name="default_start_title">Вид по умолчанию</string>
+    <string name="default_start_last">Предыдущий вид</string>
+    <string name="display_time">Отобразить время</string>
+    <string name="display_location">Отобразить местоположение</string>
+    <string name="fifteen_minutes">15 минут</string>
+    <string name="goto_date">Перейти к</string>
+    <string name="maximum_number_of_lines">Максимальное количество строк в событии</string>
+    <string name="no_map">Не установлено приложение карт</string>
+    <string name="one_and_a_half_hours">1.5 часа</string>
+    <string name="one_hour">1 час</string>
+    <string name="preferences_black_theme">Черная</string>
+    <string name="preferences_color">Основной цвет</string>
+    <string name="preferences_days_per_week_dialog">Дней в неделю</string>
+    <string name="preferences_days_per_week_title">Дней в неделю</string>
+    <string name="preferences_default_event_duration_title">Продолжительность события по умолчанию</string>
+    <string name="preferences_issues">Отправить ошибку</string>
+    <string name="preferences_light_theme">Светлая</string>
+    <string name="preferences_month_view_landscape">Вид месяца в ландшафтном режиме</string>
+    <string name="preferences_month_view_portrait">Вид месяца в портретном режиме</string>
+    <string name="preferences_theme">Тема</string>
+    <string name="share_label">Поделиться</string>
+    <string name="show_time_no">Не показывать время</string>
+    <string name="show_time_start_end">Время начала и окончания</string>
+    <string name="thirty_minutes">30 минут</string>
+    <string name="two_hours">2 часа</string>
+    <string name="view_details">Детали просмотра</string>
+    <string name="zero_minutes">0 минут</string>
+    <string name="visibility_confidential">Конфеденциальный</string>
+    <string name="view_settings">Настройки просмотра</string>
+    <string name="user_rejected_calendar_write_permission">Для правильной работы Etar требуются разрешения на чтение и запись календаря. Пожалуйста, попробуйте еще раз.</string>
+    <string name="show_time_start_end_below">Время начала и окончания после события</string>
+    <string name="show_time_start">Только время начала</string>
+    <string name="rsvp_accepted">Ответил да.</string>
+    <string name="rsvp_declined">Ответил нет.</string>
+    <string name="rsvp_tentative">Ответил возможно.</string>
+    <string name="preferences_dark_theme">Темная</string>
+    <string name="preferences_color_pick">Основной цвет</string>
+    <string name="error_generating_ics">Проблемы при отправке события</string>
+    <string name="cal_import_error_date_msg">Невозможно понять данную дату: %s</string>
 </resources>
