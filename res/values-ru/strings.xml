@@ -18,7 +18,7 @@
     <string name="where_label" msgid="3472482206065595118">"Где"</string>
     <string name="when_label" msgid="894636567327261599">"Когда"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Часовой пояс"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
+    <string name="attendees_label" msgid="2971281641565729725">Участники</string>
     <string name="today" msgid="8577375020252453006">"Сегодня"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">Сегодня, <xliff:g id="time_interval">%s</xliff:g>
@@ -96,7 +96,7 @@
     <string name="hint_what" msgid="709155115005044531">Название события</string>
     <string name="hint_where" msgid="4972598001033801974">"Место"</string>
     <string name="hint_description" msgid="1910143586169033232">"Описание"</string>
-    <string name="hint_attendees" msgid="1650488163176888480">"Гости"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">Участники</string>
     <string name="creating_event" msgid="7516249252554059980">Событие создано.</string>
     <string name="saving_event" msgid="7694181017411177226">Событие сохранено.</string>
     <string name="empty_event" msgid="9018699257414338634">Нельзя создать событие без данных.</string>
@@ -133,14 +133,14 @@
     <string name="response_yes" msgid="2027484304899988350">"Да"</string>
     <string name="response_maybe" msgid="7791500973627841695">Возможно</string>
     <string name="response_no" msgid="561911691884148136">"Нет"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Уведомить гостей по эл. почте"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">Уведомить участников по эл. почте</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Написать организатору"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Отправить из"</string>
     <string name="event_not_found" msgid="8356864185947582727">Событие не найдено.</string>
     <string name="map_label" msgid="8795383535586556038">"Карта"</string>
     <string name="call_label" msgid="2960328220008869083">"Позвонить"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Быстрые ответы"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">Изменение ответов по умолчанию при уведомлении гостей по электронной почте</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Изменение ответов по умолчанию при уведомлении участников по электронной почте</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">Изменить быстрые ответы</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Быстрый ответ"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Выбор быстрого ответа"</string>
@@ -273,7 +273,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Конфиденциальность"</string>
     <string name="accessibility_cal_notification" msgid="7267601064994839394">"Уведомления календаря"</string>
     <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Напомнить позже"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"Уведомить гостей по электронной почте"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">Уведомить участников по электронной почте</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">Создать событие</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Событие <xliff:g id="item_index">%1$s</xliff:g> из <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
