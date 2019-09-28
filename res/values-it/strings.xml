@@ -330,4 +330,5 @@
     <string name="show_time_start">Solo tempo di inizio</string>
     <string name="show_time_start_end">Ora di inizio e fine</string>
     <string name="show_time_start_end_below">Ora di inizio e fine sotto all\'evento</string>
+    <string name="maximum_number_of_lines">Max numero di linee in evento</string>
 </resources>

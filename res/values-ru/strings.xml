@@ -18,34 +18,57 @@
     <string name="where_label" msgid="3472482206065595118">"Где"</string>
     <string name="when_label" msgid="894636567327261599">"Когда"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Часовой пояс"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
+    <string name="attendees_label" msgid="2971281641565729725">Участники</string>
     <string name="today" msgid="8577375020252453006">"Сегодня"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Сегодня, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Завтра, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Сегодня, <xliff:g id="time_interval">%s</xliff:g>
+    </string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Завтра, <xliff:g id="time_interval">%s</xliff:g>
+    </string>
     <string name="date_time_fmt" msgid="1642972650061946484">
         <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
     <string name="repeats_label" msgid="7414023871434593196">"Повторять"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Нет заголовка)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 минута"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
+        <item quantity="one">
+            <xliff:g id="count">%d</xliff:g> минута</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> минуты</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> минут</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 мин."</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
+        <item quantity="one">
+            <xliff:g id="count">%d</xliff:g> мин.</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> мин.</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> мин.</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"за 1 час"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ч."</item>
+        <item quantity="one">
+            <xliff:g id="count">%d</xliff:g> час</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> часа</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> часов</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 день"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> дн."</item>
+        <item quantity="one">
+            <xliff:g id="count">%d</xliff:g> день</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> дня</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> дней</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"Неделя <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">неделя <xliff:g id="count">%d</xliff:g>
+        </item>
+        <item quantity="few">неделя <xliff:g id="count">%d</xliff:g>
+        </item>
+        <item quantity="many">неделя <xliff:g id="count">%d</xliff:g>
+        </item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Обновить"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показать день"</string>
@@ -53,10 +76,10 @@
     <string name="day_view" msgid="4467754504843584437">"День"</string>
     <string name="week_view" msgid="6775043022159508060">"Неделя"</string>
     <string name="month_view" msgid="7287101431749285412">"Месяц"</string>
-    <string name="event_view" msgid="7621353079385122317">"Просмотр мероприятия"</string>
-    <string name="event_create" msgid="6941040556709110617">"Новое мероприятие"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Изменить мероприятие"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Удалить мероприятие"</string>
+    <string name="event_view" msgid="7621353079385122317">Просмотр события</string>
+    <string name="event_create" msgid="6941040556709110617">Новое событие</string>
+    <string name="event_edit" msgid="4006961928830064662">Изменить событие</string>
+    <string name="event_delete" msgid="2386667193277770442">Удалить событие</string>
     <string name="goto_today" msgid="9162136434410891230">"Сегодня"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Календари"</string>
@@ -67,21 +90,21 @@
     <string name="synced" msgid="7913940305983383493">"синхронизирован"</string>
     <string name="not_synced" msgid="4275114941801829419">"не синхронизирован"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Этот аккаунт не синхронизируется, поэтому ваши календари не обновляются."</string>
-    <string name="accounts" msgid="849401841083180306">"Аккаунты"</string>
+    <string name="accounts" msgid="849401841083180306">Аккаунты и синхронизация</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Календари для синхронизации"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календари для синхронизации"</string>
-    <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
+    <string name="hint_what" msgid="709155115005044531">Название события</string>
     <string name="hint_where" msgid="4972598001033801974">"Место"</string>
     <string name="hint_description" msgid="1910143586169033232">"Описание"</string>
-    <string name="hint_attendees" msgid="1650488163176888480">"Гости"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Мероприятие создано."</string>
-    <string name="saving_event" msgid="7694181017411177226">"Мероприятие сохранено."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Нельзя создать мероприятие без данных."</string>
+    <string name="hint_attendees" msgid="1650488163176888480">Участники</string>
+    <string name="creating_event" msgid="7516249252554059980">Событие создано.</string>
+    <string name="saving_event" msgid="7694181017411177226">Событие сохранено.</string>
+    <string name="empty_event" msgid="9018699257414338634">Нельзя создать событие без данных.</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Приглашения будут отправлены."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Обновления будут отправлены."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Сохранить"</string>
     <string name="alert_title" msgid="7869592820853066853">"Уведомления календаря"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Просмотр мероприятия"</string>
+    <string name="event_info_title" msgid="56024222340421620">Просмотр события</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Приглашение на встречу"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"До"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"С"</string>
@@ -89,36 +112,39 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Календарь"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Показать все"</string>
     <string name="description_label" msgid="7193475046717505855">"Описание"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Мой статус:"</string>
+    <string name="presence_label" msgid="6169724148441175862">Мой статус</string>
     <string name="privacy_label" msgid="9215031965259597335">"Конфиденциальность"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Добавить напоминание"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Добавить мероприятие можно только в видимый календарь, связанный с аккаунтом Google. Нажмите \"Добавить аккаунт\" или, если аккаунт уже добавлен, дождитесь окончания синхронизации и повторите попытку. Либо нажмите \"Отмена\" и сделайте видимым хотя бы один календарь."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Подключите Календарь к аккаунту Google, чтобы: "\n\n"• Всегда иметь под рукой обновленные данные – на любом устройстве."\n"• Синхронизировать все мероприятия – вы никогда не потеряете их."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Добавить событие можно только в видимый календарь, связанный с аккаунтом Google. Нажмите \"Добавить аккаунт\" или, если аккаунт уже добавлен, дождитесь окончания синхронизации и повторите попытку. Либо нажмите \"Отмена\" и сделайте видимым хотя бы один календарь.</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">Подключите Календарь к аккаунту Google, чтобы: 
+\n
+\n• Всегда иметь под рукой актуальные данные на любом устройстве
+\n• Синхронизировать все события, чтобы никогда их не потерять</string>
     <string name="add_account" msgid="1669072099756774952">"Добавить аккаунт"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календарь:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Организатор:"</string>
-    <string name="choose_event_color_label" msgid="2192923501857428854">"Выбрать цвет мероприятия"</string>
-    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Цвет мероприятия"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">Выбрать цвет события</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">Цвет события</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Сделать цветом календаря по умолчанию"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Цвет календаря"</string>
-    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Цветовая палитра"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">Выбор цвета</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Да"</string>
-    <string name="response_maybe" msgid="7791500973627841695">"Может быть"</string>
+    <string name="response_maybe" msgid="7791500973627841695">Возможно</string>
     <string name="response_no" msgid="561911691884148136">"Нет"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Уведомить гостей по эл. почте"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">Уведомить участников по эл. почте</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Написать организатору"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Отправить из"</string>
-    <string name="event_not_found" msgid="8356864185947582727">"Мероприятие не найдено"</string>
+    <string name="event_not_found" msgid="8356864185947582727">Событие не найдено.</string>
     <string name="map_label" msgid="8795383535586556038">"Карта"</string>
     <string name="call_label" msgid="2960328220008869083">"Позвонить"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Быстрые ответы"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Изменить ответы"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Изменить ответы"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Изменение ответов по умолчанию при уведомлении участников по электронной почте</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">Изменить быстрые ответы</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Быстрый ответ"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Выбор быстрого ответа"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Не удалось найти почтовый клиент."</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">Не удалось найти почтовый клиент</string>
     <string-array name="quick_response_defaults">
         <item msgid="1524421198348168403">"Задерживаюсь на пару минут."</item>
         <item msgid="6215158751728689832">"Буду примерно через 10 минут."</item>
@@ -128,87 +154,103 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Ваш ответ…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напоминания"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"СЕГОДНЯ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"ВЧЕРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"ЗАВТРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">сегодня, <xliff:g id="date">%1$s</xliff:g>
+    </string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">вчера, <xliff:g id="date">%1$s</xliff:g>
+    </string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">завтра, <xliff:g id="date">%1$s</xliff:g>
+    </string>
     <string name="loading" msgid="3772533493214331230">"Загрузка…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Нажмите, чтобы увидеть мероприятия до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Нажмите, чтобы увидеть мероприятия после <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">Нажмите, чтобы увидеть события до <xliff:g id="oldest_search_range">%1$s</xliff:g>
+    </string>
+    <string name="show_newer_events" msgid="2604638815440163080">Нажмите, чтобы увидеть события после <xliff:g id="newest_search_range">%1$s</xliff:g>
+    </string>
     <string name="search_title" msgid="8898015280250716254">"Поиск в моих календарях"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Сведения"</string>
     <string name="edit_label" msgid="8934331258435656534">"Изменить"</string>
     <string name="delete_label" msgid="874742811918030739">"Удалить"</string>
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>
     <string name="discard_label" msgid="2394623883289782541">"Отмена"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Напомнить"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">Отложить все</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Удалить все"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Отложить"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"Однократное мероприятие"</string>
-    <string name="endByDate" msgid="7654221304929538201">"до <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">Однократное событие</string>
+    <string name="endByDate" msgid="7654221304929538201">до <xliff:g id="date">%s</xliff:g>
+    </string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; 1 раз"</item>
-        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> раз(-а)"</item>
+        <item quantity="one">
+            <xliff:g id="number">%d</xliff:g> раз</item>
+        <item quantity="few">
+            <xliff:g id="number">%d</xliff:g> раза</item>
+        <item quantity="many">
+            <xliff:g id="number">%d</xliff:g> раз</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Ежедневно"</item>
-        <item quantity="other" msgid="5455230727715859264">"Раз в <xliff:g id="NUMBER">%d</xliff:g> дн."</item>
+        <item quantity="one">Ежедневно</item>
+        <item quantity="few">Раз в <xliff:g id="NUMBER">%d</xliff:g> дня</item>
+        <item quantity="many">Раз в <xliff:g id="NUMBER">%d</xliff:g> дней</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Каждый будний день (пн–пт)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Еженедельно (<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
-        <item quantity="other" msgid="2857390143157377867">"Кажд. <xliff:g id="NUMBER">%1$d</xliff:g> нед. (<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
+        <item quantity="one">Еженедельно (<xliff:g id="days_of_week">%2$s</xliff:g>)</item>
+        <item quantity="few">Раз в <xliff:g id="number">%1$d</xliff:g> недели (<xliff:g id="days_of_week">%2$s</xliff:g>)</item>
+        <item quantity="many">Раз в <xliff:g id="number">%1$d</xliff:g> недель (<xliff:g id="days_of_week">%2$s</xliff:g>)</item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Ежемесячно"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Ежегодно"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Ежемесячно (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> числа)"</string>
     <string name="yearly" msgid="8576208380302949002">"Ежегодно (<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"Особое… (настраивается только на сайте)"</string>
-    <string name="modify_event" msgid="5982876409997142690">"Изменить только это мероприятие"</string>
-    <string name="modify_all" msgid="4421657265864209041">"Изменить все мероприятия в серии"</string>
-    <string name="modify_all_following" msgid="3017428541066390380">"Изменить это и будущие мероприятия"</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"Новое мероприятие"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"Новое мероприятие"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">"Удалить мероприятие?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Удалить мероприятие \"<xliff:g id="EVENTTITLE">%s</xliff:g>\"?"</string>
+    <string name="modify_event" msgid="5982876409997142690">Изменить только это событие</string>
+    <string name="modify_all" msgid="4421657265864209041">Изменить все события в серии</string>
+    <string name="modify_all_following" msgid="3017428541066390380">Изменить это и будущие события</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">Новое событие</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">Новое событие</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">Удалить событие\?</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">Удалить событие \"<xliff:g id="eventtitle">%s</xliff:g>\"\?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Изменить ответ"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Общие настройки"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"О календаре"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Мероприятия"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">Отображение календаря</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Уведомления и напоминания"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Скрыть отклоненные"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Начало недели:"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Начало недели:"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">Не показывать отклонённые</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">Начало недели</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">Начало недели</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Очистить историю поиска"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Удалить информацию обо всех выполненных поисковых запросах"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"История поиска удалена."</string>
-    <string name="preferences_alerts_title" msgid="6636088008103904020">"Оповещения"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">Уведомления</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вибросигнал"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Рингтон"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">Звук</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Всплывающее уведомление"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Напомнить"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Фикс. часовой пояс"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Домашний часовой пояс</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Всегда показывать в календаре время в заданном часовом поясе"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Мой часовой пояс"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показать номер недели"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"О программе"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">Показывать номер недели</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">О приложении</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версия сборки"</string>
     <string name="gadget_title" msgid="939918875331310945">"Календарь"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">" и еще 1"</item>
-        <item quantity="other" msgid="1997405398178470838">" и еще <xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">и ещё <xliff:g id="number">%d</xliff:g>
+        </item>
+        <item quantity="few">и ещё <xliff:g id="NUMBER">%d</xliff:g>
+        </item>
+        <item quantity="many">и ещё <xliff:g id="NUMBER">%d</xliff:g>
+        </item>
     </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"В календаре нет предстоящих мероприятий"</string>
+    <string name="gadget_no_events" msgid="5209110911088302855">В календаре нет предстоящих событий</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Экспериментальная версия"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Напоминания"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Пропустить напоминания"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Пропустить напоминания"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Пауза"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">Тихие часы</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"В течение указанного периода напоминания о событиях не будут приходить."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Начало паузы"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Окончание паузы"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">Начало</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">Окончание</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Отладка"</string>
     <string name="copy_db" msgid="437691290566699292">"Отправить базу данных"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Поиск в <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
@@ -218,7 +260,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Дата окончания"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Время окончания"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Часовой пояс"</string>
-    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Повторять мероприятие"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">Повторять событие</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Добавить напоминание"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Удалить напоминание"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Добавить участника"</string>
@@ -227,49 +269,63 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"Повтор"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Время срабатывания напоминания"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Тип напоминания"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Мой статус:"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Мой статус</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Конфиденциальность"</string>
     <string name="accessibility_cal_notification" msgid="7267601064994839394">"Уведомления календаря"</string>
     <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Напомнить позже"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"Уведомить гостей по электронной почте"</string>
-    <string name="day_view_new_event_hint" msgid="2131483437911536229">"Создать мероприятие"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Мероприятие <xliff:g id="ITEM_INDEX">%1$s</xliff:g> из <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">Уведомить участников по электронной почте</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">Создать событие</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">Событие <xliff:g id="item_index">%1$s</xliff:g> из <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"Мероприятий: 1"</item>
-        <item quantity="other" msgid="6093072093209431078">"Мероприятий: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">
+            <xliff:g id="count">%d</xliff:g> событие</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> события</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> событий</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"Ещё мероприятий: 1"</item>
-        <item quantity="other" msgid="3609243840882275136">"Ещё мероприятий: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">Ещё <xliff:g id="count">%d</xliff:g> событие</item>
+        <item quantity="few">Ещё <xliff:g id="count">%d</xliff:g> события</item>
+        <item quantity="many">Ещё <xliff:g id="count">%d</xliff:g> событий</item>
     </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Выбранное мероприятие"</string>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Выбранное событие</string>
     <string name="do_not_check" msgid="7815441673853466129">"НЕ устанавливайте флажок &gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Повтор"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Никогда"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Интервал: <xliff:g id="COUNT">%d</xliff:g> д."</item>
-        <item quantity="other" msgid="707566499994398250">"Интервал: <xliff:g id="COUNT">%d</xliff:g> дн."</item>
+        <item quantity="one">Каждый <xliff:g id="count">%d</xliff:g> день</item>
+        <item quantity="few">Каждые <xliff:g id="count">%d</xliff:g> дня</item>
+        <item quantity="many">Каждые <xliff:g id="count">%d</xliff:g> дней</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Интервал: <xliff:g id="COUNT">%d</xliff:g> нед."</item>
-        <item quantity="other" msgid="7094801039989237061">"Интервал: <xliff:g id="COUNT">%d</xliff:g> нед."</item>
+        <item quantity="one">Каждую <xliff:g id="count">%d</xliff:g> неделю</item>
+        <item quantity="few">Каждые <xliff:g id="count">%d</xliff:g> недели</item>
+        <item quantity="many">Каждые <xliff:g id="count">%d</xliff:g> недель</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Интервал: <xliff:g id="COUNT">%d</xliff:g> мес."</item>
-        <item quantity="other" msgid="5419723710346646523">"Интервал: <xliff:g id="COUNT">%d</xliff:g> мес."</item>
+        <item quantity="one">Каждый <xliff:g id="count">%d</xliff:g> месяц</item>
+        <item quantity="few">Каждые <xliff:g id="count">%d</xliff:g> месяца</item>
+        <item quantity="many">Каждые <xliff:g id="count">%d</xliff:g> месяцев</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Интервал: <xliff:g id="COUNT">%d</xliff:g> г."</item>
-        <item quantity="other" msgid="5678653649746562060">"Интервал: <xliff:g id="COUNT">%d</xliff:g> гг./лет"</item>
+        <item quantity="one">Каждый <xliff:g id="count">%d</xliff:g> год</item>
+        <item quantity="few">Каждые <xliff:g id="count">%d</xliff:g> года</item>
+        <item quantity="many">Каждые <xliff:g id="count">%d</xliff:g> лет</item>
     </plurals>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ежемесячно"</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">ежемесячно в этот день</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Всегда"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"до определенной даты"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"До <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"несколько раз"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">До определённой даты</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">До <xliff:g id="date">%s</xliff:g>
+    </string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">Несколько раз</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"Повторов: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
-        <item quantity="other" msgid="8779598489398048259">"Повторов: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+        <item quantity="one">
+            <xliff:g id="event_count">%d</xliff:g> повтор</item>
+        <item quantity="few">
+            <xliff:g id="event_count">%d</xliff:g> повтора</item>
+        <item quantity="many">
+            <xliff:g id="event_count">%d</xliff:g> повторов</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"изменить дату окончания"</string>
     <string name="visibility_default">По умолчанию</string>
@@ -281,4 +337,51 @@
     <string name="snooze_delay_dialog_title">Отложить на\u2026</string>
     <string name="preferences_default_snooze_delay_title">Повтор по умолчанию</string>
     <string name="preferences_default_snooze_delay_dialog">Повтор по умолчанию</string>
+    <string name="goto_date">Перейти…</string>
+    <string name="rsvp_accepted">Получен ответ \"да\".</string>
+    <string name="rsvp_tentative">Получен ответ \"возможно\".</string>
+    <string name="rsvp_declined">Получен ответ \"нет\".</string>
+    <string name="preferences_theme">Тема</string>
+    <string name="preferences_light_theme">Светлая</string>
+    <string name="preferences_dark_theme">Тёмная</string>
+    <string name="preferences_black_theme">Чёрная</string>
+    <string name="preferences_color">Основной цвет</string>
+    <string name="preferences_color_pick">Основной цвет</string>
+    <string name="preferences_days_per_week_title">Дней в неделе</string>
+    <string name="preferences_days_per_week_dialog">Дней в неделе</string>
+    <string name="preferences_default_event_duration_title">Продолжительность события по умолчанию</string>
+    <string name="preferences_issues">Сообщить о проблеме</string>
+    <string name="user_rejected_calendar_write_permission">Для правильной работы Etar требуются разрешения на чтение и запись календаря. Пожалуйста, попробуйте ещё раз.</string>
+    <string name="calendar_permission_not_granted">К сожалению, эта функция не может работать. Etar требуются разрешения на чтение и запись календаря для правильной работы.</string>
+    <string name="visibility_confidential">Конфиденциальное</string>
+    <string name="zero_minutes">0 минут</string>
+    <string name="fifteen_minutes">15 минут</string>
+    <string name="thirty_minutes">30 минут</string>
+    <string name="one_hour">1 час</string>
+    <string name="one_and_a_half_hours">1.5 часа</string>
+    <string name="two_hours">2 часа</string>
+    <string name="share_label">Поделиться</string>
+    <string name="no_map">Нет установленного приложения карт</string>
+    <string name="default_start_title">Вид по умолчанию</string>
+    <string name="default_start_last">Ранее использованный вид</string>
+    <string name="error_generating_ics">Возникли проблемы при совместном использовании события</string>
+    <string name="cal_share_intent_title">Отправить событие:</string>
+    <string name="cal_export_event_sdcard_title">Экспорт на SD-карту</string>
+    <string name="cal_export_succ_msg">Событие успешно экспортировано: %1s</string>
+    <string name="cal_import_menu_title">Импортировать событие</string>
+    <string name="cal_nothing_to_import">Нечего импортировать</string>
+    <string name="cal_import_error_msg">Ошибка при импортировании в календарь</string>
+    <string name="cal_import_error_date_msg">Невозможно понять дату: %s</string>
+    <string name="cal_pick_ics">Выберите файл для импорта</string>
+    <string name="view_settings">Просмотр настроек</string>
+    <string name="preferences_month_view_portrait">Вид месяца (вертикальный)</string>
+    <string name="preferences_month_view_landscape">Вид месяца (горизонтальный)</string>
+    <string name="view_details">Подробный вид</string>
+    <string name="display_time">Показывать время</string>
+    <string name="display_location">Показывать место</string>
+    <string name="show_time_no">Не показывать время</string>
+    <string name="show_time_start">Только время начала</string>
+    <string name="show_time_start_end">Время начала и окончания</string>
+    <string name="show_time_start_end_below">Время начала и окончания под событием</string>
+    <string name="maximum_number_of_lines">Максимальное количество строк для события</string>
 </resources>
