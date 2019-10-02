@@ -180,6 +180,15 @@ public class ImportActivity extends Activity {
                     getLocalTimeFromString(dtEnd, dtEndParam));
         }
 
+
+        //Check if some special property which say it is a "All-Day" event.
+
+        String microsoft_all_day_event = firstEvent.getProperty("X-MICROSOFT-CDO-ALLDAYEVENT");
+        if(!TextUtils.isEmpty(microsoft_all_day_event) && microsoft_all_day_event.equals("TRUE")){
+            calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+        }
+
+
         calIntent.putExtra(EditEventActivity.EXTRA_READ_ONLY, true);
 
         try {
