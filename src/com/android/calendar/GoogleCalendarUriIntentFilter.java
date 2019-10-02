@@ -170,7 +170,7 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                             Calendars.CALENDAR_ACCESS_LEVEL + " desc");
                     if (debug) Log.d(TAG, "Found: " + eventCursor.getCount());
 
-                    if (eventCursor == null || eventCursor.getCount() == 0) {
+                    if (eventCursor == null) {
                         Log.i(TAG, "NOTE: found no matches on event with id='" + syncId + "'");
                         return;
                     }
