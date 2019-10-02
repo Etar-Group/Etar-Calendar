@@ -1,0 +1,5 @@
+- Extra Benachrichtigungen für die interne Alarm Synchronisation, bitte stumm schalten.
+- Nicht mehr benötigte Berechtigungen entfernt.
+- Farbiges Benachrichtigungssymbol
+- Fehlerbehebungen.
+- Neue Übersetzungen.
