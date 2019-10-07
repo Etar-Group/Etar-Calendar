@@ -95,6 +95,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
+import static com.android.calendar.alerts.AlertService.FOREGROUND_CHANNEL_ID;
 
 public class AllInOneActivity extends AbstractCalendarActivity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, NavigationView.OnNavigationItemSelectedListener {
@@ -265,9 +266,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         NotificationMgr nm = new AlertService.NotificationMgrWrapper(
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
         if (Utils.isOreoOrLater()) {
-            String appName = this.getString(R.string.standalone_app_label);
-            NotificationChannel channel  = new NotificationChannel(ALERT_CHANNEL_ID, appName, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel  = new NotificationChannel(
+                    ALERT_CHANNEL_ID,
+                    this.getString(R.string.standalone_app_label),
+                    NotificationManager.IMPORTANCE_HIGH);
+
+            NotificationChannel foregroundChannel = new NotificationChannel(
+                    FOREGROUND_CHANNEL_ID,
+                    this.getString(R.string.foreground_notification_channel_name),
+                    NotificationManager.IMPORTANCE_LOW);
+            foregroundChannel.setDescription(
+                    this.getString(R.string.foreground_notification_channel_description));
+
             nm.createNotificationChannel(channel);
+            nm.createNotificationChannel(foregroundChannel);
         }
 
         // Check and ask for most needed permissions
