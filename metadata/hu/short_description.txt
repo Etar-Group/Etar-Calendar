@@ -1,0 +1,1 @@
+Az alap androidos naptár leszármazottja, Material Design használatával
