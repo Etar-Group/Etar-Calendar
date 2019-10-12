@@ -344,4 +344,6 @@
     <string name="rsvp_declined">A répondu non.</string>
     <string name="cal_import_error_date_msg">Impossible d\'interpréter la date donnée : %s</string>
     <string name="show_time_start_end_below">Heure de début et de fin en dessous de l\'événement</string>
+    <string name="maximum_number_of_lines">Nombre maximum de lignes dans l\'événement</string>
+    <string name="foreground_notification_channel_name">Alerte de synchronisation</string>
 </resources>
