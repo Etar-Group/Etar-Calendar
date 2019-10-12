@@ -419,4 +419,6 @@
     <string name="show_time_start_end">Amseroedd dechrau a diwedd</string>
     <string name="show_time_start_end_below">Amseroedd dechrau a diwedd islaw\'r digwyddiad</string>
     <string name="maximum_number_of_lines">Uchafswm o linellau ar gyfer digwyddiad</string>
+    <string name="foreground_notification_channel_name">Cydamseriad Hysbysiadau</string>
+    <string name="foreground_notification_channel_description">Hysbysiad blaendir angenrheidiol er cydamseru hysbysiadau mewnol. I\'w ddistewi.</string>
 </resources>
