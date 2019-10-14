@@ -75,7 +75,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">Calendários a exibir</string>
     <string name="synced" msgid="7913940305983383493">"sincronizado"</string>
     <string name="not_synced" msgid="4275114941801829419">"não sincronizado"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">Esta conta não está a ser sincronizada, por isso os calendários poderão não estar atualizados.</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">Esta conta não está a ser sincronizada e, por isso, os calendários poderão não estar atualizados.</string>
     <string name="accounts" msgid="849401841083180306">"Contas e sincronização"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendários a sincronizar"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendários a sincronizar"</string>
@@ -92,9 +92,9 @@
     <string name="alert_title" msgid="7869592820853066853">"Notificações do calendário"</string>
     <string name="event_info_title" msgid="56024222340421620">Ver evento</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Convite para reunião"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">até</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">Até</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"De"</string>
-    <string name="edit_event_all_day_label" msgid="6200181113992136073">O dia todo</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">Todo o dia</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendário"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Mostrar tudo"</string>
     <string name="description_label" msgid="7193475046717505855">"Descrição"</string>
@@ -112,7 +112,7 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Escolher cor do evento</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">Cor do evento</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">Definir como cor predefinida do calendário</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">Definir como cor padrão do calendário</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">Cor do calendário</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Seletor de cores"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">Vai estar presente\?</string>
@@ -124,7 +124,7 @@
     <string name="email_picker_label" msgid="4808253965057791781">Enviar e-mail com</string>
     <string name="event_not_found" msgid="8356864185947582727">"Evento não encontrado."</string>
     <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
-    <string name="call_label" msgid="2960328220008869083">Telefonar</string>
+    <string name="call_label" msgid="2960328220008869083">Ligar</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostas rápidas"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">Editar respostas padrão em e-mails para convidados</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Editar respostas rápidas"</string>
@@ -157,9 +157,9 @@
     <string name="delete_label" msgid="874742811918030739">"Eliminar"</string>
     <string name="save_label" msgid="2133599104834432589">"Concluído"</string>
     <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">Lembrar em 5 min</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">Adiar tudo</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Cancelar tudo"</string>
-    <string name="snooze_label" msgid="1515893621063224666">Adiar 5 min</string>
+    <string name="snooze_label" msgid="1515893621063224666">Adiar</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="endByDate" msgid="7654221304929538201">; até <xliff:g id="date">%s</xliff:g>
     </string>
@@ -191,10 +191,10 @@
     <string name="delete_this_event_title" msgid="518402946676919384">"Eliminar este evento?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">Eliminar <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Alterar resposta"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">Configurações gerais</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">Sobre o Etar</string>
-    <string name="preferences_title" msgid="8045855493262131773">Configurações</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">Configuração de visualização</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">Definições gerais</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">Acerca de Etar</string>
+    <string name="preferences_title" msgid="8045855493262131773">Definições</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">Definições de visualização</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notificações e lembretes"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos recusados"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">Primeiro dia da semana</string>
@@ -210,10 +210,10 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Tempo padrão do lembrete</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Usar hora local</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Mostra calendários e horas dos eventos no seu fuso horário</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Mostrar calendários e horas dos eventos no seu fuso horário</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">Fuso horário</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número da semana"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">Sobre</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">Acerca</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
     <string name="gadget_title" msgid="939918875331310945">"Calendário"</string>
     <plurals name="month_more_events">
@@ -251,7 +251,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mostrar-me como"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacidade"</string>
     <string name="accessibility_cal_notification" msgid="7267601064994839394">Notificação do calendário</string>
-    <string name="accessibility_snooze_notification" msgid="5007852779125102681">Notificação de adiar</string>
+    <string name="accessibility_snooze_notification" msgid="5007852779125102681">Notificação de adiamento</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">Enviar e-mail aos convidados</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Novo evento"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Evento <xliff:g id="item_index">%1$s</xliff:g> de <xliff:g id="item_count">%2$s</xliff:g>.</string>
@@ -300,7 +300,7 @@
     <string name="visibility_public">Público</string>
     <string name="share_label">Partilhar</string>
     <string name="goto_date">Ir para…</string>
-    <string name="view_settings">Ver definições</string>
+    <string name="view_settings">Definições de vista</string>
     <string name="rsvp_accepted">Respondeu sim.</string>
     <string name="rsvp_tentative">Respondeu talvez.</string>
     <string name="rsvp_declined">Respondeu não.</string>
@@ -314,19 +314,19 @@
     <string name="preferences_color">Cor principal</string>
     <string name="preferences_color_pick">Cor principal</string>
     <string name="default_start_title">Vista padrão</string>
-    <string name="view_details">Ver detalhes</string>
+    <string name="view_details">Detalhes de visualização</string>
     <string name="display_time">Mostrar hora</string>
-    <string name="display_location">Exibir localização</string>
+    <string name="display_location">Mostrar localização</string>
     <string name="default_start_last">Vista utilizada anteriormente</string>
     <string name="preferences_days_per_week_title">Dias por semana</string>
     <string name="preferences_days_per_week_dialog">Dias por semana</string>
     <string name="preferences_default_event_duration_title">Duração padrão dos eventos</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">Perguntar para adiar 5 minutos</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">Perguntar para adiar por 5 minutos os lembretes</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_off">Usar sempre o tempo padrão de adiar</string>
-    <string name="snooze_delay_dialog_title">Definir o tempo de adiar</string>
-    <string name="preferences_default_snooze_delay_title">Tempo padrão de adiar</string>
-    <string name="preferences_default_snooze_delay_dialog">Atraso de adiar padrão</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Perguntar tempo para adiar</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Perguntar tempo mínimo para adiar lembretes</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Utilizar sempre o tempo padrão</string>
+    <string name="snooze_delay_dialog_title">Definir tempo para adiar</string>
+    <string name="preferences_default_snooze_delay_title">Tempo padrão para adiar</string>
+    <string name="preferences_default_snooze_delay_dialog">Atraso padrão para adiar</string>
     <string name="preferences_issues">Reportar erros</string>
     <string name="user_rejected_calendar_write_permission">Esta aplicação necessita de permissões para ler e gravar no calendário para funcionar corretamente. Tente novamente.</string>
     <string name="calendar_permission_not_granted">Esta funcionalidade não pode ser executada. O Etar necessita de permissões para ler e gravar no calendário para funcionar corretamente</string>
@@ -350,5 +350,7 @@
     <string name="show_time_start">Apenas hora de início</string>
     <string name="show_time_start_end">Hora de início e de término</string>
     <string name="show_time_start_end_below">Hora de início e de término para além do evento</string>
-    <string name="maximum_number_of_lines">Númnero máximo de linhas no evento</string>
+    <string name="maximum_number_of_lines">Número máximo de linhas no evento</string>
+    <string name="foreground_notification_channel_name">Sincronização de alertas</string>
+    <string name="foreground_notification_channel_description">Requer notificação em primeiro plano para sincronização de alertas. Por favor silencie.</string>
 </resources>
