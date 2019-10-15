@@ -24,7 +24,7 @@
     <string name="today_at_time_fmt" msgid="1981279213130049736">"今天 <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"明天 <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+        <xliff:g id="date">%1$s</xliff:g>,<xliff:g id="time_interval">%2$s</xliff:g>
     </string>
     <string name="repeats_label" msgid="7414023871434593196">"重复"</string>
     <string name="no_title_label" msgid="302177118061368042">"（无标题）"</string>
@@ -150,13 +150,12 @@
         <item quantity="other" msgid="4855496837834652446">"<xliff:g id="NUMBER">%d</xliff:g>次"</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"每天"</item>
-        <item quantity="other" msgid="5455230727715859264">"每<xliff:g id="NUMBER">%d</xliff:g>天"</item>
+        <item quantity="other">每<xliff:g id="number">%d</xliff:g>天</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"每周的<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"每<xliff:g id="NUMBER">%1$d</xliff:g>周的<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other">每<xliff:g id="number">%1$d</xliff:g>周的<xliff:g id="days_of_week">%2$s</xliff:g>
+        </item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"每月"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
@@ -197,8 +196,8 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
     <string name="gadget_title" msgid="939918875331310945">"日历"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
+        </item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"最近没有任何日历活动"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"实验性"</string>
@@ -239,27 +238,24 @@
             <xliff:g id="count">%d</xliff:g> 项活动</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="other">+<xliff:g id="count">%d</xliff:g> 项活动</item>
+        <item quantity="other">+
+\n<xliff:g id="count">%d</xliff:g>事件</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"所选活动"</string>
     <string name="do_not_check" msgid="7815441673853466129">"请勿选中 -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"重复"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"不重复"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"每<xliff:g id="COUNT">%d</xliff:g>天"</item>
-        <item quantity="other" msgid="707566499994398250">"每<xliff:g id="COUNT">%d</xliff:g>天"</item>
+        <item quantity="other">每<xliff:g id="count">%d</xliff:g>天</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"每<xliff:g id="COUNT">%d</xliff:g>周"</item>
-        <item quantity="other" msgid="7094801039989237061">"每<xliff:g id="COUNT">%d</xliff:g>周"</item>
+        <item quantity="other">每<xliff:g id="count">%d</xliff:g>周</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"每<xliff:g id="COUNT">%d</xliff:g>个月"</item>
-        <item quantity="other" msgid="5419723710346646523">"每<xliff:g id="COUNT">%d</xliff:g>个月"</item>
+        <item quantity="other">每<xliff:g id="count">%d</xliff:g>月</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"每<xliff:g id="COUNT">%d</xliff:g>年"</item>
-        <item quantity="other" msgid="5678653649746562060">"每<xliff:g id="COUNT">%d</xliff:g>年"</item>
+        <item quantity="other">每<xliff:g id="count">%d</xliff:g>年</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"在每个月的同一天"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"无限重复"</string>
@@ -304,4 +300,29 @@
     <string name="one_hour">1 小时</string>
     <string name="one_and_a_half_hours">1.5 小时</string>
     <string name="two_hours">2 小时</string>
+    <string name="share_label">分享</string>
+    <string name="default_start_title">默认视图</string>
+    <string name="default_start_last">先前使用视图</string>
+    <string name="error_generating_ics">分享事件时遇到问题</string>
+    <string name="cal_share_intent_title">发送事件到：</string>
+    <string name="cal_export_event_sdcard_title">导出至SD卡</string>
+    <string name="cal_export_succ_msg">成功导出事件 :%1s</string>
+    <string name="cal_import_menu_title">导入事件</string>
+    <string name="cal_nothing_to_import">无可导入事件</string>
+    <string name="cal_import_error_msg">导入日历失败</string>
+    <string name="cal_import_error_date_msg">未能理解给定日期: %1s</string>
+    <string name="cal_pick_ics">选择导入文件</string>
+    <string name="view_settings">查看设置</string>
+    <string name="preferences_month_view_portrait">月视图布局(纵向)</string>
+    <string name="preferences_month_view_landscape">月视图布局(横向)</string>
+    <string name="view_details">查看细节</string>
+    <string name="display_time">显示时间</string>
+    <string name="display_location">显示位置</string>
+    <string name="show_time_no">不要显示时间</string>
+    <string name="show_time_start">仅开始时间</string>
+    <string name="show_time_start_end">开始和结束时间</string>
+    <string name="show_time_start_end_below">在事件下方显示开始和结束时间</string>
+    <string name="maximum_number_of_lines">事件最大行数</string>
+    <string name="foreground_notification_channel_name">警告同步</string>
+    <string name="foreground_notification_channel_description">需要前台通知进行内部警告同步.请静音</string>
 </resources>
