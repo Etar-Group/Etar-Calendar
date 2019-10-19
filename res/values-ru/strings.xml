@@ -384,4 +384,6 @@
     <string name="show_time_start_end">Время начала и окончания</string>
     <string name="show_time_start_end_below">Время начала и окончания под событием</string>
     <string name="maximum_number_of_lines">Максимальное количество строк для события</string>
+    <string name="foreground_notification_channel_name">Синхронизация оповещений</string>
+    <string name="foreground_notification_channel_description">Уведомление требуется для внутренней синхронизации оповещений. Пожалуйста, отключите у него звук.</string>
 </resources>
