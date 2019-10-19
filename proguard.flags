@@ -35,6 +35,10 @@
  *** extractDomain(...);
 }
 
+-keep public class * extends android.app.Fragment {
+  public <init>();
+}
+
 -keepclassmembers class * implements android.content.SharedPreferences$Editor {
   public *** apply();
 }
