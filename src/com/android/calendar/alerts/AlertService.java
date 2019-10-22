@@ -984,6 +984,8 @@ public class AlertService extends Service {
         if (intent != null) {
 
             if (Utils.isOreoOrLater()) {
+
+                createChannels(this);
                 Notification notification = new NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
                         .setContentTitle("Event notifications")
                         .setSmallIcon(R.drawable.stat_notify_calendar)
@@ -1008,6 +1010,29 @@ public class AlertService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public static void createChannels(Context context) {
+        if (Utils.isOreoOrLater()) {
+            // Create notification channel
+            NotificationMgr nm = new NotificationMgrWrapper(
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+
+            NotificationChannel channel  = new NotificationChannel(
+                    ALERT_CHANNEL_ID,
+                    context.getString(R.string.standalone_app_label),
+                    NotificationManager.IMPORTANCE_HIGH);
+
+            NotificationChannel foregroundChannel = new NotificationChannel(
+                    FOREGROUND_CHANNEL_ID,
+                    context.getString(R.string.foreground_notification_channel_name),
+                    NotificationManager.IMPORTANCE_LOW);
+            foregroundChannel.setDescription(
+                    context.getString(R.string.foreground_notification_channel_description));
+
+            nm.createNotificationChannel(channel);
+            nm.createNotificationChannel(foregroundChannel);
+        }
     }
 
     // Added wrapper for testing
