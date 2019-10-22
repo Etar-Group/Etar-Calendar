@@ -405,4 +405,5 @@
     <string name="show_time_start">רק את מועד ההתחלה</string>
     <string name="show_time_start_end">מועד התחלה וסיום</string>
     <string name="show_time_start_end_below">מועד התחלה וסיום מתחת לאירוע</string>
+    <string name="foreground_notification_channel_name">סנכרון התראות</string>
 </resources>
