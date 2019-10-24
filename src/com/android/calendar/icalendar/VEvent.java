@@ -220,13 +220,19 @@ public class VEvent {
                 String key;
                 if (indexOfFirstParamDelimiter != -1 && indexOfFirstParamDelimiter < indexOfFirstColon) {
                     key = entry.substring(0, indexOfFirstParamDelimiter);
-                    String params = entry.substring(indexOfFirstParamDelimiter + 1, indexOfFirstColon);
-                    mPropertyParameters.put(key, params);
+                    if (!mPropertyParameters.containsKey(key)) {
+                        String params = entry.substring(indexOfFirstParamDelimiter + 1, indexOfFirstColon);
+                        mPropertyParameters.put(key, params);
+                    }
+                    // mPropertyParameters.putIfAbsent(key, params); // min API level 24
                 } else {
                     key = entry.substring(0, indexOfFirstColon);
                 }
-                String value = entry.substring(indexOfFirstColon + 1);
-                mProperties.put(key, value);
+                if (!mProperties.containsKey(key)) {
+                    String value = entry.substring(indexOfFirstColon + 1);
+                    mProperties.put(key, value);
+                }
+                // mProperties.putIfAbsent(key, value); // min API level 24
             }
         }
     }
