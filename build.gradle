@@ -70,6 +70,10 @@ project(':external:colorpicker') {
                     assets.srcDirs = ['assets']
             }
         }
+
+        lintOptions {
+            abortOnError false
+        }
     }
 }
 
