@@ -263,24 +263,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController = CalendarController.getInstance(this);
 
         // Create notification channel
-        NotificationMgr nm = new AlertService.NotificationMgrWrapper(
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
-        if (Utils.isOreoOrLater()) {
-            NotificationChannel channel  = new NotificationChannel(
-                    ALERT_CHANNEL_ID,
-                    this.getString(R.string.standalone_app_label),
-                    NotificationManager.IMPORTANCE_HIGH);
-
-            NotificationChannel foregroundChannel = new NotificationChannel(
-                    FOREGROUND_CHANNEL_ID,
-                    this.getString(R.string.foreground_notification_channel_name),
-                    NotificationManager.IMPORTANCE_LOW);
-            foregroundChannel.setDescription(
-                    this.getString(R.string.foreground_notification_channel_description));
-
-            nm.createNotificationChannel(channel);
-            nm.createNotificationChannel(foregroundChannel);
-        }
+        AlertService.createChannels(this);
 
         // Check and ask for most needed permissions
         checkAppPermissions();
