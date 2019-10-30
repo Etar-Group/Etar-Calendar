@@ -59,6 +59,7 @@
         <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background_black</item>
         <item name="done_text_recurrence">@color/recurrence_done_text_color_black</item>
         <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground_black</item>
+        <item name="event_info_bgcolor">@color/bg_black</item>
         <item name="event_info_scrollview_bgcolor">@color/bg_black</item>
         <item name="event_info_organizer_color">@color/event_info_organizer_color_black</item>
         <item name="event_info_description_color">@color/event_info_description_color_black</item>
