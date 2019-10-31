@@ -50,7 +50,16 @@
             <xliff:g id="COUNT">%d</xliff:g> Tage</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"Woche <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">"
+\n        "<item quantity="one">Eine Minute</item>"
+\n        "<item quantity="other">"
+\n            "<xliff:g id="COUNT">%d</xliff:g> Minuten</item>"
+\n    "</item>
+        <item quantity="other">"
+\n        "<item quantity="one">Eine Minute</item>"
+\n        "<item quantity="other">"
+\n            "<xliff:g id="COUNT">%d</xliff:g> Minuten</item>"
+\n    "</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aktualisieren"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tag anzeigen"</string>
