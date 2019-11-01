@@ -344,4 +344,6 @@
     <string name="show_time_start_end">Start- og slutttid</string>
     <string name="show_time_start_end_below">Start- og sluttid under aktiviteten</string>
     <string name="maximum_number_of_lines">Maksimalt antall linjer i aktivitet</string>
+    <string name="foreground_notification_channel_name">Varselsynkronisering</string>
+    <string name="foreground_notification_channel_description">Forgrunnsmerknader kreves for intern varselssynkronisering. Forstum lyden.</string>
 </resources>

@@ -366,4 +366,6 @@
     <string name="cal_export_succ_msg">Zdarzenie zostało pomyślnie wyeksportowane: %1s</string>
     <string name="preferences_month_view_portrait">Układ widoku miesiąca (Portret)</string>
     <string name="preferences_month_view_landscape">Układ widoku miesiąca (Krajobraz)</string>
+    <string name="foreground_notification_channel_name">Synchronizacja alertów</string>
+    <string name="foreground_notification_channel_description">Powiadomienie na pierwszym planie jest wymagane do wewnętrznej synchronizacji alertów. Proszę wyciszyć</string>
 </resources>
