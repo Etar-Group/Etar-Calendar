@@ -200,7 +200,7 @@ public class VEvent {
             String line = iter.next();
             if (line.contains("BEGIN:VEVENT")) {
                 // Continue
-            } else if (line.startsWith("END:EVENT")) {
+            } else if (line.startsWith("END:VEVENT")) {
                 break;
             } else if (line.startsWith("ORGANIZER")) {
                 String entry = parseTillNextAttribute(iter, line);
