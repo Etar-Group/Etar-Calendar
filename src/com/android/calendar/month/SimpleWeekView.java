@@ -172,14 +172,13 @@ public class SimpleWeekView extends View {
         super(context);
 
         Resources res = context.getResources();
-        DynamicTheme theme = new DynamicTheme();
-        mBGColor = theme.getColor(context, "month_bgcolor");
-        mSelectedWeekBGColor = theme.getColor(context, "month_selected_week_bgcolor");
-        mFocusMonthColor = theme.getColor(context, "month_mini_day_number");
-        mOtherMonthColor = theme.getColor(context, "month_other_month_day_number");
-        mDaySeparatorColor = theme.getColor(context, "month_grid_lines");
-        mTodayOutlineColor = theme.getColor(context, "mini_month_today_outline_color");
-        mWeekNumColor = theme.getColor(context, "month_week_num_color");
+        mBGColor = DynamicTheme.getColor(context, "month_bgcolor");
+        mSelectedWeekBGColor = DynamicTheme.getColor(context, "month_selected_week_bgcolor");
+        mFocusMonthColor = DynamicTheme.getColor(context, "month_mini_day_number");
+        mOtherMonthColor = DynamicTheme.getColor(context, "month_other_month_day_number");
+        mDaySeparatorColor = DynamicTheme.getColor(context, "month_grid_lines");
+        mTodayOutlineColor = DynamicTheme.getColor(context, "mini_month_today_outline_color");
+        mWeekNumColor = DynamicTheme.getColor(context, "month_week_num_color");
         mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
 
         if (mScale == 0) {

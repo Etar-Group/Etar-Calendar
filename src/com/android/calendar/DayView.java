@@ -808,21 +808,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCurrentTime.set(currentTime);
         mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
 
-        DynamicTheme dynTheme = new DynamicTheme();
-        mWeek_todayColor = dynTheme.getColor(mContext, "week_today");
-        mWeek_saturdayColor = dynTheme.getColor(mContext, "week_saturday");
-        mWeek_sundayColor = dynTheme.getColor(mContext, "week_sunday");
-        mCalendarDateBannerTextColor = dynTheme.getColor(mContext, "calendar_date_banner_text_color");
-        mFutureBgColorRes = dynTheme.getColor(mContext, "calendar_future_bg_color");
-        mBgColor = dynTheme.getColor(mContext, "calendar_hour_background");
-        mCalendarHourLabelColor = dynTheme.getColor(mContext, "calendar_hour_label");
-        mCalendarGridAreaSelected = dynTheme.getColor(mContext, "calendar_grid_area_selected");
-        mCalendarGridLineInnerHorizontalColor = dynTheme.getColor(mContext, "calendar_grid_line_inner_horizontal_color");
-        mCalendarGridLineInnerVerticalColor = dynTheme.getColor(mContext, "calendar_grid_line_inner_vertical_color");
-        mPressedColor = dynTheme.getColor(mContext, "pressed");
-        mClickedColor = dynTheme.getColor(mContext, "day_event_clicked_background_color");
-        mEventTextColor = dynTheme.getColor(mContext, "calendar_event_text_color");
-        mMoreEventsTextColor = dynTheme.getColor(mContext, "month_event_other_color");
+        mWeek_todayColor = DynamicTheme.getColor(mContext, "week_today");
+        mWeek_saturdayColor = DynamicTheme.getColor(mContext, "week_saturday");
+        mWeek_sundayColor = DynamicTheme.getColor(mContext, "week_sunday");
+        mCalendarDateBannerTextColor = DynamicTheme.getColor(mContext, "calendar_date_banner_text_color");
+        mFutureBgColorRes = DynamicTheme.getColor(mContext, "calendar_future_bg_color");
+        mBgColor = DynamicTheme.getColor(mContext, "calendar_hour_background");
+        mCalendarHourLabelColor = DynamicTheme.getColor(mContext, "calendar_hour_label");
+        mCalendarGridAreaSelected = DynamicTheme.getColor(mContext, "calendar_grid_area_selected");
+        mCalendarGridLineInnerHorizontalColor = DynamicTheme.getColor(mContext, "calendar_grid_line_inner_horizontal_color");
+        mCalendarGridLineInnerVerticalColor = DynamicTheme.getColor(mContext, "calendar_grid_line_inner_vertical_color");
+        mPressedColor = DynamicTheme.getColor(mContext, "pressed");
+        mClickedColor = DynamicTheme.getColor(mContext, "day_event_clicked_background_color");
+        mEventTextColor = DynamicTheme.getColor(mContext, "calendar_event_text_color");
+        mMoreEventsTextColor = DynamicTheme.getColor(mContext, "month_event_other_color");
 
         int gridLineColor = mResources.getColor(R.color.calendar_grid_line_highlight_color);
         Paint p = mSelectionPaint;
