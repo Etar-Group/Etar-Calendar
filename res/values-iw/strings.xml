@@ -21,13 +21,9 @@
     <string name="attendees_label" msgid="2971281641565729725">"אורחים"</string>
     <string name="today" msgid="8577375020252453006">"היום"</string>
     <string name="tomorrow" msgid="614434811813859237">"מחר"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־<xliff:g id="TIME_INTERVAL">%s</xliff:g>
-    </string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־<xliff:g id="TIME_INTERVAL">%s</xliff:g>
-    </string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־<xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־<xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"חזרה"</string>
     <string name="no_title_label" msgid="302177118061368042">"(אין כותרת)"</string>
     <plurals name="Nminutes">
@@ -185,8 +181,7 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">יומי</item>
-        <item quantity="two">כל <xliff:g id="number">יומיים</xliff:g>
-        </item>
+        <item quantity="two">כל <xliff:g id="number">יומיים</xliff:g></item>
         <item quantity="many">כל <xliff:g id="number">%d</xliff:g> ימים</item>
         <item quantity="other">כל <xliff:g id="number">%d</xliff:g> ימים</item>
     </plurals>
@@ -302,34 +297,26 @@
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"חזרה"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ללא חזרה"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">כל <xliff:g id="count">יום</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="count">יומיים</xliff:g>
-        </item>
+        <item quantity="one">כל &lt;&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;יום&lt;/xliff:g&gt;</item>
+        <item quantity="two">כל <xliff:g id="count">יומיים</xliff:g></item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> ימים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> ימים</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">כל <xliff:g id="count">שבוע</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="count">שבועיים</xliff:g>
-        </item>
+        <item quantity="one">כל <xliff:g id="count">שבוע</xliff:g></item>
+        <item quantity="two">כל <xliff:g id="count">שבועיים</xliff:g></item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">כל <xliff:g id="count">חודש</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="count">חודשיים</xliff:g>
-        </item>
+        <item quantity="one">כל <xliff:g id="count">חודש</xliff:g></item>
+        <item quantity="two">כל <xliff:g id="count">חודשיים</xliff:g></item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">כל <xliff:g id="count">שנה</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="count">שנתיים</xliff:g>
-        </item>
+        <item quantity="one">כל <xliff:g id="count">שנה</xliff:g></item>
+        <item quantity="two">כל <xliff:g id="count">שנתיים</xliff:g></item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שנים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שנים</item>
     </plurals>
@@ -340,8 +327,7 @@
     </string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">עבור אירוע <xliff:g id="event_count">אחד</xliff:g>
-        </item>
+        <item quantity="one">עבור אירוע <xliff:g id="event_count">אחד</xliff:g></item>
         <item quantity="two">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
         <item quantity="many">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
         <item quantity="other">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
@@ -403,4 +389,6 @@
     <string name="show_time_start_end">מועד התחלה וסיום</string>
     <string name="show_time_start_end_below">מועד התחלה וסיום מתחת לאירוע</string>
     <string name="foreground_notification_channel_name">סנכרון התראות</string>
+    <string name="maximum_number_of_lines">מספר שורות מרבי באירוע</string>
+    <string name="foreground_notification_channel_description">נדרשות התראות בחזית לטובת סנכרון התרעות פנימי. נא להשתיק</string>
 </resources>
