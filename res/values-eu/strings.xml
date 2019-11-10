@@ -65,10 +65,7 @@
     <string name="privacy_label">Pribatutasuna</string>
     <string name="reminders_label">Gehitu jakinarazpena</string>
     <string name="no_syncable_calendars">Egutegirik ez</string>
-    <string name="create_an_account_desc">Egutegiek Kontu batekin hobeto funtzionatzen dute.
-\n
-\n• Edozein web nabigatzailetik atzitu
-\n• Gertaeren babes-kopia segurua egin</string>
+    <string name="create_an_account_desc">Egutegiek Kontu batekin hobeto funtzionatzen dute.\n\n• Edozein web nabigatzailetik atzitu\n• Gertaeren babes-kopia segurua egin</string>
     <string name="add_account">Gehitu kontua</string>
     <string name="view_event_calendar_label">Egutegia:</string>
     <string name="view_event_organizer_label">Antolatzailea:</string>
