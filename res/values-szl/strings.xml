@@ -159,10 +159,7 @@
     <string name="preferences_reminders_quiet_hours_description">Wyciszej spōmniynia ô zdarzyniach bez ôkryślōny czas.</string>
     <string name="quick_response_settings_title">Edytuj gibke ôdpowiedzi</string>
     <string name="accessibility_pick_end_time">Godzina kōńca</string>
-    <string name="create_an_account_desc">Kalyndorz funguje lepij z kōntym.
-\n
-\n• Używej go w leda jakij przeglōndarce.
-\n• Twōrz kopije ibryczne trefiyń.</string>
+    <string name="create_an_account_desc">Kalyndorz funguje lepij z kōntym.\n\n• Używej go w leda jakij przeglōndarce.\n• Twōrz kopije ibryczne trefiyń.</string>
     <string name="preferences_default_reminder_title">Wychodne spōmniynie</string>
     <string name="visibility_public">Publiczny</string>
     <string name="hide_controls">Skryj nawigacyjo</string>

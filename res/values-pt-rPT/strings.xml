@@ -103,10 +103,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Adicionar lembrete"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Sem calendários"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">Antes de poder adicionar um evento, tem de adicionar pelo menos uma conta do Calendário e torná-lo visível. Toque em Adicionar conta para adicionar uma conta (se acabou de adicionar uma conta, aguarde que a sincronização esteja concluída). Em alternativa, toque em Cancelar e certifique-se que está visível pelo menos um calendário.</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">O Calendário funciona melhor com uma conta. 
-\n 
-\n• Aceda à conta a partir de qualquer navegador de Internet 
-\n• Faça uma cópia de segurança dos seus eventos de forma segura</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">O Calendário funciona melhor com uma conta.\n\n• Aceda à conta a partir de qualquer navegador de Internet\n• Faça uma cópia de segurança dos seus eventos de forma segura</string>
     <string name="add_account" msgid="1669072099756774952">"Adicionar conta"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendário:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>

@@ -103,10 +103,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Ajouter un rappel"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Aucun agenda"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">Avant d’ajouter un évènement, vous devez ajouter au moins un agenda à votre appareil et activer sa visibilité. Pour cela, appuyez sur « Ajouter un compte », ou sur « Annuler » si vous pensez qu’au moins un agenda est visible (vérifiez que c’est bien le cas). Si vous venez d’ajouter un compte, patientez jusqu’à la fin de la synchronisation, puis réessayez.</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">Tirez le meilleur parti d’Etar en utilisant un compte.
-\n 
-\n• Accédez-y depuis n’importe quel navigateur Web
-\n• Sauvegardez vos évènements en toute sécurité</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">Tirez le meilleur parti d’Etar en utilisant un compte.\n\n• Accédez-y depuis n’importe quel navigateur Web\n• Sauvegardez vos évènements en toute sécurité</string>
     <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda :"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisateur :"</string>
