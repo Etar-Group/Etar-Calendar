@@ -238,8 +238,7 @@
             <xliff:g id="count">%d</xliff:g> 项活动</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="other">+
-\n<xliff:g id="count">%d</xliff:g>事件</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g>事件</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"所选活动"</string>
     <string name="do_not_check" msgid="7815441673853466129">"请勿选中 -&gt;"</string>
