@@ -301,7 +301,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         mListView.setOnTouchListener(this);
 
         if (!mIsMiniMonth) {
-            mListView.setBackgroundColor(new DynamicTheme().getColor(getActivity(), "month_bgcolor"));
+            mListView.setBackgroundColor(DynamicTheme.getColor(getActivity(), "month_bgcolor"));
         }
 
         // To get a smoother transition when showing this fragment, delay loading of events until

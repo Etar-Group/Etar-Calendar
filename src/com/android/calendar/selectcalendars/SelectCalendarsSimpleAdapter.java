@@ -87,11 +87,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mRes = context.getResources();
 
-        DynamicTheme theme = new DynamicTheme();
-        mColorCalendarVisible = theme.getColor(context, "calendar_visible");
-        mColorCalendarHidden = theme.getColor(context, "calendar_hidden");
-        mColorCalendarSecondaryVisible = theme.getColor(context, "calendar_secondary_visible");
-        mColorCalendarSecondaryHidden = theme.getColor(context, "calendar_secondary_hidden");
+        mColorCalendarVisible = DynamicTheme.getColor(context, "calendar_visible");
+        mColorCalendarHidden = DynamicTheme.getColor(context, "calendar_hidden");
+        mColorCalendarSecondaryVisible = DynamicTheme.getColor(context, "calendar_secondary_visible");
+        mColorCalendarSecondaryHidden = DynamicTheme.getColor(context, "calendar_secondary_hidden");
 
         if (mScale == 0) {
             mScale = mRes.getDisplayMetrics().density;

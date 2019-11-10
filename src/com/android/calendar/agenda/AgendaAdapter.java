@@ -63,13 +63,12 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     public AgendaAdapter(Context context, int resource) {
         super(context, resource, null);
 
-        DynamicTheme theme = new DynamicTheme();
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
-        mDeclinedColor = theme.getColor(context, "agenda_item_declined_color");
-        mStandardColor = theme.getColor(context, "agenda_item_standard_color");
-        mWhereDeclinedColor = theme.getColor(context, "agenda_item_where_declined_text_color");
-        mWhereColor = theme.getColor(context, "agenda_item_where_text_color");
+        mDeclinedColor = DynamicTheme.getColor(context, "agenda_item_declined_color");
+        mStandardColor = DynamicTheme.getColor(context, "agenda_item_standard_color");
+        mWhereDeclinedColor = DynamicTheme.getColor(context, "agenda_item_where_declined_text_color");
+        mWhereColor = DynamicTheme.getColor(context, "agenda_item_where_text_color");
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
