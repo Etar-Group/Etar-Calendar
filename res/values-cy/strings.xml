@@ -20,61 +20,42 @@
     <plurals name="Nminutes">
         <item quantity="zero">Dim munudau</item>
         <item quantity="one">1 munud</item>
-        <item quantity="two">
-            <xliff:g id="count">%d</xliff:g> funud</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> munud</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> munud</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> munud</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> funud</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> munud</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> munud</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> munud</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="zero">0 mun</item>
-        <item quantity="one">1 mun</item>
-        <item quantity="two">2 fun</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> mun</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> mun</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> mun</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> mun</item>
+        <item quantity="one">1 fun</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> fun</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> mun</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> mun</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mun</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="zero">0 awr</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> oriau</item>
         <item quantity="one">1 awr</item>
-        <item quantity="two">2 awr</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> awr</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> awr</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> awr</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> awr</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> awr</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> awr</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> awr</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="zero">0 diwrnodau</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> diwrnodoau</item>
         <item quantity="one">1 diwrnod</item>
-        <item quantity="two">2 ddiwrnod</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> diwrnod</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> diwrnod</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> diwrnod</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> ddiwrnod</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> diwrnod</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> diwrnod</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> diwrnod</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="zero">wythnos <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="one">wythnos <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="two">wythnos <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="few">wythnos <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="many">wythnos <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="other">wythnos <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="zero">wythnos <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">wythnos <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="two">wythnos <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="few">wythnos <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">wythnos <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">wythnos <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh">Ail-gysoni</string>
     <string name="show_day_view">Dangos diwrnod</string>
