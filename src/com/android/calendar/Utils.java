@@ -56,6 +56,7 @@ import com.android.calendar.CalendarUtils.TimeZoneUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -341,9 +342,7 @@ public class Utils {
     public static void setSharedPreference(Context context, String key, String[] values) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         LinkedHashSet<String> set = new LinkedHashSet<String>();
-        for (String value : values) {
-            set.add(value);
-        }
+        Collections.addAll(set, values);
         prefs.edit().putStringSet(key, set).apply();
     }
 
