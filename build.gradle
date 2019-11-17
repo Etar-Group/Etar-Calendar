@@ -1,7 +1,7 @@
 buildscript {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 
     dependencies {
@@ -11,13 +11,13 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 }
 
 project(':external:calendar') {
-    apply plugin: 'android-library'
+    apply plugin: 'com.android.library'
 
     android {
         compileSdkVersion 29
@@ -48,7 +48,7 @@ project(':external:calendar') {
 }
 
 project(':external:colorpicker') {
-    apply plugin: 'android-library'
+    apply plugin: 'com.android.library'
 
     android {
         compileSdkVersion 29
@@ -78,7 +78,7 @@ project(':external:colorpicker') {
 }
 
 project(':external:timezonepicker') {
-    apply plugin: 'android-library'
+    apply plugin: 'com.android.library'
 
     dependencies {
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -111,7 +111,7 @@ project(':external:timezonepicker') {
 }
 
 project(':external:chips') {
-    apply plugin: 'android-library'
+    apply plugin: 'com.android.library'
 
     android {
         compileSdkVersion 29
@@ -172,6 +172,19 @@ android {
                 renderscript.srcDirs = ['src']
                 res.srcDirs = ['res']
                 assets.srcDirs = ['assets']
+        }
+    }
+
+    buildTypes {
+        release {
+            // TODO: could be enabled for ProGuard minimization
+            minifyEnabled false
+        }
+
+        debug {
+            minifyEnabled false
+
+            applicationIdSuffix ".debug"
         }
     }
 
