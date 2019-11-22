@@ -23,9 +23,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Demà"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Avui a les <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Demà a les <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetició"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Sense títol)"</string>
     <plurals name="Nminutes">
@@ -76,7 +74,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Convidats"</string>
     <string name="creating_event" msgid="7516249252554059980">"S\'ha creat un esdeveniment."</string>
     <string name="saving_event" msgid="7694181017411177226">"S\'ha desat l\'esdeveniment."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Esdeveniment buit no creat"</string>
+    <string name="empty_event" msgid="9018699257414338634">Esdeveniment buit no creat.</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"S\'enviaran les invitacions."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"S\'enviaran les actualitzacions."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Desa"</string>
@@ -115,7 +113,7 @@
     <string name="call_label" msgid="2960328220008869083">"Truca"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostes ràpides"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita respostes predeterminades en enviar correus als convidats"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Edita resp. ràpid."</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">Edita respostes ràpides</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Resposta ràpida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Tria una resposta ràpida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"No s\'ha pogut trobar un programa de correu electrònic"</string>
@@ -281,4 +279,51 @@
     <string name="snooze_delay_dialog_title">Fixa el retard de la repetició</string>
     <string name="preferences_default_snooze_delay_title">Temps de retard de la repetició predefinit</string>
     <string name="preferences_default_snooze_delay_dialog">Retard de la repetició predefinit</string>
+    <string name="goto_date">Ves a…</string>
+    <string name="rsvp_accepted">Ha respost sí.</string>
+    <string name="rsvp_tentative">Ha respost potser.</string>
+    <string name="rsvp_declined">Ha respost no.</string>
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_light_theme">Clar</string>
+    <string name="preferences_dark_theme">Fosc</string>
+    <string name="preferences_black_theme">Negre</string>
+    <string name="preferences_color">Color primari</string>
+    <string name="preferences_color_pick">Color primari</string>
+    <string name="preferences_days_per_week_title">Dies per setmana</string>
+    <string name="preferences_days_per_week_dialog">Dies per setmana</string>
+    <string name="preferences_default_event_duration_title">Duració d\'esdeveniment per defecte</string>
+    <string name="preferences_issues">Reporta problema</string>
+    <string name="user_rejected_calendar_write_permission">Etar requereix permisos per a llegir i escriure al calendari per a funcionar correctament. Si us plau, prova-ho de nou.</string>
+    <string name="calendar_permission_not_granted">Ho sentim, aquesta característica no pot funcionar. Etar requereix permisos per a llegir i escriure al calendari per a funcionar correctament</string>
+    <string name="visibility_confidential">Confidencial</string>
+    <string name="zero_minutes">0 minuts</string>
+    <string name="fifteen_minutes">15 minuts</string>
+    <string name="thirty_minutes">30 minuts</string>
+    <string name="one_hour">1 hora</string>
+    <string name="one_and_a_half_hours">1.5 hores</string>
+    <string name="two_hours">2 hores</string>
+    <string name="share_label">Comparteix</string>
+    <string name="no_map">No hi ha aplicació de mapes instal·lada</string>
+    <string name="default_start_title">Vista per defecte</string>
+    <string name="default_start_last">Vista utilitzada prèviament</string>
+    <string name="error_generating_ics">S\'han trobat problemes mentre es compartia l\'esdeveniment</string>
+    <string name="cal_share_intent_title">Envia l\'esdeveniment a:</string>
+    <string name="cal_export_event_sdcard_title">Exporta a la targeta SD</string>
+    <string name="cal_export_succ_msg">Esdeveniment exportat satisfactòriament: %1s</string>
+    <string name="cal_import_menu_title">Importar l\'esdeveniment</string>
+    <string name="cal_nothing_to_import">No hi ha res per a importar</string>
+    <string name="cal_import_error_msg">L\'importació a calendari ha fallat</string>
+    <string name="cal_import_error_date_msg">No s\'ha pogut entendre la data proporcionada: %s</string>
+    <string name="cal_pick_ics">Escull un fitxer per a importar</string>
+    <string name="view_settings">Configuració de visualització</string>
+    <string name="preferences_month_view_portrait">Disseny de vista mensual (vertical)</string>
+    <string name="preferences_month_view_landscape">Disseny de vista mensual (horitzontal)</string>
+    <string name="view_details">Veure detalls</string>
+    <string name="display_time">Mostra l\'hora</string>
+    <string name="display_location">Mostra la ubicació</string>
+    <string name="show_time_no">No mostrar l\'hora</string>
+    <string name="show_time_start">Només l\'hora d\'inici</string>
+    <string name="show_time_start_end">Hora d\'inici i finalització</string>
+    <string name="show_time_start_end_below">Hora d\'inici i de finalització sota l\'esdeveniment</string>
+    <string name="maximum_number_of_lines">Número màxim de línies a l\'esdeveniment</string>
 </resources>
