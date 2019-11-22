@@ -252,28 +252,23 @@
     <string name="tomorrow_at_time_fmt">Bihar <xliff:g id="time_interval">%s</xliff:g>(e)tan</string>
     <plurals name="Nminutes">
         <item quantity="one">Minutu 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> minutu</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutu</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">Min 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> min</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">Ordu 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> ordu</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ordu</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">Egun 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> egun</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> egun</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">1. Astea</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g>. Astea</item>
+        <item quantity="one">1. astea</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>. astea</item>
     </plurals>
     <string name="no_calendars_found">Gertaera bat gehitu aurretik, gutxienez Egutegi bat gehitu behar duzu zure gailuan eta egutegia ikusgarri bezala markatu. Ukitu Gehitu Kontua kontu bat gehitzeko (kontu bat gehitu baduzu, itxaron sinkronizazioa bukatu arte eta saiatu berriz). Edo ukitu Utzi eta ziurtatu gutxienez egutegi bat dagoela ikusgarri.</string>
     <string name="show_newer_events">Ukitu gertaerak ikusteko <xliff:g id="newest_search_range">%1$s</xliff:g> baino geroago</string>
