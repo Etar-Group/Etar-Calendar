@@ -8,9 +8,7 @@
     <string name="attendees_label">Gonbidatuak</string>
     <string name="today">Gaur</string>
     <string name="tomorrow">Bihar</string>
-    <string name="date_time_fmt">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label">Errepikapena</string>
     <string name="no_title_label">(Izenbururik ez)</string>
     <string name="calendar_refresh">Eguneratu</string>
@@ -119,8 +117,7 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">Egunero</item>
-        <item quantity="other">
-            <xliff:g id="number">%d</xliff:g> egunero</item>
+        <item quantity="other"><xliff:g id="number">%d</xliff:g> egunero</item>
     </plurals>
     <string name="every_weekday">Lanegun guztietan (Al-Ol)</string>
     <string name="monthly">Hilabetero</string>
@@ -218,10 +215,8 @@
     <string name="recurrence_end_date">
         <xliff:g id="date">%s</xliff:g> arte</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">
-            <xliff:g id="event_count">%d</xliff:g> gertaerarentzat</item>
-        <item quantity="other">
-            <xliff:g id="event_count">%d</xliff:g> gertaerentzat</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> gertaerarentzat</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> gertaerentzat</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description">aldatu bukera data</string>
     <string name="user_rejected_calendar_write_permission">Etar-ek egutegiaren irakurketa eta idazketa baimenak behar ditu ondo funtzionatzeko. Saiatu berri mesedez.</string>
@@ -280,7 +275,7 @@
             <xliff:g id="number">%1$d</xliff:g> astero <xliff:g id="days_of_week">%2$s</xliff:g>(e)tan</item>
     </plurals>
     <string name="custom" product="default">Pertsonalizatua (ezin da pertsonalizatu telefonoan)</string>
-    <string name="preferences_use_home_tz_descrip">Bidaiatzen zaudela zure etxeko ordu-zonan egutegiak eta gertaerak erakusten ditu.</string>
+    <string name="preferences_use_home_tz_descrip">Bidaiatzen zaudela zure etxeko ordu-zonan egutegiak eta gertaerak erakusten ditu</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Galdetu utzi gerokorako atzerapen oroitzapena, jakinarazpenentan</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Erabili beti errepikapen atzerapen lehenetsia</string>
     <string name="snooze_delay_dialog_title">Ezarri errepikapen atzerapena</string>
@@ -288,8 +283,7 @@
     <string name="preferences_default_snooze_delay_dialog">Errepikapen atzerapen lehenetsia</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events">Ez dago hurrengo egutegiko gertaerarik</string>
     <string name="preferences_reminders_quiet_hours_description">Isildu gertaera gogorarazlea zehaztutako denbora bitartean.</string>
@@ -297,8 +291,7 @@
         <xliff:g id="item_count">%2$s</xliff:g>(e)tik.</string>
     <plurals name="Nevents">
         <item quantity="one">Gertaera 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> gertaerak</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> gertaerak</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 gertaera</item>
