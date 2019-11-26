@@ -326,4 +326,5 @@
     <string name="show_time_start_end">Hora d\'inici i finalització</string>
     <string name="show_time_start_end_below">Hora d\'inici i de finalització sota l\'esdeveniment</string>
     <string name="maximum_number_of_lines">Número màxim de línies a l\'esdeveniment</string>
+    <string name="foreground_notification_channel_name">Sincronització d\'alertes</string>
 </resources>
