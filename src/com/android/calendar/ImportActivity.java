@@ -20,9 +20,11 @@ import com.android.calendar.icalendar.VCalendar;
 import com.android.calendar.icalendar.VEvent;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.TimeZone;
 
@@ -180,7 +182,13 @@ public class ImportActivity extends Activity {
                     getLocalTimeFromString(dtEnd, dtEndParam));
         }
 
+        boolean isAllDay = getLocalTimeFromString(dtEnd, dtEndParam)
+                - getLocalTimeFromString(dtStart, dtStartParam) == 86400000;
 
+
+        if (isTimeStartOfDay(dtStart, dtStartParam)) {
+            calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, isAllDay);
+        }
         //Check if some special property which say it is a "All-Day" event.
 
         String microsoft_all_day_event = firstEvent.getProperty("X-MICROSOFT-CDO-ALLDAYEVENT");
@@ -198,6 +206,19 @@ public class ImportActivity extends Activity {
         } finally {
             finish();
         }
+    }
+
+    private boolean isTimeStartOfDay(String dtStart, String dtStartParam) {
+        // convert to epoch milli seconds
+        long timeStamp = getLocalTimeFromString(dtStart, dtStartParam);
+        Date date = new Date(timeStamp);
+
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String dateStr = dateFormat.format(date);
+        if (dateStr.equals("00:00")) {
+            return true;
+        }
+        return false;
     }
 
     private boolean isValidIntent() {
