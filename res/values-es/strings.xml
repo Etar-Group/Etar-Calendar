@@ -33,8 +33,8 @@
         <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutos"</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 minuto"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> minutos"</item>
+        <item quantity="one">1 min.</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one" msgid="4793697728599296830">"1 hora"</item>
@@ -46,8 +46,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Etiqueta para mostrar la semana del año [CHAR LIMIT=16]</item>
-        <item quantity="other">semana <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="other">semana <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar día"</string>
@@ -241,7 +240,7 @@
         <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">+1 evento.</item>
+        <item quantity="one">+1 evento</item>
         <item quantity="other">+<xliff:g id="COUNT">%d</xliff:g> eventos</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento seleccionado"</string>
