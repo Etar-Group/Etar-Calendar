@@ -37,6 +37,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Calendars;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -110,7 +112,7 @@ public class Utils {
     // historical
     // reasons, as it's what PreferenceManager assigned the first time the file
     // was created.
-    static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+    public static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
     static final String MACHINE_GENERATED_ADDRESS = "calendar.google.com";
     private static final boolean DEBUG = false;
     private static final String TAG = "CalUtils";
@@ -1641,6 +1643,7 @@ public class Utils {
      * @param context
      * @return a list of quick responses.
      */
+    @NonNull
     public static String[] getQuickResponses(Context context) {
         String[] s = Utils.getSharedPreference(context, KEY_QUICK_RESPONSES, (String[]) null);
 

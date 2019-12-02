@@ -851,4 +851,32 @@
     <string name="show_time_start_end">Start and end time</string>
     <string name="show_time_start_end_below">Start and end time below the event</string>
 
+    <!-- Preferences -->
+    <string name="preferences_calendar_account">%1$s account</string>
+    <string name="preferences_calendar_delete">Delete calendar</string>
+    <string name="preferences_calendar_display_name">Change name</string>
+    <string name="preferences_calendar_account_category">Account type</string>
+    <string name="preferences_calendar_color">Color</string>
+    <string name="preferences_calendar_visible">Display events</string>
+    <string name="preferences_calendar_synchronize">Synchronize this calendar</string>
+    <string name="preferences_list_calendar_summary_sync_off">Not synchronized</string>
+    <string name="preferences_list_calendar_summary_invisible">Events are not displayed</string>
+    <string name="preferences_list_general">General settings</string>
+    <string name="preferences_list_about">About Etar</string>
+    <string name="preferences_list_add_remote">Add remote calendar (CalDAV)</string>
+    <string name="preferences_list_add_offline">Add offline calendar</string>
+    <string name="preferences_list_add_offline_title">Add offline calendar</string>
+    <string name="preferences_list_add_offline_message">Offline calendars are NOT synchronized to a cloud service and only available on your phone.</string>
+    <string name="preferences_list_add_offline_button">Add calendar</string>
+    <string name="preferences_list_add_offline_name">Name</string>
+    <string name="preferences_list_add_offline_cancel">Cancel</string>
+    <string name="preferences_calendar_color_warning_title">Warning</string>
+    <string name="preferences_calendar_color_warning_message">Changing the color may be reverted when the calendar is synchronized again.\n\nIn DAVx⁵ \'Manage calendar colors\' can be disabled to prevent this.</string>
+    <string name="preferences_calendar_color_warning_button">I understand</string>
+    <string name="preferences_calendar_delete_message">Do you really want to delete this calendar?</string>
+    <string name="preferences_calendar_delete_delete">Delete calendar</string>
+    <string name="preferences_calendar_delete_cancel">Cancel</string>
+
+    <string name="offline_account_name">Offline Calendar</string>
+
 </resources>

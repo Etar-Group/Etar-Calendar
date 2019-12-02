@@ -37,6 +37,7 @@ import android.util.Pair;
 
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
+import com.android.calendar.settings.SettingsActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -564,7 +565,7 @@ public class CalendarController {
 
     private void launchSettings() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClass(mContext, CalendarSettingsActivity.class);
+        intent.setClass(mContext, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent);
     }

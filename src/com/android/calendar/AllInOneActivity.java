@@ -45,6 +45,8 @@ import android.preference.PreferenceActivity;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Events;
+
+import com.android.calendar.settings.SettingsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.app.ActivityCompat;
@@ -910,7 +912,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         } else if (itemId == R.id.action_import) {
             ImportActivity.pickImportFile(this);
         } else if (itemId == R.id.action_view_settings) {
-            Intent intent = new Intent(this, CalendarSettingsActivity.class);
+            Intent intent = new Intent(this, SettingsActivity.class);
             intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, ViewDetailsPreferences.class.getName());
             intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
             startActivity(intent);

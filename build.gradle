@@ -1,4 +1,5 @@
 buildscript {
+    ext.kotlin_version = '1.3.30'
     repositories {
         google()
         jcenter()
@@ -6,6 +7,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -142,10 +144,15 @@ project(':external:chips') {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
+
     implementation project(':external:calendar')
     implementation project(':external:colorpicker')
     implementation project(':external:timezonepicker')
