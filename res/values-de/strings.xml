@@ -327,5 +327,5 @@
     <string name="show_time_start_end_below">Start- und Endzeit unterhalb des Termins</string>
     <string name="maximum_number_of_lines">Maximale Zeilenanzahl pro Kalendereintrag</string>
     <string name="foreground_notification_channel_name">Alarm Synchronisation</string>
-    <string name="foreground_notification_channel_description">Benachrichtigung welche für die interne Alarm Synchronisation benötigt wird. Bitte stumm schalten</string>
+    <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich. Bitte stumm schalten</string>
 </resources>
