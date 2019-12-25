@@ -16,17 +16,22 @@
 
 package com.android.calendar;
 
+import android.Manifest;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.provider.CalendarContract.CalendarCache;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.Formatter;
 import java.util.HashSet;
@@ -256,8 +261,11 @@ public class CalendarUtils {
                     if (mHandler == null) {
                         mHandler = new AsyncTZHandler(context.getContentResolver());
                     }
-                    mHandler.startQuery(0, context, CalendarCache.URI, CALENDAR_CACHE_POJECTION,
-                            null, null, null);
+                    if (Build.VERSION.SDK_INT < 23 || ContextCompat.checkSelfPermission(context,
+                                Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+                        mHandler.startQuery(0, context, CalendarCache.URI, CALENDAR_CACHE_POJECTION,
+                                null, null, null);
+                    }
                 }
                 if (mTZQueryInProgress) {
                     mTZCallbacks.add(callback);
