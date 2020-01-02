@@ -77,7 +77,7 @@ project(':external:colorpicker') {
     }
 }
 
-project(':external:datetimepicker') {
+/*project(':external:datetimepicker') {
     apply plugin: 'android-library'
 
     dependencies {
@@ -110,7 +110,7 @@ project(':external:datetimepicker') {
         }
     }
 }
-
+*/
 project(':external:timezonepicker') {
     apply plugin: 'android-library'
 
@@ -182,7 +182,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation project(':external:calendar')
     implementation project(':external:colorpicker')
-    implementation project(':external:datetimepicker')
+//    implementation project(':external:datetimepicker')
     implementation project(':external:timezonepicker')
     implementation project(':external:chips')
 }

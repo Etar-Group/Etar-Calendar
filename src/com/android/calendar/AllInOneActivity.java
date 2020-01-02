@@ -20,6 +20,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -63,6 +64,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -77,7 +79,6 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.alerts.AlertService;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
-import com.android.datetimepicker.date.DatePickerDialog;
 
 import java.io.File;
 import java.util.List;
@@ -874,9 +875,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 t = todayTime;
             }
 
-            DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+            DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Time selectedTime = new Time(mTimeZone);
                     selectedTime.year = year;
                     selectedTime.month = monthOfYear;
@@ -884,8 +885,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
                     mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
                 }
-            }, t.year, t.month, t.monthDay);
-            datePickerDialog.show(getFragmentManager(), "datePickerDialog");
+            };
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,datePickerListener,t.year, t.month,t.monthDay);
+            datePickerDialog.show();
 
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;

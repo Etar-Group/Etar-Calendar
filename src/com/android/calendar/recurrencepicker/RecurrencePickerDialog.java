@@ -17,6 +17,7 @@
 package com.android.calendar.recurrencepicker;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -43,6 +44,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -56,7 +58,7 @@ import android.widget.ToggleButton;
 
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.EventRecurrence;
-import com.android.datetimepicker.date.DatePickerDialog;
+
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -89,7 +91,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     };
     private static final String BUNDLE_MODEL = "bundle_model";
     private static final String BUNDLE_END_COUNT_HAS_FOCUS = "bundle_end_count_has_focus";
-    private static final String FRAG_TAG_DATE_PICKER = "tag_date_picker_frag";
+
     private final int[] TIME_DAY_TO_CALENDAR_DAY = new int[] {
             Calendar.SUNDAY,
             Calendar.MONDAY,
@@ -882,7 +884,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         if (mModel.endDate == null) {
             mModel.endDate = new Time(mTime.timezone);
             mModel.endDate.hour = mModel.endDate.minute = mModel.endDate.second = 0;
@@ -929,11 +931,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             if (mDatePickerDialog != null) {
                 mDatePickerDialog.dismiss();
             }
-            mDatePickerDialog = DatePickerDialog.newInstance(this, mModel.endDate.year,
-                    mModel.endDate.month, mModel.endDate.monthDay);
-            mDatePickerDialog.setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(getActivity()));
-            mDatePickerDialog.setYearRange(Utils.YEAR_MIN, Utils.YEAR_MAX);
-            mDatePickerDialog.show(getFragmentManager(), FRAG_TAG_DATE_PICKER);
+            mDatePickerDialog = new DatePickerDialog(getActivity(), this,
+                    mModel.endDate.year, mModel.endDate.month, mModel.endDate.monthDay);
+            mDatePickerDialog.show();
         } else if (mDone == v) {
             String rrule;
             if (mModel.recurrenceState == RecurrenceModel.STATE_NO_RECURRENCE) {
@@ -950,11 +950,6 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mDatePickerDialog = (DatePickerDialog) getFragmentManager()
-                .findFragmentByTag(FRAG_TAG_DATE_PICKER);
-        if (mDatePickerDialog != null) {
-            mDatePickerDialog.setOnDateSetListener(this);
-        }
     }
 
     public void setOnRecurrenceSetListener(OnRecurrenceSetListener l) {
