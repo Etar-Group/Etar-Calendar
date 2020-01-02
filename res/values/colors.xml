@@ -269,6 +269,7 @@
     <color name="recurrence_picker_background_up_black">#212121</color>
     <color name="recurrence_bubble_text_normal_black">#ff737373</color>
     <color name="recurrence_done_black">#ffffff</color>
+    <color name="done_text_color_disabled">#cccccc</color>
 
     <!-- Create event colors -->
     <color name="create_event_date_color_black">#ffffff</color>
