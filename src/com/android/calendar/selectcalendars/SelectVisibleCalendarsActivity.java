@@ -16,10 +16,13 @@
 
 package com.android.calendar.selectcalendars;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.ContentObserver;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
@@ -34,6 +37,8 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
+
+import androidx.core.content.ContextCompat;
 
 import ws.xsoh.etar.R;
 
@@ -82,8 +87,11 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
     @Override
     public void onResume() {
         super.onResume();
-        getContentResolver().registerContentObserver(CalendarContract.Events.CONTENT_URI,
-                true, mObserver);
+        if (Build.VERSION.SDK_INT < 23 || ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+            getContentResolver().registerContentObserver(CalendarContract.Events.CONTENT_URI,
+                    true, mObserver);
+        }
     }
 
     @Override
