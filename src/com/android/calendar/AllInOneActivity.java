@@ -861,7 +861,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mController.refreshCalendars();
             return true;
         } else if (itemId == R.id.action_today) {
-            viewType = ViewType.CURRENT;
             t = new Time(mTimeZone);
             t.setToNow();
             extras |= CalendarController.EXTRA_GOTO_TODAY;
