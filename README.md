@@ -74,6 +74,7 @@ Copyright (c) 2013, Dominik Schürmann
 
 Copyright (c) 2015-, The Etar Project
 
-Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
+Licensed under the GPLv3: https://www.gnu.org/licenses/gpl-3.0.html
+Except where otherwise noted.
 
 Google Play and the Google Play logo are trademarks of Google Inc.
