@@ -83,6 +83,7 @@ import android.widget.ViewSwitcher;
 
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.settings.GeneralPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -923,11 +924,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     public void handleOnResume() {
         initAccessibilityVariables();
-        if(Utils.getSharedPreference(mContext, OtherPreferences.KEY_OTHER_1, false)) {
-            mFutureBgColor = 0;
-        } else {
-            mFutureBgColor = mFutureBgColorRes;
-        }
+        mFutureBgColor = mFutureBgColorRes;
         mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12Hours;
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);

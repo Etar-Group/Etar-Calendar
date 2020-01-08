@@ -101,9 +101,12 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
     }
 
     class Preferences {
-        val TIME_VISIBILITY: TimeVisibility
-        val LOCATION_VISIBILITY: Boolean
-        val MAX_LINES: Int
+        @JvmField
+        var TIME_VISIBILITY: TimeVisibility
+        @JvmField
+        var LOCATION_VISIBILITY: Boolean
+        @JvmField
+        var MAX_LINES: Int
 
         constructor(context: Context) {
             val prefs = DynamicPreferences(context)

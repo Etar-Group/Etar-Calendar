@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.SharedPreferences.Editor;
 import android.os.ParcelFileDescriptor;
 
+import com.android.calendar.settings.GeneralPreferences;
+
 import java.io.IOException;
 
 public class CalendarBackupAgent extends BackupAgentHelper

@@ -39,6 +39,9 @@ import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsL
 
 import ws.xsoh.etar.R;
 
+/**
+ * TODO: This fragment is still used in the tablet design
+ */
 public class SelectVisibleCalendarsFragment extends Fragment
         implements AdapterView.OnItemClickListener, CalendarController.EventHandler,
         OnCalendarColorsLoadedListener {

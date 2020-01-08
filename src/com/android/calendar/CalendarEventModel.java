@@ -28,6 +28,7 @@ import android.text.util.Rfc822Token;
 
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventColorCache;
+import com.android.calendar.settings.GeneralPreferences;
 import com.android.common.Rfc822Validator;
 
 import java.io.Serializable;
@@ -129,7 +130,7 @@ public class CalendarEventModel implements Serializable {
         this();
 
         mTimezone = Utils.getTimeZone(context, null);
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
 
         String defaultReminder = prefs.getString(
                 GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);

@@ -28,6 +28,8 @@ import ws.xsoh.etar.R
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
+const val EXTRA_SHOW_FRAGMENT = "settingsShowFragment"
+
 class SettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
@@ -37,6 +39,15 @@ class SettingsActivity : AppCompatActivity(),
         dynamicTheme.onCreate(this)
         super.onCreate(savedInstanceState)
 
+        val fragment = if (intent.hasExtra(EXTRA_SHOW_FRAGMENT)) {
+            supportFragmentManager.fragmentFactory.instantiate(
+                    classLoader,
+                    intent.getStringExtra(EXTRA_SHOW_FRAGMENT)!!
+            )
+        } else {
+            MainListPreferences()
+        }
+
         setContentView(R.layout.simple_frame_layout_material)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -44,7 +55,7 @@ class SettingsActivity : AppCompatActivity(),
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.body_frame, MainListPreferences())
+                    .replace(R.id.body_frame, fragment)
                     .commit()
         } else {
             title = savedInstanceState.getCharSequence(TITLE_TAG)

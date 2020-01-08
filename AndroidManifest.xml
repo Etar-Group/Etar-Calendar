@@ -150,11 +150,6 @@
             android:theme="@style/Base.CalendarAppThemeWithActionBar" />
 
         <activity
-            android:name="com.android.calendar.CalendarSettingsActivity"
-            android:label="@string/preferences_title"
-            android:parentActivityName="com.android.calendar.AllInOneActivity" />
-
-        <activity
             android:name="com.android.calendar.settings.SettingsActivity"
             android:label="@string/preferences_title"
             android:parentActivityName="com.android.calendar.AllInOneActivity" />

@@ -124,5 +124,19 @@
             app:title="@string/quick_response_settings"
             app:summary="@string/quick_response_settings_summary" />
      </PreferenceCategory>
+    <PreferenceCategory
+        app:key="preferences_experimental_category"
+        app:title="@string/preferences_experimental_category">
+        <Preference
+            app:key="preferences_copy_db"
+            app:title="@string/copy_db" />
+
+        <ListPreference
+            app:key="preferences_reminders_responded"
+            app:title="@string/preferences_reminders_responded_label"
+            app:entries="@array/preferences_skip_reminders_labels"
+            app:entryValues="@array/preferences_skip_reminders_values"
+            app:dialogTitle="@string/preferences_reminders_responded_dialog" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

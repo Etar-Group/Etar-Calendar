@@ -54,6 +54,7 @@ import android.util.Log;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
+import com.android.calendar.settings.GeneralPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -187,7 +188,6 @@ public class Utils {
     static int CONFLICT_COLOR = 0xFF000000;
     static boolean mMinutesLoaded = false;
     private static boolean mAllowWeekForDetailView = false;
-    private static long mTardis = 0;
     private static String sVersion = null;
 
     /**
@@ -200,7 +200,7 @@ public class Utils {
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
         Bundle extras = intent.getExtras();
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(activity);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(activity);
 
         if (TextUtils.equals(intent.getAction(), Intent.ACTION_EDIT)) {
             return ViewType.EDIT;
@@ -305,7 +305,7 @@ public class Utils {
     }
 
     public static String[] getSharedPreference(Context context, String key, String[] defaultValue) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         Set<String> ss = prefs.getStringSet(key, null);
         if (ss != null) {
             String strings[] = new String[ss.size()];
@@ -315,17 +315,17 @@ public class Utils {
     }
 
     public static String getSharedPreference(Context context, String key, String defaultValue) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return prefs.getString(key, defaultValue);
     }
 
     public static int getSharedPreference(Context context, String key, int defaultValue) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return prefs.getInt(key, defaultValue);
     }
 
     public static boolean getSharedPreference(Context context, String key, boolean defaultValue) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return prefs.getBoolean(key, defaultValue);
     }
 
@@ -337,34 +337,26 @@ public class Utils {
      * @param value the value to set
      */
     public static void setSharedPreference(Context context, String key, String value) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         prefs.edit().putString(key, value).apply();
     }
 
     public static void setSharedPreference(Context context, String key, String[] values) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         LinkedHashSet<String> set = new LinkedHashSet<String>();
         Collections.addAll(set, values);
         prefs.edit().putStringSet(key, set).apply();
     }
 
-    protected static void tardis() {
-        mTardis = System.currentTimeMillis();
-    }
-
-    protected static long getTardis() {
-        return mTardis;
-    }
-
     public static void setSharedPreference(Context context, String key, boolean value) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);
         editor.apply();
     }
 
     static void setSharedPreference(Context context, String key, int value) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(key, value);
         editor.apply();
@@ -418,7 +410,7 @@ public class Utils {
      * @param viewId {@link CalendarController.ViewType}
      */
     static void setDefaultView(Context context, int viewId) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
 
         boolean validDetailView = false;
@@ -599,7 +591,7 @@ public class Utils {
      * @return the first day of week in android.text.format.Time
      */
     public static int getFirstDayOfWeek(Context context) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         String pref = prefs.getString(
                 GeneralPreferences.KEY_WEEK_START_DAY, GeneralPreferences.WEEK_START_DEFAULT);
 
@@ -625,7 +617,7 @@ public class Utils {
      * @return the default event length, in milliseconds
      */
     public static long getDefaultEventDurationInMillis(Context context) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         String pref = prefs.getString(GeneralPreferences.KEY_DEFAULT_EVENT_DURATION,
                 GeneralPreferences.EVENT_DURATION_DEFAULT);
         final int defaultDurationInMins = Integer.parseInt(pref);
@@ -670,7 +662,7 @@ public class Utils {
      * @return true when week number should be shown.
      */
     public static boolean getShowWeekNumber(Context context) {
-        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return prefs.getBoolean(
                 GeneralPreferences.KEY_SHOW_WEEK_NUM, GeneralPreferences.DEFAULT_SHOW_WEEK_NUM);
     }
@@ -679,27 +671,27 @@ public class Utils {
      * @return true when declined events should be hidden.
      */
     public static boolean getHideDeclinedEvents(Context context) {
-        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return prefs.getBoolean(GeneralPreferences.KEY_HIDE_DECLINED, false);
     }
 
     public static int getDaysPerWeek(Context context) {
-        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return Integer.valueOf(prefs.getString(GeneralPreferences.KEY_DAYS_PER_WEEK, "7"));
     }
 
     public static int getMDaysPerWeek(Context context) {
-        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return Integer.valueOf(prefs.getString(GeneralPreferences.KEY_MDAYS_PER_WEEK, "7"));
     }
 
     public static boolean useCustomSnoozeDelay(Context context) {
-        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return prefs.getBoolean(GeneralPreferences.KEY_USE_CUSTOM_SNOOZE_DELAY, false);
     }
 
     public static long getDefaultSnoozeDelayMs(Context context) {
-        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         final String value = prefs.getString(GeneralPreferences.KEY_DEFAULT_SNOOZE_DELAY, null);
         final long intValue = value != null
                 ? Long.valueOf(value)

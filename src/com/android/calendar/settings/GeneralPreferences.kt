@@ -19,6 +19,7 @@ package com.android.calendar.settings
 
 import android.annotation.TargetApi
 import android.app.backup.BackupManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -69,6 +70,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private lateinit var mDefaultEventDuration: ListPreference
     private lateinit var mSnoozeDelay: ListPreference
     private lateinit var mDefaultStart: ListPreference
+
+    // experimental
+    private lateinit var mCopyDb: Preference
+    private lateinit var mSkipReminders: ListPreference
 
     private var mTimeZoneId: String? = null
 
@@ -130,6 +135,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         mDefaultEventDuration.summary = mDefaultEventDuration.entry
         mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ)
         mSnoozeDelay = preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY)!!
+        mCopyDb = preferenceScreen.findPreference(KEY_OTHER_COPY_DB)!!
+        mSkipReminders = preferenceScreen.findPreference(KEY_OTHER_REMINDERS_RESPONDED)!!
         buildSnoozeDelayEntries()
         mTheme.summary = mTheme.entry
         mWeekStart.summary = mWeekStart.entry
@@ -158,6 +165,36 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         val tzpd = activity!!.supportFragmentManager
                 .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
         tzpd?.setOnTimeZoneSetListener(this)
+
+        var skipPreferencesValue: String? = null
+        if (mSkipReminders != null) {
+            skipPreferencesValue = mSkipReminders.value
+            mSkipReminders.onPreferenceChangeListener = this
+        }
+        updateSkipRemindersSummary(skipPreferencesValue)
+    }
+
+    /**
+     * Update the summary for the SkipReminders preference.
+     * @param value The corresponding value of which summary to set. If null, the default summary
+     * will be set, and the value will be set accordingly too.
+     */
+    private fun updateSkipRemindersSummary(value: String?) {
+        if (mSkipReminders != null) { // Default to "declined". Must match with R.array.preferences_skip_reminders_values.
+            var index = 0
+            val values = mSkipReminders.entryValues
+            val entries = mSkipReminders.entries
+            for (value_i in values.indices) {
+                if (values[value_i] == value) {
+                    index = value_i
+                    break
+                }
+            }
+            mSkipReminders.summary = entries[index].toString()
+            if (value == null) { // Value was not known ahead of time, so the default value will be set.
+                mSkipReminders.value = values[index].toString()
+            }
+        }
     }
 
     private fun showColorPickerDialog() {
@@ -300,13 +337,16 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 mSnoozeDelay.value = newValue as String
                 mSnoozeDelay.summary = mSnoozeDelay.entry
             }
-            mVibrate -> {
-                mVibrate.isChecked = newValue as Boolean
-                return true
-            }
             mDefaultStart -> {
                 val i = mDefaultStart.findIndexOfValue(newValue as String)
                 mDefaultStart.summary = mDefaultStart.entries[i]
+                return true
+            }
+            mSkipReminders -> {
+                updateSkipRemindersSummary(newValue as String)
+            }
+            mVibrate -> {
+                mVibrate.isChecked = newValue as Boolean
                 return true
             }
             else -> {
@@ -362,8 +402,19 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 showNotificationChannel()
                 return true
             }
+            KEY_OTHER_COPY_DB -> {
+                showDbCopy()
+                return true
+            }
             else -> return super.onPreferenceTreeClick(preference)
         }
+    }
+
+    private fun showDbCopy() {
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.component = ComponentName("com.android.providers.calendar",
+                "com.android.providers.calendar.CalendarDebugActivity")
+        startActivity(intent)
     }
 
     private fun clearSearchHistory() {
@@ -498,12 +549,26 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         private const val KEY_HOME_TZ = "preferences_home_tz"
         private const val FRAG_TAG_TIME_ZONE_PICKER = "TimeZonePicker"
 
+        // experimental
+        const val KEY_OTHER_COPY_DB = "preferences_copy_db"
+        const val KEY_OTHER_REMINDERS_RESPONDED = "preferences_reminders_responded"
 
         internal const val REQUEST_CODE_ALERT_RINGTONE = 42
 
         /** Return a properly configured SharedPreferences instance  */
         fun getSharedPreferences(context: Context): SharedPreferences {
             return context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+        }
+
+        /** Set the default shared preferences in the proper context */
+        fun setDefaultValues(context: Context) {
+            if (Utils.isOreoOrLater()) {
+                PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
+                        R.xml.general_preferences_oreo_and_up, true);
+            } else {
+                PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
+                        R.xml.general_preferences_below_oreo, true);
+            }
         }
     }
 }
