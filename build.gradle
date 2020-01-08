@@ -166,6 +166,9 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
+        versionCode 21
+        versionName "1.0.19"
+        applicationId "ws.xsoh.etar"
     }
 
     useLibrary 'org.apache.http.legacy'

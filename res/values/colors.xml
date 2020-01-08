@@ -399,4 +399,32 @@
     <!-- Overwrite external chips colors -->
     <color name="chips_dropdown_text_default_dark">#9e9e9e</color>
     <color name="chips_dropdown_text_highlighted_dark">@android:color/holo_blue_light</color>
+
+    <!-- default calendar/event color palette -->
+    <array name="defaultCalendarColors">
+        <item>#FFD1270C</item>
+        <item>#FF11AB64</item>
+        <item>#FF1454B9</item>
+        <item>#FF4EA719</item>
+        <item>#FF62B492</item>
+        <item>#FF6365CC</item>
+        <item>#FF6E96B9</item>
+        <item>#FF6EB3B9</item>
+        <item>#FF7449B5</item>
+        <item>#FF8363CC</item>
+        <item>#FF85B03C</item>
+        <item>#FF8A4D38</item>
+        <item>#FF9B9B9B</item>
+        <item>#FF9E41B8</item>
+        <item>#FFA29496</item>
+        <item>#FFA37C82</item>
+        <item>#FFA63D36</item>
+        <item>#FFC55C7E</item>
+        <item>#FFC61600</item>
+        <item>#FFC81E02</item>
+        <item>#FFC89D2D</item>
+        <item>#FFC9B64C</item>
+        <item>#FFCC3F00</item>
+        <item>#FFCC770C</item>
+    </array>
 </resources>

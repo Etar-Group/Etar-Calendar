@@ -56,20 +56,20 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
                                                       val KEY_MAX_NUMBER_OF_LINES: String)
 
     private class PreferenceConfiguration(val mKeys: PreferenceKeys) {
-        private var mDisplayTime: ListPreference? = null
+        private lateinit var mDisplayTime: ListPreference
         fun onCreate(preferenceScreen: PreferenceScreen, activity: Activity?) {
-            mDisplayTime = preferenceScreen.findPreference<Preference>(mKeys.KEY_DISPLAY_TIME) as ListPreference?
+            mDisplayTime = preferenceScreen.findPreference(mKeys.KEY_DISPLAY_TIME)!!
             initDisplayTime(activity)
         }
 
         private fun initDisplayTime(activity: Activity?) {
             if (!Utils.getConfigBool(activity, R.bool.show_time_in_month)) {
-                val entries = mDisplayTime!!.entries
+                val entries = mDisplayTime.entries
                 val newEntries = Arrays.copyOf(entries, entries.size - 1)
-                mDisplayTime!!.entries = newEntries
+                mDisplayTime.entries = newEntries
             }
-            if (mDisplayTime!!.entry == null || mDisplayTime!!.entry.length == 0) {
-                mDisplayTime!!.value = getDefaultTimeToShow(activity).toString()
+            if (mDisplayTime.entry == null || mDisplayTime.entry.isEmpty()) {
+                mDisplayTime.value = getDefaultTimeToShow(activity).toString()
             }
         }
 
@@ -156,7 +156,7 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
         private val LANDSCAPE_PREFS = PreferenceKeys(KEY_DISPLAY_TIME_H_PREF, KEY_DISPLAY_LOCATION_H_PREF, KEY_MAX_NUMBER_OF_LINES_H_PREF)
         private val PORTRAIT_PREFS = PreferenceKeys(KEY_DISPLAY_TIME_V_PREF, KEY_DISPLAY_LOCATION_V_PREF, KEY_MAX_NUMBER_OF_LINES_V_PREF)
 
-        protected fun getDefaultTimeToShow(context: Context?): Int {
+        private fun getDefaultTimeToShow(context: Context?): Int {
             return if (Utils.getConfigBool(context, R.bool.show_time_in_month)) TimeVisibility.SHOW_TIME_RANGE_BELOW.value else TimeVisibility.SHOW_NONE.value
         }
 

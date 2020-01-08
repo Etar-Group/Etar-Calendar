@@ -20,16 +20,17 @@ package com.android.calendar.settings
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AuthenticatorDescription
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
-import android.util.Log
+import android.util.TypedValue
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.preference.*
 import com.android.calendar.Utils
 import com.android.calendar.persistence.CalendarRepository
 import ws.xsoh.etar.R
+
 
 class CalendarPreferences : PreferenceFragmentCompat() {
 
@@ -58,7 +59,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         val synchronizePreference = SwitchPreference(context).apply {
             key = SYNCHRONIZE_KEY
             title = getString(R.string.preferences_calendar_synchronize)
-            isEnabled = !isLocalAccount
+            isVisible = !isLocalAccount
         }
         val visiblePreference = SwitchPreference(context).apply {
             key = VISIBLE_KEY
@@ -80,7 +81,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             key = DISPLAY_NAME_KEY
             title = getString(R.string.preferences_calendar_display_name)
             dialogTitle = getString(R.string.preferences_calendar_display_name)
-            isEnabled = isLocalAccount
+            isVisible = isLocalAccount
         }
         displayNamePreference.setOnPreferenceChangeListener { _, newValue ->
             activity?.title = newValue as String
@@ -88,7 +89,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
         val deletePreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_delete)
-            isEnabled = isLocalAccount
+            isVisible = isLocalAccount
         }
         deletePreference.setOnPreferenceClickListener {
             deleteCalendar()
@@ -110,7 +111,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             val localAccountInfoPreference = Preference(context).apply {
                 title = getString(R.string.preferences_list_add_offline_message)
                 isSelectable = false
-                icon = resources.getDrawable(R.drawable.sync_off)
+                icon = getThemeDrawable(R.attr.settings_calendar_offline)
             }
             accountCategory.addPreference(localAccountInfoPreference)
         } else {
@@ -118,6 +119,14 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
 
         preferenceScreen = screen
+    }
+
+    private fun getThemeDrawable(attr: Int): Drawable {
+        val typedValue = TypedValue()
+        context!!.theme.resolveAttribute(attr, typedValue, true)
+        val imageResId = typedValue.resourceId
+        return ContextCompat.getDrawable(context!!, imageResId)
+                ?: throw IllegalArgumentException("Cannot load drawable $imageResId")
     }
 
     private fun addConfigureAccountPreference(category: PreferenceCategory, account: Account) {
@@ -143,8 +152,8 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     }
 
     private fun getColorIcon(color: Int): Drawable {
-        val icon: Drawable = resources.getDrawable(R.drawable.circle)
-        icon.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        val icon: Drawable = ContextCompat.getDrawable(context!!, R.drawable.circle)!!
+        icon.mutate().setColorFilter(color, Mode.SRC_IN)
         return icon
     }
 

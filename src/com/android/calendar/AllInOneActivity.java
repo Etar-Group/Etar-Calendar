@@ -46,6 +46,7 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Events;
 
 import com.android.calendar.settings.SettingsActivity;
+import com.android.calendar.settings.AboutPreferences;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivityKt;
 import com.android.calendar.settings.ViewDetailsPreferences;
@@ -948,6 +949,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 break;
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+                break;
+            case R.id.action_about:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                intent.putExtra(SettingsActivityKt.EXTRA_SHOW_FRAGMENT, AboutPreferences.class.getName());
+                startActivity(intent);
                 break;
         }
         mDrawerLayout.closeDrawers();

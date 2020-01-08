@@ -1086,7 +1086,7 @@ public class AlertService extends Service {
                 if (quietUpdate) {
                     ringtone = EMPTY_RINGTONE;
                 } else {
-                    ringtone = Utils.getRingTonePreference(context);
+                    ringtone = Utils.getRingtonePreference(context);
                 }
             }
             String retVal = ringtone;

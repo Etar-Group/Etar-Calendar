@@ -29,6 +29,8 @@ import androidx.fragment.app.DialogFragment;
 import com.android.timezonepicker.TimeZoneInfo;
 import com.android.timezonepicker.TimeZonePickerView;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 1-to-1 Copy of TimeZonePickerDialog but using androidx classes
  */
@@ -62,8 +64,8 @@ public class TimeZonePickerDialogX extends DialogFragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         long timeMillis = 0;
         String timeZone = null;
         Bundle b = getArguments();
@@ -80,14 +82,14 @@ public class TimeZonePickerDialogX extends DialogFragment implements
                 hideFilterSearch);
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_HAS_RESULTS, false)) {
             mView.showFilterResults(savedInstanceState.getInt(KEY_LAST_FILTER_TYPE),
-                                    savedInstanceState.getString(KEY_LAST_FILTER_STRING),
-                                    savedInstanceState.getInt(KEY_LAST_FILTER_TIME));
+                    savedInstanceState.getString(KEY_LAST_FILTER_STRING),
+                    savedInstanceState.getInt(KEY_LAST_FILTER_TIME));
         }
         return mView;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_HAS_RESULTS, mView != null && mView.hasResults());
         if (mView != null) {
@@ -98,6 +100,7 @@ public class TimeZonePickerDialogX extends DialogFragment implements
         }
     }
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);

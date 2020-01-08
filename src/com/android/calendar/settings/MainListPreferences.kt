@@ -18,12 +18,12 @@
 package com.android.calendar.settings
 
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.Preference
@@ -59,11 +59,11 @@ class MainListPreferences : PreferenceFragmentCompat() {
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
         mainListViewModel.getCalendarsOrderedByAccount().observe(viewLifecycleOwner, Observer<List<Calendar>> { calendars ->
-            updateAccountsPreferences(preferenceScreen, calendars)
+            updateCalendarPreferences(preferenceScreen, calendars)
         })
     }
 
-    private fun updateAccountsPreferences(screen: PreferenceScreen, allCalendars: List<Calendar>) {
+    private fun updateCalendarPreferences(screen: PreferenceScreen, allCalendars: List<Calendar>) {
         val newCalendars = mutableSetOf<Long>()
 
         for (calendar in allCalendars) {
@@ -76,7 +76,8 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 accountCategory = PreferenceCategory(context).apply {
                     key = accountCategoryUniqueKey
                     title = calendar.accountName
-                    isOrderingAsAdded = false
+                    order = if (calendar.isLocal) 10 else 11 // show offline calendar first
+                    isOrderingAsAdded = false // use alphabetic ordering for children
                 }
                 screen.addPreference(accountCategory)
             }
@@ -92,7 +93,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 key = calendarUniqueKey
                 title = calendar.displayName
                 fragment = CalendarPreferences::class.java.name
-                order = if (calendar.isPrimary) 2 else 3 // primary calendar is first, others are alphabetically ordered below
+                order = if (calendar.isPrimary) 1 else 2 // primary calendar is first, others are alphabetically ordered below
                 icon = getCalendarIcon(calendar.color, calendar.visible, calendar.syncEvents)
                 summary = getCalendarSummary(calendar.visible, calendar.syncEvents)
             }
@@ -101,11 +102,26 @@ class MainListPreferences : PreferenceFragmentCompat() {
         }
 
         // remove preferences for calendars no longer existing
-        val toDelete = currentCalendars.subtract(newCalendars)
-        toDelete.forEach {
+        val calendarsToDelete = currentCalendars.subtract(newCalendars)
+        calendarsToDelete.forEach {
             val calendarUniqueKey = "calendar_preference_${it}"
             screen.removePreferenceRecursively(calendarUniqueKey)
         }
+
+        // remove empty account categories
+        val categoriesToDelete = mutableSetOf<PreferenceCategory>()
+        for (i in 0 until screen.preferenceCount) {
+            val pref = screen.getPreference(i)
+            if (pref is PreferenceCategory) {
+                if (pref.preferenceCount == 0) {
+                    categoriesToDelete.add(pref)
+                }
+            }
+        }
+        categoriesToDelete.forEach {
+            screen.removePreference(it)
+        }
+
         currentCalendars = newCalendars
     }
 
@@ -121,14 +137,14 @@ class MainListPreferences : PreferenceFragmentCompat() {
 
     private fun getCalendarIcon(color: Int, visible: Boolean, syncEvents: Boolean): Drawable {
         val icon = if (!syncEvents) {
-            resources.getDrawable(R.drawable.sync_off)
+            ContextCompat.getDrawable(context!!, R.drawable.ic_sync_off_light)
         } else if (visible) {
-            resources.getDrawable(R.drawable.circle)
+            ContextCompat.getDrawable(context!!, R.drawable.circle)
         } else {
-            resources.getDrawable(R.drawable.circle_outline)
+            ContextCompat.getDrawable(context!!, R.drawable.circle_outline)
         }
 
-        icon.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        icon!!.mutate().setColorFilter(color, Mode.SRC_IN)
         return icon
     }
 
@@ -151,14 +167,9 @@ class MainListPreferences : PreferenceFragmentCompat() {
             addOfflineCalendar()
             true
         }
-        val aboutPreference = Preference(context).apply {
-            title = getString(R.string.preferences_list_about)
-            fragment = AboutPreferences::class.java.name
-        }
         screen.addPreference(generalPreference)
         screen.addPreference(addCaldavPreference)
         screen.addPreference(addOfflinePreference)
-        screen.addPreference(aboutPreference)
     }
 
     private fun addOfflineCalendar() {

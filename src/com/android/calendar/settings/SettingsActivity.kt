@@ -30,6 +30,12 @@ private const val TITLE_TAG = "settingsActivityTitle"
 
 const val EXTRA_SHOW_FRAGMENT = "settingsShowFragment"
 
+/**
+ * Based on the official Kotlin example for AndroidX preferences:
+ * https://github.com/android/user-interface-samples/blob/master/PreferencesKotlin/app/src/main/java/com/example/androidx/preference/sample/MainActivity.kt
+ *
+ * Extended by EXTRA_SHOW_FRAGMENT
+ */
 class SettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 

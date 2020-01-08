@@ -377,7 +377,7 @@ public class Utils {
     // At backup manager "restore" time (which should happen before launcher
     // comes up for the first time), the value will be set/reset to default
     // ringtone.
-    public static String getRingTonePreference(Context context) {
+    public static String getRingtonePreference(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
                 GeneralPreferences.SHARED_PREFS_NAME_NO_BACKUP, Context.MODE_PRIVATE);
         String ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE, null);
@@ -391,13 +391,13 @@ public class Utils {
                     GeneralPreferences.DEFAULT_RINGTONE);
 
             // Write it to the new place
-            setRingTonePreference(context, ringtone);
+            setRingtonePreference(context, ringtone);
         }
 
         return ringtone;
     }
 
-    public static void setRingTonePreference(Context context, String value) {
+    public static void setRingtonePreference(Context context, String value) {
         SharedPreferences prefs = context.getSharedPreferences(
                 GeneralPreferences.SHARED_PREFS_NAME_NO_BACKUP, Context.MODE_PRIVATE);
         prefs.edit().putString(GeneralPreferences.KEY_ALERTS_RINGTONE, value).apply();

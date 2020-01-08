@@ -19,16 +19,22 @@ package com.android.calendar.settings
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.android.calendar.persistence.CalendarRepository
+import com.google.android.material.textfield.TextInputLayout
 import ws.xsoh.etar.R
+
 
 class AddOfflineCalendarDialogFragment : DialogFragment() {
 
     private lateinit var nameEditText: EditText
+    private lateinit var nameEditTextLayout: TextInputLayout
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,28 +42,58 @@ class AddOfflineCalendarDialogFragment : DialogFragment() {
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.add_offline_calendar_dialog, null)
             nameEditText = view.findViewById(R.id.offline_calendar_name)
+            nameEditTextLayout = view.findViewById(R.id.offline_calendar_name_layout)
+            nameEditText.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    nameEditTextLayout.error = null
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+            })
 
             val builder = AlertDialog.Builder(it).apply {
                 setView(view)
                 setTitle(R.string.preferences_list_add_offline_title)
                 setMessage(R.string.preferences_list_add_offline_message)
-                setPositiveButton(R.string.preferences_list_add_offline_button) { _, _ ->
-                    addCalendar()
-                }
-                setNegativeButton(R.string.preferences_list_add_offline_cancel) { dialog, _ ->
-                    dialog.cancel()
-                }
             }
+            val dialog = builder.create()
 
-            builder.create()
+            // set listener in onResume to work around auto-dismiss of AlertDialog.Builder
+            // https://stackoverflow.com/a/10661281/1600685
+            val emptyClickListener: DialogInterface.OnClickListener? = null
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.preferences_list_add_offline_button), emptyClickListener)
+            dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.preferences_list_add_offline_cancel), emptyClickListener)
+
+            return dialog
         } ?: throw IllegalStateException("Activity cannot be null")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val alertDialog = dialog as AlertDialog
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            addCalendar()
+        }
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener {
+            alertDialog.cancel()
+        }
     }
 
     private fun addCalendar() {
         val accountName = getString(R.string.offline_account_name)
         val displayName = nameEditText.text.toString()
-        val color = -10308462
+
+        if (displayName.isEmpty()) {
+            nameEditTextLayout.error = getString(R.string.preferences_list_add_offline_error_empty)
+            return
+        }
+
         val repository = CalendarRepository(activity!!.application)
-        repository.addLocalCalendar(accountName, displayName, color)
+        repository.addLocalCalendar(accountName, displayName)
+        dismiss()
     }
 }

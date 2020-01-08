@@ -34,9 +34,9 @@ import android.provider.CalendarContract.CalendarCache
 import android.provider.SearchRecentSuggestions
 import android.provider.Settings
 import android.text.TextUtils
-import android.text.format.Time
 import android.util.SparseIntArray
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.preference.*
 import com.android.calendar.*
 import com.android.calendar.alerts.AlertReceiver
@@ -44,6 +44,7 @@ import com.android.calendar.event.EventViewUtils
 import com.android.timezonepicker.TimeZoneInfo
 import com.android.timezonepicker.TimeZonePickerUtils
 import ws.xsoh.etar.R
+import java.util.*
 
 class GeneralPreferences : PreferenceFragmentCompat(),
         OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener,
@@ -111,14 +112,14 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 mAlertGroup!!.removePreference(mVibrate)
             }
             mRingtone = preferenceScreen.findPreference(KEY_ALERTS_RINGTONE)!!
-            val ringToneUri = Utils.getRingTonePreference(activity)
+            val ringtoneUriString = Utils.getRingtonePreference(activity)
 
-            // Set the ringToneUri to the backup-able shared pref only so that
+            // Set the ringtoneUri to the backup-able shared pref only so that
             // the Ringtone dialog will open up with the correct value.
             val editor = prefs.edit()
-            editor.putString(KEY_ALERTS_RINGTONE, ringToneUri).apply()
+            editor.putString(KEY_ALERTS_RINGTONE, ringtoneUriString).apply()
 
-            val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringToneUri)
+            val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringtoneUriString)
             mRingtone.summary = ringtoneDisplayString ?: ""
         }
 
@@ -152,7 +153,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         // in the shared_pref if home time zone is disabled. So if home tz is
         // off, we will explicitly read it.
         if (!prefs.getBoolean(KEY_HOME_TZ_ENABLED, false)) {
-            mTimeZoneId = prefs.getString(KEY_HOME_TZ, Time.getCurrentTimezone())
+            mTimeZoneId = prefs.getString(KEY_HOME_TZ, TimeZone.getDefault().id)
         }
 
         if (mTzPickerUtils == null) {
@@ -166,12 +167,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
         tzpd?.setOnTimeZoneSetListener(this)
 
-        var skipPreferencesValue: String? = null
-        if (mSkipReminders != null) {
-            skipPreferencesValue = mSkipReminders.value
-            mSkipReminders.onPreferenceChangeListener = this
-        }
-        updateSkipRemindersSummary(skipPreferencesValue)
+        updateSkipRemindersSummary(mSkipReminders.value)
     }
 
     /**
@@ -180,34 +176,33 @@ class GeneralPreferences : PreferenceFragmentCompat(),
      * will be set, and the value will be set accordingly too.
      */
     private fun updateSkipRemindersSummary(value: String?) {
-        if (mSkipReminders != null) { // Default to "declined". Must match with R.array.preferences_skip_reminders_values.
-            var index = 0
-            val values = mSkipReminders.entryValues
-            val entries = mSkipReminders.entries
-            for (value_i in values.indices) {
-                if (values[value_i] == value) {
-                    index = value_i
-                    break
-                }
+        // Default to "declined". Must match with R.array.preferences_skip_reminders_values.
+        var index = 0
+        val values = mSkipReminders.entryValues
+        val entries = mSkipReminders.entries
+        for (value_i in values.indices) {
+            if (values[value_i] == value) {
+                index = value_i
+                break
             }
-            mSkipReminders.summary = entries[index].toString()
-            if (value == null) { // Value was not known ahead of time, so the default value will be set.
-                mSkipReminders.value = values[index].toString()
-            }
+        }
+        mSkipReminders.summary = entries[index].toString()
+        if (value == null) { // Value was not known ahead of time, so the default value will be set.
+            mSkipReminders.value = values[index].toString()
         }
     }
 
     private fun showColorPickerDialog() {
         val colorPickerDialog = ColorPickerDialogX()
         val selectedColorName = Utils.getSharedPreference(activity, KEY_COLOR_PREF, "teal")
-        val selectedColor = resources.getColor(DynamicTheme.getColorId(selectedColorName))
+        val selectedColor = ContextCompat.getColor(context!!, DynamicTheme.getColorId(selectedColorName))
         colorPickerDialog.initialize(R.string.preferences_color_pick,
-                intArrayOf(resources.getColor(R.color.colorPrimary),
-                        resources.getColor(R.color.colorBluePrimary),
-                        resources.getColor(R.color.colorPurplePrimary),
-                        resources.getColor(R.color.colorRedPrimary),
-                        resources.getColor(R.color.colorOrangePrimary),
-                        resources.getColor(R.color.colorGreenPrimary)),
+                intArrayOf(ContextCompat.getColor(context!!, R.color.colorPrimary),
+                        ContextCompat.getColor(context!!, R.color.colorBluePrimary),
+                        ContextCompat.getColor(context!!, R.color.colorPurplePrimary),
+                        ContextCompat.getColor(context!!, R.color.colorRedPrimary),
+                        ContextCompat.getColor(context!!, R.color.colorOrangePrimary),
+                        ContextCompat.getColor(context!!, R.color.colorGreenPrimary)),
                 selectedColor, 3, 2)
         colorPickerDialog.setOnColorSelectedListener { colour ->
             Utils.setSharedPreference(activity, KEY_COLOR_PREF, DynamicTheme.getColorName(colorMap.get(colour)))
@@ -216,12 +211,12 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     private fun initializeColorMap() {
-        colorMap.put(resources.getColor(R.color.colorPrimary), R.color.colorPrimary)
-        colorMap.put(resources.getColor(R.color.colorBluePrimary), R.color.colorBluePrimary)
-        colorMap.put(resources.getColor(R.color.colorOrangePrimary), R.color.colorOrangePrimary)
-        colorMap.put(resources.getColor(R.color.colorGreenPrimary), R.color.colorGreenPrimary)
-        colorMap.put(resources.getColor(R.color.colorRedPrimary), R.color.colorRedPrimary)
-        colorMap.put(resources.getColor(R.color.colorPurplePrimary), R.color.colorPurplePrimary)
+        colorMap.put(ContextCompat.getColor(context!!, R.color.colorPrimary), R.color.colorPrimary)
+        colorMap.put(ContextCompat.getColor(context!!, R.color.colorBluePrimary), R.color.colorBluePrimary)
+        colorMap.put(ContextCompat.getColor(context!!, R.color.colorOrangePrimary), R.color.colorOrangePrimary)
+        colorMap.put(ContextCompat.getColor(context!!, R.color.colorGreenPrimary), R.color.colorGreenPrimary)
+        colorMap.put(ContextCompat.getColor(context!!, R.color.colorRedPrimary), R.color.colorRedPrimary)
+        colorMap.put(ContextCompat.getColor(context!!, R.color.colorPurplePrimary), R.color.colorPurplePrimary)
     }
 
     private fun showTimezoneDialog() {
@@ -261,6 +256,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         mSnoozeDelay.onPreferenceChangeListener = listener
         mHideDeclined.onPreferenceChangeListener = listener
         mDefaultEventDuration.onPreferenceChangeListener = listener
+        mSkipReminders.onPreferenceChangeListener = listener
         if (Utils.isOreoOrLater()) {
             mNotification!!.onPreferenceChangeListener = listener
         } else {
@@ -379,9 +375,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        val key = preference!!.key;
-
-        when (key) {
+        when (preference!!.key) {
             KEY_HOME_TZ -> {
                 showTimezoneDialog()
                 return true
@@ -444,11 +438,12 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, Settings.System.DEFAULT_NOTIFICATION_URI)
         }
 
-        val existingValue = Utils.getRingTonePreference(activity)
+        val existingValue = Utils.getRingtonePreference(activity)
         if (existingValue != null) {
             if (existingValue.isEmpty()) {
                 // Select "Silent"
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, null as Uri)
+                val empty: Uri? = null
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, empty)
             } else {
                 intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(existingValue))
             }
@@ -463,14 +458,11 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_ALERT_RINGTONE && data != null) {
             val ringtone = data.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
-            if (ringtone != null) {
-                Utils.setRingTonePreference(activity, ringtone.toString())
-            } else {
-                // "Silent" was selected
-                Utils.setRingTonePreference(activity, "")
-            }
+            // ringtone is null when "Silent" was selected
+            val ringtoneString = ringtone?.toString() ?: ""
 
-            val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringtone.toString())
+            Utils.setRingtonePreference(activity, ringtoneString)
+            val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringtoneString)
             mRingtone.summary = ringtoneDisplayString ?: ""
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -564,10 +556,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         fun setDefaultValues(context: Context) {
             if (Utils.isOreoOrLater()) {
                 PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                        R.xml.general_preferences_oreo_and_up, true);
+                        R.xml.general_preferences_oreo_and_up, true)
             } else {
                 PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                        R.xml.general_preferences_below_oreo, true);
+                        R.xml.general_preferences_nougat_and_less, true)
             }
         }
     }

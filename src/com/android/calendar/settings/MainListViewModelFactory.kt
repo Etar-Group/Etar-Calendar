@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider
 
 class MainListViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
 
+    @Suppress("UNCHECKED_CAST")
     @NonNull
     override fun <T : ViewModel> create(@NonNull modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainListViewModel::class.java)) {

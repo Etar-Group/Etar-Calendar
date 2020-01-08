@@ -19,15 +19,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ws.xsoh.etar"
-    android:installLocation="auto"
-    android:versionCode="21"
-    android:versionName="1.0.19">
-<!--         android:sharedUserLabel="@string/app_label"> -->
-
-    <!--
-       NOTE: and original-package cannot be used, since the Eclair
-       version was using a shared user ID with the provider.
-    -->
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -140,14 +132,6 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity"
-            android:label="@string/select_visible_calendars_title"
-            android:theme="@style/Base.CalendarAppThemeWithActionBar" />
-
-        <activity android:name="com.android.calendar.selectcalendars.SelectSyncedCalendarsMultiAccountActivity"
-            android:label="@string/select_synced_calendars_title"
-            android:theme="@style/Base.CalendarAppThemeWithActionBar" />
 
         <activity
             android:name="com.android.calendar.settings.SettingsActivity"

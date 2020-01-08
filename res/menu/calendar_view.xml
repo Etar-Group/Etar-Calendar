@@ -27,6 +27,11 @@
             android:alphabeticShortcut="s"
             android:icon="@drawable/ic_menu_settings"
             android:title="@string/menu_preferences" />
+        
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/ic_menu_help"
+            android:title="@string/preferences_menu_about" />
 
     </group>
 </menu>

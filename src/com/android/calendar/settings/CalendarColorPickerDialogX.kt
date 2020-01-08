@@ -40,13 +40,11 @@ import java.util.*
  * - extends ColorPickerDialogX for androidx compatibility
  * - added OnCalendarColorSelectedListener
  * - handle calendars where no additional colors are provided by the account
- * - handle local accounts
  */
 class CalendarColorPickerDialogX : ColorPickerDialogX() {
     private var queryService: QueryService? = null
     private val colorKeyMap = SparseIntArray()
     private var calendarId: Long = 0
-    private var isLocalAccount: Boolean = false
 
     private var calendarColorListener: OnCalendarColorSelectedListener? = null
 
@@ -159,8 +157,6 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
                     mSelectedColor = Utils.getDisplayColorFromColor(cursor.getInt(CALENDARS_INDEX_CALENDAR_COLOR))
                     val account = Account(cursor.getString(CALENDARS_INDEX_ACCOUNT_NAME),
                             cursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE))
-                    isLocalAccount = account.type == ACCOUNT_TYPE_LOCAL
-
                     cursor.close()
 
                     startColorQuery(account)
@@ -196,17 +192,16 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
     }
 
     private fun useDefaultColors() {
-        if (!isLocalAccount) {
-            val warningDialog = AlertDialog.Builder(activity!!)
-                    .setTitle(R.string.preferences_calendar_color_warning_title)
-                    .setMessage(R.string.preferences_calendar_color_warning_message)
-                    .setPositiveButton(R.string.preferences_calendar_color_warning_button) { dialogInterface, _ ->
-                        dialogInterface.dismiss()
-                    }
-                    .create()
-            warningDialog.show()
-        }
-        setColorPalette(defaultColors)
+        val warningDialog = AlertDialog.Builder(activity!!)
+                .setTitle(R.string.preferences_calendar_color_warning_title)
+                .setMessage(R.string.preferences_calendar_color_warning_message)
+                .setPositiveButton(R.string.preferences_calendar_color_warning_button) { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
+                .create()
+        warningDialog.show()
+        val defaultColors: IntArray = resources.getIntArray(R.array.defaultCalendarColors)
+        setColorPalette(defaultColors.toTypedArray())
         showPaletteView()
     }
 
@@ -255,33 +250,6 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
         internal const val CALENDARS_INDEX_ACCOUNT_NAME = 0
         internal const val CALENDARS_INDEX_ACCOUNT_TYPE = 1
         internal const val CALENDARS_INDEX_CALENDAR_COLOR = 2
-
-        internal val defaultColors = arrayOf(
-                -16742839,
-                -15619228,
-                -15444807,
-                -11622631,
-                -10308462,
-                -10263092,
-                -9529671,
-                -9522247,
-                -9156171,
-                -8166452,
-                -8015812,
-                -7713480,
-                -6579301,
-                -6405704,
-                -6122346,
-                -6062974,
-                -5882570,
-                -3842946,
-                -3795456,
-                -3662334,
-                -3629779,
-                -3557812,
-                -3391744,
-                -3377396
-        )
 
         internal val COLORS_PROJECTION = arrayOf(
                 Colors.COLOR,
