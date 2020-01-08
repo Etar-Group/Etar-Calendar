@@ -54,21 +54,20 @@
                         android:id="@+id/freqSpinner"
                         style="@style/TextAppearance.RecurrencePickerStyle"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:entries="@array/recurrence_freq"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:padding="0dp" />
 
                     <Switch
                         android:id="@+id/repeat_switch"
-                        android:layout_weight="0.04"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:thumb="@drawable/switch_thumb"
-                        android:layout_marginLeft="4dp" />
+                        android:layout_marginStart="4dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -87,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:paddingLeft="4dp" >
+                        android:paddingStart="4dp" >
 
                         <TextView
                             android:id="@+id/intervalPreText"
@@ -189,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:orientation="horizontal"
-                        android:paddingLeft="0dp" >
+                        android:paddingStart="0dp" >
 
                         <Spinner
                             android:id="@+id/endSpinner"
@@ -197,10 +196,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="-4dp"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="-4dp"
+                            android:layout_marginEnd="8dp"
                             android:entries="@array/recurrence_freq"
-                            android:gravity="left|center_vertical"
+                            android:gravity="start|center_vertical"
                             android:padding="0dp" />
 
                         <EditText
@@ -243,8 +242,8 @@
                             android:layout_marginTop="3dp"
                             android:layout_marginLeft="0dp"
                             android:layout_marginRight="0dp"
-                            android:paddingLeft="12dp"
-                            android:paddingRight="16dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="16dp"
                             android:paddingBottom="8dp"
                             android:visibility="gone" />
                     </LinearLayout>
