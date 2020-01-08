@@ -21,13 +21,17 @@
     <string name="attendees_label" msgid="2971281641565729725">"אורחים"</string>
     <string name="today" msgid="8577375020252453006">"היום"</string>
     <string name="tomorrow" msgid="614434811813859237">"מחר"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־<xliff:g id="time_interval">%s</xliff:g></string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־<xliff:g id="time_interval">%s</xliff:g></string>
-    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־<xliff:g id="time_interval">%s</xliff:g>
+    </string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־<xliff:g id="time_interval">%s</xliff:g>
+    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"חזרה"</string>
     <string name="no_title_label" msgid="302177118061368042">"(אין כותרת)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">דקה</item>
+        <item quantity="one">This is the label for a 1-minute reminder.1 דקה</item>
         <item quantity="two">
             <xliff:g id="COUNT">%d</xliff:g> דקות</item>
         <item quantity="many">
@@ -36,7 +40,7 @@
             <xliff:g id="COUNT">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">דקה</item>
+        <item quantity="one">דקה אחת</item>
         <item quantity="two">
             <xliff:g id="COUNT">%d</xliff:g> דקות</item>
         <item quantity="many">
@@ -45,7 +49,7 @@
             <xliff:g id="COUNT">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">שעה</item>
+        <item quantity="one">שעה אחת</item>
         <item quantity="two">שעתיים</item>
         <item quantity="many">
             <xliff:g id="COUNT">%d</xliff:g> שעות</item>
@@ -53,7 +57,7 @@
             <xliff:g id="COUNT">%d</xliff:g> שעות</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">יום</item>
+        <item quantity="one">יום אחד</item>
         <item quantity="two">יומיים</item>
         <item quantity="many">
             <xliff:g id="COUNT">%d</xliff:g> ימים</item>
@@ -70,26 +74,26 @@
         <item quantity="other">שבוע <xliff:g id="count">%d</xliff:g>
         </item>
     </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">רענון</string>
-    <string name="show_day_view" msgid="5782512782605466016">הצגת יום</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">רענן</string>
+    <string name="show_day_view" msgid="5782512782605466016">הצג יום</string>
     <string name="agenda_view" msgid="5566084759423843245">"סדר יום"</string>
     <string name="day_view" msgid="4467754504843584437">"יום"</string>
     <string name="week_view" msgid="6775043022159508060">"שבוע"</string>
     <string name="month_view" msgid="7287101431749285412">"חודש"</string>
-    <string name="event_view" msgid="7621353079385122317">הצגת אירוע</string>
+    <string name="event_view" msgid="7621353079385122317">הצג אירוע</string>
     <string name="event_create" msgid="6941040556709110617">"אירוע חדש"</string>
-    <string name="event_edit" msgid="4006961928830064662">עריכת אירוע</string>
-    <string name="event_delete" msgid="2386667193277770442">מחיקת אירוע</string>
+    <string name="event_edit" msgid="4006961928830064662">ערוך אירוע</string>
+    <string name="event_delete" msgid="2386667193277770442">מחק אירוע</string>
     <string name="goto_today" msgid="9162136434410891230">"היום"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"הגדרות"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">לוחות שנה להצגה</string>
-    <string name="search" msgid="550656004486017426">חיפוש</string>
-    <string name="hide_controls" msgid="830320505938520882">הסתרת פקדים</string>
-    <string name="show_controls" msgid="715520586028062621">הצגת פקדים</string>
+    <string name="search" msgid="550656004486017426">חפש</string>
+    <string name="hide_controls" msgid="830320505938520882">הסתר פקדים</string>
+    <string name="show_controls" msgid="715520586028062621">הצג פקדים</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"לוחות שנה להצגה"</string>
     <string name="synced" msgid="7913940305983383493">"מסונכרן"</string>
     <string name="not_synced" msgid="4275114941801829419">"לא מסונכרן"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">חשבון זה אינו מסונכרן כך שייתכן שלוחות השנה שלך אינם עדכניים.</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">חשבון זה אינו מסונכרן לכן ייתכן כי לוחות השנה שלך אינם עדכניים.</string>
     <string name="accounts" msgid="849401841083180306">חשבונות וסנכרון</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">לוחות שנה לסנכרון</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">לוחות שנה לסנכרון</string>
@@ -181,7 +185,8 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">יומי</item>
-        <item quantity="two">כל <xliff:g id="number">יומיים</xliff:g></item>
+        <item quantity="two">כל <xliff:g id="number">יומיים</xliff:g>
+        </item>
         <item quantity="many">כל <xliff:g id="number">%d</xliff:g> ימים</item>
         <item quantity="other">כל <xliff:g id="number">%d</xliff:g> ימים</item>
     </plurals>
@@ -287,7 +292,7 @@
             <xliff:g id="count">%d</xliff:g> אירועים</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">+אירוע אחד</item>
+        <item quantity="one">אירוע אחד</item>
         <item quantity="two">+<xliff:g id="count">%d</xliff:g> אירועים</item>
         <item quantity="many">+<xliff:g id="count">%d</xliff:g> אירועים</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> אירועים</item>
@@ -298,25 +303,32 @@
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ללא חזרה"</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">כל &lt;&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;יום&lt;/xliff:g&gt;</item>
-        <item quantity="two">כל <xliff:g id="count">יומיים</xliff:g></item>
+        <item quantity="two">כל <xliff:g id="count">יומיים</xliff:g>
+        </item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> ימים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> ימים</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">כל <xliff:g id="count">שבוע</xliff:g></item>
-        <item quantity="two">כל <xliff:g id="count">שבועיים</xliff:g></item>
+        <item quantity="one">כל <xliff:g id="count">שבוע</xliff:g>
+        </item>
+        <item quantity="two">כל <xliff:g id="count">שבועיים</xliff:g>
+        </item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">כל <xliff:g id="count">חודש</xliff:g></item>
-        <item quantity="two">כל <xliff:g id="count">חודשיים</xliff:g></item>
+        <item quantity="one">כל <xliff:g id="count">חודש</xliff:g>
+        </item>
+        <item quantity="two">כל <xliff:g id="count">חודשיים</xliff:g>
+        </item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">כל <xliff:g id="count">שנה</xliff:g></item>
-        <item quantity="two">כל <xliff:g id="count">שנתיים</xliff:g></item>
+        <item quantity="one">כל <xliff:g id="count">שנה</xliff:g>
+        </item>
+        <item quantity="two">כל <xliff:g id="count">שנתיים</xliff:g>
+        </item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שנים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שנים</item>
     </plurals>
@@ -327,7 +339,8 @@
     </string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">עבור אירוע <xliff:g id="event_count">אחד</xliff:g></item>
+        <item quantity="one">עבור אירוע <xliff:g id="event_count">אחד</xliff:g>
+        </item>
         <item quantity="two">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
         <item quantity="many">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
         <item quantity="other">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
@@ -359,7 +372,7 @@
     <string name="one_hour">שעה</string>
     <string name="one_and_a_half_hours">שעה וחצי</string>
     <string name="two_hours">שעתיים</string>
-    <string name="share_label">שיתוף</string>
+    <string name="share_label">שתף</string>
     <string name="no_map">לא מותקן יישומון מפות</string>
     <string name="default_start_title">תצוגת בררת מחדל</string>
     <string name="default_start_last">תצוגה שהשתמשו בה בעבר</string>
@@ -378,7 +391,7 @@
     <string name="cal_import_error_msg">הייבוא ללוח השנה נכשל</string>
     <string name="cal_import_error_date_msg">לא ניתן לפענח את התאריך שסופק: %s</string>
     <string name="cal_pick_ics">נא לבחור קובץ לייבוא</string>
-    <string name="view_settings">הצגת הגדרות</string>
+    <string name="view_settings">הצג הגדרות</string>
     <string name="preferences_month_view_portrait">פריסת תצוגת חודש (לאורך)</string>
     <string name="preferences_month_view_landscape">פריסת תצוגת חודש (לרוחב)</string>
     <string name="view_details">הצגת פרטים</string>
