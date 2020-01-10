@@ -84,7 +84,7 @@
     <string name="synced" msgid="7913940305983383493">"sinkronizirano"</string>
     <string name="not_synced" msgid="4275114941801829419">"nije sinkronizirano"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Ovaj se račun ne sinkronizira pa vaši kalendari možda nisu ažurni."</string>
-    <string name="accounts" msgid="849401841083180306">"Računi &amp; sinkronizacija"</string>
+    <string name="accounts" msgid="849401841083180306">Računi i sinkronizacija</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendari za sinkronizaciju"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendari za sinkronizaciju"</string>
     <string name="hint_what" msgid="709155115005044531">"Naziv događaja"</string>
