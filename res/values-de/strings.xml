@@ -23,24 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"Morgen"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Heute, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Morgen, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"Wiederholung"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Kein Titel)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 Minute</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> Minuten</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> Minuten</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 Min.</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> Min.</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> Min.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 Stunde</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> Stunden</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> Stunden</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 Tag</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> Tage</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> Tage</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="other" msgid="8085184869561028365">"Woche <xliff:g id="COUNT">%d</xliff:g>"</item>
@@ -196,7 +202,8 @@
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
+        </item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Keine anstehenden Termine"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimentell"</string>
@@ -234,7 +241,8 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">Termin <xliff:g id="ITEM_INDEX">%1$s</xliff:g> von <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 Ereignis</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> Ereignisse</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> Ereignisse</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 Termin</item>
@@ -288,7 +296,7 @@
     <string name="cal_nothing_to_import">Nichts zu importieren</string>
     <string name="cal_import_menu_title">Importiere Termin</string>
     <string name="cal_import_error_msg">Import zum Kalender ist fehlgeschlagen</string>
-    <string name="cal_import_error_date_msg">Konnte Datum nicht erkennen: %s</string>
+    <string name="cal_import_error_date_msg">Datum konnte nicht erkannt werden: %s</string>
     <string name="cal_export_succ_msg">Termin erfolgreich exportiert: %1s</string>
     <string name="cal_export_event_sdcard_title">Export auf SD-Karte</string>
     <string name="rsvp_accepted">Zugesagt.</string>
@@ -328,4 +336,5 @@
     <string name="maximum_number_of_lines">Maximale Zeilenanzahl pro Kalendereintrag</string>
     <string name="foreground_notification_channel_name">Alarm Synchronisation</string>
     <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich. Bitte stumm schalten</string>
+    <string name="cal_import_error_time_zone_msg">Zeitzone konnte nicht erkannt werden: %s</string>
 </resources>
