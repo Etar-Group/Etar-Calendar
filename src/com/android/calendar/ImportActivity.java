@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
@@ -19,9 +20,11 @@ import com.android.calendar.icalendar.VCalendar;
 import com.android.calendar.icalendar.VEvent;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.TimeZone;
 
@@ -64,11 +67,45 @@ public class ImportActivity extends Activity {
             // (which are quite a lot, see e.g. http://tutorials.jenkov.com/java-date-time/java-util-timezone.html)
             if (Arrays.asList(TimeZone.getAvailableIDs()).contains(timeZone)) {
                 format.setTimeZone(TimeZone.getTimeZone(timeZone));
-                try {
-                    format.parse(iCalDate);
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    String convertedTimeZoneId = android.icu.util.TimeZone
+                            .getIDForWindowsID(timeZone, "001");
+                    if (convertedTimeZoneId != null && !convertedTimeZoneId.equals("")) {
+                        format.setTimeZone(TimeZone.getTimeZone(convertedTimeZoneId));
+                    }
+                    else {
+                        format.setTimeZone(TimeZone.getDefault());
+                        Toast.makeText(
+                                this,
+                                getString(R.string.cal_import_error_time_zone_msg, timeZone),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
                     format.setTimeZone(TimeZone.getDefault());
-                    return format.getCalendar().getTimeInMillis();
-                } catch (ParseException e) {  }
+                    Toast.makeText(
+                            this,
+                            getString(R.string.cal_import_error_time_zone_msg, timeZone),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {  }
+        }
+
+        // ONLY DATE, e.g. 20190415
+        else if (iCalDateParam != null && iCalDateParam.equals("VALUE=DATE")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            format.setTimeZone(TimeZone.getDefault());
+
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {
             }
         }
 
@@ -145,6 +182,21 @@ public class ImportActivity extends Activity {
                     getLocalTimeFromString(dtEnd, dtEndParam));
         }
 
+        boolean isAllDay = getLocalTimeFromString(dtEnd, dtEndParam)
+                - getLocalTimeFromString(dtStart, dtStartParam) == 86400000;
+
+
+        if (isTimeStartOfDay(dtStart, dtStartParam)) {
+            calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, isAllDay);
+        }
+        //Check if some special property which say it is a "All-Day" event.
+
+        String microsoft_all_day_event = firstEvent.getProperty("X-MICROSOFT-CDO-ALLDAYEVENT");
+        if(!TextUtils.isEmpty(microsoft_all_day_event) && microsoft_all_day_event.equals("TRUE")){
+            calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+        }
+
+
         calIntent.putExtra(EditEventActivity.EXTRA_READ_ONLY, true);
 
         try {
@@ -154,6 +206,19 @@ public class ImportActivity extends Activity {
         } finally {
             finish();
         }
+    }
+
+    private boolean isTimeStartOfDay(String dtStart, String dtStartParam) {
+        // convert to epoch milli seconds
+        long timeStamp = getLocalTimeFromString(dtStart, dtStartParam);
+        Date date = new Date(timeStamp);
+
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String dateStr = dateFormat.format(date);
+        if (dateStr.equals("00:00")) {
+            return true;
+        }
+        return false;
     }
 
     private boolean isValidIntent() {
