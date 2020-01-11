@@ -34,7 +34,8 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min.</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins.</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> mins.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one" msgid="4793697728599296830">"1 hora"</item>
@@ -46,7 +47,8 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Etiqueta para mostrar la semana del año [CHAR LIMIT=16]</item>
-        <item quantity="other">semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">semana <xliff:g id="count">%d</xliff:g>
+        </item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar día"</string>
@@ -236,8 +238,9 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"Añadir evento"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Evento <xliff:g id="item_index">%1$s</xliff:g> de <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
+        <item quantity="one">1 evento.</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> eventos.</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 evento</item>
@@ -332,4 +335,5 @@
     <string name="maximum_number_of_lines">Número máximo de líneas en el evento</string>
     <string name="foreground_notification_channel_name">Sincronizar alerta</string>
     <string name="foreground_notification_channel_description">Se requiere notificación en primer plano para sincronizar la alerta interna. Por favor, silenciar</string>
+    <string name="cal_import_error_time_zone_msg">No entiendo la zona horaria proporcionada: %s</string>
 </resources>
