@@ -271,9 +271,10 @@
             <xliff:g id="count">%d</xliff:g> egun</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">1. Astea</item>
+        <item quantity="one">
+            <xliff:g id="count">%d</xliff:g>. astea</item>
         <item quantity="other">
-            <xliff:g id="count">%d</xliff:g>. Astea</item>
+            <xliff:g id="count">%d</xliff:g>. astea</item>
     </plurals>
     <string name="no_calendars_found">Gertaera bat gehitu aurretik, gutxienez Egutegi bat gehitu behar duzu zure gailuan eta egutegia ikusgarri bezala markatu. Ukitu Gehitu Kontua kontu bat gehitzeko (kontu bat gehitu baduzu, itxaron sinkronizazioa bukatu arte eta saiatu berriz). Edo ukitu Utzi eta ziurtatu gutxienez egutegi bat dagoela ikusgarri.</string>
     <string name="show_newer_events">Ukitu gertaerak ikusteko <xliff:g id="newest_search_range">%1$s</xliff:g> baino geroago</string>
@@ -285,7 +286,7 @@
             <xliff:g id="number">%1$d</xliff:g> astero <xliff:g id="days_of_week">%2$s</xliff:g>(e)tan</item>
     </plurals>
     <string name="custom" product="default">Pertsonalizatua (ezin da pertsonalizatu telefonoan)</string>
-    <string name="preferences_use_home_tz_descrip">Bidaiatzen zaudela zure etxeko ordu-zonan egutegiak eta gertaerak erakusten ditu.</string>
+    <string name="preferences_use_home_tz_descrip">Bidaiatzen zaudela zure etxeko ordu-zonan egutegiak eta gertaerak erakusten ditu</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Galdetu utzi gerokorako atzerapen oroitzapena, jakinarazpenentan</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Erabili beti errepikapen atzerapen lehenetsia</string>
     <string name="snooze_delay_dialog_title">Ezarri errepikapen atzerapena</string>
@@ -312,23 +313,26 @@
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Egunero</item>
         <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> egunero</item>
+            <xliff:g id="count">%d</xliff:g> egunetik behin</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one">Astero</item>
         <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> astero</item>
+            <xliff:g id="count">%d</xliff:g> asterik behik</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">Hilabetero</item>
         <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> hilabetero</item>
+            <xliff:g id="count">%d</xliff:g> hilabeterik behin</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Urtero</item>
         <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> urtero</item>
+            <xliff:g id="count">%d</xliff:g> urterik behin</item>
     </plurals>
     <string name="recurrence_end_count_label">Zenbait gertaerentzako</string>
     <string name="show_time_start_end_below">Hasiera eta bukaera denbora gertaera azpian</string>
+    <string name="maximum_number_of_lines">Gertaeraren gehieneko lerro kopurua</string>
+    <string name="foreground_notification_channel_name">Alerta-sinkronizazioa</string>
+    <string name="foreground_notification_channel_description">Lehen planoko jakinarazpena beharrezkoa da barne alertak sinkronizatzeko. Mesedez, isildu</string>
 </resources>

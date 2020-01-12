@@ -21,54 +21,35 @@
     <string name="attendees_label" msgid="2971281641565729725">Участники</string>
     <string name="today" msgid="8577375020252453006">"Сегодня"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">Сегодня, <xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Завтра, <xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Сегодня, <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Завтра, <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Повторять"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Нет заголовка)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">
-            <xliff:g id="count">%d</xliff:g> минута</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> минуты</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> минут</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> минута</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> минуты</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> минут</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">
-            <xliff:g id="count">%d</xliff:g> мин.</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> мин.</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> мин.</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> мин.</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> мин.</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> мин.</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">
-            <xliff:g id="count">%d</xliff:g> час</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> часа</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> часов</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> час</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> часа</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> часов</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">
-            <xliff:g id="count">%d</xliff:g> день</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> дня</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> дней</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> день</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> дня</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> дней</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">неделя <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="few">неделя <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="many">неделя <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="one">неделя <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="few">неделя <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">неделя <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Обновить"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показать день"</string>
@@ -151,17 +132,12 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Ваш ответ…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напоминания"</string>
-    <string name="agenda_today" msgid="5965841338467422191">сегодня, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">вчера, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">завтра, <xliff:g id="date">%1$s</xliff:g>
-    </string>
+    <string name="agenda_today" msgid="5965841338467422191">сегодня, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">вчера, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">завтра, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Загрузка…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">Нажмите, чтобы увидеть события до <xliff:g id="oldest_search_range">%1$s</xliff:g>
-    </string>
-    <string name="show_newer_events" msgid="2604638815440163080">Нажмите, чтобы увидеть события после <xliff:g id="newest_search_range">%1$s</xliff:g>
-    </string>
+    <string name="show_older_events" msgid="5140647493681439926">Нажмите, чтобы увидеть события до <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Нажмите, чтобы увидеть события после <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">"Поиск в моих календарях"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Сведения"</string>
     <string name="edit_label" msgid="8934331258435656534">"Изменить"</string>
@@ -172,15 +148,11 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Удалить все"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Отложить"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">Однократное событие</string>
-    <string name="endByDate" msgid="7654221304929538201">до <xliff:g id="date">%s</xliff:g>
-    </string>
+    <string name="endByDate" msgid="7654221304929538201">до <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
-        <item quantity="one">
-            <xliff:g id="number">%d</xliff:g> раз</item>
-        <item quantity="few">
-            <xliff:g id="number">%d</xliff:g> раза</item>
-        <item quantity="many">
-            <xliff:g id="number">%d</xliff:g> раз</item>
+        <item quantity="one"><xliff:g id="number">%d</xliff:g> раз</item>
+        <item quantity="few"><xliff:g id="number">%d</xliff:g> раза</item>
+        <item quantity="many"><xliff:g id="number">%d</xliff:g> раз</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one">Ежедневно</item>
@@ -232,12 +204,9 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Версия сборки"</string>
     <string name="gadget_title" msgid="939918875331310945">"Календарь"</string>
     <plurals name="month_more_events">
-        <item quantity="one">и ещё <xliff:g id="number">%d</xliff:g>
-        </item>
-        <item quantity="few">и ещё <xliff:g id="NUMBER">%d</xliff:g>
-        </item>
-        <item quantity="many">и ещё <xliff:g id="NUMBER">%d</xliff:g>
-        </item>
+        <item quantity="one">и ещё <xliff:g id="number">%d</xliff:g></item>
+        <item quantity="few">и ещё <xliff:g id="NUMBER">%d</xliff:g></item>
+        <item quantity="many">и ещё <xliff:g id="NUMBER">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">В календаре нет предстоящих событий</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Экспериментальная версия"</string>
@@ -274,12 +243,9 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">Создать событие</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Событие <xliff:g id="item_index">%1$s</xliff:g> из <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one">
-            <xliff:g id="count">%d</xliff:g> событие</item>
-        <item quantity="few">
-            <xliff:g id="count">%d</xliff:g> события</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> событий</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> событие</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> события</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> событий</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">Ещё <xliff:g id="count">%d</xliff:g> событие</item>
@@ -313,16 +279,12 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">ежемесячно в этот день</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Всегда"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">До определённой даты</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">До <xliff:g id="date">%s</xliff:g>
-    </string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">До <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Несколько раз</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">
-            <xliff:g id="event_count">%d</xliff:g> повтор</item>
-        <item quantity="few">
-            <xliff:g id="event_count">%d</xliff:g> повтора</item>
-        <item quantity="many">
-            <xliff:g id="event_count">%d</xliff:g> повторов</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> повтор</item>
+        <item quantity="few"><xliff:g id="event_count">%d</xliff:g> повтора</item>
+        <item quantity="many"><xliff:g id="event_count">%d</xliff:g> повторов</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"изменить дату окончания"</string>
     <string name="visibility_default">По умолчанию</string>
