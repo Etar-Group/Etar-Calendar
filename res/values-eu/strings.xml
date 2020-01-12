@@ -307,8 +307,8 @@
             <xliff:g id="count">%d</xliff:g> gertaerak</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">+1 gertaera</item>
-        <item quantity="other">+<xliff:g id="count">%d</xliff:g> gertaerak</item>
+        <item quantity="one">+ gertaera 1</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> gertaera</item>
     </plurals>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Egunero</item>
@@ -335,4 +335,5 @@
     <string name="maximum_number_of_lines">Gertaeraren gehieneko lerro kopurua</string>
     <string name="foreground_notification_channel_name">Alerta-sinkronizazioa</string>
     <string name="foreground_notification_channel_description">Lehen planoko jakinarazpena beharrezkoa da barne alertak sinkronizatzeko. Mesedez, isildu</string>
+    <string name="cal_import_error_time_zone_msg">Ezin da emandako denbora-zona ulertu: %s</string>
 </resources>
