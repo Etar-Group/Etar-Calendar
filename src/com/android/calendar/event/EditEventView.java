@@ -122,8 +122,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      */
     private static InputFilter[] sRecipientFilters = new InputFilter[]{new Rfc822InputFilter()};
     public boolean mIsMultipane;
-    public boolean mTimeSelectedWasStartTime;
-    public boolean mDateSelectedWasStartDate;
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
     ArrayList<View> mViewOnlyList = new ArrayList<View>();
@@ -222,8 +220,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
     private String mRrule;
 
-    public EditEventView(Activity activity, View view, EditDoneRunnable done,
-                         boolean timeSelectedWasStartTime, boolean dateSelectedWasStartDate) {
+    public EditEventView(Activity activity, View view, EditDoneRunnable done) {
 
         mActivity = activity;
         mView = view;
