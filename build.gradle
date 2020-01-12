@@ -77,40 +77,6 @@ project(':external:colorpicker') {
     }
 }
 
-project(':external:datetimepicker') {
-    apply plugin: 'android-library'
-
-    dependencies {
-        implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    }
-
-    android {
-        compileSdkVersion 29
-        buildToolsVersion '29.0.2'
-
-        defaultConfig {
-            minSdkVersion 19
-            targetSdkVersion 29
-        }
-
-        sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
-            }
-        }
-
-        lintOptions {
-            abortOnError false
-        }
-    }
-}
-
 project(':external:timezonepicker') {
     apply plugin: 'android-library'
 
@@ -182,7 +148,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation project(':external:calendar')
     implementation project(':external:colorpicker')
-    implementation project(':external:datetimepicker')
     implementation project(':external:timezonepicker')
     implementation project(':external:chips')
 }
