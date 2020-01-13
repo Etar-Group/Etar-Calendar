@@ -50,64 +50,73 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener,
         TimeZonePickerDialogX.OnTimeZoneSetListener {
 
+    private lateinit var themePref: ListPreference
+    private lateinit var colorPref: Preference
+    private lateinit var defaultStartPref: ListPreference
+    private lateinit var hideDeclinedPref: CheckBoxPreference
+    private lateinit var weekStartPref: ListPreference
+    private lateinit var dayWeekPref: ListPreference
+    private lateinit var defaultEventDurationPref: ListPreference
+    private lateinit var useHomeTzPref: CheckBoxPreference
+    private lateinit var homeTzPref: Preference
+    private lateinit var popupPref: CheckBoxPreference
+    private lateinit var snoozeDelayPref: ListPreference
+    private lateinit var defaultReminderPref: ListPreference
+    private lateinit var copyDbPref: Preference
+    private lateinit var skipRemindersPref: ListPreference
+
     // >= 26
-    private var mNotification: Preference? = null
+    private lateinit var notificationPref: Preference
 
     // < 26
-    private lateinit var mAlert: CheckBoxPreference
-    private lateinit var mRingtone: Preference
-    private lateinit var mVibrate: CheckBoxPreference
+    private lateinit var alertPref: CheckBoxPreference
+    private lateinit var ringtonePref: Preference
+    private lateinit var vibratePref: CheckBoxPreference
 
-    private lateinit var mPopup: CheckBoxPreference
-    private lateinit var mUseHomeTZ: CheckBoxPreference
-    private lateinit var mHideDeclined: CheckBoxPreference
-    private var mHomeTZ: Preference? = null
-    private var mTzPickerUtils: TimeZonePickerUtils? = null
-    private lateinit var mTheme: ListPreference
-    private var mColor: Preference? = null
-    private lateinit var mWeekStart: ListPreference
-    private lateinit var mDayWeek: ListPreference
-    private lateinit var mDefaultReminder: ListPreference
-    private lateinit var mDefaultEventDuration: ListPreference
-    private lateinit var mSnoozeDelay: ListPreference
-    private lateinit var mDefaultStart: ListPreference
-
-    // experimental
-    private lateinit var mCopyDb: Preference
-    private lateinit var mSkipReminders: ListPreference
-
-    private var mTimeZoneId: String? = null
+    private lateinit var tzPickerUtils: TimeZonePickerUtils
+    private var timeZoneId: String? = null
 
     // Used to retrieve the color id from the color picker
     private val colorMap = SparseIntArray()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        // use old shared preferences name to be backward compatible
         preferenceManager.sharedPreferencesName = SHARED_PREFS_NAME
-
         setPreferencesFromResource(R.xml.general_preferences, rootKey)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initializeColorMap()
+        themePref = preferenceScreen.findPreference(KEY_THEME_PREF)!!
+        colorPref = preferenceScreen.findPreference(KEY_COLOR_PREF)!!
+        defaultStartPref = preferenceScreen.findPreference(KEY_DEFAULT_START)!!
+        hideDeclinedPref = preferenceScreen.findPreference(KEY_HIDE_DECLINED)!!
+        weekStartPref = preferenceScreen.findPreference(KEY_WEEK_START_DAY)!!
+        dayWeekPref = preferenceScreen.findPreference(KEY_DAYS_PER_WEEK)!!
+        defaultEventDurationPref = preferenceScreen.findPreference(KEY_DEFAULT_EVENT_DURATION)!!
+        useHomeTzPref = preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED)!!
+        homeTzPref = preferenceScreen.findPreference(KEY_HOME_TZ)!!
+        popupPref = preferenceScreen.findPreference(KEY_ALERTS_POPUP)!!
+        snoozeDelayPref = preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY)!!
+        defaultReminderPref = preferenceScreen.findPreference(KEY_DEFAULT_REMINDER)!!
+        copyDbPref = preferenceScreen.findPreference(KEY_OTHER_COPY_DB)!!
+        skipRemindersPref = preferenceScreen.findPreference(KEY_OTHER_REMINDERS_RESPONDED)!!
 
         val prefs = CalendarUtils.getSharedPreferences(activity!!,
                 Utils.SHARED_PREFS_NAME)
 
         if (Utils.isOreoOrLater()) {
-            mNotification = preferenceScreen.findPreference(KEY_NOTIFICATION)
+            notificationPref = preferenceScreen.findPreference(KEY_NOTIFICATION)!!
         } else {
-            mAlert = preferenceScreen.findPreference(KEY_ALERTS)!!
-            mVibrate = preferenceScreen.findPreference(KEY_ALERTS_VIBRATE)!!
+            alertPref = preferenceScreen.findPreference(KEY_ALERTS)!!
+            vibratePref = preferenceScreen.findPreference(KEY_ALERTS_VIBRATE)!!
             val vibrator = activity!!.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             if (!vibrator.hasVibrator()) {
-                val mAlertGroup = preferenceScreen
-                        .findPreference<Preference>(KEY_ALERTS_CATEGORY) as PreferenceCategory?
-                mAlertGroup!!.removePreference(mVibrate)
+                val alertGroup = preferenceScreen
+                        .findPreference<PreferenceCategory>(KEY_ALERTS_CATEGORY)!!
+                alertGroup.removePreference(vibratePref)
             }
-            mRingtone = preferenceScreen.findPreference(KEY_ALERTS_RINGTONE)!!
+            ringtonePref = preferenceScreen.findPreference(KEY_ALERTS_RINGTONE)!!
             val ringtoneUriString = Utils.getRingtonePreference(activity)
 
             // Set the ringtoneUri to the backup-able shared pref only so that
@@ -116,54 +125,41 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             editor.putString(KEY_ALERTS_RINGTONE, ringtoneUriString).apply()
 
             val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringtoneUriString)
-            mRingtone.summary = ringtoneDisplayString ?: ""
+            ringtonePref.summary = ringtoneDisplayString ?: ""
         }
 
-        mPopup = preferenceScreen.findPreference(KEY_ALERTS_POPUP)!!
-        mUseHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED)!!
-        mTheme = preferenceScreen.findPreference(KEY_THEME_PREF)!!
-        mColor = preferenceScreen.findPreference(KEY_COLOR_PREF)!!
-        mDefaultStart = preferenceScreen.findPreference(KEY_DEFAULT_START)!!
-        mHideDeclined = preferenceScreen.findPreference(KEY_HIDE_DECLINED)!!
-        mWeekStart = preferenceScreen.findPreference(KEY_WEEK_START_DAY)!!
-        mDayWeek = preferenceScreen.findPreference(KEY_DAYS_PER_WEEK)!!
-        mDefaultReminder = preferenceScreen.findPreference(KEY_DEFAULT_REMINDER)!!
-        mDefaultEventDuration = preferenceScreen.findPreference(KEY_DEFAULT_EVENT_DURATION)!!
-        mDefaultEventDuration.summary = mDefaultEventDuration.entry
-        mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ)
-        mSnoozeDelay = preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY)!!
-        mCopyDb = preferenceScreen.findPreference(KEY_OTHER_COPY_DB)!!
-        mSkipReminders = preferenceScreen.findPreference(KEY_OTHER_REMINDERS_RESPONDED)!!
         buildSnoozeDelayEntries()
-        mTheme.summary = mTheme.entry
-        mWeekStart.summary = mWeekStart.entry
-        mDayWeek.summary = mDayWeek.entry
-        mDefaultReminder.summary = mDefaultReminder.entry
-        mSnoozeDelay.summary = mSnoozeDelay.entry
-        mDefaultStart.summary = mDefaultStart.entry
+        defaultEventDurationPref.summary = defaultEventDurationPref.entry
+        themePref.summary = themePref.entry
+        weekStartPref.summary = weekStartPref.entry
+        dayWeekPref.summary = dayWeekPref.entry
+        defaultReminderPref.summary = defaultReminderPref.entry
+        snoozeDelayPref.summary = snoozeDelayPref.entry
+        defaultStartPref.summary = defaultStartPref.entry
 
         // This triggers an asynchronous call to the provider to refresh the data in shared pref
-        mTimeZoneId = Utils.getTimeZone(activity, null)
+        timeZoneId = Utils.getTimeZone(activity, null)
 
         // Utils.getTimeZone will return the currentTimeZone instead of the one
         // in the shared_pref if home time zone is disabled. So if home tz is
         // off, we will explicitly read it.
         if (!prefs.getBoolean(KEY_HOME_TZ_ENABLED, false)) {
-            mTimeZoneId = prefs.getString(KEY_HOME_TZ, TimeZone.getDefault().id)
+            timeZoneId = prefs.getString(KEY_HOME_TZ, TimeZone.getDefault().id)
         }
 
-        if (mTzPickerUtils == null) {
-            mTzPickerUtils = TimeZonePickerUtils(activity)
-        }
-        val timezoneName = mTzPickerUtils!!.getGmtDisplayName(activity, mTimeZoneId,
+        tzPickerUtils = TimeZonePickerUtils(activity)
+
+        val timezoneName = tzPickerUtils.getGmtDisplayName(activity, timeZoneId,
                 System.currentTimeMillis(), false)
-        mHomeTZ!!.summary = timezoneName ?: mTimeZoneId
+        homeTzPref.summary = timezoneName ?: timeZoneId
 
         val tzpd = activity!!.supportFragmentManager
                 .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
         tzpd?.setOnTimeZoneSetListener(this)
 
-        updateSkipRemindersSummary(mSkipReminders.value)
+        updateSkipRemindersSummary(skipRemindersPref.value)
+
+        initializeColorMap()
     }
 
     /**
@@ -174,17 +170,17 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private fun updateSkipRemindersSummary(value: String?) {
         // Default to "declined". Must match with R.array.preferences_skip_reminders_values.
         var index = 0
-        val values = mSkipReminders.entryValues
-        val entries = mSkipReminders.entries
+        val values = skipRemindersPref.entryValues
+        val entries = skipRemindersPref.entries
         for (value_i in values.indices) {
             if (values[value_i] == value) {
                 index = value_i
                 break
             }
         }
-        mSkipReminders.summary = entries[index].toString()
+        skipRemindersPref.summary = entries[index].toString()
         if (value == null) { // Value was not known ahead of time, so the default value will be set.
-            mSkipReminders.value = values[index].toString()
+            skipRemindersPref.value = values[index].toString()
         }
     }
 
@@ -241,22 +237,20 @@ class GeneralPreferences : PreferenceFragmentCompat(),
      * Sets up all the preference change listeners to use the specified listener.
      */
     private fun setPreferenceListeners(listener: Preference.OnPreferenceChangeListener) {
-        mUseHomeTZ.onPreferenceChangeListener = listener
-        mHomeTZ!!.onPreferenceChangeListener = listener
-        mTheme.onPreferenceChangeListener = listener
-        mColor!!.onPreferenceChangeListener = listener
-        mDefaultStart.onPreferenceChangeListener = listener
-        mWeekStart.onPreferenceChangeListener = listener
-        mDayWeek.onPreferenceChangeListener = listener
-        mDefaultReminder.onPreferenceChangeListener = listener
-        mSnoozeDelay.onPreferenceChangeListener = listener
-        mHideDeclined.onPreferenceChangeListener = listener
-        mDefaultEventDuration.onPreferenceChangeListener = listener
-        mSkipReminders.onPreferenceChangeListener = listener
-        if (Utils.isOreoOrLater()) {
-            mNotification!!.onPreferenceChangeListener = listener
-        } else {
-            mVibrate.onPreferenceChangeListener = listener
+        themePref.onPreferenceChangeListener = listener
+        colorPref.onPreferenceChangeListener = listener
+        defaultStartPref.onPreferenceChangeListener = listener
+        hideDeclinedPref.onPreferenceChangeListener = listener
+        weekStartPref.onPreferenceChangeListener = listener
+        dayWeekPref.onPreferenceChangeListener = listener
+        defaultEventDurationPref.onPreferenceChangeListener = listener
+        useHomeTzPref.onPreferenceChangeListener = listener
+        homeTzPref.onPreferenceChangeListener = listener
+        snoozeDelayPref.onPreferenceChangeListener = listener
+        defaultReminderPref.onPreferenceChangeListener = listener
+        skipRemindersPref.onPreferenceChangeListener = listener
+        if (!Utils.isOreoOrLater()) {
+            vibratePref.onPreferenceChangeListener = listener
         }
     }
 
@@ -274,7 +268,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             KEY_ALERTS -> {
                 val intent = Intent()
                 intent.setClass(a, AlertReceiver::class.java)
-                if (mAlert.isChecked) {
+                if (alertPref.isChecked) {
                     intent.action = AlertReceiver.ACTION_DISMISS_OLD_REMINDERS
                 } else {
                     intent.action = AlertReceiver.EVENT_REMINDER_APP_ACTION
@@ -287,59 +281,64 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
+        if (!Utils.isOreoOrLater()) {
+            when (preference) {
+                vibratePref -> {
+                    vibratePref.isChecked = newValue as Boolean
+                    return true
+                }
+            }
+        }
+
         when (preference) {
-            mUseHomeTZ -> {
+            useHomeTzPref -> {
                 val useHomeTz = newValue as Boolean
                 val tz: String? = if (useHomeTz) {
-                    mTimeZoneId
+                    timeZoneId
                 } else {
                     CalendarCache.TIMEZONE_TYPE_AUTO
                 }
                 Utils.setTimeZone(activity, tz)
                 return true
             }
-            mTheme -> {
-                mTheme.value = newValue as String
-                mTheme.summary = mTheme.entry
+            themePref -> {
+                themePref.value = newValue as String
+                themePref.summary = themePref.entry
             }
-            mHideDeclined -> {
-                mHideDeclined.isChecked = newValue as Boolean
+            hideDeclinedPref -> {
+                hideDeclinedPref.isChecked = newValue as Boolean
                 val intent = Intent(Utils.getWidgetScheduledUpdateAction(activity))
                 intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE)
                 activity!!.sendBroadcast(intent)
                 return true
             }
-            mWeekStart -> {
-                mWeekStart.value = newValue as String
-                mWeekStart.summary = mWeekStart.entry
+            weekStartPref -> {
+                weekStartPref.value = newValue as String
+                weekStartPref.summary = weekStartPref.entry
             }
-            mDayWeek -> {
-                mDayWeek.value = newValue as String
-                mDayWeek.summary = mDayWeek.entry
+            dayWeekPref -> {
+                dayWeekPref.value = newValue as String
+                dayWeekPref.summary = dayWeekPref.entry
             }
-            mDefaultEventDuration -> {
-                mDefaultEventDuration.value = newValue as String
-                mDefaultEventDuration.summary = mDefaultEventDuration.entry
+            defaultEventDurationPref -> {
+                defaultEventDurationPref.value = newValue as String
+                defaultEventDurationPref.summary = defaultEventDurationPref.entry
             }
-            mDefaultReminder -> {
-                mDefaultReminder.value = newValue as String
-                mDefaultReminder.summary = mDefaultReminder.entry
+            defaultReminderPref -> {
+                defaultReminderPref.value = newValue as String
+                defaultReminderPref.summary = defaultReminderPref.entry
             }
-            mSnoozeDelay -> {
-                mSnoozeDelay.value = newValue as String
-                mSnoozeDelay.summary = mSnoozeDelay.entry
+            snoozeDelayPref -> {
+                snoozeDelayPref.value = newValue as String
+                snoozeDelayPref.summary = snoozeDelayPref.entry
             }
-            mDefaultStart -> {
-                val i = mDefaultStart.findIndexOfValue(newValue as String)
-                mDefaultStart.summary = mDefaultStart.entries[i]
+            defaultStartPref -> {
+                val i = defaultStartPref.findIndexOfValue(newValue as String)
+                defaultStartPref.summary = defaultStartPref.entries[i]
                 return true
             }
-            mSkipReminders -> {
+            skipRemindersPref -> {
                 updateSkipRemindersSummary(newValue as String)
-            }
-            mVibrate -> {
-                mVibrate.isChecked = newValue as Boolean
-                return true
             }
             else -> {
                 return true
@@ -358,7 +357,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     private fun buildSnoozeDelayEntries() {
-        val values = mSnoozeDelay.entryValues
+        val values = snoozeDelayPref.entryValues
         val count = values.size
         val entries = arrayOfNulls<CharSequence>(count)
 
@@ -367,25 +366,25 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             entries[i] = EventViewUtils.constructReminderLabel(activity!!, value, false)
         }
 
-        mSnoozeDelay.entries = entries
+        snoozeDelayPref.entries = entries
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         when (preference!!.key) {
-            KEY_HOME_TZ -> {
-                showTimezoneDialog()
-                return true
-            }
             KEY_COLOR_PREF -> {
                 showColorPickerDialog()
                 return true
             }
-            KEY_ALERTS_RINGTONE -> {
-                showRingtoneManager()
+            KEY_HOME_TZ -> {
+                showTimezoneDialog()
                 return true
             }
             KEY_CLEAR_SEARCH_HISTORY -> {
                 clearSearchHistory()
+                return true
+            }
+            KEY_ALERTS_RINGTONE -> {
+                showRingtoneManager()
                 return true
             }
             KEY_NOTIFICATION -> {
@@ -424,8 +423,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         startActivity(intent)
     }
 
-    // AndroidX does not include RingtonePreference
-    // This code is based on https://issuetracker.google.com/issues/37057453#comment3
+    /**
+     * AndroidX does not include the RingtonePreference
+     * This code is based on https://issuetracker.google.com/issues/37057453#comment3
+     */
     private fun showRingtoneManager() {
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
             putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
@@ -459,20 +460,16 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
             Utils.setRingtonePreference(activity, ringtoneString)
             val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringtoneString)
-            mRingtone.summary = ringtoneDisplayString ?: ""
+            ringtonePref.summary = ringtoneDisplayString ?: ""
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
     override fun onTimeZoneSet(tzi: TimeZoneInfo) {
-        if (mTzPickerUtils == null) {
-            mTzPickerUtils = TimeZonePickerUtils(activity)
-        }
-
-        val timezoneName = mTzPickerUtils!!.getGmtDisplayName(
+        val timeZoneDisplayName = tzPickerUtils.getGmtDisplayName(
                 activity, tzi.mTzId, System.currentTimeMillis(), false)
-        mHomeTZ!!.summary = timezoneName
+        homeTzPref.summary = timeZoneDisplayName
         Utils.setTimeZone(activity, tzi.mTzId)
     }
 
@@ -486,7 +483,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         const val KEY_SHOW_WEEK_NUM = "preferences_show_week_num"
         const val KEY_DAYS_PER_WEEK = "preferences_days_per_week"
         const val KEY_MDAYS_PER_WEEK = "preferences_mdays_per_week"
-        const val KEY_SKIP_SETUP = "preferences_skip_setup"
         const val KEY_CLEAR_SEARCH_HISTORY = "preferences_clear_search_history"
         const val KEY_ALERTS_CATEGORY = "preferences_alerts_category"
         const val KEY_ALERTS = "preferences_alerts"

@@ -31,8 +31,8 @@ import ws.xsoh.etar.R
 
 class ViewDetailsPreferences : PreferenceFragmentCompat() {
 
-    private val mLandscapeConf = PreferenceConfiguration(LANDSCAPE_PREFS)
-    private val mPortraitConf = PreferenceConfiguration(PORTRAIT_PREFS)
+    private val landscapeConf = PreferenceConfiguration(LANDSCAPE_PREFS)
+    private val portraitConf = PreferenceConfiguration(PORTRAIT_PREFS)
 
     enum class TimeVisibility(val value: Int) {
         SHOW_NONE(0),
@@ -47,55 +47,56 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
 
         setPreferencesFromResource(R.xml.view_details_preferences, rootKey)
 
-        mLandscapeConf.onCreate(preferenceScreen, activity)
-        mPortraitConf.onCreate(preferenceScreen, activity)
+        landscapeConf.onCreate(preferenceScreen, activity)
+        portraitConf.onCreate(preferenceScreen, activity)
     }
 
     private class PreferenceKeys internal constructor(val KEY_DISPLAY_TIME: String,
                                                       val KEY_DISPLAY_LOCATION: String,
                                                       val KEY_MAX_NUMBER_OF_LINES: String)
 
-    private class PreferenceConfiguration(val mKeys: PreferenceKeys) {
-        private lateinit var mDisplayTime: ListPreference
+    private class PreferenceConfiguration(val keys: PreferenceKeys) {
+        private lateinit var displayTime: ListPreference
+
         fun onCreate(preferenceScreen: PreferenceScreen, activity: Activity?) {
-            mDisplayTime = preferenceScreen.findPreference(mKeys.KEY_DISPLAY_TIME)!!
+            displayTime = preferenceScreen.findPreference(keys.KEY_DISPLAY_TIME)!!
             initDisplayTime(activity)
         }
 
         private fun initDisplayTime(activity: Activity?) {
             if (!Utils.getConfigBool(activity, R.bool.show_time_in_month)) {
-                val entries = mDisplayTime.entries
+                val entries = displayTime.entries
                 val newEntries = Arrays.copyOf(entries, entries.size - 1)
-                mDisplayTime.entries = newEntries
+                displayTime.entries = newEntries
             }
-            if (mDisplayTime.entry == null || mDisplayTime.entry.isEmpty()) {
-                mDisplayTime.value = getDefaultTimeToShow(activity).toString()
+            if (displayTime.entry == null || displayTime.entry.isEmpty()) {
+                displayTime.value = getDefaultTimeToShow(activity).toString()
             }
         }
 
     }
 
-    private class DynamicPreferences(private val mContext: Context) {
-        private val mPrefs: SharedPreferences = GeneralPreferences.getSharedPreferences(mContext)
+    private class DynamicPreferences(private val context: Context) {
+        private val prefs: SharedPreferences = GeneralPreferences.getSharedPreferences(context)
 
         val preferenceKeys: PreferenceKeys
             get() {
-                val orientation = mContext.resources.configuration.orientation
+                val orientation = context.resources.configuration.orientation
                 val landscape = orientation == Configuration.ORIENTATION_LANDSCAPE
                 return if (landscape) LANDSCAPE_PREFS else PORTRAIT_PREFS
             }
 
         fun getTimeVisibility(keys: PreferenceKeys): TimeVisibility {
-            val visibility = mPrefs.getString(keys.KEY_DISPLAY_TIME, getDefaultTimeToShow(mContext).toString())
+            val visibility = prefs.getString(keys.KEY_DISPLAY_TIME, getDefaultTimeToShow(context).toString())
             return TimeVisibility.values()[visibility!!.toInt()]
         }
 
         fun getShowLocation(keys: PreferenceKeys): Boolean {
-            return mPrefs.getBoolean(keys.KEY_DISPLAY_LOCATION, false)
+            return prefs.getBoolean(keys.KEY_DISPLAY_LOCATION, false)
         }
 
         fun getMaxNumberOfLines(keys: PreferenceKeys): Int {
-            return mPrefs.getString(keys.KEY_MAX_NUMBER_OF_LINES, null)!!.toInt()
+            return prefs.getString(keys.KEY_MAX_NUMBER_OF_LINES, null)!!.toInt()
         }
 
     }
