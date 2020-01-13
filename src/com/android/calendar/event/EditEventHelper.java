@@ -90,7 +90,9 @@ public class EditEventHelper {
             Events.STATUS, // 21
             Events.CALENDAR_COLOR, // 22
             Events.EVENT_COLOR, // 23
-            Events.EVENT_COLOR_KEY // 24
+            Events.EVENT_COLOR_KEY, // 24
+            Events.ACCOUNT_NAME, // 25
+            Events.ACCOUNT_TYPE // 26
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -117,6 +119,8 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_CALENDAR_COLOR = 22;
     protected static final int EVENT_INDEX_EVENT_COLOR = 23;
     protected static final int EVENT_INDEX_EVENT_COLOR_KEY = 24;
+    protected static final int EVENT_INDEX_ACCOUNT_NAME = 25;
+    protected static final int EVENT_INDEX_ACCOUNT_TYPE = 26;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -1065,6 +1069,8 @@ public class EditEventHelper {
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
+        model.mSyncAccountName = cursor.getString(EVENT_INDEX_ACCOUNT_NAME);
+        model.mSyncAccountType = cursor.getString(EVENT_INDEX_ACCOUNT_TYPE);
         model.mAvailability = cursor.getInt(EVENT_INDEX_AVAILABILITY);
         int accessLevel = cursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
         model.mOwnerAccount = cursor.getString(EVENT_INDEX_OWNER_ACCOUNT);

@@ -34,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.android.calendar.event.EditEventHelper;
+import com.android.calendar.persistence.CalendarRepository;
 import com.android.calendarcommon2.EventRecurrence;
 
 import java.util.ArrayList;
@@ -99,7 +100,17 @@ public class DeleteEventHelper {
         public void onClick(DialogInterface dialog, int button) {
             deleteStarted();
             long id = mModel.mId; // mCursor.getInt(mEventIndexId);
-            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
+
+            // If this event is part of a local calendar, really remove it from the database
+            //
+            // "There are two versions of delete: as an app and as a sync adapter.
+            // An app delete will set the deleted column on an event and remove all instances of that event.
+            // A sync adapter delete will remove the event from the database and all associated data."
+            // from https://developer.android.com/reference/android/provider/CalendarContract.Events
+            boolean isLocal = mModel.mSyncAccountType.equals(CalendarContract.ACCOUNT_TYPE_LOCAL);
+            Uri deleteContentUri = isLocal ? CalendarRepository.asLocalCalendarSyncAdapter(mModel.mSyncAccountName, Events.CONTENT_URI) : Events.CONTENT_URI;
+
+            Uri uri = ContentUris.withAppendedId(deleteContentUri, id);
             mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
             if (mCallback != null) {
                 mCallback.run();
@@ -346,6 +357,10 @@ public class DeleteEventHelper {
         long dtstart = mModel.mStart;
         long id = mModel.mId; // mCursor.getInt(mEventIndexId);
 
+        // See mDeleteNormalDialogListener for more info on this
+        boolean isLocal = mModel.mSyncAccountType.equals(CalendarContract.ACCOUNT_TYPE_LOCAL);
+        Uri deleteContentUri = isLocal ? CalendarRepository.asLocalCalendarSyncAdapter(mModel.mSyncAccountName, Events.CONTENT_URI) : Events.CONTENT_URI;
+
         switch (which) {
             case DELETE_SELECTED: {
                 // If we are deleting the first event in the series, then
@@ -382,7 +397,7 @@ public class DeleteEventHelper {
                 break;
             }
             case DELETE_ALL: {
-                Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
+                Uri uri = ContentUris.withAppendedId(deleteContentUri, id);
                 mService.startDelete(mService.getNextToken(), null, uri, null, null,
                         Utils.UNDO_DELAY);
                 break;
@@ -391,7 +406,7 @@ public class DeleteEventHelper {
                 // If we are deleting the first event in the series and all
                 // following events, then delete them all.
                 if (dtstart == mStartMillis) {
-                    Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
+                    Uri uri = ContentUris.withAppendedId(deleteContentUri, id);
                     mService.startDelete(mService.getNextToken(), null, uri, null, null,
                             Utils.UNDO_DELAY);
                     break;

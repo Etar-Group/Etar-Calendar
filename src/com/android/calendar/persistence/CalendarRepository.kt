@@ -104,16 +104,6 @@ internal class CalendarRepository(val application: Application) {
         }
     }
 
-    /**
-     * Operations only work if they are made "under" the correct account
-     */
-    private fun buildLocalCalendarUri(accountName: String, uri: Uri): Uri {
-        return uri.buildUpon()
-                .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
-                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_NAME, accountName)
-                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL).build()
-    }
-
     private fun buildLocalCalendarContentValues(accountName: String, displayName: String): ContentValues {
         val internalName = "etar_local_" + displayName.replace("[^a-zA-Z0-9]".toRegex(), "")
         return ContentValues().apply {
@@ -149,7 +139,7 @@ internal class CalendarRepository(val application: Application) {
         maybeAddCalendarAndEventColors(accountName)
 
         val cv = buildLocalCalendarContentValues(accountName, displayName)
-        return contentResolver.insert(buildLocalCalendarUri(accountName, CalendarContract.Calendars.CONTENT_URI), cv)
+        return contentResolver.insert(asLocalCalendarSyncAdapter(accountName, CalendarContract.Calendars.CONTENT_URI), cv)
                 ?: throw IllegalArgumentException()
     }
 
@@ -168,7 +158,7 @@ internal class CalendarRepository(val application: Application) {
             insertBulk.add(colorCvCalendar)
             insertBulk.add(colorCvEvent)
         }
-        contentResolver.bulkInsert(buildLocalCalendarUri(accountName, CalendarContract.Colors.CONTENT_URI), insertBulk.toTypedArray())
+        contentResolver.bulkInsert(asLocalCalendarSyncAdapter(accountName, CalendarContract.Colors.CONTENT_URI), insertBulk.toTypedArray())
     }
 
     private fun areCalendarColorsExisting(accountName: String): Boolean {
@@ -188,7 +178,7 @@ internal class CalendarRepository(val application: Application) {
      * @return true iff exactly one row is deleted
      */
     fun deleteLocalCalendar(accountName: String, id: Long): Boolean {
-        val calUri = ContentUris.withAppendedId(buildLocalCalendarUri(accountName, CalendarContract.Calendars.CONTENT_URI), id)
+        val calUri = ContentUris.withAppendedId(asLocalCalendarSyncAdapter(accountName, CalendarContract.Calendars.CONTENT_URI), id)
         return contentResolver.delete(calUri, null, null) == 1
     }
 
@@ -213,6 +203,17 @@ internal class CalendarRepository(val application: Application) {
         const val ACCOUNT_INDEX_TYPE = 1
 
         const val DEFAULT_COLOR_KEY = "1"
+
+        /**
+         * Operations only work if they are made "under" the correct account
+         */
+        @JvmStatic
+        fun asLocalCalendarSyncAdapter(accountName: String, uri: Uri): Uri {
+            return uri.buildUpon()
+                    .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
+                    .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_NAME, accountName)
+                    .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL).build()
+        }
     }
 
 }
