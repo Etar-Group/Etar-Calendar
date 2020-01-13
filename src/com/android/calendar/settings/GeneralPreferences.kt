@@ -85,11 +85,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         // use old shared preferences name to be backward compatible
         preferenceManager.sharedPreferencesName = SHARED_PREFS_NAME
 
-        if (Utils.isOreoOrLater()) {
-            setPreferencesFromResource(R.xml.general_preferences_oreo_and_up, rootKey)
-        } else {
-            setPreferencesFromResource(R.xml.general_preferences_nougat_and_less, rootKey)
-        }
+        setPreferencesFromResource(R.xml.general_preferences, rootKey)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -554,13 +550,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         /** Set the default shared preferences in the proper context */
         fun setDefaultValues(context: Context) {
-            if (Utils.isOreoOrLater()) {
-                PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                        R.xml.general_preferences_oreo_and_up, true)
-            } else {
-                PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                        R.xml.general_preferences_nougat_and_less, true)
-            }
+            PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
+                    R.xml.general_preferences, true)
         }
     }
 }
