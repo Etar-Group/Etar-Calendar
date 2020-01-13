@@ -31,6 +31,8 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.android.calendar.AsyncQueryService.Operation;
 
 import java.util.ArrayList;
@@ -286,7 +288,7 @@ public class AsyncQueryServiceHelper extends IntentService {
         public String[] selectionArgs;
         public String orderBy;
         public Object result;
-        public Object cookie;
+        @Nullable public Object cookie;
         public ContentValues values;
         public ArrayList<ContentProviderOperation> cpo;
 

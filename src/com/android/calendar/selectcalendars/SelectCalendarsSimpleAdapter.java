@@ -215,50 +215,20 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         }
         calendarName.setTextColor(textColor);
 
-        CheckBox syncCheckBox = (CheckBox) view.findViewById(R.id.sync);
-        if (syncCheckBox != null) {
 
-            // Full screen layout
-            syncCheckBox.setChecked(selected);
-
-            colorView.setEnabled(hasMoreColors(position));
-            LayoutParams layoutParam = calendarName.getLayoutParams();
-            TextView secondaryText = (TextView) view.findViewById(R.id.status);
-            if (!TextUtils.isEmpty(mData[position].ownerAccount)
-                    && !mData[position].ownerAccount.equals(name)
-                    && !mData[position].ownerAccount.endsWith("calendar.google.com")) {
-                int secondaryColor;
-                if (selected) {
-                    secondaryColor = mColorCalendarSecondaryVisible;
-                } else {
-                    secondaryColor = mColorCalendarSecondaryHidden;
-                }
-                secondaryText.setText(mData[position].ownerAccount);
-                secondaryText.setTextColor(secondaryColor);
-                secondaryText.setVisibility(View.VISIBLE);
-                layoutParam.height = LayoutParams.WRAP_CONTENT;
-            } else {
-                secondaryText.setVisibility(View.GONE);
-                layoutParam.height = LayoutParams.MATCH_PARENT;
-            }
-
-            calendarName.setLayoutParams(layoutParam);
-
+        // Tablet layout
+        view.findViewById(R.id.color).setEnabled(selected && hasMoreColors(position));
+        view.setBackgroundDrawable(getBackground(position, selected));
+        ViewGroup.LayoutParams newParams = view.getLayoutParams();
+        if (position == mData.length - 1) {
+            newParams.height = BOTTOM_ITEM_HEIGHT;
         } else {
-            // Tablet layout
-            view.findViewById(R.id.color).setEnabled(selected && hasMoreColors(position));
-            view.setBackgroundDrawable(getBackground(position, selected));
-            ViewGroup.LayoutParams newParams = view.getLayoutParams();
-            if (position == mData.length - 1) {
-                newParams.height = BOTTOM_ITEM_HEIGHT;
-            } else {
-                newParams.height = NORMAL_ITEM_HEIGHT;
-            }
-            view.setLayoutParams(newParams);
-            CheckBox visibleCheckBox = (CheckBox) view.findViewById(R.id.visible_check_box);
-            if (visibleCheckBox != null) {
-                visibleCheckBox.setChecked(selected);
-            }
+            newParams.height = NORMAL_ITEM_HEIGHT;
+        }
+        view.setLayoutParams(newParams);
+        CheckBox visibleCheckBox = (CheckBox) view.findViewById(R.id.visible_check_box);
+        if (visibleCheckBox != null) {
+            visibleCheckBox.setChecked(selected);
         }
         view.invalidate();
         return view;

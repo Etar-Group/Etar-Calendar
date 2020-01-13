@@ -152,9 +152,6 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
             } else {
                 query = intent.getStringExtra(SearchManager.QUERY);
             }
-            if ("TARDIS".equalsIgnoreCase(query)) {
-                Utils.tardis();
-            }
             initFragments(millis, query);
         }
     }

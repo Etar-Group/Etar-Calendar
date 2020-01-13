@@ -60,6 +60,7 @@
         <item name="ic_menu_email">@drawable/ic_menu_email_holo_light</item>
         <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
         <item name="month_other_bgcolor">@color/month_other_bgcolor</item>
+        <item name="settings_calendar_offline">@drawable/ic_sync_off_light</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">

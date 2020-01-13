@@ -23,14 +23,15 @@
     </group>
     <group android:id="@+id/navigation_subheader" android:checkableBehavior="none">
         <item
-            android:id="@+id/action_select_visible_calendars"
-            android:icon="@drawable/ic_menu_select_visible_calendars"
-            android:title="@string/menu_select_visible_calendars" />
-        <item
             android:id="@+id/action_settings"
             android:alphabeticShortcut="s"
             android:icon="@drawable/ic_menu_settings"
             android:title="@string/menu_preferences" />
+        
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/ic_menu_help"
+            android:title="@string/preferences_menu_about" />
 
     </group>
 </menu>

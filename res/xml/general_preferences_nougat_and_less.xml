@@ -86,15 +86,31 @@
     <PreferenceCategory
         app:key="preferences_alerts_category"
         app:title="@string/preferences_reminder_title">
-        <Preference
-            app:key="preferences_notification"
+        <CheckBoxPreference
+            app:key="preferences_alerts"
+            app:defaultValue="true"
             app:title="@string/preferences_alerts_title" />
 
-        <CheckBoxPreference
-            app:key="preferences_alerts_popup"
+        <Preference
             app:layout="?android:attr/preferenceLayoutChild"
+            app:key="preferences_alerts_ringtone"
+            app:title="@string/preferences_alerts_ringtone_title"
+            app:defaultValue="content://settings/system/notification_sound"
+            app:dependency="preferences_alerts" />
+
+        <CheckBoxPreference
+            app:layout="?android:attr/preferenceLayoutChild"
+            app:key="preferences_alerts_vibrate"
+            app:title="@string/preferences_alerts_vibrateWhen_title"
             app:defaultValue="false"
-            app:title="@string/preferences_alerts_popup_title" />
+            app:dependency="preferences_alerts" />
+
+        <CheckBoxPreference
+            app:layout="?android:attr/preferenceLayoutChild"
+            app:key="preferences_alerts_popup"
+            app:defaultValue="false"
+            app:title="@string/preferences_alerts_popup_title"
+            app:dependency="preferences_alerts" />
 
         <CheckBoxPreference
             app:key="preferences_custom_snooze_delay"

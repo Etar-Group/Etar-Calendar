@@ -41,10 +41,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.preference.PreferenceActivity;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Events;
+
+import com.android.calendar.settings.SettingsActivity;
+import com.android.calendar.settings.AboutPreferences;
+import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.settings.SettingsActivityKt;
+import com.android.calendar.settings.ViewDetailsPreferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.app.ActivityCompat;
@@ -248,9 +253,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     protected void onCreate(Bundle icicle) {
-        if (Utils.getSharedPreference(this, OtherPreferences.KEY_OTHER_1, false)) {
-            setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
-        }
+        setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         super.onCreate(icicle);
         dynamicTheme.onCreate(this);
 
@@ -370,7 +373,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         initFragments(timeMillis, viewType, icicle);
 
         // Listen for changes that would require this to be refreshed
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         mContentResolver = getContentResolver();
@@ -626,7 +629,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mContentResolver.unregisterContentObserver(mObserver);
         if (isFinishing()) {
             // Stop listening for changes that would require this to be refreshed
-            SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
+            SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(this);
             prefs.unregisterOnSharedPreferenceChangeListener(this);
         }
         // FRAG_TODO save highlighted days of the week;
@@ -665,7 +668,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     protected void onDestroy() {
         super.onDestroy();
 
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(this);
         prefs.unregisterOnSharedPreferenceChangeListener(this);
 
         mController.deregisterAllEventHandlers();
@@ -727,7 +730,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         EventInfo info = null;
         if (viewType == ViewType.EDIT) {
-            mPreviousView = GeneralPreferences.getSharedPreferences(this).getInt(
+            mPreviousView = GeneralPreferences.Companion.getSharedPreferences(this).getInt(
                     GeneralPreferences.KEY_START_VIEW, GeneralPreferences.DEFAULT_START_VIEW);
 
             long eventId = -1;
@@ -910,9 +913,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         } else if (itemId == R.id.action_import) {
             ImportActivity.pickImportFile(this);
         } else if (itemId == R.id.action_view_settings) {
-            Intent intent = new Intent(this, CalendarSettingsActivity.class);
-            intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, ViewDetailsPreferences.class.getName());
-            intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+            Intent intent = new Intent(this, SettingsActivity.class);
+            intent.putExtra(SettingsActivityKt.EXTRA_SHOW_FRAGMENT, ViewDetailsPreferences.class.getName());
             startActivity(intent);
         } else {
                 return mExtensions.handleItemSelected(item, this);
@@ -945,12 +947,13 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
                 }
                 break;
-            case R.id.action_select_visible_calendars:
-                mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
-                        0, 0);
-                break;
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+                break;
+            case R.id.action_about:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                intent.putExtra(SettingsActivityKt.EXTRA_SHOW_FRAGMENT, AboutPreferences.class.getName());
+                startActivity(intent);
                 break;
         }
         mDrawerLayout.closeDrawers();

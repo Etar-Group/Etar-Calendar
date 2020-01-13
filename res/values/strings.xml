@@ -141,15 +141,10 @@
      item opens new dialog shown the date that the user wants to go. -->
     <string name="goto_date">"Go to…"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
-         user to see the list of calendars that he is viewing and to then add
-         or remove selected calendars. -->
-
-    <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to select the calendars to display [CHAR LIMIT=20] -->
-    <string name="menu_select_visible_calendars">"Calendars to display"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to select the calendars to display [CHAR LIMIT=20] -->
     <string name="search">"Search"</string>
@@ -169,36 +164,11 @@
 
     <!-- Select Visible Calendars activity -->
     <skip/>
-    <!-- Title of "My calendars" screen -->
-    <string name="select_visible_calendars_title">"Calendars to display"</string>
-    <!-- Synced and visible status message -->
-
-    <!-- Synced but not visible status message -->
-
-    <!-- not Synced or visible status message -->
-
-    <!-- Synced status message displayed when the given calendar is stored/synced on the device
-        [CHAR LIMIT=60] -->
-    <string name="synced"> synced</string>
-    <!-- Not synced status message displayed when the given calendar is not stored/synced on the
-        device [CHAR LIMIT=60] -->
-    <string name="not_synced"> not synced</string>
-    <!-- Message displayed to user when an account with Calendars is not being auto-synced
-        [CHAR LIMIT=120]-->
-    <string name="acct_not_synced">This account isn\'t being synced so your calendars may
-        not be up-to-date.</string>
-    <!-- Label on button that takes user to the Accounts and Sync settings page [CHAR LIMIT=60] -->
-    <string name="accounts">Accounts &amp; sync</string>
-
-    <!-- Select Synced Calendars activity -->
-    <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
-    <string name="select_synced_calendars_title">Calendars to sync</string>
     <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
     <string name="select_synced_calendars_button">Calendars to sync</string>
 
     <!-- Event edit activity -->
     <skip/>
-    <!-- The title of the screen where the user edits an event [CHAR LIMIT=17] -->
 
     <!-- Default value of What field (as a hint to the user) [CHAR LIMIT=15] -->
     <string name="hint_what">"Event name"</string>
@@ -228,13 +198,6 @@
     <!-- Toast message displayed responding to an event from an email as declined
      [CHAR LIMIT=50] -->
     <string name="rsvp_declined">"Responded no."</string>
-
-
-    <!-- Title of message displayed to indicate available calendars are being loaded when creating
-         a new event -->
-
-    <!-- Body of message displayed to indicate available calendars are being loaded when creating
-         a new event -->
 
 
     <!-- Create event dialog -->
@@ -276,7 +239,6 @@
     <!-- Label for choosing one of the calendars -->
     <string name="edit_event_calendar_label">Calendar</string>
     <!-- Menu item to show all choices [CHAR LIMIT=22]-->
-    <string name="edit_event_show_all">Show all</string>
     <!-- Label for the event description -->
     <string name="description_label">Description</string>
     <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
@@ -292,7 +254,6 @@
     <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->
     <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to your device and make a calendar visible. Touch Add Account to add an account (if you just added an account, wait for it to finish syncing and try again). Or touch Cancel and make sure at least one calendar is visible.</string>
     <!-- Body of dialog prompting the user to create an account.[CHAR LIMIT=NONE] -->
-    <string name="create_an_account_desc">"Calendar works better with an Account.\n\n\u2022 Access it from any web browser\n\u2022 Back up your events securely"</string>
     <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
     <string name="add_account">Add account</string>
 
@@ -302,8 +263,6 @@
     <string name="view_event_calendar_label">Calendar:</string>
     <!-- Label for the event organizer -->
     <string name="view_event_organizer_label">Organizer:</string>
-    <!-- Label for the local timezone -->
-
     <!-- Label for showing event color picker -->
     <string name="choose_event_color_label">Choose event color</string>
     <!-- Title for event color picker dialog -->
@@ -349,7 +308,6 @@
     <!-- Summary of the quick response item in Settings [CHAR LIMIT=80]-->
     <string name="quick_response_settings_summary">Edit default responses when emailing guests</string>
     <!-- Title of the quick response screen in Settings->Quick Response [CHAR LIMIT=27]-->
-    <string name="quick_response_settings_title">Edit quick responses</string>
     <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
     <string name="quick_response_settings_edit_title">Quick response</string>
 
@@ -368,9 +326,6 @@
     <string name="quick_response_custom_msg">Write your own\u2026</string>
 
     <!-- Event Info strings-->
-    <!-- Time Zone Label [CHAR LIMIT=12]-->
-
-    <!-- Repetition Label [CHAR LIMIT=12]-->
 
     <!-- Organizer Label [CHAR LIMIT=12]-->
     <string name="event_info_organizer">Organizer:</string>
@@ -418,7 +373,6 @@
     <skip/>
     <!-- The button label for making the reminder alarms go away temporarily.
          The reminder alarms will fire off again in 5 minutes. -->
-    <string name="snooze_all_label">"Snooze all"</string>
     <!-- The button label for dismissing all the current reminder alarms. This
          causes them to disappear from the notification screen. -->
     <string name="dismiss_all_label">"Dismiss all"</string>
@@ -462,15 +416,6 @@
     <string name="monthly">Monthly</string>
     <!-- Calendar spinner item, to select that an event recurs every year. -->
     <string name="yearly_plain">Yearly</string>
-    <!-- Example: "Monthly (on day 15)" -->
-    <string name="monthly_on_day">"Monthly (on day <xliff:g id="day_of_month">%s</xliff:g>)"</string>
-    <!-- Example: "Yearly (on April 15)" -->
-    <string name="yearly">"Yearly (on <xliff:g id="dates">%s</xliff:g>)"</string>
-    <!-- This is a label for telling the user that this event repeats in
-         custom (non-standard) way from the usual repeat rates (such as daily,
-         weekly, etc.) and that the user cannot change this on the phone
-         (but only on the web). -->
-    
     <!-- This is a label for telling the user that this event repeats in
          custom (non-standard) way from the usual repeat rates (such as daily,
          weekly, etc.) and that the user cannot change this on the phone
@@ -509,16 +454,6 @@
     <!-- This is the title of a popup dialog that asks for confirmation before
          changing the response to an invitation. -->
     <string name="change_response_title">Change response</string>
-
-    <!-- This the title of a menu for General Preferences.
-         Pressing the menu item lets user to view and edit his general settings
-         (or preferences) [CHAR LIMIT=30] -->
-    <string name="menu_general_preferences">General settings</string>
-
-    <!-- This the title of a menu for "About Calendar" Preferences.
-         Pressing the menu item lets user to view the current settings
-         [CHAR LIMIT=30] -->
-    <string name="menu_about_preferences">About Etar</string>
 
     <!-- This is the title of the screen for setting user preferences. -->
     <string name="preferences_title">"Settings"</string>
@@ -626,7 +561,6 @@
     <!-- Widget -->
     <skip/>
     <!-- Title for calendar gadget when displayed in list of all other gadgets -->
-    <string name="gadget_title">Calendar</string>
 
     <!-- Shown in month view next to event icon when additional events exist for that day, but no
         room remaining -->
@@ -641,36 +575,14 @@
     <!-- Caption to show on gadget when there are no upcoming calendar events -->
     <string name="gadget_no_events">No upcoming calendar events</string>
 
-    <!-- Text to show on gadget when an event is currently in progress -->
-
-
-    <!-- Text to show on gadget when an all-day event is in progress -->
-
-
-    <!-- DO NOT TRANSLATE -->
-    <string name="tardis" translatable="false">TARDIS</string>
-
     <!-- Experimental settings [CHAR LIMIT = 30]-->
     <string name="preferences_experimental_category">Experimental</string>
 
     <!-- Reminders settings [CHAR LIMIT = 30]-->
-    <string name="preferences_reminders_category">Reminders</string>
     <!-- Preference label for when to skip reminders [CHAR LIMIT = 25] -->
     <string name="preferences_reminders_responded_label">Skip Reminders</string>
     <!-- Dialog title for when to skip reminders [CHAR LIMIT = 25] -->
     <string name="preferences_reminders_responded_dialog">Skip Reminders</string>
-    <!-- Preference label for quiet hours [CHAR LIMIT = 25]-->
-    <string name="preferences_reminders_quiet_hours_label">Quiet hours</string>
-    <!-- Preference description for quiet hours [CHAR LIMIT = NONE]-->
-    <string name="preferences_reminders_quiet_hours_description">Silence event reminders during specified time.</string>
-    <!-- Preference label for quiet hours start time [CHAR LIMIT = 25]-->
-    <string name="preferences_reminders_quiet_hours_start">Quiet hours start time</string>
-    <!-- Preference label for quiet hours end time [CHAR LIMIT = 25]-->
-    <string name="preferences_reminders_quiet_hours_end">Quiet hours end time</string>
-
-    <!-- Preferences used for debugging purposes [CHAR LIMIT = 30]-->
-    <string name="preferences_debug_category">Debugging</string>
-
     <!-- Send a copy of the database to developers for debugging [CHAR LIMIT="NONE"] -->
     <string name="copy_db">Send database</string>
 
@@ -703,13 +615,11 @@
     <!-- Add a new attendee to an event [CHAR LIMIT = NONE]-->
     <string name="accessibility_add_attendee">Add attendee</string>
     <!-- Choose if to sync/unsync this calendar with its server [CHAR LIMIT = NONE]-->
-    <string name="accessibility_sync_cal">Sync calendar</string>
     <!-- Mark this event as an "all day event" [CHAR LIMIT = NONE]-->
     <string name="accessibility_all_day">All day event</string>
     <!-- Refresh the data in the calendar [CHAR LIMIT = NONE]-->
 
     <!-- Choose the type of repetition for the event (daily, weekly, etc.[CHAR LIMIT = NONE]-->
-    <string name="accessibility_repeats">Repetition</string>
     <!-- Set the time for the reminder[CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_time">Reminder time</string>
     <!-- Set the type of the reminder (popup/email/sms)[CHAR LIMIT = NONE]-->
@@ -718,13 +628,6 @@
     <string name="accessibility_reminder_showmeas">Show me as</string>
     <!-- Set the event as private/public/default [CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_privacy">Privacy</string>
-    <!-- Calendar notification [CHAR LIMIT = NONE]-->
-    <string name="accessibility_cal_notification">Calendar Notification</string>
-    <!-- Calendar notification snooze button [CHAR LIMIT = NONE]-->
-    <string name="accessibility_snooze_notification">Snooze Notification</string>
-    <!-- Calendar notification email button [CHAR LIMIT = NONE]-->
-    <string name="accessibility_email_notification">Email guests</string>
-
     <!-- A "new event" hint for the user when selecting a specific hour in the day view [CHAR LIMIT = 30]-->
     <string name="day_view_new_event_hint">+ New event</string>
 
@@ -754,12 +657,9 @@
     <string name="acessibility_selected_marker_description">Selected event</string>
 
     <!-- Tell user not to check a checkbox [CHAR LIMIT=30] -->
-    <string name="do_not_check">Do NOT check -></string>
 
     <!-- Dialog title for recurrence picker for configuring a repeating event[CHAR LIMIT=20] -->
-    <string name="recurrence_dialog_title">Repeat</string>
     <!-- Dialog title for recurrence picker when one-time event is selected [CHAR LIMIT=20] -->
-    <string name="recurrence_dialog_title_never">Never repeats</string>
 
     <!-- Strings to describe how frequently to repeat an event (e.g. every 5 days) -->
     <plurals name="recurrence_interval_daily">
@@ -850,5 +750,34 @@
     <string name="show_time_start">Only start time</string>
     <string name="show_time_start_end">Start and end time</string>
     <string name="show_time_start_end_below">Start and end time below the event</string>
+
+    <!-- Preferences -->
+    <string name="preferences_calendar_account">%1$s account</string>
+    <string name="preferences_calendar_delete">Delete calendar</string>
+    <string name="preferences_calendar_display_name">Change name</string>
+    <string name="preferences_calendar_account_category">Account type</string>
+    <string name="preferences_calendar_color">Color</string>
+    <string name="preferences_calendar_visible">Display events</string>
+    <string name="preferences_calendar_synchronize">Synchronize this calendar</string>
+    <string name="preferences_list_calendar_summary_sync_off">Not synchronized</string>
+    <string name="preferences_list_calendar_summary_invisible">Events are not displayed</string>
+    <string name="preferences_list_general">General settings</string>
+    <string name="preferences_list_add_remote">Add remote calendar (CalDAV)</string>
+    <string name="preferences_list_add_offline">Add offline calendar</string>
+    <string name="preferences_list_add_offline_title">Add offline calendar</string>
+    <string name="preferences_list_add_offline_error_empty">Enter a calendar name!</string>
+    <string name="preferences_list_add_offline_message">Offline calendars are NOT synchronized to a cloud service and only available on your phone.</string>
+    <string name="preferences_list_add_offline_button">Add calendar</string>
+    <string name="preferences_list_add_offline_name">Name</string>
+    <string name="preferences_list_add_offline_cancel">Cancel</string>
+    <string name="preferences_calendar_color_warning_title">Warning</string>
+    <string name="preferences_calendar_color_warning_message">Changing the color may be reverted when the calendar is synchronized again.\n\nIn DAVx⁵ \'Manage calendar colors\' can be disabled to prevent this.</string>
+    <string name="preferences_calendar_color_warning_button">I understand</string>
+    <string name="preferences_calendar_delete_message">Do you really want to delete this calendar?</string>
+    <string name="preferences_calendar_delete_delete">Delete calendar</string>
+    <string name="preferences_calendar_delete_cancel">Cancel</string>
+    <string name="preferences_menu_about">About Etar</string>
+
+    <string name="offline_account_name">Offline Calendar</string>
 
 </resources>

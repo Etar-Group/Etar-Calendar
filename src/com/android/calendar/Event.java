@@ -36,6 +36,8 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.android.calendar.settings.GeneralPreferences;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -202,7 +204,7 @@ public class Event implements Cloneable {
             // required for correctness, it just adds a nice touch.
 
             // Respect the preference to show/hide declined events
-            SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+            SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
             boolean hideDeclined = prefs.getBoolean(GeneralPreferences.KEY_HIDE_DECLINED,
                     false);
 

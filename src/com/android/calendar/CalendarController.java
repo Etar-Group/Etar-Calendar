@@ -36,7 +36,8 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.android.calendar.event.EditEventActivity;
-import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
+import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.settings.SettingsActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -414,12 +415,6 @@ public class CalendarController {
                 return;
             }
 
-            // Launch Calendar Visible Selector
-            if (event.eventType == EventType.LAUNCH_SELECT_VISIBLE_CALENDARS) {
-                launchSelectVisibleCalendars();
-                return;
-            }
-
             // Create/View/Edit/Delete Event
             long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
             if (event.eventType == EventType.CREATE_EVENT) {
@@ -555,16 +550,9 @@ public class CalendarController {
         return mPreviousViewType;
     }
 
-    private void launchSelectVisibleCalendars() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClass(mContext, SelectVisibleCalendarsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mContext.startActivity(intent);
-    }
-
     private void launchSettings() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClass(mContext, CalendarSettingsActivity.class);
+        intent.setClass(mContext, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent);
     }
@@ -675,8 +663,6 @@ public class CalendarController {
             tmp = "Edit event";
         } else if ((eventInfo.eventType & EventType.DELETE_EVENT) != 0) {
             tmp = "Delete event";
-        } else if ((eventInfo.eventType & EventType.LAUNCH_SELECT_VISIBLE_CALENDARS) != 0) {
-            tmp = "Launch select visible calendars";
         } else if ((eventInfo.eventType & EventType.LAUNCH_SETTINGS) != 0) {
             tmp = "Launch settings";
         } else if ((eventInfo.eventType & EventType.EVENTS_CHANGED) != 0) {
@@ -736,9 +722,6 @@ public class CalendarController {
 
         // date range has changed, update the title
         final long UPDATE_TITLE = 1L << 10;
-
-        // select which calendars to display
-        final long LAUNCH_SELECT_VISIBLE_CALENDARS = 1L << 11;
     }
 
     /**

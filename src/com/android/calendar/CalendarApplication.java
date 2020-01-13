@@ -19,6 +19,9 @@ package com.android.calendar;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.settings.ViewDetailsPreferences;
+
 public class CalendarApplication extends Application {
     @Override
     public void onCreate() {
@@ -32,10 +35,10 @@ public class CalendarApplication extends Application {
          */
         final int SHARED_PREFS_VERSION = 1;
         final String VERSION_KEY = "spv";
-        SharedPreferences preferences = GeneralPreferences.getSharedPreferences(this);
+        SharedPreferences preferences = GeneralPreferences.Companion.getSharedPreferences(this);
         if (preferences.getInt(VERSION_KEY, 0) != SHARED_PREFS_VERSION) {
-            GeneralPreferences.setDefaultValues(this);
-            ViewDetailsPreferences.setDefaultValues(this);
+            GeneralPreferences.Companion.setDefaultValues(this);
+            ViewDetailsPreferences.Companion.setDefaultValues(this);
             preferences.edit().putInt(VERSION_KEY, SHARED_PREFS_VERSION).apply();
         }
 

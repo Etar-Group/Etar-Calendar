@@ -76,11 +76,11 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.EventInfoFragment;
 import com.android.calendar.EventRecurrenceFormatter;
-import com.android.calendar.GeneralPreferences;
 import com.android.calendar.RecipientAdapter;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
 import com.android.calendar.recurrencepicker.RecurrencePickerDialog;
+import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
@@ -879,7 +879,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         populateTimezone(mStartTime.normalize(true));
 
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(mActivity);
         String defaultReminderString = prefs.getString(
                 GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
         mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);

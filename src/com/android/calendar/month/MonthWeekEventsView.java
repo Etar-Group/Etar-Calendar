@@ -20,7 +20,7 @@ import com.android.calendar.DynamicTheme;
 import com.android.calendar.Event;
 import com.android.calendar.LunarUtils;
 import com.android.calendar.Utils;
-import com.android.calendar.ViewDetailsPreferences;
+import com.android.calendar.settings.ViewDetailsPreferences;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -852,7 +852,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         public ArrayList<DayEventFormatter> prepareFormattedEvents() {
             prepareFormattedEventsWithEventDaySpan();
             ViewDetailsPreferences.Preferences preferences =
-                    ViewDetailsPreferences.getPreferences(getContext());
+                    ViewDetailsPreferences.Companion.getPreferences(getContext());
             preFormatEventText(preferences);
             setYindexInEvents();
             return formatDays(mBoxBoundaries.getAvailableYSpace(), preferences);

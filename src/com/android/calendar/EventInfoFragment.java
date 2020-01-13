@@ -106,6 +106,7 @@ import com.android.calendar.icalendar.IcalendarUtils;
 import com.android.calendar.icalendar.Organizer;
 import com.android.calendar.icalendar.VCalendar;
 import com.android.calendar.icalendar.VEvent;
+import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
@@ -881,7 +882,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // Set reminders variables
 
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(mActivity);
         String defaultReminderString = prefs.getString(
                 GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
         mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);

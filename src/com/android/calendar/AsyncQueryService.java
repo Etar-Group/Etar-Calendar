@@ -27,6 +27,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.android.calendar.AsyncQueryServiceHelper.OperationInfo;
 
 import java.util.ArrayList;
@@ -109,8 +111,8 @@ public class AsyncQueryService extends Handler {
      *            (excluding the ORDER BY itself). Passing null will use the
      *            default sort order, which may be unordered.
      */
-    public void startQuery(int token, Object cookie, Uri uri, String[] projection,
-            String selection, String[] selectionArgs, String orderBy) {
+    public void startQuery(int token, @Nullable Object cookie, Uri uri, String[] projection,
+                           String selection, String[] selectionArgs, String orderBy) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_QUERY;
         info.resolver = mContext.getContentResolver();
@@ -141,7 +143,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public void startInsert(int token, Object cookie, Uri uri, ContentValues initialValues,
+    public void startInsert(int token, @Nullable Object cookie, Uri uri, ContentValues initialValues,
             long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_INSERT;
@@ -177,7 +179,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public void startUpdate(int token, Object cookie, Uri uri, ContentValues values,
+    public void startUpdate(int token, @Nullable Object cookie, Uri uri, ContentValues values,
             String selection, String[] selectionArgs, long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_UPDATE;
@@ -214,7 +216,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public void startDelete(int token, Object cookie, Uri uri, String selection,
+    public void startDelete(int token, @Nullable Object cookie, Uri uri, String selection,
             String[] selectionArgs, long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_DELETE;
@@ -245,7 +247,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public void startBatch(int token, Object cookie, String authority,
+    public void startBatch(int token, @Nullable Object cookie, String authority,
             ArrayList<ContentProviderOperation> cpo, long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_BATCH;
@@ -269,7 +271,7 @@ public class AsyncQueryService extends Handler {
      * @param cookie the cookie object passed in from {@link #startQuery}.
      * @param cursor The cursor holding the results from the query.
      */
-    protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+    protected void onQueryComplete(int token, @Nullable Object cookie, Cursor cursor) {
         if (localLOGV) {
             Log.d(TAG, "########## default onQueryComplete");
         }
@@ -284,7 +286,7 @@ public class AsyncQueryService extends Handler {
      *            {@link #startInsert}.
      * @param uri the uri returned from the insert operation.
      */
-    protected void onInsertComplete(int token, Object cookie, Uri uri) {
+    protected void onInsertComplete(int token, @Nullable Object cookie, Uri uri) {
         if (localLOGV) {
             Log.d(TAG, "########## default onInsertComplete");
         }
@@ -299,7 +301,7 @@ public class AsyncQueryService extends Handler {
      *            {@link #startUpdate}.
      * @param result the result returned from the update operation
      */
-    protected void onUpdateComplete(int token, Object cookie, int result) {
+    protected void onUpdateComplete(int token, @Nullable Object cookie, int result) {
         if (localLOGV) {
             Log.d(TAG, "########## default onUpdateComplete");
         }
@@ -314,7 +316,7 @@ public class AsyncQueryService extends Handler {
      *            {@link #startDelete}.
      * @param result the result returned from the delete operation
      */
-    protected void onDeleteComplete(int token, Object cookie, int result) {
+    protected void onDeleteComplete(int token, @Nullable Object cookie, int result) {
         if (localLOGV) {
             Log.d(TAG, "########## default onDeleteComplete");
         }
@@ -331,7 +333,7 @@ public class AsyncQueryService extends Handler {
      * @param results the result returned from executing the
      *            {@link ContentProviderOperation}
      */
-    protected void onBatchComplete(int token, Object cookie, ContentProviderResult[] results) {
+    protected void onBatchComplete(int token, @Nullable Object cookie, ContentProviderResult[] results) {
         if (localLOGV) {
             Log.d(TAG, "########## default onBatchComplete");
         }
