@@ -551,12 +551,22 @@
     <!-- Default value for the default snooze delay (in minutes) -->
     <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
 
-    <!-- This is the title of a section in the Settings screen for "About" this application -->
+    <!-- About dialog strings -->
+    <string name="app_authors" translatable="false">The Etar Project</string>
+    <string name="app_authors_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar/graphs/contributors</string>
+    <string name="app_changelog" translatable="false">https://github.com/Etar-Group/Etar-Calendar/releases</string>
+    <string name="app_copyright">\u00a9 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions \u00a9 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_issues_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar/issues</string>
+    <string name="app_license" translatable="false">GPLv3</string>
+    <string name="app_license_url" translatable="false">https://www.gnu.org/licenses/gpl-3.0.html</string>
+    <string name="app_source_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar</string>
+    <string name="authors">Authors</string>
+    <string name="changelog">Changelog</string>
+    <string name="license">License</string>
     <string name="preferences_about_title">About</string>
-    <!-- Build version of the application -->
     <string name="preferences_build_version">Build version</string>
-    <!-- Report application issues  -->
     <string name="preferences_issues">Report issues</string>
+    <string name="source_code">Source</string>
 
     <!-- Widget -->
     <skip/>

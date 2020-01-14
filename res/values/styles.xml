@@ -61,6 +61,9 @@
         <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
         <item name="month_other_bgcolor">@color/month_other_bgcolor</item>
         <item name="settings_calendar_offline">@drawable/ic_sync_off_light</item>
+        <item name="iconAboutAuthors">@drawable/ic_create_dark</item>
+        <item name="iconAboutLicense">@drawable/ic_description_dark</item>
+        <item name="iconSettingsAbout">@drawable/ic_info_outline_dark</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">

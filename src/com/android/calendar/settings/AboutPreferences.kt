@@ -17,32 +17,61 @@
 
 package com.android.calendar.settings
 
-import android.content.pm.PackageManager.NameNotFoundException
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+
+import java.util.Calendar
 import ws.xsoh.etar.R
+import kotlinx.android.synthetic.main.about_preferences.*
 
-class AboutPreferences : PreferenceFragmentCompat() {
-
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.about_preferences, rootKey)
-        setVersion()
+class AboutPreferences : Fragment() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.about_preferences, container, false)
     }
 
-    private fun setVersion() {
-        val activity = activity!!
-        val versionPreference = findPreference<Preference>(KEY_BUILD_VERSION)!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        try {
-            val packageInfo = activity.packageManager.getPackageInfo(activity.packageName, 0)
-            versionPreference.summary = packageInfo.versionName
-        } catch (e: NameNotFoundException) {
-            versionPreference.summary = "?"
+        version.text = getVersionNumber()
+
+        val year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR))
+        copyright.text = getString(R.string.app_copyright, year, year)
+
+        authorsLayout.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_authors_url))))
+        }
+
+        changelog.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_changelog))))
+        }
+
+        issues.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_issues_url))))
+        }
+
+        licenseLayout.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_license_url))))
+        }
+
+        source.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_source_url))))
         }
     }
 
-    companion object {
-        private const val KEY_BUILD_VERSION = "build_version"
+    private fun getVersionNumber(): String {
+        return try {
+            val context = requireContext()
+            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            packageInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            "?"
+        }
     }
+
 }
