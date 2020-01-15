@@ -66,6 +66,9 @@
             android:targetActivity="com.android.calendar.AllInOneActivity">
         </activity-alias>
 
+        <activity android:name="com.android.calendar.AboutActivity">
+        </activity>
+
         <activity android:name="com.android.calendar.EventInfoActivity"
             android:parentActivityName="com.android.calendar.AllInOneActivity">
             <intent-filter>

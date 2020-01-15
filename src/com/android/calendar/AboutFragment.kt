@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.android.calendar.settings
+package com.android.calendar
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -28,11 +28,11 @@ import androidx.fragment.app.Fragment
 
 import java.util.Calendar
 import ws.xsoh.etar.R
-import kotlinx.android.synthetic.main.about_preferences.*
+import kotlinx.android.synthetic.main.about.*
 
-class AboutPreferences : Fragment() {
+class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.about_preferences, container, false)
+        return inflater.inflate(R.layout.about, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

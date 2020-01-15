@@ -46,7 +46,6 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Events;
 
 import com.android.calendar.settings.SettingsActivity;
-import com.android.calendar.settings.AboutPreferences;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivityKt;
 import com.android.calendar.settings.ViewDetailsPreferences;
@@ -951,8 +950,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
                 break;
             case R.id.action_about:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                intent.putExtra(SettingsActivityKt.EXTRA_SHOW_FRAGMENT, AboutPreferences.class.getName());
+                Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -1388,39 +1386,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, 0, query,
                 getComponentName());
         return true;
-    }
-
-    //@Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        switch (itemPosition) {
-            case CalendarViewAdapter.DAY_BUTTON_INDEX:
-                if (mCurrentView != ViewType.DAY) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
-                }
-                break;
-            case CalendarViewAdapter.WEEK_BUTTON_INDEX:
-                if (mCurrentView != ViewType.WEEK) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
-                }
-                break;
-            case CalendarViewAdapter.MONTH_BUTTON_INDEX:
-                if (mCurrentView != ViewType.MONTH) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
-                }
-                break;
-            case CalendarViewAdapter.AGENDA_BUTTON_INDEX:
-                if (mCurrentView != ViewType.AGENDA) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
-                }
-                break;
-            default:
-                Log.w(TAG, "ItemSelected event from unknown button: " + itemPosition);
-                /*Log.w(TAG, "CurrentView:" + mCurrentView + " Button:" + itemPosition +
-                        " Day:" + mDayTab + " Week:" + mWeekTab + " Month:" + mMonthTab +
-                        " Agenda:" + mAgendaTab);*/
-                break;
-        }
-        return false;
     }
 
     @Override
