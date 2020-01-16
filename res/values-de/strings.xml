@@ -361,4 +361,7 @@
     <string name="preferences_calendar_delete_cancel">Abbrechen</string>
     <string name="preferences_menu_about">Über Etar</string>
     <string name="offline_account_name">Offline-Kalender</string>
+    <string name="preferences_calendar_color_warning_message">Die Änderung der Farbe kann zurückgesetzt werden, wenn der Kalender erneut synchronisiert wird.
+\n
+\nIn DAVx⁵ kann \'Kalenderfarben verwalten\' deaktiviert werden, um dies zu verhindern.</string>
 </resources>
