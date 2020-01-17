@@ -21,34 +21,25 @@
     <string name="attendees_label" msgid="2971281641565729725">"Tamu"</string>
     <string name="today" msgid="8577375020252453006">"Hari ini"</string>
     <string name="tomorrow" msgid="614434811813859237">"Besok"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">Hari ini pada jam <xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Besok pada jam <xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Hari ini pada jam <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Besok pada jam <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">Pengulangan</string>
     <string name="no_title_label" msgid="302177118061368042">"(Tanpa judul)"</string>
     <plurals name="Nminutes">
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> menit</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> menit</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> mnt</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mnt</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> jam</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> jam</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> hari</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hari</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other">minggu <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="other">minggu <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Segarkan"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tampilkan hari"</string>
@@ -204,8 +195,7 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Versi bentukan"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
     <plurals name="month_more_events">
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Tidak ada acara kalender yang akan datang"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimental"</string>
@@ -242,8 +232,7 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Acara baru"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Acara <xliff:g id="item_index">%1$s</xliff:g> dari <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> acara</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> acara</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> acara</item>
@@ -331,4 +320,32 @@
     <string name="show_time_start_end_below">Waktu mulai dan selesai di bawah acara</string>
     <string name="maximum_number_of_lines">Jumlah baris maks. acara</string>
     <string name="cal_import_error_time_zone_msg">Tidak bisa memvalidasi zona waktu yang diimpor: %s</string>
+    <string name="preferences_calendar_account">%1$s akun</string>
+    <string name="preferences_calendar_delete">Hapus kalender</string>
+    <string name="preferences_calendar_display_name">Ubah nama</string>
+    <string name="preferences_calendar_account_category">Tipe akun</string>
+    <string name="preferences_calendar_color">Warna</string>
+    <string name="preferences_calendar_visible">Tampilkan acara</string>
+    <string name="preferences_calendar_synchronize">Sinkronkan kalender ini</string>
+    <string name="preferences_list_calendar_summary_sync_off">Tidak disinkronisasi</string>
+    <string name="preferences_list_calendar_summary_invisible">Acara tidak ditampilkan</string>
+    <string name="preferences_list_general">Pengaturan umum</string>
+    <string name="preferences_list_add_remote">Tambah kalender (CalDav)</string>
+    <string name="preferences_list_add_offline">Tambah kalender luring</string>
+    <string name="preferences_list_add_offline_title">Tambah kalender luring</string>
+    <string name="preferences_list_add_offline_error_empty">Masukkan nama kalender!</string>
+    <string name="preferences_list_add_offline_message">Kalender luring TIDAK disinkronkan ke layanan cloud dan hanya tersedia pada perangkat anda.</string>
+    <string name="preferences_list_add_offline_button">Tambah kalender</string>
+    <string name="preferences_list_add_offline_name">Nama</string>
+    <string name="preferences_list_add_offline_cancel">Batal</string>
+    <string name="preferences_calendar_color_warning_title">Peringatan</string>
+    <string name="preferences_calendar_color_warning_message">Perubahan warna mungkin akan disetel ulang saat kalender disinkronkan lagi.
+\n
+\nDi DAVx⁵ \'Kelola warna kalender\' bisa dinonaktifkan untuk mencegah hal ini.</string>
+    <string name="preferences_calendar_color_warning_button">Saya mengerti</string>
+    <string name="preferences_calendar_delete_message">Apakah anda benar-benar ingin menghapus kalender ini\?</string>
+    <string name="preferences_calendar_delete_delete">Hapus kalender</string>
+    <string name="preferences_calendar_delete_cancel">Batal</string>
+    <string name="preferences_menu_about">Tentang Etar</string>
+    <string name="offline_account_name">Kalender Luring</string>
 </resources>
