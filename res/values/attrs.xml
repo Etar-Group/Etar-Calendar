@@ -42,5 +42,8 @@
         <attr name="calendar_future_bg_color" format="color"/>
         <attr name="month_other_bgcolor" format="color"/>
         <attr name="settings_calendar_offline" format="reference"/>
+        <attr name="iconAboutAuthors" format="reference"/>
+        <attr name="iconAboutLicense" format="reference"/>
+        <attr name="iconSettingsAbout" format="reference" />
     </declare-styleable>
 </resources>
