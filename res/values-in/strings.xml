@@ -348,4 +348,8 @@
     <string name="preferences_calendar_delete_cancel">Batal</string>
     <string name="preferences_menu_about">Tentang Etar</string>
     <string name="offline_account_name">Kalender Luring</string>
+    <string name="authors">Pengembang</string>
+    <string name="changelog">Catatan perubahan</string>
+    <string name="license">Lisensi</string>
+    <string name="source_code">Sumber</string>
 </resources>
