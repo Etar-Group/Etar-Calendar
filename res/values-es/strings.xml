@@ -361,4 +361,11 @@
     <string name="preferences_calendar_delete_cancel">Cancelar</string>
     <string name="preferences_menu_about">Acerca de Etar</string>
     <string name="offline_account_name">Calendario fuera de línea</string>
+    <string name="preferences_calendar_color_warning_message">El cambio de color se puede revertir cuando se sincronice el calendario de nuevo.
+\n
+\nSe puede deshabilitar la opción \'Gestión de colores de calendarios\' de DAVx⁵ para prevenir esto.</string>
+    <string name="authors">Autores</string>
+    <string name="changelog">Registro de cambios</string>
+    <string name="license">Licencia</string>
+    <string name="source_code">Fuente</string>
 </resources>
