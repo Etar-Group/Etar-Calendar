@@ -59,6 +59,10 @@
                 <data android:host="com.android.calendar" />
                 <data android:scheme="content"/>
             </intent-filter>
+
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+
         </activity>
 
         <activity-alias android:name="com.android.calendar.LaunchActivity"
