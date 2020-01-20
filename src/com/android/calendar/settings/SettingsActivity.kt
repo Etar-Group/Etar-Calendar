@@ -42,8 +42,8 @@ class SettingsActivity : AppCompatActivity(),
     private val dynamicTheme = DynamicTheme()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        dynamicTheme.onCreate(this)
         super.onCreate(savedInstanceState)
+        dynamicTheme.onCreate(this)
 
         val fragment = if (intent.hasExtra(EXTRA_SHOW_FRAGMENT)) {
             supportFragmentManager.fragmentFactory.instantiate(
