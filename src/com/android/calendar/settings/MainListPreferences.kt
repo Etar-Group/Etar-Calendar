@@ -77,6 +77,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 accountCategory = PreferenceCategory(context).apply {
                     key = accountCategoryUniqueKey
                     title = calendar.accountName
+                    icon = ContextCompat.getDrawable(context!!, R.drawable.ic_account_circle)
                     order = if (calendar.isLocal) 10 else 11 // show offline calendar first
                     isOrderingAsAdded = false // use alphabetic ordering for children
                 }
@@ -152,10 +153,12 @@ class MainListPreferences : PreferenceFragmentCompat() {
     private fun addGeneralPreferences(screen: PreferenceScreen) {
         val generalPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_general)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_settings)
             fragment = GeneralPreferences::class.java.name
         }
         val addCaldavPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_remote)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_add)
         }
         addCaldavPreference.setOnPreferenceClickListener {
             launchDavX5Login()
@@ -163,6 +166,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
         }
         val addEtesyncPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_remote_etesync)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_add)
         }
         addEtesyncPreference.setOnPreferenceClickListener {
             launchAddEtesync()
@@ -170,6 +174,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
         }
         val addOfflinePreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_offline)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_add)
         }
         addOfflinePreference.setOnPreferenceClickListener {
             addOfflineCalendar()
@@ -240,6 +245,16 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val context = preferenceManager.context
+        val screen = preferenceManager.createPreferenceScreen(context)
+
+        addGeneralPreferences(screen)
+
+        preferenceScreen = screen
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

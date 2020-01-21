@@ -40,6 +40,9 @@
         <item name="iconAboutAuthors">@drawable/ic_create_dark</item>
         <item name="iconAboutLicense">@drawable/ic_description_dark</item>
         <item name="iconSettingsAbout">@drawable/ic_info_outline_dark</item>
+        <item name="iconSettingsGeneral">@android:color/white</item>
+        <item name="iconAddCalendar">@android:color/white</item>
+        <item name="iconCalendarAccount">@android:color/white</item>
     </style>
 
     <style name="CalendarAppThemeBlack" parent="Theme.AppCompat.NoActionBar">
@@ -81,6 +84,9 @@
         <item name="iconAboutAuthors">@drawable/ic_create_dark</item>
         <item name="iconAboutLicense">@drawable/ic_description_dark</item>
         <item name="iconSettingsAbout">@drawable/ic_info_outline_dark</item>
+        <item name="iconSettingsGeneral">@android:color/white</item>
+        <item name="iconAddCalendar">@android:color/white</item>
+        <item name="iconCalendarAccount">@android:color/white</item>
     </style>
 
 
