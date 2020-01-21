@@ -63,6 +63,9 @@
         <item name="iconAboutAuthors">@drawable/ic_create_light</item>
         <item name="iconAboutLicense">@drawable/ic_description_light</item>
         <item name="iconSettingsAbout">@drawable/ic_info_outline_light</item>
+        <item name="iconSettingsGeneral">@android:color/black</item>
+        <item name="iconAddCalendar">@android:color/black</item>
+        <item name="iconCalendarAccount">@android:color/black</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
