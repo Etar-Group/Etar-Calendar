@@ -12,17 +12,6 @@
         android:layout_gravity="center"
         android:layout_margin="16dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingStart="16dp"
-        android:gravity="center_vertical"
-        android:text="@string/preferences_menu_about"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <LinearLayout
         android:id="@+id/versionLayout"
         android:layout_width="match_parent"
