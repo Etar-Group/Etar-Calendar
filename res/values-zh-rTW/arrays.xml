@@ -70,13 +70,6 @@
     <item msgid="6228387173725732140">"有空"</item>
     <item msgid="2064426942462573474">"未定"</item>
   </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"第一個"</item>
-    <item msgid="5631923029483854900">"第二個"</item>
-    <item msgid="148935502975250973">"第三個"</item>
-    <item msgid="5124200797326669172">"第四個"</item>
-    <item msgid="7564374178324652137">"最後一個"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"沒有回應"</item>
     <item msgid="3724434080904437698">"是"</item>
@@ -87,10 +80,6 @@
     <item msgid="4208432367651646938">"僅限此活動"</item>
     <item msgid="1536401639805370405">"這項活動及未來活動"</item>
     <item msgid="7833229563617435430">"所有活動"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"此活動及未來活動"</item>
-    <item msgid="6315440193748139854">"所有活動"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"僅限這項活動"</item>

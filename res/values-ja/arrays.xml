@@ -70,13 +70,6 @@
     <item msgid="6228387173725732140">"予定なし"</item>
     <item msgid="2064426942462573474">"仮承諾"</item>
   </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"第1"</item>
-    <item msgid="5631923029483854900">"第2"</item>
-    <item msgid="148935502975250973">"第3"</item>
-    <item msgid="5124200797326669172">"第4"</item>
-    <item msgid="7564374178324652137">"最終"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"応答がありません"</item>
     <item msgid="3724434080904437698">"はい"</item>
@@ -87,10 +80,6 @@
     <item msgid="4208432367651646938">"この日の予定のみ"</item>
     <item msgid="1536401639805370405">"これ以降の予定"</item>
     <item msgid="7833229563617435430">"すべての予定"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"これ以降の予定"</item>
-    <item msgid="6315440193748139854">"すべての予定"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"この予定のみ"</item>

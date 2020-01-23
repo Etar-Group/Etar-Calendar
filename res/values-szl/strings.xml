@@ -2,7 +2,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="rsvp_accepted">Ôdpowiedziano \"ja\".</string>
     <string name="event_color_set_to_default">Nasztaluj wychodno farba kalyndorza</string>
-    <string name="menu_general_preferences">Sztelōnki ôgōlne</string>
     <string name="new_event_dialog_option">Nowe zdarzynie</string>
     <string name="edit_label">Edytuj</string>
     <string name="no_title_label">(Bez tytułu)</string>
@@ -25,7 +24,6 @@
     </plurals>
     <string name="show_newer_events">Tyknij, coby pokozać zdarzynia po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>
     </string>
-    <string name="preferences_about_title">Informacyje</string>
     <string name="one_and_a_half_hours">1.5 godzin</string>
     <string name="monthly">Co miesiōnc</string>
     <string name="show_day_view">Pokoż dziyń</string>
@@ -33,7 +31,6 @@
     <string name="preferences_hide_declined_title">Skryj ôdciepniynte</string>
     <string name="no_syncable_calendars">Brak kalyndorzōw</string>
     <string name="recurrence_end_count_label">Ôkryślōno wielość powtōrzyń</string>
-    <string name="acct_not_synced">Kōnto niyma synchrōnizowane, bez to kalyndorze mogōm niy być aktualne.</string>
     <string name="accessibility_pick_recurrence">Powtorzej zdarzynie</string>
     <string name="show_controls">Pokoż nawigacyjo</string>
     <plurals name="recurrence_end_count">
@@ -49,7 +46,6 @@
     <string name="new_event_dialog_label">Nowe zdarzynie</string>
     <string name="endByDate">; do <xliff:g id="DATE">%s</xliff:g>
     </string>
-    <string name="gadget_title">Kalyndorz</string>
     <string name="delete_this_event_title">Skasować zdarzynie\?</string>
     <string name="rsvp_tentative">Ôdpowiedziano \"możno\".</string>
     <string name="what_label">Co</string>
@@ -59,7 +55,6 @@
     <string name="privacy_label">Prywatność</string>
     <string name="response_no">Niy</string>
     <string name="preferences_build_version">Wersyjo kōmpilacyje</string>
-    <string name="accounts">Kōnta i synchrōnizacyjo</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minuta</item>
         <item quantity="other">
@@ -80,17 +75,14 @@
     <string name="calendar_square_color_picker_description">Ôbiyranie farbōw</string>
     <string name="recurrence_end_date">Do <xliff:g id="DATE">%s</xliff:g>
     </string>
-    <string name="preferences_reminders_quiet_hours_start">Poczōntek cichych godzin</string>
     <string name="preferences_dark_theme">Ciymny</string>
     <string name="event_create">Nowe zdarzynie</string>
     <string name="preferences_default_reminder_default">10</string>
-    <string name="synced">zesynchrōnizowany</string>
     <string name="event_info_organizer">Ôrganizatōr:</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Dycki używej wychodnyj dugości drzymki</string>
     <string name="tomorrow_at_time_fmt">Jutro ô <xliff:g id="time_interval">%s</xliff:g>
     </string>
     <string name="preferences_default_snooze_delay_dialog">Wychodno dugość drzymki</string>
-    <string name="select_visible_calendars_title">Kalyndorze do pokozanio</string>
     <string name="preferences_issues">Zgłoś problym</string>
     <string name="preferences_black_theme">Czorny</string>
     <plurals name="Nmins">
@@ -110,7 +102,6 @@
     <string name="cal_pick_ics">Ôbier zbiōr do zaimportowanio</string>
     <string name="create_event_dialog_save">Spamiyntej</string>
     <string name="preferences_alerts_popup_title">Pokoż na ekranie</string>
-    <string name="accessibility_email_notification">Wyślij e-maila do gości</string>
     <string name="gadget_no_events">Brak zbliżajōncych sie zdarzyń w kalyndorzu</string>
     <string name="preferences_use_home_tz_title">Dōmowo strefa czasowo</string>
     <string name="accessibility_pick_start_time">Godzina zaczyńcio</string>
@@ -124,7 +115,6 @@
     <string name="yearly_plain">Co rok</string>
     <string name="event_color_picker_dialog_title">Farba zdarzynio</string>
     <string name="saving_event">Zdarzynie było spamiyntano.</string>
-    <string name="recurrence_dialog_title">Powtōrz</string>
     <string name="call_label">Zazwōń</string>
     <string name="modify_all_following">Zmiyń to i wszyjske prziszłe zdarzynia</string>
     <string name="preferences_light_theme">Jasny</string>
@@ -153,13 +143,9 @@
     <string name="preferences_reminders_responded_label">Pōmiń spōmniynia</string>
     <string name="recurrence_end_continously">Dycki</string>
     <string name="preferences_home_tz_title">Dōmowo strefa czasowo</string>
-    <string name="menu_about_preferences">Kalyndorz – informacyje</string>
     <string name="quick_response_custom_msg">Napisz włosno…</string>
     <string name="event_view">Pokoż zdarzynie</string>
-    <string name="preferences_reminders_quiet_hours_description">Wyciszej spōmniynia ô zdarzyniach bez ôkryślōny czas.</string>
-    <string name="quick_response_settings_title">Edytuj gibke ôdpowiedzi</string>
     <string name="accessibility_pick_end_time">Godzina kōńca</string>
-    <string name="create_an_account_desc">Kalyndorz funguje lepij z kōntym.\n\n• Używej go w leda jakij przeglōndarce.\n• Twōrz kopije ibryczne trefiyń.</string>
     <string name="preferences_default_reminder_title">Wychodne spōmniynie</string>
     <string name="visibility_public">Publiczny</string>
     <string name="hide_controls">Skryj nawigacyjo</string>
@@ -172,7 +158,6 @@
     <string name="recurrence_month_pattern_by_day">w tyn sōm dziyń miesiōnca</string>
     <string name="creating_event_with_guest">Zaproszynia były wysłane.</string>
     <string name="reminders_label">Przidej spōmniynie</string>
-    <string name="edit_event_show_all">Pokoż wszyjske</string>
     <string name="view_settings">Sztelōnki widoku</string>
     <string name="day_view">Dziyń</string>
     <plurals name="daily">
@@ -180,9 +165,7 @@
         <item quantity="other">Co <xliff:g id="number">%d</xliff:g> dni</item>
     </plurals>
     <string name="day_view_new_event_hint">+ Nowe zdarzynie</string>
-    <string name="accessibility_sync_cal">Synchrōnizuj kalyndorz</string>
     <string name="preferences_reminder_title">Powiadōmiynia i spōmniynia</string>
-    <string name="recurrence_dialog_title_never">Nigdy niy powtorzej</string>
     <string name="event_delete">Skasuj zdarzynie</string>
     <string name="show_time_start">Ino czas zaczyńcio</string>
     <plurals name="recurrence_interval_daily">
@@ -202,14 +185,10 @@
     <string name="copy_db">Wyślij baza danych</string>
     <string name="acessibility_recurrence_choose_end_date_description">zmiyń data kōńca</string>
     <string name="edit_event_calendar_label">Kalyndorz</string>
-    <string name="accessibility_snooze_notification">Uspej powiadōmiynie</string>
-    <string name="preferences_reminders_quiet_hours_end">Kōniec cichych godzin</string>
     <string name="preferences_week_start_day_title">Piyrszy dziyń tydnia</string>
-    <string name="preferences_debug_category">Debugowanie</string>
     <string name="accessibility_remove_reminder">Skasuj spōmniynie</string>
     <string name="email_picker_label">E-mail bez</string>
     <string name="quick_response_settings_summary">Edytuj wychodne ôdpowiedzi do uczestnikōw</string>
-    <string name="select_synced_calendars_title">Kalyndorze do synchrōnizacyje</string>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 zdarzynie</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> zdarzynia</item>
@@ -218,14 +197,12 @@
     <string name="preferences_default_reminder_dialog">Wychodne spōmniynie</string>
     <string name="default_start_last">Piyrwyjszy używany widok</string>
     <string name="preferences_clear_search_history_summary">Skasuj wszyjske piyrwyjsze wyszukowania</string>
-    <string name="accessibility_cal_notification">Powiadōmiynie kalyndorza</string>
     <string name="event_edit">Edytuj zdarzynie</string>
     <string name="menu_preferences">Sztelōnki</string>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> rok</item>
         <item quantity="other">Co <xliff:g id="COUNT">%d</xliff:g> lata</item>
     </plurals>
-    <string name="not_synced">niyzesynchrōnizowany</string>
     <string name="snooze_delay_dialog_title">Nasztaluj dugość drzymki</string>
     <string name="empty_event">Zdarzynie prōzne – niy było stworzōno.</string>
     <string name="recurrence_end_date_label">Do daty</string>
@@ -236,7 +213,6 @@
     <string name="response_maybe">Możno</string>
     <string name="accessibility_reminder_showmeas">Pokoż mōj sztand za</string>
     <string name="accessibility_reminder_time">Godzina spōmniynio</string>
-    <string name="do_not_check">NIY zaznaczej -&gt;</string>
     <string name="preferences_default_event_duration_title">Wychodno dugość zdarzynio</string>
     <string name="accessibility_reminder_type">Zorta spōmniynio</string>
     <string name="email_organizer_label">Wyślij e-maila do ôrganizatora</string>
@@ -247,7 +223,7 @@
     <string name="cal_import_error_date_msg">Niy idzie zrozumieć podanyj daty: %s</string>
     <string name="repeats_label">Powtorzanie</string>
     <string name="preferences_alerts_vibrateWhen_title">Wibracyje</string>
-    <string name="view_details">Pokoż informacyje</string>
+    <string name="display_options">Pokoż informacyje</string>
     <string name="search">Szukej</string>
     <string name="save_label">Fertich</string>
     <string name="quick_response_email_failed">Niy idzie znojś programu pocztowego</string>
@@ -266,10 +242,8 @@
     <string name="preferences_alerts_ringtone_title">Źwiynk</string>
     <string name="event_info_title_invite">Zaproszynie na tref</string>
     <string name="goto_today">Dzisiej</string>
-    <string name="accessibility_repeats">Powtorzanie</string>
     <string name="preferences_alerts_title">Powiadōmiynia</string>
     <string name="preferences_theme">Tymat</string>
-    <string name="monthly_on_day">Co miesiōnc (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> kożdego miesiōnca)</string>
     <string name="calendar_permission_not_granted">Niystety ta funkcyjo niy funguje. Etar wymogo uprawniyń czytanio i zapisowanio kalyndorza coby funkcjōniyrować sprownie</string>
     <string name="delete_label">Skasuj</string>
     <string name="directory_searching_fmt">Trwo wyszukowanie <xliff:g id="DOMAIN">%s</xliff:g>…</string>
@@ -278,11 +252,9 @@
         <item quantity="other">
             <xliff:g id="COUNT">%d</xliff:g> dni</item>
     </plurals>
-    <string name="yearly">Co rok (<xliff:g id="DATES">%s</xliff:g>)</string>
     <string name="preferences_experimental_category">Eksperymyntalny</string>
     <string name="accessibility_reminder_privacy">Prywatność</string>
     <string name="loading">Wgrowanie…</string>
-    <string name="menu_select_visible_calendars">Kalyndorze do pokozanio</string>
     <string name="acessibility_selected_marker_description">Ôbrane zdarzynie</string>
     <string name="agenda_view">Plan dnia</string>
     <string name="accessibility_remove_attendee">Skasuj uczestnika</string>
@@ -290,7 +262,6 @@
     <string name="one_hour">1 godzina</string>
     <string name="preferences_show_week_num_title">Pokoż numer tydnia</string>
     <string name="visibility_default">Wychodno</string>
-    <string name="snooze_all_label">Ôdłōż wszyjske</string>
     <string name="quick_response_dialog_title">Ôbier gibko ôdpowiydź</string>
     <string name="agenda_tomorrow">jutro, <xliff:g id="DATE">%1$s</xliff:g>
     </string>
@@ -299,7 +270,6 @@
     <string name="add_account">Przidej kōnto</string>
     <string name="custom" product="default">Niysztandardowo (niy idzie przipasować na telefōnie)</string>
     <string name="app_label">Kalyndorz</string>
-    <string name="preferences_reminders_category">Spōmniynia</string>
     <string name="select_synced_calendars_button">Kalyndorze do synchrōnizacyje</string>
     <string name="attendees_label">Goście</string>
     <string name="no_calendars_found">Przed stworzyniym zdarzynio musisz przidać do masziny kōnto z Kalyndorzym i nasztelować ôbrany kalyndorz za widzialny. Ôbier „Przidej kōnto” (jeźli to prawie było zrobiōno, to na kōniec synchrōnizacyje i sprōbuj zaś). Możesz tyż tyknōńć Pociep i dać pozōr, żeby aby jedyn kalyndorz bōł widzialny.</string>
@@ -310,7 +280,6 @@
         <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> tydziyń</item>
         <item quantity="other">Co <xliff:g id="count">%d</xliff:g> tydnie</item>
     </plurals>
-    <string name="preferences_reminders_quiet_hours_label">Ciche godziny</string>
     <string name="preferences_days_per_week_dialog">Dni w tydniu</string>
     <string name="every_weekday">Beztydziyń (pn-pt)</string>
     <string name="visibility_confidential">Tajne</string>
