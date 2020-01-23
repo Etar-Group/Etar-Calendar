@@ -23,33 +23,28 @@
     <string name="tomorrow" msgid="614434811813859237">"Morgen"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Heute, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Morgen, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Wiederholung"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Kein Titel)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 Minute</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> Minuten</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> Minuten</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 Min.</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> Min.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> Min.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 Stunde</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> Stunden</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> Stunden</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 Tag</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> Tage</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> Tage</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"Woche <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">Woche <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aktualisieren"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tag anzeigen"</string>
@@ -202,8 +197,7 @@
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Keine anstehenden Termine"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimentell"</string>
@@ -241,8 +235,7 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">Termin <xliff:g id="ITEM_INDEX">%1$s</xliff:g> von <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 Ereignis</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> Ereignisse</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> Ereignisse</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 Termin</item>
@@ -337,4 +330,37 @@
     <string name="foreground_notification_channel_name">Alarm Synchronisation</string>
     <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich. Bitte stumm schalten</string>
     <string name="cal_import_error_time_zone_msg">Zeitzone konnte nicht erkannt werden: %s</string>
+    <string name="preferences_calendar_account">%1$s Konto</string>
+    <string name="preferences_calendar_delete">Kalender löschen</string>
+    <string name="preferences_calendar_display_name">Namen ändern</string>
+    <string name="preferences_calendar_account_category">Kontoart</string>
+    <string name="preferences_calendar_color">Farbe</string>
+    <string name="preferences_calendar_visible">Ereignisse anzeigen</string>
+    <string name="preferences_calendar_synchronize">Kalender synchronisieren</string>
+    <string name="preferences_list_calendar_summary_sync_off">Nicht synchronisiert</string>
+    <string name="preferences_list_calendar_summary_invisible">Ereignisse werden nicht angezeigt</string>
+    <string name="preferences_list_general">Allgemeine Einstellungen</string>
+    <string name="preferences_list_add_offline">Offline-Kalender hinzufügen</string>
+    <string name="preferences_list_add_offline_title">Offline-Kalender hinzufügen</string>
+    <string name="preferences_list_add_offline_error_empty">Geben Sie einen Kalendernamen ein!</string>
+    <string name="preferences_list_add_offline_message">Offline-Kalender sind NICHT mit einem Cloud-Service synchronisiert und nur auf Ihrem Telefon verfügbar.</string>
+    <string name="preferences_list_add_offline_button">Kalender hinzufügen</string>
+    <string name="preferences_list_add_offline_name">Name</string>
+    <string name="preferences_list_add_offline_cancel">Abbrechen</string>
+    <string name="preferences_calendar_color_warning_title">Warnung</string>
+    <string name="preferences_calendar_color_warning_button">Ich verstehe</string>
+    <string name="preferences_calendar_delete_message">Wollen Sie diesen Kalender wirklich löschen\?</string>
+    <string name="preferences_calendar_delete_delete">Kalender löschen</string>
+    <string name="preferences_calendar_delete_cancel">Abbrechen</string>
+    <string name="preferences_menu_about">Über Etar</string>
+    <string name="offline_account_name">Offline-Kalender</string>
+    <string name="preferences_calendar_color_warning_message">Die Änderung der Farbe kann zurückgesetzt werden, wenn der Kalender erneut synchronisiert wird.
+\n
+\nIn DAVx⁵ kann \'Kalenderfarben verwalten\' deaktiviert werden, um dies zu verhindern.</string>
+    <string name="preferences_list_add_remote">Kalender hinzufügen (CalDAV)</string>
+    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Teile davon © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="authors">Autoren</string>
+    <string name="changelog">Änderungsübersicht</string>
+    <string name="license">Lizenz</string>
+    <string name="source_code">Quelle</string>
 </resources>
