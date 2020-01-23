@@ -255,13 +255,6 @@
         <item>@string/visibility_public</item>
     </string-array>
 
-    <string-array name="ordinal_labels">
-        <item>first</item>
-        <item>second</item>
-        <item>third</item>
-        <item>fourth</item>
-        <item>last</item>
-    </string-array>
 
     <!-- Invitation responses -->
     <string-array name="response_labels1">
@@ -298,10 +291,6 @@
          was created on the phone until that event has been synced to the server.
      -->
     <skip/>
-    <string-array name="delete_repeating_labels_no_selected">
-        <item>This &amp; future events</item>
-        <item>All events</item>
-    </string-array>
 
     <!-- The corresponding array indices are defined in EventInfoActivity.java -->
     <skip/>

@@ -27,17 +27,10 @@
     <string name="goto_today">Gaur</string>
     <string name="goto_date">Joan…</string>
     <string name="menu_preferences">Ezarpenak</string>
-    <string name="menu_select_visible_calendars">Bistaratzeko egutegiak</string>
     <string name="search">Bilatu</string>
     <string name="hide_controls">Ezkutatu kontrolak</string>
     <string name="show_controls">Erakutsi kontrolak</string>
     <string name="view_settings">Ikusi ezarpenak</string>
-    <string name="select_visible_calendars_title">Bistaratzeko egutegiak</string>
-    <string name="synced">Sinkronizatuta</string>
-    <string name="not_synced">Ez sinkronizatuta</string>
-    <string name="acct_not_synced">Kontu hau ez dago sinkronizatzen, beraz zure egutegia ez da eguneratuta egongo.</string>
-    <string name="accounts">Kontua eta Sinkronizazioa</string>
-    <string name="select_synced_calendars_title">Sinkronizatzeko egutegiak</string>
     <string name="select_synced_calendars_button">Sinkronizatzeko egutegiak</string>
     <string name="hint_what">Gertaera izena</string>
     <string name="hint_where">Kokapena</string>
@@ -59,13 +52,11 @@
     <string name="edit_event_from_label">Noiztik</string>
     <string name="edit_event_all_day_label">Egun osoa</string>
     <string name="edit_event_calendar_label">Egutegia</string>
-    <string name="edit_event_show_all">Erakutsi guztiak</string>
     <string name="description_label">Deskribapena</string>
     <string name="presence_label">Erakutsi horrela</string>
     <string name="privacy_label">Pribatutasuna</string>
     <string name="reminders_label">Gehitu jakinarazpena</string>
     <string name="no_syncable_calendars">Egutegirik ez</string>
-    <string name="create_an_account_desc">Egutegiek Kontu batekin hobeto funtzionatzen dute.\n\n• Edozein web nabigatzailetik atzitu\n• Gertaeren babes-kopia segurua egin</string>
     <string name="add_account">Gehitu kontua</string>
     <string name="view_event_calendar_label">Egutegia:</string>
     <string name="view_event_organizer_label">Antolatzailea:</string>
@@ -87,7 +78,6 @@
     <string name="call_label">Deitu</string>
     <string name="quick_response_settings">Erantzun azkarrak</string>
     <string name="quick_response_settings_summary">Editatu erantzun lehenetsiak gonbidatuei mezua bidaltzerakoan</string>
-    <string name="quick_response_settings_title">Editatu erantzun azkarrak</string>
     <string name="quick_response_settings_edit_title">Erantzun azkarra</string>
     <string name="quick_response_dialog_title">Aukera erantzun azkarra</string>
     <string name="quick_response_email_failed">Errorea e-posta programa bilatzean</string>
@@ -110,7 +100,6 @@
     <string name="delete_label">Ezabatu</string>
     <string name="save_label">Gorde</string>
     <string name="discard_label">Utzi</string>
-    <string name="snooze_all_label">Utzi gerorako guztiak</string>
     <string name="dismiss_all_label">Baztertu guztiak</string>
     <string name="snooze_label">Utzi gerorako</string>
     <plurals name="endByCount">
@@ -125,8 +114,6 @@
     <string name="every_weekday">Lanegun guztietan (Al-Ol)</string>
     <string name="monthly">Hilabetero</string>
     <string name="yearly_plain">Urtero</string>
-    <string name="monthly_on_day">Hilabetero (<xliff:g id="day_of_month">%s</xliff:g>. egunean)</string>
-    <string name="yearly">Urtero (<xliff:g id="dates">%s</xliff:g>)</string>
     <string name="modify_event">Aldatu bakarrik gertaera hau</string>
     <string name="modify_all">Aldatu gertaera guztiak serie honetan</string>
     <string name="modify_all_following">Aldatu gertaera hau eta etorkizunekoak</string>
@@ -135,8 +122,6 @@
     <string name="delete_this_event_title">Ezabatu gertaera hau\?</string>
     <string name="delete_recurring_event_title">Ezabatu <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title">Aldatu erantzuna</string>
-    <string name="menu_general_preferences">Ezarpen orokorrak</string>
-    <string name="menu_about_preferences">Etar-i buruz</string>
     <string name="preferences_title">Ezarpenak</string>
     <string name="preferences_general_title">Egutegi ikuspegiaren ezarpenak</string>
     <string name="preferences_month_view_portrait">Hilabete ikuspegi diseinua (Bertikala)</string>
@@ -150,7 +135,7 @@
     <string name="preferences_reminder_title">Jakinarazpenak eta abisuak</string>
     <string name="preferences_hide_declined_title">Ezkutatu baztertutako gertaerak</string>
     <string name="default_start_title">Ikuspegi lehenetsia</string>
-    <string name="view_details">Ikuspegi Xehetasunak</string>
+    <string name="display_options">Ikuspegi Xehetasunak</string>
     <string name="display_time">Erakutsi Ordua</string>
     <string name="display_location">Erakutsi Kokapena</string>
     <string name="default_start_last">Aurretik erabilitako ikuspegia</string>
@@ -173,18 +158,11 @@
     <string name="preferences_home_tz_title">Tokiko ordu-zona</string>
     <string name="preferences_show_week_num_title">Erakutsi aste zenbakia</string>
     <string name="preferences_alerts_custom_snooze_delay_title">Galdetu utzi gerokorako atzerapen oroitzapena</string>
-    <string name="preferences_about_title">Honi buruz</string>
     <string name="preferences_build_version">Konpilazio bertsioa</string>
     <string name="preferences_issues">Arazoen berri eman</string>
-    <string name="gadget_title">Egutegia</string>
     <string name="preferences_experimental_category">Esperimentala</string>
-    <string name="preferences_reminders_category">Abisuak</string>
     <string name="preferences_reminders_responded_label">Saltatu Abisuak</string>
     <string name="preferences_reminders_responded_dialog">Saltatu Abisuak</string>
-    <string name="preferences_reminders_quiet_hours_label">Ordu isilak</string>
-    <string name="preferences_reminders_quiet_hours_start">Ordu isilen hasiera ordua</string>
-    <string name="preferences_reminders_quiet_hours_end">Ordu isilen bukaera ordua</string>
-    <string name="preferences_debug_category">Arazten</string>
     <string name="copy_db">Bidali datu-basea</string>
     <string name="directory_searching_fmt">Bilatzen <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee">Ezabatu parte-hartzailea</string>
@@ -197,21 +175,13 @@
     <string name="accessibility_add_reminder">Gehitu abisua</string>
     <string name="accessibility_remove_reminder">Ezabatu abisua</string>
     <string name="accessibility_add_attendee">Gehitu parte-hartzailea</string>
-    <string name="accessibility_sync_cal">Sinkronizatu egutegia</string>
     <string name="accessibility_all_day">Egun osoko gertaera</string>
-    <string name="accessibility_repeats">Errepikapena</string>
     <string name="accessibility_reminder_time">Errepikapen ordua</string>
     <string name="accessibility_reminder_type">Errepikapen mota</string>
     <string name="accessibility_reminder_showmeas">Erakutsi honela</string>
     <string name="accessibility_reminder_privacy">Pribatutasuna</string>
-    <string name="accessibility_cal_notification">Egutegi Jakinarazpena</string>
-    <string name="accessibility_snooze_notification">Gerorako utzi Jakinarazpena</string>
-    <string name="accessibility_email_notification">Gonbidatuen helbide elektronikoak</string>
     <string name="day_view_new_event_hint">+ Gertaera berria</string>
     <string name="acessibility_selected_marker_description">Aukeratutako gertaera</string>
-    <string name="do_not_check">EZ markatu -&gt;</string>
-    <string name="recurrence_dialog_title">Errepikatu</string>
-    <string name="recurrence_dialog_title_never">Ez errepikatu inoiz</string>
     <string name="recurrence_month_pattern_by_day">egun berean hilabetero</string>
     <string name="recurrence_end_continously">Beti</string>
     <string name="recurrence_end_date_label">Data arte</string>
@@ -298,7 +268,6 @@
         </item>
     </plurals>
     <string name="gadget_no_events">Ez dago hurrengo egutegiko gertaerarik</string>
-    <string name="preferences_reminders_quiet_hours_description">Isildu gertaera gogorarazlea zehaztutako denbora bitartean.</string>
     <string name="template_announce_item_index">Gertaera <xliff:g id="item_index">%1$s</xliff:g>
         <xliff:g id="item_count">%2$s</xliff:g>(e)tik.</string>
     <plurals name="Nevents">

@@ -59,16 +59,9 @@
     <string name="event_delete" msgid="2386667193277770442">"일정 삭제"</string>
     <string name="goto_today" msgid="9162136434410891230">"오늘"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"설정"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"표시할 캘린더"</string>
     <string name="search" msgid="550656004486017426">"검색"</string>
     <string name="hide_controls" msgid="830320505938520882">"컨트롤 숨기기"</string>
     <string name="show_controls" msgid="715520586028062621">"컨트롤 표시"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"표시할 캘린더"</string>
-    <string name="synced" msgid="7913940305983383493">"동기화됨"</string>
-    <string name="not_synced" msgid="4275114941801829419">"동기화 안됨"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"계정이 동기화되지 않아 캘린더의 상태가 최신이 아닐 수 있습니다."</string>
-    <string name="accounts" msgid="849401841083180306">"계정 및 동기화"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"동기화할 캘린더"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"동기화할 캘린더"</string>
     <string name="hint_what" msgid="709155115005044531">"일정 이름"</string>
     <string name="hint_where" msgid="4972598001033801974">"장소"</string>
@@ -87,14 +80,12 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"시작:"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"종일"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"캘린더"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"모두 표시"</string>
     <string name="description_label" msgid="7193475046717505855">"일정 설명"</string>
     <string name="presence_label" msgid="6169724148441175862">"내 상태"</string>
     <string name="privacy_label" msgid="9215031965259597335">"공개여부"</string>
     <string name="reminders_label" msgid="7292389181815525676">"알림 추가"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"캘린더 없음"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"일정을 추가하기 전에 기기에 하나 이상의 캘린더 계정을 추가하고 캘린더를 표시해야 합니다. 계정 추가를 터치하여 계정을 추가합니다(계정을 추가한 다음 동기화가 완료될 때까지 기다렸다가 다시 시도합니다). 또는 취소를 터치하고 적어도 하나의 캘린더가 표시되도록 합니다."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"캘린더는 Google 계정에서 사용할 때 더 효과적입니다."\n\n"• 어떤 웹 브라우저에서든 액세스하세요."\n"• 일정을 안전하게 백업하세요."</string>
     <string name="add_account" msgid="1669072099756774952">"계정 추가"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"캘린더:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"주최자:"</string>
@@ -115,7 +106,6 @@
     <string name="call_label" msgid="2960328220008869083">"통화"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"빠른 응답"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"참석자에게 보내는 빠른 응답 메시지 수정"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"빠른 응답 수정"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"빠른 응답"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"빠른 응답 선택"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"이메일 프로그램 찾기 실패"</string>
@@ -140,7 +130,6 @@
     <string name="delete_label" msgid="874742811918030739">"삭제"</string>
     <string name="save_label" msgid="2133599104834432589">"완료"</string>
     <string name="discard_label" msgid="2394623883289782541">"취소"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"모두 일시 중지"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
     <string name="snooze_label" msgid="1515893621063224666">"알림 일시중지"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"없음"</string>
@@ -160,8 +149,6 @@
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"매월"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"매년"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"매월(<xliff:g id="DAY_OF_MONTH">%s</xliff:g>일)"</string>
-    <string name="yearly" msgid="8576208380302949002">"매년(<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"사용자 설정(휴대전화에서는 할 수 없음)"</string>
     <string name="modify_event" msgid="5982876409997142690">"이번 일정만 변경합니다."</string>
     <string name="modify_all" msgid="4421657265864209041">"모든 반복일정을 변경합니다."</string>
@@ -171,8 +158,6 @@
     <string name="delete_this_event_title" msgid="518402946676919384">"이번 일정을 삭제하시겠습니까?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g>을(를) 삭제하시겠습니까?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"회신 변경"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"일반 설정"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"캘린더 정보"</string>
     <string name="preferences_title" msgid="8045855493262131773">"설정"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"캘린더 보기 설정"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"알림"</string>
@@ -193,23 +178,15 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"여행하는 동안 캘린더와 일정 시간을 기본 시간대로 표시합니다."</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"기본 시간대"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"몇째 주인지 표시"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"정보"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"빌드 버전"</string>
-    <string name="gadget_title" msgid="939918875331310945">"캘린더"</string>
     <plurals name="month_more_events">
         <item quantity="one" msgid="8971334808414201327">"+ 1개"</item>
         <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>개"</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"예정된 캘린더 일정이 없습니다."</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"베타"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"알림"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"알림 건너뛰기"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"알림 건너뛰기"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"무음 모드 시간"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"지정한 시간에는 이벤트 알림을 무음으로 설정합니다."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"무음 모드 시작 시간"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"무음 모드 종료 시간"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"디버깅"</string>
     <string name="copy_db" msgid="437691290566699292">"데이터베이스 보내기"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> 검색 중..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"참석자 삭제"</string>
@@ -222,16 +199,11 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"알림 추가"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"알림 삭제"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"참석자 추가"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"캘린더 동기화"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"종일 일정"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"반복"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"알림 시간"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"알림 유형"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"내 상태"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"개인정보 보호"</string>
-    <string name="accessibility_cal_notification" msgid="7267601064994839394">"캘린더 알림"</string>
-    <string name="accessibility_snooze_notification" msgid="5007852779125102681">"알림 일시중지"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"참석자에게 이메일 보내기"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ 새 일정"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"일정 <xliff:g id="ITEM_INDEX">%1$s</xliff:g>/<xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
     <plurals name="Nevents">
@@ -243,9 +215,6 @@
         <item quantity="other" msgid="3609243840882275136">"남은 일정 <xliff:g id="COUNT">%d</xliff:g>개"</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"선택한 일정"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"선택안함 -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"반복"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"없음"</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g>일에 한 번"</item>
         <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g>일에 한 번"</item>
@@ -320,7 +289,7 @@
     <string name="view_settings">설정 보기</string>
     <string name="preferences_month_view_portrait">월 보기 (세로로)</string>
     <string name="preferences_month_view_landscape">월 보기 (가로로)</string>
-    <string name="view_details">세부사항 보기</string>
+    <string name="display_options">세부사항 보기</string>
     <string name="display_time">디스플레이 시간</string>
     <string name="display_location">디스플레이 위치</string>
     <string name="show_time_no">시간 표시 안 함</string>

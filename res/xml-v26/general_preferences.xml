@@ -37,7 +37,7 @@
             app:entryValues="@array/default_start_values" />
         <Preference
             app:key="pref_view_details"
-            app:title="@string/view_details"
+            app:title="@string/display_options"
             app:fragment="com.android.calendar.settings.ViewDetailsPreferences" />
         <CheckBoxPreference
             app:key="preferences_hide_declined"

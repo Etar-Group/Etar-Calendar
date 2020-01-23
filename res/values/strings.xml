@@ -485,7 +485,7 @@
     <string name="preferences_hide_declined_title">Hide declined events</string>
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>
-    <string name="view_details">View details</string>
+    <string name="display_options">Display options</string>
     <string name="display_time">Display time</string>
     <string name="display_location">Display location</string>
     <string name="maximum_number_of_lines">Max number of lines in event</string>
@@ -563,7 +563,6 @@
     <string name="authors">Authors</string>
     <string name="changelog">Changelog</string>
     <string name="license">License</string>
-    <string name="preferences_about_title">About</string>
     <string name="preferences_build_version">Build version</string>
     <string name="preferences_issues">Report issues</string>
     <string name="source_code">Source</string>

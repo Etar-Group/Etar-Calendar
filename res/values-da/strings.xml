@@ -59,16 +59,9 @@
     <string name="event_delete" msgid="2386667193277770442">"Slet begivenhed"</string>
     <string name="goto_today" msgid="9162136434410891230">"I dag"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Indstillinger"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendere"</string>
     <string name="search" msgid="550656004486017426">"Søg"</string>
     <string name="hide_controls" msgid="830320505938520882">"Skjul knapper"</string>
     <string name="show_controls" msgid="715520586028062621">"Vis knapper"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendere til visning"</string>
-    <string name="synced" msgid="7913940305983383493">"synkroniseret"</string>
-    <string name="not_synced" msgid="4275114941801829419">"ikke synkroniseret"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Denne konto synkroniseres ikke, og dine kalendere er muligvis ikke opdaterede."</string>
-    <string name="accounts" msgid="849401841083180306">"Konti og synkronisering"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendere til synkronisering"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendere til synkronisering"</string>
     <string name="hint_what" msgid="709155115005044531">"Begivenhedens navn"</string>
     <string name="hint_where" msgid="4972598001033801974">"Placering"</string>
@@ -87,14 +80,12 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"Fra"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Hele dagen"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"Vis alle"</string>
     <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
     <string name="presence_label" msgid="6169724148441175862">"Vis mig som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Tilføj påmindelse"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Før du kan tilføje en begivenhed, skal du tilføje mindst én Kalender-konto til din enhed og gøre en kalender synlig. Tryk på Tilføj konto for at tilføje en konto (hvis du lige har tilføjet en konto, så vent til den er færdig med at synkronisere, og prøv så igen). Eller tryk på Annuller, og sørg for, at mindst én kalender er synlig."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender fungerer bedre med en konto."\n\n"• Få adgang til den fra enhver webbrowser"\n"• Sikkerhedskopier dine begivenheder på sikker vis"</string>
     <string name="add_account" msgid="1669072099756774952">"Tilføj konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
@@ -115,7 +106,6 @@
     <string name="call_label" msgid="2960328220008869083">"Ring op"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Hurtige svar"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Rediger standardsvar, der kan sendes til gæster"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Ret hurtige svar"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Hurtigt svar"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Vælg hurtigt svar"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"E-mailprogrammet kunne ikke findes"</string>
@@ -140,7 +130,6 @@
     <string name="delete_label" msgid="874742811918030739">"Slet"</string>
     <string name="save_label" msgid="2133599104834432589">"Gem"</string>
     <string name="discard_label" msgid="2394623883289782541">"Annuller"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Sæt alle i slumretilstand"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Annuller alle"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Udskyd"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Én gang"</string>
@@ -160,8 +149,6 @@
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Månedligt"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Årligt"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"Månedligt (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"Årligt (den <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"Tilpasset (kan ikke tilpasses på telefon)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Rediger kun denne begivenhed"</string>
     <string name="modify_all" msgid="4421657265864209041">"Rediger alle begivenheder i rækken"</string>
@@ -171,8 +158,6 @@
     <string name="delete_this_event_title" msgid="518402946676919384">"Vil du slette denne begivenhed?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Vil du slette <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Skift svar"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"Generelle indstillinger"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Om Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Indstillinger"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Indstillinger for kalendervisning"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Underretninger og påmindelser"</string>
@@ -193,23 +178,15 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Viser kalenderbegivenheder i din tidszone, når du rejser"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Egen tidszone"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Vis ugenummer"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Om"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Version"</string>
-    <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
     <plurals name="month_more_events">
         <item quantity="one" msgid="8971334808414201327">"+1"</item>
         <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Ingen kommende kalenderbegivenheder"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimenterende"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"Påmindelser"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Spring påmindelser over"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Spring påmindelser over"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Stille timer"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Slå lyden fra begivenhedspåmindelser i den angivne tid."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Starttid for stille timer"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Sluttid for stille timer"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"Fejlfinding"</string>
     <string name="copy_db" msgid="437691290566699292">"Send database"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Søger efter <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Fjern deltager"</string>
@@ -222,16 +199,11 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Tilføj påmindelse"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Fjern påmindelse"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Tilføj deltager"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synkroniser kalender"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Heldagsbegivenhed"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Gentagelse"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Tidspunkt for påmindelse"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Påmindelsestype"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Vis mig som"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Fortrolighed"</string>
-    <string name="accessibility_cal_notification" msgid="7267601064994839394">"Kalendermeddelelse"</string>
-    <string name="accessibility_snooze_notification" msgid="5007852779125102681">"Snooze underretning"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"Send e-mail til gæster"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Ny begivenhed"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Begivenhed <xliff:g id="ITEM_INDEX">%1$s</xliff:g> ud af <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
@@ -243,9 +215,6 @@
         <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> begivenheder"</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valgt begivenhed"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"UNDLAD at markere -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Gentag"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Gentages aldrig"</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> gang om dagen"</item>
         <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>

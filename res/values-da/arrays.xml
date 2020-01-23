@@ -70,13 +70,6 @@
     <item msgid="6228387173725732140">"Ledig"</item>
     <item msgid="2064426942462573474">"Foreløbig"</item>
   </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"først"</item>
-    <item msgid="5631923029483854900">"anden"</item>
-    <item msgid="148935502975250973">"tredje"</item>
-    <item msgid="5124200797326669172">"fjerde"</item>
-    <item msgid="7564374178324652137">"sidst"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Intet svar"</item>
     <item msgid="3724434080904437698">"Ja"</item>
@@ -87,10 +80,6 @@
     <item msgid="4208432367651646938">"Kun denne begivenhed"</item>
     <item msgid="1536401639805370405">"Denne og fremtidige begivenheder"</item>
     <item msgid="7833229563617435430">"Alle begivenheder"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Denne og fremtidige begivenheder"</item>
-    <item msgid="6315440193748139854">"Alle begivenheder"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"Kun denne begivenhed"</item>

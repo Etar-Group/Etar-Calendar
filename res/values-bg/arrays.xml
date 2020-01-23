@@ -70,13 +70,6 @@
     <item msgid="6228387173725732140">"На разположение"</item>
     <item msgid="2064426942462573474">"Колебливо"</item>
   </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"първо"</item>
-    <item msgid="5631923029483854900">"второ"</item>
-    <item msgid="148935502975250973">"трето"</item>
-    <item msgid="5124200797326669172">"четвърто"</item>
-    <item msgid="7564374178324652137">"посл."</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Няма отговор"</item>
     <item msgid="3724434080904437698">"Да"</item>
@@ -87,10 +80,6 @@
     <item msgid="4208432367651646938">"Само това събитие"</item>
     <item msgid="1536401639805370405">"Това и бъдещи събития"</item>
     <item msgid="7833229563617435430">"Всички събития"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Това и бъдещи събития"</item>
-    <item msgid="6315440193748139854">"Всички събития"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"Само това събитие"</item>

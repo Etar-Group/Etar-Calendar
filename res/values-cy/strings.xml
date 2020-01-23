@@ -71,17 +71,10 @@
     <string name="goto_today">Heddiw</string>
     <string name="goto_date">Mynd i…</string>
     <string name="menu_preferences">Gosodiadau</string>
-    <string name="menu_select_visible_calendars">Calendrau i\'w dangos</string>
     <string name="search">Chwilio</string>
     <string name="hide_controls">Cuddio rheolaeth</string>
     <string name="show_controls">Dangos rheolaeth</string>
     <string name="view_settings">Gweld gosodiadau</string>
-    <string name="select_visible_calendars_title">Calendrau i\'w dangos</string>
-    <string name="synced">cysoniwyd</string>
-    <string name="not_synced">heb ei gysoni</string>
-    <string name="acct_not_synced">Dyw\'r cyfrif hwn ddim yn cael ei gysoni felly mae\'n bosib na fydd dy galendrau yn gyfredol.</string>
-    <string name="accounts">Cyfrifon a chysoni</string>
-    <string name="select_synced_calendars_title">Calendrau i\'w cysoni</string>
     <string name="select_synced_calendars_button">Calendrau i\'w cysoni</string>
     <string name="hint_what">Enw digwyddiad</string>
     <string name="hint_where">Lleoliad</string>
@@ -103,14 +96,12 @@
     <string name="edit_event_from_label">Oddi wrth</string>
     <string name="edit_event_all_day_label">Trwy\'r dydd</string>
     <string name="edit_event_calendar_label">Calendr</string>
-    <string name="edit_event_show_all">Dangos y cwbl</string>
     <string name="description_label">Disgrifiad</string>
     <string name="presence_label">Fy nangos fel</string>
     <string name="privacy_label">Preifatrwydd</string>
     <string name="reminders_label">Ychwanegu nodyn atgoffa</string>
     <string name="no_syncable_calendars">Dim calendrau</string>
     <string name="no_calendars_found">Cyn medru ychwanegu digwyddiad, rhaid ychwanegu o leiaf un cyfrif Calendr i dy ddyfais a gwneud calendr yn weladwy. Tapia Creu Cyfrif i ychwanegu cyfrif (os wyt ti newydd ychwanegu cyfrif, rho gynnig arall arni ar ôl aros iddo gysoni). Neu tapia Diddymu a sicrhau bod o leiaf un calendr yn weladwy.</string>
-    <string name="create_an_account_desc">Mae Calendr yn gweithio orau gyda chyfrif.\n\n• Cael mynediad at dy galendr trwy unrhyw borwr\n• Cadw copi wrth gefn o dy ddigwyddiadau</string>
     <string name="add_account">Ychwanegu cyfrif</string>
     <string name="view_event_calendar_label">Calendr:</string>
     <string name="view_event_organizer_label">Trefnydd:</string>
@@ -132,7 +123,6 @@
     <string name="call_label">Galw</string>
     <string name="quick_response_settings">Atebion cyflym</string>
     <string name="quick_response_settings_summary">Golygu\'r atebion cyflym wrth ebostio gwesteion</string>
-    <string name="quick_response_settings_title">Golygu atebion cyflym</string>
     <string name="quick_response_settings_edit_title">Ateb cyflym</string>
     <string name="quick_response_dialog_title">Dewisa ateb cyflym</string>
     <string name="quick_response_email_failed">Methwyd â chanfod ap e-bost</string>
@@ -156,7 +146,6 @@
     <string name="delete_label">Dileu</string>
     <string name="save_label">Iawn</string>
     <string name="discard_label">Diddymu</string>
-    <string name="snooze_all_label">Hepiau yn cwbl</string>
     <string name="dismiss_all_label">Diystyru\'r cwbl</string>
     <string name="snooze_label">Hepian</string>
     <string name="does_not_repeat">Digwyddiad un tro</string>
@@ -195,8 +184,6 @@
     </plurals>
     <string name="monthly">Misol</string>
     <string name="yearly_plain">Blynyddol</string>
-    <string name="monthly_on_day">Misol (ar ddiwrnod <xliff:g id="day_of_month">%s</xliff:g>)</string>
-    <string name="yearly">Blynyddol (ar <xliff:g id="dates">%s</xliff:g>)</string>
     <string name="custom" product="default">Addasedig (methu addasu ar ffôn)</string>
     <string name="modify_event">Newid y digwyddiad hwn yn unig</string>
     <string name="modify_all">Newid pob digwyddiad yn y gyfres</string>
@@ -206,8 +193,6 @@
     <string name="delete_this_event_title">Dileu\'r digwyddiad hwn\?</string>
     <string name="delete_recurring_event_title">Dileu <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title">Newid yr ateb</string>
-    <string name="menu_general_preferences">Gosodiadau cyffredinol</string>
-    <string name="menu_about_preferences">Ynghylch Etar</string>
     <string name="preferences_title">Gosodiadau</string>
     <string name="preferences_general_title">Gosodiad golwg calendr</string>
     <string name="preferences_month_view_portrait">Arddull golwg mis (Darlun)</string>
@@ -221,7 +206,7 @@
     <string name="preferences_reminder_title">Hysbysiadau a nodiadau atgoffa</string>
     <string name="preferences_hide_declined_title">Cuddio pob digwyddiad gwrthodwyd</string>
     <string name="default_start_title">Golwg arferol</string>
-    <string name="view_details">Gweld manylion</string>
+    <string name="display_options">Gweld manylion</string>
     <string name="display_time">Dangos amser</string>
     <string name="display_location">Dangos lleoliad</string>
     <string name="default_start_last">Golwg a ddefnyddiwyd gynt</string>
@@ -250,10 +235,8 @@
     <string name="snooze_delay_dialog_title">Gosod oediad hepian</string>
     <string name="preferences_default_snooze_delay_title">Hyd oediad hepian arferol</string>
     <string name="preferences_default_snooze_delay_dialog">Oediad hepian arferol</string>
-    <string name="preferences_about_title">Ynghylch</string>
     <string name="preferences_build_version">Fersiwn adeiledd</string>
     <string name="preferences_issues">Rhoi gwybod am wallau</string>
-    <string name="gadget_title">Calendr</string>
     <plurals name="month_more_events">
         <item quantity="zero">dim</item>
         <item quantity="one">+1</item>
@@ -268,14 +251,8 @@
     </plurals>
     <string name="gadget_no_events">Dim digwyddiadau calendr yn dod yn fuan</string>
     <string name="preferences_experimental_category">Arbrofol</string>
-    <string name="preferences_reminders_category">Nodiadau atgoffa</string>
     <string name="preferences_reminders_responded_label">Neidio Nodiadau Atgoffa</string>
     <string name="preferences_reminders_responded_dialog">Neidio Nodiadau Atgoffa</string>
-    <string name="preferences_reminders_quiet_hours_label">Oriau tawelwch</string>
-    <string name="preferences_reminders_quiet_hours_description">Peidio â chwarae sain hysbysiadau atgoffa am ddigwyddiadau yn ystod yr amser tawelwch.</string>
-    <string name="preferences_reminders_quiet_hours_start">Dechrau amser tawelwch</string>
-    <string name="preferences_reminders_quiet_hours_end">Diwedd amser tawelwch</string>
-    <string name="preferences_debug_category">Dadfygio</string>
     <string name="copy_db">Anfon y gronfa ddata</string>
     <string name="directory_searching_fmt">Yn chwilio <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee">Tynnu\'r cyfranogwr</string>
@@ -288,16 +265,11 @@
     <string name="accessibility_add_reminder">Ychwanegu nodyn atgoffa</string>
     <string name="accessibility_remove_reminder">Tynnu nodyn atgoffa</string>
     <string name="accessibility_add_attendee">Ychwanegu cyfranogwr</string>
-    <string name="accessibility_sync_cal">Cysoni calendr</string>
     <string name="accessibility_all_day">Digwyddiad trwy\'r dydd</string>
-    <string name="accessibility_repeats">Ail-adrodd</string>
     <string name="accessibility_reminder_time">Amser atgoffa</string>
     <string name="accessibility_reminder_type">Dull atgoffa</string>
     <string name="accessibility_reminder_showmeas">Fy nangos fel</string>
     <string name="accessibility_reminder_privacy">Preifatrwydd</string>
-    <string name="accessibility_cal_notification">Hysbysiad Calendr</string>
-    <string name="accessibility_snooze_notification">Hepian Hysbysiad</string>
-    <string name="accessibility_email_notification">Ebostio gwesteion</string>
     <string name="day_view_new_event_hint">+ Digwyddiad newydd</string>
     <string name="template_announce_item_index">Digwyddiad <xliff:g id="item_index">%1$s</xliff:g> o <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
@@ -321,9 +293,6 @@
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> digwyddiad</item>
     </plurals>
     <string name="acessibility_selected_marker_description">Digwyddiad a ddewisir</string>
-    <string name="do_not_check">PEIDIER â dewis -&gt;</string>
-    <string name="recurrence_dialog_title">Ail-adrodd</string>
-    <string name="recurrence_dialog_title_never">Byth yn ailadrodd</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="zero">Byth</item>
         <item quantity="one">Pob dydd</item>
