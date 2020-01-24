@@ -61,7 +61,7 @@ public class CalendarEventModel implements Serializable {
     public String mCalendarAllowedAttendeeTypes;
     public String mCalendarAllowedAvailability;
     public String mSyncId = null;
-    public String mSyncAccount = null;
+    public String mSyncAccountName = null;
     public String mSyncAccountType = null;
     public EventColorCache mEventColorCache;
     // PROVIDER_NOTES owner account comes from the calendars table
@@ -232,7 +232,7 @@ public class CalendarEventModel implements Serializable {
         mEventColorInitialized = false;
 
         mSyncId = null;
-        mSyncAccount = null;
+        mSyncAccountName = null;
         mSyncAccountType = null;
         mOwnerAccount = null;
 
@@ -349,7 +349,7 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + mSelfAttendeeStatus;
         result = prime * result + mOwnerAttendeeId;
         result = prime * result + (int) (mStart ^ (mStart >>> 32));
-        result = prime * result + ((mSyncAccount == null) ? 0 : mSyncAccount.hashCode());
+        result = prime * result + ((mSyncAccountName == null) ? 0 : mSyncAccountName.hashCode());
         result = prime * result + ((mSyncAccountType == null) ? 0 : mSyncAccountType.hashCode());
         result = prime * result + ((mSyncId == null) ? 0 : mSyncId.hashCode());
         result = prime * result + ((mTimezone == null) ? 0 : mTimezone.hashCode());
@@ -639,11 +639,11 @@ public class CalendarEventModel implements Serializable {
         if (mOwnerAttendeeId != originalModel.mOwnerAttendeeId) {
             return false;
         }
-        if (mSyncAccount == null) {
-            if (originalModel.mSyncAccount != null) {
+        if (mSyncAccountName == null) {
+            if (originalModel.mSyncAccountName != null) {
                 return false;
             }
-        } else if (!mSyncAccount.equals(originalModel.mSyncAccount)) {
+        } else if (!mSyncAccountName.equals(originalModel.mSyncAccountName)) {
             return false;
         }
 
