@@ -2,5 +2,6 @@
 - Verknüfung für neue Einträge
 - Neue Einstellungsansicht
 - Neue Dialoge zur Auswahl der Zeit
+- Lizenzwechsel zu GPLv3
 - Fehlerbehebungen.
 - Neue Übersetzungen.
