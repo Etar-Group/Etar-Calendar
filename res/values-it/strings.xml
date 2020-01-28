@@ -33,8 +33,8 @@
         <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuti"</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 min"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+        <item quantity="one">1 minuto</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> minuti</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one" msgid="4793697728599296830">"1 ora"</item>
@@ -45,10 +45,8 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> giorni"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">settimana <xliff:g id="COUNT">%d</xliff:g>
-        </item>
-        <item quantity="other">settimana <xliff:g id="COUNT">%d</xliff:g>
-        </item>
+        <item quantity="one">settimana <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="other">settimana <xliff:g id="COUNT">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aggiorna"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostra giorno"</string>
@@ -302,4 +300,15 @@
     <string name="maximum_number_of_lines">Max numero di linee in evento</string>
     <string name="foreground_notification_channel_name">Sincronizza Allarme</string>
     <string name="foreground_notification_channel_description">Notifica in primo piano richiesta per la sincronizzazione dell\'allarme interna. Per favore silenziala</string>
+    <string name="preferences_calendar_color">Colore</string>
+    <string name="preferences_calendar_synchronize">Sincronizza questo calendario</string>
+    <string name="preferences_list_calendar_summary_sync_off">Non sincronizzato</string>
+    <string name="preferences_list_general">Impostazioni generali</string>
+    <string name="preferences_list_add_remote">Aggiungi calendario remoto (CalDAV)</string>
+    <string name="preferences_list_add_offline">Aggiungi calendario offline</string>
+    <string name="offline_account_name">Calendario offline</string>
+    <string name="authors">Autori</string>
+    <string name="changelog"></string>
+    <string name="license">Licenza</string>
+    <string name="source_code">Codice sorgente</string>
 </resources>
