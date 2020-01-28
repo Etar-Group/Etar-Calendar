@@ -1,0 +1,6 @@
+- Add offline calender
+- Add shortcut for new event
+- New preferences design
+- New datetime picker
+- Bugfixes.
+- New translations.
