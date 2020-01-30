@@ -24,7 +24,7 @@ this app would be just a dream. So thanks to them!
 
 ## How to use Etar
 Store your calendar on the phone only:
-  - Use offline calendar to create a local calendar on your phone.
+  - Create an offline calendar.
 
 Sync your calendar to a server:
   - A cloud-synched calendar could be a google calendar, but you can also use
