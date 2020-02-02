@@ -285,12 +285,6 @@
     <string name="preferences_dark_theme">Цёмная</string>
     <string name="preferences_black_theme">Чорная</string>
     <string name="preferences_color">Асноўны колер</string>
-    <string name="preferences_color_teal">бірузовы</string>
-    <string name="preferences_color_blue">сіні</string>
-    <string name="preferences_color_orange">памаранчавы</string>
-    <string name="preferences_color_green">зялёны</string>
-    <string name="preferences_color_red">чырвоны</string>
-    <string name="preferences_color_purple">фіялетавы</string>
     <string name="preferences_color_pick">Асноўны колер</string>
     <string name="preferences_days_per_week_title">Дзён у тыдні</string>
     <string name="preferences_days_per_week_dialog">Дзён у тыдні</string>
