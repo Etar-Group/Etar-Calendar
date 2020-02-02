@@ -23,9 +23,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Tomorrow"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Today at <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Tomorrow at <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetition"</string>
     <string name="no_title_label" msgid="302177118061368042">"(No title)"</string>
     <plurals name="Nminutes">
@@ -151,7 +149,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Yearly"</string>
     <string name="custom" msgid="4137468716966004993" product="default">"Customise (can\'t customise on phone)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Change only this event"</string>
-    <string name="modify_all" msgid="4421657265864209041">"Change all events in the series."</string>
+    <string name="modify_all" msgid="4421657265864209041">Change all events in the series</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Change this and all future events"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"New event"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"New event"</string>
