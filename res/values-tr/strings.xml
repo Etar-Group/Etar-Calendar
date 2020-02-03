@@ -301,4 +301,38 @@
     <string name="show_time_start_end_below">Etkinliğin altında başlangıç ve bitiş saatleri</string>
     <string name="maximum_number_of_lines">Etkinlikteki maksimum satır sayısı</string>
     <string name="foreground_notification_channel_name">Uyarı eşitlemesi</string>
+    <string name="cal_import_error_time_zone_msg">Verilen saat dilimi anlaşılamıyor: %s</string>
+    <string name="preferences_calendar_account">%1$s hesap</string>
+    <string name="preferences_calendar_delete">Takvimi sil</string>
+    <string name="preferences_calendar_display_name">İsmini değiştir</string>
+    <string name="preferences_calendar_account_category">Hesap tipi</string>
+    <string name="preferences_calendar_color">Renk</string>
+    <string name="preferences_calendar_visible">Olayları görüntüle</string>
+    <string name="preferences_calendar_synchronize">Bu takvimi senkronize et</string>
+    <string name="preferences_list_calendar_summary_sync_off">Senkronize değil</string>
+    <string name="preferences_list_calendar_summary_invisible">Olaylar gösterilmiyor</string>
+    <string name="preferences_list_general">Genel ayarlar</string>
+    <string name="preferences_list_add_remote">Uzak takvim ekle (CalDAV)</string>
+    <string name="preferences_list_add_offline">Çevrimdışı takvim ekle</string>
+    <string name="preferences_list_add_offline_title">Çevrimdışı takvim ekle</string>
+    <string name="preferences_list_add_offline_error_empty">Bir takvim adı girin!</string>
+    <string name="preferences_list_add_offline_message">Çevrimdışı takvimler bir bulut hizmetiyle senkronize DEĞİLDİR ve yalnızca telefonunuzda kullanılabilir.</string>
+    <string name="preferences_list_add_offline_button">Takvim ekle</string>
+    <string name="preferences_list_add_offline_name">İsim</string>
+    <string name="preferences_list_add_offline_cancel">İptal</string>
+    <string name="preferences_calendar_color_warning_title">Uyarı</string>
+    <string name="preferences_calendar_color_warning_message">Takvim tekrar senkronize edildiğinde renk değişikliği sıfırlanabilir.
+\n
+\nBunu önlemek için DAVx⁵\'de \'Takvim renklerini yönet\' devre dışı bırakılabilir.</string>
+    <string name="preferences_calendar_color_warning_button">Anlaşıldı</string>
+    <string name="preferences_calendar_delete_message">Bu takvimi gerçekten silmek istiyor musunuz\?</string>
+    <string name="preferences_calendar_delete_delete">Takvimi sil</string>
+    <string name="preferences_calendar_delete_cancel">İptal</string>
+    <string name="preferences_menu_about">Etar Hakkında</string>
+    <string name="offline_account_name">Çevrimdışı Takvim</string>
+    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Etar Projsi. Portions © 2005-<xliff:g>%s</xliff:g> Android Açık Kaynak Projesi.</string>
+    <string name="authors">Yazarlar</string>
+    <string name="changelog">Değişiklikler</string>
+    <string name="license">Lisans</string>
+    <string name="source_code">Kaynak kod</string>
 </resources>
