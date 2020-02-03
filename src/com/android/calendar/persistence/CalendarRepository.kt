@@ -63,14 +63,14 @@ internal class CalendarRepository(val application: Application) {
                     val accountName = it.getString(PROJECTION_INDEX_ACCOUNT_NAME)
                     val accountType = it.getString(PROJECTION_INDEX_ACCOUNT_TYPE)
                     val name = it.getString(PROJECTION_INDEX_NAME)
-                    val calName = it.getString(PROJECTION_INDEX_CALENDAR_DISPLAY_NAME)
+                    val displayName = it.getString(PROJECTION_INDEX_CALENDAR_DISPLAY_NAME)
                     val color = it.getInt(PROJECTION_INDEX_CALENDAR_COLOR)
                     val visible = it.getInt(PROJECTION_INDEX_VISIBLE) == 1
                     val syncEvents = it.getInt(PROJECTION_INDEX_SYNC_EVENTS) == 1
                     val isPrimary = it.getInt(PROJECTION_INDEX_IS_PRIMARY) == 1
                     val isLocal = accountType == CalendarContract.ACCOUNT_TYPE_LOCAL
 
-                    calendars.add(Calendar(id, accountName, accountType, name, calName, color, visible, syncEvents, isPrimary, isLocal))
+                    calendars.add(Calendar(id, accountName, accountType, name, displayName, color, visible, syncEvents, isPrimary, isLocal))
                 }
             }
             return calendars
