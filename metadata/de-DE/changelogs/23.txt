@@ -1,0 +1,2 @@
+- Bugfix für Anzeige der Optionen
+- Neue Übersetzungen
