@@ -347,4 +347,5 @@
     <string name="changelog">История изменений</string>
     <string name="license">Лицензия</string>
     <string name="source_code">Исходный код</string>
+    <string name="preferences_calendar_no_display_name">Календарь без названия</string>
 </resources>
