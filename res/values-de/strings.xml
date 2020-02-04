@@ -331,4 +331,5 @@
     <string name="changelog">Änderungsübersicht</string>
     <string name="license">Lizenz</string>
     <string name="source_code">Quelle</string>
+    <string name="preferences_calendar_no_display_name">Unbenannter Kalender</string>
 </resources>
