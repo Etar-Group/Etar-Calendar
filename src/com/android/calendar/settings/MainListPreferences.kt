@@ -91,7 +91,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
             }
             calendarPreference.apply {
                 key = calendarUniqueKey
-                title = calendar.displayName
+                title = if (calendar.displayName.isNullOrBlank()) getString(R.string.preferences_calendar_no_display_name) else calendar.displayName
                 fragment = CalendarPreferences::class.java.name
                 order = if (calendar.isPrimary) 1 else 2 // primary calendar is first, others are alphabetically ordered below
                 icon = getCalendarIcon(calendar.color, calendar.visible, calendar.syncEvents)
