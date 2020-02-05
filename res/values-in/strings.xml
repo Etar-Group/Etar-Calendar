@@ -320,4 +320,5 @@
     <string name="changelog">Catatan perubahan</string>
     <string name="license">Lisensi</string>
     <string name="source_code">Sumber</string>
+    <string name="preferences_calendar_no_display_name">Kalender tidak bernama</string>
 </resources>
