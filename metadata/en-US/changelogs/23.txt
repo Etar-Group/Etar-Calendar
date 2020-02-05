@@ -1,2 +1,2 @@
-- Bugfix for options display
-- New translations
+- Bugfix for options display.
+- New translations.

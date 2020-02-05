@@ -1,7 +1,7 @@
-- Add offline calender
-- Add shortcut for new event
-- New preferences design
-- New datetime picker
-- Switch license to GPLv3
+- Add offline calender.
+- Add shortcut for new event.
+- New preferences design.
+- New datetime picker.
+- Switch license to GPLv3.
 - Bugfixes.
 - New translations.
