@@ -332,4 +332,5 @@
     <string name="changelog">Endringslogg</string>
     <string name="license">Lisens</string>
     <string name="source_code">Kilde</string>
+    <string name="preferences_calendar_no_display_name">Kalender uten navn</string>
 </resources>
