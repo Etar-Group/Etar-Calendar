@@ -244,4 +244,5 @@
     <string name="visibility_default">Numatytasis</string>
     <string name="visibility_private">Privatus</string>
     <string name="visibility_public">Viešas</string>
+    <string name="share_label">Dalintis</string>
 </resources>
