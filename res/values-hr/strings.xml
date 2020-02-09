@@ -318,7 +318,6 @@
     <string name="preferences_calendar_account">%1$s račun</string>
     <string name="preferences_calendar_delete">Izbriši kalendar</string>
     <string name="preferences_calendar_display_name">Promijeni ime</string>
-    <string name="preferences_calendar_account_category">Vrsta računa</string>
     <string name="preferences_calendar_color">Boja</string>
     <string name="preferences_calendar_visible">Prikaži događaje</string>
     <string name="preferences_calendar_synchronize">Sinkroniziraj ovaj kalendar</string>

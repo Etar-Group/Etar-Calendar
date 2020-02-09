@@ -763,9 +763,12 @@
     <!-- Preferences -->
     <string name="preferences_calendar_no_display_name">Unnamed calendar</string>
     <string name="preferences_calendar_account">%1$s account</string>
+    <string name="preferences_calendar_account_local">Offline calendar</string>
+    <string name="preferences_calendar_configure_account">Configure calendar in %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1d events</string>
     <string name="preferences_calendar_delete">Delete calendar</string>
     <string name="preferences_calendar_display_name">Change name</string>
-    <string name="preferences_calendar_account_category">Account type</string>
+    <string name="preferences_calendar_info_category">Calendar information</string>
     <string name="preferences_calendar_color">Color</string>
     <string name="preferences_calendar_visible">Display events</string>
     <string name="preferences_calendar_synchronize">Synchronize this calendar</string>

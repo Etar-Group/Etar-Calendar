@@ -20,6 +20,7 @@ package com.android.calendar.settings
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AuthenticatorDescription
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
@@ -37,11 +38,13 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     private var calendarId: Long = -1
     private lateinit var calendarRepository: CalendarRepository
     private lateinit var account: Account
+    private var numberOfEvents: Long = -1
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         calendarId = arguments!!.getLong(ARG_CALENDAR_ID)
         calendarRepository = CalendarRepository(activity!!.application)
         account = calendarRepository.queryAccount(calendarId)!!
+        numberOfEvents = calendarRepository.queryNumberOfEvents(calendarId)!!
 
         // use custom data store to save/retrieve calendar preferences in Android's calendar database
         val preferenceManager = preferenceManager
@@ -55,18 +58,17 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         val screen = preferenceManager.createPreferenceScreen(context)
 
         val isLocalAccount = account.type == CalendarContract.ACCOUNT_TYPE_LOCAL
+        val currentColor = preferenceManager.preferenceDataStore!!.getInt(COLOR_KEY, -1)
+        val authenticatorInfo = getAuthenticatorInfo(account)
 
         val synchronizePreference = SwitchPreference(context).apply {
             key = SYNCHRONIZE_KEY
             title = getString(R.string.preferences_calendar_synchronize)
-            isVisible = !isLocalAccount
         }
         val visiblePreference = SwitchPreference(context).apply {
             key = VISIBLE_KEY
             title = getString(R.string.preferences_calendar_visible)
         }
-
-        val currentColor = preferenceManager.preferenceDataStore!!.getInt(COLOR_KEY, -1)
         val colorPreference = Preference(context).apply {
             key = COLOR_KEY
             title = getString(R.string.preferences_calendar_color)
@@ -76,12 +78,10 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             displayCalendarColorPicker()
             true
         }
-
         val displayNamePreference = EditTextPreference(context).apply {
             key = DISPLAY_NAME_KEY
             title = getString(R.string.preferences_calendar_display_name)
             dialogTitle = getString(R.string.preferences_calendar_display_name)
-            isVisible = isLocalAccount
         }
         displayNamePreference.setOnPreferenceChangeListener { _, newValue ->
             activity?.title = newValue as String
@@ -89,33 +89,61 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
         val deletePreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_delete)
-            isVisible = isLocalAccount
         }
         deletePreference.setOnPreferenceClickListener {
             deleteCalendar()
             true
         }
+        val configurePreference = Preference(context).apply {
+            title = getString(R.string.preferences_calendar_configure_account, authenticatorInfo?.label)
+            intent = authenticatorInfo?.intent
+        }
 
-        screen.addPreference(synchronizePreference)
+        val infoCategory = PreferenceCategory(context).apply {
+            title = getString(R.string.preferences_calendar_info_category)
+        }
+
+        val numberOfEventsPreference = Preference(context).apply {
+            title = getString(R.string.preferences_calendar_number_of_events, numberOfEvents)
+            isSelectable = false
+        }
+        val accountPreference = Preference(context).apply {
+            title = getString(R.string.preferences_calendar_account, authenticatorInfo?.label)
+            icon = authenticatorInfo?.icon
+            isSelectable = false
+        }
+        val localAccountPreference = Preference(context).apply {
+            title = getString(R.string.preferences_calendar_account_local)
+            icon = getThemeDrawable(R.attr.settings_calendar_offline)
+            isSelectable = false
+        }
+        val localAccountInfoPreference = Preference(context).apply {
+            title = getString(R.string.preferences_list_add_offline_message)
+            isSelectable = false
+        }
+
+
+        if (!isLocalAccount) {
+            screen.addPreference(synchronizePreference)
+        }
         screen.addPreference(visiblePreference)
         screen.addPreference(colorPreference)
-        screen.addPreference(displayNamePreference)
-        screen.addPreference(deletePreference)
-
-        val accountCategory = PreferenceCategory(context).apply {
-            title = getString(R.string.preferences_calendar_account_category)
-        }
-        screen.addPreference(accountCategory)
-
         if (isLocalAccount) {
-            val localAccountInfoPreference = Preference(context).apply {
-                title = getString(R.string.preferences_list_add_offline_message)
-                isSelectable = false
-                icon = getThemeDrawable(R.attr.settings_calendar_offline)
-            }
-            accountCategory.addPreference(localAccountInfoPreference)
+            screen.addPreference(displayNamePreference)
+            screen.addPreference(deletePreference)
+        }
+        if (authenticatorInfo?.intent != null && !isLocalAccount) {
+            screen.addPreference(configurePreference)
+        }
+
+        screen.addPreference(infoCategory)
+
+        infoCategory.addPreference(numberOfEventsPreference)
+        if (isLocalAccount) {
+            infoCategory.addPreference(localAccountPreference)
+            infoCategory.addPreference(localAccountInfoPreference)
         } else {
-            addConfigureAccountPreference(accountCategory, account)
+            infoCategory.addPreference(accountPreference)
         }
 
         preferenceScreen = screen
@@ -127,28 +155,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         val imageResId = typedValue.resourceId
         return ContextCompat.getDrawable(context!!, imageResId)
                 ?: throw IllegalArgumentException("Cannot load drawable $imageResId")
-    }
-
-    private fun addConfigureAccountPreference(category: PreferenceCategory, account: Account) {
-        val description = getAuthenticatorDescription(account) ?: return
-
-        val pm = activity?.packageManager
-
-        val authenticatorLabel = pm?.getResourcesForApplication(description.packageName)?.getString(
-                description.labelId)
-        val authenticatorIcon = pm?.getDrawable(description.packageName, description.iconId, null)
-        val authenticatorIntent = pm?.getLaunchIntentForPackage(description.packageName)
-        val hasIntent = authenticatorIntent != null
-
-        if (authenticatorLabel != null && authenticatorIcon != null) {
-            val configureAccountPreference = Preference(context).apply {
-                title = getString(R.string.preferences_calendar_account, authenticatorLabel)
-                isEnabled = hasIntent
-                intent = authenticatorIntent
-                icon = authenticatorIcon
-            }
-            category.addPreference(configureAccountPreference)
-        }
     }
 
     private fun getColorIcon(color: Int): Drawable {
@@ -171,6 +177,22 @@ class CalendarPreferences : PreferenceFragmentCompat() {
                     }
                 })
         calendarDialogPicker.show(fragmentManager!!, COLOR_PICKER_DIALOG_TAG)
+    }
+
+    data class AuthenticatorInfo(val label: String?,
+                                 val icon: Drawable?,
+                                 val intent: Intent?)
+
+    private fun getAuthenticatorInfo(account: Account): AuthenticatorInfo? {
+        val description = getAuthenticatorDescription(account) ?: return null
+
+        val pm = activity?.packageManager
+        val label = pm?.getResourcesForApplication(description.packageName)?.getString(
+                description.labelId)
+        val icon = pm?.getDrawable(description.packageName, description.iconId, null)
+        val intent = pm?.getLaunchIntentForPackage(description.packageName)
+
+        return AuthenticatorInfo(label, icon, intent)
     }
 
     private fun getAuthenticatorDescription(account: Account): AuthenticatorDescription? {
