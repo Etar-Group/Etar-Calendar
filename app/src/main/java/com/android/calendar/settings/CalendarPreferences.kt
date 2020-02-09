@@ -20,9 +20,12 @@ package com.android.calendar.settings
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AuthenticatorDescription
+import android.app.Activity
+import android.content.ContentProviderClient
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.TypedValue
@@ -33,9 +36,15 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
+import at.bitfire.ical4android.Event
 import com.android.calendar.Utils
+import com.android.calendar.ical4android.LocalCalendar
+import com.android.calendar.ical4android.LocalEvent
 import com.android.calendar.persistence.CalendarRepository
 import ws.xsoh.etar.R
+import java.io.IOException
+import java.io.InputStreamReader
+import java.util.HashSet
 
 
 class CalendarPreferences : PreferenceFragmentCompat() {
@@ -109,11 +118,17 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             title = getString(R.string.preferences_calendar_configure_account, authenticatorInfo?.label)
             intent = authenticatorInfo?.intent
         }
+        val importPreference = Preference(context).apply {
+            title = getString(R.string.preferences_calendar_import)
+        }
+        importPreference.setOnPreferenceClickListener {
+            openIcsFile()
+            true
+        }
 
         val infoCategory = PreferenceCategory(context).apply {
             title = getString(R.string.preferences_calendar_info_category)
         }
-
         val numberOfEventsPreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_number_of_events, numberOfEvents)
             isSelectable = false
@@ -143,12 +158,12 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             screen.addPreference(displayNamePreference)
             screen.addPreference(deletePreference)
         }
+        screen.addPreference(importPreference)
         if (authenticatorInfo?.intent != null && !isLocalAccount) {
             screen.addPreference(configurePreference)
         }
 
         screen.addPreference(infoCategory)
-
         infoCategory.addPreference(numberOfEventsPreference)
         if (isLocalAccount) {
             infoCategory.addPreference(localAccountPreference)
@@ -159,6 +174,94 @@ class CalendarPreferences : PreferenceFragmentCompat() {
 
         preferenceScreen = screen
     }
+
+    private fun openIcsFile() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "text/calendar"
+
+            // undocumented extra to show internal storage
+            putExtra("android.content.extra.SHOW_ADVANCED", true)
+        }
+
+        startActivityForResult(intent, PICK_CALENDAR_FILE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PICK_CALENDAR_FILE && resultCode == Activity.RESULT_OK) {
+            data?.data?.also { uri ->
+                importIcs(uri)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun importIcs(uri: Uri) {
+        context!!.contentResolver.openInputStream(uri)?.use { inputStream ->
+            InputStreamReader(inputStream, Charsets.UTF_8).use { reader ->
+                try {
+                    val events = Event.eventsFromReader(reader)
+                    processEvents(events)
+
+//                    Log.i(Constants.TAG, "Calendar sync successful, ETag=$eTag, lastModified=$lastModified")
+//                    calendar.updateStatusSuccess(eTag, lastModified ?: 0L)
+                } catch (e: Exception) {
+//                    Log.e(Constants.TAG, "Couldn't process events", e)
+//                    errorMessage = e.localizedMessage
+                }
+            }
+        }
+    }
+
+
+    private fun processEvents(events: List<Event>) {
+//        Log.i(Constants.TAG, "Processing ${events.size} events")
+        val uids = HashSet<String>(events.size)
+
+        for (event in events) {
+            val uid = event.uid!!
+//            Log.d(Constants.TAG, "Found VEVENT: $uid")
+            uids += uid
+
+//            val localEvents = calendar.queryByUID(uid)
+//            if (localEvents.isEmpty()) {
+//                Log.d(Constants.TAG, "$uid not in local calendar, adding")
+
+            val client: ContentProviderClient? = requireActivity().contentResolver.acquireContentProviderClient(CalendarContract.AUTHORITY)
+            val calendar = LocalCalendar.findById(account, client!!, calendarId)
+            LocalEvent(calendar, event).add()
+
+//            } else {
+//                val localEvent = localEvents.first()
+//                var lastModified = event.lastModified
+//
+//                if (lastModified != null) {
+//                    // process LAST-MODIFIED of exceptions
+//                    for (exception in event.exceptions) {
+//                        val exLastModified = exception.lastModified
+//                        if (exLastModified == null) {
+//                            lastModified = null
+//                            break
+//                        } else if (lastModified != null && exLastModified.dateTime.after(lastModified.date))
+//                            lastModified = exLastModified
+//                    }
+//                }
+//
+//                if (lastModified == null || lastModified.dateTime.time > localEvent.lastModified)
+//                // either there is no LAST-MODIFIED, or LAST-MODIFIED has been increased
+//                    localEvent.update(event)
+//                else
+//                    Log.d(Constants.TAG, "$uid has not been modified since last sync")
+//            }
+        }
+
+//        Log.i(Constants.TAG, "Deleting old events (retaining ${uids.size} events by UID) …")
+//        val deleted = calendar.retainByUID(uids)
+//        Log.i(Constants.TAG, "… $deleted events deleted")
+    }
+
 
     private fun getThemeDrawable(attr: Int): Drawable {
         val typedValue = TypedValue()
@@ -242,6 +345,8 @@ class CalendarPreferences : PreferenceFragmentCompat() {
 
     companion object {
         const val COLOR_PICKER_DIALOG_TAG = "CalendarColorPickerDialog"
+
+        const val PICK_CALENDAR_FILE = 2
 
         const val ARG_CALENDAR_ID = "calendarId"
 
