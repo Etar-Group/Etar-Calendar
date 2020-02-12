@@ -30,7 +30,7 @@ import java.util.*
  * Fragment to facilitate editing of quick responses when emailing guests
  */
 class QuickResponsePreferences : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
-    private lateinit var editTextPrefs: Array<EditTextPreference?>
+    private lateinit var responsePreferences: Array<EditTextPreference?>
     private lateinit var responses: Array<String>
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -42,37 +42,46 @@ class QuickResponsePreferences : PreferenceFragmentCompat(), Preference.OnPrefer
         preferenceScreen = screen
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.title = getString(R.string.quick_response_settings)
+    }
+
     private fun addResponsePreferences(screen: PreferenceScreen) {
         responses = Utils.getQuickResponses(activity)
-
-        editTextPrefs = arrayOfNulls(responses.size)
         Arrays.sort(responses)
-        var i = 0
-        for (response in responses) {
-            val editTextPreference = EditTextPreference(activity).apply {
+
+        responsePreferences = arrayOfNulls(responses.size)
+        for ((i, response) in responses.withIndex()) {
+            val responsePreference = EditTextPreference(activity).apply {
                 setDialogTitle(R.string.quick_response_settings_edit_title)
                 title = response
                 text = response
                 key = i.toString()
+                order = i
+                isPersistent = false // done manually in onPreferenceChange
+                onPreferenceChangeListener = this@QuickResponsePreferences
             }
-            editTextPreference.onPreferenceChangeListener = this
 
-            editTextPrefs[i++] = editTextPreference
-            screen.addPreference(editTextPreference)
+            responsePreferences[i] = responsePreference
+            screen.addPreference(responsePreference)
         }
     }
 
     override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
-        for (i in editTextPrefs.indices) {
-            if (editTextPrefs[i]!!.compareTo(preference) == 0) {
-                if (responses[i] != newValue) {
-                    responses[i] = newValue as String
-                    editTextPrefs[i]!!.title = responses[i]
-                    editTextPrefs[i]!!.text = responses[i]
-                    Utils.setSharedPreference(activity, Utils.KEY_QUICK_RESPONSES, responses)
-                }
-                return true
-            }
+        val i = Integer.parseInt(preference.key)
+        val newResponse = newValue as String
+
+        if (responses[i] != newResponse) {
+            // update UI
+            responsePreferences[i]!!.title = newResponse
+            responsePreferences[i]!!.text = newResponse
+
+            // save new responses
+            responses[i] = newResponse
+            Utils.setSharedPreference(activity, Utils.KEY_QUICK_RESPONSES, responses)
+
+            return true
         }
         return false
     }

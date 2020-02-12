@@ -26,7 +26,6 @@ import com.android.calendar.DynamicTheme
 import ws.xsoh.etar.R
 
 
-private const val TITLE_TAG = "settingsActivityTitle"
 
 const val EXTRA_SHOW_FRAGMENT = "settingsShowFragment"
 
@@ -34,7 +33,8 @@ const val EXTRA_SHOW_FRAGMENT = "settingsShowFragment"
  * Based on the official Kotlin example for AndroidX preferences:
  * https://github.com/android/user-interface-samples/blob/master/PreferencesKotlin/app/src/main/java/com/example/androidx/preference/sample/MainActivity.kt
  *
- * Extended by EXTRA_SHOW_FRAGMENT
+ * - Added EXTRA_SHOW_FRAGMENT
+ * - Don't assume title from setting, instead set it in each fragment individually
  */
 class SettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -63,21 +63,8 @@ class SettingsActivity : AppCompatActivity(),
                     .beginTransaction()
                     .replace(R.id.body_frame, fragment)
                     .commit()
-        } else {
-            title = savedInstanceState.getCharSequence(TITLE_TAG)
-        }
-        supportFragmentManager.addOnBackStackChangedListener {
-            if (supportFragmentManager.backStackEntryCount == 0) {
-                setTitle(R.string.preferences_title)
-            }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // Save current activity title so we can set it again after a configuration change
-        outState.putCharSequence(TITLE_TAG, title)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -105,7 +92,6 @@ class SettingsActivity : AppCompatActivity(),
                 .replace(R.id.body_frame, fragment)
                 .addToBackStack(null)
                 .commit()
-        title = pref.title
         return true
     }
 

@@ -84,6 +84,11 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         setPreferencesFromResource(R.xml.general_preferences, rootKey)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.title = getString(R.string.preferences_list_general)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

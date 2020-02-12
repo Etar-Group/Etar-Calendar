@@ -53,6 +53,12 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         populatePreferences()
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val displayName = preferenceManager.preferenceDataStore!!.getString(DISPLAY_NAME_KEY, null)
+        activity?.title = if (displayName.isNullOrBlank()) getString(R.string.preferences_calendar_no_display_name) else displayName
+    }
+
     private fun populatePreferences() {
         val context = preferenceManager.context
         val screen = preferenceManager.createPreferenceScreen(context)

@@ -51,6 +51,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        activity?.title = getString(R.string.preferences_title)
 
         val factory = MainListViewModelFactory(activity!!.application)
         mainListViewModel = ViewModelProvider(this, factory).get(MainListViewModel::class.java)
