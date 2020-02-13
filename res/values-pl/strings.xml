@@ -29,11 +29,9 @@
     <string name="repeats_label" msgid="7414023871434593196">"Powtarzanie"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Bez tytułu)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">1 minuta.</item>
-        <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> minuty</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> minut</item>
+        <item quantity="one">1 minuta</item>
+        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> minuty</item>
+        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> minut</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 minuta.</item>
@@ -311,7 +309,7 @@
     <string name="view_settings">Ustawienia widoku</string>
     <string name="default_start_title">Widok domyślny</string>
     <string name="display_options">Szczegóły widoku</string>
-    <string name="display_time">Wyśietl czas</string>
+    <string name="display_time">Wyświetl czas</string>
     <string name="display_location">Wyświetl lokalizację</string>
     <string name="maximum_number_of_lines">Maksymalna ilość lini w wydarzeniu</string>
     <string name="default_start_last">Poprzednio używany widok</string>
@@ -334,4 +332,12 @@
     <string name="preferences_month_view_landscape">Układ widoku miesiąca (Krajobraz)</string>
     <string name="foreground_notification_channel_name">Synchronizacja alertów</string>
     <string name="foreground_notification_channel_description">Powiadomienie na pierwszym planie jest wymagane do wewnętrznej synchronizacji alertów. Proszę wyciszyć</string>
+    <string name="preferences_calendar_delete">Usuń kalendarz</string>
+    <string name="preferences_list_add_offline_cancel">Anuluj</string>
+    <string name="preferences_menu_about">O programie Etar</string>
+    <string name="authors">Autorzy</string>
+    <string name="changelog">Lista zmian</string>
+    <string name="license">Licencja</string>
+    <string name="source_code">Źródło</string>
+    <string name="preferences_calendar_no_display_name">Nienazwany kalendarz</string>
 </resources>
