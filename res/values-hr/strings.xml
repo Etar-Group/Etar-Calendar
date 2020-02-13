@@ -347,4 +347,5 @@
     <string name="changelog">Zapis promjena</string>
     <string name="license">Licenca</string>
     <string name="source_code">Izvor</string>
+    <string name="preferences_calendar_no_display_name">Neimenovani kalendar</string>
 </resources>
