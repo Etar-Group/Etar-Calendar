@@ -51,6 +51,11 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
         portraitConf.onCreate(preferenceScreen, activity)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.title = getString(R.string.display_options)
+    }
+
     private class PreferenceKeys internal constructor(val KEY_DISPLAY_TIME: String,
                                                       val KEY_DISPLAY_LOCATION: String,
                                                       val KEY_MAX_NUMBER_OF_LINES: String)

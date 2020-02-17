@@ -303,7 +303,6 @@
     <string name="preferences_calendar_account">%1$s konto</string>
     <string name="preferences_calendar_delete">Slett kalender</string>
     <string name="preferences_calendar_display_name">Endre navn</string>
-    <string name="preferences_calendar_account_category">Kontotype</string>
     <string name="preferences_calendar_color">Farge</string>
     <string name="preferences_calendar_visible">Vis aktiviteter</string>
     <string name="preferences_calendar_synchronize">Synkroniser denne kalenderen</string>

@@ -307,7 +307,6 @@
     <string name="preferences_calendar_account">Cuenta %1$s</string>
     <string name="preferences_calendar_delete">Borrar calendario</string>
     <string name="preferences_calendar_display_name">Cambiar nombre</string>
-    <string name="preferences_calendar_account_category">Tipo de cuenta</string>
     <string name="preferences_calendar_color">Color</string>
     <string name="preferences_calendar_visible">Mostrar eventos</string>
     <string name="preferences_calendar_synchronize">Sincronizar este calendario</string>

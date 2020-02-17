@@ -186,9 +186,19 @@ internal class CalendarRepository(val application: Application) {
         val calendarUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarId)
         contentResolver.query(calendarUri, ACCOUNT_PROJECTION, null, null, null)?.use {
             if (it.moveToFirst()) {
-                val accountName = it.getString(ACCOUNT_INDEX_NAME)
-                val accountType = it.getString(ACCOUNT_INDEX_TYPE)
+                val accountName = it.getString(PROJECTION_ACCOUNT_INDEX_NAME)
+                val accountType = it.getString(PROJECTION_ACCOUNT_INDEX_TYPE)
                 return Account(accountName, accountType)
+            }
+        }
+        return null
+    }
+
+    fun queryNumberOfEvents(calendarId: Long): Long? {
+        val args = arrayOf(calendarId.toString())
+        contentResolver.query(CalendarContract.Events.CONTENT_URI, PROJECTION_COUNT_EVENTS, WHERE_COUNT_EVENTS, args, null)?.use {
+            if (it.moveToFirst()) {
+                return it.getLong(PROJECTION_COUNT_EVENTS_INDEX_COUNT)
             }
         }
         return null
@@ -199,8 +209,14 @@ internal class CalendarRepository(val application: Application) {
                 CalendarContract.Calendars.ACCOUNT_NAME,
                 CalendarContract.Calendars.ACCOUNT_TYPE
         )
-        const val ACCOUNT_INDEX_NAME = 0
-        const val ACCOUNT_INDEX_TYPE = 1
+        const val PROJECTION_ACCOUNT_INDEX_NAME = 0
+        const val PROJECTION_ACCOUNT_INDEX_TYPE = 1
+
+        private val PROJECTION_COUNT_EVENTS = arrayOf(
+                CalendarContract.Events._COUNT
+        )
+        const val PROJECTION_COUNT_EVENTS_INDEX_COUNT = 0
+        const val WHERE_COUNT_EVENTS = CalendarContract.Events.CALENDAR_ID + "=?"
 
         const val DEFAULT_COLOR_KEY = "1"
 

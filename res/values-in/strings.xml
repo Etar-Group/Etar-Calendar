@@ -292,7 +292,6 @@
     <string name="preferences_calendar_account">%1$s akun</string>
     <string name="preferences_calendar_delete">Hapus kalender</string>
     <string name="preferences_calendar_display_name">Ubah nama</string>
-    <string name="preferences_calendar_account_category">Tipe akun</string>
     <string name="preferences_calendar_color">Warna</string>
     <string name="preferences_calendar_visible">Tampilkan acara</string>
     <string name="preferences_calendar_synchronize">Sinkronkan kalender ini</string>

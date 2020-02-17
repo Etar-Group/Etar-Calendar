@@ -318,7 +318,6 @@
     <string name="preferences_calendar_account">Аккаунт %1$s</string>
     <string name="preferences_calendar_delete">Удалить календарь</string>
     <string name="preferences_calendar_display_name">Переименовать</string>
-    <string name="preferences_calendar_account_category">Тип аккаунта</string>
     <string name="preferences_calendar_color">Цвет</string>
     <string name="preferences_calendar_visible">Отображение событий</string>
     <string name="preferences_calendar_synchronize">Синхронизировать этот календарь</string>
