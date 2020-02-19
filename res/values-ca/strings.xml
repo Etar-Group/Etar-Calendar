@@ -27,8 +27,8 @@
     <string name="repeats_label" msgid="7414023871434593196">"Repetició"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Sense títol)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 minut"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuts"</item>
+        <item quantity="one">1 minut</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minuts</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one" msgid="9191090668359663663">"1 min"</item>
