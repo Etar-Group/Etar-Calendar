@@ -21,7 +21,6 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AuthenticatorDescription
 import android.app.Activity
-import android.content.ContentProviderClient
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
@@ -36,15 +35,10 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
-import at.bitfire.ical4android.Event
 import com.android.calendar.Utils
-import com.android.calendar.ical4android.LocalCalendar
-import com.android.calendar.ical4android.LocalEvent
+import com.android.calendar.ical4android.IcalImporter
 import com.android.calendar.persistence.CalendarRepository
 import ws.xsoh.etar.R
-import java.io.IOException
-import java.io.InputStreamReader
-import java.util.HashSet
 
 
 class CalendarPreferences : PreferenceFragmentCompat() {
@@ -197,71 +191,12 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
     }
 
-    @Throws(IOException::class)
     private fun importIcs(uri: Uri) {
         context!!.contentResolver.openInputStream(uri)?.use { inputStream ->
-            InputStreamReader(inputStream, Charsets.UTF_8).use { reader ->
-                try {
-                    val events = Event.eventsFromReader(reader)
-                    processEvents(events)
-
-//                    Log.i(Constants.TAG, "Calendar sync successful, ETag=$eTag, lastModified=$lastModified")
-//                    calendar.updateStatusSuccess(eTag, lastModified ?: 0L)
-                } catch (e: Exception) {
-//                    Log.e(Constants.TAG, "Couldn't process events", e)
-//                    errorMessage = e.localizedMessage
-                }
-            }
+            val icalImporter = IcalImporter(requireActivity())
+            icalImporter.import(inputStream, account, calendarId)
         }
     }
-
-
-    private fun processEvents(events: List<Event>) {
-//        Log.i(Constants.TAG, "Processing ${events.size} events")
-        val uids = HashSet<String>(events.size)
-
-        for (event in events) {
-            val uid = event.uid!!
-//            Log.d(Constants.TAG, "Found VEVENT: $uid")
-            uids += uid
-
-//            val localEvents = calendar.queryByUID(uid)
-//            if (localEvents.isEmpty()) {
-//                Log.d(Constants.TAG, "$uid not in local calendar, adding")
-
-            val client: ContentProviderClient? = requireActivity().contentResolver.acquireContentProviderClient(CalendarContract.AUTHORITY)
-            val calendar = LocalCalendar.findById(account, client!!, calendarId)
-            LocalEvent(calendar, event).add()
-
-//            } else {
-//                val localEvent = localEvents.first()
-//                var lastModified = event.lastModified
-//
-//                if (lastModified != null) {
-//                    // process LAST-MODIFIED of exceptions
-//                    for (exception in event.exceptions) {
-//                        val exLastModified = exception.lastModified
-//                        if (exLastModified == null) {
-//                            lastModified = null
-//                            break
-//                        } else if (lastModified != null && exLastModified.dateTime.after(lastModified.date))
-//                            lastModified = exLastModified
-//                    }
-//                }
-//
-//                if (lastModified == null || lastModified.dateTime.time > localEvent.lastModified)
-//                // either there is no LAST-MODIFIED, or LAST-MODIFIED has been increased
-//                    localEvent.update(event)
-//                else
-//                    Log.d(Constants.TAG, "$uid has not been modified since last sync")
-//            }
-        }
-
-//        Log.i(Constants.TAG, "Deleting old events (retaining ${uids.size} events by UID) …")
-//        val deleted = calendar.retainByUID(uids)
-//        Log.i(Constants.TAG, "… $deleted events deleted")
-    }
-
 
     private fun getThemeDrawable(attr: Int): Drawable {
         val typedValue = TypedValue()
