@@ -333,4 +333,8 @@
     <string name="license">Lisens</string>
     <string name="source_code">Kilde</string>
     <string name="preferences_calendar_no_display_name">Kalender uten navn</string>
+    <string name="preferences_calendar_account_local">Frakoblet kalender</string>
+    <string name="preferences_calendar_configure_account">Sett opp kalender i %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1d aktiviteter</string>
+    <string name="preferences_calendar_info_category">Kalenderinfo</string>
 </resources>
