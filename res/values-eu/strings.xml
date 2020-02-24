@@ -238,7 +238,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one"><xliff:g id="count">%d</xliff:g>. astea</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="no_calendars_found">Gertaera bat gehitu aurretik, gutxienez Egutegi bat gehitu behar duzu zure gailuan eta egutegia ikusgarri bezala markatu. Ukitu Gehitu Kontua kontu bat gehitzeko (kontu bat gehitu baduzu, itxaron sinkronizazioa bukatu arte eta saiatu berriz). Edo ukitu Utzi eta ziurtatu gutxienez egutegi bat dagoela ikusgarri.</string>
     <string name="show_newer_events">Ukitu gertaerak ikusteko <xliff:g id="newest_search_range">%1$s</xliff:g> baino geroago</string>
@@ -327,4 +327,8 @@
     <string name="license">Lizentzia</string>
     <string name="source_code">Iturria</string>
     <string name="preferences_calendar_no_display_name">Izen gabeko egutegia</string>
+    <string name="preferences_calendar_account_local">Lineaz kanpoko egutegia</string>
+    <string name="preferences_calendar_configure_account">Konfiguratu %1$s egutegia</string>
+    <string name="preferences_calendar_number_of_events">%1d gertaera</string>
+    <string name="preferences_calendar_info_category">Egutegiaren informazioa</string>
 </resources>
