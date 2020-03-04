@@ -22,7 +22,7 @@
     <dimen name="hours_text_size">12sp</dimen>
     <dimen name="allday_text_size">12sp</dimen>
     <dimen name="day_view_event_text_size">12sp</dimen>
-    <dimen name="week_view_event_text_size">12sp</dimen>
+    <dimen name="week_view_event_text_size">10sp</dimen>
     <dimen name="event_text_vertical_margin">2dp</dimen>
     <dimen name="event_text_horizontal_margin">4dp</dimen>
     <!-- minimum size of hours column in day/week view -->
