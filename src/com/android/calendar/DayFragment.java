@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
      * focus when a view hierarchy is saved / restore
      */
     private static final int VIEW_ID = 1;
+    private static final String TAG = "DayFragment";
     protected ProgressBar mProgressBar;
     protected ViewSwitcher mViewSwitcher;
     protected Animation mInAnimationForward;
@@ -134,6 +136,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         view = (DayView) mViewSwitcher.getNextView();
         view.handleOnResume();
         view.restartCurrentTimeUpdates();
+        Log.d(TAG, "OnResume");
     }
 
     @Override
@@ -174,6 +177,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         if (mViewSwitcher == null) {
             // The view hasn't been set yet. Just save the time and use it later.
             mSelectedDay.set(goToTime);
+            Log.d(TAG, "SwitcherNull");
             return;
         }
 
@@ -185,6 +189,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         if (diff == 0) {
             // In visible range. No need to switch view
             currentView.setSelected(goToTime, ignoreTime, animateToday);
+            Log.d(TAG, "Diff0");
         } else {
             // Figure out which way to animate
             if (diff > 0) {
@@ -198,14 +203,19 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
             DayView next = (DayView) mViewSwitcher.getNextView();
             if (ignoreTime) {
                 next.setFirstVisibleHour(currentView.getFirstVisibleHour());
+                Log.d(TAG, "ignoreTime");
             }
 
             next.setSelected(goToTime, ignoreTime, animateToday);
+            Log.d(TAG, "goToTime " + goToTime);
+            Log.d(TAG, "ignoreTime " + ignoreTime);
+            Log.d(TAG, "animateToday " + animateToday);
             next.reloadEvents();
             mViewSwitcher.showNext();
             next.requestFocus();
             next.updateTitle();
             next.restartCurrentTimeUpdates();
+            Log.d(TAG, "reloadEvents");
         }
     }
 
@@ -267,10 +277,12 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 // TODO support a range of time
 // TODO support event_id
 // TODO support select message
+            Log.d(TAG, "GO_TO");
             goTo(msg.selectedTime, (msg.extraLong & CalendarController.EXTRA_GOTO_DATE) != 0,
                     (msg.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0);
         } else if (msg.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
+            Log.d(TAG, "EventChanged");
         }
     }
 }
