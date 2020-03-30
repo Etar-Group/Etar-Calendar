@@ -40,7 +40,7 @@ class AboutFragment : Fragment() {
 
         version.text = getVersionNumber()
 
-        val year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR))
+        val year = Calendar.getInstance().get(Calendar.YEAR).toString()
         copyright.text = getString(R.string.app_copyright, year, year)
 
         authorsLayout.setOnClickListener {

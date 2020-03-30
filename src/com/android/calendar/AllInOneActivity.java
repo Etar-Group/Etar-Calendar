@@ -53,7 +53,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
@@ -400,7 +399,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_CALENDAR: {
                 // If request is cancelled, the result arrays are empty.
@@ -814,7 +813,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         item.setVisible(ImportActivity.hasThingsToImport());
 
         mSearchMenu = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenu);
+        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         if (mSearchView != null) {
             Utils.setUpSearchView(mSearchView, this);
             mSearchView.setOnQueryTextListener(this);
