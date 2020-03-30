@@ -308,7 +308,7 @@ public class Utils {
         SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         Set<String> ss = prefs.getStringSet(key, null);
         if (ss != null) {
-            String strings[] = new String[ss.size()];
+            String[] strings = new String[ss.size()];
             return ss.toArray(strings);
         }
         return defaultValue;
@@ -442,7 +442,7 @@ public class Utils {
         }
         MatrixCursor newCursor = new MatrixCursor(columnNames);
         int numColumns = cursor.getColumnCount();
-        String data[] = new String[numColumns];
+        String[] data = new String[numColumns];
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
             for (int i = 0; i < numColumns; i++) {
