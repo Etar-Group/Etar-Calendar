@@ -2,10 +2,6 @@
 	path = external/colorpicker
 	url = https://github.com/Etar-Group/android_frameworks_opt_colorpicker.git
 	branch = rebase
-[submodule "external/datetimepicker"]
-	path = external/datetimepicker
-	url = https://github.com/Etar-Group/android_frameworks_opt_datetimepicker.git
-	branch = rebase
 [submodule "external/timezonepicker"]
 	path = external/timezonepicker
 	url = https://github.com/Etar-Group/standalone-calendar-timezonepicker.git
