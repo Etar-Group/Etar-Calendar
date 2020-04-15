@@ -252,7 +252,7 @@
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_pick_ics">Elige un archivo para importar</string>
     <string name="cal_share_intent_title">Envía evento a:</string>
-    <string name="calendar_permission_not_granted">Lo siento, esta característica no puede funcionar.\nEtar requiere permisos de lectura y escritura en el calendario para funcionar correctamente</string>
+    <string name="calendar_permission_not_granted">Lo siento, esta característica no puede funcionar. Etar requiere permisos de lectura y escritura en el calendario para funcionar correctamente</string>
     <string name="default_start_last">Vista previamente utilizada</string>
     <string name="default_start_title">Vista de</string>
     <string name="goto_date">Ir a…</string>
@@ -337,4 +337,5 @@
     <string name="preferences_calendar_configure_account">Configurar calendario en %1$s</string>
     <string name="preferences_calendar_number_of_events">%1d eventos</string>
     <string name="preferences_calendar_info_category">Información de calendario</string>
+    <string name="preferences_calendar_account_local">Calendario desconectado</string>
 </resources>
