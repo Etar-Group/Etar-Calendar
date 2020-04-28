@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals name="Nmins">
+        <item quantity="one">১ মি.</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; %d &lt;/xliff:g&gt; মি.</item>
+    </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">১ মিনিট</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; %d &lt;/xliff:g&gt; মিনিট</item>
+    </plurals>
+    <string name="no_title_label">(শিরোনাম নেই)</string>
+    <string name="repeats_label">পুনরাবৃত্তি</string>
+    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt; সময় &lt;/xliff:g&gt;,
+\n&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt; তারিখ &lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt">আগামীকাল &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt">আজকে &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="tomorrow">আগামীকাল</string>
+    <string name="today">আজকে</string>
+    <string name="attendees_label">অতিথিবৃন্দ</string>
+    <string name="timezone_label">টাইম জোন</string>
+    <string name="when_label">যখন</string>
+    <string name="where_label">কোথায়</string>
+    <string name="what_label">কি</string>
+    <string name="app_label">বর্ষপঞ্জি</string>
+</resources>
