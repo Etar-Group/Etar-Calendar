@@ -48,6 +48,7 @@ public class DayOfMonthDrawable extends Drawable {
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setTextSize(mTextSize);
         mPaint.setTextAlign(Paint.Align.CENTER);
+        mPaint.setAntiAlias(true);
     }
 
     @Override
