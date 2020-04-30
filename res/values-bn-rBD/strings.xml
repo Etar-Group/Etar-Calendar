@@ -10,8 +10,7 @@
     </plurals>
     <string name="no_title_label">(শিরোনাম নেই)</string>
     <string name="repeats_label">পুনরাবৃত্তি</string>
-    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt; সময় &lt;/xliff:g&gt;,
-\n&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt; তারিখ &lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
+    <string name="date_time_fmt"><xliff:g id="time_interval"> সময় </xliff:g>,<xliff:g id="date"> তারিখ </xliff:g></string>
     <string name="tomorrow_at_time_fmt">আগামীকাল &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>"</string>
     <string name="today_at_time_fmt">আজকে &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>"</string>
     <string name="tomorrow">আগামীকাল</string>
@@ -22,4 +21,66 @@
     <string name="where_label">কোথায়</string>
     <string name="what_label">কি</string>
     <string name="app_label">বর্ষপঞ্জি</string>
+    <string name="event_color_picker_dialog_title">কাজের রং</string>
+    <string name="choose_event_color_label">কাজের রঙ নিন</string>
+    <string name="view_event_organizer_label">সংগঠক:</string>
+    <string name="view_event_calendar_label">বর্ষপঞ্জি:</string>
+    <string name="add_account">অ্যাকাউন্ট যোগ করুন</string>
+    <string name="no_syncable_calendars">কোনও ক্যালেন্ডার নেই</string>
+    <string name="reminders_label">রিমাইন্ডার(স্মরণলিপি) যোগ করুন</string>
+    <string name="privacy_label">গোপনীয়তা</string>
+    <string name="presence_label">আমাকে দেখান</string>
+    <string name="description_label">বর্ণনা</string>
+    <string name="edit_event_calendar_label">বর্ষপঞ্জি</string>
+    <string name="edit_event_all_day_label">সারাদিন</string>
+    <string name="edit_event_to_label">থেকে</string>
+    <string name="event_info_title_invite">সভার আমন্ত্রণ</string>
+    <string name="event_info_title">কাজ দেখুন</string>
+    <string name="foreground_notification_channel_description">ইন্টারনাল(অভ্যন্তরীণ) সতর্কতা সিঙ্কের জন্য ফরগ্রাওউন্ড(অগ্রভাগের) বিজ্ঞপ্তি প্রয়োজন। মিউট করুন</string>
+    <string name="foreground_notification_channel_name">এলার্ট সিঙ্ক</string>
+    <string name="alert_title">ক্যালেন্ডার নোটিফিকেশন</string>
+    <string name="create_event_dialog_save">সেভ</string>
+    <string name="rsvp_accepted">ইতিবাচক উত্তর এসেছে।</string>
+    <string name="rsvp_declined">নেতিবাচক উত্তর এসেছে।</string>
+    <string name="rsvp_tentative">হয়তো জবাব দিয়েছেন।</string>
+    <string name="saving_event_with_guest">আপডেট পাঠানো হবে।</string>
+    <string name="creating_event_with_guest">আমন্ত্রণ পাঠানো হবে।</string>
+    <string name="empty_event">কাজ তৈরি হয়নি।</string>
+    <string name="saving_event">কাজ সেভ হয়েছে।</string>
+    <string name="creating_event">কাজ তৈরি হয়েছে।</string>
+    <string name="hint_attendees">অতিথি</string>
+    <string name="hint_description">বর্ণনা</string>
+    <string name="hint_where">স্থান</string>
+    <string name="hint_what">কাজের নাম</string>
+    <string name="select_synced_calendars_button">সিঙ্ক করার জন্য ক্যালেন্ডার</string>
+    <string name="view_settings">সেটিংস দেখুন</string>
+    <string name="show_controls">কন্ট্রোল দেখান</string>
+    <string name="hide_controls">কন্ট্রোল লুকান</string>
+    <string name="search">সার্চ</string>
+    <string name="menu_preferences">সেটিংস</string>
+    <string name="goto_date">যান…</string>
+    <string name="goto_today">আজকে</string>
+    <string name="share_label">শেয়ার</string>
+    <string name="event_delete">কাজ মুছুন</string>
+    <string name="event_edit">কাজ সম্পাদনা করুন</string>
+    <string name="event_create">নতুন কাজ</string>
+    <string name="event_view">কাজ দেখুন</string>
+    <string name="month_view">মাস</string>
+    <string name="week_view">সপ্তাহ</string>
+    <string name="day_view">দিবস</string>
+    <string name="agenda_view">সময়সূচী</string>
+    <string name="show_day_view">দিন দেখুন</string>
+    <string name="calendar_refresh">রিফ্রেশ</string>
+    <plurals name="weekN">
+        <item quantity="one">সপ্তাহ <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">১ দিন</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> দিন</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">১ ঘণ্টা</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ঘণ্টা</item>
+    </plurals>
 </resources>
