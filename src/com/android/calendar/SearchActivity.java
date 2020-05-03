@@ -15,7 +15,6 @@
  */
 package com.android.calendar;
 
-import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
@@ -30,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Events;
 import android.provider.SearchRecentSuggestions;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.appcompat.app.AppCompatActivity;
