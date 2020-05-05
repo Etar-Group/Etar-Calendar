@@ -23,9 +23,7 @@
     <string name="tomorrow" msgid="614434811813859237">"I morgen"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"I dag kl. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"I morgen kl. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Gentagelse"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Ingen titel)"</string>
     <plurals name="Nminutes">
@@ -33,12 +31,12 @@
         <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutter"</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 min."</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+        <item quantity="one">1 minut</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> minutter</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 time"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> timer"</item>
+        <item quantity="one">1 time</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> timer</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
@@ -121,7 +119,7 @@
     <string name="agenda_today" msgid="5965841338467422191">"I dag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"I går, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"I morgen, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"Indlæser..."</string>
+    <string name="loading" msgid="3772533493214331230">Indlæser…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tryk for at få vist begivenheder før <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tryk for at få vist begivenheder efter <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Søg i mine kalendere"</string>
@@ -152,7 +150,7 @@
     <string name="custom" product="default" msgid="4137468716966004993">"Tilpasset (kan ikke tilpasses på telefon)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Rediger kun denne begivenhed"</string>
     <string name="modify_all" msgid="4421657265864209041">"Rediger alle begivenheder i rækken"</string>
-    <string name="modify_all_following" msgid="3017428541066390380">"Rediger denne og alle fremtidige begivenheder."</string>
+    <string name="modify_all_following" msgid="3017428541066390380">Ændre denne og alle fremtidige begivenheder</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Ny begivenhed"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Ny begivenhed"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Vil du slette denne begivenhed?"</string>
@@ -180,8 +178,8 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Vis ugenummer"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Version"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Ingen kommende kalenderbegivenheder"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimenterende"</string>
@@ -207,29 +205,29 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Ny begivenhed"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Begivenhed <xliff:g id="ITEM_INDEX">%1$s</xliff:g> ud af <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 begivenhed"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> begivenheder"</item>
+        <item quantity="one">1 begivenhed</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> begivenheder</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"+1 begivenhed"</item>
-        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> begivenheder"</item>
+        <item quantity="one">+1 begivenhed</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> begivenheder</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valgt begivenhed"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> gang om dagen"</item>
-        <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
+        <item quantity="one">Hver <xliff:g id="count">%d</xliff:g> dag</item>
+        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> dage</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> gang om ugen"</item>
-        <item quantity="other" msgid="7094801039989237061">"Hver <xliff:g id="COUNT">%d</xliff:g>. uge"</item>
+        <item quantity="one">Hver <xliff:g id="count">%d</xliff:g> uge</item>
+        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> uger</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> gang om måneden"</item>
-        <item quantity="other" msgid="5419723710346646523">"Hver <xliff:g id="COUNT">%d</xliff:g>. måned"</item>
+        <item quantity="one">Hver <xliff:g id="count">%d</xliff:g> måned</item>
+        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> måneder</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> gang om året"</item>
-        <item quantity="other" msgid="5678653649746562060">"Hvert <xliff:g id="COUNT">%d</xliff:g>. år"</item>
+        <item quantity="one">Hver <xliff:g id="count">%d</xliff:g> år</item>
+        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> år</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"samme dag hver måned"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"For altid"</string>
@@ -250,4 +248,83 @@
     <string name="snooze_delay_dialog_title">Sæt udsættelse</string>
     <string name="preferences_default_snooze_delay_title">Tid for standard-udsættelse</string>
     <string name="preferences_default_snooze_delay_dialog">Standard-udsættelse</string>
+    <string name="goto_date">Gå til…</string>
+    <string name="rsvp_accepted">Svarede ja.</string>
+    <string name="rsvp_tentative">Svarede måske.</string>
+    <string name="rsvp_declined">Svarede nej.</string>
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_light_theme">Lys</string>
+    <string name="preferences_dark_theme">Mørk</string>
+    <string name="preferences_black_theme">Sort</string>
+    <string name="preferences_color">Primær farve</string>
+    <string name="preferences_color_pick">Primær farve</string>
+    <string name="preferences_days_per_week_title">Dage pr. uge</string>
+    <string name="preferences_days_per_week_dialog">Dage pr. uge</string>
+    <string name="preferences_default_event_duration_title">Standard begivenhed varighed</string>
+    <string name="preferences_issues">Rapporter problemer</string>
+    <string name="user_rejected_calendar_write_permission">Etar kræver kalender læse- og skrivetilladelse for at fungere korrekt. Prøv igen.</string>
+    <string name="calendar_permission_not_granted">Denne funktion kan ikke fungere. Etar kræver kalender læse- og skrivetilladelse for at fungere korrekt</string>
+    <string name="visibility_confidential">Fortrolig</string>
+    <string name="zero_minutes">0 minutter</string>
+    <string name="fifteen_minutes">15 minutter</string>
+    <string name="thirty_minutes">30 minutter</string>
+    <string name="one_hour">1 time</string>
+    <string name="one_and_a_half_hours">1,5 timer</string>
+    <string name="two_hours">2 timer</string>
+    <string name="share_label">Del</string>
+    <string name="no_map">Intet kort program installeret</string>
+    <string name="default_start_title">Standard visning</string>
+    <string name="default_start_last">Tidligere brugt visning</string>
+    <string name="cal_share_intent_title">Send begivenhed til:</string>
+    <string name="cal_export_event_sdcard_title">Eksportere til SD kort</string>
+    <string name="cal_export_succ_msg">Begivenhed eksporteret: %1s</string>
+    <string name="cal_import_menu_title">Importere begivenhed</string>
+    <string name="cal_nothing_to_import">Intet at importere</string>
+    <string name="cal_import_error_msg">Importering til kalender mislykkedes</string>
+    <string name="cal_pick_ics">Vælg fil til import</string>
+    <string name="view_settings">Vis indstillinger</string>
+    <string name="preferences_month_view_portrait">Måneds visning udseende (stående)</string>
+    <string name="preferences_month_view_landscape">Måneds visning udseende (liggende)</string>
+    <string name="display_time">Vis tidspunkt</string>
+    <string name="display_location">Vis placering</string>
+    <string name="show_time_no">Hvis ikke tidspunkt</string>
+    <string name="show_time_start">Kun start tidspunkt</string>
+    <string name="show_time_start_end">Start og slut tidspunkt</string>
+    <string name="show_time_start_end_below">Start og slut tidspunkt under begivenheden</string>
+    <string name="maximum_number_of_lines">Maksimum antal linjer i begivenhed</string>
+    <string name="foreground_notification_channel_name">Alarm synkronisering</string>
+    <string name="preferences_calendar_account">%1$s konto</string>
+    <string name="preferences_calendar_delete">Slette kalender</string>
+    <string name="preferences_calendar_display_name">Ændre navn</string>
+    <string name="preferences_calendar_color">Farve</string>
+    <string name="preferences_calendar_visible">Vis begivenheder</string>
+    <string name="preferences_calendar_synchronize">Synkronisere kalender</string>
+    <string name="preferences_list_calendar_summary_sync_off">Ikke synkroniseret</string>
+    <string name="preferences_list_calendar_summary_invisible">Begivenheder vises ikke</string>
+    <string name="preferences_list_general">Generel opsætning</string>
+    <string name="preferences_list_add_remote">Tilføj fjernkalender (CalDAV)</string>
+    <string name="preferences_list_add_offline">Tilføj offlinekalender</string>
+    <string name="preferences_list_add_offline_title">Tilføj offlinekalender</string>
+    <string name="preferences_list_add_offline_error_empty">Indtast kalendernavn!</string>
+    <string name="preferences_list_add_offline_button">Tilføj kalender</string>
+    <string name="preferences_list_add_offline_name">Navn</string>
+    <string name="preferences_list_add_offline_cancel">Annuller</string>
+    <string name="preferences_calendar_color_warning_title">Advarsel</string>
+    <string name="preferences_calendar_color_warning_button">Jeg forstår</string>
+    <string name="preferences_calendar_delete_message">Vil du virkelig slette denne kalender\?</string>
+    <string name="preferences_calendar_delete_delete">Slet kalender</string>
+    <string name="preferences_calendar_delete_cancel">Annuller</string>
+    <string name="preferences_menu_about">Om Etar</string>
+    <string name="offline_account_name">Offlinekalender</string>
+    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Etar Projektet. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="authors">Forfattere</string>
+    <string name="changelog">Ændringslog</string>
+    <string name="license">Licens</string>
+    <string name="source_code">Kilde</string>
+    <string name="display_options">Vis indstillinger</string>
+    <string name="preferences_calendar_no_display_name">Unavngivet kalender</string>
+    <string name="preferences_calendar_account_local">Offline kalender</string>
+    <string name="preferences_calendar_configure_account">Indstille kalender i %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1d begivenheder</string>
+    <string name="preferences_calendar_info_category">Kalendar information</string>
 </resources>

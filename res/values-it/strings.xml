@@ -23,9 +23,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Domani"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Oggi alle <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Domani alle <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Ripetizione"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Senza titolo)"</string>
     <plurals name="Nminutes">
@@ -308,7 +306,35 @@
     <string name="preferences_list_add_offline">Aggiungi calendario offline</string>
     <string name="offline_account_name">Calendario offline</string>
     <string name="authors">Autori</string>
-    <string name="changelog"></string>
+    <string name="changelog">Changelog modifiche</string>
     <string name="license">Licenza</string>
     <string name="source_code">Codice sorgente</string>
+    <string name="cal_import_error_time_zone_msg">Impossibile elaborare il fuso orario specificato: %s</string>
+    <string name="preferences_calendar_account">%1$s account</string>
+    <string name="preferences_calendar_delete">Elimina calendario</string>
+    <string name="preferences_calendar_display_name">Cambia nome</string>
+    <string name="preferences_calendar_account_category">Tipo account</string>
+    <string name="preferences_calendar_visible">Visualizza eventi</string>
+    <string name="preferences_list_calendar_summary_invisible">Gli eventi non vengono visualizzati</string>
+    <string name="preferences_list_add_offline_title">Aggiungi calendario offline</string>
+    <string name="preferences_list_add_offline_error_empty">Inserisci un nome per il calendario!</string>
+    <string name="preferences_list_add_offline_message">I calendari offline non sono sincronizzati con un servizio cloud e sono disponibili solo sul telefono.</string>
+    <string name="preferences_list_add_offline_button">Aggiungi calendario</string>
+    <string name="preferences_list_add_offline_name">Nome</string>
+    <string name="preferences_list_add_offline_cancel">Annulla</string>
+    <string name="preferences_calendar_color_warning_title">Attenzione</string>
+    <string name="preferences_calendar_color_warning_message">La modifica del colore verrà annullata quando il calendario sarà nuovamente sincronizzato.
+\n
+\nIn DAVx⁵ la preferenza \'Gestisci i colori del calendario\' può essere disabilitata per evitare questo comportamento.</string>
+    <string name="preferences_calendar_color_warning_button">Ho capito</string>
+    <string name="preferences_calendar_delete_message">Vuoi veramente cancellare questo calendario\?</string>
+    <string name="preferences_calendar_delete_delete">Elimina calendario</string>
+    <string name="preferences_calendar_delete_cancel">Annulla</string>
+    <string name="preferences_menu_about">Altro su Etar</string>
+    <string name="app_copyright">Progetto Etar © 2015-<xliff:g>%s</xliff:g>. Parte del progetto Android Open Source © 2005-<xliff:g>%s</xliff:g>.</string>
+    <string name="preferences_calendar_no_display_name">Calendario senza nome</string>
+    <string name="preferences_calendar_account_local">Calendario non in linea</string>
+    <string name="preferences_calendar_configure_account">Configura calendario in %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1d eventi</string>
+    <string name="preferences_calendar_info_category">Informazioni calendario</string>
 </resources>

@@ -40,8 +40,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> h</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">1 jour</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> jours</item>
+        <item quantity="one">1 j</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> j</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">semaine <xliff:g id="count">%d</xliff:g></item>
@@ -226,11 +226,11 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Évènement sélectionné</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Tous les jours</item>
-        <item quantity="other">Tous les <xliff:g id="COUNT">%d</xliff:g> jours</item>
+        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> jours</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one">Toutes les semaines</item>
-        <item quantity="other">Toutes les <xliff:g id="COUNT">%d</xliff:g> semaines</item>
+        <item quantity="other">Toutes les <xliff:g id="count">%d</xliff:g> semaines</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">Tous les mois</item>
@@ -238,7 +238,7 @@
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Tous les ans</item>
-        <item quantity="other">Tous les <xliff:g id="COUNT">%d</xliff:g> ans</item>
+        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> ans</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"le même jour chaque mois"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Toujours"</string>
@@ -299,4 +299,42 @@
     <string name="maximum_number_of_lines">Nombre maximum de lignes par évènement</string>
     <string name="foreground_notification_channel_name">Alerte de synchronisation</string>
     <string name="foreground_notification_channel_description">La synchronisation d’alerte interne nécessite les notifications au premier plan. Veuillez mettre en sourdine</string>
+    <string name="cal_import_error_time_zone_msg">Impossible de comprendre le fuseau horaire donné : %s</string>
+    <string name="preferences_calendar_account">Compte %1$s</string>
+    <string name="preferences_calendar_delete">Suprrimer le calendrier</string>
+    <string name="preferences_calendar_display_name">Modifier le nom</string>
+    <string name="preferences_calendar_color">Couleur</string>
+    <string name="preferences_calendar_visible">Afficher les évènements</string>
+    <string name="preferences_calendar_synchronize">Synchroniser ce calendrier</string>
+    <string name="preferences_list_calendar_summary_sync_off">Non synchronisé</string>
+    <string name="preferences_list_calendar_summary_invisible">Les évènements ne sont pas affichés</string>
+    <string name="preferences_list_general">Paramètres généraux</string>
+    <string name="preferences_list_add_remote">Ajouter un calendrier distant (CalDAV)</string>
+    <string name="preferences_list_add_offline">Ajouter un calendrier hors-ligne</string>
+    <string name="preferences_list_add_offline_title">Ajouter un calendrier hors-ligne</string>
+    <string name="preferences_list_add_offline_error_empty">Veuillez saisir le nom du calendrier !</string>
+    <string name="preferences_list_add_offline_message">Les calendriers hors-ligne ne sont PAS synchronisés sur un serveur distant et sont uniquement disponibles sur votre appareil.</string>
+    <string name="preferences_list_add_offline_button">Ajouter un calendrier</string>
+    <string name="preferences_list_add_offline_name">Nom</string>
+    <string name="preferences_list_add_offline_cancel">Annuler</string>
+    <string name="preferences_calendar_color_warning_title">Avertissement</string>
+    <string name="preferences_calendar_color_warning_message">La modification de la couleur peut être annulée lorsque le calendrier est synchronisé à nouveau.
+\n
+\nDans DAVx⁵, l’option « Gérer la couleur des calendriers » peut être désactivée pour empêcher cela.</string>
+    <string name="preferences_calendar_color_warning_button">Je comprends</string>
+    <string name="preferences_calendar_delete_message">Voulez-vous vraiment supprimer ce calendrier \?</string>
+    <string name="preferences_calendar_delete_delete">Supprimer le calendrier</string>
+    <string name="preferences_calendar_delete_cancel">Annuler</string>
+    <string name="preferences_menu_about">À propos d’Etar</string>
+    <string name="offline_account_name">Calendrier hors-ligne</string>
+    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="authors">Auteurs</string>
+    <string name="changelog">Journal des modifications</string>
+    <string name="license">Licence</string>
+    <string name="source_code">Code source</string>
+    <string name="preferences_calendar_no_display_name">Calendrier anonyme</string>
+    <string name="preferences_calendar_account_local">Calendrier hors-ligne</string>
+    <string name="preferences_calendar_configure_account">Configurer le calendrier dans %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1d évènements</string>
+    <string name="preferences_calendar_info_category">Détails du calendrier</string>
 </resources>

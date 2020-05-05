@@ -347,4 +347,9 @@
     <string name="changelog">История изменений</string>
     <string name="license">Лицензия</string>
     <string name="source_code">Исходный код</string>
+    <string name="preferences_calendar_no_display_name">Календарь без названия</string>
+    <string name="preferences_calendar_account_local">Автономный календарь</string>
+    <string name="preferences_calendar_configure_account">Настройка календаря в %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1d событий</string>
+    <string name="preferences_calendar_info_category">О календаре</string>
 </resources>

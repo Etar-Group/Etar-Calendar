@@ -21,40 +21,30 @@
     <string name="attendees_label" msgid="2971281641565729725">"Convidados"</string>
     <string name="today" msgid="8577375020252453006">"Hoje"</string>
     <string name="tomorrow" msgid="614434811813859237">"Amanhã"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">Hoje, às <xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Amanhã, às <xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Hoje, às <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Amanhã, às <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetições"</string>
     <string name="no_title_label" msgid="302177118061368042">(sem título)</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> minutos</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min.</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> min.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 hora</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> horas</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 dia</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> dias</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">semana <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="other">semana <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="one">semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">semana <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar dia"</string>
@@ -198,8 +188,7 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">Sem eventos futuros no calendário</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">Experimental</string>
@@ -226,8 +215,7 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">Evento <xliff:g id="item_index">%1$s</xliff:g> de <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 evento</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> eventos</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> eventos</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 evento</item>
@@ -317,4 +305,45 @@
     <string name="show_time_start_end">Hora de início e de término</string>
     <string name="show_time_start_end_below">Hora de início e de término para além do evento</string>
     <string name="maximum_number_of_lines">Quantidade máxima de linhas por evento</string>
+    <string name="foreground_notification_channel_name">Alerta de sincronização</string>
+    <string name="foreground_notification_channel_description">Notificação necessária para alerta de sincronização. Pode silenciar</string>
+    <string name="preferences_calendar_account">Conta %1$s</string>
+    <string name="preferences_calendar_delete">Remover calendário</string>
+    <string name="preferences_calendar_display_name">Mudar nome</string>
+    <string name="preferences_calendar_account_category">Tipo de conta</string>
+    <string name="preferences_calendar_color">Cor</string>
+    <string name="preferences_calendar_visible">Mostrar eventos</string>
+    <string name="preferences_calendar_synchronize">Sincronizar este calendário</string>
+    <string name="preferences_list_calendar_summary_sync_off">Não sincronizado</string>
+    <string name="preferences_list_calendar_summary_invisible">Eventos não são mostrados</string>
+    <string name="preferences_list_general">Definições gerais</string>
+    <string name="preferences_list_add_offline_button">Adicionar calendário</string>
+    <string name="preferences_list_add_offline_name">Nome</string>
+    <string name="preferences_list_add_offline_cancel">Cancelar</string>
+    <string name="preferences_calendar_color_warning_title">Aviso</string>
+    <string name="preferences_calendar_color_warning_button">Percebi</string>
+    <string name="preferences_calendar_delete_delete">Remover calendário</string>
+    <string name="preferences_calendar_delete_cancel">Cancelar</string>
+    <string name="preferences_menu_about">Acerca de Etar</string>
+    <string name="offline_account_name">Calendário local</string>
+    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="authors">Autores</string>
+    <string name="changelog">Alterações</string>
+    <string name="license">Licença</string>
+    <string name="source_code">Código fonte</string>
+    <string name="preferences_calendar_no_display_name">Calendário sem nome</string>
+    <string name="cal_import_error_time_zone_msg">Incapaz de entender o fuso horário: %s</string>
+    <string name="preferences_list_add_remote">Adicionar calendário remoto (CalDAV)</string>
+    <string name="preferences_list_add_offline">Adicionar calendário local</string>
+    <string name="preferences_list_add_offline_title">Adicionar calendário local</string>
+    <string name="preferences_list_add_offline_error_empty">Introduza um nome!</string>
+    <string name="preferences_list_add_offline_message">Os calendários locais não são sincronizados e apenas estão disponíveis no seu dispositivo.</string>
+    <string name="preferences_calendar_color_warning_message">A alteração da cor poderá ser revertida durante as sincronizações.
+\n
+\nEm DAVx⁵, a opção \"Gerir cores do calendário\" pode ser desativada.</string>
+    <string name="preferences_calendar_delete_message">Tem a certeza de que deseja remover este calendário\?</string>
+    <string name="preferences_calendar_account_local">Calendário local</string>
+    <string name="preferences_calendar_configure_account">Configurar calendário em %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1d eventos</string>
+    <string name="preferences_calendar_info_category">Informação do calendário</string>
 </resources>

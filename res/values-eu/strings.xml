@@ -222,29 +222,23 @@
     <string name="tomorrow_at_time_fmt">Bihar <xliff:g id="time_interval">%s</xliff:g>(e)tan</string>
     <plurals name="Nminutes">
         <item quantity="one">Minutu 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> minutu</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutu</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">Min 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> min</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">Ordu 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> ordu</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ordu</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">Egun 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> egun</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> egun</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">
-            <xliff:g id="count">%d</xliff:g>. astea</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g>. astea</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g>. astea</item>
+        <item quantity="other"/>
     </plurals>
     <string name="no_calendars_found">Gertaera bat gehitu aurretik, gutxienez Egutegi bat gehitu behar duzu zure gailuan eta egutegia ikusgarri bezala markatu. Ukitu Gehitu Kontua kontu bat gehitzeko (kontu bat gehitu baduzu, itxaron sinkronizazioa bukatu arte eta saiatu berriz). Edo ukitu Utzi eta ziurtatu gutxienez egutegi bat dagoela ikusgarri.</string>
     <string name="show_newer_events">Ukitu gertaerak ikusteko <xliff:g id="newest_search_range">%1$s</xliff:g> baino geroago</string>
@@ -264,16 +258,14 @@
     <string name="preferences_default_snooze_delay_dialog">Errepikapen atzerapen lehenetsia</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events">Ez dago hurrengo egutegiko gertaerarik</string>
     <string name="template_announce_item_index">Gertaera <xliff:g id="item_index">%1$s</xliff:g>
         <xliff:g id="item_count">%2$s</xliff:g>(e)tik.</string>
     <plurals name="Nevents">
         <item quantity="one">Gertaera 1</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> gertaerak</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> gertaera</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+ gertaera 1</item>
@@ -281,23 +273,19 @@
     </plurals>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Egunero</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> egunetik behin</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> egunetik behin</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one">Astero</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> asterik behik</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> asterik behik</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">Hilabetero</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> hilabeterik behin</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hilabeterik behin</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Urtero</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> urterik behin</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> urterik behin</item>
     </plurals>
     <string name="recurrence_end_count_label">Zenbait gertaerentzako</string>
     <string name="show_time_start_end_below">Hasiera eta bukaera denbora gertaera azpian</string>
@@ -305,4 +293,42 @@
     <string name="foreground_notification_channel_name">Alerta-sinkronizazioa</string>
     <string name="foreground_notification_channel_description">Lehen planoko jakinarazpena beharrezkoa da barne alertak sinkronizatzeko. Mesedez, isildu</string>
     <string name="cal_import_error_time_zone_msg">Ezin da emandako denbora-zona ulertu: %s</string>
+    <string name="preferences_calendar_account">%1$s kontua</string>
+    <string name="preferences_calendar_delete">Ezabatu egutegia</string>
+    <string name="preferences_calendar_display_name">Aldatu izena</string>
+    <string name="preferences_calendar_account_category">Kontu mota</string>
+    <string name="preferences_calendar_color">Kolorea</string>
+    <string name="preferences_calendar_visible">Erakutsi gertaerak</string>
+    <string name="preferences_calendar_synchronize">Sinkronizatu egutegi hau</string>
+    <string name="preferences_list_calendar_summary_sync_off">Ez sinkronizatuta</string>
+    <string name="preferences_list_calendar_summary_invisible">Gertaerak ez dira bistaratzen</string>
+    <string name="preferences_list_general">Ezarpen orokorrak</string>
+    <string name="preferences_list_add_remote">Gehitu urruneko egutegia (CalDAV)</string>
+    <string name="preferences_list_add_offline">Gehitu lineaz kanpoko egutegia</string>
+    <string name="preferences_list_add_offline_title">Gehitu lineaz kanpoko egutegia</string>
+    <string name="preferences_list_add_offline_error_empty">Idatzi egutegiaren izena!</string>
+    <string name="preferences_list_add_offline_message">Lineaz kanpoko egutegiak EZ dira hodeiko zerbitzu batekin sinkronizatzen eta zure telefonoan soilik eskuragarri daude.</string>
+    <string name="preferences_list_add_offline_button">Gehitu egutegia</string>
+    <string name="preferences_list_add_offline_name">Izena</string>
+    <string name="preferences_list_add_offline_cancel">Utzi</string>
+    <string name="preferences_calendar_color_warning_title">Abisua</string>
+    <string name="preferences_calendar_color_warning_message">Kolorea aldaketa egutegia berriro sinkronizatzean desegin daiteke.
+\n
+\nDAVx⁵-en \'Kudeatu egutegiaren koloreak\' desgaitu daiteke hau ekiditeko.</string>
+    <string name="preferences_calendar_color_warning_button">Ulertzen dut</string>
+    <string name="preferences_calendar_delete_message">Ziur egutegi hau ezabatu nahi duzula\?</string>
+    <string name="preferences_calendar_delete_delete">Ezabatu egutegia</string>
+    <string name="preferences_calendar_delete_cancel">Utzi</string>
+    <string name="preferences_menu_about">Etar-i buruz</string>
+    <string name="offline_account_name">Lineaz kanpoko egutegia</string>
+    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="authors">Egileak</string>
+    <string name="changelog">Aldaketa egunkaria</string>
+    <string name="license">Lizentzia</string>
+    <string name="source_code">Iturria</string>
+    <string name="preferences_calendar_no_display_name">Izen gabeko egutegia</string>
+    <string name="preferences_calendar_account_local">Lineaz kanpoko egutegia</string>
+    <string name="preferences_calendar_configure_account">Konfiguratu %1$s egutegia</string>
+    <string name="preferences_calendar_number_of_events">%1d gertaera</string>
+    <string name="preferences_calendar_info_category">Egutegiaren informazioa</string>
 </resources>

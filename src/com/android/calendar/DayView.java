@@ -2079,7 +2079,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         final ArrayList<Event> events = mEvents;
         final int len = events.size();
         // Num of all-day-events on each day.
-        final int eventsCount[] = new int[mLastJulianDay - mFirstJulianDay + 1];
+        final int[] eventsCount = new int[mLastJulianDay - mFirstJulianDay + 1];
         Arrays.fill(eventsCount, 0);
         for (int ii = 0; ii < len; ii++) {
             Event event = events.get(ii);

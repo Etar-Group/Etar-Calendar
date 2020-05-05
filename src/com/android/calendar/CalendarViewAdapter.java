@@ -56,7 +56,7 @@ public class CalendarViewAdapter extends BaseAdapter {
     private static final String TAG = "MenuSpinnerAdapter";
     // Defines the types of view returned by this spinner
     private static final int BUTTON_VIEW_TYPE = 0;
-    private final String mButtonNames [];           // Text on buttons
+    private final String[] mButtonNames;           // Text on buttons
     private final LayoutInflater mInflater;
     private final Context mContext;
     private final Formatter mFormatter;
