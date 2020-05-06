@@ -954,7 +954,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 break;
         }
         mDrawerLayout.closeDrawers();
-        return false;
+        return true;
     }
 
     /**
