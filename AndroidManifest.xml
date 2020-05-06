@@ -19,29 +19,17 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ws.xsoh.etar"
-    android:installLocation="auto"
-    android:versionCode="13"
-    android:versionName="1.0.10">
-<!--         android:sharedUserLabel="@string/app_label"> -->
-
-    <!--
-       NOTE: and original-package cannot be used, since the Eclair
-       version was using a shared user ID with the provider.
-    -->
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH.mail" />
-    
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application android:name="com.android.calendar.CalendarApplication"
         android:hardwareAccelerated="true"
@@ -71,6 +59,10 @@
                 <data android:host="com.android.calendar" />
                 <data android:scheme="content"/>
             </intent-filter>
+
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+
         </activity>
 
         <activity-alias android:name="com.android.calendar.LaunchActivity"
@@ -78,9 +70,11 @@
             android:targetActivity="com.android.calendar.AllInOneActivity">
         </activity-alias>
 
+        <activity android:name="com.android.calendar.AboutActivity">
+        </activity>
+
         <activity android:name="com.android.calendar.EventInfoActivity"
-            android:parentActivityName="com.android.calendar.AllInOneActivity"
-            android:theme="@style/CalendarTheme.WithActionBar">
+            android:parentActivityName="com.android.calendar.AllInOneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -146,19 +140,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity"
-            android:label="@string/select_visible_calendars_title"
-            android:theme="@style/Base.CalendarAppThemeWithActionBar" />
-
-        <activity android:name="com.android.calendar.selectcalendars.SelectSyncedCalendarsMultiAccountActivity"
-            android:label="@string/select_synced_calendars_title"
-            android:theme="@style/Base.CalendarAppThemeWithActionBar" />
-
         <activity
-            android:name="com.android.calendar.CalendarSettingsActivity"
+            android:name="com.android.calendar.settings.SettingsActivity"
             android:label="@string/preferences_title"
-            android:parentActivityName="com.android.calendar.AllInOneActivity"
-            android:theme="@style/Base.CalendarAppThemeWithActionBar" />
+            android:parentActivityName="com.android.calendar.AllInOneActivity" />
 
         <!-- Declarations for search -->
         <!-- Make all activities a searchable context -->
@@ -191,9 +176,19 @@
             </intent-filter>
         </activity>
 
-        <!--<provider android:name="com.android.calendar.CalendarRecentSuggestionsProvider"
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
-            android:authorities="com.android.calendar.CalendarRecentSuggestionsProvider" />-->
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <provider android:name="com.android.calendar.CalendarRecentSuggestionsProvider"
+            android:exported="false"
+            android:authorities="com.android.calendar.CalendarRecentSuggestionsProvider" />
 
         <!-- Declarations for alerts/reminders -->
         <activity
@@ -222,9 +217,6 @@
                 <data android:scheme="content" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
             <intent-filter>
@@ -243,10 +235,8 @@
 
         <service android:name="com.android.calendar.alerts.SnoozeAlarmsService" />
 
-        <service android:name="com.android.calendar.alerts.InitAlarmsService" />
-
         <!-- Declarations for the widget -->
-        <receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider" android:label="@string/gadget_title">
+        <!--receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider" android:label="@string/gadget_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.android.calendar.APPWIDGET_UPDATE" />
@@ -277,7 +267,7 @@
         <service android:name="com.android.calendar.widget.CalendarAppWidgetService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS">
-        </service>
+        </service-->
 
         <service android:name="com.android.calendar.AsyncQueryServiceHelper" />
 

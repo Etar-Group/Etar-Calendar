@@ -70,18 +70,6 @@
     <item msgid="6228387173725732140">"Pasiekiama"</item>
     <item msgid="2064426942462573474">"Bandomasis"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"Numatytasis"</item>
-    <item msgid="5200216103966973369">"Privatus"</item>
-    <item msgid="9182342638433672664">"Viešas"</item>
-  </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"pirmas"</item>
-    <item msgid="5631923029483854900">"antras"</item>
-    <item msgid="148935502975250973">"trečias"</item>
-    <item msgid="5124200797326669172">"ketvirtas"</item>
-    <item msgid="7564374178324652137">"paskutinis"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Nėra atsako"</item>
     <item msgid="3724434080904437698">"Taip"</item>
@@ -92,10 +80,6 @@
     <item msgid="4208432367651646938">"Tik šis įvykis"</item>
     <item msgid="1536401639805370405">"Šis ir būsimi įvykiai"</item>
     <item msgid="7833229563617435430">"Visi įvykiai"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Šis ir būsimi įvykiai"</item>
-    <item msgid="6315440193748139854">"Visi įvykiai"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"Tik šis įvykis"</item>

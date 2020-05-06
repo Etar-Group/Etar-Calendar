@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Google 日曆"</string>
     <string name="what_label" msgid="1933578391985810049">"主題"</string>
     <string name="where_label" msgid="3472482206065595118">"地點"</string>
@@ -26,28 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"明天"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"今天，<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"明天，<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>，<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"顯示頻率"</string>
     <string name="no_title_label" msgid="302177118061368042">"(無標題)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 分鐘"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> 分鐘"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 分鐘"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> 分鐘"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 小時"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> 小時"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 天"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> 天"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"第 <xliff:g id="COUNT">%d</xliff:g> 週"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 分鐘"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> 分鐘"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 分鐘"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> 分鐘"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 小時"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> 小時"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 天"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> 天"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"第 <xliff:g id="COUNT">%d</xliff:g> 週"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"重新整理"</string>
     <string name="show_day_view" msgid="5782512782605466016">"顯示天"</string>
     <string name="agenda_view" msgid="5566084759423843245">"待辦事項"</string>
@@ -60,16 +59,9 @@
     <string name="event_delete" msgid="2386667193277770442">"刪除活動"</string>
     <string name="goto_today" msgid="9162136434410891230">"今日"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"設定"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"要顯示的日曆"</string>
     <string name="search" msgid="550656004486017426">"搜尋"</string>
     <string name="hide_controls" msgid="830320505938520882">"隱藏控制介面"</string>
     <string name="show_controls" msgid="715520586028062621">"顯示控制介面"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"要顯示的日曆"</string>
-    <string name="synced" msgid="7913940305983383493">"已同步處理"</string>
-    <string name="not_synced" msgid="4275114941801829419">"未同步處理"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"這個帳戶未經過同步處理，您的日曆可能不含最新資訊。"</string>
-    <string name="accounts" msgid="849401841083180306">"帳戶與同步處理"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"要同步處理的日曆"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"要同步處理的日曆"</string>
     <string name="hint_what" msgid="709155115005044531">"活動名稱"</string>
     <string name="hint_where" msgid="4972598001033801974">"地點"</string>
@@ -88,14 +80,12 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"從"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"全天"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"日曆"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"全部顯示"</string>
     <string name="description_label" msgid="7193475046717505855">"說明"</string>
     <string name="presence_label" msgid="6169724148441175862">"將我的狀態顯示為"</string>
     <string name="privacy_label" msgid="9215031965259597335">"隱私權"</string>
     <string name="reminders_label" msgid="7292389181815525676">"新增提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"無日曆"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"您必須在裝置上至少新增一個「日曆」帳戶，並將一個日曆設為顯示，才能新增活動。輕觸 [新增帳戶] 即可新增帳戶 (如果您剛剛新增帳戶，請稍候片刻，待帳戶同步處理完成後再試一次)；或是輕觸 [取消]，並確認至少將一個日曆設為顯示。"</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"透過「Google 帳戶」使用「Google 日曆」可獲得更佳的效益。"\n\n"• 透過任何瀏覽器都可存取「Google 日曆」"\n"• 安全備份您的活動"</string>
     <string name="add_account" msgid="1669072099756774952">"新增帳戶"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"日曆："</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"主辦人："</string>
@@ -116,16 +106,15 @@
     <string name="call_label" msgid="2960328220008869083">"電洽"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"快速回應"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"編輯傳送給邀請對象的預設電子郵件回應"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"編輯快速回應"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"快速回應"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"選擇快速回應"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"找不到電子郵件程式"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"我會遲到幾分鐘。"</item>
-    <item msgid="6215158751728689832">"我大約 10 分鐘後抵達。"</item>
-    <item msgid="4485794001743679338">"別等我，請直接開始。"</item>
-    <item msgid="8036557974294987511">"抱歉不克前往。我們再約時間。"</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"我會遲到幾分鐘。"</item>
+        <item msgid="6215158751728689832">"我大約 10 分鐘後抵達。"</item>
+        <item msgid="4485794001743679338">"別等我，請直接開始。"</item>
+        <item msgid="8036557974294987511">"抱歉不克前往。我們再約時間。"</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"自行撰寫回應…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"主辦人："</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"提醒"</string>
@@ -141,29 +130,25 @@
     <string name="delete_label" msgid="874742811918030739">"刪除"</string>
     <string name="save_label" msgid="2133599104834432589">"完成"</string>
     <string name="discard_label" msgid="2394623883289782541">"取消"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"全部延遲"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"全部關閉"</string>
     <string name="snooze_label" msgid="1515893621063224666">"延遲"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"單次活動"</string>
     <string name="endByDate" msgid="7654221304929538201">"；直到 <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"；1 次"</item>
-    <item quantity="other" msgid="4855496837834652446">"；<xliff:g id="NUMBER">%d</xliff:g> 次"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"每天"</item>
-    <item quantity="other" msgid="5455230727715859264">"每 <xliff:g id="NUMBER">%d</xliff:g> 天"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"；1 次"</item>
+        <item quantity="other" msgid="4855496837834652446">"；<xliff:g id="NUMBER">%d</xliff:g> 次"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"每天"</item>
+        <item quantity="other" msgid="5455230727715859264">"每 <xliff:g id="NUMBER">%d</xliff:g> 天"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"平日 (週一至週五)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"每週 (每<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
-    <item quantity="other" msgid="2857390143157377867">"每 <xliff:g id="NUMBER">%1$d</xliff:g> 週 (每<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"每週 (每<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
+        <item quantity="other" msgid="2857390143157377867">"每 <xliff:g id="NUMBER">%1$d</xliff:g> 週 (每<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"每月"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"每月 (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> 日)"</string>
-    <string name="yearly" msgid="8576208380302949002">"每年 (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"自訂 (無法在手機上自訂)"</string>
     <string name="modify_event" msgid="5982876409997142690">"僅變更這項活動。"</string>
     <string name="modify_all" msgid="4421657265864209041">"變更所有後續的活動"</string>
@@ -173,8 +158,6 @@
     <string name="delete_this_event_title" msgid="518402946676919384">"刪除這項活動？"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"要刪除「<xliff:g id="EVENTTITLE">%s</xliff:g>」嗎？"</string>
     <string name="change_response_title" msgid="7704714776070974984">"變更回應"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"一般設定"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"關於日曆"</string>
     <string name="preferences_title" msgid="8045855493262131773">"設定"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"日曆檢視設定"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"通知和提醒"</string>
@@ -195,23 +178,15 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"在差旅期間以您的居住地時區來顯示日曆及活動時間"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"居住地時區"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"顯示週數"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"相關資訊"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本"</string>
-    <string name="gadget_title" msgid="939918875331310945">"日曆"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"沒有即將開始的日曆活動"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"實驗性"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"提醒"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"略過提醒"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"略過提醒"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"限制時段"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"在特定時段內取消活動提醒。"</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"限制時段開始時間"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"限制時段結束時間"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"偵錯"</string>
     <string name="copy_db" msgid="437691290566699292">"傳送資料庫"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"正在搜尋 <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"移除參加者"</string>
@@ -224,54 +199,55 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"新增提醒"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"移除提醒"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"新增參加者"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"同步處理日曆"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"全天活動"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"顯示頻率"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"提醒時間"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"提醒類型"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"將我的狀態顯示為"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"隱私權"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"日曆通知"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"延後通知"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"傳送電子郵件給邀請對象"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ 新活動"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"第 <xliff:g id="ITEM_INDEX">%1$s</xliff:g> 個活動 (共 <xliff:g id="ITEM_COUNT">%2$s</xliff:g> 個)"</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 個活動"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> 個活動"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 個活動"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> 個活動"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 個活動"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> 個活動"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 個活動"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> 個活動"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"選取的活動"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"請勿勾選 -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"提醒方式"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"不重複進行"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"每 <xliff:g id="COUNT">%d</xliff:g> 天"</item>
-    <item quantity="other" msgid="707566499994398250">"每 <xliff:g id="COUNT">%d</xliff:g> 天"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"每 <xliff:g id="COUNT">%d</xliff:g> 週"</item>
-    <item quantity="other" msgid="7094801039989237061">"每 <xliff:g id="COUNT">%d</xliff:g> 週"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"每 <xliff:g id="COUNT">%d</xliff:g> 個月"</item>
-    <item quantity="other" msgid="5419723710346646523">"每 <xliff:g id="COUNT">%d</xliff:g> 個月"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"每 <xliff:g id="COUNT">%d</xliff:g> 年"</item>
-    <item quantity="other" msgid="5678653649746562060">"每 <xliff:g id="COUNT">%d</xliff:g> 年"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"每 <xliff:g id="COUNT">%d</xliff:g> 天"</item>
+        <item quantity="other" msgid="707566499994398250">"每 <xliff:g id="COUNT">%d</xliff:g> 天"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"每 <xliff:g id="COUNT">%d</xliff:g> 週"</item>
+        <item quantity="other" msgid="7094801039989237061">"每 <xliff:g id="COUNT">%d</xliff:g> 週"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"每 <xliff:g id="COUNT">%d</xliff:g> 個月"</item>
+        <item quantity="other" msgid="5419723710346646523">"每 <xliff:g id="COUNT">%d</xliff:g> 個月"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"每 <xliff:g id="COUNT">%d</xliff:g> 年"</item>
+        <item quantity="other" msgid="5678653649746562060">"每 <xliff:g id="COUNT">%d</xliff:g> 年"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"每月的同一天"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"無限期"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"直到指定日期為止"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"結束日期：<xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"固定次數重複"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"重複 <xliff:g id="EVENT_COUNT">%d</xliff:g> 次活動"</item>
-    <item quantity="other" msgid="8779598489398048259">"重複 <xliff:g id="EVENT_COUNT">%d</xliff:g> 次活動"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"重複 <xliff:g id="EVENT_COUNT">%d</xliff:g> 次活動"</item>
+        <item quantity="other" msgid="8779598489398048259">"重複 <xliff:g id="EVENT_COUNT">%d</xliff:g> 次活動"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"變更結束日期"</string>
+    <string name="visibility_default">預設</string>
+    <string name="visibility_private">私人</string>
+    <string name="visibility_public">公開</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">要求提醒重響延遲</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">每當重響提醒時要求重響延遲</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">總是使用預設重響延遲</string>
+    <string name="snooze_delay_dialog_title">設定重響延遲</string>
+    <string name="preferences_default_snooze_delay_title">預設重響延遲時間</string>
+    <string name="preferences_default_snooze_delay_dialog">預設重響延遲</string>
 </resources>

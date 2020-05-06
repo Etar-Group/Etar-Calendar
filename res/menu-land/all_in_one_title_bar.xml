@@ -30,26 +30,29 @@
     <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
-        android:icon="@drawable/ic_menu_refresh"
         android:title="@string/calendar_refresh"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_search"
         android:alphabeticShortcut="f"
-        android:icon="@drawable/ic_menu_search"
         android:imeOptions="actionSearch"
         android:title="@string/search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="never|collapseActionView" />
     <item
         android:id="@+id/action_import"
         android:alphabeticShortcut="i"
         android:title="@string/cal_import_menu_title"
-        android:icon="@drawable/ic_menu_export"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_hide_controls"
         android:alphabeticShortcut="h"
         android:title="@string/hide_controls"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_view_settings"
+        android:alphabeticShortcut="v"
+        android:title="@string/view_settings"
+        android:orderInCategory="8"
         app:showAsAction="never" />
 </menu>

@@ -1,0 +1,13 @@
+特点：
+- 月视图
+- 周视图、日视图和日程视图
+- 使用 Android 日历同步，适用于 Google 日历、Exchange 等
+- 质感设计
+- 暗色主题、明亮主题
+- 免费、开源，绝对无广告
+- 日程小部件
+- 支持通过 ics 文件共享日历以及从 SD 卡导入 / 导出
+
+错误和反馈: https://github.com/Etar-Group/Etar-Calendar/issues
+源代码: https://github.com/Etar-Group/Etar-Calendar
+

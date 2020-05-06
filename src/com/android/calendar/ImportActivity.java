@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
@@ -20,8 +20,11 @@ import com.android.calendar.icalendar.VCalendar;
 import com.android.calendar.icalendar.VEvent;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.TimeZone;
 
@@ -40,17 +43,85 @@ public class ImportActivity extends Activity {
         }
     }
 
-    private long getLocalTimeFromString(String iCalDate) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+    private long getLocalTimeFromString(String iCalDate, String iCalDateParam) {
+        // see https://tools.ietf.org/html/rfc5545#section-3.3.5
 
-        try {
-            format.parse(iCalDate);
-            format.setTimeZone(TimeZone.getDefault());
-            return format.getCalendar().getTimeInMillis();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        // FORM #2: DATE WITH UTC TIME, e.g. 19980119T070000Z
+        if (iCalDate.endsWith("Z")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+            try {
+                format.parse(iCalDate);
+                format.setTimeZone(TimeZone.getDefault());
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) { }
         }
+
+        // FORM #3: DATE WITH LOCAL TIME AND TIME ZONE REFERENCE, e.g. TZID=America/New_York:19980119T020000
+        else if (iCalDateParam != null && iCalDateParam.startsWith("TZID=")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+            String timeZone = iCalDateParam.substring(5).replace("\"", "");
+            // This is a pretty hacky workaround to prevent exact parsing of VTimezones.
+            // It assumes the TZID to be refered to with one of the names recognizable by Java.
+            // (which are quite a lot, see e.g. http://tutorials.jenkov.com/java-date-time/java-util-timezone.html)
+            if (Arrays.asList(TimeZone.getAvailableIDs()).contains(timeZone)) {
+                format.setTimeZone(TimeZone.getTimeZone(timeZone));
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    String convertedTimeZoneId = android.icu.util.TimeZone
+                            .getIDForWindowsID(timeZone, "001");
+                    if (convertedTimeZoneId != null && !convertedTimeZoneId.equals("")) {
+                        format.setTimeZone(TimeZone.getTimeZone(convertedTimeZoneId));
+                    }
+                    else {
+                        format.setTimeZone(TimeZone.getDefault());
+                        Toast.makeText(
+                                this,
+                                getString(R.string.cal_import_error_time_zone_msg, timeZone),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    format.setTimeZone(TimeZone.getDefault());
+                    Toast.makeText(
+                            this,
+                            getString(R.string.cal_import_error_time_zone_msg, timeZone),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {  }
+        }
+
+        // ONLY DATE, e.g. 20190415
+        else if (iCalDateParam != null && iCalDateParam.equals("VALUE=DATE")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            format.setTimeZone(TimeZone.getDefault());
+
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {
+            }
+        }
+
+        // FORM #1: DATE WITH LOCAL TIME, e.g. 19980118T230000
+        else {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+            format.setTimeZone(TimeZone.getDefault());
+
+            try {
+                format.parse(iCalDate);
+                return format.getCalendar().getTimeInMillis();
+            } catch (ParseException e) {
+            }
+        }
+
+        Toast.makeText(this, getString(R.string.cal_import_error_date_msg, iCalDate), Toast.LENGTH_SHORT).show();
 
         return System.currentTimeMillis();
     }
@@ -98,16 +169,33 @@ public class ImportActivity extends Activity {
         }
 
         String dtStart = firstEvent.getProperty(VEvent.DTSTART);
+        String dtStartParam = firstEvent.getPropertyParameters(VEvent.DTSTART);
         if (!TextUtils.isEmpty(dtStart)) {
             calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-                    getLocalTimeFromString(dtStart));
+                    getLocalTimeFromString(dtStart, dtStartParam));
         }
 
         String dtEnd = firstEvent.getProperty(VEvent.DTEND);
+        String dtEndParam = firstEvent.getPropertyParameters(VEvent.DTEND);
         if (!TextUtils.isEmpty(dtEnd)) {
             calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
-                    getLocalTimeFromString(dtEnd));
+                    getLocalTimeFromString(dtEnd, dtEndParam));
         }
+
+        boolean isAllDay = getLocalTimeFromString(dtEnd, dtEndParam)
+                - getLocalTimeFromString(dtStart, dtStartParam) == 86400000;
+
+
+        if (isTimeStartOfDay(dtStart, dtStartParam)) {
+            calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, isAllDay);
+        }
+        //Check if some special property which say it is a "All-Day" event.
+
+        String microsoft_all_day_event = firstEvent.getProperty("X-MICROSOFT-CDO-ALLDAYEVENT");
+        if(!TextUtils.isEmpty(microsoft_all_day_event) && microsoft_all_day_event.equals("TRUE")){
+            calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+        }
+
 
         calIntent.putExtra(EditEventActivity.EXTRA_READ_ONLY, true);
 
@@ -118,6 +206,19 @@ public class ImportActivity extends Activity {
         } finally {
             finish();
         }
+    }
+
+    private boolean isTimeStartOfDay(String dtStart, String dtStartParam) {
+        // convert to epoch milli seconds
+        long timeStamp = getLocalTimeFromString(dtStart, dtStartParam);
+        Date date = new Date(timeStamp);
+
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String dateStr = dateFormat.format(date);
+        if (dateStr.equals("00:00")) {
+            return true;
+        }
+        return false;
     }
 
     private boolean isValidIntent() {
@@ -144,7 +245,7 @@ public class ImportActivity extends Activity {
 
         @Override
         protected String[] doInBackground(Void... params) {
-            if (!hasThingsToImport(mActivity)) {
+            if (!hasThingsToImport()) {
                 return null;
             }
             File folder = EventInfoFragment.EXPORT_SDCARD_DIRECTORY;
@@ -183,9 +284,9 @@ public class ImportActivity extends Activity {
         new ListFilesTask(activity).execute();
     }
 
-    public static boolean hasThingsToImport(Context context) {
+    public static boolean hasThingsToImport() {
         File folder = EventInfoFragment.EXPORT_SDCARD_DIRECTORY;
-        return folder.exists() && folder.list().length > 0;
+        File[] files = folder.listFiles();
+        return files != null && files.length > 0;
     }
-
 }

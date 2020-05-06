@@ -209,8 +209,9 @@ class CalendarAppWidgetModel {
 
         String label;
         if (julianDay == mTodayJulianDay + 1) {
+            flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
             label = mContext.getString(R.string.agenda_tomorrow,
-                    Utils.formatDateRange(mContext, millis, millis, flags).toString());
+                    Utils.formatDateRange(mContext, millis, millis, flags));
         } else {
             flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
             label = Utils.formatDateRange(mContext, millis, millis, flags);

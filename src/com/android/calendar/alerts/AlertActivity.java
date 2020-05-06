@@ -110,12 +110,8 @@ public class AlertActivity extends Activity implements OnClickListener {
             Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, eventId,
                     startMillis, endMillis);
 
-            if (Utils.isJellybeanOrLater()) {
-                TaskStackBuilder.create(AlertActivity.this).addParentStack(EventInfoActivity.class)
-                        .addNextIntent(eventIntent).startActivities();
-            } else {
-                alertActivity.startActivity(eventIntent);
-            }
+            TaskStackBuilder.create(AlertActivity.this).addParentStack(EventInfoActivity.class)
+                    .addNextIntent(eventIntent).startActivities();
 
             alertActivity.finish();
         }

@@ -70,18 +70,6 @@
     <item msgid="6228387173725732140">"한가함"</item>
     <item msgid="2064426942462573474">"미정"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"기본값"</item>
-    <item msgid="5200216103966973369">"비공개"</item>
-    <item msgid="9182342638433672664">"공개"</item>
-  </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"처음"</item>
-    <item msgid="5631923029483854900">"2번째"</item>
-    <item msgid="148935502975250973">"3번째"</item>
-    <item msgid="5124200797326669172">"4번째"</item>
-    <item msgid="7564374178324652137">"마지막"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"응답 없음"</item>
     <item msgid="3724434080904437698">"예"</item>
@@ -92,10 +80,6 @@
     <item msgid="4208432367651646938">"이 일정만"</item>
     <item msgid="1536401639805370405">"이번 및 향후 일정"</item>
     <item msgid="7833229563617435430">"모든 일정"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"이번 및 향후 일정"</item>
-    <item msgid="6315440193748139854">"모든 일정"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"이번 일정만"</item>

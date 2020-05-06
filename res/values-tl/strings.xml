@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendaryo"</string>
     <string name="what_label" msgid="1933578391985810049">"Ano"</string>
     <string name="where_label" msgid="3472482206065595118">"Saan"</string>
@@ -26,28 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"Bukas"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Ngayong <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Bukas ng <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"Pag-uulit"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Walang pamagat)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> (na) minuto"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> (na) min"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 oras"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> (na) oras"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 araw"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> (na) araw"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"linggo <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> (na) minuto"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> (na) min"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 oras"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> (na) oras"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 araw"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> (na) araw"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"linggo <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"I-refresh"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Ipakita ang araw"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -60,16 +59,9 @@
     <string name="event_delete" msgid="2386667193277770442">"Tanggalin ang kaganapan"</string>
     <string name="goto_today" msgid="9162136434410891230">"Ngayong araw"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Mga Setting"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Mga kalendaryong ipapakita"</string>
     <string name="search" msgid="550656004486017426">"Paghahanap"</string>
     <string name="hide_controls" msgid="830320505938520882">"Itago ang mga kontrol"</string>
     <string name="show_controls" msgid="715520586028062621">"Ipakita ang mga kontrol"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Mga kalendaryong ipapakita"</string>
-    <string name="synced" msgid="7913940305983383493">"naka-sync"</string>
-    <string name="not_synced" msgid="4275114941801829419">"hindi naka-sync"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Hindi sini-sync ang account na ito kung kaya maaaring hindi napapanahon ang iyong mga kalendaryo."</string>
-    <string name="accounts" msgid="849401841083180306">"Mga Account &amp; sync"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Mga kalendaryong isi-sync"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Mga kalendaryong isi-sync"</string>
     <string name="hint_what" msgid="709155115005044531">"Pangalan ng kaganapan"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokasyon"</string>
@@ -88,14 +80,12 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"Mula"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Buong araw"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendaryo"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"Ipakita lahat"</string>
     <string name="description_label" msgid="7193475046717505855">"Paglalarawan"</string>
     <string name="presence_label" msgid="6169724148441175862">"Ipakita ako bilang"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Magdagdag ng paalala"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Walang mga kalendaryo"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Bago ka makapagdagdag ng isang kaganapan, dapat kang magdagdag ng hindi bababa sa isang Calendar account sa iyong device at gawing nakikita ang isang kalendaryo. Pindutin ang Magdagdag ng Account upang magdagdag ng isang account (kung kadaragdag mo lang ng isang account, hintayin itong matapos sa pag-sync at subukang muli). O pindutin ang Kanselahin at tiyaking nakikita ang hindi bababa sa isang kalendaryo."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Mas mahusay na gumagana ang Calendar gamit ang Account."\n\n"• I-access ito mula sa anumang web browser"\n"• I-back up nang secure ang iyong mga kaganapan"</string>
     <string name="add_account" msgid="1669072099756774952">"Magdagdag ng account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendaryo:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizer:"</string>
@@ -116,16 +106,15 @@
     <string name="call_label" msgid="2960328220008869083">"Tumawag"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Mabilisang tugon"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit default tugon pag email sa mga bisita"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit mabilis tugon"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Mabilisang tugon"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Pumili ng mabilisang tugon"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Nabigong makahanap ng email program"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Mahuhuli nang ilang minuto lang."</item>
-    <item msgid="6215158751728689832">"Darating na sa loob ng mga 10 minuto."</item>
-    <item msgid="4485794001743679338">"Magsimula na kayo nang wala ako."</item>
-    <item msgid="8036557974294987511">"Paumanhin, hindi ako makakapunta. Kakailanganin nating mag-reschedule."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Mahuhuli nang ilang minuto lang."</item>
+        <item msgid="6215158751728689832">"Darating na sa loob ng mga 10 minuto."</item>
+        <item msgid="4485794001743679338">"Magsimula na kayo nang wala ako."</item>
+        <item msgid="8036557974294987511">"Paumanhin, hindi ako makakapunta. Kakailanganin nating mag-reschedule."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Isulat ang iyong sariling…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Taga-ayos:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Mga Paalala"</string>
@@ -141,29 +130,25 @@
     <string name="delete_label" msgid="874742811918030739">"Tanggalin"</string>
     <string name="save_label" msgid="2133599104834432589">"Tapos na"</string>
     <string name="discard_label" msgid="2394623883289782541">"Kanselahin"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"I-snooze lahat"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Balewalain lahat"</string>
     <string name="snooze_label" msgid="1515893621063224666">"I-snooze"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Isang-beses na kaganapan"</string>
     <string name="endByDate" msgid="7654221304929538201">"; hanggang <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; isang beses"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> (na) beses"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Araw-araw"</item>
-    <item quantity="other" msgid="5455230727715859264">"Bawat <xliff:g id="NUMBER">%d</xliff:g> araw"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"; isang beses"</item>
+        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> (na) beses"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Araw-araw"</item>
+        <item quantity="other" msgid="5455230727715859264">"Bawat <xliff:g id="NUMBER">%d</xliff:g> araw"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Tuwing Lunes hanggang Biyernes"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> linggu-linggo"</item>
-    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> bawat <xliff:g id="NUMBER">%1$d</xliff:g> (na) linggo"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> linggu-linggo"</item>
+        <item quantity="other" msgid="2857390143157377867">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> bawat <xliff:g id="NUMBER">%1$d</xliff:g> (na) linggo"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Buwan-buwan"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Taun-taon"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"Buwan-buwan (sa araw na <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"Taun-taon (sa <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Custom (hindi mako-customize sa telepono)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Baguhin ang kaganapang ito lamang"</string>
     <string name="modify_all" msgid="4421657265864209041">"Palitan ang lahat ng kaganapan sa serye"</string>
@@ -173,8 +158,6 @@
     <string name="delete_this_event_title" msgid="518402946676919384">"Tanggalin ang kaganapang ito?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Tanggalin ang <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Baguhin ang tugon"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"Mga pangkalahatang setting"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Tungkol sa Calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Mga Setting"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Setting ng pagtingin sa kalendaryo"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Mga notification at paalala"</string>
@@ -195,23 +178,15 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Ipakita calendar at event time sa home time zone sa biyahe"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Home time zone"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Ipakita ang numero ng linggo"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Tungkol sa"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Bumuo ng bersyon"</string>
-    <string name="gadget_title" msgid="939918875331310945">"Kalendaryo"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Walang mga paparating na kaganapan sa kalendaryo"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Pang-eksperimento"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"Mga Paalala"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Laktawan ang Mga Paalala"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Laktawan ang Mga Paalala"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Mga oras na tahimik"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Patahimikin ang mga paalala sa kaganapan sa tinukoy na oras."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Quiet hours start time"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Quiet hours end time"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"Pag-debug"</string>
     <string name="copy_db" msgid="437691290566699292">"Ipadala ang database"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Naghahanap <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Alisin ang dadalo"</string>
@@ -224,54 +199,49 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Magdagdag ng paalala"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Alisin ang paalala"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Magdagdag ng dadalo"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"I-sync ang kalendaryo"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Kaganapang buong araw"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Pag-uulit"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Oras ng paalala"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Uri ng paalala"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Ipakita ako bilang"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacy"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Mga Notification sa Kalendaryo"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"I-snooze ang Notification"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"I-email ang mga bisita"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Bagong kaganapan"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Kaganapan <xliff:g id="ITEM_INDEX">%1$s</xliff:g> ng <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 kaganapan"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> (na) kaganapan"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 kaganapan"</item>
-    <item quantity="other" msgid="3609243840882275136">"<xliff:g id="COUNT">%d</xliff:g> (na) kaganapan"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 kaganapan"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> (na) kaganapan"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 kaganapan"</item>
+        <item quantity="other" msgid="3609243840882275136">"<xliff:g id="COUNT">%d</xliff:g> (na) kaganapan"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Piniling kaganapan"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"HUWAG lagyan ng check -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ulitin"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Hindi nauulit"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Bawat <xliff:g id="COUNT">%d</xliff:g> araw"</item>
-    <item quantity="other" msgid="707566499994398250">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) araw"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Bawat <xliff:g id="COUNT">%d</xliff:g> linggo"</item>
-    <item quantity="other" msgid="7094801039989237061">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) linggo"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Bawat <xliff:g id="COUNT">%d</xliff:g> buwan"</item>
-    <item quantity="other" msgid="5419723710346646523">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) buwan"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Bawat <xliff:g id="COUNT">%d</xliff:g> taon"</item>
-    <item quantity="other" msgid="5678653649746562060">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) taon"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"Bawat <xliff:g id="COUNT">%d</xliff:g> araw"</item>
+        <item quantity="other" msgid="707566499994398250">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) araw"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Bawat <xliff:g id="COUNT">%d</xliff:g> linggo"</item>
+        <item quantity="other" msgid="7094801039989237061">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) linggo"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"Bawat <xliff:g id="COUNT">%d</xliff:g> buwan"</item>
+        <item quantity="other" msgid="5419723710346646523">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) buwan"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"Bawat <xliff:g id="COUNT">%d</xliff:g> taon"</item>
+        <item quantity="other" msgid="5678653649746562060">"Bawat <xliff:g id="COUNT">%d</xliff:g> (na) taon"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"pareho araw buwanan"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Habambuhay"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"hanggang tukoy na petsa"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Hanggang <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"sa ilang kaganapan"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Para sa <xliff:g id="EVENT_COUNT">%d</xliff:g> (na) kaganapan"</item>
-    <item quantity="other" msgid="8779598489398048259">"Para sa <xliff:g id="EVENT_COUNT">%d</xliff:g> (na) kaganapan"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Para sa <xliff:g id="EVENT_COUNT">%d</xliff:g> (na) kaganapan"</item>
+        <item quantity="other" msgid="8779598489398048259">"Para sa <xliff:g id="EVENT_COUNT">%d</xliff:g> (na) kaganapan"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"baguhin ang petsa ng pagtatapos"</string>
+    <string name="visibility_default">Default</string>
+    <string name="visibility_private">Pribado</string>
+    <string name="visibility_public">Pampubliko</string>
 </resources>

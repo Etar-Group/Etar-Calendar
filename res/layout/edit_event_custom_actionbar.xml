@@ -17,38 +17,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:divider="?android:attr/dividerVertical"
-    android:dividerPadding="12dip"
-    android:showDividers="middle">
-
-    <!-- id must match corresponding menu item id -->
-    <LinearLayout
-        android:id="@+id/action_cancel"
-        style="@style/EditEventCustomActionButton">
-
-        <ImageView
-            android:src="@drawable/ic_menu_cancel_holo_light"
-            style="@style/EditEventCustomActionButtonImage" />
+    android:dividerPadding="4dp"
+    android:showDividers="middle"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:weightSum="2" >
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" >
         <TextView
+            android:id="@+id/action_cancel"
+            style="@style/EditEventCustomActionButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_menu_cancel"
+            android:drawablePadding="5dp"
             android:text="@string/discard_label"
-            style="@style/EditEventCustomActionButtonText" />
-
-    </LinearLayout>
+            android:gravity="center"
+            android:textSize="16sp" />
+    </FrameLayout>
+    <!-- id must match corresponding menu item id -->
 
     <!-- id must match corresponding menu item id -->
-    <LinearLayout
-        android:id="@+id/action_done"
-        style="@style/EditEventCustomActionButton">
-
-        <ImageView
-            android:src="@drawable/ic_menu_done_holo_light"
-            style="@style/EditEventCustomActionButtonImage" />
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" >
         <TextView
+            android:id="@+id/action_done"
+            style="@style/EditEventCustomActionButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_menu_done"
+            android:drawablePadding="5dp"
             android:text="@string/save_label"
-            style="@style/EditEventCustomActionButtonText" />
-
-    </LinearLayout>
-
-
+            android:gravity="center"
+            android:textSize="16sp" />
+    </FrameLayout>
 </LinearLayout>

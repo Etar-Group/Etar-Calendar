@@ -17,11 +17,32 @@
     <string-array name="pref_theme_entries">
         <item>@string/preferences_light_theme</item>
         <item>@string/preferences_dark_theme</item>
+        <item>@string/preferences_black_theme</item>
     </string-array>
 
     <string-array name="pref_theme_values" translatable="false">
         <item>light</item>
         <item>dark</item>
+        <item>black</item>
+    </string-array>
+
+    <!--Entries for the primary color-->
+    <string-array name="pref_color_entries">
+        <item>@string/preferences_color_teal</item>
+        <item>@string/preferences_color_blue</item>
+        <item>@string/preferences_color_orange</item>
+        <item>@string/preferences_color_green</item>
+        <item>@string/preferences_color_red</item>
+        <item>@string/preferences_color_purple</item>
+    </string-array>
+
+    <string-array name="pref_color_values" translatable="false">
+        <item>teal</item>
+        <item>blue</item>
+        <item>orange</item>
+        <item>green</item>
+        <item>red</item>
+        <item>purple</item>
     </string-array>
 
     <!-- Choices for the "Reminder method" spinner.
@@ -132,6 +153,38 @@
         <item>"10080"</item>
     </string-array>
 
+    <string-array name="preferences_default_snooze_delay_values" translatable="false">
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"20"</item>
+        <item>"25"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+        <item>"120"</item>
+        <item>"180"</item>
+        <item>"720"</item>
+    </string-array>
+
+    <!-- Labels for the default startup page preference. -->
+    <string-array name="default_start_entries" translatable="false">
+        <item>@string/default_start_last</item>
+        <item>@string/day_view</item>
+        <item>@string/week_view</item>
+        <item>@string/month_view</item>
+        <item>@string/agenda_view</item>
+    </string-array>
+
+    <!-- Values for the default startup page preference. See CalendarController.ViewType.  -->
+    <string-array name="default_start_values" translatable="false">
+        <item>-2</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>1</item>
+    </string-array>
+
     <string-array name="preferences_week_start_day_labels">
         <item>Locale default</item>
         <item>Saturday</item>
@@ -164,6 +217,24 @@
         <item>"7"</item>
     </string-array>
 
+    <string-array name="preferences_default_duration_labels">
+        <item>@string/zero_minutes</item>
+        <item>@string/fifteen_minutes</item>
+        <item>@string/thirty_minutes</item>
+        <item>@string/one_hour</item>
+        <item>@string/one_and_a_half_hours</item>
+        <item>@string/two_hours</item>
+    </string-array>
+
+    <string-array name="preferences_default_duration_values" translatable="false">
+        <item>0</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </string-array>
+
     <string-array name="availability">
         <item>Busy</item>
         <item>Available</item>
@@ -178,18 +249,12 @@
     </integer-array>
 
     <string-array name="visibility">
-        <item>Default</item>
-        <item>Private</item>
-        <item>Public</item>
+        <item>@string/visibility_default</item>
+        <item>@string/visibility_confidential</item>
+        <item>@string/visibility_private</item>
+        <item>@string/visibility_public</item>
     </string-array>
 
-    <string-array name="ordinal_labels">
-        <item>first</item>
-        <item>second</item>
-        <item>third</item>
-        <item>fourth</item>
-        <item>last</item>
-    </string-array>
 
     <!-- Invitation responses -->
     <string-array name="response_labels1">
@@ -226,10 +291,6 @@
          was created on the phone until that event has been synced to the server.
      -->
     <skip/>
-    <string-array name="delete_repeating_labels_no_selected">
-        <item>This &amp; future events</item>
-        <item>All events</item>
-    </string-array>
 
     <!-- The corresponding array indices are defined in EventInfoActivity.java -->
     <skip/>
@@ -331,5 +392,29 @@
         <item >on every third Saturday</item>
         <item >on every fourth Saturday</item>
         <item >on every last Saturday</item>
+    </string-array>
+    
+    <string-array name="show_time">
+        <item>@string/show_time_no</item>
+        <item>@string/show_time_start</item>
+        <item>@string/show_time_start_end</item>
+        <!--<item>Start time and duration</item>-->
+        <item>@string/show_time_start_end_below</item>
+    </string-array>
+    <string-array name="show_time_values" translatable="false">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <!--<item>"3"</item>-->
+        <item>"4"</item>
+    </string-array>
+    <string-array name="number_of_lines" translatable="false">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
     </string-array>
 </resources>

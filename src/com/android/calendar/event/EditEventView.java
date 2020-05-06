@@ -18,10 +18,11 @@ package com.android.calendar.event;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DialogFragment;
+import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.app.Service;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -57,6 +59,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
@@ -66,6 +69,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.TimePicker;
 
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -73,19 +77,14 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.EventInfoFragment;
 import com.android.calendar.EventRecurrenceFormatter;
-import com.android.calendar.GeneralPreferences;
 import com.android.calendar.RecipientAdapter;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
 import com.android.calendar.recurrencepicker.RecurrencePickerDialog;
+import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
-import com.android.datetimepicker.date.DatePickerDialog;
-import com.android.datetimepicker.date.DatePickerDialog.OnDateSetListener;
-import com.android.datetimepicker.time.RadialPickerLayout;
-import com.android.datetimepicker.time.TimePickerDialog;
-import com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 import com.android.ex.chips.AccountSpecifier;
 import com.android.ex.chips.BaseRecipientAdapter;
 import com.android.ex.chips.ChipsUtil;
@@ -112,8 +111,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
 
-    private static final String FRAG_TAG_DATE_PICKER = "datePickerDialogFragment";
-    private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
     private static final String FRAG_TAG_TIME_ZONE_PICKER = "timeZonePickerDialogFragment";
     private static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
     private static StringBuilder mSB = new StringBuilder(50);
@@ -126,8 +123,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      */
     private static InputFilter[] sRecipientFilters = new InputFilter[]{new Rfc822InputFilter()};
     public boolean mIsMultipane;
-    public boolean mTimeSelectedWasStartTime;
-    public boolean mDateSelectedWasStartDate;
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
     ArrayList<View> mViewOnlyList = new ArrayList<View>();
@@ -175,7 +170,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private int[] mOriginalPadding = new int[4];
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
-    private DialogFragment mTimezoneDialog;
+
     private Activity mActivity;
     private EditDoneRunnable mDone;
     private View mView;
@@ -226,8 +221,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
     private String mRrule;
 
-    public EditEventView(Activity activity, View view, EditDoneRunnable done,
-                         boolean timeSelectedWasStartTime, boolean dateSelectedWasStartDate) {
+    public EditEventView(Activity activity, View view, EditDoneRunnable done) {
 
         mActivity = activity;
         mView = view;
@@ -377,28 +371,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (tzpd != null) {
             tzpd.setOnTimeZoneSetListener(this);
         }
-        TimePickerDialog tpd = (TimePickerDialog) fm.findFragmentByTag(FRAG_TAG_TIME_PICKER);
-        if (tpd != null) {
-            View v;
-            mTimeSelectedWasStartTime = timeSelectedWasStartTime;
-            if (timeSelectedWasStartTime) {
-                v = mStartTimeButton;
-            } else {
-                v = mEndTimeButton;
-            }
-            tpd.setOnTimeSetListener(new TimeListener(v));
-        }
-        mDatePickerDialog = (DatePickerDialog) fm.findFragmentByTag(FRAG_TAG_DATE_PICKER);
-        if (mDatePickerDialog != null) {
-            View v;
-            mDateSelectedWasStartDate = dateSelectedWasStartDate;
-            if (dateSelectedWasStartDate) {
-                v = mStartDateButton;
-            } else {
-                v = mEndDateButton;
-            }
-            mDatePickerDialog.setOnDateSetListener(new DateListener(v));
-        }
+
     }
 
     /**
@@ -907,7 +880,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         populateTimezone(mStartTime.normalize(true));
 
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(mActivity);
         String defaultReminderString = prefs.getString(
                 GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
         mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);
@@ -1658,7 +1631,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     /* This class is used to update the time buttons. */
-    private class TimeListener implements OnTimeSetListener {
+    private class TimeListener implements TimePickerDialog.OnTimeSetListener {
         private View mView;
 
         public TimeListener(View view) {
@@ -1666,7 +1639,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         @Override
-        public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Cache the member variables locally to avoid inner class overhead.
             Time startTime = mStartTime;
             Time endTime = mEndTime;
@@ -1726,36 +1699,28 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
             TimePickerDialog dialog;
             if (v == mStartTimeButton) {
-                mTimeSelectedWasStartTime = true;
-                if (mStartTimePickerDialog == null) {
-                    mStartTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
-                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
-                } else {
-                    mStartTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
+                if (mStartTimePickerDialog != null) {
+                    mStartTimePickerDialog.dismiss();
                 }
+                mStartTimePickerDialog = new TimePickerDialog(mActivity, new TimeListener(v),
+                        mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
                 dialog = mStartTimePickerDialog;
             } else {
-                mTimeSelectedWasStartTime = false;
-                if (mEndTimePickerDialog == null) {
-                    mEndTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
-                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
-                } else {
-                    mEndTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
+                if (mEndTimePickerDialog != null) {
+                    mEndTimePickerDialog.dismiss();
                 }
+                mEndTimePickerDialog = new TimePickerDialog(mActivity, new TimeListener(v),
+                        mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
                 dialog = mEndTimePickerDialog;
 
             }
 
-            final FragmentManager fm = mActivity.getFragmentManager();
-            fm.executePendingTransactions();
+            dialog.show();
 
-            if (dialog != null && !dialog.isAdded()) {
-                dialog.show(fm, FRAG_TAG_TIME_PICKER);
-            }
         }
     }
 
-    private class DateListener implements OnDateSetListener {
+    private class DateListener implements DatePickerDialog.OnDateSetListener {
         View mView;
 
         public DateListener(View view) {
@@ -1763,7 +1728,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         @Override
-        public void onDateSet(DatePickerDialog view, int year, int month, int monthDay) {
+        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
             Log.d(TAG, "onDateSet: " + year + " " + month + " " + monthDay);
             // Cache the member variables locally to avoid inner class overhead.
             Time startTime = mStartTime;
@@ -1831,21 +1796,17 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         @Override
         public void onClick(View v) {
 
-            if (v == mStartDateButton) {
-                mDateSelectedWasStartDate = true;
-            } else {
-                mDateSelectedWasStartDate = false;
-            }
 
             final DateListener listener = new DateListener(v);
             if (mDatePickerDialog != null) {
                 mDatePickerDialog.dismiss();
             }
-            mDatePickerDialog = DatePickerDialog.newInstance(listener,
+            mDatePickerDialog = new DatePickerDialog(mActivity, listener,
                     mTime.year, mTime.month, mTime.monthDay);
-            mDatePickerDialog.setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
-            mDatePickerDialog.setYearRange(Utils.YEAR_MIN, Utils.YEAR_MAX);
-            mDatePickerDialog.show(mActivity.getFragmentManager(), FRAG_TAG_DATE_PICKER);
+            if (Build.VERSION.SDK_INT >= 21) {
+                mDatePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
+            }
+            mDatePickerDialog.show();
         }
     }
 }

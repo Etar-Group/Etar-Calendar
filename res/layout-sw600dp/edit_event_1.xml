@@ -56,7 +56,7 @@
                     android:enabled="false"
                     android:padding="8dip"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_menu_colorpicker_dialog"
+                    android:src="@drawable/ic_colorpicker"
                     android:visibility="invisible" />
             </LinearLayout>
     </TableRow>
@@ -98,7 +98,7 @@
                 android:enabled="false"
                 android:padding="8dip"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_menu_colorpicker_dialog"
+                android:src="@drawable/ic_colorpicker"
                 android:visibility="gone"  />
         </LinearLayout>
     </TableRow>
@@ -113,7 +113,6 @@
             android:id="@+id/title"
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_width="wrap_content"
-            android:capitalize="sentences"
             android:focusable="true"
             android:hint="@string/hint_what"
             android:inputType="textAutoCorrect|textCapSentences" />
@@ -385,7 +384,6 @@
             android:id="@+id/description"
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_width="wrap_content"
-            android:capitalize="sentences"
             android:hint="@string/hint_description"
             android:inputType="textAutoCorrect|textCapSentences|textMultiLine" />
     </TableRow>

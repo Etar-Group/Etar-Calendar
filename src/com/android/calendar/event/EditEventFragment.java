@@ -17,6 +17,7 @@
 package com.android.calendar.event;
 
 import android.Manifest;
+import androidx.appcompat.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -42,8 +43,9 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -133,8 +135,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private boolean mSaveOnDetach = true;
     private boolean mIsReadOnly = false;
     private boolean mShowColorPalette = false;
-    private boolean mTimeSelectedWasStartTime;
-    private boolean mDateSelectedWasStartDate;
     private InputMethodManager mInputMethodManager;
     private final View.OnClickListener mActionBarListener = new View.OnClickListener() {
         @Override
@@ -257,7 +257,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
         if (mEnd < mBegin) {
             // use a default value instead
-            mEnd = mHelper.constructDefaultEndTime(mBegin);
+            mEnd = mHelper.constructDefaultEndTime(mBegin, mContext);
         }
 
         // Kick off the query for the event
@@ -321,8 +321,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         } else {
             view = inflater.inflate(R.layout.edit_event, null);
         }
-        mView = new EditEventView(mContext, view, mOnDone, mTimeSelectedWasStartTime,
-                mDateSelectedWasStartDate);
+        mView = new EditEventView(mContext, view, mOnDone);
 
         if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(mContext,
                 Manifest.permission.READ_CALENDAR)
@@ -341,8 +340,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             cancelActionView.setOnClickListener(mActionBarListener);
             View doneActionView = actionBarButtons.findViewById(R.id.action_done);
             doneActionView.setOnClickListener(mActionBarListener);
-
-            mContext.getSupportActionBar().setCustomView(actionBarButtons);
+            ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+            mContext.getSupportActionBar().setCustomView(actionBarButtons, layout);
         }
 
         return view;
@@ -360,6 +359,13 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
+                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(EditEventFragment.this.getActivity(), new String[]{Manifest.permission.READ_CONTACTS},
+                0);
+        }
+
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(BUNDLE_KEY_MODEL)) {
                 mRestoreModel = (CalendarEventModel) savedInstanceState.getSerializable(
@@ -377,14 +383,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             }
             if (savedInstanceState.containsKey(BUNDLE_KEY_READ_ONLY)) {
                 mIsReadOnly = savedInstanceState.getBoolean(BUNDLE_KEY_READ_ONLY);
-            }
-            if (savedInstanceState.containsKey("EditEventView_timebuttonclicked")) {
-                mTimeSelectedWasStartTime = savedInstanceState.getBoolean(
-                        "EditEventView_timebuttonclicked");
-            }
-            if (savedInstanceState.containsKey(BUNDLE_KEY_DATE_BUTTON_CLICKED)) {
-                mDateSelectedWasStartDate = savedInstanceState.getBoolean(
-                        BUNDLE_KEY_DATE_BUTTON_CLICKED);
             }
             if (savedInstanceState.containsKey(BUNDLE_KEY_SHOW_COLOR_PALETTE)) {
                 mShowColorPalette = savedInstanceState.getBoolean(BUNDLE_KEY_SHOW_COLOR_PALETTE);
@@ -566,6 +564,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mOnDone.setDoneCode(Utils.DONE_SAVE);
             mOnDone.run();
         }
+        if (act !=null && (Build.VERSION.SDK_INT < 23 ||
+                    ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
+                        Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED))
+            act.finish();
         super.onPause();
     }
 
@@ -605,9 +607,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
         outState.putBoolean(BUNDLE_KEY_READ_ONLY, mIsReadOnly);
         outState.putBoolean(BUNDLE_KEY_SHOW_COLOR_PALETTE, mView.isColorPaletteVisible());
-
-        outState.putBoolean("EditEventView_timebuttonclicked", mView.mTimeSelectedWasStartTime);
-        outState.putBoolean(BUNDLE_KEY_DATE_BUTTON_CLICKED, mView.mDateSelectedWasStartDate);
     }
 
     @Override
@@ -843,7 +842,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     if (cursor.moveToFirst()) {
                         EventColorCache cache = new EventColorCache();
                         do {
-                            int colorKey = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR_KEY);
+                            String colorKey = cursor.getString(EditEventHelper.COLORS_INDEX_COLOR_KEY);
                             int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
                             int displayColor = Utils.getDisplayColorFromColor(rawColor);
                             String accountName = cursor

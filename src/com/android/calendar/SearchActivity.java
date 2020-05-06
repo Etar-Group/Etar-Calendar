@@ -15,7 +15,6 @@
  */
 package com.android.calendar;
 
-import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
@@ -30,9 +29,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Events;
 import android.provider.SearchRecentSuggestions;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
@@ -104,7 +105,9 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         mShowEventDetailsWithAgenda =
             Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
 
-        setContentView(R.layout.search);
+        setContentView(R.layout.simple_frame_layout_material);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
@@ -149,9 +152,6 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
             } else {
                 query = intent.getStringExtra(SearchManager.QUERY);
             }
-            if ("TARDIS".equalsIgnoreCase(query)) {
-                Utils.tardis();
-            }
             initFragments(millis, query);
         }
     }
@@ -168,8 +168,8 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
         AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis, true);
-        ft.replace(R.id.search_results, searchResultsFragment);
-        mController.registerEventHandler(R.id.search_results, searchResultsFragment);
+        ft.replace(R.id.body_frame, searchResultsFragment);
+        mController.registerEventHandler(R.id.body_frame, searchResultsFragment);
 
         ft.commit();
         Time t = new Time();
@@ -246,13 +246,9 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         // replace the default top layer drawable of the today icon with a custom drawable
         // that shows the day of the month of today
         MenuItem menuItem = menu.findItem(R.id.action_today);
-        if (Utils.isJellybeanOrLater()) {
-            LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
-            Utils.setTodayIcon(
-                    icon, this, Utils.getTimeZone(SearchActivity.this, mTimeChangesUpdater));
-        } else {
-            menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
-        }
+        LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+        Utils.setTodayIcon(
+                icon, this, Utils.getTimeZone(SearchActivity.this, mTimeChangesUpdater));
 
         MenuItem item = menu.findItem(R.id.action_search);
 

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="rsvp_accepted">Ôdpowiedziano \"ja\".</string>
+    <string name="event_color_set_to_default">Nasztaluj wychodno farba kalyndorza</string>
+    <string name="new_event_dialog_option">Nowe zdarzynie</string>
+    <string name="edit_label">Edytuj</string>
+    <string name="no_title_label">(Bez tytułu)</string>
+    <string name="accessibility_pick_start_date">Data zaczyńcio</string>
+    <string name="show_time_start_end">Czas zaczyńcio i kōńca</string>
+    <string name="show_time_no">Niy</string>
+    <string name="cal_import_error_msg">Importowanie do kalyndorza niy podarziło sie</string>
+    <string name="view_event_response_label">Bydziesz\?</string>
+    <string name="share_label">Udostympnij</string>
+    <string name="calendar_refresh">Ôdświyżōne</string>
+    <string name="response_yes">Ja</string>
+    <plurals name="endByCount">
+        <item quantity="one">; jedyn roz</item>
+        <item quantity="other">; <xliff:g id="NUMBER">%d</xliff:g> razy</item>
+    </plurals>
+    <plurals name="Nevents">
+        <item quantity="one">1 zdarzynie</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> zdarzynia</item>
+    </plurals>
+    <string name="show_newer_events">Tyknij, coby pokozać zdarzynia po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>
+    </string>
+    <string name="one_and_a_half_hours">1.5 godzin</string>
+    <string name="monthly">Co miesiōnc</string>
+    <string name="show_day_view">Pokoż dziyń</string>
+    <string name="presence_label">Pokoż mōj sztand za</string>
+    <string name="preferences_hide_declined_title">Skryj ôdciepniynte</string>
+    <string name="no_syncable_calendars">Brak kalyndorzōw</string>
+    <string name="recurrence_end_count_label">Ôkryślōno wielość powtōrzyń</string>
+    <string name="accessibility_pick_recurrence">Powtorzej zdarzynie</string>
+    <string name="show_controls">Pokoż nawigacyjo</string>
+    <plurals name="recurrence_end_count">
+        <item quantity="one">Do <xliff:g id="EVENT_COUNT">%d</xliff:g> zdarzynio</item>
+        <item quantity="other">Dlo <xliff:g id="EVENT_COUNT">%d</xliff:g> zdarzyń</item>
+    </plurals>
+    <string name="today_at_time_fmt">Dzisiej ô <xliff:g id="time_interval">%s</xliff:g>
+    </string>
+    <string name="agenda_today">dzisiej, <xliff:g id="DATE">%1$s</xliff:g>
+    </string>
+    <string name="preferences_reminders_responded_dialog">Pōmiń spōmniynia</string>
+    <string name="accessibility_pick_end_date">Data kōńca</string>
+    <string name="new_event_dialog_label">Nowe zdarzynie</string>
+    <string name="endByDate">; do <xliff:g id="DATE">%s</xliff:g>
+    </string>
+    <string name="delete_this_event_title">Skasować zdarzynie\?</string>
+    <string name="rsvp_tentative">Ôdpowiedziano \"możno\".</string>
+    <string name="what_label">Co</string>
+    <string name="edit_event_from_label">Ôd</string>
+    <string name="quick_response_settings_edit_title">Gibko ôdpowiydź</string>
+    <string name="visibility_private">Prywatne</string>
+    <string name="privacy_label">Prywatność</string>
+    <string name="response_no">Niy</string>
+    <string name="preferences_build_version">Wersyjo kōmpilacyje</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minuta</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> minuty</item>
+    </plurals>
+    <string name="show_older_events">Tyknij, coby pokozać zdarzynia przed <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>
+    </string>
+    <string name="when_label">Kedy</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Pytej, po jakim czasie spōmnieć ô zdarzyniu</string>
+    <string name="search_title">Szukej w mojich kalyndorzach</string>
+    <string name="timezone_label">Strefa czasowo</string>
+    <string name="cal_import_menu_title">Importuj zdarzynie</string>
+    <string name="cal_export_succ_msg">Zadarzynie sprownie eksportowane: %1s</string>
+    <string name="display_location">Pokoż lokalizacyjo</string>
+    <string name="view_event_organizer_label">Ôrganizatōr:</string>
+    <string name="show_time_start_end_below">Czas zaczyńcio i kōńca pod zdarzyniym</string>
+    <string name="event_info_reminders_label">Spōmniynia</string>
+    <string name="calendar_square_color_picker_description">Ôbiyranie farbōw</string>
+    <string name="recurrence_end_date">Do <xliff:g id="DATE">%s</xliff:g>
+    </string>
+    <string name="preferences_dark_theme">Ciymny</string>
+    <string name="event_create">Nowe zdarzynie</string>
+    <string name="preferences_default_reminder_default">10</string>
+    <string name="event_info_organizer">Ôrganizatōr:</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Dycki używej wychodnyj dugości drzymki</string>
+    <string name="tomorrow_at_time_fmt">Jutro ô <xliff:g id="time_interval">%s</xliff:g>
+    </string>
+    <string name="preferences_default_snooze_delay_dialog">Wychodno dugość drzymki</string>
+    <string name="preferences_issues">Zgłoś problym</string>
+    <string name="preferences_black_theme">Czorny</string>
+    <plurals name="Nmins">
+        <item quantity="one">1 min</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> minuty</item>
+    </plurals>
+    <string name="thirty_minutes">30 minut</string>
+    <string name="template_announce_item_index">Zdarzynie <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> miesiōnc</item>
+        <item quantity="other">Co <xliff:g id="COUNT">%d</xliff:g> miesiōnce</item>
+    </plurals>
+    <string name="accessibility_add_reminder">Przidej spōmniynie</string>
+    <string name="accessibility_pick_time_zone">Strefa czasowo</string>
+    <string name="discard_label">Pociep</string>
+    <string name="cal_pick_ics">Ôbier zbiōr do zaimportowanio</string>
+    <string name="create_event_dialog_save">Spamiyntej</string>
+    <string name="preferences_alerts_popup_title">Pokoż na ekranie</string>
+    <string name="gadget_no_events">Brak zbliżajōncych sie zdarzyń w kalyndorzu</string>
+    <string name="preferences_use_home_tz_title">Dōmowo strefa czasowo</string>
+    <string name="accessibility_pick_start_time">Godzina zaczyńcio</string>
+    <string name="preferences_month_view_landscape">Widok miesiōnca (landszaft)</string>
+    <string name="delete_recurring_event_title">Skasować <xliff:g id="EVENTTITLE">%s</xliff:g>\?</string>
+    <string name="preferences_default_snooze_delay_title">Wychodny czas trwanio drzymki</string>
+    <string name="month_view">Miesiōnc</string>
+    <string name="error_generating_ics">W czasie udostympnianio zdarzynio trefiyły sie problymy</string>
+    <string name="preferences_use_home_tz_descrip">Godziny bydōm podowane w dōmowyj strefie czasowyj (nawet w rajzach)</string>
+    <string name="default_start_title">Wychodny widok</string>
+    <string name="yearly_plain">Co rok</string>
+    <string name="event_color_picker_dialog_title">Farba zdarzynio</string>
+    <string name="saving_event">Zdarzynie było spamiyntano.</string>
+    <string name="call_label">Zazwōń</string>
+    <string name="modify_all_following">Zmiyń to i wszyjske prziszłe zdarzynia</string>
+    <string name="preferences_light_theme">Jasny</string>
+    <string name="preferences_color">Piyrszo Farba</string>
+    <string name="cal_share_intent_title">Wyślij zdarzynie, coby:</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Pytej ô dugość drzymki kożdy roz</string>
+    <string name="creating_event">Zdarzynie było stworzōno.</string>
+    <plurals name="Nhours">
+        <item quantity="one">1 godzina</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> godziny</item>
+    </plurals>
+    <string name="event_not_found">Niy szło znojś zdarzynio.</string>
+    <string name="rsvp_declined">Ôdpowiedziano \"niy\".</string>
+    <string name="search_history_cleared">Historyjo wyszukowanio była wysnożōno.</string>
+    <string name="where_label">Kaj</string>
+    <string name="alert_title">Powiadōmiynia kalyndorza</string>
+    <string name="saving_event_with_guest">Aktualizacyje bydōm wysłane.</string>
+    <string name="hint_attendees">Goście</string>
+    <string name="cal_export_event_sdcard_title">Eksportuj na karta SD</string>
+    <string name="dismiss_all_label">Zawrzij</string>
+    <string name="modify_all">Zmiyń wszyjske zdarzynia we seryji</string>
+    <string name="agenda_yesterday">wczorej, <xliff:g id="DATE">%1$s</xliff:g>
+    </string>
+    <string name="goto_date">Idź do…</string>
+    <string name="preferences_reminders_responded_label">Pōmiń spōmniynia</string>
+    <string name="recurrence_end_continously">Dycki</string>
+    <string name="preferences_home_tz_title">Dōmowo strefa czasowo</string>
+    <string name="quick_response_custom_msg">Napisz włosno…</string>
+    <string name="event_view">Pokoż zdarzynie</string>
+    <string name="accessibility_pick_end_time">Godzina kōńca</string>
+    <string name="preferences_default_reminder_title">Wychodne spōmniynie</string>
+    <string name="visibility_public">Publiczny</string>
+    <string name="hide_controls">Skryj nawigacyjo</string>
+    <string name="hint_description">Ôpis</string>
+    <string name="display_time">Czas pokazowanio</string>
+    <string name="zero_minutes">0 minut</string>
+    <string name="choose_event_color_label">Ôbier farba zdarzynio</string>
+    <string name="tomorrow">Jutro</string>
+    <string name="change_response_title">Zmiyń ôdpowiydź</string>
+    <string name="recurrence_month_pattern_by_day">w tyn sōm dziyń miesiōnca</string>
+    <string name="creating_event_with_guest">Zaproszynia były wysłane.</string>
+    <string name="reminders_label">Przidej spōmniynie</string>
+    <string name="view_settings">Sztelōnki widoku</string>
+    <string name="day_view">Dziyń</string>
+    <plurals name="daily">
+        <item quantity="one">Dziynnie</item>
+        <item quantity="other">Co <xliff:g id="number">%d</xliff:g> dni</item>
+    </plurals>
+    <string name="day_view_new_event_hint">+ Nowe zdarzynie</string>
+    <string name="preferences_reminder_title">Powiadōmiynia i spōmniynia</string>
+    <string name="event_delete">Skasuj zdarzynie</string>
+    <string name="show_time_start">Ino czas zaczyńcio</string>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Co <xliff:g id="count">%d</xliff:g> dziyń</item>
+        <item quantity="other">Co <xliff:g id="count">%d</xliff:g> dni</item>
+    </plurals>
+    <string name="hint_where">Położynie</string>
+    <string name="does_not_repeat">Zdarzynie jednorazowe</string>
+    <string name="preferences_general_title">Widok kalyndorza</string>
+    <plurals name="month_more_events">
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="NUMBER">%d</xliff:g>
+        </item>
+    </plurals>
+    <string name="modify_event">Zmiyń ino to zdarzynie</string>
+    <string name="description_label">Ôpis</string>
+    <string name="copy_db">Wyślij baza danych</string>
+    <string name="acessibility_recurrence_choose_end_date_description">zmiyń data kōńca</string>
+    <string name="edit_event_calendar_label">Kalyndorz</string>
+    <string name="preferences_week_start_day_title">Piyrszy dziyń tydnia</string>
+    <string name="accessibility_remove_reminder">Skasuj spōmniynie</string>
+    <string name="email_picker_label">E-mail bez</string>
+    <string name="quick_response_settings_summary">Edytuj wychodne ôdpowiedzi do uczestnikōw</string>
+    <plurals name="N_remaining_events">
+        <item quantity="one">+1 zdarzynie</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> zdarzynia</item>
+    </plurals>
+    <string name="preferences_title">Sztelōnki</string>
+    <string name="preferences_default_reminder_dialog">Wychodne spōmniynie</string>
+    <string name="default_start_last">Piyrwyjszy używany widok</string>
+    <string name="preferences_clear_search_history_summary">Skasuj wszyjske piyrwyjsze wyszukowania</string>
+    <string name="event_edit">Edytuj zdarzynie</string>
+    <string name="menu_preferences">Sztelōnki</string>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> rok</item>
+        <item quantity="other">Co <xliff:g id="COUNT">%d</xliff:g> lata</item>
+    </plurals>
+    <string name="snooze_delay_dialog_title">Nasztaluj dugość drzymki</string>
+    <string name="empty_event">Zdarzynie prōzne – niy było stworzōno.</string>
+    <string name="recurrence_end_date_label">Do daty</string>
+    <string name="no_map">Żodno aplikacyjo mapy niyma zainstalowano</string>
+    <string name="date_time_fmt">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
+    <string name="response_maybe">Możno</string>
+    <string name="accessibility_reminder_showmeas">Pokoż mōj sztand za</string>
+    <string name="accessibility_reminder_time">Godzina spōmniynio</string>
+    <string name="preferences_default_event_duration_title">Wychodno dugość zdarzynio</string>
+    <string name="accessibility_reminder_type">Zorta spōmniynio</string>
+    <string name="email_organizer_label">Wyślij e-maila do ôrganizatora</string>
+    <string name="preferences_color_pick">Piyrszo farba</string>
+    <string name="snooze_label">Drzymka</string>
+    <string name="quick_response_settings">Gibke ôdpowiedzi</string>
+    <string name="map_label">Mapa</string>
+    <string name="cal_import_error_date_msg">Niy idzie zrozumieć podanyj daty: %s</string>
+    <string name="repeats_label">Powtorzanie</string>
+    <string name="preferences_alerts_vibrateWhen_title">Wibracyje</string>
+    <string name="display_options">Pokoż informacyje</string>
+    <string name="search">Szukej</string>
+    <string name="save_label">Fertich</string>
+    <string name="quick_response_email_failed">Niy idzie znojś programu pocztowego</string>
+    <string name="edit_event_all_day_label">Cołki dziyń</string>
+    <string name="cal_nothing_to_import">Nic do zaimportowanio</string>
+    <plurals name="weekly">
+        <item quantity="one">Co tydziyń we <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
+        </item>
+        <item quantity="other">Co <xliff:g id="number">%1$d</xliff:g> tydnie we <xliff:g id="days_of_week">%2$s</xliff:g>
+        </item>
+    </plurals>
+    <string name="week_view">Tydziyń</string>
+    <string name="user_rejected_calendar_write_permission">Etar wymogo uprawniyń czytanio i zapisowanio kalyndorza coby dobrze fungować. Sprōbuj zaś.</string>
+    <string name="preferences_days_per_week_title">Dni w tydniu</string>
+    <string name="preferences_clear_search_history_title">Wysnoż historyjo wyszukowanio</string>
+    <string name="preferences_alerts_ringtone_title">Źwiynk</string>
+    <string name="event_info_title_invite">Zaproszynie na tref</string>
+    <string name="goto_today">Dzisiej</string>
+    <string name="preferences_alerts_title">Powiadōmiynia</string>
+    <string name="preferences_theme">Tymat</string>
+    <string name="calendar_permission_not_granted">Niystety ta funkcyjo niy funguje. Etar wymogo uprawniyń czytanio i zapisowanio kalyndorza coby funkcjōniyrować sprownie</string>
+    <string name="delete_label">Skasuj</string>
+    <string name="directory_searching_fmt">Trwo wyszukowanie <xliff:g id="DOMAIN">%s</xliff:g>…</string>
+    <plurals name="Ndays">
+        <item quantity="one">1 dzień</item>
+        <item quantity="other">
+            <xliff:g id="COUNT">%d</xliff:g> dni</item>
+    </plurals>
+    <string name="preferences_experimental_category">Eksperymyntalny</string>
+    <string name="accessibility_reminder_privacy">Prywatność</string>
+    <string name="loading">Wgrowanie…</string>
+    <string name="acessibility_selected_marker_description">Ôbrane zdarzynie</string>
+    <string name="agenda_view">Plan dnia</string>
+    <string name="accessibility_remove_attendee">Skasuj uczestnika</string>
+    <string name="two_hours">2 godziny</string>
+    <string name="one_hour">1 godzina</string>
+    <string name="preferences_show_week_num_title">Pokoż numer tydnia</string>
+    <string name="visibility_default">Wychodno</string>
+    <string name="quick_response_dialog_title">Ôbier gibko ôdpowiydź</string>
+    <string name="agenda_tomorrow">jutro, <xliff:g id="DATE">%1$s</xliff:g>
+    </string>
+    <string name="fifteen_minutes">15 minut</string>
+    <string name="accessibility_add_attendee">Przidej uczestnika</string>
+    <string name="add_account">Przidej kōnto</string>
+    <string name="custom" product="default">Niysztandardowo (niy idzie przipasować na telefōnie)</string>
+    <string name="app_label">Kalyndorz</string>
+    <string name="select_synced_calendars_button">Kalyndorze do synchrōnizacyje</string>
+    <string name="attendees_label">Goście</string>
+    <string name="no_calendars_found">Przed stworzyniym zdarzynio musisz przidać do masziny kōnto z Kalyndorzym i nasztelować ôbrany kalyndorz za widzialny. Ôbier „Przidej kōnto” (jeźli to prawie było zrobiōno, to na kōniec synchrōnizacyje i sprōbuj zaś). Możesz tyż tyknōńć Pociep i dać pozōr, żeby aby jedyn kalyndorz bōł widzialny.</string>
+    <string name="hint_what">Miano zdarzynio</string>
+    <string name="today">Dzisiej</string>
+    <string name="accessibility_all_day">Zdarzynie całodniowe</string>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> tydziyń</item>
+        <item quantity="other">Co <xliff:g id="count">%d</xliff:g> tydnie</item>
+    </plurals>
+    <string name="preferences_days_per_week_dialog">Dni w tydniu</string>
+    <string name="every_weekday">Beztydziyń (pn-pt)</string>
+    <string name="visibility_confidential">Tajne</string>
+    <string name="preferences_week_start_day_dialog">Piyrszy dziyń tydnia</string>
+    <string name="calendar_color_picker_dialog_title">Farba kalyndorza</string>
+    <plurals name="weekN">
+        <item quantity="one">tydziyń <xliff:g id="count">%d</xliff:g>
+        </item>
+        <item quantity="other">tydziyń <xliff:g id="count">%d</xliff:g></item>
+    </plurals>
+    <string name="edit_event_to_label">Do</string>
+    <string name="preferences_month_view_portrait">Widok miesiōnca (portret)</string>
+    <string name="view_event_calendar_label">Kalyndorz:</string>
+    <string name="event_info_title">Pokoż zdarzynie</string>
+    <string name="edit_event_label">Informacyje</string>
+    <string name="email_guests_label">Napisz do gości</string>
+</resources>

@@ -24,19 +24,18 @@ import android.database.Cursor;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Calendars;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.CalendarColorPickerDialog;
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
 
@@ -46,7 +45,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     OnCalendarColorsLoadedListener {
     private static final String TAG = "SelectCalendarsAdapter";
     private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
-    private static final int IS_SELECTED = 1 << 0;
+    private static final int IS_SELECTED = 1;
     private static final int IS_TOP = 1 << 1;
     private static final int IS_BOTTOM = 1 << 2;
     private static final int IS_BELOW_SELECTED = 1 << 3;
@@ -85,19 +84,11 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         initData(c);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mRes = context.getResources();
-        String theme = Utils.getTheme(context);
 
-        if (theme.equals("dark")) {
-            mColorCalendarVisible = mRes.getColor(R.color.calendar_visible_dark);
-            mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden_dark);
-            mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible_dark);
-            mColorCalendarSecondaryHidden = mRes.getColor(R.color.calendar_secondary_hidden_dark);
-        } else {
-            mColorCalendarVisible = mRes.getColor(R.color.calendar_visible);
-            mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden);
-            mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible);
-            mColorCalendarSecondaryHidden = mRes.getColor(R.color.calendar_secondary_hidden);
-        }
+        mColorCalendarVisible = DynamicTheme.getColor(context, "calendar_visible");
+        mColorCalendarHidden = DynamicTheme.getColor(context, "calendar_hidden");
+        mColorCalendarSecondaryVisible = DynamicTheme.getColor(context, "calendar_secondary_visible");
+        mColorCalendarSecondaryHidden = DynamicTheme.getColor(context, "calendar_secondary_hidden");
 
         if (mScale == 0) {
             mScale = mRes.getDisplayMetrics().density;
@@ -222,50 +213,20 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         }
         calendarName.setTextColor(textColor);
 
-        CheckBox syncCheckBox = (CheckBox) view.findViewById(R.id.sync);
-        if (syncCheckBox != null) {
 
-            // Full screen layout
-            syncCheckBox.setChecked(selected);
-
-            colorView.setEnabled(hasMoreColors(position));
-            LayoutParams layoutParam = calendarName.getLayoutParams();
-            TextView secondaryText = (TextView) view.findViewById(R.id.status);
-            if (!TextUtils.isEmpty(mData[position].ownerAccount)
-                    && !mData[position].ownerAccount.equals(name)
-                    && !mData[position].ownerAccount.endsWith("calendar.google.com")) {
-                int secondaryColor;
-                if (selected) {
-                    secondaryColor = mColorCalendarSecondaryVisible;
-                } else {
-                    secondaryColor = mColorCalendarSecondaryHidden;
-                }
-                secondaryText.setText(mData[position].ownerAccount);
-                secondaryText.setTextColor(secondaryColor);
-                secondaryText.setVisibility(View.VISIBLE);
-                layoutParam.height = LayoutParams.WRAP_CONTENT;
-            } else {
-                secondaryText.setVisibility(View.GONE);
-                layoutParam.height = LayoutParams.MATCH_PARENT;
-            }
-
-            calendarName.setLayoutParams(layoutParam);
-
+        // Tablet layout
+        view.findViewById(R.id.color).setEnabled(selected && hasMoreColors(position));
+        view.setBackgroundDrawable(getBackground(position, selected));
+        ViewGroup.LayoutParams newParams = view.getLayoutParams();
+        if (position == mData.length - 1) {
+            newParams.height = BOTTOM_ITEM_HEIGHT;
         } else {
-            // Tablet layout
-            view.findViewById(R.id.color).setEnabled(selected && hasMoreColors(position));
-            view.setBackgroundDrawable(getBackground(position, selected));
-            ViewGroup.LayoutParams newParams = view.getLayoutParams();
-            if (position == mData.length - 1) {
-                newParams.height = BOTTOM_ITEM_HEIGHT;
-            } else {
-                newParams.height = NORMAL_ITEM_HEIGHT;
-            }
-            view.setLayoutParams(newParams);
-            CheckBox visibleCheckBox = (CheckBox) view.findViewById(R.id.visible_check_box);
-            if (visibleCheckBox != null) {
-                visibleCheckBox.setChecked(selected);
-            }
+            newParams.height = NORMAL_ITEM_HEIGHT;
+        }
+        view.setLayoutParams(newParams);
+        CheckBox visibleCheckBox = (CheckBox) view.findViewById(R.id.visible_check_box);
+        if (visibleCheckBox != null) {
+            visibleCheckBox.setChecked(selected);
         }
         view.invalidate();
         return view;

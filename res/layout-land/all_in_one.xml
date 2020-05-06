@@ -35,7 +35,8 @@
         android:layout_below="@id/home_time"
         android:orientation="horizontal"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:baselineAligned="false">
         <FrameLayout
             android:id="@+id/main_pane"
             android:layout_weight="6"

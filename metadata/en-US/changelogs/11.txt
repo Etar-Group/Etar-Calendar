@@ -1,0 +1,3 @@
+- Add an option to choose days per Week.
+- Add an option for the default view to show on startup.
+- Bug fixes.

@@ -2,8 +2,8 @@ package com.android.calendar;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.LayoutInflater;

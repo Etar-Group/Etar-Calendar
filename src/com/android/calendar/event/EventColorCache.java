@@ -19,6 +19,7 @@ package com.android.calendar.event;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,18 +34,18 @@ public class EventColorCache implements Serializable {
     private static final String SEPARATOR = "::";
 
     private Map<String, ArrayList<Integer>> mColorPaletteMap;
-    private Map<String, Integer> mColorKeyMap;
+    private Map<String, String> mColorKeyMap;
 
     public EventColorCache() {
         mColorPaletteMap = new HashMap<String, ArrayList<Integer>>();
-        mColorKeyMap = new HashMap<String, Integer>();
+        mColorKeyMap = new HashMap<String, String>();
     }
 
     /**
      * Inserts a color into the cache.
      */
     public void insertColor(String accountName, String accountType, int displayColor,
-            int colorKey) {
+            String colorKey) {
         mColorKeyMap.put(createKey(accountName, accountType, displayColor), colorKey);
         String key = createKey(accountName, accountType);
         ArrayList<Integer> colorPalette;
@@ -73,7 +74,7 @@ public class EventColorCache implements Serializable {
     /**
      * Retrieve an event color's unique key based on account name, type, and color.
      */
-    public int getColorKey(String accountName, String accountType, int displayColor) {
+    public String getColorKey(String accountName, String accountType, int displayColor) {
         return mColorKeyMap.get(createKey(accountName, accountType, displayColor));
     }
 
@@ -86,9 +87,7 @@ public class EventColorCache implements Serializable {
             Integer[] sortedColors = new Integer[palette.size()];
             Arrays.sort(palette.toArray(sortedColors), comparator);
             palette.clear();
-            for (Integer color : sortedColors) {
-                palette.add(color);
-            }
+            Collections.addAll(palette, sortedColors);
             mColorPaletteMap.put(key, palette);
         }
     }

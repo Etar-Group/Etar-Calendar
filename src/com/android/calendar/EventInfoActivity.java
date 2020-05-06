@@ -25,8 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -42,8 +41,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 public class EventInfoActivity extends AppCompatActivity {
-//        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
-//        SearchView.OnCloseListener {
 
     private static final String TAG = "EventInfoActivity";
     private EventInfoFragment mInfoFragment;
@@ -71,8 +68,6 @@ public class EventInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         dynamicTheme.onCreate(this);
-        // Workaround reverts Noactionbar in dynamicTheme
-        setTheme(R.style.Base_CalendarAppThemeWithActionBar);
 
         // Get the info needed for the fragment
         Intent intent = getIntent();
@@ -146,12 +141,6 @@ public class EventInfoActivity extends AppCompatActivity {
         mInfoFragment = (EventInfoFragment)
                 getFragmentManager().findFragmentById(R.id.main_frame);
 
-
-        // Remove the application title
-        ActionBar bar = getSupportActionBar();
-        if (bar != null) {
-            bar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
-        }
 
         // Create a new fragment if none exists
         if (mInfoFragment == null) {

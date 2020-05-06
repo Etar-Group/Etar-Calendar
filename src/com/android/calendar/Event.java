@@ -31,10 +31,12 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
+
+import com.android.calendar.settings.GeneralPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,7 +71,7 @@ public class Event implements Cloneable {
             Instances.TITLE,                 // 0
             Instances.EVENT_LOCATION,        // 1
             Instances.ALL_DAY,               // 2
-            Instances.DISPLAY_COLOR,         // 3 If SDK < 16, set to Instances.CALENDAR_COLOR.
+            Instances.DISPLAY_COLOR,         // 3
             Instances.EVENT_TIMEZONE,        // 4
             Instances.EVENT_ID,              // 5
             Instances.BEGIN,                 // 6
@@ -113,11 +115,6 @@ public class Event implements Cloneable {
     private static String mNoTitleString;
     private static int mNoColorColor;
 
-    static {
-        if (!Utils.isJellybeanOrLater()) {
-            EVENT_PROJECTION[PROJECTION_COLOR_INDEX] = Instances.CALENDAR_COLOR;
-        }
-    }
 
     public long id;
     public int color;
@@ -207,7 +204,7 @@ public class Event implements Cloneable {
             // required for correctness, it just adds a nice touch.
 
             // Respect the preference to show/hide declined events
-            SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+            SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
             boolean hideDeclined = prefs.getBoolean(GeneralPreferences.KEY_HIDE_DECLINED,
                     false);
 

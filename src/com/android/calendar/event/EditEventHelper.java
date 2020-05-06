@@ -90,7 +90,9 @@ public class EditEventHelper {
             Events.STATUS, // 21
             Events.CALENDAR_COLOR, // 22
             Events.EVENT_COLOR, // 23
-            Events.EVENT_COLOR_KEY // 24
+            Events.EVENT_COLOR_KEY, // 24
+            Events.ACCOUNT_NAME, // 25
+            Events.ACCOUNT_TYPE // 26
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -117,6 +119,8 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_CALENDAR_COLOR = 22;
     protected static final int EVENT_INDEX_EVENT_COLOR = 23;
     protected static final int EVENT_INDEX_EVENT_COLOR_KEY = 24;
+    protected static final int EVENT_INDEX_ACCOUNT_NAME = 25;
+    protected static final int EVENT_INDEX_ACCOUNT_TYPE = 26;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -612,13 +616,13 @@ public class EditEventHelper {
     }
 
     /**
-     * When we aren't given an explicit end time, we default to an hour after
-     * the start time.
+     * When we aren't given an explicit end time, we calculate according to user preference.
      * @param startTime the start time
+     * @param context a {@link Context} with which to look up user preference
      * @return a default end time
      */
-    protected long constructDefaultEndTime(long startTime) {
-        return startTime + DateUtils.HOUR_IN_MILLIS;
+    protected long constructDefaultEndTime(long startTime, Context context) {
+        return startTime + Utils.getDefaultEventDurationInMillis(context);
     }
 
     // TODO think about how useful this is. Probably check if our event has
@@ -1056,12 +1060,17 @@ public class EditEventHelper {
         model.mCalendarId = cursor.getInt(EVENT_INDEX_CALENDAR_ID);
         model.mStart = cursor.getLong(EVENT_INDEX_DTSTART);
         String tz = cursor.getString(EVENT_INDEX_TIMEZONE);
-        if (!TextUtils.isEmpty(tz)) {
+        if (TextUtils.isEmpty(tz)) {
+            Log.w(TAG, "Query did not return a timezone for the event.");
+            model.mTimezone = TimeZone.getDefault().getID();
+        } else {
             model.mTimezone = tz;
         }
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
+        model.mSyncAccountName = cursor.getString(EVENT_INDEX_ACCOUNT_NAME);
+        model.mSyncAccountType = cursor.getString(EVENT_INDEX_ACCOUNT_TYPE);
         model.mAvailability = cursor.getInt(EVENT_INDEX_AVAILABILITY);
         int accessLevel = cursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
         model.mOwnerAccount = cursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
@@ -1080,12 +1089,6 @@ public class EditEventHelper {
         }
         model.setEventColor(Utils.getDisplayColorFromColor(rawEventColor));
 
-        if (accessLevel > 0) {
-            // For now the array contains the values 0, 2, and 3. We subtract
-            // one to make it easier to handle in code as 0,1,2.
-            // Default (0), Private (1), Public (2)
-            accessLevel--;
-        }
         model.mAccessLevel = accessLevel;
         model.mEventStatus = cursor.getInt(EVENT_INDEX_EVENT_STATUS);
 
@@ -1282,11 +1285,6 @@ public class EditEventHelper {
         values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
 
         int accessLevel = model.mAccessLevel;
-        if (accessLevel > 0) {
-            // For now the array contains the values 0, 2, and 3. We add one to match.
-            // Default (0), Private (2), Public (3)
-            accessLevel++;
-        }
         values.put(Events.ACCESS_LEVEL, accessLevel);
         values.put(Events.STATUS, model.mEventStatus);
         if (model.isEventColorInitialized()) {

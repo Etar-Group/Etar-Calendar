@@ -31,6 +31,7 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.ColorChipView;
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 
 import java.util.Formatter;
@@ -62,20 +63,12 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     public AgendaAdapter(Context context, int resource) {
         super(context, resource, null);
 
-        String theme = Utils.getTheme(context);
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
-        if (theme.equals("dark")) {
-            mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color_dark);
-            mStandardColor = mResources.getColor(R.color.agenda_item_standard_color_dark);
-            mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color_dark);
-            mWhereColor = mResources.getColor(R.color.agenda_item_where_text_color_dark);
-        } else {
-            mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
-            mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
-            mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color);
-            mWhereColor = mResources.getColor(R.color.agenda_item_where_text_color);
-        }
+        mDeclinedColor = DynamicTheme.getColor(context, "agenda_item_declined_color");
+        mStandardColor = DynamicTheme.getColor(context, "agenda_item_standard_color");
+        mWhereDeclinedColor = DynamicTheme.getColor(context, "agenda_item_where_declined_text_color");
+        mWhereColor = DynamicTheme.getColor(context, "agenda_item_where_text_color");
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
@@ -211,35 +204,6 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         }
         when.setText(whenString);
 
-   /* Recurring event icon is removed
-        String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);
-        if (!TextUtils.isEmpty(rrule)) {
-            when.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    context.getResources().getDrawable(R.drawable.ic_repeat_dark), null);
-            when.setCompoundDrawablePadding(5);
-        } else {
-            when.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-        } */
-
-        /*
-        // Repeating info
-        View repeatContainer = view.findViewById(R.id.repeat_icon);
-        String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);
-        if (!TextUtils.isEmpty(rrule)) {
-            repeatContainer.setVisibility(View.VISIBLE);
-        } else {
-            repeatContainer.setVisibility(View.GONE);
-        }
-        */
-
-        /*
-        // Reminder
-        boolean hasAlarm = cursor.getInt(AgendaWindowAdapter.INDEX_HAS_ALARM) != 0;
-        if (hasAlarm) {
-            updateReminder(view, context, begin, cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID));
-        }
-        */
-
         // Where
         String whereString = cursor.getString(AgendaWindowAdapter.INDEX_EVENT_LOCATION);
         if (whereString != null && whereString.length() > 0) {
@@ -269,31 +233,5 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         boolean grayed;
         int julianDay;
     }
-
-    /*
-    public static void updateReminder(View view, Context context, long begin, long eventId) {
-        ContentResolver cr = context.getContentResolver();
-        Uri uri = Reminders.CONTENT_URI;
-        String where = String.format(REMINDERS_WHERE, eventId);
-
-        Cursor remindersCursor = cr.query(uri, REMINDERS_PROJECTION, where, null, null);
-        if (remindersCursor != null) {
-            LayoutInflater inflater =
-                    (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout parent = (LinearLayout) view.findViewById(R.id.reminders_container);
-            parent.removeAllViews();
-            while (remindersCursor.moveToNext()) {
-                int alarm = remindersCursor.getInt(REMINDERS_INDEX_MINUTES);
-                String before = EditEvent.constructReminderLabel(context, alarm, true);
-                LinearLayout reminderItem = (LinearLayout)
-                        inflater.inflate(R.layout.agenda_reminder_item, null);
-                TextView reminderItemText = (TextView) reminderItem.findViewById(R.id.reminder);
-                reminderItemText.setText(before);
-                parent.addView(reminderItem);
-            }
-        }
-        remindersCursor.close();
-    }
-    */
 }
 

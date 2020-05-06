@@ -14,111 +14,145 @@
      limitations under the License.
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/preferences_general_title">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="@string/preferences_general_title">
         <ListPreference
-            android:key="pref_theme"
-            android:title="@string/preferences_theme"
-            android:entries="@array/pref_theme_entries"
-            android:entryValues="@array/pref_theme_values"
-            android:defaultValue="light"/>
-        <ListPreference
-            android:key="preferences_default_start"
-            android:defaultValue="-2"
-            android:title="@string/default_start_title"
-            android:entries="@array/default_start_entries"
-            android:entryValues="@array/default_start_values" />
-        <CheckBoxPreference
-            android:key="preferences_hide_declined"
-            android:defaultValue="false"
-            android:title="@string/preferences_hide_declined_title" />
-        <CheckBoxPreference
-            android:key="preferences_show_week_num"
-            android:defaultValue="false"
-            android:title="@string/preferences_show_week_num_title" />
-        <ListPreference
-            android:key="preferences_week_start_day"
-            android:defaultValue="@string/preferences_week_start_day_default"
-            android:title="@string/preferences_week_start_day_title"
-            android:entries="@array/preferences_week_start_day_labels"
-            android:entryValues="@array/preferences_week_start_day_values"
-            android:dialogTitle="@string/preferences_week_start_day_dialog" />
-        <ListPreference
-            android:key="preferences_days_per_week"
-            android:defaultValue="@string/preferences_days_per_week_default"
-            android:title="@string/preferences_days_per_week_title"
-            android:entries="@array/preferences_days_per_week_labels"
-            android:entryValues="@array/preferences_days_per_week_values"
-            android:dialogTitle="@string/preferences_days_per_week_dialog" />
-        <CheckBoxPreference
-            android:key="preferences_home_tz_enabled"
-            android:defaultValue="false"
-            android:title="@string/preferences_use_home_tz_title"
-            android:summary="@string/preferences_use_home_tz_descrip" />
+            app:key="pref_theme"
+            app:title="@string/preferences_theme"
+            app:entries="@array/pref_theme_entries"
+            app:entryValues="@array/pref_theme_values"
+            app:defaultValue="light"/>
         <Preference
-            android:key="preferences_home_tz"
-            android:dependency="preferences_home_tz_enabled"
-            android:defaultValue="@string/preferences_home_tz_default"
-            android:title="@string/preferences_home_tz_title" />
-        <PreferenceScreen
-            android:key="preferences_clear_search_history"
-            android:title="@string/preferences_clear_search_history_title"
-            android:summary="@string/preferences_clear_search_history_summary" />
+            app:key="pref_color"
+            app:title="@string/preferences_color"
+            app:entries="@array/pref_color_entries"
+            app:entryValues="@array/pref_color_values"
+            app:defaultValue="teal"/>
+        <ListPreference
+            app:key="preferences_default_start"
+            app:defaultValue="-2"
+            app:title="@string/default_start_title"
+            app:entries="@array/default_start_entries"
+            app:entryValues="@array/default_start_values" />
+        <Preference
+            app:key="pref_view_details"
+            app:title="@string/display_options"
+            app:fragment="com.android.calendar.settings.ViewDetailsPreferences" />
+        <CheckBoxPreference
+            app:key="preferences_hide_declined"
+            app:defaultValue="false"
+            app:title="@string/preferences_hide_declined_title" />
+        <CheckBoxPreference
+            app:key="preferences_show_week_num"
+            app:defaultValue="false"
+            app:title="@string/preferences_show_week_num_title" />
+        <ListPreference
+            app:key="preferences_week_start_day"
+            app:defaultValue="@string/preferences_week_start_day_default"
+            app:title="@string/preferences_week_start_day_title"
+            app:entries="@array/preferences_week_start_day_labels"
+            app:entryValues="@array/preferences_week_start_day_values"
+            app:dialogTitle="@string/preferences_week_start_day_dialog" />
+        <ListPreference
+            app:key="preferences_days_per_week"
+            app:defaultValue="@string/preferences_days_per_week_default"
+            app:title="@string/preferences_days_per_week_title"
+            app:entries="@array/preferences_days_per_week_labels"
+            app:entryValues="@array/preferences_days_per_week_values"
+            app:dialogTitle="@string/preferences_days_per_week_dialog" />
+        <ListPreference
+            app:key="preferences_default_event_duration"
+            app:defaultValue="60"
+            app:title="@string/preferences_default_event_duration_title"
+            app:entries="@array/preferences_default_duration_labels"
+            app:entryValues="@array/preferences_default_duration_values"
+            />
+        <CheckBoxPreference
+            app:key="preferences_home_tz_enabled"
+            app:defaultValue="false"
+            app:title="@string/preferences_use_home_tz_title"
+            app:summary="@string/preferences_use_home_tz_descrip" />
+        <Preference
+            app:key="preferences_home_tz"
+            app:dependency="preferences_home_tz_enabled"
+            app:defaultValue="@string/preferences_home_tz_default"
+            app:title="@string/preferences_home_tz_title" />
+        <Preference
+            app:key="preferences_clear_search_history"
+            app:title="@string/preferences_clear_search_history_title"
+            app:summary="@string/preferences_clear_search_history_summary" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:key="preferences_alerts_category"
-        android:title="@string/preferences_reminder_title">
+        app:key="preferences_alerts_category"
+        app:title="@string/preferences_reminder_title">
         <CheckBoxPreference
-            android:key="preferences_alerts"
-            android:defaultValue="true"
-            android:title="@string/preferences_alerts_title" />
+            app:key="preferences_alerts"
+            app:defaultValue="true"
+            app:title="@string/preferences_alerts_title" />
 
-        <RingtonePreference
-            android:layout="?android:attr/preferenceLayoutChild"
-            android:key="preferences_alerts_ringtone"
-            android:title="@string/preferences_alerts_ringtone_title"
-            android:ringtoneType="notification"
-            android:defaultValue="content://settings/system/notification_sound" />
-
-        <CheckBoxPreference
-            android:layout="?android:attr/preferenceLayoutChild"
-            android:key="preferences_alerts_vibrate"
-            android:title="@string/preferences_alerts_vibrateWhen_title"
-            android:defaultValue="false" />
+        <Preference
+            app:layout="?android:attr/preferenceLayoutChild"
+            app:key="preferences_alerts_ringtone"
+            app:title="@string/preferences_alerts_ringtone_title"
+            app:defaultValue="content://settings/system/notification_sound"
+            app:dependency="preferences_alerts" />
 
         <CheckBoxPreference
-            android:layout="?android:attr/preferenceLayoutChild"
-            android:key="preferences_alerts_popup"
-            android:defaultValue="false"
-            android:title="@string/preferences_alerts_popup_title" />
+            app:layout="?android:attr/preferenceLayoutChild"
+            app:key="preferences_alerts_vibrate"
+            app:title="@string/preferences_alerts_vibrateWhen_title"
+            app:defaultValue="false"
+            app:dependency="preferences_alerts" />
 
         <CheckBoxPreference
-            android:key="preferences_custom_snooze_delay"
-            android:defaultValue="false"
-            android:title="@string/preferences_alerts_custom_snooze_delay_title"
-            android:summaryOn="@string/preferences_alerts_custom_snooze_delay_summary_on"
-            android:summaryOff="@string/preferences_alerts_custom_snooze_delay_summary_off" />
+            app:layout="?android:attr/preferenceLayoutChild"
+            app:key="preferences_alerts_popup"
+            app:defaultValue="false"
+            app:title="@string/preferences_alerts_popup_title"
+            app:dependency="preferences_alerts" />
+
+        <CheckBoxPreference
+            app:key="preferences_custom_snooze_delay"
+            app:defaultValue="false"
+            app:title="@string/preferences_alerts_custom_snooze_delay_title"
+            app:summaryOn="@string/preferences_alerts_custom_snooze_delay_summary_on"
+            app:summaryOff="@string/preferences_alerts_custom_snooze_delay_summary_off" />
 
         <ListPreference
-            android:key="preferences_default_snooze_delay"
-            android:defaultValue="@string/preferences_default_snooze_delay_default"
-            android:entryValues="@array/preferences_default_snooze_delay_values"
-            android:title="@string/preferences_default_snooze_delay_title"
-            android:dialogTitle="@string/preferences_default_snooze_delay_dialog" />
+            app:key="preferences_default_snooze_delay"
+            app:defaultValue="@string/preferences_default_snooze_delay_default"
+            app:entryValues="@array/preferences_default_snooze_delay_values"
+            app:title="@string/preferences_default_snooze_delay_title"
+            app:dialogTitle="@string/preferences_default_snooze_delay_dialog" />
 
         <ListPreference
-            android:key="preferences_default_reminder"
-            android:defaultValue="@string/preferences_default_reminder_default"
-            android:title="@string/preferences_default_reminder_title"
-            android:entries="@array/preferences_default_reminder_labels"
-            android:entryValues="@array/preferences_default_reminder_values"
-            android:dialogTitle="@string/preferences_default_reminder_dialog" />
+            app:key="preferences_default_reminder"
+            app:defaultValue="@string/preferences_default_reminder_default"
+            app:title="@string/preferences_default_reminder_title"
+            app:entries="@array/preferences_default_reminder_labels"
+            app:entryValues="@array/preferences_default_reminder_values"
+            app:dialogTitle="@string/preferences_default_reminder_dialog" />
 
-        <PreferenceScreen
-            android:key="preferences_quick_responses"
-            android:fragment="com.android.calendar.QuickResponseSettings"
-            android:title="@string/quick_response_settings"
-            android:summary="@string/quick_response_settings_summary" />
+        <Preference
+            app:key="preferences_quick_responses"
+            app:fragment="com.android.calendar.settings.QuickResponsePreferences"
+            app:title="@string/quick_response_settings"
+            app:summary="@string/quick_response_settings_summary" />
      </PreferenceCategory>
+    <PreferenceCategory
+        app:key="preferences_experimental_category"
+        app:title="@string/preferences_experimental_category">
+        <Preference
+            app:key="preferences_copy_db"
+            app:title="@string/copy_db" />
+
+        <ListPreference
+            app:key="preferences_reminders_responded"
+            app:title="@string/preferences_reminders_responded_label"
+            app:entries="@array/preferences_skip_reminders_labels"
+            app:entryValues="@array/preferences_skip_reminders_values"
+            app:dialogTitle="@string/preferences_reminders_responded_dialog" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

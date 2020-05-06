@@ -28,6 +28,7 @@ import android.text.util.Rfc822Token;
 
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventColorCache;
+import com.android.calendar.settings.GeneralPreferences;
 import com.android.common.Rfc822Validator;
 
 import java.io.Serializable;
@@ -60,7 +61,7 @@ public class CalendarEventModel implements Serializable {
     public String mCalendarAllowedAttendeeTypes;
     public String mCalendarAllowedAvailability;
     public String mSyncId = null;
-    public String mSyncAccount = null;
+    public String mSyncAccountName = null;
     public String mSyncAccountType = null;
     public EventColorCache mEventColorCache;
     // PROVIDER_NOTES owner account comes from the calendars table
@@ -129,7 +130,7 @@ public class CalendarEventModel implements Serializable {
         this();
 
         mTimezone = Utils.getTimeZone(context, null);
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
 
         String defaultReminder = prefs.getString(
                 GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
@@ -171,11 +172,6 @@ public class CalendarEventModel implements Serializable {
 
         int accessLevel = intent.getIntExtra(Events.ACCESS_LEVEL, -1);
         if (accessLevel != -1) {
-            if (accessLevel > 0) {
-                // TODO remove this if we add support for
-                // Events.ACCESS_CONFIDENTIAL
-                accessLevel--;
-            }
             mAccessLevel = accessLevel;
         }
 
@@ -236,7 +232,7 @@ public class CalendarEventModel implements Serializable {
         mEventColorInitialized = false;
 
         mSyncId = null;
-        mSyncAccount = null;
+        mSyncAccountName = null;
         mSyncAccountType = null;
         mOwnerAccount = null;
 
@@ -353,7 +349,7 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + mSelfAttendeeStatus;
         result = prime * result + mOwnerAttendeeId;
         result = prime * result + (int) (mStart ^ (mStart >>> 32));
-        result = prime * result + ((mSyncAccount == null) ? 0 : mSyncAccount.hashCode());
+        result = prime * result + ((mSyncAccountName == null) ? 0 : mSyncAccountName.hashCode());
         result = prime * result + ((mSyncAccountType == null) ? 0 : mSyncAccountType.hashCode());
         result = prime * result + ((mSyncId == null) ? 0 : mSyncId.hashCode());
         result = prime * result + ((mTimezone == null) ? 0 : mTimezone.hashCode());
@@ -643,11 +639,11 @@ public class CalendarEventModel implements Serializable {
         if (mOwnerAttendeeId != originalModel.mOwnerAttendeeId) {
             return false;
         }
-        if (mSyncAccount == null) {
-            if (originalModel.mSyncAccount != null) {
+        if (mSyncAccountName == null) {
+            if (originalModel.mSyncAccountName != null) {
                 return false;
             }
-        } else if (!mSyncAccount.equals(originalModel.mSyncAccount)) {
+        } else if (!mSyncAccountName.equals(originalModel.mSyncAccountName)) {
             return false;
         }
 
@@ -774,12 +770,12 @@ public class CalendarEventModel implements Serializable {
         return null;
     }
 
-    public int getEventColorKey() {
+    public String getEventColorKey() {
         if (mEventColorCache != null) {
             return mEventColorCache.getColorKey(mCalendarAccountName, mCalendarAccountType,
                     mEventColor);
         }
-        return -1;
+        return "";
     }
 
     public static class Attendee implements Serializable {

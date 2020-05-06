@@ -17,7 +17,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa">
+    android:background="?attr/event_info_bgcolor">
     <RelativeLayout
         android:id="@+id/event_info_loading_msg"
         android:layout_width="match_parent"
@@ -38,17 +38,14 @@
     </RelativeLayout>
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/event_info_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:animateLayoutChanges="false"
             android:orientation="vertical"
             android:padding="16dip">
@@ -59,7 +56,7 @@
             <LinearLayout
                 android:id="@+id/event_info_headline"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingBottom="16dip"
@@ -89,7 +86,7 @@
                         android:id="@+id/event_info_buttons_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:layout_marginLeft="16dip"
                         android:layout_marginRight="16dip"
                         android:orientation="horizontal">
@@ -98,24 +95,24 @@
                             style="?android:attr/buttonBarButtonStyle"
                             android:layout_width="48dip"
                             android:layout_height="48dip"
-                            android:layout_marginRight="8dip"
+                            android:layout_marginEnd="8dip"
                             android:contentDescription="@string/choose_event_color_label"
                             android:enabled="false"
                             android:padding="8dip"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_menu_colorpicker_dialog"
+                            android:src="@drawable/ic_colorpicker"
                             android:visibility="gone" />
                         <ImageButton
                             android:id="@+id/edit"
                             style="?android:attr/buttonBarButtonStyle"
                             android:layout_width="48dip"
                             android:layout_height="48dip"
-                            android:layout_marginRight="8dip"
+                            android:layout_marginEnd="8dip"
                             android:contentDescription="@string/edit_label"
                             android:enabled="false"
                             android:padding="8dip"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_menu_compose_dialog"
+                            android:src="@drawable/ic_edit_event"
                             android:visibility="gone" />
                         <ImageButton
                             android:id="@+id/delete"
@@ -126,7 +123,7 @@
                             android:enabled="false"
                             android:padding="8dip"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_menu_trash_dialog"
+                            android:src="@drawable/ic_delete_event"
                             android:visibility="gone" />
                     </LinearLayout>
                 </LinearLayout>
@@ -164,7 +161,6 @@
                     android:ellipsize="end"
                     android:paddingLeft="16dip"
                     android:paddingRight="16dip"
-                    android:singleLine="false"
                     android:textColor="@color/event_info_headline_color"
                     android:textColorLink="@color/event_info_headline_link_color"
                     android:textIsSelectable="true"
@@ -189,8 +185,8 @@
                         style="?android:attr/textAppearanceSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="16dip"
-                        android:singleLine="true"
+                        android:paddingStart="16dip"
+                        android:maxLines="1"
                         android:text="@string/view_event_calendar_label"
                         android:textColor="?attr/event_info_organizer_color"
                         android:textSize="18sp"/>
@@ -199,11 +195,11 @@
                         style="?android:attr/textAppearanceSmall"
                         android:layout_width="0px"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dip"
-                        android:layout_marginRight="8dip"
+                        android:layout_marginStart="4dip"
+                        android:layout_marginEnd="8dip"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColor="?attr/event_info_organizer_color"
                         android:textIsSelectable="true"
                         android:textSize="18sp"/>
@@ -221,8 +217,8 @@
                         style="?android:attr/textAppearanceSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="16dip"
-                        android:singleLine="true"
+                        android:paddingStart="16dip"
+                        android:maxLines="1"
                         android:text="@string/event_info_organizer"
                         android:textColor="?attr/event_info_organizer_color"
                         android:textSize="18sp"/>
@@ -231,11 +227,11 @@
                         style="?android:attr/textAppearanceSmall"
                         android:layout_width="0px"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dip"
-                        android:layout_marginRight="8dip"
+                        android:layout_marginStart="4dip"
+                        android:layout_marginEnd="8dip"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColor="?attr/event_info_organizer_color"
                         android:textIsSelectable="true"
                         android:textSize="18sp"/>
@@ -260,10 +256,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="8dip"
+                    android:layout_marginStart="8dip"
                     android:layout_marginTop="8dip"
-                    android:paddingLeft="8dip"
-                    android:paddingRight="16dip"
+                    android:paddingStart="8dip"
+                    android:paddingEnd="16dip"
                     android:text="@string/view_event_response_label"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="?attr/event_info_label_color" />
@@ -274,7 +270,7 @@
                     android:layout_gravity="center_vertical"
                     android:minHeight="52dip"
                     android:orientation="horizontal"
-                    android:paddingLeft="9dip">
+                    android:paddingStart="9dip">
                     <RadioButton
                         android:id="@+id/response_yes"
                         style="?android:attr/textAppearanceMedium"
@@ -318,21 +314,21 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginLeft="8dip"
-                    android:layout_marginRight="0dip"
+                    android:layout_marginStart="8dip"
+                    android:layout_marginEnd="0dip"
                     android:background="?android:attr/listDivider" />
                 <Button
                     android:id="@+id/email_attendees_button"
                     style="@style/TextAppearance.EditEvent_LabelSmall"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_marginBottom="0dip"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginTop="0dip"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableLeft="@drawable/event_info_mail_button"
+                    android:drawableStart="?attr/ic_menu_email"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:paddingBottom="0dp"
@@ -352,18 +348,18 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginLeft="8dip"
-                    android:layout_marginRight="0dip"
+                    android:layout_marginStart="8dip"
+                    android:layout_marginEnd="0dip"
                     android:background="?android:attr/listDivider" />
                 <Button
                     android:id="@+id/launch_custom_app_button"
                     style="@style/TextAppearance.EditEvent_LabelSmall"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_marginBottom="0dip"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginTop="0dip"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawablePadding="8dp"
@@ -396,18 +392,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="8dip"
+                    android:layout_marginStart="8dip"
                     android:layout_marginTop="4dip"
-                    android:paddingLeft="8dip"
-                    android:paddingRight="16dip"
+                    android:paddingStart="8dip"
+                    android:paddingEnd="16dip"
                     android:text="@string/event_info_reminders_label"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="?attr/event_info_label_color" />
                 <LinearLayout
                     android:id="@+id/reminder_items_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-8dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="-8dp"
                     android:layout_weight="1"
                     android:orientation="vertical" />
                 <Button
@@ -416,11 +412,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="-6dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="0dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:contentDescription="@string/accessibility_add_reminder"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:minHeight="38dip"
                     android:text="@string/reminders_label"
                     android:textAllCaps="false"

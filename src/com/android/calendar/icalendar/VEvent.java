@@ -74,6 +74,7 @@ public class VEvent {
 
     // Stores attributes and their corresponding values belonging to the Event component
     public HashMap<String, String> mProperties;
+    public HashMap<String, String> mPropertyParameters;
 
     public LinkedList<Attendee> mAttendees;
     public Organizer mOrganizer;
@@ -83,6 +84,7 @@ public class VEvent {
      */
     public VEvent() {
         mProperties = new HashMap<String, String>();
+        mPropertyParameters = new HashMap<String, String>();
         mAttendees = new LinkedList<Attendee>();
 
         // Generate and add a unique identifier to this event - iCal requisite
@@ -112,6 +114,13 @@ public class VEvent {
      */
     public String getProperty(String property) {
         return mProperties.get(property);
+    }
+
+    /**
+     * Returns the parameters of the requested event property or null if there isn't one
+     */
+    public String getPropertyParameters(String property) {
+        return mPropertyParameters.get(property);
     }
 
     /**
@@ -191,7 +200,7 @@ public class VEvent {
             String line = iter.next();
             if (line.contains("BEGIN:VEVENT")) {
                 // Continue
-            } else if (line.startsWith("END:EVENT")) {
+            } else if (line.startsWith("END:VEVENT")) {
                 break;
             } else if (line.startsWith("ORGANIZER")) {
                 String entry = parseTillNextAttribute(iter, line);
@@ -207,7 +216,15 @@ public class VEvent {
             } else if (line.contains(":")) {
                 String entry = parseTillNextAttribute(iter, line);
                 int indexOfFirstColon = entry.indexOf(":");
-                String key = entry.substring(0, indexOfFirstColon);
+                int indexOfFirstParamDelimiter = entry.indexOf(";");
+                String key;
+                if (indexOfFirstParamDelimiter != -1 && indexOfFirstParamDelimiter < indexOfFirstColon) {
+                    key = entry.substring(0, indexOfFirstParamDelimiter);
+                    String params = entry.substring(indexOfFirstParamDelimiter + 1, indexOfFirstColon);
+                    mPropertyParameters.put(key, params);
+                } else {
+                    key = entry.substring(0, indexOfFirstColon);
+                }
                 String value = entry.substring(indexOfFirstColon + 1);
                 mProperties.put(key, value);
             }

@@ -53,10 +53,15 @@ public class Organizer {
 
     public static Organizer populateFromICalString(String iCalFormattedString) {
         // TODO: Add sanity checks
-        String[] organizer = iCalFormattedString.split(";");
-        String[] entries = organizer[1].split(":");
-        String name = entries[0].replace("CN=", "");
-        String email = entries[1].replace("mailto=", "");
-        return new Organizer(name, email);
+        try {
+            String[] organizer = iCalFormattedString.split(";");
+            String[] entries = organizer[1].split(":");
+            String name = entries[0].replace("CN=", "");
+            String email = entries[1].replace("mailto=", "");
+            return new Organizer(name, email);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 }

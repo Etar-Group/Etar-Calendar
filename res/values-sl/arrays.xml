@@ -70,18 +70,6 @@
     <item msgid="6228387173725732140">"Na voljo"</item>
     <item msgid="2064426942462573474">"Začasno"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"Privzeto"</item>
-    <item msgid="5200216103966973369">"Zasebno"</item>
-    <item msgid="9182342638433672664">"Javno"</item>
-  </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"prvi"</item>
-    <item msgid="5631923029483854900">"sekunda"</item>
-    <item msgid="148935502975250973">"tretji"</item>
-    <item msgid="5124200797326669172">"četrti"</item>
-    <item msgid="7564374178324652137">"zadnji"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Ni odgovora"</item>
     <item msgid="3724434080904437698">"Da"</item>
@@ -92,10 +80,6 @@
     <item msgid="4208432367651646938">"Samo ta dogodek"</item>
     <item msgid="1536401639805370405">"Ta in prihodnji dogodki"</item>
     <item msgid="7833229563617435430">"Vsi dogodki"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Ti in prihodnji dogodki"</item>
-    <item msgid="6315440193748139854">"Vsi dogodki"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"Samo ta dogodek"</item>

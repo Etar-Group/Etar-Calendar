@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.SharedPreferences.Editor;
 import android.os.ParcelFileDescriptor;
 
+import com.android.calendar.settings.GeneralPreferences;
+
 import java.io.IOException;
 
 public class CalendarBackupAgent extends BackupAgentHelper
@@ -38,7 +40,7 @@ public class CalendarBackupAgent extends BackupAgentHelper
     @Override
     public void onRestore(BackupDataInput data, int appVersionCode, ParcelFileDescriptor newState)
             throws IOException {
-        // See Utils.getRingTonePreference for more info
+        // See Utils.getRingtonePreference for more info
         final Editor editor = getSharedPreferences(
                 GeneralPreferences.SHARED_PREFS_NAME_NO_BACKUP, Context.MODE_PRIVATE).edit();
         editor.putString(GeneralPreferences.KEY_ALERTS_RINGTONE,

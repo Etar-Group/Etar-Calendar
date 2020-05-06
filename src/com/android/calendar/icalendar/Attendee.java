@@ -91,8 +91,10 @@ public class Attendee {
         String line = iter.next();
         if (line.contains("ATTENDEE")) {
             String entry = VEvent.parseTillNextAttribute(iter, line);
-            String[] entries = entry.split("X-NUM-GUESTS=0:mailto:");
-            mEmail = entries[1];
+            String[] entries = entry.split("(?i)mailto:");
+            if (entries.length > 1) {
+                mEmail = entries[1];
+            }
         }
     }
 }

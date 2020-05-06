@@ -70,18 +70,6 @@
     <item msgid="6228387173725732140">"Yatholakala"</item>
     <item msgid="2064426942462573474">"Okwesikhashana"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"Okuzenzakalelayo"</item>
-    <item msgid="5200216103966973369">"Imfihlo"</item>
-    <item msgid="9182342638433672664">"Okusesidlangalaleni"</item>
-  </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"okokuqala"</item>
-    <item msgid="5631923029483854900">"isekhondi"</item>
-    <item msgid="148935502975250973">"okwesithathu"</item>
-    <item msgid="5124200797326669172">"okwesine"</item>
-    <item msgid="7564374178324652137">"okokugcina"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Ayikho impendulo"</item>
     <item msgid="3724434080904437698">"Yebo"</item>
@@ -92,10 +80,6 @@
     <item msgid="4208432367651646938">"Kuphela le senzakalo"</item>
     <item msgid="1536401639805370405">"Lona kanye neyakusasa imicimbi"</item>
     <item msgid="7833229563617435430">"Zonke izenzakalo"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Lokhu &amp; izenzakalo zesikhathi esizayo"</item>
-    <item msgid="6315440193748139854">"Zonke izenzakalo"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"Kuphela le senzakalo"</item>

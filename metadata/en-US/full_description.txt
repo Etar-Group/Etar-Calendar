@@ -1,0 +1,11 @@
+Features:
+- Month view.
+- Week, day and agenda view.
+- Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
+- Material Design.
+- Dark and light theme.
+- Free, open source and absolutely no ads.
+- Support sharing calendars via ICS and the ability to import/export from SD card.
+
+Bugs and feedback: https://github.com/Etar-Group/Etar-Calendar/issues
+Source code: https://github.com/Etar-Group/Etar-Calendar

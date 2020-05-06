@@ -15,7 +15,7 @@
 -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#fafafa"
+    android:background="?attr/event_info_bgcolor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/event_info_padding">
@@ -37,13 +37,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/app_bar" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
         android:id="@+id/event_info_scroll_view"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:fadingEdge="none"
         android:animateLayoutChanges="true"
+        android:layout_below="@+id/bar"
         android:layout_height="match_parent"
         android:background="?attr/event_info_scrollview_bgcolor">
 
@@ -68,7 +80,7 @@
                 <LinearLayout
                     android:id="@+id/calendar_container"
                     android:visibility="gone"
-                    android:paddingRight="16dip"
+                    android:paddingEnd="16dip"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -76,7 +88,7 @@
                         android:id="@+id/calendar_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="@string/view_event_calendar_label"
                         android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
@@ -87,8 +99,8 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:layout_weight="1"
-                        android:singleLine="true"
-                        android:layout_marginLeft="2dip"
+                        android:maxLines="1"
+                        android:layout_marginStart="2dip"
                         android:textIsSelectable="true"
                         android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
@@ -99,7 +111,7 @@
                 <LinearLayout
                     android:id="@+id/organizer_container"
                     android:visibility="gone"
-                    android:paddingRight="16dip"
+                    android:paddingEnd="16dip"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -107,7 +119,7 @@
                         android:id="@+id/organizer_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="@string/event_info_organizer"
                         android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
@@ -118,8 +130,8 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:layout_weight="1"
-                        android:singleLine="true"
-                        android:layout_marginLeft="2dip"
+                        android:maxLines="1"
+                        android:layout_marginStart="2dip"
                         android:textIsSelectable="true"
                         android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
@@ -213,8 +225,8 @@
                     android:text="@string/email_guests_label"
                     android:layout_height="50dp"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="8dp"
                     android:gravity="center_vertical"
                     android:paddingBottom="0dp"
                     android:layout_marginTop="0dip"
@@ -223,7 +235,7 @@
                     android:textSize="16sp"
                     android:textColor="?attr/event_info_description_color"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableLeft="@drawable/event_info_mail_button"
+                    android:drawableStart="?attr/ic_menu_email"
                     android:drawablePadding="8dp"
                     style="@style/TextAppearance.EditEvent_LabelSmall" />
             </LinearLayout>
@@ -245,8 +257,8 @@
                     android:id="@+id/launch_custom_app_button"
                     android:layout_height="50dp"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="8dp"
                     android:gravity="center_vertical"
                     android:paddingBottom="0dp"
                     android:layout_marginTop="0dip"
@@ -289,8 +301,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dip"
-                android:layout_marginLeft="-8dip"
-                android:layout_marginRight="8dip"
+                android:layout_marginStart="-8dip"
+                android:layout_marginEnd="8dip"
                 android:orientation="vertical" />
             <Button
                 android:id="@+id/reminder_add"
@@ -312,5 +324,6 @@
                 android:contentDescription="@string/accessibility_add_reminder"
                 style="@style/TextAppearance.EditEvent_LabelSmall" />
         </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </RelativeLayout>
 </FrameLayout>

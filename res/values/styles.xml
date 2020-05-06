@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /* //device/apps/Calendar/assets/res/any/styles.xml
 **
 ** Copyright 2006, The Android Open Source Project
@@ -33,7 +32,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="light_dark">@color/dark</item>
+        <item name="light_dark">@color/bg_black</item>
         <item name="settings_titleText">?android:attr/textAppearanceLargeInverse</item>
         <item name="month_header_bgcolor">@color/month_other_bgcolor</item>
         <item name="agenda_general_bgcolor">@color/agenda_general_background_color</item>
@@ -44,6 +43,7 @@
         <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background</item>
         <item name="done_text_recurrence">@color/recurrence_done_text_color</item>
         <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground</item>
+        <item name="event_info_bgcolor">@color/background_color</item>
         <item name="event_info_scrollview_bgcolor">@android:color/white</item>
         <item name="event_info_organizer_color">@color/event_info_organizer_color</item>
         <item name="event_info_description_color">@color/event_info_description_color</item>
@@ -53,8 +53,16 @@
         <item name="create_event_date_color">@color/create_event_date_color</item>
         <item name="calendar_owner_text_color">@color/calendar_owner_text_color</item>
         <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
-        <item name="app_bar_color">@color/colorPrimary</item>
+        <item name="app_bar_color">@color/app_bar</item>
         <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
+        <item name="minus_button">@drawable/ic_menu_remove_field_holo_light</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_light</item>
+        <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
+        <item name="month_other_bgcolor">@color/month_other_bgcolor</item>
+        <item name="settings_calendar_offline">@drawable/ic_sync_off_light</item>
+        <item name="iconAboutAuthors">@drawable/ic_create_light</item>
+        <item name="iconAboutLicense">@drawable/ic_description_light</item>
+        <item name="iconSettingsAbout">@drawable/ic_info_outline_light</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -65,7 +73,7 @@
 
     <style name="Widget.CalendarAppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">?attr/app_bar_color</item>
-        <item name="theme">@style/ThemeOverlay.CalendarAppTheme.ActionBar</item>
+        <item name="android:theme">@style/ThemeOverlay.CalendarAppTheme.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
@@ -74,33 +82,6 @@
     </style>
 
 
-    <style name="NotImplementedYet">
-        <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
-        <item name="android:layout_centerInParent">true</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
-    <style name="Title" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textColor">@color/titleTextColor</item>
-    </style>
-
-    <style name="Title.Expanded" parent="Title">
-        <item name="android:textSize">32sp</item>
-    </style>
-
-    <style name="Title.collapsed" parent="Title">
-        <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="ViewText">
-        <item name="android:textColor">@color/titleTextColor</item>
-    </style>
-
-    <style name="DrawerNameText" parent="ViewText">
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="actionbar_cursor" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textCursorDrawable">@drawable/actionbar_cursor</item>
     </style>
@@ -108,18 +89,9 @@
 
     <style name="MinusButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:src">@drawable/ic_menu_remove_field_holo_light</item>
+        <item name="android:src">?attr/minus_button</item>
     </style>
 
-    <style name="MonthView_DayLabel">
-        <item name="android:layout_width">29dip</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">right</item>
-        <item name="android:paddingTop">2dip</item>
-        <item name="android:paddingBottom">2dip</item>
-        <item name="android:textAppearance">@style/TextAppearance.MonthView_DayLabel</item>
-    </style>
 
     <style name="MonthView_MiniMonthLabel">
         <item name="android:gravity">center</item>
@@ -149,10 +121,6 @@
         <item name="android:textColor">@color/month_day_names_color</item>
     </style>
 
-    <style name="TextAppearance.AgendaView_ValueLabel">
-        <item name="android:textSize">14sp</item>
-    </style>
-
     <style name="TextAppearance.EditEvent_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:minHeight">48dip</item>
@@ -169,10 +137,6 @@
 
     <style name="TextAppearance.EditEvent_Button" parent="TextAppearance.EditEvent_Label">
         <item name="android:textColor">#FF777777</item>
-    </style>
-
-    <style name="TextAppearance.Recurrence_Button" parent="TextAppearance.EditEvent_Label">
-        <item name="android:textColor">#FF000000</item>
     </style>
 
     <style name="TextAppearance.EditEvent_LabelSmall" parent="TextAppearance.EditEvent_Small">
@@ -206,16 +170,6 @@
         <item name="android:paddingLeft">12dp</item>
     </style>
 
-    <style name="TextAppearance.EditEventCalSpinner">
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">#FFFFFFFF</item>
-    </style>
-
-    <style name="TextAppearance.EditEvent_CalSpinnerValue" parent="TextAppearance.EditEventCalSpinner">
-        <item name="android:paddingLeft">16dip</item>
-        <item name="android:paddingRight">16dip</item>
-    </style>
 
     <style name="TextAppearance.EditEvent_Spinner" parent="android:style/Widget.Holo.Light.Spinner">
         <item name="android:textSize">18sp</item>
@@ -239,11 +193,6 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="TextAppearance.EventInfo_Label">
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:paddingLeft">16dip</item>
-    </style>
 
     <style name="EditEvent_Layout" parent="CalendarAppTheme">
     </style>
@@ -253,12 +202,10 @@
         <item name="android:textColor">@color/calendar_date_range_color</item>
     </style>
 
-    <style name="CalendarTheme" parent="CalendarAppTheme">
-    </style>
-
     <style name="CalendarTheme.WithoutActionBar" parent="CalendarAppTheme">
         <item name="android:endYear">2036</item>
         <item name="android:startYear">1970</item>
+        <item name="android:windowBackground">@color/bg_black</item>
     </style>
 
     <style name="CalendarTheme.WithActionBar" parent="CalendarAppThemeWithActionBar">
@@ -273,12 +220,6 @@
         <item name="android:windowShowWallpaper">true</item>
     </style>
 
-    <style name="MultiStateButton">
-        <item name="android:focusable">true</item>
-        <item name="android:clickable">true</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:gravity">center_vertical|left</item>
-    </style>
 
     <style name="EditEventSeparator">
         <item name="android:layout_height">15dip</item>
@@ -287,20 +228,6 @@
         <item name="android:layout_marginBottom">5dip</item>
         <item name="android:background">@color/edit_event_separator</item>
         <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="EditEventCustomActionButton" parent="android:style/Widget.Holo.Light.ActionButton">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:focusable">true</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-
-    <style name="EditEventCustomActionButtonImage">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:padding">4dp</item>
     </style>
 
     <style name="EditEventCustomActionButtonText">
@@ -317,13 +244,11 @@
     <style name="WidgetDayOfWeekStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">-5dip</item>
+        <item name="android:layout_marginBottom">4dip</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textAllCaps">true</item>
-
         <item name="android:textStyle">bold</item>
-        <item name="android:gravity">left</item>
-        <item name="android:singleLine">true</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="WidgetDateStyle">
@@ -331,8 +256,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">24sp</item>
         <item name="android:gravity">left</item>
-        <item name="android:layout_marginTop">-4dp</item>
-        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginTop">-6dp</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="NotificationPrimaryText" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
@@ -344,9 +269,6 @@
     <style name="TextAppearance.RecurrencePickerStyle">
         <item name="android:textSize">15sp</item>
     </style>
-
-    <style name="TextAppearance.Recurrence_SpinnerButton"
-        parent="android:style/Widget.Holo.Light.Spinner" />
 
     <style name="RecurrenceDayOfWeekStyle">
         <item name="android:layout_width">wrap_content</item>

@@ -21,7 +21,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
-import android.support.v7.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
@@ -64,15 +65,17 @@ public class EditEventActivity extends AbstractCalendarActivity {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.simple_frame_layout);
+
         dynamicTheme.onCreate(this);
+        setContentView(R.layout.simple_frame_layout_material);
         mEventInfo = getEventInfoFromIntent(icicle);
         mReminders = getReminderEntriesFromIntent();
         mEventColorInitialized = getIntent().hasExtra(EXTRA_EVENT_COLOR);
         mEventColor = getIntent().getIntExtra(EXTRA_EVENT_COLOR, -1);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
 
-
-        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.main_frame);
+        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.body_frame);
 
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
 
@@ -105,7 +108,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main_frame, mEditFragment);
+            ft.replace(R.id.body_frame, mEditFragment);
             ft.show(mEditFragment);
             ft.commit();
         }

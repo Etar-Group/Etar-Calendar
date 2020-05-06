@@ -1,0 +1,11 @@
+Caratteristiche:
+- Vista del mese.
+- Vista della settimana, giorno e agenda.
+- Usa la sincronizzazione del calendario Android. Funziona con Google Calendar, Exchange... ecc.
+- Material design.
+- Temi chiaro e scuro.
+- Libero, open source e assolutamente nessuna pubblicità.
+- Supporta la condivisione di calendari via ics e la possibilità di importare/esportare dalla scheda sd.
+
+Errori e feedback: https://github.com/Etar-Group/Etar-Calendar/issues
+Codice sorgente: https://github.com/Etar-Group/Etar-Calendar

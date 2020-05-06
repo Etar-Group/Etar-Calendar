@@ -39,9 +39,9 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.EventInfoFragment;
-import com.android.calendar.GeneralPreferences;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
+import com.android.calendar.settings.GeneralPreferences;
 
 import java.util.Date;
 
@@ -211,7 +211,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Log.v(TAG, "OnResume to " + mTime.toString());
         }
 
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(
                 getActivity());
         boolean hideDeclined = prefs.getBoolean(
                 GeneralPreferences.KEY_HIDE_DECLINED, false);

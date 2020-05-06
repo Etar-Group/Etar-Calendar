@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Lịch"</string>
     <string name="what_label" msgid="1933578391985810049">"Tên sự kiện"</string>
     <string name="where_label" msgid="3472482206065595118">"Địa điểm"</string>
@@ -26,28 +23,30 @@
     <string name="tomorrow" msgid="614434811813859237">"Ngày mai"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Hôm nay lúc <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Ngày mai lúc <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="repeats_label" msgid="7414023871434593196">"Lặp lại"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Không có tiêu đề)"</string>
-  <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 phút"</item>
-    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> phút"</item>
-  </plurals>
-  <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 phút"</item>
-    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> phút"</item>
-  </plurals>
-  <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 giờ"</item>
-    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> giờ"</item>
-  </plurals>
-  <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 ngày"</item>
-    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ngày"</item>
-  </plurals>
-  <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"tuần <xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 phút"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> phút"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 phút"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> phút"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 giờ"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> giờ"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 ngày"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ngày"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"tuần <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Làm mới"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Hiển thị ngày"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Lịch biểu"</string>
@@ -60,16 +59,9 @@
     <string name="event_delete" msgid="2386667193277770442">"Xóa sự kiện"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hôm nay"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Cài đặt"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Lịch để hiển thị"</string>
     <string name="search" msgid="550656004486017426">"Tìm kiếm"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ẩn các điều khiển"</string>
     <string name="show_controls" msgid="715520586028062621">"Hiển thị các điều khiển"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Lịch hiển thị"</string>
-    <string name="synced" msgid="7913940305983383493">"đã đồng bộ hóa"</string>
-    <string name="not_synced" msgid="4275114941801829419">"chưa được đồng bộ hóa"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Tài khoản này hiện không được đồng bộ hóa và lịch của bạn có thể không cập nhật."</string>
-    <string name="accounts" msgid="849401841083180306">"Tài khoản &amp; đồng bộ hóa"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Lịch để đồng bộ hóa"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Lịch để đồng bộ hóa"</string>
     <string name="hint_what" msgid="709155115005044531">"Tên sự kiện"</string>
     <string name="hint_where" msgid="4972598001033801974">"Vị trí"</string>
@@ -88,14 +80,12 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"Từ"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Cả ngày"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Lịch"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"Hiển thị tất cả"</string>
     <string name="description_label" msgid="7193475046717505855">"Mô tả"</string>
     <string name="presence_label" msgid="6169724148441175862">"Hiển thị tôi ở trạng thái"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Bảo mật"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Thêm lời nhắc"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Không có lịch"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Trước khi có thể thêm sự kiện, bạn phải thêm ít nhất một tài khoản Lịch vào thiết bị của bạn và đặt lịch ở chế độ hiển thị. Chạm Thêm tài khoản để thêm tài khoản (nếu bạn vừa mới thêm tài khoản, hãy đợi tài khoản đó kết thúc đồng bộ hóa và thử lại). Hoặc chạm vào Hủy và đảm bảo ít nhất một lịch được hiển thị."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Lịch hoạt động tốt hơn với Tài khoản Google."\n\n"• Truy cập Lịch từ bất kỳ trình duyệt web nào"\n"• Sao lưu các sự kiện của bạn một cách an toàn"</string>
     <string name="add_account" msgid="1669072099756774952">"Thêm tài khoản"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Lịch:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Người tổ chức:"</string>
@@ -116,16 +106,15 @@
     <string name="call_label" msgid="2960328220008869083">"Cuộc gọi"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Trả lời nhanh"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Sửa trả lời mặc định khi email cho khách"</string>
-    <string name="quick_response_settings_title" msgid="8966517107774567031">"Sửa trả lời nhanh"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Trả lời nhanh"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Chọn trả lời nhanh"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Không thể tìm được chương trình email"</string>
-  <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Đang chạy chỉ muộn vài phút."</item>
-    <item msgid="6215158751728689832">"Sẽ ở đó sau khoảng 10 phút."</item>
-    <item msgid="4485794001743679338">"Hãy tiến hành và bắt đầu mà không có tôi."</item>
-    <item msgid="8036557974294987511">"Rất tiếc, tôi không thu xếp được. Chúng ta phải lên lịch lại."</item>
-  </string-array>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Đang chạy chỉ muộn vài phút."</item>
+        <item msgid="6215158751728689832">"Sẽ ở đó sau khoảng 10 phút."</item>
+        <item msgid="4485794001743679338">"Hãy tiến hành và bắt đầu mà không có tôi."</item>
+        <item msgid="8036557974294987511">"Rất tiếc, tôi không thu xếp được. Chúng ta phải lên lịch lại."</item>
+    </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Viết trả lời của riêng bạn…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Người t.chức"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Lời nhắc"</string>
@@ -141,29 +130,25 @@
     <string name="delete_label" msgid="874742811918030739">"Xóa"</string>
     <string name="save_label" msgid="2133599104834432589">"Xong"</string>
     <string name="discard_label" msgid="2394623883289782541">"Hủy"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Báo lại tất cả"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Loại bỏ tất cả"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Báo lại"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Sự kiện diễn ra một lần"</string>
     <string name="endByDate" msgid="7654221304929538201">"; cho đến <xliff:g id="DATE">%s</xliff:g>"</string>
-  <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; một lần"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> lần"</item>
-  </plurals>
-  <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Hàng ngày"</item>
-    <item quantity="other" msgid="5455230727715859264">"Định kỳ <xliff:g id="NUMBER">%d</xliff:g> ngày"</item>
-  </plurals>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"; một lần"</item>
+        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> lần"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Hàng ngày"</item>
+        <item quantity="other" msgid="5455230727715859264">"Định kỳ <xliff:g id="NUMBER">%d</xliff:g> ngày"</item>
+    </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Ngày trong tuần (Thứ Hai - Thứ Sáu)"</string>
-  <plurals name="weekly">
-    <item quantity="one" msgid="5463021019301453273">"Hàng tuần vào <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Định kỳ <xliff:g id="NUMBER">%1$d</xliff:g> tuần vào <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-  </plurals>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Hàng tuần vào <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"Định kỳ <xliff:g id="NUMBER">%1$d</xliff:g> tuần vào <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
     <string name="monthly" msgid="4587116285383048586">"Hàng tháng"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Hàng năm"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"Hàng tháng (vào ngày <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"Hàng năm (vào <xliff:g id="DATES">%s</xliff:g>)"</string>
-    
     <string name="custom" product="default" msgid="4137468716966004993">"Tùy chỉnh (không thể tùy chỉnh trên điện thoại)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Chỉ thay đổi sự kiện này"</string>
     <string name="modify_all" msgid="4421657265864209041">"Thay đổi tất cả các sự kiện trong loạt sự kiện"</string>
@@ -173,8 +158,6 @@
     <string name="delete_this_event_title" msgid="518402946676919384">"Xóa sự kiện này?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Xóa <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Thay đổi phản hồi"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"Cài đặt chung"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Giới thiệu về lịch"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Cài đặt"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Cài đặt chế độ xem lịch"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Thông báo và lời nhắc"</string>
@@ -195,23 +178,15 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Hiện lịch và thời gian sự kiện trong múi giờ chính khi đi du lịch"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Múi giờ chính"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Hiển thị số tuần"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Giới thiệu về"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Phiên bản đóng gói"</string>
-    <string name="gadget_title" msgid="939918875331310945">"Lịch"</string>
-  <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
-    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Không có sự kiện sắp tới trên lịch"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Thử nghiệm"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"Lời nhắc"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Bỏ qua lời nhắc"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Bỏ qua lời nhắc"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Giờ yên lặng"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Tắt tiếng lời nhắc sự kiện trong suốt thời gian được chỉ định."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"TG bắt đầu giờ yên lặng"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"TG kết thúc giờ yên lặng"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"Gỡ lỗi"</string>
     <string name="copy_db" msgid="437691290566699292">"Gửi cơ sở dữ liệu"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Đang tìm kiếm <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Xóa người tham dự"</string>
@@ -224,54 +199,49 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Thêm lời nhắc"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Xóa lời nhắc"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Thêm người tham dự"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Đồng bộ hóa lịch"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Sự kiện cả ngày"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Lặp lại"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Thời gian nhắc"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Loại lời nhắc"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Hiển thị tôi ở trạng thái"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Riêng tư"</string>
-    <string name="acessibility_cal_notification" msgid="7267601064994839394">"Thông báo lịch"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Báo lại thông báo"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"Gửi email cho khách mời"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Sự kiện mới"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Sự kiện <xliff:g id="ITEM_INDEX">%1$s</xliff:g> trong tổng số <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
-  <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 sự kiện"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
-  </plurals>
-  <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"+1 sự kiện"</item>
-    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
-  </plurals>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 sự kiện"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 sự kiện"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
+    </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Sự kiện đã chọn"</string>
-    <string name="do_not_check" msgid="7815441673853466129">"KHÔNG chọn -&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Lặp lại"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Không bao giờ lặp lại"</string>
-  <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Cứ <xliff:g id="COUNT">%d</xliff:g> ngày một lần"</item>
-    <item quantity="other" msgid="707566499994398250">"Cứ <xliff:g id="COUNT">%d</xliff:g> ngày một lần"</item>
-  </plurals>
-  <plurals name="recurrence_interval_weekly">
-    <item quantity="one" msgid="4948681635464488351">"Cứ <xliff:g id="COUNT">%d</xliff:g> tuần một lần"</item>
-    <item quantity="other" msgid="7094801039989237061">"Cứ <xliff:g id="COUNT">%d</xliff:g> tuần một lần"</item>
-  </plurals>
-  <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Cứ <xliff:g id="COUNT">%d</xliff:g> tháng một lần"</item>
-    <item quantity="other" msgid="5419723710346646523">"Cứ <xliff:g id="COUNT">%d</xliff:g> tháng một lần"</item>
-  </plurals>
-  <plurals name="recurrence_interval_yearly">
-    <item quantity="one" msgid="5819562634008179102">"Cứ <xliff:g id="COUNT">%d</xliff:g> năm một lần"</item>
-    <item quantity="other" msgid="5678653649746562060">"Cứ <xliff:g id="COUNT">%d</xliff:g> năm một lần"</item>
-  </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"Cứ <xliff:g id="COUNT">%d</xliff:g> ngày một lần"</item>
+        <item quantity="other" msgid="707566499994398250">"Cứ <xliff:g id="COUNT">%d</xliff:g> ngày một lần"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Cứ <xliff:g id="COUNT">%d</xliff:g> tuần một lần"</item>
+        <item quantity="other" msgid="7094801039989237061">"Cứ <xliff:g id="COUNT">%d</xliff:g> tuần một lần"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"Cứ <xliff:g id="COUNT">%d</xliff:g> tháng một lần"</item>
+        <item quantity="other" msgid="5419723710346646523">"Cứ <xliff:g id="COUNT">%d</xliff:g> tháng một lần"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"Cứ <xliff:g id="COUNT">%d</xliff:g> năm một lần"</item>
+        <item quantity="other" msgid="5678653649746562060">"Cứ <xliff:g id="COUNT">%d</xliff:g> năm một lần"</item>
+    </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"vào cùng một ngày trong mỗi tháng"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Vĩnh viễn"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Đến một ngày nhất định"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Cho đến ngày <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Đối với một số sự kiện"</string>
-  <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Cho <xliff:g id="EVENT_COUNT">%d</xliff:g> sự kiện"</item>
-    <item quantity="other" msgid="8779598489398048259">"Cho <xliff:g id="EVENT_COUNT">%d</xliff:g> sự kiện"</item>
-  </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Cho <xliff:g id="EVENT_COUNT">%d</xliff:g> sự kiện"</item>
+        <item quantity="other" msgid="8779598489398048259">"Cho <xliff:g id="EVENT_COUNT">%d</xliff:g> sự kiện"</item>
+    </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"thay đổi ngày kết thúc"</string>
+    <string name="visibility_default">Mặc định</string>
+    <string name="visibility_private">Riêng tư</string>
+    <string name="visibility_public">Công khai</string>
 </resources>

@@ -16,15 +16,20 @@
 
 package com.android.calendar.alerts;
 
+import android.Manifest;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
+import androidx.core.content.ContextCompat;
+import android.util.Log;
 
 import com.android.calendar.Utils;
 
@@ -33,6 +38,7 @@ import com.android.calendar.Utils;
  * a new alarm in the future.
  */
 public class SnoozeAlarmsService extends IntentService {
+    private static final String TAG = "SnoozeAlarmsService";
     private static final String[] PROJECTION = new String[] {
             CalendarAlerts.STATE,
     };
@@ -70,7 +76,13 @@ public class SnoozeAlarmsService extends IntentService {
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.cancel(notificationId);
             }
-
+            if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_CALENDAR)
+                    != PackageManager.PERMISSION_GRANTED) {
+                //If permission is not granted then just return.
+                Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
+                return;
+            }
             // Dismiss current alarm
             Uri uri = CalendarAlerts.CONTENT_URI;
             String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED + " AND " +

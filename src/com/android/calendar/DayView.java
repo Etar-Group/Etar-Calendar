@@ -16,6 +16,7 @@
 
 package com.android.calendar;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -26,6 +27,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -37,10 +39,12 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
+import androidx.core.content.ContextCompat;
 import android.text.Layout.Alignment;
 import android.text.SpannableStringBuilder;
 import android.text.StaticLayout;
@@ -79,6 +83,7 @@ import android.widget.ViewSwitcher;
 
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.settings.GeneralPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -597,8 +602,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
         EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(eventTextSizeId);
         NEW_EVENT_HINT_FONT_SIZE = (int) mResources.getDimension(R.dimen.new_event_hint_text_size);
-        MIN_EVENT_HEIGHT = mResources.getDimension(R.dimen.event_min_height);
-        MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
         EVENT_TEXT_TOP_MARGIN = (int) mResources.getDimension(R.dimen.event_text_vertical_margin);
         EVENT_TEXT_BOTTOM_MARGIN = EVENT_TEXT_TOP_MARGIN;
         EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
@@ -623,7 +626,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 HOURS_TOP_MARGIN *= mScale;
                 MIN_CELL_WIDTH_FOR_TEXT *= mScale;
                 MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
-                mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
 
                 CURRENT_TIME_LINE_SIDE_BUFFER *= mScale;
                 CURRENT_TIME_LINE_TOP_OFFSET *= mScale;
@@ -650,8 +652,25 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 NEW_EVENT_MAX_LENGTH *= mScale;
             }
         }
+
+        mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
+        mEventTextPaint.setTextAlign(Paint.Align.LEFT);
+        mEventTextPaint.setAntiAlias(true);
+
+        Paint.FontMetrics fm = mEventTextPaint.getFontMetrics();
+        float fontHeight = Math.round(fm.bottom  - fm.top) + 1;
+        MIN_EVENT_HEIGHT = fontHeight + EVENT_RECT_TOP_MARGIN + EVENT_RECT_BOTTOM_MARGIN
+                + EVENT_ALL_DAY_TEXT_TOP_MARGIN + EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN + ALL_DAY_EVENT_RECT_BOTTOM_MARGIN;
+        MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
+
+        mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
+
         HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
         DAY_HEADER_HEIGHT = mNumDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
+        if (LunarUtils.showLunar(mContext) && mNumDays != 1) {
+            DAY_HEADER_HEIGHT = (int) (DAY_HEADER_HEIGHT + DAY_HEADER_FONT_SIZE + 2);
+        }
+
         mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_indicator_holo_light);
         mCurrentTimeAnimateLine = mResources
                 .getDrawable(R.drawable.timeline_indicator_activated_holo_light);
@@ -733,6 +752,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
                 Uri uri = Calendars.CONTENT_URI;
                 String where = String.format(CALENDARS_WHERE, calId);
+                if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.READ_CALENDAR)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //If permission is not granted then just return.
+                    Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
+                    return 0;
+                }
                 cursor = cr.query(uri, CALENDARS_PROJECTION, where, null, null);
 
                 String calendarOwnerAccount = null;
@@ -783,48 +809,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCurrentTime.set(currentTime);
         mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
 
-        String theme = Utils.getTheme(context);
-
-        if (theme.equals("dark")) {
-            mWeek_todayColor = mResources.getColor(R.color.week_today_dark);
-            mWeek_saturdayColor = mResources.getColor(R.color.week_saturday_dark);
-            mWeek_sundayColor = mResources.getColor(R.color.week_sunday_dark);
-            mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color_dark);
-            mFutureBgColorRes = mResources.getColor(R.color.calendar_future_bg_color_dark);
-            mBgColor = mResources.getColor(R.color.calendar_hour_background_dark);
-            mCalendarHourLabelColor = mResources.getColor(R.color.calendar_hour_label_dark);
-            mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected_dark);
-            mCalendarGridLineInnerHorizontalColor = mResources
-                    .getColor(R.color.calendar_grid_line_inner_horizontal_color_dark);
-            mCalendarGridLineInnerVerticalColor = mResources
-                    .getColor(R.color.calendar_grid_line_inner_vertical_color_dark);
-            mPressedColor = mResources.getColor(R.color.pressed_dark);
-            mClickedColor = mResources.getColor(R.color.day_event_clicked_background_color_dark);
-            mEventTextColor = mResources.getColor(R.color.calendar_event_text_color_dark);
-            mMoreEventsTextColor = mResources.getColor(R.color.month_event_other_color_dark);
-        }
-        else {
-            mWeek_todayColor = mResources.getColor(R.color.week_today);
-            mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
-            mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
-            mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
-            mFutureBgColorRes = mResources.getColor(R.color.calendar_future_bg_color);
-            mBgColor = mResources.getColor(R.color.calendar_hour_background);
-            mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
-            mCalendarGridLineInnerHorizontalColor = mResources
-                    .getColor(R.color.calendar_grid_line_inner_horizontal_color);
-            mCalendarGridLineInnerVerticalColor = mResources
-                    .getColor(R.color.calendar_grid_line_inner_vertical_color);
-            mCalendarHourLabelColor = mResources.getColor(R.color.calendar_hour_label);
-            mPressedColor = mResources.getColor(R.color.pressed);
-            mClickedColor = mResources.getColor(R.color.day_event_clicked_background_color);
-            mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
-            mMoreEventsTextColor = mResources.getColor(R.color.month_event_other_color);
-        }
-
-        mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
-        mEventTextPaint.setTextAlign(Paint.Align.LEFT);
-        mEventTextPaint.setAntiAlias(true);
+        mWeek_todayColor = DynamicTheme.getColor(mContext, "week_today");
+        mWeek_saturdayColor = DynamicTheme.getColor(mContext, "week_saturday");
+        mWeek_sundayColor = DynamicTheme.getColor(mContext, "week_sunday");
+        mCalendarDateBannerTextColor = DynamicTheme.getColor(mContext, "calendar_date_banner_text_color");
+        mFutureBgColorRes = DynamicTheme.getColor(mContext, "calendar_future_bg_color");
+        mBgColor = DynamicTheme.getColor(mContext, "calendar_hour_background");
+        mCalendarHourLabelColor = DynamicTheme.getColor(mContext, "calendar_hour_label");
+        mCalendarGridAreaSelected = DynamicTheme.getColor(mContext, "calendar_grid_area_selected");
+        mCalendarGridLineInnerHorizontalColor = DynamicTheme.getColor(mContext, "calendar_grid_line_inner_horizontal_color");
+        mCalendarGridLineInnerVerticalColor = DynamicTheme.getColor(mContext, "calendar_grid_line_inner_vertical_color");
+        mPressedColor = DynamicTheme.getColor(mContext, "pressed");
+        mClickedColor = DynamicTheme.getColor(mContext, "day_event_clicked_background_color");
+        mEventTextColor = DynamicTheme.getColor(mContext, "calendar_event_text_color");
+        mMoreEventsTextColor = DynamicTheme.getColor(mContext, "month_event_other_color");
 
         int gridLineColor = mResources.getColor(R.color.calendar_grid_line_highlight_color);
         Paint p = mSelectionPaint;
@@ -926,11 +924,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     public void handleOnResume() {
         initAccessibilityVariables();
-        if(Utils.getSharedPreference(mContext, OtherPreferences.KEY_OTHER_1, false)) {
-            mFutureBgColor = 0;
-        } else {
-            mFutureBgColor = mFutureBgColorRes;
-        }
+        mFutureBgColor = mFutureBgColorRes;
         mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12Hours;
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
@@ -2085,7 +2079,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         final ArrayList<Event> events = mEvents;
         final int len = events.size();
         // Num of all-day-events on each day.
-        final int eventsCount[] = new int[mLastJulianDay - mFirstJulianDay + 1];
+        final int[] eventsCount = new int[mLastJulianDay - mFirstJulianDay + 1];
         Arrays.fill(eventsCount, 0);
         for (int ii = 0; ii < len; ii++) {
             Event event = events.get(ii);
@@ -2503,8 +2497,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Draw day of the month
         String dateNumStr = String.valueOf(dateNum);
         if (mNumDays > 1) {
-            float y = DAY_HEADER_HEIGHT - DAY_HEADER_BOTTOM_MARGIN;
-
+            float y = -1;
+            if (LunarUtils.showLunar(mContext)) {
+                y = DAY_HEADER_HEIGHT - DAY_HEADER_BOTTOM_MARGIN - DATE_HEADER_FONT_SIZE - 2;
+            } else {
+                y = DAY_HEADER_HEIGHT - DAY_HEADER_BOTTOM_MARGIN;
+            }
             // Draw day of the month
             x = computeDayLeftPosition(day) + DAY_HEADER_RIGHT_MARGIN;
             p.setTextAlign(Align.LEFT);
@@ -2519,6 +2517,27 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             p.setTextSize(DAY_HEADER_FONT_SIZE);
             p.setTypeface(Typeface.DEFAULT);
             canvas.drawText(dayStr, x, y, p);
+
+            // To show the lunar info.
+            if (LunarUtils.showLunar(mContext)) {
+                // adjust the year and month
+                int month = mBaseDate.month;
+                int year = mBaseDate.year;
+                if (dateNum > mMonthLength || dateNum < mFirstVisibleDate) {
+                    month = month + 1;
+                    if (month > 11) {
+                        month = 0;
+                        year = year + 1;
+                    }
+                }
+
+                String lunarInfo = LunarUtils.get(mContext, year, month, dateNum,
+                        LunarUtils.FORMAT_LUNAR_SHORT | LunarUtils.FORMAT_ONE_FESTIVAL,
+                        false, null);
+                if (!TextUtils.isEmpty(lunarInfo)) {
+                    canvas.drawText(lunarInfo, x, y + DAY_HEADER_FONT_SIZE + 2, p);
+                }
+            }
         } else {
             float y = ONE_DAY_HEADER_HEIGHT - DAY_HEADER_ONE_DAY_BOTTOM_MARGIN;
             p.setTextAlign(Align.LEFT);

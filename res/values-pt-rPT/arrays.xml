@@ -70,18 +70,6 @@
     <item msgid="6228387173725732140">"Disponível"</item>
     <item msgid="2064426942462573474">"Tentativa"</item>
   </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"Predefinido"</item>
-    <item msgid="5200216103966973369">"Particular"</item>
-    <item msgid="9182342638433672664">"Público"</item>
-  </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"primeiro/a"</item>
-    <item msgid="5631923029483854900">"segundo/a"</item>
-    <item msgid="148935502975250973">"terceiro/a"</item>
-    <item msgid="5124200797326669172">"quarto/a"</item>
-    <item msgid="7564374178324652137">"último"</item>
-  </string-array>
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Sem resposta"</item>
     <item msgid="3724434080904437698">"Sim"</item>
@@ -92,10 +80,6 @@
     <item msgid="4208432367651646938">"Apenas este evento"</item>
     <item msgid="1536401639805370405">"Este e futuros eventos"</item>
     <item msgid="7833229563617435430">"Todos os eventos"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Este e futuros eventos"</item>
-    <item msgid="6315440193748139854">"Todos os eventos"</item>
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"Apenas este evento"</item>
