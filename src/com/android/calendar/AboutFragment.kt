@@ -24,11 +24,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 import java.util.Calendar
 import ws.xsoh.etar.R
-import kotlinx.android.synthetic.main.about.*
 
 class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,28 +40,28 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        version.text = getVersionNumber()
+        view.findViewById<TextView>(R.id.version).text = getVersionNumber()
 
         val year = Calendar.getInstance().get(Calendar.YEAR).toString()
-        copyright.text = getString(R.string.app_copyright, year, year)
+        view.findViewById<TextView>(R.id.copyright).text = getString(R.string.app_copyright, year, year)
 
-        authorsLayout.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.authorsLayout).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_authors_url))))
         }
 
-        changelog.setOnClickListener {
+        view.findViewById<Button>(R.id.changelog).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_changelog))))
         }
 
-        issues.setOnClickListener {
+        view.findViewById<Button>(R.id.issues).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_issues_url))))
         }
 
-        licenseLayout.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.licenseLayout).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_license_url))))
         }
 
-        source.setOnClickListener {
+        view.findViewById<Button>(R.id.source).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_source_url))))
         }
     }
