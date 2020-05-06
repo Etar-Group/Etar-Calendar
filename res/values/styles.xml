@@ -146,7 +146,7 @@
         <item name="android:layout_marginRight">16dip</item>
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
-        <item name="android:layout_marginBottom">-8dip</item>
+        <item name="android:layout_marginBottom">4dip</item>
     </style>
 
     <style name="TextAppearance.EditEvent_Small">

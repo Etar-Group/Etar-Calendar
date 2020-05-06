@@ -162,7 +162,8 @@
             android:text="@string/repeats_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="0dip"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <Button
             android:id="@+id/rrule"
@@ -191,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginBottom="0dip"
+            android:layout_marginBottom="12dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <LinearLayout
             android:id="@+id/reminder_items_container"
@@ -232,8 +233,9 @@
             android:text="@string/presence_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_LabelSmall"
-            android:paddingEnd="4dip" />
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dip"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <Spinner
             android:id="@+id/availability"
             android:entries="@array/availability"
@@ -256,6 +258,8 @@
             android:text="@string/privacy_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <Spinner
             android:id="@+id/visibility"
