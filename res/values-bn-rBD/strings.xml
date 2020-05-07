@@ -121,4 +121,10 @@
     <string name="calendar_color_picker_dialog_title">বর্ষপঞ্জিকার রঙ</string>
     <string name="event_color_set_to_default">পূর্বনির্ধারিত বর্ষপঞ্জিকার রং নির্ধারণ করুন</string>
     <string name="no_calendars_found">আপনি একটি কাজ যোগ করার আগে, আপনাকে অবশ্যই আপনার ডিভাইসে কমপক্ষে একটি ক্যালেন্ডার একাউন্ট যুক্ত করতে হবে এবং একটি ক্যালেন্ডার দৃশ্যমান করতে হবে। একটি অ্যাকাউন্ট যোগ করার জন্য অ্যাড-এ টিপ দিন (যদি আপনি কেবলই একটি অ্যাকাউন্ট যোগ করেন, এটি সিঙ্ক করার জন্য অপেক্ষা করুন এবং আবার চেষ্টা করুন) । বা এটা বাতিল করুন এবং নিশ্চিত করুন অন্তত একটি ক্যালেন্ডার দৃশ্যমান।</string>
+    <string name="every_weekday">প্রতি সাপ্তাহিক দিনে (সোম-শুক্র)</string>
+    <plurals name="daily">
+        <item quantity="one">দৈনিক</item>
+        <item quantity="other">প্রতি <xliff:g id="number">%d</xliff:g> দিনে</item>
+    </plurals>
+    <string name="endByDate">; <xliff:g id="date">%s</xliff:g> পর্যন্ত</string>
 </resources>
