@@ -21,6 +21,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ContentResolver;
@@ -182,6 +183,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             private static String TAG = "DayView";
             private static boolean DEBUG = false;
             private static boolean DEBUG_SCALING = false;
+            private static boolean DEBUG_SCROLLING = false;
             private static float mScale = 0; // Used for supporting different screen densities
             private static int DEFAULT_CELL_HEIGHT = 64;
             private static int MAX_CELL_HEIGHT = 150;
@@ -785,6 +787,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return ACCESS_LEVEL_DELETE;
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onAttachedToWindow() {
         if (mHandler == null) {
@@ -1084,10 +1087,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // Called from animation framework via reflection. Do not remove
     public void setViewStartY(int viewStartY) {
         if (viewStartY > mMaxViewStartY) {
-            viewStartY = mMaxViewStartY;
+            mViewStartY = mMaxViewStartY;
         }
-
-        mViewStartY = viewStartY;
+        else if (viewStartY < 0) {
+            mViewStartY = 0;
+        }
+        else
+        {
+            mViewStartY = viewStartY;
+        }
+        if (DEBUG_SCROLLING) Log.e(TAG, "setViewStartY 1099: mViewStartY=" + mViewStartY);
 
         computeFirstHour();
         invalidate();
@@ -1110,7 +1119,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return time;
     }
 
-            private void setSelectedDay(int d) {
+    private void setSelectedDay(int d) {
         mSelectionDay = d;
         mSelectionDayForAccessibility = d;
     }
@@ -1236,7 +1245,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void adjustCellHeight() {
         // The min is where 24 hours cover the entire visible area
-        int minCellHeight = (getHeight() - mFirstCell) / 25;
+        int minCellHeight = (getHeight() - mFirstCell) / 24;
         mCellHeight = mPreferredCellHeight;
         if (mCellHeight < minCellHeight) {
             mCellHeight = minCellHeight;
@@ -1329,6 +1338,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // Compute the top of our reachable view
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
+            mMaxViewStartY = 0;
+        }
         if (DEBUG) {
             Log.e(TAG, "mViewStartY: " + mViewStartY);
             Log.e(TAG, "mMaxViewStartY: " + mMaxViewStartY);
@@ -1337,6 +1349,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mViewStartY = mMaxViewStartY;
             computeFirstHour();
         }
+        else if (mViewStartY < 0) {
+            mViewStartY = 0;
+        }
+        if (DEBUG_SCROLLING) Log.e(TAG, "remeasure 1355: mViewStartY=" + mViewStartY);
 
         if (mFirstHour == -1) {
             initFirstHour();
@@ -1351,6 +1367,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mFirstHourOffset = mCellHeight + HOUR_GAP - 1;
         }
         mViewStartY = mFirstHour * (mCellHeight + HOUR_GAP) - mFirstHourOffset;
+        if (DEBUG_SCROLLING) Log.e(TAG, "remeasure 1376: mViewStartY=" + mViewStartY);
 
         final int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
         //When we get new events we don't want to dismiss the popup unless the event changes
@@ -1940,6 +1957,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         if (mViewStartY < 0) {
                             mViewStartY = 0;
                         }
+                        if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1966: mViewStartY=" + mViewStartY);
                         return;
                     }
                 }
@@ -1951,10 +1969,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         if (mViewStartY > mMaxViewStartY) {
                             mViewStartY = mMaxViewStartY;
                         }
+                        if (mViewStartY < 0) {
+                            mViewStartY = 0;
+                        }
+                        if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1975: mViewStartY=" + mViewStartY);
                         return;
                     } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
                         mViewStartY = mMaxViewStartY;
                     }
+                    if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1980: mViewStartY=" + mViewStartY);
                 }
     }
 
@@ -2129,6 +2152,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         initAllDayHeights();
     }
 
+    @SuppressLint("WrongCall")
     @Override
     protected void onDraw(Canvas canvas) {
         if (mRemeasure) {
@@ -3998,12 +4022,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
             }
 
-            if (mViewStartY < 0) {
-                mViewStartY = 0;
-                mRecalCenterHour = true;
-            } else if (mViewStartY > mMaxViewStartY) {
+            if (mViewStartY > mMaxViewStartY) {
                 mViewStartY = mMaxViewStartY;
                 mRecalCenterHour = true;
+            }
+            else if (mViewStartY < 0) {
+                mViewStartY = 0;
+                mRecalCenterHour = true;
+            }
+            if (DEBUG_SCROLLING) {
+                Log.e(TAG, "doScroll 4034: mViewStartY=" + mViewStartY);
             }
             if (mRecalCenterHour) {
                 // Calculate the hour that correspond to the average of the Y touch points
@@ -4159,16 +4187,21 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
+            mMaxViewStartY = 0;
+        }
 
-        if (mViewStartY < 0) {
-            mViewStartY = 0;
-            mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
-                    / (float) (mCellHeight + DAY_GAP);
-        } else if (mViewStartY > mMaxViewStartY) {
+        if (mViewStartY > mMaxViewStartY) {
             mViewStartY = mMaxViewStartY;
             mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
                     / (float) (mCellHeight + DAY_GAP);
         }
+        if (mViewStartY < 0) {
+            mViewStartY = 0;
+            mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
+                / (float) (mCellHeight + DAY_GAP);
+        }
+        if (DEBUG_SCROLLING) Log.e(TAG, "onScale 4204: mViewStartY=" + mViewStartY);
         if (mGestureCenterHour < 0) {
             mGestureCenterHour = 0;
         }
@@ -4888,25 +4921,23 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
                     mViewStartY = mScroller.getCurrY();
 
-                    if (mCallEdgeEffectOnAbsorb) {
-                        if (mViewStartY < 0) {
+                    if (mViewStartY < 0) {
+                        mViewStartY = 0;
+                        if (mCallEdgeEffectOnAbsorb) {
                             mEdgeEffectTop.onAbsorb((int) mLastVelocity);
                             mCallEdgeEffectOnAbsorb = false;
-                        } else if (mViewStartY > mMaxViewStartY) {
+                        }
+                    } else if (mViewStartY > mMaxViewStartY) {
+                        mViewStartY = mMaxViewStartY;
+                        if (mCallEdgeEffectOnAbsorb) {
                             mEdgeEffectBottom.onAbsorb((int) mLastVelocity);
                             mCallEdgeEffectOnAbsorb = false;
                         }
-                        mLastVelocity = mScroller.getCurrVelocity();
                     }
+                    mLastVelocity = mScroller.getCurrVelocity();
 
-                    if (mScrollStartY == 0 || mScrollStartY == mMaxViewStartY) {
-                        // Allow overscroll/springback only on a fling,
-                        // not a pull/fling from the end
-                        if (mViewStartY < 0) {
-                            mViewStartY = 0;
-                        } else if (mViewStartY > mMaxViewStartY) {
-                            mViewStartY = mMaxViewStartY;
-                        }
+                    if (DEBUG_SCROLLING) {
+                        Log.e(TAG, "ContinueScroll 4940: mViewStartY=" + mViewStartY);
                     }
 
                     computeFirstHour();
@@ -4919,9 +4950,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
                 public void run() {
                     // Protect against null-pointer exceptions
-            if (mPopup != null) {
-                mPopup.dismiss();
-            }
+                    if (mPopup != null) {
+                        mPopup.dismiss();
+                    }
                 }
             }
 
