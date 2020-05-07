@@ -2176,6 +2176,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         doDraw(canvas);
         // restore to having no clip
         canvas.restore();
+        // save again for doing drawHours() later
+        canvas.save();
 
         if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
             float xTranslate;
@@ -2229,6 +2231,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 invalidate();
             }
         }
+        canvas.restore();
+        drawHours(mRect, canvas, mPaint);
         canvas.restore();
     }
 
@@ -2413,7 +2417,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             drawBgColors(r, canvas, p);
         }
         drawGridBackground(r, canvas, p);
-        drawHours(r, canvas, p);
 
         // Draw each day
         int cell = mFirstJulianDay;
@@ -2487,13 +2490,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void drawHours(Rect r, Canvas canvas, Paint p) {
         setupHourTextPaint(p);
-
         int totCellHeight =  mCellHeight + HOUR_GAP;
         int hourStep = (mHoursTextHeight + totCellHeight - 1)/ totCellHeight;
+        int i = mFirstHour;
+        if (   (mFirstHourOffset < mHoursTextHeight / 2)
+            && (mAlldayHeight == 0)
+            && (mNumDays == 1))
+        {
+            i += hourStep;
+        }
         int deltaY = hourStep * totCellHeight;
-        int y = deltaY + mHoursTextHeight / 2 - HOUR_GAP;
-        //Draw only from 1:00 to 23:00
-        for (int i = hourStep; i < 24; i += hourStep) {
+        int y = i * totCellHeight + mHoursTextHeight / 2 - HOUR_GAP;
+        for (; i < 24; i += hourStep) {
             String time = mHourStrs[i];
             canvas.drawText(time, HOURS_LEFT_MARGIN, y, p);
             y += deltaY;
