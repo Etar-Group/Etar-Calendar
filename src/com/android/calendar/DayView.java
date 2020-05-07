@@ -1084,10 +1084,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // Called from animation framework via reflection. Do not remove
     public void setViewStartY(int viewStartY) {
         if (viewStartY > mMaxViewStartY) {
-            viewStartY = mMaxViewStartY;
+            mViewStartY = mMaxViewStartY;
         }
-
-        mViewStartY = viewStartY;
+        else if (viewStartY < 0) {
+            mViewStartY = 0;
+        }
+        else
+        {
+            mViewStartY = viewStartY;
+        }
 
         computeFirstHour();
         invalidate();
@@ -1236,7 +1241,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void adjustCellHeight() {
         // The min is where 24 hours cover the entire visible area
-        int minCellHeight = (getHeight() - mFirstCell) / 25;
+        int minCellHeight = (getHeight() - mFirstCell) / 24;
         mCellHeight = mPreferredCellHeight;
         if (mCellHeight < minCellHeight) {
             mCellHeight = minCellHeight;
@@ -1329,6 +1334,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // Compute the top of our reachable view
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
+            mMaxViewStartY = 0;
+        }
         if (DEBUG) {
             Log.e(TAG, "mViewStartY: " + mViewStartY);
             Log.e(TAG, "mMaxViewStartY: " + mMaxViewStartY);
@@ -1336,6 +1344,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (mViewStartY > mMaxViewStartY) {
             mViewStartY = mMaxViewStartY;
             computeFirstHour();
+        }
+        else if (mViewStartY < 0) {
+            mViewStartY = 0;
         }
 
         if (mFirstHour == -1) {
@@ -1950,6 +1961,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         mViewStartY += (mCellHeight + HOUR_GAP);
                         if (mViewStartY > mMaxViewStartY) {
                             mViewStartY = mMaxViewStartY;
+                        }
+                        if (mViewStartY < 0) {
+                            mViewStartY = 0;
                         }
                         return;
                     } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
@@ -4166,6 +4180,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
+            mMaxViewStartY = 0;
+        }
 
         if (mViewStartY < 0) {
             mViewStartY = 0;
@@ -4895,26 +4912,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
                     mViewStartY = mScroller.getCurrY();
 
-                    if (mCallEdgeEffectOnAbsorb) {
-                        if (mViewStartY < 0) {
+                    if (mViewStartY < 0) {
+                        mViewStartY = 0;
+                        if (mCallEdgeEffectOnAbsorb) {
                             mEdgeEffectTop.onAbsorb((int) mLastVelocity);
                             mCallEdgeEffectOnAbsorb = false;
-                        } else if (mViewStartY > mMaxViewStartY) {
+                        }
+                    } else if (mViewStartY > mMaxViewStartY) {
+                        mViewStartY = mMaxViewStartY;
+                        if (mCallEdgeEffectOnAbsorb) {
                             mEdgeEffectBottom.onAbsorb((int) mLastVelocity);
                             mCallEdgeEffectOnAbsorb = false;
                         }
-                        mLastVelocity = mScroller.getCurrVelocity();
                     }
-
-                    if (mScrollStartY == 0 || mScrollStartY == mMaxViewStartY) {
-                        // Allow overscroll/springback only on a fling,
-                        // not a pull/fling from the end
-                        if (mViewStartY < 0) {
-                            mViewStartY = 0;
-                        } else if (mViewStartY > mMaxViewStartY) {
-                            mViewStartY = mMaxViewStartY;
-                        }
-                    }
+                    mLastVelocity = mScroller.getCurrVelocity();
 
                     computeFirstHour();
                     mHandler.post(this);
