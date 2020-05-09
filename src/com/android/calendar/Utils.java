@@ -1296,6 +1296,13 @@ public class Utils {
         return weekTime.getWeekNumber();
     }
 
+    static int getActualHour(String mTimeZone) {
+        Calendar actHour = Calendar.getInstance();
+        actHour.setTimeZone(TimeZone.getTimeZone(mTimeZone));
+
+        return actHour.get(Calendar.HOUR_OF_DAY);
+    }
+
     /**
      * Formats a day of the week string. This is either just the name of the day
      * or a combination of yesterday/today/tomorrow and the day of the week.
