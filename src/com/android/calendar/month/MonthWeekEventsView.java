@@ -1504,12 +1504,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
             return mEvent.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED;
         }
 
-        protected boolean isAtendeeStatusInvited() {
+        protected boolean isAttendeeStatusInvited() {
             return mEvent.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_INVITED;
         }
 
         protected Paint.Style getRectanglePaintStyle() {
-           return (isAtendeeStatusInvited()) ?
+           return (isAttendeeStatusInvited()) ?
                             Style.STROKE : Style.FILL_AND_STROKE;
         }
         protected int getRectangleColor() {
@@ -1573,7 +1573,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
 
         protected Paint getTextPaint() {
-            if (!isAtendeeStatusInvited() && mEvent.drawAsAllday()){
+            if (!isAttendeeStatusInvited() && mEvent.drawAsAllday()){
                 // Text color needs to contrast with solid background.
                 return mSolidBackgroundEventPaint;
             } else if (isDeclined()) {
