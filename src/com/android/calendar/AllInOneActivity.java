@@ -84,6 +84,8 @@ import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -868,6 +870,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             t = new Time(mTimeZone);
             t.setToNow();
             extras |= CalendarController.EXTRA_GOTO_TODAY;
+            mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
+            return true;
         } else if (itemId == R.id.action_goto) {
             Time todayTime;
             t = new Time(mTimeZone);
@@ -882,14 +886,28 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Time selectedTime = new Time(mTimeZone);
+                    selectedTime.setToNow();  // Needed for recalc function in DayView(time + gmtoff)
                     selectedTime.year = year;
                     selectedTime.month = monthOfYear;
                     selectedTime.monthDay = dayOfMonth;
+
+                    Calendar c = Calendar.getInstance();
+                    c.set(year, monthOfYear, dayOfMonth);
+                    int weekday = c.get(Calendar.DAY_OF_WEEK);
+                    if (weekday == 1) {
+                        selectedTime.weekDay = 7;
+                    } else {
+                        selectedTime.weekDay = weekday-1;
+                    }
+
                     long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
                     mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
                 }
             };
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,datePickerListener,t.year, t.month,t.monthDay);
+            if (Build.VERSION.SDK_INT >= 21) {
+                datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
+            }
             datePickerDialog.show();
 
         } else if (itemId == R.id.action_hide_controls) {
@@ -920,7 +938,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         } else {
                 return mExtensions.handleItemSelected(item, this);
         }
-        mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
+
         return true;
     }
 
