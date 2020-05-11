@@ -1219,6 +1219,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void adjustToBeginningOfWeek(Time time) {
         int dayOfWeek = time.weekDay;
+        // Avoid zero when Sunday is selected as the start day of the week.
+        if (mFirstDayOfWeek == 0) {
+            mFirstDayOfWeek = 7;
+        }
         int diff = dayOfWeek - mFirstDayOfWeek;
         if (diff != 0) {
             if (diff < 0) {
@@ -2025,6 +2029,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // The start date is the beginning of the week at 12am
         Time weekStart = new Time(Utils.getTimeZone(mContext, mTZUpdater));
         weekStart.set(mBaseDate);
+        // Avoid zero when Sunday is selected as the start day of the week.
+        if (mFirstDayOfWeek == 0) {
+            mFirstDayOfWeek = 7;
+        }
+        weekStart.weekDay = mFirstDayOfWeek;
         weekStart.hour = 0;
         weekStart.minute = 0;
         weekStart.second = 0;
