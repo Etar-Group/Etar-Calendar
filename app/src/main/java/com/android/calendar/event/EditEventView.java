@@ -146,6 +146,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Spinner mCalendarsSpinner;
     Button mRruleButton;
     Spinner mAvailabilitySpinner;
+    Spinner mEventStatusSpinner;
     Spinner mAccessLevelSpinner;
     RadioGroup mResponseRadioGroup;
     TextView mTitleTextView;
@@ -207,6 +208,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private boolean mAvailabilityExplicitlySet;
     private boolean mAllDayChangingAvailability;
     private int mAvailabilityCurrentlySelected;
+    /**
+     * Contents of the "status" spinner. Labels indices match the three values constants
+     * {@link Events#STATUS_TENTATIVE}, {@link Events#STATUS_CONFIRMED}, and
+     * {@link Events#STATUS_CANCELED}.
+     */
+    private ArrayList<String> mEventStatusLabels;
+    private ArrayAdapter<String> mEventStatusAdapter;
     private int mDefaultReminderMinutes;
     private boolean mSaveAfterQueryComplete = false;
     private TimeZonePickerUtils mTzPickerUtils;
@@ -256,6 +264,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAllDayCheckBox = view.findViewById(R.id.is_all_day);
         mRruleButton = (Button) view.findViewById(R.id.rrule);
         mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
+        mEventStatusSpinner = (Spinner) view.findViewById(R.id.event_status);
         mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
         mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
         mCalendarSelectorGroupBackground = view.findViewById(R.id.calendar_selector_group_background);
@@ -683,6 +692,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // TODO set correct availability value
         mModel.mAvailability = mAvailabilityValues.get(mAvailabilitySpinner
                 .getSelectedItemPosition());
+        mModel.mEventStatus = mEventStatusSpinner.getSelectedItemPosition();
 
         // rrrule
         // If we're making an exception we don't want it to be a repeating
@@ -723,6 +733,16 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 R.layout.simple_spinner_item, mAvailabilityLabels);
         mAvailabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAvailabilitySpinner.setAdapter(mAvailabilityAdapter);
+    }
+
+    private void prepareEventStatus() {
+        Resources r = mActivity.getResources();
+        mEventStatusLabels = loadStringArray(r, R.array.event_status);
+        mEventStatusAdapter = new ArrayAdapter<String>(
+                mActivity, android.R.layout.simple_spinner_item, mEventStatusLabels
+        );
+        mEventStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mEventStatusSpinner.setAdapter(mEventStatusAdapter);
     }
 
     /**
@@ -878,6 +898,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         prepareReminders();
         prepareAvailability();
+        prepareEventStatus();
         prepareAccess();
 
         View reminderAddButton = mView.findViewById(R.id.reminder_add);
@@ -924,6 +945,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (availIndex != -1) {
             mAvailabilitySpinner.setSelection(availIndex);
         }
+        mEventStatusSpinner.setSelection(model.mEventStatus);
         mAccessLevelSpinner.setSelection(model.mAccessLevel);
 
         View responseLabel = mView.findViewById(R.id.response_label);

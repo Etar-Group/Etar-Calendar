@@ -619,7 +619,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_outline_lock"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view6" />
 
@@ -637,6 +636,41 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/visibility_icon"
             app:layout_constraintTop_toTopOf="@+id/visibility_icon" />
+
+        <View
+            android:id="@+id/view8"
+            style="@style/EditEventSeparator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/visibility_icon" />
+
+        <!-- Event status -->
+        <ImageView
+            android:id="@+id/event_status_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_outline_verified"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view8"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Spinner
+            android:id="@+id/event_status"
+            style="@style/TextAppearance.EditEvent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="32dp"
+            android:contentDescription="@string/accessibility_event_status"
+            android:entries="@array/event_status"
+            android:prompt="@string/edit_event_status_label"
+            app:layout_constraintStart_toEndOf="@+id/event_status_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/event_status_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/event_status_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

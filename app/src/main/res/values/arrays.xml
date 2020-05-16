@@ -197,12 +197,19 @@
         <item>Tentative</item>
     </string-array>
 
-    <!-- This maps reminder_methods_labels to internal constants. -->
+    <!-- This maps 'availability' to internal constants. -->
     <integer-array name="availability_values" translatable="false">
         <item>0</item>  <!-- Busy -->
         <item>1</item>  <!-- Available -->
         <item>2</item>  <!-- Tentative -->
     </integer-array>
+
+    <!-- CalendarContract.EventsColumns#STATUS -->
+    <string-array name="event_status" translatable="false">
+        <item>@string/event_status_tentative</item> <!-- 0 -->
+        <item>@string/event_status_confirmed</item> <!-- 1 -->
+        <item>@string/event_status_cancelled</item> <!-- 2 -->
+    </string-array>
 
     <string-array name="visibility" translatable="false">
         <item>@string/visibility_default</item>

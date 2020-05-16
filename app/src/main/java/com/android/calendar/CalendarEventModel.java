@@ -109,7 +109,7 @@ public class CalendarEventModel implements Serializable {
     // The model can't be updated with a calendar cursor until it has been
     // updated with an event cursor.
     public boolean mModelUpdatedWithEventCursor;
-    public int mAccessLevel = 0;
+    public int mAccessLevel = Events.ACCESS_DEFAULT;
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mDefaultReminders;
     // PROVIDER_NOTES Using EditEventHelper the owner should not be included in this
@@ -174,6 +174,8 @@ public class CalendarEventModel implements Serializable {
         if (accessLevel != -1) {
             mAccessLevel = accessLevel;
         }
+
+        mEventStatus = intent.getIntExtra(Events.STATUS, Events.STATUS_CONFIRMED);
 
         String rrule = intent.getStringExtra(Events.RRULE);
         if (!TextUtils.isEmpty(rrule)) {
@@ -266,7 +268,7 @@ public class CalendarEventModel implements Serializable {
         mGuestsCanModify = false;
         mGuestsCanInviteOthers = false;
         mGuestsCanSeeGuests = false;
-        mAccessLevel = 0;
+        mAccessLevel = Events.ACCESS_DEFAULT;
         mEventStatus = Events.STATUS_CONFIRMED;
         mOrganizerCanRespond = false;
         mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
