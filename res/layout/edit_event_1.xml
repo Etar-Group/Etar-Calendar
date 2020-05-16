@@ -311,7 +311,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dip"
-            android:layout_marginEnd="0dip"
+            android:layout_marginEnd="8dip"
             android:contentDescription="@string/accessibility_all_day"
             android:gravity="center_vertical" />
         <TextView
@@ -331,6 +331,7 @@
         android:id="@+id/timezone_textview_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dip"
         android:focusable="true"
         android:minHeight="48dip"
         android:orientation="vertical"
@@ -349,6 +350,7 @@
         android:id="@+id/timezone_button_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dip"
         android:minHeight="48dip"
         android:orientation="vertical">
         <Button

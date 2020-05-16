@@ -183,6 +183,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             private static String TAG = "DayView";
             private static boolean DEBUG = false;
             private static boolean DEBUG_SCALING = false;
+            private static boolean DEBUG_SCROLLING = false;
             private static float mScale = 0; // Used for supporting different screen densities
             private static int DEFAULT_CELL_HEIGHT = 64;
             private static int MAX_CELL_HEIGHT = 150;
@@ -1953,6 +1954,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         if (mViewStartY < 0) {
                             mViewStartY = 0;
                         }
+                        if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1966: mViewStartY=" + mViewStartY);
                         return;
                     }
                 }
@@ -1967,10 +1969,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         if (mViewStartY < 0) {
                             mViewStartY = 0;
                         }
+                        if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1975: mViewStartY=" + mViewStartY);
                         return;
                     } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
                         mViewStartY = mMaxViewStartY;
                     }
+                    if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1980: mViewStartY=" + mViewStartY);
                 }
     }
 
@@ -4031,6 +4035,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mViewStartY = 0;
                 mRecalCenterHour = true;
             }
+            if (DEBUG_SCROLLING) {
+                Log.e(TAG, "doScroll 4034: mViewStartY=" + mViewStartY);
+            }
             if (mRecalCenterHour) {
                 // Calculate the hour that correspond to the average of the Y touch points
                 mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
@@ -4199,6 +4206,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
                 / (float) (mCellHeight + DAY_GAP);
         }
+        if (DEBUG_SCROLLING) Log.e(TAG, "onScale 4204: mViewStartY=" + mViewStartY);
         if (mGestureCenterHour < 0) {
             mGestureCenterHour = 0;
         }

@@ -23,7 +23,7 @@
     android:minHeight="@dimen/edit_reminder_min_size">
 
     <Spinner android:id="@+id/reminder_minutes_value"
-        style="@style/TextAppearance.EditEvent_Value"
+        style="@style/TextAppearance.EditEvent_Spinner"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -33,7 +33,7 @@
         android:entries="@array/reminder_minutes_labels"/>
 
     <Spinner android:id="@+id/reminder_method_value"
-        style="@style/TextAppearance.EditEvent_Value"
+        style="@style/TextAppearance.EditEvent_Spinner"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
