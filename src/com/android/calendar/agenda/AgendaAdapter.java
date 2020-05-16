@@ -19,6 +19,8 @@ package com.android.calendar.agenda;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Paint;
+import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Attendees;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -149,6 +151,11 @@ public class AgendaAdapter extends ResourceCursorAdapter {
                 holder.when.setTextColor(mStandardColor);
                 holder.where.setTextColor(mStandardColor);
             }
+        }
+
+        int status = cursor.getInt(AgendaWindowAdapter.INDEX_STATUS);
+        if (status == Events.STATUS_CANCELED) {
+            holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
         TextView title = holder.title;

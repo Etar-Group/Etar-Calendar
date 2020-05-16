@@ -39,6 +39,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -228,16 +229,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Calendars.CALENDAR_ACCESS_LEVEL, // 10
         Events.CALENDAR_COLOR,       // 11
         Events.EVENT_COLOR,          // 12
-        Events.HAS_ATTENDEE_DATA,    // 13
-        Events.ORGANIZER,            // 14
-        Events.HAS_ALARM,            // 15
-        Calendars.MAX_REMINDERS,     // 16
-        Calendars.ALLOWED_REMINDERS, // 17
-        Events.CUSTOM_APP_PACKAGE,   // 18
-        Events.CUSTOM_APP_URI,       // 19
-        Events.DTEND,                // 20
-        Events.DURATION,             // 21
-        Events.ORIGINAL_SYNC_ID      // 22 do not remove; used in DeleteEventHelper
+        Events.STATUS,               // 13
+        Events.HAS_ATTENDEE_DATA,    // 14
+        Events.ORGANIZER,            // 15
+        Events.HAS_ALARM,            // 16
+        Calendars.MAX_REMINDERS,     // 17
+        Calendars.ALLOWED_REMINDERS, // 18
+        Events.CUSTOM_APP_PACKAGE,   // 19
+        Events.CUSTOM_APP_URI,       // 20
+        Events.DTEND,                // 21
+        Events.DURATION,             // 22
+        Events.ORIGINAL_SYNC_ID      // 23 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -252,15 +254,16 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_ACCESS_LEVEL = 10;
     private static final int EVENT_INDEX_CALENDAR_COLOR = 11;
     private static final int EVENT_INDEX_EVENT_COLOR = 12;
-    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 13;
-    private static final int EVENT_INDEX_ORGANIZER = 14;
-    private static final int EVENT_INDEX_HAS_ALARM = 15;
-    private static final int EVENT_INDEX_MAX_REMINDERS = 16;
-    private static final int EVENT_INDEX_ALLOWED_REMINDERS = 17;
-    private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 18;
-    private static final int EVENT_INDEX_CUSTOM_APP_URI = 19;
-    private static final int EVENT_INDEX_DTEND = 20;
-    private static final int EVENT_INDEX_DURATION = 21;
+    private static final int EVENT_INDEX_STATUS = 13;
+    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 14;
+    private static final int EVENT_INDEX_ORGANIZER = 15;
+    private static final int EVENT_INDEX_HAS_ALARM = 16;
+    private static final int EVENT_INDEX_MAX_REMINDERS = 17;
+    private static final int EVENT_INDEX_ALLOWED_REMINDERS = 18;
+    private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 19;
+    private static final int EVENT_INDEX_CUSTOM_APP_URI = 20;
+    private static final int EVENT_INDEX_DTEND = 21;
+    private static final int EVENT_INDEX_DURATION = 22;
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
         Attendees.ATTENDEE_NAME,            // 1
@@ -1473,6 +1476,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // What
         if (eventName != null) {
             setTextCommon(view, R.id.title, eventName);
+        }
+
+        Integer status = mEventCursor.getInt(EVENT_INDEX_STATUS);
+        if (status == Events.STATUS_CANCELED) {
+            TextView textView = (TextView) view.findViewById(R.id.title);
+            textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
         // When

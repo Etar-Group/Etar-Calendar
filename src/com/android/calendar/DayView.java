@@ -2800,6 +2800,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     break;
             }
 
+            if (event.status == Events.STATUS_CANCELED) {
+                // Strike event title if its status is `canceled`
+                paint.setStrikeThruText(true);
+            } else {
+                paint.setStrikeThruText(false);
+            }
+
             // Leave a one pixel boundary on the left and right of the rectangle for the event
             layout = new StaticLayout(bob, 0, bob.length(), new TextPaint(paint), r.width(),
                     Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true, null, r.width());

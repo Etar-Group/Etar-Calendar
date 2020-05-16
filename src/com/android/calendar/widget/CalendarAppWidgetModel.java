@@ -268,6 +268,7 @@ class CalendarAppWidgetModel {
         String where;
         int visibTitle; // Visibility value for Title textview (View.GONE or View.VISIBLE)
         String title;
+        int status;
         int selfAttendeeStatus;
 
         long id;
@@ -301,6 +302,8 @@ class CalendarAppWidgetModel {
             builder.append(where);
             builder.append(", color=");
             builder.append(String.format("0x%x", color));
+            builder.append(", status=");
+            builder.append(status);
             builder.append(", selfAttendeeStatus=");
             builder.append(selfAttendeeStatus);
             builder.append("]");
