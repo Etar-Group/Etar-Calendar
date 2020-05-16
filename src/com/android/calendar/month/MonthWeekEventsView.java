@@ -37,6 +37,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Attendees;
+import android.provider.CalendarContract.Events;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.TextPaint;
@@ -1500,6 +1501,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mEvent = event;
         }
 
+        protected boolean isCanceled() {
+            return mEvent.status == Events.STATUS_CANCELED;
+        }
+
         protected boolean isDeclined() {
             return mEvent.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED;
         }
@@ -1573,19 +1578,35 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
 
         protected Paint getTextPaint() {
+
+            TextPaint paint;
+
             if (!isAttendeeStatusInvited() && mEvent.drawAsAllday()){
                 // Text color needs to contrast with solid background.
-                return mSolidBackgroundEventPaint;
+                paint = mSolidBackgroundEventPaint;
             } else if (isDeclined()) {
                 // Use "declined event" color.
-                return mDeclinedEventPaint;
+                paint = mDeclinedEventPaint;
             } else if (mEvent.drawAsAllday()) {
                 // Text inside frame is same color as frame.
                 mFramedEventPaint.setColor(getRectangleColor());
-                return mFramedEventPaint;
+                paint = mFramedEventPaint;
+            } else {
+                // Use generic event text color.
+                paint = mEventPaint;
             }
-            // Use generic event text color.
-            return mEventPaint;
+
+            if (isCanceled()) {
+                // Strike event title if its status is `canceled`
+                // (copy current Paint to conserve other formatting)
+                TextPaint canceledPaint;
+                canceledPaint = new TextPaint();
+                canceledPaint.set(paint);
+                canceledPaint.setStrikeThruText(true);
+                paint = canceledPaint;
+            }
+
+            return paint;
         }
 
         protected void drawText(Canvas canvas, ViewDetailsPreferences.Preferences preferences, int day) {

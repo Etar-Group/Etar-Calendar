@@ -29,10 +29,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
 import androidx.core.content.ContextCompat;
 import android.text.format.DateUtils;
@@ -352,6 +354,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                                 R.drawable.widget_chip_responded_bg);
                     }
                     views.setInt(R.id.agenda_item_color, "setColorFilter", displayColor);
+                }
+
+                if (eventInfo.status == Events.STATUS_CANCELED) {
+                    views.setInt(R.id.title, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
                 }
 
                 long start = eventInfo.start;

@@ -89,11 +89,12 @@ public class AgendaWindowAdapter extends BaseAdapter
     public static final int INDEX_EVENT_ID = 9;
     public static final int INDEX_START_DAY = 10;
     public static final int INDEX_END_DAY = 11;
-    public static final int INDEX_SELF_ATTENDEE_STATUS = 12;
-    public static final int INDEX_ORGANIZER = 13;
-    public static final int INDEX_OWNER_ACCOUNT = 14;
-    public static final int INDEX_CAN_ORGANIZER_RESPOND= 15;
-    public static final int INDEX_TIME_ZONE = 16;
+    public static final int INDEX_STATUS = 12;
+    public static final int INDEX_SELF_ATTENDEE_STATUS = 13;
+    public static final int INDEX_ORGANIZER = 14;
+    public static final int INDEX_OWNER_ACCOUNT = 15;
+    public static final int INDEX_CAN_ORGANIZER_RESPOND= 16;
+    public static final int INDEX_TIME_ZONE = 17;
     static final boolean BASICLOG = false;
     static final boolean DEBUGLOG = false;
     private static final String TAG = "AgendaWindowAdapter";
@@ -114,11 +115,12 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.EVENT_ID, // 9
             Instances.START_DAY, // 10 Julian start day
             Instances.END_DAY, // 11 Julian end day
-            Instances.SELF_ATTENDEE_STATUS, // 12
-            Instances.ORGANIZER, // 13
-            Instances.OWNER_ACCOUNT, // 14
-            Instances.CAN_ORGANIZER_RESPOND, // 15
-            Instances.EVENT_TIMEZONE, // 16
+            Instances.STATUS, // 12
+            Instances.SELF_ATTENDEE_STATUS, // 13
+            Instances.ORGANIZER, // 14
+            Instances.OWNER_ACCOUNT, // 15
+            Instances.CAN_ORGANIZER_RESPOND, // 16
+            Instances.EVENT_TIMEZONE, // 17
     };
     // Listview may have a bug where the index/position is not consistent when there's a header.
     // position == positionInListView - OFF_BY_ONE_BUG
