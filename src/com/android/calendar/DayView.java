@@ -183,7 +183,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             private static String TAG = "DayView";
             private static boolean DEBUG = false;
             private static boolean DEBUG_SCALING = false;
-            private static boolean DEBUG_SCROLLING = false;
             private static float mScale = 0; // Used for supporting different screen densities
             private static int DEFAULT_CELL_HEIGHT = 64;
             private static int MAX_CELL_HEIGHT = 150;
@@ -1096,7 +1095,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         {
             mViewStartY = viewStartY;
         }
-        if (DEBUG_SCROLLING) Log.e(TAG, "setViewStartY 1099: mViewStartY=" + mViewStartY);
 
         computeFirstHour();
         invalidate();
@@ -1352,7 +1350,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         else if (mViewStartY < 0) {
             mViewStartY = 0;
         }
-        if (DEBUG_SCROLLING) Log.e(TAG, "remeasure 1355: mViewStartY=" + mViewStartY);
 
         if (mFirstHour == -1) {
             initFirstHour();
@@ -1367,7 +1364,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mFirstHourOffset = mCellHeight + HOUR_GAP - 1;
         }
         mViewStartY = mFirstHour * (mCellHeight + HOUR_GAP) - mFirstHourOffset;
-        if (DEBUG_SCROLLING) Log.e(TAG, "remeasure 1376: mViewStartY=" + mViewStartY);
 
         final int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
         //When we get new events we don't want to dismiss the popup unless the event changes
@@ -1957,7 +1953,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         if (mViewStartY < 0) {
                             mViewStartY = 0;
                         }
-                        if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1966: mViewStartY=" + mViewStartY);
                         return;
                     }
                 }
@@ -1972,12 +1967,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         if (mViewStartY < 0) {
                             mViewStartY = 0;
                         }
-                        if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1975: mViewStartY=" + mViewStartY);
                         return;
                     } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
                         mViewStartY = mMaxViewStartY;
                     }
-                    if (DEBUG_SCROLLING) Log.e(TAG, "resetSelectedHour 1980: mViewStartY=" + mViewStartY);
                 }
     }
 
@@ -4038,9 +4031,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mViewStartY = 0;
                 mRecalCenterHour = true;
             }
-            if (DEBUG_SCROLLING) {
-                Log.e(TAG, "doScroll 4034: mViewStartY=" + mViewStartY);
-            }
             if (mRecalCenterHour) {
                 // Calculate the hour that correspond to the average of the Y touch points
                 mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
@@ -4209,7 +4199,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
                 / (float) (mCellHeight + DAY_GAP);
         }
-        if (DEBUG_SCROLLING) Log.e(TAG, "onScale 4204: mViewStartY=" + mViewStartY);
         if (mGestureCenterHour < 0) {
             mGestureCenterHour = 0;
         }
@@ -4943,10 +4932,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         }
                     }
                     mLastVelocity = mScroller.getCurrVelocity();
-
-                    if (DEBUG_SCROLLING) {
-                        Log.e(TAG, "ContinueScroll 4940: mViewStartY=" + mViewStartY);
-                    }
 
                     computeFirstHour();
                     mHandler.post(this);
