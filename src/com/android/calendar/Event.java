@@ -84,11 +84,12 @@ public class Event implements Cloneable {
             Instances.HAS_ALARM,             // 13
             Instances.RRULE,                 // 14
             Instances.RDATE,                 // 15
-            Instances.SELF_ATTENDEE_STATUS,  // 16
-            Events.ORGANIZER,                // 17
-            Events.GUESTS_CAN_MODIFY,        // 18
+            Instances.STATUS,                // 16
+            Instances.SELF_ATTENDEE_STATUS,  // 17
+            Events.ORGANIZER,                // 18
+            Events.GUESTS_CAN_MODIFY,        // 19
             Instances.ALL_DAY + "=1 OR (" + Instances.END + "-" + Instances.BEGIN + ")>="
-                    + DateUtils.DAY_IN_MILLIS + " AS " + DISPLAY_AS_ALLDAY, // 19
+                    + DateUtils.DAY_IN_MILLIS + " AS " + DISPLAY_AS_ALLDAY, // 20
     };
     private static final String EVENTS_WHERE = DISPLAY_AS_ALLDAY + "=0";
     private static final String ALLDAY_WHERE = DISPLAY_AS_ALLDAY + "=1";
@@ -108,10 +109,11 @@ public class Event implements Cloneable {
     private static final int PROJECTION_HAS_ALARM_INDEX = 13;
     private static final int PROJECTION_RRULE_INDEX = 14;
     private static final int PROJECTION_RDATE_INDEX = 15;
-    private static final int PROJECTION_SELF_ATTENDEE_STATUS_INDEX = 16;
-    private static final int PROJECTION_ORGANIZER_INDEX = 17;
-    private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 18;
-    private static final int PROJECTION_DISPLAY_AS_ALLDAY = 19;
+    private static final int PROJECTION_STATUS_INDEX = 16;
+    private static final int PROJECTION_SELF_ATTENDEE_STATUS_INDEX = 17;
+    private static final int PROJECTION_ORGANIZER_INDEX = 18;
+    private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 19;
+    private static final int PROJECTION_DISPLAY_AS_ALLDAY = 20;
     private static String mNoTitleString;
     private static int mNoColorColor;
 
@@ -133,6 +135,7 @@ public class Event implements Cloneable {
     public long endMillis;     // UTC milliseconds since the epoch
     public boolean hasAlarm;
     public boolean isRepeating;
+    public int status;
     public int selfAttendeeStatus;
     // The coordinates of the event rectangle drawn on the screen.
     public float left;
@@ -164,6 +167,7 @@ public class Event implements Cloneable {
         e.endMillis = 0;
         e.hasAlarm = false;
         e.isRepeating = false;
+        e.status = Events.STATUS_CONFIRMED;
         e.selfAttendeeStatus = Attendees.ATTENDEE_STATUS_NONE;
 
         return e;
@@ -363,6 +367,8 @@ public class Event implements Cloneable {
 
         e.hasAlarm = cEvents.getInt(PROJECTION_HAS_ALARM_INDEX) != 0;
 
+        e.status = cEvents.getInt(PROJECTION_STATUS_INDEX);
+
         // Check if this is a repeating event
         String rrule = cEvents.getString(PROJECTION_RRULE_INDEX);
         String rdate = cEvents.getString(PROJECTION_RDATE_INDEX);
@@ -512,6 +518,7 @@ public class Event implements Cloneable {
         e.endMillis = endMillis;
         e.hasAlarm = hasAlarm;
         e.isRepeating = isRepeating;
+        e.status = status;
         e.selfAttendeeStatus = selfAttendeeStatus;
         e.organizer = organizer;
         e.guestsCanModify = guestsCanModify;
@@ -533,6 +540,7 @@ public class Event implements Cloneable {
         dest.endMillis = endMillis;
         dest.hasAlarm = hasAlarm;
         dest.isRepeating = isRepeating;
+        dest.status = status;
         dest.selfAttendeeStatus = selfAttendeeStatus;
         dest.organizer = organizer;
         dest.guestsCanModify = guestsCanModify;
