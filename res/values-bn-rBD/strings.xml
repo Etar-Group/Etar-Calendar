@@ -127,4 +127,8 @@
         <item quantity="other">প্রতি <xliff:g id="number">%d</xliff:g> দিনে</item>
     </plurals>
     <string name="endByDate">; <xliff:g id="date">%s</xliff:g> পর্যন্ত</string>
+    <plurals name="endByCount">
+        <item quantity="one">; একবারের জন্য</item>
+        <item quantity="other">; <xliff:g id="number"> জন্য %d</xliff:g> এত বার</item>
+    </plurals>
 </resources>
