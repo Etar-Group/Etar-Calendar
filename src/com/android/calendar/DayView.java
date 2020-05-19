@@ -555,7 +555,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mScrolling = false;
-            resetSelectedHour();
             invalidate();
         }
     };
