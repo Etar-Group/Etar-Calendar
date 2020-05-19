@@ -22,7 +22,7 @@
     android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
     android:voiceLanguageModel="free_form"
 
-    android:searchSuggestAuthority="com.android.calendar.CalendarRecentSuggestionsProvider"
+    android:searchSuggestAuthority="com.yahoo.p1rpp.CalendarRecentSuggestionsProvider"
     android:searchSuggestSelection=" ? "
     android:imeOptions="actionSearch" >
 </searchable>

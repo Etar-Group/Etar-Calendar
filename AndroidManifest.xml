@@ -186,9 +186,10 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+
         <provider android:name="com.android.calendar.CalendarRecentSuggestionsProvider"
             android:exported="false"
-            android:authorities="com.android.calendar.CalendarRecentSuggestionsProvider" />
+            android:authorities="com.yahoo.p1rpp.CalendarRecentSuggestionsProvider" />
 
         <!-- Declarations for alerts/reminders -->
         <activity
