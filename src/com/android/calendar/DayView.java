@@ -554,7 +554,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mScrolling = false;
-            resetSelectedHour();
             invalidate();
         }
     };
@@ -1874,22 +1873,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view.restartCurrentTimeUpdates();
 
         return view;
-    }
-
-    // This is called after scrolling stops to move the selected hour
-    // to the visible part of the screen.
-    private void resetSelectedHour() {
-        if (mSelectionHour < mFirstHour + 1) {
-            setSelectedHour(mFirstHour + 1);
-            setSelectedEvent(null);
-            mSelectedEvents.clear();
-            mComputeSelectedEvents = true;
-        } else if (mSelectionHour > mFirstHour + mNumHours - 3) {
-            setSelectedHour(mFirstHour + mNumHours - 3);
-            setSelectedEvent(null);
-            mSelectedEvents.clear();
-            mComputeSelectedEvents = true;
-        }
     }
 
             private void initFirstHour() {
@@ -4040,7 +4023,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mScrolling = true;
 
-        mSelectionMode = SELECTION_HIDDEN;
         invalidate();
     }
 
@@ -4070,7 +4052,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         cancelAnimation();
 
-        mSelectionMode = SELECTION_HIDDEN;
         eventClickCleanup();
 
         mOnFlingCalled = true;
@@ -4278,7 +4259,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // is visible.
                 if (mScrolling) {
                     mScrolling = false;
-                    resetSelectedHour();
                     invalidate();
                 }
 
@@ -4308,7 +4288,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 if (DEBUG) Log.e(TAG, "ACTION_CANCEL");
                 mGestureDetector.onTouchEvent(ev);
                 mScrolling = false;
-                resetSelectedHour();
                 return true;
 
             default:
@@ -4905,7 +4884,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 public void run() {
                     mScrolling = mScrolling && mScroller.computeScrollOffset();
                     if (!mScrolling || mPaused) {
-                        resetSelectedHour();
                         invalidate();
                         return;
                     }
