@@ -145,13 +145,21 @@ public class DynamicTheme {
     public static int getColor(Context context, String id) {
         String suffix = getSuffix(getTheme(context));
         Resources res = context.getResources();
-        return res.getColor(res.getIdentifier(id + suffix, "color", context.getPackageName()));
+        // When aapt is called with --rename-manifest-package, the package name is changed for the
+        // application, but not for the resources. This is to find the package name of a known
+        // resource to know what package to lookup the colors in.
+        String packageName = res.getResourcePackageName(R.string.app_label);
+        return res.getColor(res.getIdentifier(id + suffix, "color", packageName));
     }
 
     public static int getDrawableId(Context context, String id) {
         String suffix = getSuffix(getTheme(context));
         Resources res = context.getResources();
-        return res.getIdentifier(id + suffix, "drawable", context.getPackageName());
+        // When aapt is called with --rename-manifest-package, the package name is changed for the
+        // application, but not for the resources. This is to find the package name of a known
+        // resource to know what package to lookup the drawables in.
+        String packageName = res.getResourcePackageName(R.string.app_label);
+        return res.getIdentifier(id + suffix, "drawable", packageName);
     }
 
     public static int getDialogStyle(Context context) {
