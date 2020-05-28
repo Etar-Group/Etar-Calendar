@@ -123,6 +123,34 @@
     <View
         style="@style/EditEventSeparator"/>
 
+    <!-- WHERE -->
+    <LinearLayout
+        android:id="@+id/where_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="6dip"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/location"
+                style="@style/TextAppearance.EditEvent_Value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_where"
+                android:imeOptions="actionDone"
+                android:inputType="textAutoCorrect|textCapSentences"
+                android:minHeight="48dip"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View style="@style/EditEventSeparator" />
+    </LinearLayout>
+
     <!-- DESCRIPTION -->
     <LinearLayout android:id="@+id/description_row"
         android:orientation="vertical"
