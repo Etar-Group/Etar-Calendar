@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <resources>
-    <string-array name="pref_theme_entries">
+    <string-array name="pref_theme_entries" translatable="false">
         <item>@string/preferences_light_theme</item>
         <item>@string/preferences_dark_theme</item>
         <item>@string/preferences_black_theme</item>
@@ -27,7 +27,7 @@
     </string-array>
 
     <!--Entries for the primary color-->
-    <string-array name="pref_color_entries">
+    <string-array name="pref_color_entries" translatable="false">
         <item>@string/preferences_color_teal</item>
         <item>@string/preferences_color_blue</item>
         <item>@string/preferences_color_orange</item>
@@ -199,13 +199,13 @@
         <item>"2"</item>
     </string-array>
 
-    <string-array name="preferences_days_per_week_labels">
-        <item>2 days</item>
-        <item>3 days</item>
-        <item>4 days</item>
-        <item>5 days</item>
-        <item>6 days</item>
-        <item>7 days</item>
+    <string-array name="preferences_days_per_week_labels" translatable="false">
+        <item>@string/two_days</item>
+        <item>@string/three_days</item>
+        <item>@string/four_days</item>
+        <item>@string/five_days</item>
+        <item>@string/six_days</item>
+        <item>@string/seven_days</item>
     </string-array>
 
     <string-array name="preferences_days_per_week_values" translatable="false">
@@ -217,7 +217,7 @@
         <item>"7"</item>
     </string-array>
 
-    <string-array name="preferences_default_duration_labels">
+    <string-array name="preferences_default_duration_labels" translatable="false">
         <item>@string/zero_minutes</item>
         <item>@string/fifteen_minutes</item>
         <item>@string/thirty_minutes</item>
@@ -248,13 +248,12 @@
         <item>2</item>  <!-- Tentative -->
     </integer-array>
 
-    <string-array name="visibility">
+    <string-array name="visibility" translatable="false">
         <item>@string/visibility_default</item>
         <item>@string/visibility_confidential</item>
         <item>@string/visibility_private</item>
         <item>@string/visibility_public</item>
     </string-array>
-
 
     <!-- Invitation responses -->
     <string-array name="response_labels1">
@@ -277,7 +276,7 @@
 
     <!-- DO NOT TRANSLATE These values need to correspond to the indices
          defined in DeleteEventHelper.java-->
-    <integer-array name="delete_repeating_values">
+    <integer-array name="delete_repeating_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -393,8 +392,8 @@
         <item >on every fourth Saturday</item>
         <item >on every last Saturday</item>
     </string-array>
-    
-    <string-array name="show_time">
+
+    <string-array name="show_time" translatable="false">
         <item>@string/show_time_no</item>
         <item>@string/show_time_start</item>
         <item>@string/show_time_start_end</item>

@@ -732,6 +732,14 @@
     <string name="visibility_private">Private</string>
     <string name="visibility_public">Public</string>
 
+    <!-- Strings to describe per week labels array -->
+    <string name="two_days">2 days</string>
+    <string name="three_days">3 days</string>
+    <string name="four_days">4 days</string>
+    <string name="five_days">5 days</string>
+    <string name="six_days">6 days</string>
+    <string name="seven_days">7 days</string>
+
     <!-- Strings to describe default duration array -->
     <string name="zero_minutes">0 minutes</string>
     <string name="fifteen_minutes">15 minutes</string>
