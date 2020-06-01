@@ -92,7 +92,6 @@
 
         <CheckBoxPreference
             app:key="preferences_alerts_popup"
-            app:layout="?android:attr/preferenceLayoutChild"
             app:defaultValue="false"
             app:title="@string/preferences_alerts_popup_title" />
 
