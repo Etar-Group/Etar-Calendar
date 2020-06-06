@@ -301,7 +301,7 @@
     <string name="cal_import_error_msg">Ошибка при импортировании в календарь</string>
     <string name="cal_import_error_date_msg">Невозможно понять дату: %s</string>
     <string name="cal_pick_ics">Выберите файл для импорта</string>
-    <string name="view_settings">Просмотр настроек</string>
+    <string name="view_settings">Открыть настройки</string>
     <string name="preferences_month_view_portrait">Вид месяца (вертикальный)</string>
     <string name="preferences_month_view_landscape">Вид месяца (горизонтальный)</string>
     <string name="display_options">Подробный вид</string>
@@ -311,7 +311,7 @@
     <string name="show_time_start">Только время начала</string>
     <string name="show_time_start_end">Время начала и окончания</string>
     <string name="show_time_start_end_below">Время начала и окончания под событием</string>
-    <string name="maximum_number_of_lines">Максимальное количество строк для события</string>
+    <string name="maximum_number_of_lines">Максимум строк для события</string>
     <string name="foreground_notification_channel_name">Синхронизация оповещений</string>
     <string name="foreground_notification_channel_description">Уведомление требуется для внутренней синхронизации оповещений. Пожалуйста, отключите у него звук.</string>
     <string name="cal_import_error_time_zone_msg">Невозможно определить предлагаемый часовой пояс: %s</string>
