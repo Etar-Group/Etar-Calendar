@@ -465,8 +465,9 @@
          related to viewing calendar events in Month view for landscape orientation -->
     <string name="preferences_month_view_landscape">Month view layout (Landscape)</string>
     <!-- This is the title of a section in the Settings screen for settings
-         related to reminders for calendar events -->
+         related to app theme -->
     <string name="preferences_theme">Theme</string>
+    <string name="preferences_system_theme">System default</string>
     <string name="preferences_light_theme">Light</string>
     <string name="preferences_dark_theme">Dark</string>
     <string name="preferences_black_theme">Black</string>
@@ -478,6 +479,8 @@
     <string name="preferences_color_red" translatable="false">Red</string>
     <string name="preferences_color_purple" translatable="false">Purple</string>
     <string name="preferences_color_pick">Primary color</string>
+    <!-- This is the title of a section in the Settings screen for settings
+         related to reminders for calendar events -->
     <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
     <string name="preferences_hide_declined_title">Hide declined events</string>

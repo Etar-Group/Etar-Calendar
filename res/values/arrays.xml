@@ -13,14 +13,14 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-    <string-array name="pref_theme_entries" translatable="false">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="pref_theme_entries" translatable="false" tools:ignore="InconsistentArrays">
         <item>@string/preferences_light_theme</item>
         <item>@string/preferences_dark_theme</item>
         <item>@string/preferences_black_theme</item>
     </string-array>
 
-    <string-array name="pref_theme_values" translatable="false">
+    <string-array name="pref_theme_values" translatable="false" tools:ignore="InconsistentArrays">
         <item>light</item>
         <item>dark</item>
         <item>black</item>
