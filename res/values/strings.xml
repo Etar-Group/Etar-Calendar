@@ -94,7 +94,7 @@
     <!-- This is for displaying the week of the year near the date. Eg. "January, 2011 Week 1" -->
     <plurals name="weekN">
         <!-- Label for displaying week of the year for all week values [CHAR LIMIT=16] -->
-        <item quantity="other">week <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
 
     <!-- Menu items: -->
@@ -138,8 +138,8 @@
          (Day view, Week view, Agenda view, Month view) they are currently in. -->
     <string name="goto_today">"Today"</string>
     <!-- This is a label on a menu item. Pressing this menu
-     item opens new dialog shown the date that the user wants to go. -->
-    <string name="goto_date">"Go to…"</string>
+         item opens new dialog shown the date that the user wants to go. -->
+    <string name="goto_date">Go to\u2026</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
@@ -211,10 +211,8 @@
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
     <skip/>
-    <string name="foreground_notification_channel_name">Alert Sync</string>
-    <string name="foreground_notification_channel_description">
-        Foreground notification required for internal alert sync. Please mute
-    </string>
+    <string name="foreground_notification_channel_name">Alert sync</string>
+    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync.</string>
 
     <!-- Event info/edit screen labels:-->
     <skip/>
@@ -335,11 +333,11 @@
     <!-- Agenda View strings -->
     <skip/>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_today">today, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_today">Today, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_yesterday">yesterday, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday">Yesterday, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_tomorrow">tomorrow, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow">Tomorrow, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown while the calendar events are being loading to the screen. -->
     <string name="loading">Loading\u2026</string>
     <!-- This is shown at the top of the agenda view showing the beginning of the searched range. If the user taps on this string and Calendar will find events older than what is visible and display them to the user -->
@@ -472,7 +470,7 @@
     <string name="preferences_light_theme">Light</string>
     <string name="preferences_dark_theme">Dark</string>
     <string name="preferences_black_theme">Black</string>
-    <string name="preferences_color">Primary Color</string>
+    <string name="preferences_color">Primary color</string>
     <string name="preferences_color_teal" translatable="false">Teal</string>
     <string name="preferences_color_blue" translatable="false">Blue</string>
     <string name="preferences_color_orange" translatable="false">Orange</string>
@@ -489,7 +487,6 @@
     <string name="display_time">Display time</string>
     <string name="display_location">Display location</string>
     <string name="maximum_number_of_lines">Max number of lines in event</string>
-
 
     <string name="default_start_last">Previously used view</string>
     <!-- Settings week start label to start week on specific day-->
@@ -724,7 +721,7 @@
     <string name="notification_sender_id" translatable="false"></string>
 
     <string name="user_rejected_calendar_write_permission">Etar requires calendar read and write permissions to work properly. Please try again.</string>
-    <string name="calendar_permission_not_granted">Sorry this feature can\'t work. Etar requires calendar read and write permissions to work properly</string>
+    <string name="calendar_permission_not_granted">Required permissions were denied, enable them from Settings app to edit events</string>
 
     <!-- Strings to describe visibility array -->
     <string name="visibility_default">Default</string>
