@@ -117,9 +117,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Eigene Antwort schreiben…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Erinnerungen"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"Heute, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"Gestern, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"Morgen, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Heute, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Gestern, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Morgen, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Wird geladen…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Antippen für Termine vor dem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Antippen für Termine nach dem <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -296,7 +296,7 @@
     <string name="show_time_start_end">Start- und Endzeit</string>
     <string name="show_time_start_end_below">Start- und Endzeit unterhalb des Termins</string>
     <string name="maximum_number_of_lines">Maximale Zeilenanzahl pro Kalendereintrag</string>
-    <string name="foreground_notification_channel_name">Alarm Synchronisation</string>
+    <string name="foreground_notification_channel_name">Alarmsynchronisation</string>
     <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich.</string>
     <string name="cal_import_error_time_zone_msg">Zeitzone konnte nicht erkannt werden: %s</string>
     <string name="preferences_calendar_account">%1$s Konto</string>
