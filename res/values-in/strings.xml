@@ -39,7 +39,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> hari</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other">minggu <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Minggu <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Segarkan"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tampilkan hari"</string>
@@ -112,17 +112,12 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">Tulis respons anda sendiri…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">Pelaksana:</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Pengingat"</string>
-    <string name="agenda_today" msgid="5965841338467422191">hari ini, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">kemarin, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">besok, <xliff:g id="date">%1$s</xliff:g>
-    </string>
+    <string name="agenda_today" msgid="5965841338467422191">Hari ini, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Kemarin, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Besok, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Memuat…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">Sentuh untuk melihat acara sebelum <xliff:g id="oldest_search_range">%1$s</xliff:g>
-    </string>
-    <string name="show_newer_events" msgid="2604638815440163080">Sentuh untuk melihat acara setelah <xliff:g id="newest_search_range">%1$s</xliff:g>
-    </string>
+    <string name="show_older_events" msgid="5140647493681439926">Sentuh untuk melihat acara sebelum <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Sentuh untuk melihat acara setelah <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">Cari kalender saya</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detail"</string>
     <string name="edit_label" msgid="8934331258435656534">Sunting</string>
@@ -132,8 +127,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tutup semua"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Tunda"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Acara sekali"</string>
-    <string name="endByDate" msgid="7654221304929538201">; sampai <xliff:g id="date">%s</xliff:g>
-    </string>
+    <string name="endByDate" msgid="7654221304929538201">; sampai <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="other">; selama <xliff:g id="number">%d</xliff:g> kali</item>
     </plurals>
@@ -142,8 +136,7 @@
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Setiap hari kerja (Sen–Jum)"</string>
     <plurals name="weekly">
-        <item quantity="other">Setiap <xliff:g id="number">%1$d</xliff:g> minggu pada hari <xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
+        <item quantity="other">Setiap <xliff:g id="number">%1$d</xliff:g> minggu pada hari <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Bulanan"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Tahunan"</string>
@@ -225,8 +218,7 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">hari yang sama setiap bulan</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Selamanya"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Sampai tanggal tertentu"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">Sampai <xliff:g id="date">%s</xliff:g>
-    </string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">Sampai <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Beberapa kali acara</string>
     <plurals name="recurrence_end_count">
         <item quantity="other">Sampai <xliff:g id="event_count">%d</xliff:g> acara</item>
@@ -243,14 +235,14 @@
     <string name="preferences_light_theme">Terang</string>
     <string name="preferences_dark_theme">Gelap</string>
     <string name="preferences_black_theme">Hitam</string>
-    <string name="preferences_color">Warna Utama</string>
+    <string name="preferences_color">Warna utama</string>
     <string name="preferences_color_pick">Warna utama</string>
     <string name="preferences_days_per_week_title">Hari per minggu</string>
     <string name="preferences_days_per_week_dialog">Hari per minggu</string>
     <string name="preferences_default_event_duration_title">Durasi baku acara</string>
     <string name="preferences_issues">Laporkan masalah</string>
     <string name="user_rejected_calendar_write_permission">Etar membutuhkan izin kalender agar bisa bekerja dengan baik. Silakan coba lagi.</string>
-    <string name="calendar_permission_not_granted">Maaf, fitur ini tidak bisa dilakukan. Etar membutuhkan izin kalender agar bisa bekerja dengan baik</string>
+    <string name="calendar_permission_not_granted">Izin akses ditolak, silakan aktifkan dari Pengaturan apl untuk menyunting acara</string>
     <string name="visibility_confidential">Rahasia</string>
     <string name="zero_minutes">0 menit</string>
     <string name="fifteen_minutes">15 menit</string>
@@ -326,4 +318,10 @@
     <string name="preferences_calendar_info_category">Informasi kalender</string>
     <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Sebagian © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_calendar_configure_account">Konfigurasi kalender dalam %1$s</string>
+    <string name="seven_days">7 hari</string>
+    <string name="six_days">6 hari</string>
+    <string name="five_days">5 hari</string>
+    <string name="four_days">4 hari</string>
+    <string name="three_days">3 hari</string>
+    <string name="two_days">2 hari</string>
 </resources>
