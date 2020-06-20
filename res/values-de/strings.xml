@@ -249,10 +249,10 @@
     <string name="default_start_last">Letzte aktive Ansicht</string>
     <string name="default_start_title">Standardansicht</string>
     <string name="error_generating_ics">Fehler. Der Termin konnte nicht geteilt werden</string>
-    <string name="calendar_permission_not_granted">Diese Funktion steht nur zur Verfügnung wenn Etar Lese- und Schreibrechte für den Kalender gewährt werden</string>
+    <string name="calendar_permission_not_granted">Erforderliche Berechtigungen wurden verweigert, aktivieren Sie sie über Einstellungen der App, um Termine zu bearbeiten</string>
     <string name="no_map">Keine Karten gefunden</string>
     <string name="share_label">Teilen</string>
-    <string name="user_rejected_calendar_write_permission">Etar benötigt Lese- und Schreibrechte für den Kalender um richtig zu funktionieren. Bitte versucht es erneut.</string>
+    <string name="user_rejected_calendar_write_permission">Etar benötigt Lese- und Schreibrechte für den Kalender, um richtig zu funktionieren. Bitte versuchen Sie es erneut.</string>
     <string name="cal_share_intent_title">Sende Termin an:</string>
     <string name="cal_pick_ics">Wähle die zu importierende Datei</string>
     <string name="cal_nothing_to_import">Nichts zu importieren</string>
