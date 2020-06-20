@@ -46,7 +46,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Etiqueta para mostrar la semana del año [CHAR LIMIT=16]</item>
-        <item quantity="other">semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Semana <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar día"</string>
@@ -119,9 +119,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escribe tu propia respuesta…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizador:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Recordatorios"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"hoy, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"ayer, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"mañana (<xliff:g id="DATE">%1$s</xliff:g>)"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Hoy, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Ayer, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Mañana (<xliff:g id="DATE">%1$s</xliff:g>)</string>
     <string name="loading" msgid="3772533493214331230">Cargando…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tocar para ver eventos anteriores al <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tocar para ver eventos posteriores al <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -252,7 +252,7 @@
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_pick_ics">Elige un archivo para importar</string>
     <string name="cal_share_intent_title">Envía evento a:</string>
-    <string name="calendar_permission_not_granted">Lo siento, esta característica no puede funcionar. Etar requiere permisos de lectura y escritura en el calendario para funcionar correctamente</string>
+    <string name="calendar_permission_not_granted">Se denegaron los permisos necesarios, habilítelos desde la configuración para editar eventos</string>
     <string name="default_start_last">Vista previamente utilizada</string>
     <string name="default_start_title">Vista de</string>
     <string name="goto_date">Ir a…</string>
@@ -299,7 +299,7 @@
     <string name="cal_import_error_date_msg">No entiendo la fecha proporcionada: %s</string>
     <string name="maximum_number_of_lines">Número máximo de líneas en el evento</string>
     <string name="foreground_notification_channel_name">Sincronizar alerta</string>
-    <string name="foreground_notification_channel_description">Se requiere notificación en primer plano para sincronizar la alerta interna. Por favor, silenciar</string>
+    <string name="foreground_notification_channel_description">Se requiere notificación en primer plano para sincronizar la alerta interna.</string>
     <string name="cal_import_error_time_zone_msg">No entiendo la zona horaria proporcionada: %s</string>
     <string name="preferences_calendar_account">Cuenta %1$s</string>
     <string name="preferences_calendar_delete">Borrar calendario</string>
@@ -338,4 +338,10 @@
     <string name="preferences_calendar_number_of_events">%1d eventos</string>
     <string name="preferences_calendar_info_category">Información de calendario</string>
     <string name="preferences_calendar_account_local">Calendario desconectado</string>
+    <string name="seven_days">7 días</string>
+    <string name="six_days">6 días</string>
+    <string name="five_days">5 días</string>
+    <string name="four_days">4 días</string>
+    <string name="three_days">3 días</string>
+    <string name="two_days">2 días</string>
 </resources>
