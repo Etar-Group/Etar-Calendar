@@ -117,9 +117,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Kendi yanıtınızı oluşturun…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Düzenleyici:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Hatırlatıcılar"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"bugün, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"dün, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"yarin, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Bugün, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Dün, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Yarın, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Yükleniyor…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> öncesindeki etkinlikleri görüntülemek için dokunun"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> sonrasındaki etkinlikleri görüntülemek için dokunun"</string>
@@ -251,14 +251,14 @@
     <string name="preferences_light_theme">Açık</string>
     <string name="preferences_dark_theme">Koyu</string>
     <string name="preferences_black_theme">Siyah</string>
-    <string name="preferences_color">Birincil Renk</string>
+    <string name="preferences_color">Birincil renk</string>
     <string name="preferences_color_pick">Birincil renk</string>
     <string name="preferences_days_per_week_title">Haftalık günler</string>
     <string name="preferences_days_per_week_dialog">Haftalık günler</string>
     <string name="preferences_default_event_duration_title">Varsayılan etkinlik süresi</string>
     <string name="preferences_issues">Sorunları bildir</string>
     <string name="user_rejected_calendar_write_permission">Etar, düzgün çalışmak için takvim okuma ve yazma izinlerini gerektirir. Lütfen tekrar deneyin.</string>
-    <string name="calendar_permission_not_granted">Üzgünüz, bu özellik çalışamıyor. Etar\'ın düzgün çalışabilmesi için takvim okuma ve yazma izinleri gerekir</string>
+    <string name="calendar_permission_not_granted">Gerekli izinler reddedildi, etkinlikleri düzenlemek için Ayarlar uygulamasından etkinleştirin</string>
     <string name="visibility_confidential">Gizli</string>
     <string name="zero_minutes">0 dakika</string>
     <string name="fifteen_minutes">15 dakika</string>
@@ -335,5 +335,11 @@
     <string name="preferences_calendar_configure_account">%1$s içinde takvimi yapılandır</string>
     <string name="preferences_calendar_account_local">Çevrim dışı takvim</string>
     <string name="preferences_calendar_no_display_name">Adsız takvim</string>
-    <string name="foreground_notification_channel_description">Dahili uyarı eşzamanlaması için ön planda bildirim gerekli. Lütfen sessize alın</string>
+    <string name="foreground_notification_channel_description">Dahili uyarı eşzamanlaması için ön planda bildirim gerekli.</string>
+    <string name="seven_days">7 gün</string>
+    <string name="six_days">6 gün</string>
+    <string name="five_days">5 gün</string>
+    <string name="four_days">4 gün</string>
+    <string name="three_days">3 gün</string>
+    <string name="two_days">2 gün</string>
 </resources>
