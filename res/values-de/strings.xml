@@ -297,7 +297,7 @@
     <string name="show_time_start_end_below">Start- und Endzeit unterhalb des Termins</string>
     <string name="maximum_number_of_lines">Maximale Zeilenanzahl pro Kalendereintrag</string>
     <string name="foreground_notification_channel_name">Alarm Synchronisation</string>
-    <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich. Bitte stumm schalten</string>
+    <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich.</string>
     <string name="cal_import_error_time_zone_msg">Zeitzone konnte nicht erkannt werden: %s</string>
     <string name="preferences_calendar_account">%1$s Konto</string>
     <string name="preferences_calendar_delete">Kalender löschen</string>
@@ -336,4 +336,10 @@
     <string name="preferences_calendar_configure_account">Kalender in %1$s konfigurieren</string>
     <string name="preferences_calendar_number_of_events">%1d Ereignisse</string>
     <string name="preferences_calendar_info_category">Kalender Information</string>
+    <string name="seven_days">7 Tage</string>
+    <string name="six_days">6 Tage</string>
+    <string name="five_days">5 Tage</string>
+    <string name="four_days">4 Tage</string>
+    <string name="three_days">3 Tage</string>
+    <string name="two_days">2 Tage</string>
 </resources>
