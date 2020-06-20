@@ -131,4 +131,5 @@
         <item quantity="one">; একবারের জন্য</item>
         <item quantity="other">; <xliff:g id="number"> জন্য %d</xliff:g> এত বার</item>
     </plurals>
+    <string name="edit_event_from_label">শুরু</string>
 </resources>
