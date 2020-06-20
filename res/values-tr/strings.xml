@@ -23,32 +23,28 @@
     <string name="tomorrow" msgid="614434811813859237">"Yarın"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Bugün şu saatler arasında: <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Yarın şu saatler arasında: <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Tekrar"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Başlıksız)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">Bu 1 dakikalık hatırlatmanın etiketidir.</item>
-        <item quantity="other">1 dakika</item>
+        <item quantity="one">1 dakika</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> dakika</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 dakika</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> dakika</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> dakika</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 saat"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> saat"</item>
+        <item quantity="one">1 saat</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> saat</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 gün"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> gün"</item>
+        <item quantity="one">1 gün</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> gün</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Tüm hafta değerleri için yılın haftasını görüntüleme etiketi [CHAR LIMIT = 16]</item>
-        <item quantity="other">hafta <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g>. hafta</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>. hafta</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Yenile"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Günü göster"</string>
@@ -183,8 +179,8 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Hafta sayısını göster"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Derleme sürümü"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Yakın takvim etkinliği yok"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Deneysel"</string>
@@ -210,29 +206,29 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Yeni etkinlik"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Etkinlik: <xliff:g id="ITEM_INDEX">%1$s</xliff:g> / <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 etkinlik"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> etkinlik"</item>
+        <item quantity="one">1 etkinlik</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> etkinlik</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"+1 etkinlik"</item>
-        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> etkinlik"</item>
+        <item quantity="one">+1 etkinlik</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> etkinlik</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Seçili etkinlik"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Her <xliff:g id="COUNT">%d</xliff:g> günde bir"</item>
-        <item quantity="other" msgid="707566499994398250">"Her <xliff:g id="COUNT">%d</xliff:g> günde bir"</item>
+        <item quantity="one">Her <xliff:g id="count">%d</xliff:g> günde bir</item>
+        <item quantity="other">Her <xliff:g id="count">%d</xliff:g> günde bir</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Her <xliff:g id="COUNT">%d</xliff:g> haftada bir"</item>
-        <item quantity="other" msgid="7094801039989237061">"Her <xliff:g id="COUNT">%d</xliff:g> haftada bir"</item>
+        <item quantity="one">Her <xliff:g id="count">%d</xliff:g> haftada bir</item>
+        <item quantity="other">Her <xliff:g id="count">%d</xliff:g> haftada bir</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Her <xliff:g id="COUNT">%d</xliff:g> ayda bir"</item>
-        <item quantity="other" msgid="5419723710346646523">"Her <xliff:g id="COUNT">%d</xliff:g> ayda bir"</item>
+        <item quantity="one">Her <xliff:g id="count">%d</xliff:g> ayda bir</item>
+        <item quantity="other">Her <xliff:g id="count">%d</xliff:g> ayda bir</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Her <xliff:g id="COUNT">%d</xliff:g> yılda bir"</item>
-        <item quantity="other" msgid="5678653649746562060">"Her <xliff:g id="COUNT">%d</xliff:g> yılda bir"</item>
+        <item quantity="one">Her <xliff:g id="count">%d</xliff:g> yılda bir</item>
+        <item quantity="other">Her <xliff:g id="count">%d</xliff:g> yılda bir</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"her ayın aynı gününde"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Sonsuza kadar"</string>
@@ -334,4 +330,10 @@
     <string name="changelog">Değişiklikler</string>
     <string name="license">Lisans</string>
     <string name="source_code">Kaynak kod</string>
+    <string name="preferences_calendar_info_category">Takvim bilgileri</string>
+    <string name="preferences_calendar_number_of_events">%1d etkinlik</string>
+    <string name="preferences_calendar_configure_account">%1$s içinde takvimi yapılandır</string>
+    <string name="preferences_calendar_account_local">Çevrim dışı takvim</string>
+    <string name="preferences_calendar_no_display_name">Adsız takvim</string>
+    <string name="foreground_notification_channel_description">Dahili uyarı eşzamanlaması için ön planda bildirim gerekli. Lütfen sessize alın</string>
 </resources>
