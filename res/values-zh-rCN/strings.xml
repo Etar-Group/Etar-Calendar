@@ -258,14 +258,14 @@
     <string name="preferences_light_theme">亮</string>
     <string name="preferences_dark_theme">暗</string>
     <string name="preferences_black_theme">黑</string>
-    <string name="preferences_color">基础色</string>
+    <string name="preferences_color">原色</string>
     <string name="preferences_color_pick">基础色</string>
     <string name="preferences_days_per_week_title">每周天数</string>
     <string name="preferences_days_per_week_dialog">每周天数</string>
     <string name="preferences_default_event_duration_title">默认事件持续时间</string>
     <string name="preferences_issues">报告问题</string>
     <string name="user_rejected_calendar_write_permission">Etar 需要日历读取和写入权限才能正常工作。请重试。</string>
-    <string name="calendar_permission_not_granted">抱歉此功能无法工作。Etar 需要日历读取和写入权限才能正常工作</string>
+    <string name="calendar_permission_not_granted">需要授予被拒绝的权限，在系统设置中允许这些权限以编辑事件</string>
     <string name="visibility_confidential">秘密</string>
     <string name="zero_minutes">0 分钟</string>
     <string name="fifteen_minutes">15 分钟</string>
@@ -297,7 +297,7 @@
     <string name="show_time_start_end_below">在事件下方显示开始和结束时间</string>
     <string name="maximum_number_of_lines">事件最大行数</string>
     <string name="foreground_notification_channel_name">警告同步</string>
-    <string name="foreground_notification_channel_description">需要前台通知进行内部警告同步.请静音</string>
+    <string name="foreground_notification_channel_description">需要前台通知进行内部警告同步.</string>
     <string name="cal_import_error_time_zone_msg">无法理解给定时区： %s</string>
     <string name="preferences_calendar_account">%1$s 账户</string>
     <string name="preferences_calendar_delete">删除日历</string>
@@ -337,4 +337,10 @@
     <string name="preferences_calendar_configure_account">配置 %1$s的日历</string>
     <string name="preferences_calendar_number_of_events">%1d 个事件</string>
     <string name="preferences_calendar_info_category">日历信息</string>
+    <string name="seven_days">7天</string>
+    <string name="six_days">6天</string>
+    <string name="five_days">5天</string>
+    <string name="four_days">4天</string>
+    <string name="three_days">3天</string>
+    <string name="two_days">2天</string>
 </resources>
