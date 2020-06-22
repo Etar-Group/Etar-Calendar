@@ -751,7 +751,7 @@
     <!-- Sharing calendar event -->
     <string name="cal_share_intent_title">Send event to:</string>
     <string name="cal_export_event_sdcard_title">Export to SD card</string>
-    <string name="cal_export_succ_msg">Event exported successfully: %1s</string>
+    <string name="cal_export_succ_msg">Event exported successfully: %1$s</string>
     <string name="cal_import_menu_title">Import event</string>
     <string name="cal_nothing_to_import">Nothing to import</string>
     <string name="cal_import_error_msg">Importing to calendar failed</string>
@@ -770,7 +770,7 @@
     <string name="preferences_calendar_account">%1$s account</string>
     <string name="preferences_calendar_account_local">Offline calendar</string>
     <string name="preferences_calendar_configure_account">Configure calendar in %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d events</string>
+    <string name="preferences_calendar_number_of_events">%1$d events</string>
     <string name="preferences_calendar_delete">Delete calendar</string>
     <string name="preferences_calendar_display_name">Change name</string>
     <string name="preferences_calendar_info_category">Calendar information</string>
