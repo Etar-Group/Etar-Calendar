@@ -122,9 +122,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">Napiši vlastiti …</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Podsjetnici"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"danas, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"jučer, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"sutra, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Danas, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Jučer, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Sutra, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Učitavanje …</string>
     <string name="show_older_events" msgid="5140647493681439926">"Dodirnite da biste vidjeli događaje prije <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Dodirnite da biste vidjeli događaje nakon <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -274,7 +274,7 @@
     <string name="preferences_default_event_duration_title">Standardno trajanje događaja</string>
     <string name="preferences_issues">Prijavi probleme</string>
     <string name="user_rejected_calendar_write_permission">Da bi ispravno radio, Etar mora imati dozvolu za čitanje i pisanje kalendara. Pokušaj ponovo.</string>
-    <string name="calendar_permission_not_granted">Ova funkcija nažalost ne radi. Da bi ispravno radio, Etar mora imati dozvolu za čitanje i pisanje kalendara</string>
+    <string name="calendar_permission_not_granted">Potrebne dozvole su odbijene. Za uređivanje događaja, aktiviraj dozvole u postavkama aplikacije</string>
     <string name="visibility_confidential">Povjerljivo</string>
     <string name="zero_minutes">0 minuta</string>
     <string name="fifteen_minutes">15 minuta</string>
@@ -313,7 +313,7 @@
     <string name="show_time_start_end_below">Vrijeme početka i završetka ispod događaja</string>
     <string name="maximum_number_of_lines">Maksimalan broj redaka u događaju</string>
     <string name="foreground_notification_channel_name">Sinkronizacija alarma</string>
-    <string name="foreground_notification_channel_description">Neophodna obavijest za unutarnju sinkronizaciju alarma. Isključi zvuk</string>
+    <string name="foreground_notification_channel_description">Neophodna obavijest za unutarnju sinkronizaciju alarma.</string>
     <string name="cal_import_error_time_zone_msg">Nerazumljiva vremenska zona: %s</string>
     <string name="preferences_calendar_account">%1$s račun</string>
     <string name="preferences_calendar_delete">Izbriši kalendar</string>
@@ -352,4 +352,10 @@
     <string name="preferences_calendar_configure_account">Konfiguriraj kalendar u %1$s</string>
     <string name="preferences_calendar_number_of_events">%1d događaja</string>
     <string name="preferences_calendar_info_category">Podaci kalendara</string>
+    <string name="two_days">2 dana</string>
+    <string name="seven_days">7 dana</string>
+    <string name="six_days">6 dana</string>
+    <string name="five_days">5 dana</string>
+    <string name="four_days">4 dana</string>
+    <string name="three_days">3 dana</string>
 </resources>
