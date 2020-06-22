@@ -80,7 +80,6 @@ public class AlertReceiver extends BroadcastReceiver {
     public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
     static final Object mStartingServiceSync = new Object();
     private static final String TAG = "AlertReceiver";
-    private static final String DELETE_ALL_ACTION = "com.android.calendar.DELETEALL";
     private static final String MAP_ACTION = "com.android.calendar.MAP";
     private static final String CALL_ACTION = "com.android.calendar.CALL";
     private static final String MAIL_ACTION = "com.android.calendar.MAIL";
@@ -159,24 +158,23 @@ public class AlertReceiver extends BroadcastReceiver {
     private static PendingIntent createClickEventIntent(Context context, long eventId,
             long startMillis, long endMillis, int notificationId) {
         return createDismissAlarmsIntent(context, eventId, startMillis, endMillis, notificationId,
-                "com.android.calendar.CLICK", true);
+                DismissAlarmsService.SHOW_ACTION);
     }
 
     private static PendingIntent createDeleteEventIntent(Context context, long eventId,
             long startMillis, long endMillis, int notificationId) {
         return createDismissAlarmsIntent(context, eventId, startMillis, endMillis, notificationId,
-                "com.android.calendar.DELETE", false);
+                DismissAlarmsService.DISMISS_ACTION);
     }
 
     private static PendingIntent createDismissAlarmsIntent(Context context, long eventId,
-            long startMillis, long endMillis, int notificationId, String action,
-            boolean showEvent) {
+            long startMillis, long endMillis, int notificationId, String action) {
         Intent intent = new Intent();
         intent.setClass(context, DismissAlarmsService.class);
+        intent.setAction(action);
         intent.putExtra(AlertUtils.EVENT_ID_KEY, eventId);
         intent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);
         intent.putExtra(AlertUtils.EVENT_END_KEY, endMillis);
-        intent.putExtra(AlertUtils.SHOW_EVENT_KEY, showEvent);
         intent.putExtra(AlertUtils.NOTIFICATION_ID_KEY, notificationId);
 
         // Must set a field that affects Intent.filterEquals so that the resulting
@@ -188,7 +186,6 @@ public class AlertReceiver extends BroadcastReceiver {
         ContentUris.appendId(builder, eventId);
         ContentUris.appendId(builder, startMillis);
         intent.setData(builder.build());
-        intent.setAction(action);
         return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
@@ -346,8 +343,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 priority, true);
 
         // Create a new-style expanded notification
-        Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
-                basicBuilder);
+        Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle();
         if (description != null) {
             description = mBlankLinePattern.matcher(description).replaceAll("");
             description = description.trim();
@@ -365,7 +361,8 @@ public class AlertReceiver extends BroadcastReceiver {
             text = stringBuilder;
         }
         expandedBuilder.bigText(text);
-        notification = expandedBuilder.build();
+        basicBuilder.setStyle(expandedBuilder);
+        notification = basicBuilder.build();
 
         return new NotificationWrapper(notification, notificationId, eventId, startMillis,
                 endMillis, doPopup);
@@ -397,7 +394,7 @@ public class AlertReceiver extends BroadcastReceiver {
         // expired events.
         Intent deleteIntent = new Intent();
         deleteIntent.setClass(context, DismissAlarmsService.class);
-        deleteIntent.setAction(DELETE_ALL_ACTION);
+        deleteIntent.setAction(DismissAlarmsService.DISMISS_ACTION);
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
         deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
@@ -423,8 +420,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         if (expandable) {
             // Multiple reminders.  Combine into an expanded digest notification.
-            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
-                    notificationBuilder);
+            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle();
             int i = 0;
             for (AlertService.NotificationInfo info : notificationInfos) {
                 if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
@@ -470,10 +466,10 @@ public class AlertReceiver extends BroadcastReceiver {
             // Remove the title in the expanded form (redundant with the listed items).
             expandedBuilder.setBigContentTitle("");
 
-            n = expandedBuilder.build();
-        } else {
-            n = notificationBuilder.build();
+            notificationBuilder.setStyle(expandedBuilder);
         }
+
+        n = notificationBuilder.build();
 
         NotificationWrapper nw = new NotificationWrapper(n);
         if (AlertService.DEBUG) {
@@ -641,23 +637,21 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     private static URLSpan[] getURLSpans(Context context, long eventId) {
         Cursor locationCursor = getLocationCursor(context, eventId);
+
+        // Default to empty list
+        URLSpan[] urlSpans = new URLSpan[0];
         if (locationCursor != null && locationCursor.moveToFirst()) {
             String location = locationCursor.getString(0); // Only one item in this cursor.
-            if (location == null || location.isEmpty()) {
-                // Return an empty list if we know there was nothing in the location field.
-                return new URLSpan[0];
+            if (location != null && !location.isEmpty()) {
+                Spannable text = Utils.extendedLinkify(location, true);
+                // The linkify method should have found at least one link, at the very least.
+                // If no smart links were found, it should have set the whole string as a geo link.
+                urlSpans = text.getSpans(0, text.length(), URLSpan.class);
             }
-
-            Spannable text = Utils.extendedLinkify(location, true);
-
-            // The linkify method should have found at least one link, at the very least.
-            // If no smart links were found, it should have set the whole string as a geo link.
-            URLSpan[] urlSpans = text.getSpans(0, text.length(), URLSpan.class);
-            return urlSpans;
+            locationCursor.close();
         }
 
-        // If no links were found or location was empty, return an empty list.
-        return new URLSpan[0];
+        return urlSpans;
     }
 
     /**
@@ -771,13 +765,7 @@ public class AlertReceiver extends BroadcastReceiver {
         if (AlertService.DEBUG) {
             Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
         }
-        if (DELETE_ALL_ACTION.equals(intent.getAction())) {
-
-            // The user has dismissed a digest notification.
-            // TODO Grab a wake lock here?
-            Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
-            context.startService(serviceIntent);
-        } else if (MAP_ACTION.equals(intent.getAction())) {
+        if (MAP_ACTION.equals(intent.getAction())) {
             // Try starting the map action.
             // If no map location is found (something changed since the notification was originally
             // fired), update the notifications to express this change.

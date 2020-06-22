@@ -92,6 +92,10 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     private static final String BUNDLE_MODEL = "bundle_model";
     private static final String BUNDLE_END_COUNT_HAS_FOCUS = "bundle_end_count_has_focus";
 
+    // Special cases in monthlyByNthDayOfWeek
+    private static final int FIFTH_WEEK_IN_A_MONTH = 5;
+    private static final int LAST_NTH_DAY_OF_WEEK = -1;
+
     private final int[] TIME_DAY_TO_CALENDAR_DAY = new int[] {
             Calendar.SUNDAY,
             Calendar.MONDAY,
@@ -149,6 +153,12 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     public RecurrencePickerDialog() {
     }
 
+    static public boolean isSupportedMonthlyByNthDayOfWeek(int num) {
+        // We only support monthlyByNthDayOfWeek when it is greater then 0 but less then 5.
+        // Or if -1 when it is the last monthly day of the week.
+        return (num > 0 && num <= FIFTH_WEEK_IN_A_MONTH) || num == LAST_NTH_DAY_OF_WEEK;
+    }
+
     static public boolean canHandleRecurrenceRule(EventRecurrence er) {
         switch (er.freq) {
             case EventRecurrence.DAILY:
@@ -174,7 +184,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
          */
         int numOfByDayNum = 0;
         for (int i = 0; i < er.bydayCount; i++) {
-            if (er.bydayNum[i] > 0) {
+            if (isSupportedMonthlyByNthDayOfWeek(er.bydayNum[i])) {
                 ++numOfByDayNum;
             }
         }
@@ -267,8 +277,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                 int dayOfWeek = EventRecurrence.day2TimeDay(er.byday[i]);
                 model.weeklyByDayOfWeek[dayOfWeek] = true;
 
-                if (model.freq == RecurrenceModel.FREQ_MONTHLY && er.bydayNum[i] > 0) {
-                    // LIMITATION: Can handle only (one) weekDayNum and only
+                if (model.freq == RecurrenceModel.FREQ_MONTHLY &&
+                        isSupportedMonthlyByNthDayOfWeek(er.bydayNum[i])) {
+                    // LIMITATION: Can handle only (one) weekDayNum in nth or last and only
                     // when
                     // monthly
                     model.monthlyByDayOfWeek = dayOfWeek;
@@ -362,7 +373,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                         er.bymonthdayCount = 1;
                     }
                 } else if (model.monthlyRepeat == RecurrenceModel.MONTHLY_BY_NTH_DAY_OF_WEEK) {
-                    if (model.monthlyByNthDayOfWeek <= 0) {
+                    if (!isSupportedMonthlyByNthDayOfWeek(model.monthlyByNthDayOfWeek)) {
                         throw new IllegalStateException("month repeat by nth week but n is "
                                 + model.monthlyByNthDayOfWeek);
                     }
@@ -739,13 +750,22 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                 if (mMonthRepeatByDayOfWeekStr == null) {
                     if (mModel.monthlyByNthDayOfWeek == 0) {
                         mModel.monthlyByNthDayOfWeek = (mTime.monthDay + 6) / 7;
+                        // Since not all months have 5 weeks, we convert 5th NthDayOfWeek to
+                        // -1 for last monthly day of the week
+                        if (mModel.monthlyByNthDayOfWeek >= FIFTH_WEEK_IN_A_MONTH) {
+                            mModel.monthlyByNthDayOfWeek = LAST_NTH_DAY_OF_WEEK;
+                        }
                         mModel.monthlyByDayOfWeek = mTime.weekDay;
                     }
 
                     String[] monthlyByNthDayOfWeekStrs =
                             mMonthRepeatByDayOfWeekStrs[mModel.monthlyByDayOfWeek];
+
+                    // TODO(psliwowski): Find a better way handle -1 indexes
+                    int msgIndex = mModel.monthlyByNthDayOfWeek < 0 ? FIFTH_WEEK_IN_A_MONTH :
+                            mModel.monthlyByNthDayOfWeek;
                     mMonthRepeatByDayOfWeekStr =
-                            monthlyByNthDayOfWeekStrs[mModel.monthlyByNthDayOfWeek - 1];
+                            monthlyByNthDayOfWeekStrs[msgIndex - 1];
                     mRepeatMonthlyByNthDayOfWeek.setText(mMonthRepeatByDayOfWeekStr);
                 }
                 break;

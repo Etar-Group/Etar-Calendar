@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
+import android.os.Looper;
 import android.provider.CalendarContract.CalendarCache;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -247,24 +248,28 @@ public class CalendarUtils {
         public String getTimeZone(Context context, Runnable callback) {
             synchronized (mTZCallbacks){
                 if (mFirstTZRequest) {
-                    mTZQueryInProgress = true;
-                    mFirstTZRequest = false;
-
                     SharedPreferences prefs = getSharedPreferences(context, mPrefsName);
                     mUseHomeTZ = prefs.getBoolean(KEY_HOME_TZ_ENABLED, false);
                     mHomeTZ = prefs.getString(KEY_HOME_TZ, Time.getCurrentTimezone());
 
-                    // When the async query returns it should synchronize on
-                    // mTZCallbacks, update mUseHomeTZ, mHomeTZ, and the
-                    // preferences, set mTZQueryInProgress to false, and call all
-                    // the runnables in mTZCallbacks.
-                    if (mHandler == null) {
-                        mHandler = new AsyncTZHandler(context.getContentResolver());
-                    }
-                    if (Build.VERSION.SDK_INT < 23 || ContextCompat.checkSelfPermission(context,
-                                Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
-                        mHandler.startQuery(0, context, CalendarCache.URI, CALENDAR_CACHE_POJECTION,
-                                null, null, null);
+                    // Only check content resolver if we have a looper to attach to use
+                    if (Looper.myLooper() != null) {
+                        mTZQueryInProgress = true;
+                        mFirstTZRequest = false;
+
+                        // When the async query returns it should synchronize on
+                        // mTZCallbacks, update mUseHomeTZ, mHomeTZ, and the
+                        // preferences, set mTZQueryInProgress to false, and call all
+                        // the runnables in mTZCallbacks.
+                        if (mHandler == null) {
+                            mHandler = new AsyncTZHandler(context.getContentResolver());
+                        }
+                        if (Build.VERSION.SDK_INT < 23 || ContextCompat.checkSelfPermission(context,
+                                Manifest.permission.READ_CALENDAR) ==
+                                PackageManager.PERMISSION_GRANTED) {
+                            mHandler.startQuery(0, context, CalendarCache.URI,
+                                    CALENDAR_CACHE_POJECTION, null, null, null);
+                        }
                     }
                 }
                 if (mTZQueryInProgress) {

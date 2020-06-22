@@ -231,6 +231,16 @@
         <receiver android:name="com.android.calendar.alerts.GlobalDismissManager"
                   android:exported="false" />
 
+        <receiver android:name="com.android.calendar.UpgradeReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
         <service android:name="com.android.calendar.alerts.AlertService" />
 
         <service android:name="com.android.calendar.alerts.DismissAlarmsService" />

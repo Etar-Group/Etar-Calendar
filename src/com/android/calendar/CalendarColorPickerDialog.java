@@ -84,6 +84,10 @@ public class CalendarColorPickerDialog extends ColorPickerDialog {
     }
 
     private void saveColorKeys(Bundle outState) {
+        // No color keys to save, so just return
+        if (mColors == null) {
+            return;
+        }
         int[] colorKeys = new int[mColors.length];
         for (int i = 0; i < mColors.length; i++) {
             colorKeys[i] = mColorKeyMap.get(mColors[i]);

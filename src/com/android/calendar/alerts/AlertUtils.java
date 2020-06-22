@@ -46,7 +46,6 @@ public class AlertUtils {
     // other notifications (the 'active' future/concurrent ones) use a unique ID.
     public static final int EXPIRED_GROUP_NOTIFICATION_ID = 0;
     public static final String EVENT_ID_KEY = "eventid";
-    public static final String SHOW_EVENT_KEY = "showevent";
     public static final String EVENT_START_KEY = "eventstart";
     public static final String EVENT_END_KEY = "eventend";
     public static final String NOTIFICATION_ID_KEY = "notificationid";

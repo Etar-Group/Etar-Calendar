@@ -294,7 +294,6 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"
-            android:layout_marginStart="-6dip"
             android:layout_weight="1"
             android:gravity="center_vertical|start"
             android:text="@string/edit_event_all_day_label" />

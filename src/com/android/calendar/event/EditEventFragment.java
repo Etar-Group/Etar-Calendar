@@ -131,7 +131,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private long mEnd;
     private long mCalendarId = -1;
     private EventColorPickerDialog mColorPickerDialog;
-    private AppCompatActivity mContext;
+    private AppCompatActivity mActivity;
     private boolean mSaveOnDetach = true;
     private boolean mIsReadOnly = false;
     private boolean mShowColorPalette = false;
@@ -257,7 +257,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
         if (mEnd < mBegin) {
             // use a default value instead
-            mEnd = mHelper.constructDefaultEndTime(mBegin, mContext);
+            mEnd = mHelper.constructDefaultEndTime(mBegin, mActivity);
         }
 
         // Kick off the query for the event
@@ -300,7 +300,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mContext = (AppCompatActivity) activity;
+        mActivity = (AppCompatActivity) activity;
 
         mHelper = new EditEventHelper(activity, null);
         mHandler = new QueryHandler(activity.getContentResolver());
@@ -308,40 +308,39 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         mInputMethodManager = (InputMethodManager)
                 activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        mUseCustomActionBar = !Utils.getConfigBool(mContext, R.bool.multiple_pane_config);
+        mUseCustomActionBar = !Utils.getConfigBool(mActivity, R.bool.multiple_pane_config);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        mContext.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+//        mActivity.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         View view;
         if (mIsReadOnly) {
             view = inflater.inflate(R.layout.edit_event_single_column, null);
         } else {
             view = inflater.inflate(R.layout.edit_event, null);
         }
-        mView = new EditEventView(mContext, view, mOnDone);
+        mView = new EditEventView(mActivity, view, mOnDone);
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(mContext,
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(mActivity,
                 Manifest.permission.READ_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED) {
             //If permission is not granted
-            Toast.makeText(mContext, R.string.calendar_permission_not_granted, Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, R.string.calendar_permission_not_granted, Toast.LENGTH_LONG).show();
         } else {
             startQuery();
         }
 
-
         if (mUseCustomActionBar) {
             View actionBarButtons = inflater.inflate(R.layout.edit_event_custom_actionbar,
-                    new LinearLayout(mContext), false);
+                    new LinearLayout(mActivity), false);
             View cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
             cancelActionView.setOnClickListener(mActionBarListener);
             View doneActionView = actionBarButtons.findViewById(R.id.action_done);
             doneActionView.setOnClickListener(mActionBarListener);
             ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-            mContext.getSupportActionBar().setCustomView(actionBarButtons, layout);
+            mActivity.getSupportActionBar().setCustomView(actionBarButtons, layout);
         }
 
         return view;
@@ -352,7 +351,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         super.onDestroyView();
 
         if (mUseCustomActionBar) {
-            mContext.getSupportActionBar().setCustomView(null);
+            mActivity.getSupportActionBar().setCustomView(null);
         }
     }
 
@@ -463,7 +462,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             service.startUpdate(0, null, uri, values, null, null, 0);
         }
 
-        Toast.makeText(mContext, R.string.saving_event, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, R.string.saving_event, Toast.LENGTH_SHORT).show();
     }
 
     protected void displayEditWhichDialog() {
@@ -489,13 +488,13 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 } else {
                     items = new CharSequence[3];
                 }
-                items[itemIndex++] = mContext.getText(R.string.modify_event);
+                items[itemIndex++] = mActivity.getText(R.string.modify_event);
             }
-            items[itemIndex++] = mContext.getText(R.string.modify_all);
+            items[itemIndex++] = mActivity.getText(R.string.modify_all);
 
             // Do one more check to make sure this remains at the end of the list
             if (!isFirstEventInSeries) {
-                items[itemIndex++] = mContext.getText(R.string.modify_all_following);
+                items[itemIndex++] = mActivity.getText(R.string.modify_all_following);
             }
 
             // Display the modification dialog.
@@ -503,7 +502,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mModifyDialog.dismiss();
                 mModifyDialog = null;
             }
-            mModifyDialog = new AlertDialog.Builder(mContext).setTitle(R.string.edit_event_label)
+            mModifyDialog = new AlertDialog.Builder(mActivity).setTitle(R.string.edit_event_label)
                     .setItems(items, new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -920,9 +919,9 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         stringResource = R.string.creating_event;
                     }
                 }
-                Toast.makeText(mContext, stringResource, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, stringResource, Toast.LENGTH_SHORT).show();
             } else if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null && isEmptyNewEvent()) {
-                Toast.makeText(mContext, R.string.empty_event, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, R.string.empty_event, Toast.LENGTH_SHORT).show();
             }
 
             if ((mCode & Utils.DONE_DELETE) != 0 && mOriginalModel != null
@@ -942,7 +941,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         break;
                 }
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(
-                        mContext, mContext, !mIsReadOnly /* exitWhenDone */);
+                        mActivity, mActivity, !mIsReadOnly /* exitWhenDone */);
                 deleteHelper.delete(begin, end, mOriginalModel, which);
             }
 
@@ -950,13 +949,13 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 // This will exit the edit event screen, should be called
                 // when we want to return to the main calendar views
                 if ((mCode & Utils.DONE_SAVE) != 0) {
-                    if (mContext != null) {
+                    if (mActivity != null) {
                         long start = mModel.mStart;
                         long end = mModel.mEnd;
                         if (mModel.mAllDay) {
                             // For allday events we want to go to the day in the
                             // user's current tz
-                            String tz = Utils.getTimeZone(mContext, null);
+                            String tz = Utils.getTimeZone(mActivity, null);
                             Time t = new Time(Time.TIMEZONE_UTC);
                             t.set(start);
                             t.timezone = tz;
@@ -967,7 +966,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             t.timezone = tz;
                             end = t.toMillis(true);
                         }
-                        CalendarController.getInstance(mContext).launchViewEvent(-1, start, end,
+                        CalendarController.getInstance(mActivity).launchViewEvent(-1, start, end,
                                 Attendees.ATTENDEE_STATUS_NONE);
                     }
                 }
@@ -979,7 +978,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
 
             // Hide a software keyboard so that user won't see it even after this Fragment's
             // disappearing.
-            final View focusedView = mContext.getCurrentFocus();
+            final View focusedView = mActivity.getCurrentFocus();
             if (focusedView != null) {
                 mInputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
             }
