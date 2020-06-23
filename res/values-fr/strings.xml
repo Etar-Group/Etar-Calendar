@@ -23,8 +23,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Demain"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">Aujourd’hui, <xliff:g id="TIME_INTERVAL">%s</xliff:g></string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Demain, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>,
-\n<xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Fréquence"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Sans titre)"</string>
     <plurals name="Nminutes">
@@ -119,9 +118,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">Réponse personnalisée…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisateur :"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Rappels"</string>
-    <string name="agenda_today" msgid="5965841338467422191">aujourd’hui, <xliff:g id="DATE">%1$s</xliff:g></string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"hier, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"demain, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Aujourd’hui, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Hier, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Demain, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Chargement…"</string>
     <string name="show_older_events" msgid="5140647493681439926">Appuyez pour afficher les évènements avant le <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
     <string name="show_newer_events" msgid="2604638815440163080">Appuyez pour afficher les évènements après le <xliff:g id="newest_search_range">%1$s</xliff:g></string>
@@ -136,8 +135,8 @@
     <string name="does_not_repeat" msgid="1877681921029738999">Évènement ponctuel</string>
     <string name="endByDate" msgid="7654221304929538201">; jusqu’au <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; une seule fois"</item>
-        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> fois"</item>
+        <item quantity="one">; une seule fois</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> fois</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one" msgid="5169052946627480942">"Quotidien"</item>
@@ -273,7 +272,7 @@
     <string name="preferences_default_event_duration_title">Durée d’événement par défaut</string>
     <string name="preferences_issues">Signaler des problèmes</string>
     <string name="user_rejected_calendar_write_permission">Etar requiert les droits de lecture et d’écriture de l’agenda pour fonctionner correctement. Veuillez réessayer.</string>
-    <string name="calendar_permission_not_granted">Désolé cette fonctionnalité ne peut pas fonctionner. Etar requiert les droits de lecture et d’écriture de l’agenda pour fonctionner correctement</string>
+    <string name="calendar_permission_not_granted">Les autorisations requises ont été refusées, veuillez les accorder dans les paramètres de l’application pour modifier les évènements</string>
     <string name="zero_minutes">0 minute</string>
     <string name="fifteen_minutes">15 minutes</string>
     <string name="thirty_minutes">30 minutes</string>
@@ -298,7 +297,7 @@
     <string name="show_time_start_end_below">Heure de début et de fin au-dessous de l’évènement</string>
     <string name="maximum_number_of_lines">Nombre maximum de lignes par évènement</string>
     <string name="foreground_notification_channel_name">Alerte de synchronisation</string>
-    <string name="foreground_notification_channel_description">La synchronisation d’alerte interne nécessite les notifications au premier plan. Veuillez mettre en sourdine</string>
+    <string name="foreground_notification_channel_description">La synchronisation d’alerte interne nécessite les notifications au premier plan.</string>
     <string name="cal_import_error_time_zone_msg">Impossible de comprendre le fuseau horaire donné : %s</string>
     <string name="preferences_calendar_account">Compte %1$s</string>
     <string name="preferences_calendar_delete">Suprrimer le calendrier</string>
@@ -337,4 +336,10 @@
     <string name="preferences_calendar_configure_account">Configurer le calendrier dans %1$s</string>
     <string name="preferences_calendar_number_of_events">%1d évènements</string>
     <string name="preferences_calendar_info_category">Détails du calendrier</string>
+    <string name="seven_days">7 jours</string>
+    <string name="six_days">6 jours</string>
+    <string name="five_days">5 jours</string>
+    <string name="four_days">4 jours</string>
+    <string name="three_days">3 jours</string>
+    <string name="two_days">2 jours</string>
 </resources>
