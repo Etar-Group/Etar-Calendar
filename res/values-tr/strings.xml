@@ -279,7 +279,7 @@
     <string name="error_generating_ics">Etkinlik paylaşılırken bir hata oluştu</string>
     <string name="cal_share_intent_title">Etkinliği şuna gönder:</string>
     <string name="cal_export_event_sdcard_title">SD karta aktar</string>
-    <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı: %1s</string>
+    <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı: %1$s</string>
     <string name="cal_import_menu_title">Etkinliği içeri aktar</string>
     <string name="cal_nothing_to_import">İçeri aktarılacak hiçbir şey yok</string>
     <string name="cal_import_error_msg">Takvime aktarma başarısız oldu</string>
@@ -331,7 +331,7 @@
     <string name="license">Lisans</string>
     <string name="source_code">Kaynak kod</string>
     <string name="preferences_calendar_info_category">Takvim bilgileri</string>
-    <string name="preferences_calendar_number_of_events">%1d etkinlik</string>
+    <string name="preferences_calendar_number_of_events">%1$d etkinlik</string>
     <string name="preferences_calendar_configure_account">%1$s içinde takvimi yapılandır</string>
     <string name="preferences_calendar_account_local">Çevrim dışı takvim</string>
     <string name="preferences_calendar_no_display_name">Adsız takvim</string>
