@@ -100,7 +100,7 @@
     <string name="email_guests_label" msgid="8772030932155305903">"E-Mail an Gäste senden"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"E-Mail an Organisator senden"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-Mail über"</string>
-    <string name="event_not_found" msgid="8356864185947582727">Ereignis nicht gefunden.</string>
+    <string name="event_not_found" msgid="8356864185947582727">Termin nicht gefunden.</string>
     <string name="map_label" msgid="8795383535586556038">"Karte"</string>
     <string name="call_label" msgid="2960328220008869083">"Anrufen"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Kurzantworten"</string>
@@ -213,7 +213,7 @@
         <item quantity="one">+1 Termin</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> Termine</item>
     </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Ausgewähltes Ereignis"</string>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Ausgewählter Termin</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Nach <xliff:g id="count">%d</xliff:g> Tag</item>
         <item quantity="other">Alle <xliff:g id="count">%d</xliff:g> Tage</item>
@@ -259,7 +259,7 @@
     <string name="cal_import_menu_title">Importiere Termin</string>
     <string name="cal_import_error_msg">Import zum Kalender ist fehlgeschlagen</string>
     <string name="cal_import_error_date_msg">Datum konnte nicht erkannt werden: %s</string>
-    <string name="cal_export_succ_msg">Termin erfolgreich exportiert: %1s</string>
+    <string name="cal_export_succ_msg">Termin erfolgreich exportiert: %1$s</string>
     <string name="cal_export_event_sdcard_title">Export auf SD-Karte</string>
     <string name="rsvp_accepted">Zugesagt.</string>
     <string name="rsvp_declined">Abgelehnt.</string>
@@ -303,10 +303,10 @@
     <string name="preferences_calendar_delete">Kalender löschen</string>
     <string name="preferences_calendar_display_name">Namen ändern</string>
     <string name="preferences_calendar_color">Farbe</string>
-    <string name="preferences_calendar_visible">Ereignisse anzeigen</string>
+    <string name="preferences_calendar_visible">Termine anzeigen</string>
     <string name="preferences_calendar_synchronize">Kalender synchronisieren</string>
     <string name="preferences_list_calendar_summary_sync_off">Nicht synchronisiert</string>
-    <string name="preferences_list_calendar_summary_invisible">Ereignisse werden nicht angezeigt</string>
+    <string name="preferences_list_calendar_summary_invisible">Termine werden nicht angezeigt</string>
     <string name="preferences_list_general">Allgemeine Einstellungen</string>
     <string name="preferences_list_add_offline">Offline-Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_title">Offline-Kalender hinzufügen</string>
@@ -334,7 +334,7 @@
     <string name="preferences_calendar_no_display_name">Unbenannter Kalender</string>
     <string name="preferences_calendar_account_local">Lokaler Kalender</string>
     <string name="preferences_calendar_configure_account">Kalender in %1$s konfigurieren</string>
-    <string name="preferences_calendar_number_of_events">%1d Ereignisse</string>
+    <string name="preferences_calendar_number_of_events">%1$d Termine</string>
     <string name="preferences_calendar_info_category">Kalender Information</string>
     <string name="seven_days">7 Tage</string>
     <string name="six_days">6 Tage</string>
