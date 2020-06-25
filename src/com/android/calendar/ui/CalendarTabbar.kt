@@ -52,7 +52,7 @@ class CalendarTabbar {
 
     private lateinit var mainListViewModel: MainListViewModel
 
-    fun dot(activity: AllInOneActivity){
+    fun create(activity: AllInOneActivity){
 
         val tl: TabLayout = activity.findViewById<TabLayout>(R.id.calendar_tabbar)
         tl.removeAllTabs()
@@ -62,58 +62,62 @@ class CalendarTabbar {
         val factory = MainListViewModelFactory(activity.application)
         mainListViewModel = ViewModelProvider(activity, factory).get(MainListViewModel::class.java)
 
+        val list = ArrayList<Calendar>();
+
         // Add an observer on the LiveData returned by getCalendarsOrderedByAccount.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
         mainListViewModel.getCalendarsOrderedByAccount().observe(activity, Observer<List<Calendar>> { calendars ->
-            tl.visibility = View.VISIBLE
+            //tl.removeAllTabs()
+            list.addAll(calendars)
+            addAllCalendars(list, tl, activity)
+            mainListViewModel.getCalendarsOrderedByAccount().removeObservers(activity)
+        })
+    }
 
-            for(calendar in calendars){
-                val firstTab: TabLayout.Tab = tl.newTab()
+    fun addAllCalendars(calendars: ArrayList<Calendar>, tl: TabLayout, activity: AllInOneActivity){
+        for(calendar in calendars){
+            val firstTab: TabLayout.Tab = tl.newTab()
 
-                val wordtoSpan = SpannableString(calendar.displayName)
+            val wordtoSpan = SpannableString(calendar.displayName)
 
-                if(calendar.visible){
-                    wordtoSpan.setSpan(ForegroundColorSpan(calendar.color), 0, wordtoSpan.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }else{
-                    wordtoSpan.setSpan(ForegroundColorSpan(DynamicTheme.getColor(activity, "month_today_number")), 0, wordtoSpan.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-
-
-                firstTab.text =wordtoSpan
-                firstTab.tag=calendar.id
-                //firstTab.setCustomView(R.layout.calendar_bar_tab);
-                tl.addTab(firstTab) // add  the tab to the TabLayout
-                Log.e("test", calendar.name)
+            if(calendar.visible){
+                wordtoSpan.setSpan(ForegroundColorSpan(calendar.color), 0, wordtoSpan.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }else{
+                wordtoSpan.setSpan(ForegroundColorSpan(DynamicTheme.getColor(activity, "month_today_number")), 0, wordtoSpan.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
 
-            tl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabReselected(p0: TabLayout.Tab?) {
-                    p0?.let { onTabSelect(it, activity) }
-                }
-                override fun onTabUnselected(p0: TabLayout.Tab?) {}
 
-                override fun onTabSelected(p0: TabLayout.Tab?) {
-                    p0?.let { onTabSelect(it, activity) }
-                }
-            })
+            firstTab.text =wordtoSpan
+            firstTab.tag=calendar.id
+            //firstTab.setCustomView(R.layout.calendar_bar_tab);
+            tl.addTab(firstTab) // add  the tab to the TabLayout
+            //Log.e("test", calendar.name)
+        }
+        registerTabListener(tl, activity)
+    }
 
-            mainListViewModel.getCalendarsOrderedByAccount().removeObservers(activity)
+    fun registerTabListener(tl: TabLayout, activity: AllInOneActivity){
+        tl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+                p0?.let { onTabSelect(it, activity) }
+            }
+            override fun onTabUnselected(p0: TabLayout.Tab?) {}
 
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                p0?.let { onTabSelect(it, activity) }
+            }
         })
-
-        //tl.setOnTabSelectedListener()
-
 
     }
 
     private fun onTabSelect(p0: TabLayout.Tab, activity: AllInOneActivity){
-        Log.e("test", "click: ${p0.text}")
+        //Log.e("test", "click: ${p0.text}")
         val cal = CalendarDataStore(activity!!, p0.tag as Long)
         val visible = cal.getBoolean(CalendarPreferences.VISIBLE_KEY, true);
         val color = cal.getInt(CalendarPreferences.COLOR_KEY, -1);
         cal.putBoolean(CalendarPreferences.VISIBLE_KEY, !visible);
-        Log.e("test", "click: $visible $color")
+        //Log.e("test", "click: $visible $color")
 
         val wordtoSpan = SpannableString(p0.text)
         if(!visible){

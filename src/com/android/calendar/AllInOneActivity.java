@@ -379,10 +379,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         mContentResolver = getContentResolver();
 
-        TabLayout tl = findViewById(R.id.calendar_tabbar);
-        tl.setVisibility(View.GONE);
-        CalendarTabbar ctb = new CalendarTabbar();
-        ctb.dot(this);
+        new CalendarTabbar().create(this);
     }
 
     private void checkAppPermissions() {
@@ -616,6 +613,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         invalidateOptionsMenu();
 
         mCalIntentReceiver = Utils.setTimeChangesReceiver(this, mTimeChangesUpdater);
+        new CalendarTabbar().create(this);
     }
 
 
