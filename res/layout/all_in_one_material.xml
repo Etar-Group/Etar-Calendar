@@ -16,7 +16,7 @@
         <include
             layout="@layout/all_in_one"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"></include>
 
         <com.google.android.material.appbar.AppBarLayout
@@ -34,12 +34,24 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_action_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="133dp"
+            android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_add_event"
+            android:translationY="-40dp"
             app:borderWidth="0dp"
-            android:layout_gravity="bottom|end"
             app:layout_anchorGravity="bottom|right|end" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/calendar_tabbar"
+            style="@style/Widget.CalendarAppTheme.ActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:tabGravity="fill"
+            app:tabIndicatorGravity="bottom"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -49,4 +61,5 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/calendar_view" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

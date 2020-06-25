@@ -45,10 +45,12 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Events;
 
+import com.android.calendar.persistence.Calendar;
 import com.android.calendar.settings.SettingsActivity;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivityKt;
 import com.android.calendar.settings.ViewDetailsPreferences;
+import com.android.calendar.ui.CalendarTabbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.app.ActivityCompat;
@@ -82,6 +84,7 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.alerts.AlertService;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.File;
 import java.util.List;
@@ -375,6 +378,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         mContentResolver = getContentResolver();
+
+        TabLayout tl = findViewById(R.id.calendar_tabbar);
+        tl.setVisibility(View.GONE);
+        CalendarTabbar ctb = new CalendarTabbar();
+        ctb.dot(this);
     }
 
     private void checkAppPermissions() {
