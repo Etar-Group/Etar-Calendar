@@ -279,7 +279,7 @@
     <string name="error_generating_ics">分享事件时遇到问题</string>
     <string name="cal_share_intent_title">发送事件到：</string>
     <string name="cal_export_event_sdcard_title">导出至SD卡</string>
-    <string name="cal_export_succ_msg">成功导出事件 :%1s</string>
+    <string name="cal_export_succ_msg">成功导出事件: %1$s</string>
     <string name="cal_import_menu_title">导入事件</string>
     <string name="cal_nothing_to_import">无可导入事件</string>
     <string name="cal_import_error_msg">导入日历失败</string>
@@ -335,7 +335,7 @@
     <string name="preferences_calendar_no_display_name">未命名日历</string>
     <string name="preferences_calendar_account_local">离线日历</string>
     <string name="preferences_calendar_configure_account">配置 %1$s的日历</string>
-    <string name="preferences_calendar_number_of_events">%1d 个事件</string>
+    <string name="preferences_calendar_number_of_events">%1$d 事件</string>
     <string name="preferences_calendar_info_category">日历信息</string>
     <string name="seven_days">7天</string>
     <string name="six_days">6天</string>
