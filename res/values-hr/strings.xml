@@ -295,7 +295,7 @@
     <string name="error_generating_ics">Došlo je do problema tijekom dijeljenja događaja</string>
     <string name="cal_share_intent_title">Pošalji događaj za:</string>
     <string name="cal_export_event_sdcard_title">Prebaci na SD karticu</string>
-    <string name="cal_export_succ_msg">Događaj je uspješno prebačen: %1s</string>
+    <string name="cal_export_succ_msg">Događaj je uspješno izvezen: %1$s</string>
     <string name="cal_import_menu_title">Uvezi događaj</string>
     <string name="cal_nothing_to_import">Nema se što uvesti</string>
     <string name="cal_import_error_msg">Uvoz u kalendar nije uspio</string>
@@ -350,7 +350,7 @@
     <string name="preferences_calendar_no_display_name">Neimenovani kalendar</string>
     <string name="preferences_calendar_account_local">Lokalni kalendar</string>
     <string name="preferences_calendar_configure_account">Konfiguriraj kalendar u %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d događaja</string>
+    <string name="preferences_calendar_number_of_events">%1$d događaja</string>
     <string name="preferences_calendar_info_category">Podaci kalendara</string>
     <string name="two_days">2 dana</string>
     <string name="seven_days">7 dana</string>
