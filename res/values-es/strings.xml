@@ -23,9 +23,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Mañana"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Hoy a las <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Mañana a las <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetición"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Sin título)"</string>
     <plurals name="Nminutes">
@@ -33,8 +31,8 @@
         <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutos"</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 min.</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins.</item>
+        <item quantity="one">1 min</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one" msgid="4793697728599296830">"1 hora"</item>
@@ -45,8 +43,8 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> días"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Etiqueta para mostrar la semana del año [CHAR LIMIT=16]</item>
-        <item quantity="other">Semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">Semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Semanas <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar día"</string>
@@ -208,8 +206,8 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"Añadir evento"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Evento <xliff:g id="item_index">%1$s</xliff:g> de <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one">1 evento.</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> eventos.</item>
+        <item quantity="one">1 evento</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> eventos</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 evento</item>
@@ -246,7 +244,7 @@
     <string name="error_generating_ics">Problemas encontrados al compartir evento</string>
     <string name="user_rejected_calendar_write_permission">Etar requiere permisos para leer y escribir en el calendario para que funcione adecuadamente. Por favor intenté de nuevo.</string>
     <string name="cal_export_event_sdcard_title">Exporta a tarjeta SD</string>
-    <string name="cal_export_succ_msg">Evento exportado satisfactoriamente: %1s</string>
+    <string name="cal_export_succ_msg">Evento exportado satisfactoriamente: %1$s</string>
     <string name="cal_import_error_msg">Importando a calendario falló</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada para importar</string>
@@ -335,9 +333,9 @@
     <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Porciones © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_calendar_no_display_name">Calendario sin nombre</string>
     <string name="preferences_calendar_configure_account">Configurar calendario en %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d eventos</string>
+    <string name="preferences_calendar_number_of_events">%1$d eventos</string>
     <string name="preferences_calendar_info_category">Información de calendario</string>
-    <string name="preferences_calendar_account_local">Calendario desconectado</string>
+    <string name="preferences_calendar_account_local">Calendario local</string>
     <string name="seven_days">7 días</string>
     <string name="six_days">6 días</string>
     <string name="five_days">5 días</string>
