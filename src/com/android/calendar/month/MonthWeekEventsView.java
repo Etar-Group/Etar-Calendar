@@ -46,6 +46,7 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -318,7 +319,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthNumHeight = (int) (mMonthNumPaint.descent() - mMonthNumPaint.ascent() + 0.5f);
 
         mEventPaint = new TextPaint();
-        mEventPaint.setFakeBoldText(true);
+        mEventPaint.setFakeBoldText(false);
         mEventPaint.setAntiAlias(true);
         mEventPaint.setTextSize(mTextSizeEventTitle);
         mEventPaint.setColor(mMonthEventColor);
@@ -328,7 +329,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mFramedEventPaint = new TextPaint(mSolidBackgroundEventPaint);
 
         mDeclinedEventPaint = new TextPaint();
-        mDeclinedEventPaint.setFakeBoldText(true);
+        mDeclinedEventPaint.setFakeBoldText(false);
         mDeclinedEventPaint.setAntiAlias(true);
         mDeclinedEventPaint.setTextSize(mTextSizeEventTitle);
         mDeclinedEventPaint.setColor(mMonthDeclinedEventColor);
@@ -582,6 +583,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
     }
 
+    /**
+     * This draws the weeknumber or the daynumber, depending on the view.
+     * @param canvas The canvas to draw on
+     */
     @Override
     protected void drawWeekNums(Canvas canvas) {
         int y;
@@ -607,6 +612,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
         boolean isFocusMonth = mFocusDay[i];
         boolean isBold = false;
         mMonthNumPaint.setColor(isFocusMonth ? mMonthNumColor : mMonthNumOtherColor);
+
+        float twelveDp = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 16,
+                getResources().getDisplayMetrics() );
+        mMonthNumPaint.setTextSize(twelveDp);
 
         // Get the julian monday used to show the lunar info.
         int julianMonday = Utils.getJulianMondayFromWeeksSinceEpoch(mWeek);
