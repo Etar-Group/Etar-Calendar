@@ -263,7 +263,7 @@
     <string name="error_generating_ics">Terjadi kesalahan saat berbagi acara</string>
     <string name="cal_share_intent_title">Kirim acara ke:</string>
     <string name="cal_export_event_sdcard_title">Ekspor ke kartu SD</string>
-    <string name="cal_export_succ_msg">Acara berhasil diekspor: %1s</string>
+    <string name="cal_export_succ_msg">Acara berhasil diekspor: %1$s</string>
     <string name="cal_import_menu_title">Impor acara</string>
     <string name="cal_nothing_to_import">Tidak ada yang diimpor</string>
     <string name="cal_import_error_msg">Gagal mengimpor ke kalender</string>
@@ -314,7 +314,7 @@
     <string name="source_code">Sumber</string>
     <string name="preferences_calendar_no_display_name">Kalender tidak bernama</string>
     <string name="preferences_calendar_account_local">Kalender luring</string>
-    <string name="preferences_calendar_number_of_events">%1d acara</string>
+    <string name="preferences_calendar_number_of_events">%1$d acara</string>
     <string name="preferences_calendar_info_category">Informasi kalender</string>
     <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Sebagian © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_calendar_configure_account">Konfigurasi kalender dalam %1$s</string>
