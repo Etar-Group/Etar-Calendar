@@ -295,7 +295,7 @@
     <string name="error_generating_ics">Возникли проблемы при совместном использовании события</string>
     <string name="cal_share_intent_title">Отправить событие:</string>
     <string name="cal_export_event_sdcard_title">Экспорт на SD-карту</string>
-    <string name="cal_export_succ_msg">Событие успешно экспортировано: %1s</string>
+    <string name="cal_export_succ_msg">Событие успешно экспортировано: %1$s</string>
     <string name="cal_import_menu_title">Импортировать событие</string>
     <string name="cal_nothing_to_import">Нечего импортировать</string>
     <string name="cal_import_error_msg">Ошибка при импортировании в календарь</string>
@@ -350,7 +350,7 @@
     <string name="preferences_calendar_no_display_name">Календарь без названия</string>
     <string name="preferences_calendar_account_local">Автономный календарь</string>
     <string name="preferences_calendar_configure_account">Настройка календаря в %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d событий</string>
+    <string name="preferences_calendar_number_of_events">%1$d событий</string>
     <string name="preferences_calendar_info_category">О календаре</string>
     <string name="seven_days">7 дней</string>
     <string name="six_days">6 дней</string>
