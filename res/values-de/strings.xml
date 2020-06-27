@@ -342,4 +342,5 @@
     <string name="four_days">4 Tage</string>
     <string name="three_days">3 Tage</string>
     <string name="two_days">2 Tage</string>
+    <string name="preferences_system_theme">Systemstandard</string>
 </resources>
