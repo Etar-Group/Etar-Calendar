@@ -100,7 +100,7 @@
     <string name="email_guests_label" msgid="8772030932155305903">"E-Mail an Gäste senden"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"E-Mail an Organisator senden"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-Mail über"</string>
-    <string name="event_not_found" msgid="8356864185947582727">Ereignis nicht gefunden.</string>
+    <string name="event_not_found" msgid="8356864185947582727">Termin nicht gefunden.</string>
     <string name="map_label" msgid="8795383535586556038">"Karte"</string>
     <string name="call_label" msgid="2960328220008869083">"Anrufen"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Kurzantworten"</string>
@@ -117,9 +117,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Eigene Antwort schreiben…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Erinnerungen"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"Heute, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"Gestern, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"Morgen, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Heute, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Gestern, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Morgen, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Wird geladen…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Antippen für Termine vor dem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Antippen für Termine nach dem <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -213,7 +213,7 @@
         <item quantity="one">+1 Termin</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> Termine</item>
     </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Ausgewähltes Ereignis"</string>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Ausgewählter Termin</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Nach <xliff:g id="count">%d</xliff:g> Tag</item>
         <item quantity="other">Alle <xliff:g id="count">%d</xliff:g> Tage</item>
@@ -249,17 +249,17 @@
     <string name="default_start_last">Letzte aktive Ansicht</string>
     <string name="default_start_title">Standardansicht</string>
     <string name="error_generating_ics">Fehler. Der Termin konnte nicht geteilt werden</string>
-    <string name="calendar_permission_not_granted">Diese Funktion steht nur zur Verfügnung wenn Etar Lese- und Schreibrechte für den Kalender gewährt werden</string>
+    <string name="calendar_permission_not_granted">Erforderliche Berechtigungen wurden verweigert, aktivieren Sie sie über Einstellungen der App, um Termine zu bearbeiten</string>
     <string name="no_map">Keine Karten gefunden</string>
     <string name="share_label">Teilen</string>
-    <string name="user_rejected_calendar_write_permission">Etar benötigt Lese- und Schreibrechte für den Kalender um richtig zu funktionieren. Bitte versucht es erneut.</string>
+    <string name="user_rejected_calendar_write_permission">Etar benötigt Lese- und Schreibrechte für den Kalender, um richtig zu funktionieren. Bitte versuchen Sie es erneut.</string>
     <string name="cal_share_intent_title">Sende Termin an:</string>
     <string name="cal_pick_ics">Wähle die zu importierende Datei</string>
     <string name="cal_nothing_to_import">Nichts zu importieren</string>
     <string name="cal_import_menu_title">Importiere Termin</string>
     <string name="cal_import_error_msg">Import zum Kalender ist fehlgeschlagen</string>
     <string name="cal_import_error_date_msg">Datum konnte nicht erkannt werden: %s</string>
-    <string name="cal_export_succ_msg">Termin erfolgreich exportiert: %1s</string>
+    <string name="cal_export_succ_msg">Termin erfolgreich exportiert: %1$s</string>
     <string name="cal_export_event_sdcard_title">Export auf SD-Karte</string>
     <string name="rsvp_accepted">Zugesagt.</string>
     <string name="rsvp_declined">Abgelehnt.</string>
@@ -296,17 +296,17 @@
     <string name="show_time_start_end">Start- und Endzeit</string>
     <string name="show_time_start_end_below">Start- und Endzeit unterhalb des Termins</string>
     <string name="maximum_number_of_lines">Maximale Zeilenanzahl pro Kalendereintrag</string>
-    <string name="foreground_notification_channel_name">Alarm Synchronisation</string>
-    <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich. Bitte stumm schalten</string>
+    <string name="foreground_notification_channel_name">Alarmsynchronisation</string>
+    <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich.</string>
     <string name="cal_import_error_time_zone_msg">Zeitzone konnte nicht erkannt werden: %s</string>
     <string name="preferences_calendar_account">%1$s Konto</string>
     <string name="preferences_calendar_delete">Kalender löschen</string>
     <string name="preferences_calendar_display_name">Namen ändern</string>
     <string name="preferences_calendar_color">Farbe</string>
-    <string name="preferences_calendar_visible">Ereignisse anzeigen</string>
+    <string name="preferences_calendar_visible">Termine anzeigen</string>
     <string name="preferences_calendar_synchronize">Kalender synchronisieren</string>
     <string name="preferences_list_calendar_summary_sync_off">Nicht synchronisiert</string>
-    <string name="preferences_list_calendar_summary_invisible">Ereignisse werden nicht angezeigt</string>
+    <string name="preferences_list_calendar_summary_invisible">Termine werden nicht angezeigt</string>
     <string name="preferences_list_general">Allgemeine Einstellungen</string>
     <string name="preferences_list_add_offline">Offline-Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_title">Offline-Kalender hinzufügen</string>
@@ -334,6 +334,13 @@
     <string name="preferences_calendar_no_display_name">Unbenannter Kalender</string>
     <string name="preferences_calendar_account_local">Lokaler Kalender</string>
     <string name="preferences_calendar_configure_account">Kalender in %1$s konfigurieren</string>
-    <string name="preferences_calendar_number_of_events">%1d Ereignisse</string>
+    <string name="preferences_calendar_number_of_events">%1$d Termine</string>
     <string name="preferences_calendar_info_category">Kalender Information</string>
+    <string name="seven_days">7 Tage</string>
+    <string name="six_days">6 Tage</string>
+    <string name="five_days">5 Tage</string>
+    <string name="four_days">4 Tage</string>
+    <string name="three_days">3 Tage</string>
+    <string name="two_days">2 Tage</string>
+    <string name="preferences_system_theme">Systemstandard</string>
 </resources>

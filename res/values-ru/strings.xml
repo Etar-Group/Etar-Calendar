@@ -122,9 +122,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Ваш ответ…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напоминания"</string>
-    <string name="agenda_today" msgid="5965841338467422191">сегодня, <xliff:g id="date">%1$s</xliff:g></string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">вчера, <xliff:g id="date">%1$s</xliff:g></string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">завтра, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_today" msgid="5965841338467422191">Сегодня, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Вчера, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Завтра, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Загрузка…"</string>
     <string name="show_older_events" msgid="5140647493681439926">Нажмите, чтобы увидеть события до <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
     <string name="show_newer_events" msgid="2604638815440163080">Нажмите, чтобы увидеть события после <xliff:g id="newest_search_range">%1$s</xliff:g></string>
@@ -280,7 +280,7 @@
     <string name="preferences_default_event_duration_title">Продолжительность события по умолчанию</string>
     <string name="preferences_issues">Сообщить о проблеме</string>
     <string name="user_rejected_calendar_write_permission">Для правильной работы Etar требуются разрешения на чтение и запись календаря. Пожалуйста, попробуйте ещё раз.</string>
-    <string name="calendar_permission_not_granted">К сожалению, эта функция не может работать. Etar требуются разрешения на чтение и запись календаря для правильной работы.</string>
+    <string name="calendar_permission_not_granted">Необходимые разрешения были отклонены, включите их из настроек приложения для редактирования событий.</string>
     <string name="visibility_confidential">Конфиденциальное</string>
     <string name="zero_minutes">0 минут</string>
     <string name="fifteen_minutes">15 минут</string>
@@ -295,7 +295,7 @@
     <string name="error_generating_ics">Возникли проблемы при совместном использовании события</string>
     <string name="cal_share_intent_title">Отправить событие:</string>
     <string name="cal_export_event_sdcard_title">Экспорт на SD-карту</string>
-    <string name="cal_export_succ_msg">Событие успешно экспортировано: %1s</string>
+    <string name="cal_export_succ_msg">Событие успешно экспортировано: %1$s</string>
     <string name="cal_import_menu_title">Импортировать событие</string>
     <string name="cal_nothing_to_import">Нечего импортировать</string>
     <string name="cal_import_error_msg">Ошибка при импортировании в календарь</string>
@@ -313,7 +313,7 @@
     <string name="show_time_start_end_below">Время начала и окончания под событием</string>
     <string name="maximum_number_of_lines">Максимум строк для события</string>
     <string name="foreground_notification_channel_name">Синхронизация оповещений</string>
-    <string name="foreground_notification_channel_description">Уведомление требуется для внутренней синхронизации оповещений. Пожалуйста, отключите у него звук.</string>
+    <string name="foreground_notification_channel_description">Уведомление требуется для внутренней синхронизации оповещений.</string>
     <string name="cal_import_error_time_zone_msg">Невозможно определить предлагаемый часовой пояс: %s</string>
     <string name="preferences_calendar_account">Аккаунт %1$s</string>
     <string name="preferences_calendar_delete">Удалить календарь</string>
@@ -350,6 +350,13 @@
     <string name="preferences_calendar_no_display_name">Календарь без названия</string>
     <string name="preferences_calendar_account_local">Автономный календарь</string>
     <string name="preferences_calendar_configure_account">Настройка календаря в %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d событий</string>
+    <string name="preferences_calendar_number_of_events">%1$d событий</string>
     <string name="preferences_calendar_info_category">О календаре</string>
+    <string name="seven_days">7 дней</string>
+    <string name="six_days">6 дней</string>
+    <string name="five_days">5 дней</string>
+    <string name="four_days">4 дня</string>
+    <string name="three_days">3 дня</string>
+    <string name="two_days">2 дня</string>
+    <string name="preferences_system_theme">Системная</string>
 </resources>
