@@ -1,0 +1,7 @@
+- Kleinere Schriftgröße in der Wochenansicht
+- Anzeige kürzlicher Suchbegriffe
+- Fehlerkorrektur Export zur SD-Karte
+- Abgesagte Einträge werden durchgestrichen dargestellt
+- Benutze Systemfarben für die Darstellung (ab Android 10)
+- Neue Übersetzungen
+- Fehlerbehebungen
