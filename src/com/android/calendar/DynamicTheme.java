@@ -133,8 +133,8 @@ public class DynamicTheme {
         return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
     }
 
-    private static String getSuffix(String theme, Context context) {
-
+    private static String getSuffix(Context context) {
+        String theme = getTheme(context);
         switch (theme) {
             case SYSTEM:
                 if (isSystemInDarkTheme((Activity) context)) {
@@ -190,7 +190,7 @@ public class DynamicTheme {
     }
 
     public static int getColor(Context context, String id) {
-        String suffix = getSuffix(getTheme(context), context);
+        String suffix = getSuffix(context);
         Resources res = context.getResources();
         // When aapt is called with --rename-manifest-package, the package name is changed for the
         // application, but not for the resources. This is to find the package name of a known
@@ -200,7 +200,7 @@ public class DynamicTheme {
     }
 
     public static int getDrawableId(Context context, String id) {
-        String suffix = getSuffix(getTheme(context), context);
+        String suffix = getSuffix(context);
         Resources res = context.getResources();
         // When aapt is called with --rename-manifest-package, the package name is changed for the
         // application, but not for the resources. This is to find the package name of a known
