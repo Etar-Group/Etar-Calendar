@@ -211,7 +211,7 @@ public class DynamicTheme {
 
     public static int getDialogStyle(Context context) {
         String theme = getTheme(context);
-        switch (getTheme(context)) {
+        switch (theme) {
             case SYSTEM:
                 if (isSystemInDarkTheme((Activity) context)) {
                     return android.R.style.Theme_DeviceDefault_Dialog;
