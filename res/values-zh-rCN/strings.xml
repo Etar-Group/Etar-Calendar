@@ -343,4 +343,5 @@
     <string name="four_days">4天</string>
     <string name="three_days">3天</string>
     <string name="two_days">2天</string>
+    <string name="preferences_system_theme">系统默认</string>
 </resources>
