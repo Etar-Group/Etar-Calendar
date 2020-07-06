@@ -282,7 +282,7 @@
     <string name="error_generating_ics">Problèmes rencontrés lors du partage de l’évènement</string>
     <string name="cal_share_intent_title">Envoyer l’évènement à :</string>
     <string name="cal_export_event_sdcard_title">Exporter sur la carte SD</string>
-    <string name="cal_export_succ_msg">Évènement exporté avec succès : %1s</string>
+    <string name="cal_export_succ_msg">Évènement exporté avec succès : %1$s</string>
     <string name="cal_import_menu_title">Importer évènement</string>
     <string name="cal_nothing_to_import">Rien à importer</string>
     <string name="cal_import_error_msg">L’importation dans l’agenda a échoué</string>
@@ -334,7 +334,7 @@
     <string name="preferences_calendar_no_display_name">Calendrier anonyme</string>
     <string name="preferences_calendar_account_local">Calendrier hors-ligne</string>
     <string name="preferences_calendar_configure_account">Configurer le calendrier dans %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d évènements</string>
+    <string name="preferences_calendar_number_of_events">%1$d évènements</string>
     <string name="preferences_calendar_info_category">Détails du calendrier</string>
     <string name="seven_days">7 jours</string>
     <string name="six_days">6 jours</string>
@@ -342,4 +342,5 @@
     <string name="four_days">4 jours</string>
     <string name="three_days">3 jours</string>
     <string name="two_days">2 jours</string>
+    <string name="preferences_system_theme">Système</string>
 </resources>
