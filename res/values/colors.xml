@@ -117,6 +117,8 @@
     <color name="agenda_item_declined_color">#66333333</color>
     <!-- Text color of non-declined events in agenda view -->
     <color name="agenda_item_standard_color">#FF333333</color>
+    <!-- Text color of past events in agenda view -->
+    <color name="agenda_item_past_color">#989898</color>
     <!-- Background Color of present/future events in agenda view  -->
     <color name="agenda_day_bar_background_color">#FFFFFFFF</color>
     <!-- Background Color of past events in agenda view  -->

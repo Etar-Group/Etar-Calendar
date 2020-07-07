@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -97,7 +98,7 @@ public class ColorChipView extends View {
             case DRAW_FADED:
             case DRAW_FULL:
                 mPaint.setStrokeWidth(mDefStrokeWidth);
-                c.drawRect(0, 0, right, bottom, mPaint);
+                c.drawRoundRect(new RectF(0, 0, right, bottom), 25, 25, mPaint);
                 break;
             case DRAW_BORDER:
                 if (mBorderWidth <= 0) {
