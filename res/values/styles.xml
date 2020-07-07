@@ -171,12 +171,11 @@
     </style>
 
 
-    <style name="TextAppearance.EditEvent_Spinner" parent="android:style/Widget.Holo.Light.Spinner">
+    <style name="TextAppearance.EditEvent_Spinner" parent="@style/Widget.AppCompat.Spinner">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FF333333</item>
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:popupBackground">?attr/spinner_privacy_presence_bgcolor</item>
     </style>
 
     <style name="TextAppearance.EditEvent_SpinnerButton" parent="TextAppearance.EditEvent_Spinner">
@@ -222,12 +221,12 @@
 
 
     <style name="EditEventSeparator">
-        <item name="android:layout_height">15dip</item>
+        <item name="android:layout_height">2dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginTop">10dip</item>
-        <item name="android:layout_marginBottom">5dip</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
         <item name="android:background">@color/edit_event_separator</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">visible</item>
     </style>
 
     <style name="EditEventCustomActionButtonText">

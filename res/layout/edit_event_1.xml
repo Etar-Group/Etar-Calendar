@@ -118,6 +118,9 @@
 			android:singleLine="true" />
 	</com.google.android.material.textfield.TextInputLayout>
 
+
+    <View style="@style/EditEventSeparator"/>
+
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->
     <LinearLayout
         android:id="@+id/when_row"
@@ -150,6 +153,7 @@
         android:layout_height="wrap_content"
         android:minHeight="64dip"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/from_label"
             style="@style/TextAppearance.EditEvent_LabelSmall"
@@ -163,7 +167,9 @@
             android:layout_marginTop="-6dip"
             android:animateLayoutChanges="false"
             android:orientation="horizontal">
+
             <Button
+                android:elevation="5dp"
                 android:id="@+id/start_date"
                 style="@style/TextAppearance.EditEvent_SpinnerButton"
                 android:layout_width="0px"
