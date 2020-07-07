@@ -59,6 +59,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 
+import android.graphics.RectF ;
+
 import ws.xsoh.etar.R;
 
 public class MonthWeekEventsView extends SimpleWeekView {
@@ -1534,7 +1536,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mBoundaries.setRectangle(mFormat.getDaySpan(day), mFormat.getEventLines());
             mEventSquarePaint.setStyle(getRectanglePaintStyle());
             mEventSquarePaint.setColor(getRectangleColor());
-            canvas.drawRect(r, mEventSquarePaint);
+
+            if(!mEvent.allDay){
+                canvas.drawRoundRect(new RectF(r), 25, 25, mEventSquarePaint);
+            }else{
+                canvas.drawRect(r, mEventSquarePaint);
+            }
         }
 
         protected int getAvailableSpaceForText(int spanningDays) {
