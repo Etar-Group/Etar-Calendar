@@ -1538,6 +1538,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mEventSquarePaint.setColor(getRectangleColor());
 
             if(!mEvent.allDay){
+                r.left+=3;
+                r.right+=3;
+                r.top+=3;
+                r.bottom+=3;
                 canvas.drawRoundRect(new RectF(r), 25, 25, mEventSquarePaint);
             }else{
                 canvas.drawRect(r, mEventSquarePaint);
