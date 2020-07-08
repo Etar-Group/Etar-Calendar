@@ -345,7 +345,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mActivity.getSupportActionBar().setCustomView(actionBarButtons, layout);
         }
         mActivity.getSupportActionBar().hide();
-        FloatingActionButton fab = ;
+        FloatingActionButton fab = view.findViewById(R.id.saveFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {saveEvent();}
