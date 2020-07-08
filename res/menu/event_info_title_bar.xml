@@ -20,14 +20,14 @@
         android:alphabeticShortcut="s"
         android:title="@string/share_label"
         android:icon="@drawable/ic_share_event"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item android:id='@+id/info_action_change_color'
         android:alphabeticShortcut="c"
         android:enabled="false"
         android:icon="@drawable/ic_colorpicker"
         android:title="@string/choose_event_color_label"
         android:visible="false"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item android:id="@+id/info_action_edit"
         android:alphabeticShortcut="e"
         android:enabled="false"
@@ -41,7 +41,7 @@
         android:icon="@drawable/ic_save_event"
         android:enabled="true"
         android:visible="true"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
     <item android:id="@+id/info_action_delete"
         android:alphabeticShortcut="d"
         android:enabled="false"

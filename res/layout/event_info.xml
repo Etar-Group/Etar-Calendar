@@ -297,23 +297,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:orientation="vertical">
 
                     <TextView
-                        style="?android:attr/listSeparatorTextViewStyle"
-                        android:layout_width="match_parent"
+                        android:id="@+id/reminders_group_label"
+                        style="@style/TextAppearance.EditEvent_LabelSmall"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="8dip"
-                        android:layout_marginTop="4dip"
-                        android:layout_marginRight="8dip"
-                        android:layout_marginBottom="0dip"
+                        android:layout_marginBottom="12dip"
                         android:gravity="center_vertical"
-                        android:paddingLeft="8dip"
-                        android:paddingRight="8dip"
-                        android:text="@string/event_info_reminders_label"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="?attr/event_info_label_color" />
+                        android:text="@string/event_info_reminders_label" />
 
                     <LinearLayout
                         android:id="@+id/reminder_items_container"
