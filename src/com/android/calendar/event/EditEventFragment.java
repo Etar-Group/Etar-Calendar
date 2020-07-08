@@ -71,6 +71,7 @@ import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.Utils;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.colorpicker.HsvColorComparator;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -344,6 +345,11 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mActivity.getSupportActionBar().setCustomView(actionBarButtons, layout);
         }
         mActivity.getSupportActionBar().hide();
+        FloatingActionButton fab = ;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {saveEvent();}
+        });
         return view;
     }
 
@@ -415,31 +421,35 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
      */
     private boolean onActionBarItemSelected(int itemId) {
         if (itemId == R.id.action_done) {
-            if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
-                if (mView != null && mView.prepareForSave()) {
-                    if (mModification == Utils.MODIFY_UNINITIALIZED) {
-                        mModification = Utils.MODIFY_ALL;
-                    }
-                    mOnDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
-                    mOnDone.run();
-                } else {
-                    mOnDone.setDoneCode(Utils.DONE_REVERT);
-                    mOnDone.run();
-                }
-            } else if (EditEventHelper.canAddReminders(mModel) && mModel.mId != -1
-                    && mOriginalModel != null && mView.prepareForSave()) {
-                saveReminders();
-                mOnDone.setDoneCode(Utils.DONE_EXIT);
-                mOnDone.run();
-            } else {
-                mOnDone.setDoneCode(Utils.DONE_REVERT);
-                mOnDone.run();
-            }
+            saveEvent();
         } else if (itemId == R.id.action_cancel) {
             mOnDone.setDoneCode(Utils.DONE_REVERT);
             mOnDone.run();
         }
         return true;
+    }
+
+    private void saveEvent(){
+        if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
+            if (mView != null && mView.prepareForSave()) {
+                if (mModification == Utils.MODIFY_UNINITIALIZED) {
+                    mModification = Utils.MODIFY_ALL;
+                }
+                mOnDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
+                mOnDone.run();
+            } else {
+                mOnDone.setDoneCode(Utils.DONE_REVERT);
+                mOnDone.run();
+            }
+        } else if (EditEventHelper.canAddReminders(mModel) && mModel.mId != -1
+                && mOriginalModel != null && mView.prepareForSave()) {
+            saveReminders();
+            mOnDone.setDoneCode(Utils.DONE_EXIT);
+            mOnDone.run();
+        } else {
+            mOnDone.setDoneCode(Utils.DONE_REVERT);
+            mOnDone.run();
+        }
     }
 
     private void saveReminders() {

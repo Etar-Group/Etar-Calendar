@@ -172,7 +172,6 @@ android {
         versionCode 24
         versionName "1.0.22"
         applicationId "ws.xsoh.etar"
-        vectorDrawables.useSupportLibrary = true
     }
 
     useLibrary 'org.apache.http.legacy'
