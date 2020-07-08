@@ -332,6 +332,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             startQuery();
         }
 
+        mUseCustomActionBar=false;
         if (mUseCustomActionBar) {
             View actionBarButtons = inflater.inflate(R.layout.edit_event_custom_actionbar,
                     new LinearLayout(mActivity), false);
@@ -342,7 +343,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
             mActivity.getSupportActionBar().setCustomView(actionBarButtons, layout);
         }
-
+        mActivity.getSupportActionBar().hide();
         return view;
     }
 
@@ -395,7 +396,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         super.onCreateOptionsMenu(menu, inflater);
 
         if (!mUseCustomActionBar) {
-            inflater.inflate(R.menu.edit_event_title_bar, menu);
+           // inflater.inflate(R.menu.edit_event_title_bar, menu);
         }
     }
 

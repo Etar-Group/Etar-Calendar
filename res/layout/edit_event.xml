@@ -14,53 +14,61 @@
      limitations under the License.
 -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/edit_event"
+    style="@style/EditEvent_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/EditEvent_Layout"
     android:background="?attr/edit_event_bgcolor">
+
     <TextView
         android:id="@+id/loading_message"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_gravity="center"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/edit_event_bgcolor"
         android:gravity="center"
         android:text="@string/loading"
-        style="?android:attr/textAppearanceLarge"
-        android:background="?attr/edit_event_bgcolor"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
         android:animateLayoutChanges="true"
         android:fillViewport="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View android:id="@+id/event_bg"
+            <View
+                android:id="@+id/event_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dip"
-                android:layout_marginRight="1dip"
-                android:layout_marginTop="1dip"
-                android:layout_marginBottom="1dip"
                 android:layout_gravity="center_horizontal|top"
-                android:background="?attr/edit_event_bgcolor"/>
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:layout_marginRight="1dip"
+                android:layout_marginBottom="1dip"
+                android:background="?attr/edit_event_bgcolor" />
 
             <LinearLayout
                 android:id="@+id/two_pane"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top">
+                android:layout_gravity="center_horizontal|top"
+                android:orientation="vertical">
 
                 <!-- TOP HALF -->
                 <include
@@ -70,19 +78,33 @@
 
                 <!-- BOTTOM HALF GUESTS/ATTENDEES -->
                 <include
-                    layout="@layout/edit_event_2"
                     android:id="@+id/attendees_group"
+                    layout="@layout/edit_event_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <View android:id="@+id/color_chip"
+            <View
+                android:id="@+id/color_chip"
                 android:layout_width="25dip"
                 android:layout_height="25dip"
-                android:visibility="gone"
+                android:layout_gravity="start|top"
                 android:layout_marginStart="0dip"
                 android:layout_marginTop="0dip"
-                android:layout_gravity="start|top"/>
+                android:visibility="gone" />
         </FrameLayout>
     </ScrollView>
-</LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_save_event" />
+</androidx.constraintlayout.widget.ConstraintLayout>
