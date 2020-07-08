@@ -13,8 +13,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/event_info_bgcolor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -80,6 +80,7 @@
                 android:paddingLeft="16dip"
                 android:paddingRight="16dip"
                 android:layout_marginTop="8dip"
+                android:layout_marginBottom="20dp"
                 android:orientation="vertical">
                 <!-- Calendar Owner -->
                 <LinearLayout
@@ -286,48 +287,75 @@
                 android:visibility="gone" />
 
             <!-- REMINDERS -->
-            <TextView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:paddingLeft="8dip"
-                android:paddingRight="8dip"
-                android:layout_marginLeft="8dip"
-                android:layout_marginRight="8dip"
-                android:layout_marginTop="4dip"
-                android:layout_marginBottom="0dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                style="?android:attr/listSeparatorTextViewStyle"
-                android:textColor="?attr/event_info_label_color"
-                android:text="@string/event_info_reminders_label" />
-            <LinearLayout
-                android:id="@+id/reminder_items_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dip"
-                android:layout_marginStart="-8dip"
-                android:layout_marginEnd="8dip"
-                android:orientation="vertical" />
-            <Button
-                android:id="@+id/reminder_add"
-                android:text="@string/reminders_label"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="top"
-                android:paddingBottom="12dp"
-                android:layout_marginTop="0dip"
-                android:layout_marginBottom="0dip"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textColor="?attr/event_info_description_color"
-                android:minHeight="20dip"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/accessibility_add_reminder"
-                style="@style/TextAppearance.EditEvent_LabelSmall" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="8dp"
+                app:cardMaxElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="?android:attr/listSeparatorTextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dip"
+                        android:layout_marginTop="4dip"
+                        android:layout_marginRight="8dip"
+                        android:layout_marginBottom="0dip"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dip"
+                        android:paddingRight="8dip"
+                        android:text="@string/event_info_reminders_label"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="?attr/event_info_label_color" />
+
+                    <LinearLayout
+                        android:id="@+id/reminder_items_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dip"
+                        android:layout_marginBottom="4dip"
+                        android:orientation="vertical" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp"
+                        app:cardMaxElevation="8dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical">
+
+                            <Button
+                                android:id="@+id/reminder_add"
+                                style="@style/TextAppearance.EditEvent_LabelSmall"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="20dip"
+                                android:padding="8dp"
+                                android:layout_centerInParent="true"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:contentDescription="@string/accessibility_add_reminder"
+                                android:text="@string/reminders_label"
+                                android:textAllCaps="false"
+                                android:textColor="?attr/event_info_description_color"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
         </ScrollView>
     </RelativeLayout>
