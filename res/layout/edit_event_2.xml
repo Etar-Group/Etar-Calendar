@@ -193,15 +193,34 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="12dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
-        <Button
-            android:id="@+id/rrule"
-            android:text="@string/does_not_repeat"
-            android:layout_height="wrap_content"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_marginTop="-12dip"
-            android:gravity="start|center_vertical"
-            android:contentDescription="@string/accessibility_pick_recurrence"
-            style="@style/TextAppearance.EditEvent_SpinnerButton" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardMaxElevation="8dp">
+            <RelativeLayout
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical">
+                <Button
+                    android:id="@+id/rrule"
+                    android:text="@string/does_not_repeat"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="-12dip"
+                    android:gravity="start|center_vertical"
+                    android:contentDescription="@string/accessibility_pick_recurrence"
+                    android:layout_centerInParent="true"
+                    style="@style/TextAppearance.EditEvent_SpinnerButton" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <View
@@ -296,14 +315,32 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="4dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
-        <Spinner
-            android:id="@+id/availability"
-            android:entries="@array/availability"
-            style="@style/TextAppearance.EditEvent_Spinner"
-            android:layout_height="wrap_content"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:contentDescription="@string/accessibility_reminder_showmeas"
-            android:prompt="@string/presence_label" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardMaxElevation="8dp">
+            <RelativeLayout
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical">
+                <Spinner
+                    android:id="@+id/availability"
+                    android:entries="@array/availability"
+                    style="@style/TextAppearance.EditEvent_SpinnerButton"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:contentDescription="@string/accessibility_reminder_showmeas"
+                    android:layout_centerInParent="true"
+                    android:prompt="@string/presence_label" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
         <!-- PRIVACY -->
@@ -321,14 +358,33 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="4dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
-        <Spinner
-            android:id="@+id/visibility"
-            android:entries="@array/visibility"
-            style="@style/TextAppearance.EditEvent_Spinner"
-            android:layout_height="wrap_content"
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:contentDescription="@string/accessibility_reminder_privacy"
-            android:prompt="@string/privacy_label" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardMaxElevation="8dp">
+            <RelativeLayout
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical">
+                <Spinner
+                    android:id="@+id/visibility"
+                    android:entries="@array/visibility"
+                    style="@style/TextAppearance.EditEvent_Spinner"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:contentDescription="@string/accessibility_reminder_privacy"
+                    android:layout_centerInParent="true"
+                    android:prompt="@string/privacy_label" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </LinearLayout>

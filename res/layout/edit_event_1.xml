@@ -108,25 +108,7 @@
     </LinearLayout>
 
     <!-- WHAT -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/title"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dip"
-            android:focusable="true"
-            android:hint="@string/hint_what"
-            android:inputType="textAutoCorrect|textCapSentences"
-            android:minHeight="48dip"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <View style="@style/EditEventSeparator" />
 
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->
     <androidx.cardview.widget.CardView
@@ -142,6 +124,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/title"
+                    style="@style/TextAppearance.EditEvent_Value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dip"
+                    android:focusable="true"
+                    android:hint="@string/hint_what"
+                    android:inputType="textAutoCorrect|textCapSentences"
+                    android:minHeight="48dip"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View style="@style/EditEventSeparator" />
 
             <LinearLayout
                 android:id="@+id/from_row_home_tz"
@@ -243,22 +245,6 @@
                     android:gravity="end|center_vertical" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/timezone_button_row"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dip"
-                android:minHeight="48dip"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/timezone_button"
-                    style="@style/TextAppearance.EditEvent_SpinnerButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/accessibility_pick_time_zone"
-                    android:gravity="start|center_vertical" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/to_row"
@@ -301,6 +287,23 @@
                         android:layout_weight="4"
                         android:contentDescription="@string/accessibility_pick_end_time" />
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/timezone_button_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dip"
+                android:minHeight="48dip"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/timezone_button"
+                    style="@style/TextAppearance.EditEvent_SpinnerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/accessibility_pick_time_zone"
+                    android:gravity="start|center_vertical" />
             </LinearLayout>
 
             <LinearLayout
