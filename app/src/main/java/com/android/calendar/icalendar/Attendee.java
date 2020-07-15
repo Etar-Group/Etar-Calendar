@@ -16,6 +16,8 @@
 
 package com.android.calendar.icalendar;
 
+import com.android.calendar.Llog;
+
 import java.util.HashMap;
 import java.util.ListIterator;
 
@@ -89,11 +91,19 @@ public class Attendee {
 
     public void populateFromEntries(ListIterator<String> iter) {
         String line = iter.next();
-        if (line.contains("ATTENDEE")) {
+        if (line.startsWith("ATTENDEE")) {
             String entry = VEvent.parseTillNextAttribute(iter, line);
-            String[] entries = entry.split("(?i)mailto:");
-            if (entries.length > 1) {
-                mEmail = entries[1];
+            // extract the email address at the end
+            String[] split1 = entry.split("(:MAILTO)?:", 2);
+            if (split1.length > 1) {
+                mEmail = split1[1];
+            }
+            if (!split1[0].isEmpty()) {
+                String[] split2 = split1[0].split("=|;");
+                int n = split2.length / 2;
+                for (int i = 0; i < n; ++i) {
+                     addProperty(split2[2 * i + 1], split2[2 * i + 2]);
+                }
             }
         }
     }
