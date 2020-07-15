@@ -67,6 +67,8 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
     protected ArrayList<Event> mEvents = null;
     MonthWeekEventsView mClickedView;
+    MonthWeekEventsView mDoSelectionTapUpStart;
+    float mDoSelectionTapUpOffset;
     MonthWeekEventsView mSingleTapUpView;
     MonthWeekEventsView mLongClickedView;
     float mClickedXLocation;                // Used to find which day was clicked
@@ -99,10 +101,31 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                     Log.d(TAG, "Touched day at Row=" + mSingleTapUpView.mWeek + " day=" + day.toString());
                 }
                 if (day != null) {
-                    onDayTapped(day);
+                    onDayTapped(day, null);
                 }
                 clearClickedView(mSingleTapUpView);
                 mSingleTapUpView = null;
+            }
+        }
+    };
+
+    private final Runnable mDoSelectionTapUp = new Runnable() {
+        @Override
+        public void run() {
+            if (mDoSelectionTapUpStart != null) {
+                Time start = mDoSelectionTapUpStart.getDayFromLocation(mClickedXLocation);
+                Time end = mDoSelectionTapUpStart.getDayFromLocation(mDoSelectionTapUpOffset);
+
+                Log.d(TAG, "Touched day at Row= day=" + start.yearDay);
+                Log.d(TAG, "Touched day at Row= day=" + end.yearDay);
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "Touched day at Row=" + mSingleTapUpView.mWeek + " day=" + start.toString());
+                }
+                onDayTapped(start, end);
+
+                clearClickedView(mDoSelectionTapUpStart);
+                mDoSelectionTapUpStart = null;
+                mDoSelectionTapUpOffset = 0;
             }
         }
     };
@@ -315,8 +338,20 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     }
 
     @Override
-    protected void onDayTapped(Time day) {
+    protected void onDayTapped(Time day, Time day_end) {
+        if(day_end == null){
+            Log.e(TAG, "day not set");
+            day_end = day;
+        }
         setDayParameters(day);
+        if(day != day_end){
+            Log.e(TAG, "day set");
+            mController.sendEvent(mContext, EventType.GO_TO, day, day_end, -1,
+                    ViewType.WEEK, CalendarController.EXTRA_GOTO_DATE_RANGE, null, null);
+
+            return;
+        }
+
          if (mShowAgendaWithMonth || mIsMiniMonth) {
             // If agenda view is visible with month view , refresh the views
             // with the selected day's info
@@ -382,6 +417,24 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                     mwev.invalidate();
                     mListView.unblockScroll();
                     Log.e(TAG, "Open cells: "+(cell-init_cell)+1);
+
+
+                    long delay = System.currentTimeMillis() - mClickTime;
+
+                    int indexOfEnd = mListView.indexOfChild(v)+mwev.mSelectedDayIndexes.size();
+                    mDoSelectionTapUpStart = (MonthWeekEventsView) v;
+                    mDoSelectionTapUpOffset = event.getX();
+
+                    mListView.postDelayed(mDoSelectionTapUp, delay > mTotalClickDelay ? 0 : mTotalClickDelay - delay);
+
+                    /*Time day = mSingleTapUpView.getDayFromLocation(event.getX());
+                    setDayParameters(day);
+                    mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
+                            ViewType.DETAIL,
+                            CalendarController.EXTRA_GOTO_DATE
+                                    | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS, null, null);
+                    */
+
                     //Time day = mSingleTapUpView.getDayFromLocation(mClickedXLocation);
                     //Time day_n = mSingleTapUpView.getDayFromLocation(event.getX());
                     //mController.sendEvent(mContext, EventType.GO_TO, day, day_n, -1, ViewType.WEEK, CalendarController.EXTRA_GOTO_DATE, null, null);
@@ -395,10 +448,10 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                     // No need to cancel on vertical movement, ACTION_SCROLL will do that.
                     mwev.invalidate();
                     if (Math.abs(event.getY() - mClickedYLocation) > 15) {
-                        Log.e(TAG, "Vertical! "+event.getY()+" "+mClickedYLocation);
+                        //Log.e(TAG, "Vertical! "+event.getY()+" "+mClickedYLocation);
                     }
                     if (Math.abs(event.getX() - mClickedXLocation) > mMovedPixelToCancel) {
-                        Log.e(TAG, "Horizontal! Initial Cell: "+ init_cell +"offset:"+offset+" abs: "+event.getX() + " cell: "+(cell-init_cell));
+                        //Log.e(TAG, "Horizontal! Initial Cell: "+ init_cell +"offset:"+offset+" abs: "+event.getX() + " cell: "+(cell-init_cell));
 
                         if(init_cell<cell){
                             for (int i = init_cell; i <=cell; i++) {

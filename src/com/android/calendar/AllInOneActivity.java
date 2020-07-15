@@ -84,6 +84,8 @@ import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -183,6 +185,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private int mCalendarControlsAnimationTime;
     private int mControlsAnimateWidth;
     private int mControlsAnimateHeight;
+    private int mDaysToShowOverride;
     private long mViewEventId = -1;
     private long mIntentEventStartMillis = -1;
     private long mIntentEventEndMillis = -1;
@@ -1057,7 +1060,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             case ViewType.WEEK:
             default:
                 mNavigationView.getMenu().findItem(R.id.week_menu_item).setChecked(true);
-                frag = new DayFragment(timeMillis, Utils.getDaysPerWeek(this));
+                int daysToShow=Utils.getDaysPerWeek(this);
+                if(mDaysToShowOverride > 0){
+                    daysToShow = mDaysToShowOverride;
+                    mDaysToShowOverride = -1;
+                }
+                frag = new DayFragment(timeMillis, daysToShow);
                 if (mIsTabletConfig) {
                     mToolbar.setTitle(R.string.week_view);
                 }
@@ -1231,6 +1239,29 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     public void handleEvent(EventInfo event) {
         long displayTime = -1;
+
+
+        if(event.extraLong == CalendarController.EXTRA_GOTO_DATE_RANGE){
+
+            Calendar c = Calendar.getInstance();
+            Calendar c2 = Calendar.getInstance();
+            c.setTimeInMillis(event.startTime.toMillis(false));
+            c2.setTimeInMillis(event.endTime.toMillis(false));
+
+            // Normalize days, let them start at midnight
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c2.set(Calendar.SECOND, 0);
+            c2.set(Calendar.MINUTE, 0);
+            c2.set(Calendar.HOUR_OF_DAY, 0);
+
+            long days = (c2.getTimeInMillis()-  c.getTimeInMillis()) / (24 * 60 * 60 * 1000);
+
+            mDaysToShowOverride = (int) days + 1;
+        }
+
+
         if (event.eventType == EventType.GO_TO) {
             if ((event.extraLong & CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS) != 0) {
                 mBackToPreviousView = true;
@@ -1238,6 +1269,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     && event.viewType != ViewType.EDIT) {
                 // Clear the flag is change to a different view type
                 mBackToPreviousView = false;
+
+
             }
 
             setMainPane(

@@ -115,14 +115,6 @@ public class MonthListView extends ListView {
                 mDownActionTime = SystemClock.uptimeMillis();
                 break;
             // Accumulate velocity and do a custom fling when above threshold
-            case MotionEvent.ACTION_MOVE:
-            case MotionEvent.ACTION_SCROLL:
-                if(mBlockScroll){
-                    Log.e(TAG, "Fyou NOT");
-                    break;
-                }
-                Log.e(TAG, "Fyou");
-                break;
             case MotionEvent.ACTION_UP:
                 mTracker.addMovement(ev);
                 mTracker.computeCurrentVelocity(1000);    // in pixels per second

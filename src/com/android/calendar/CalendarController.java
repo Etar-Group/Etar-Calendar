@@ -70,6 +70,8 @@ public class CalendarController {
     public static final long EXTRA_GOTO_TIME = 2;
     public static final long EXTRA_GOTO_BACK_TO_PREVIOUS = 4;
     public static final long EXTRA_GOTO_TODAY = 8;
+    public static final long EXTRA_GOTO_DATE_RANGE = 9;
+
     private static final boolean DEBUG = false;
     private static final String TAG = "CalendarController";
     private static WeakHashMap<Context, WeakReference<CalendarController>> instances =
