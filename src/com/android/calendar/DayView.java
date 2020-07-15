@@ -428,10 +428,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int CALENDAR_COLOR_SQUARE_SIZE = 10;
 
     private static int EVENT_RECT_ROUNDING = 40;
-    private static int EVENT_RECT_TOP_MARGIN = 5;
-    private static int EVENT_RECT_BOTTOM_MARGIN = 5;
-    private static int EVENT_RECT_LEFT_MARGIN = 5;
-    private static int EVENT_RECT_RIGHT_MARGIN = 5;
+    private static int EVENT_RECT_TOP_MARGIN = 3;
+    private static int EVENT_RECT_BOTTOM_MARGIN = 3;
+    private static int EVENT_RECT_LEFT_MARGIN = 3;
+    private static int EVENT_RECT_RIGHT_MARGIN = 3;
     private static int EVENT_RECT_STROKE_WIDTH = 2;
     private static int EVENT_TEXT_TOP_MARGIN = 4;
     private static int EVENT_TEXT_BOTTOM_MARGIN = 2;
