@@ -162,6 +162,18 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private ObjectAnimator mTodayAnimator = null;
     private int[] mDayXs;
 
+    private static int EVENT_RECT_ROUNDING = 5;
+    private static int EVENT_RECT_ALLDAY_ROUNDING = 5;
+    private static int EVENT_RECT_MARGIN_LEFT = 5;
+    private static int EVENT_RECT_MARGIN_RIGHT = 5;
+    private static int EVENT_RECT_MARGIN_TOP = 5;
+    private static int EVENT_RECT_MARGIN_BOTTOM = 5;
+
+    private static int EVENT_RECT_TEXT_MARGIN_LEFT = 5;
+    private static int EVENT_RECT_TEXT_MARGIN_RIGHT = 5;
+    private static int EVENT_RECT_TEXT_MARGIN_TOP= 0;
+    private static int EVENT_RECT_TEXT_MARGIN_BOTTOM  = 5;
+
     /**
      * Shows up as an error if we don't include this.
      */
@@ -1538,18 +1550,22 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mEventSquarePaint.setColor(getRectangleColor());
 
             if(!mEvent.allDay){
-                r.left+=3;
-                r.right+=3;
-                r.top+=3;
-                r.bottom+=3;
-                canvas.drawRoundRect(new RectF(r), 25, 25, mEventSquarePaint);
+                r.left+=EVENT_RECT_MARGIN_LEFT;
+                r.right+=EVENT_RECT_MARGIN_LEFT;
+                r.top+=EVENT_RECT_MARGIN_TOP;
+                canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, mEventSquarePaint);
             }else{
-                canvas.drawRect(r, mEventSquarePaint);
+                r.left+=EVENT_RECT_MARGIN_LEFT;
+                r.right-=EVENT_RECT_MARGIN_RIGHT;
+                r.top+=EVENT_RECT_MARGIN_TOP;
+                r.bottom-=EVENT_RECT_MARGIN_BOTTOM;
+                //canvas.drawRect(r, mEventSquarePaint);
+                canvas.drawRoundRect(new RectF(r), EVENT_RECT_ALLDAY_ROUNDING, EVENT_RECT_ALLDAY_ROUNDING, mEventSquarePaint);
             }
         }
 
         protected int getAvailableSpaceForText(int spanningDays) {
-            return mBoundaries.getTextRightEdge(spanningDays) - mBoundaries.getTextX();
+            return mBoundaries.getTextRightEdge(spanningDays) - mBoundaries.getTextX() - EVENT_RECT_TEXT_MARGIN_RIGHT;
         }
 
         @Override
@@ -1645,7 +1661,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                     lineText = baseText.subSequence(mTextLayout.getLineStart(i),
                             mTextLayout.getLineEnd(i));
                 }
-                canvas.drawText(lineText.toString(), mBoundaries.getTextX(), mBoundaries.getTextY(),
+                canvas.drawText(lineText.toString(), mBoundaries.getTextX()+EVENT_RECT_TEXT_MARGIN_LEFT, mBoundaries.getTextY()+EVENT_RECT_TEXT_MARGIN_TOP,
                         getTextPaint());
                 mBoundaries.moveLinesDown(1);
             }
