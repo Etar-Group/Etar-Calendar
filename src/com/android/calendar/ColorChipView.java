@@ -51,6 +51,7 @@ public class ColorChipView extends View {
 
 
     private static int CHIP_RECT_ROUNDING = 25;
+    private static int CHIP_MARGIN = 10;
     private static float CHIP_SHADOW_INTENSITY = 7.0f;
     private static float CHIP_SHADOW_X = 1.0f;
     private static float CHIP_SHADOW_Y = 2.0f;
@@ -105,7 +106,7 @@ public class ColorChipView extends View {
             case DRAW_FULL:
                 mPaint.setStrokeWidth(mDefStrokeWidth);
                 mPaint.setShadowLayer(CHIP_SHADOW_INTENSITY, CHIP_SHADOW_X, CHIP_SHADOW_Y, 0xFF000000);
-                c.drawRoundRect(new RectF(5, 5, right-5, bottom-5), CHIP_RECT_ROUNDING, CHIP_RECT_ROUNDING, mPaint);
+                c.drawRoundRect(new RectF(CHIP_MARGIN, CHIP_MARGIN, right-CHIP_MARGIN, bottom-CHIP_MARGIN), CHIP_RECT_ROUNDING, CHIP_RECT_ROUNDING, mPaint);
                 mPaint.setShadowLayer(0, 0, 0, 0x00000000);
                 break;
             case DRAW_BORDER:

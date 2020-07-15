@@ -33,15 +33,15 @@
 
     <com.android.calendar.ColorChipView
         android:id="@+id/agenda_item_color"
-        android:layout_width="16dip"
+        android:layout_width="20dip"
         android:layout_height="24dip"
         android:layout_row="1"
         android:layout_rowSpan="1"
         android:layout_column="0"
         android:layout_gravity="top|start"
-        android:layout_marginLeft="16dip"
+        android:layout_marginLeft="12dip"
         android:layout_marginTop="8dip"
-        android:layout_marginRight="8dip"
+        android:layout_marginRight="12dip"
         android:layout_marginBottom="8dip" />
 
     <LinearLayout
