@@ -115,13 +115,14 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             if (mDoSelectionTapUpStart != null) {
                 Time start = mDoSelectionTapUpStart.getDayFromLocation(mClickedXLocation);
                 Time end = mDoSelectionTapUpStart.getDayFromLocation(mDoSelectionTapUpOffset);
-
-                Log.d(TAG, "Touched day at Row= day=" + start.yearDay);
-                Log.d(TAG, "Touched day at Row= day=" + end.yearDay);
                 if (Log.isLoggable(TAG, Log.DEBUG)) {
                     Log.d(TAG, "Touched day at Row=" + mSingleTapUpView.mWeek + " day=" + start.toString());
                 }
-                onDayTapped(start, end);
+                if(start.toMillis(false)<end.toMillis(false)){
+                    onDayTapped(start, end);
+                }else{
+                    onDayTapped(end, start);
+                }
 
                 clearClickedView(mDoSelectionTapUpStart);
                 mDoSelectionTapUpStart = null;
@@ -347,7 +348,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         if(day != day_end){
             Log.e(TAG, "day set");
             mController.sendEvent(mContext, EventType.GO_TO, day, day_end, -1,
-                    ViewType.WEEK, CalendarController.EXTRA_GOTO_DATE_RANGE, null, null);
+                    ViewType.WEEK, CalendarController.EXTRA_GOTO_DATE_RANGE | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS, null, null);
 
             return;
         }

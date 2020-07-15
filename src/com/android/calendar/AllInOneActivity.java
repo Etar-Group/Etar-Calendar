@@ -1240,28 +1240,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     public void handleEvent(EventInfo event) {
         long displayTime = -1;
 
-
-        if(event.extraLong == CalendarController.EXTRA_GOTO_DATE_RANGE){
-
-            Calendar c = Calendar.getInstance();
-            Calendar c2 = Calendar.getInstance();
-            c.setTimeInMillis(event.startTime.toMillis(false));
-            c2.setTimeInMillis(event.endTime.toMillis(false));
-
-            // Normalize days, let them start at midnight
-            c.set(Calendar.SECOND, 0);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.HOUR_OF_DAY, 0);
-            c2.set(Calendar.SECOND, 0);
-            c2.set(Calendar.MINUTE, 0);
-            c2.set(Calendar.HOUR_OF_DAY, 0);
-
-            long days = (c2.getTimeInMillis()-  c.getTimeInMillis()) / (24 * 60 * 60 * 1000);
-
-            mDaysToShowOverride = (int) days + 1;
-        }
-
-
         if (event.eventType == EventType.GO_TO) {
             if ((event.extraLong & CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS) != 0) {
                 mBackToPreviousView = true;
@@ -1271,6 +1249,27 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 mBackToPreviousView = false;
 
 
+            }
+
+            if( event.extraLong == (CalendarController.EXTRA_GOTO_DATE_RANGE | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS) ){
+
+                Calendar c = Calendar.getInstance();
+                Calendar c2 = Calendar.getInstance();
+                c.setTimeInMillis(event.startTime.toMillis(false));
+                c2.setTimeInMillis(event.endTime.toMillis(false));
+
+                // Normalize days, let them start at midnight
+                c.set(Calendar.SECOND, 0);
+                c.set(Calendar.MINUTE, 0);
+                c.set(Calendar.HOUR_OF_DAY, 0);
+                c2.set(Calendar.SECOND, 0);
+                c2.set(Calendar.MINUTE, 0);
+                c2.set(Calendar.HOUR_OF_DAY, 0);
+
+                long days = (c2.getTimeInMillis()-  c.getTimeInMillis()) / (24 * 60 * 60 * 1000);
+
+                mDaysToShowOverride = (int) days + 1;
+                mBackToPreviousView=true;
             }
 
             setMainPane(
