@@ -21,6 +21,7 @@ import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.Time;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -69,6 +70,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     MonthWeekEventsView mSingleTapUpView;
     MonthWeekEventsView mLongClickedView;
     float mClickedXLocation;                // Used to find which day was clicked
+    float mClickedYLocation;                // Used to find which day was clicked
     // Perform the tap animation in a runnable to allow a delay before showing the tap color.
     // This is done to prevent a click animation when a fling is done.
     private final Runnable mDoClick = new Runnable() {
@@ -347,6 +349,13 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
 
         int action = event.getAction();
 
+        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels/7;
+        int init_cell = (int) (mClickedXLocation / width);
+        MonthWeekEventsView mwev = (MonthWeekEventsView) v;
+        mwev.mSelectedDayIndexes = new ArrayList<Integer>();
+
+
         // Event was tapped - switch to the detailed view making sure the click animation
         // is done first.
         if (mGestureDetector.onTouchEvent(event)) {
@@ -359,21 +368,50 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         } else {
             // Animate a click - on down: show the selected day in the "clicked" color.
             // On Up/scroll/move/cancel: hide the "clicked" color.
+            int offset = (int) (event.getX() % width);
+            int cell = (int) (event.getX() / width);
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     mClickedView = (MonthWeekEventsView) v;
                     mClickedXLocation = event.getX();
+                    mClickedYLocation = event.getY();
                     mClickTime = System.currentTimeMillis();
                     mListView.postDelayed(mDoClick, mOnDownDelay);
                     break;
                 case MotionEvent.ACTION_UP:
+                    mwev.invalidate();
+                    mListView.unblockScroll();
+                    Log.e(TAG, "Open cells: "+(cell-init_cell)+1);
+                    //Time day = mSingleTapUpView.getDayFromLocation(mClickedXLocation);
+                    //Time day_n = mSingleTapUpView.getDayFromLocation(event.getX());
+                    //mController.sendEvent(mContext, EventType.GO_TO, day, day_n, -1, ViewType.WEEK, CalendarController.EXTRA_GOTO_DATE, null, null);
                 case MotionEvent.ACTION_SCROLL:
+                    Log.e(TAG, "ACTION_SCROLL");
                 case MotionEvent.ACTION_CANCEL:
+                    Log.e(TAG, "ACTION_CANCEL");
                     clearClickedView((MonthWeekEventsView) v);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     // No need to cancel on vertical movement, ACTION_SCROLL will do that.
+                    mwev.invalidate();
+                    if (Math.abs(event.getY() - mClickedYLocation) > 15) {
+                        Log.e(TAG, "Vertical! "+event.getY()+" "+mClickedYLocation);
+                    }
                     if (Math.abs(event.getX() - mClickedXLocation) > mMovedPixelToCancel) {
+                        Log.e(TAG, "Horizontal! Initial Cell: "+ init_cell +"offset:"+offset+" abs: "+event.getX() + " cell: "+(cell-init_cell));
+
+                        if(init_cell<cell){
+                            for (int i = init_cell; i <=cell; i++) {
+                                mwev.mSelectedDayIndexes.add(i);
+                            }
+                        }else{
+                            for (int i = cell; i <=init_cell; i++) {
+                                mwev.mSelectedDayIndexes.add(i);
+                            }
+                        }
+                        if( mwev.mSelectedDayIndexes.size()!=0){
+                            mListView.blockScroll();
+                        }
                         clearClickedView((MonthWeekEventsView) v);
                     }
                     break;
@@ -386,6 +424,12 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         return false;
     }
 
+    private void selectCellViaOffset(int offset){
+        ViewGroup container = (ViewGroup)mClickedView.getParent();
+        View nextView = container.getChildAt(container.indexOfChild(mClickedView)+offset);
+
+        mClickedView.setClickedDay(mClickedXLocation);
+    }
     // Clear the visual cues of the click animation and related running code.
     private void clearClickedView(MonthWeekEventsView v) {
         mListView.removeCallbacks(mDoClick);

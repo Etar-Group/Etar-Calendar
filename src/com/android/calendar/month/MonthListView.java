@@ -21,6 +21,7 @@ import android.graphics.Rect;
 import android.os.SystemClock;
 import android.text.format.Time;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -48,6 +49,8 @@ public class MonthListView extends ListView {
     protected Time mTempTime;
     private long mDownActionTime;
     private final Rect mFirstViewRect = new Rect();
+
+    public boolean mBlockScroll = false;
 
     Context mListContext;
 
@@ -112,6 +115,14 @@ public class MonthListView extends ListView {
                 mDownActionTime = SystemClock.uptimeMillis();
                 break;
             // Accumulate velocity and do a custom fling when above threshold
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_SCROLL:
+                if(mBlockScroll){
+                    Log.e(TAG, "Fyou NOT");
+                    break;
+                }
+                Log.e(TAG, "Fyou");
+                break;
             case MotionEvent.ACTION_UP:
                 mTracker.addMovement(ev);
                 mTracker.computeCurrentVelocity(1000);    // in pixels per second
@@ -193,5 +204,14 @@ public class MonthListView extends ListView {
             return -1;
         }
         return child.getFirstJulianDay() + SimpleDayPickerFragment.DAYS_PER_WEEK - 1;
+    }
+
+    public void blockScroll(){
+        Log.e(TAG, "blockScroll");
+        mBlockScroll=true;
+    }
+    public void unblockScroll(){
+        Log.e(TAG, "unblockScroll");
+        mBlockScroll=false;
     }
 }

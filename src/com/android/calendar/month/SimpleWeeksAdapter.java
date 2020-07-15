@@ -294,9 +294,9 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
         }
     }
 
-    ListView mListView;
+    MonthListView mListView;
 
-    public void setListView(ListView lv) {
+    public void setListView(MonthListView lv) {
         mListView = lv;
     }
 }

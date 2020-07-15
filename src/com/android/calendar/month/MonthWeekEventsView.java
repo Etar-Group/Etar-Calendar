@@ -153,6 +153,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mTodayAnimateColor;
     HashMap<Integer, Utils.DNAStrand> mDna = null;
     private int mClickedDayIndex = -1;
+    public List<Integer> mSelectedDayIndexes = new ArrayList<>();
     private int mClickedDayColor;
     private boolean mAnimateToday;
     private int mAnimateTodayAlpha = 0;
@@ -465,6 +466,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             drawDNA(canvas);
         }
         drawClick(canvas);
+        drawSelection(canvas, mSelectedDayIndexes);
     }
 
     protected void drawToday(Canvas canvas) {
@@ -570,16 +572,27 @@ public class MonthWeekEventsView extends SimpleWeekView {
     // Draw the "clicked" color on the tapped day
     private void drawClick(Canvas canvas) {
         if (mClickedDayIndex != -1) {
-            int alpha = p.getAlpha();
-            p.setColor(mClickedDayColor);
-            p.setAlpha(mClickedAlpha);
-            r.left = computeDayLeftPosition(mClickedDayIndex);
-            r.right = computeDayLeftPosition(mClickedDayIndex + 1);
-            r.top = mDaySeparatorInnerWidth;
-            r.bottom = mHeight;
-            canvas.drawRect(r, p);
-            p.setAlpha(alpha);
+            drawHighlightOnCell(canvas, mClickedDayIndex);
         }
+    }
+
+    private void drawSelection(Canvas canvas, List<Integer> indexes){
+        for(int i : indexes){
+            if (i != -1) {
+                drawHighlightOnCell(canvas, i);
+            }
+        }
+    }
+    private void drawHighlightOnCell(Canvas canvas, int index){
+        int alpha = p.getAlpha();
+        p.setColor(mClickedDayColor);
+        p.setAlpha(mClickedAlpha);
+        r.left = computeDayLeftPosition(index);
+        r.right = computeDayLeftPosition(index + 1);
+        r.top = mDaySeparatorInnerWidth;
+        r.bottom = mHeight;
+        canvas.drawRect(r, p);
+        p.setAlpha(alpha);
     }
 
     @Override

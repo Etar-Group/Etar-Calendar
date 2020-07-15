@@ -311,7 +311,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         } else {
             mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
         }
-        mAdapter.setListView(mListView);
+        mAdapter.setListView((MonthListView)mListView);
     }
 
     @Override

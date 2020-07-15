@@ -41,6 +41,7 @@ import com.android.calendar.Utils;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import ws.xsoh.etar.R;
@@ -251,6 +252,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * set a different list view behavior.
      */
     protected void setUpListView() {
+
         // Configure the listview
         mListView = getListView();
         // Transparent background on scroll
