@@ -2488,7 +2488,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             r.right -= DAY_GAP+EVENT_RECT_RIGHT_MARGIN;
             r.left += EVENT_RECT_LEFT_MARGIN;
             r.bottom -= EVENT_RECT_BOTTOM_MARGIN;
-            p.setAntiAlias(false);
+            p.setAntiAlias(true);
             //canvas.drawRect(r, p);
             canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, p);
 
@@ -3500,7 +3500,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 break;
         }
 
-        p.setAntiAlias(false);
+        p.setAntiAlias(true);
 
         int floorHalfStroke = (int) Math.floor(EVENT_RECT_STROKE_WIDTH / 2.0f);
         int ceilHalfStroke = (int) Math.ceil(EVENT_RECT_STROKE_WIDTH / 2.0f);
