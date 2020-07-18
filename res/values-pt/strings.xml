@@ -43,8 +43,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">semana <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">Semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Semana <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar dia"</string>
@@ -117,12 +117,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">Escreva a sua resposta…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizador:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Lembretes"</string>
-    <string name="agenda_today" msgid="5965841338467422191">hoje, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">ontem, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">amanhã, <xliff:g id="date">%1$s</xliff:g>
-    </string>
+    <string name="agenda_today" msgid="5965841338467422191">Hoje, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Ontem, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Amanhã, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">A carregar…</string>
     <string name="show_older_events" msgid="5140647493681439926">Toque para ver os eventos antes de <xliff:g id="oldest_search_range">%1$s</xliff:g>
     </string>
@@ -283,7 +280,7 @@
     <string name="preferences_default_event_duration_title">Duração padrão dos eventos</string>
     <string name="preferences_issues">Reportar erros</string>
     <string name="user_rejected_calendar_write_permission">Esta aplicação necessita de permissões para ler e gravar no calendário para funcionar corretamente. Tente novamente.</string>
-    <string name="calendar_permission_not_granted">Esta funcionalidade não pode ser executada. O Etar necessita de permissões para ler e gravar no calendário para funcionar corretamente</string>
+    <string name="calendar_permission_not_granted">As permissões necessárias foram recusadas. Ative as permissões nas definições para poder editar eventos.</string>
     <string name="visibility_confidential">Confidencial</string>
     <string name="zero_minutes">0 minutos</string>
     <string name="fifteen_minutes">15 minutos</string>
@@ -294,7 +291,7 @@
     <string name="error_generating_ics">Surgiram erros ao partilhar o evento</string>
     <string name="cal_share_intent_title">Enviar evento a:</string>
     <string name="cal_export_event_sdcard_title">Exportar para o cartão SD</string>
-    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1s</string>
+    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1$s</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_import_error_msg">Falha ao importar para o calendário</string>
@@ -306,7 +303,7 @@
     <string name="show_time_start_end_below">Hora de início e de término para além do evento</string>
     <string name="maximum_number_of_lines">Quantidade máxima de linhas por evento</string>
     <string name="foreground_notification_channel_name">Alerta de sincronização</string>
-    <string name="foreground_notification_channel_description">Notificação necessária para alerta de sincronização. Pode silenciar</string>
+    <string name="foreground_notification_channel_description">Requer notificação em primeiro plano para mostrar o alerta de sincronização.</string>
     <string name="preferences_calendar_account">Conta %1$s</string>
     <string name="preferences_calendar_delete">Remover calendário</string>
     <string name="preferences_calendar_display_name">Mudar nome</string>
@@ -344,6 +341,13 @@
     <string name="preferences_calendar_delete_message">Tem a certeza de que deseja remover este calendário\?</string>
     <string name="preferences_calendar_account_local">Calendário local</string>
     <string name="preferences_calendar_configure_account">Configurar calendário em %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d eventos</string>
+    <string name="preferences_calendar_number_of_events">%1$s eventos</string>
     <string name="preferences_calendar_info_category">Informação do calendário</string>
+    <string name="seven_days">7 dias</string>
+    <string name="six_days">6 dias</string>
+    <string name="five_days">5 dias</string>
+    <string name="four_days">4 dias</string>
+    <string name="three_days">3 dias</string>
+    <string name="two_days">2 dias</string>
+    <string name="preferences_system_theme">Predefinições do sistema</string>
 </resources>
