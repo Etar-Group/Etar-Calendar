@@ -326,7 +326,7 @@
     <string name="show_time_start_end">Czas rozpoczęcia i zakończenia</string>
     <string name="show_time_start_end_below">Czas rozpoczęcia i zakończenia poniżej wydarzenia</string>
     <string name="share_label">Udostępnij</string>
-    <string name="no_map">Nie zainstalowano aplikacji do obsługi map</string>
+    <string name="no_map">Nie masz zainstalowanej aplikacji do obsługi map</string>
     <string name="cal_export_succ_msg">Zdarzenie zostało pomyślnie wyeksportowane: %1s</string>
     <string name="preferences_month_view_portrait">Układ widoku miesiąca (Portret)</string>
     <string name="preferences_month_view_landscape">Układ widoku miesiąca (Krajobraz)</string>
