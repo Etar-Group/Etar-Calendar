@@ -248,9 +248,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getLoadingView() {
-            RemoteViews views = new RemoteViews(mContext.getPackageName(),
+            return new RemoteViews(mContext.getPackageName(),
                     R.layout.appwidget_loading);
-            return views;
         }
 
         @Override
@@ -335,23 +334,25 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     views.setInt(R.id.title, "setTextColor", mDeclinedColor);
                     views.setInt(R.id.when, "setTextColor", mDeclinedColor);
                     views.setInt(R.id.where, "setTextColor", mDeclinedColor);
-                    // views.setInt(R.id.agenda_item_color, "setDrawStyle",
-                    // ColorChipView.DRAW_CROSS_HATCHED);
+
                     views.setInt(R.id.agenda_item_color, "setImageResource",
                             R.drawable.widget_chip_responded_bg);
                     // 40% opacity
                     views.setInt(R.id.agenda_item_color, "setColorFilter",
                             Utils.getDeclinedColorFromColor(displayColor));
                 } else {
-                    views.setInt(R.id.title, "setTextColor", mStandardColor);
-                    views.setInt(R.id.when, "setTextColor", mStandardColor);
-                    views.setInt(R.id.where, "setTextColor", mStandardColor);
                     if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_INVITED) {
                         views.setInt(R.id.agenda_item_color, "setImageResource",
                                 R.drawable.widget_chip_not_responded_bg);
+                        views.setInt(R.id.title, "setTextColor", displayColor);
+                        views.setInt(R.id.when, "setTextColor", displayColor);
+                        views.setInt(R.id.where, "setTextColor", displayColor);
                     } else {
                         views.setInt(R.id.agenda_item_color, "setImageResource",
                                 R.drawable.widget_chip_responded_bg);
+                        views.setInt(R.id.title, "setTextColor", mStandardColor);
+                        views.setInt(R.id.when, "setTextColor", mStandardColor);
+                        views.setInt(R.id.where, "setTextColor", mStandardColor);
                     }
                     views.setInt(R.id.agenda_item_color, "setColorFilter", displayColor);
                 }
@@ -458,8 +459,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             long begin = now - DateUtils.DAY_IN_MILLIS;
             long end = now + SEARCH_DURATION + DateUtils.DAY_IN_MILLIS;
 
-            Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI, Long.toString(begin) + "/" + end);
-            return uri;
+            return Uri.withAppendedPath(Instances.CONTENT_URI, Long.toString(begin) + "/" + end);
         }
 
         /**
@@ -553,8 +553,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     time2.set(sLastUpdateTime);
                     time2.normalize(true);
                     if (time.year != time2.year || time.yearDay != time2.yearDay) {
-                        final Intent updateIntent = new Intent(
-                                Utils.getWidgetUpdateAction(mContext));
+                        final Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(mContext));
+                        updateIntent.setClass(mContext, CalendarAppWidgetProvider.class);
                         mContext.sendBroadcast(updateIntent);
                     }
 

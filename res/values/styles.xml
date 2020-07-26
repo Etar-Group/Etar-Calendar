@@ -246,7 +246,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">4dip</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:gravity">start</item>
         <item name="android:maxLines">1</item>
     </style>

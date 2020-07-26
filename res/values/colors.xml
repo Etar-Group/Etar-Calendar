@@ -183,7 +183,7 @@
     <!-- Text color of declined events in widget view -->
     <color name="appwidget_item_declined_color">#66333333</color>
     <!-- Text color of non-declined events in widget view -->
-    <color name="appwidget_item_standard_color">#ff333333</color>
+    <color name="appwidget_item_standard_color">#FFFFFF</color>
     <!-- Text color for all day events in widget view -->
     <color name="appwidget_item_allday_color">#ffffffff</color>
 
