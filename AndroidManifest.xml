@@ -248,7 +248,7 @@
         <service android:name="com.android.calendar.alerts.SnoozeAlarmsService" />
 
         <!-- Declarations for the widget -->
-        <!--receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider" android:label="@string/gadget_title">
+        <receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.android.calendar.APPWIDGET_UPDATE" />
@@ -279,7 +279,7 @@
         <service android:name="com.android.calendar.widget.CalendarAppWidgetService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS">
-        </service-->
+        </service>
 
         <service android:name="com.android.calendar.AsyncQueryServiceHelper" />
 

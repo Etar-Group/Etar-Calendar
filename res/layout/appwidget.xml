@@ -51,12 +51,12 @@
         android:id="@+id/events_list"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_marginLeft="4dip"
-        android:layout_marginRight="4dip"
         android:layout_weight="1"
+        android:paddingTop="6dp"
+        android:clipToPadding="false"
         android:background="@android:color/white"
         android:cacheColorHint="@null"
         android:divider="@null"
-        android:dividerHeight="3dip"
+        android:dividerHeight="4dp"
         android:listSelector="@android:color/transparent" />
 </LinearLayout>
