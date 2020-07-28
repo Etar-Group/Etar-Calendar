@@ -68,6 +68,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      */
     static PendingIntent getUpdateIntent(Context context) {
         Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(context));
+        intent.setClass(context, CalendarAppWidgetService.CalendarFactory.class);
         intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */, intent,
                 0 /* no flags */);
@@ -198,7 +199,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.day_of_week, dayOfWeek);
             views.setTextViewText(R.id.date, date);
             // Attach to list of events
-            views.setRemoteAdapter(appWidgetId, R.id.events_list, updateIntent);
+            views.setRemoteAdapter(R.id.events_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.events_list);
 
 
