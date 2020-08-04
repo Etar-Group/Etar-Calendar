@@ -1,2 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="saving_event">ਵਰਤਾਰਾ ਸੰਭਾਲਿਆ।</string>
+    <string name="creating_event">ਵਰਤਾਰਾ ਬਣਿਆ।</string>
+    <string name="hint_attendees">ਪ੍ਰਾਹੁਣੇ</string>
+    <string name="hint_description">ਵਰਣਨ</string>
+    <string name="hint_where">ਟਿਕਾਣਾ</string>
+    <string name="hint_what">ਵਰਤਾਰੇ ਦਾ ਨਾਂ</string>
+    <string name="select_synced_calendars_button">ਜੰਤਰੀਆਂ ਜਿਨ੍ਹਾਂ ਦਾ ਸਮਕਾਲੀਕਰਨ ਕਰਨਾ ਹੈ</string>
+    <string name="view_settings">ਸੈਟਿੰਗਾਂ ਵੇਖੋ</string>
+    <string name="show_controls">ਕੰਟਰੋਲ ਵਿਖਾਓ</string>
+    <string name="hide_controls">ਕੰਟਰੋਲ ਲੁਕਾਓ</string>
+    <string name="search">ਖੋਜੋ</string>
+    <string name="menu_preferences">ਸੈਟਿੰਗਾਂ</string>
+    <string name="goto_date">ਏਥੇ ਜਾਓ…</string>
+    <string name="goto_today">ਅੱਜ</string>
+    <string name="share_label">ਸਾਂਝਾ ਕਰੋ</string>
+    <string name="event_delete">ਵਰਤਾਰਾ ਮਿਟਾਓ</string>
+    <string name="event_edit">ਵਰਤਾਰੇ ਦਾ ਸੰਪਾਦਨ ਕਰੋ</string>
+    <string name="event_create">ਨਵਾਂ ਵਰਤਾਰਾ</string>
+    <string name="event_view">ਵਰਤਾਰਾ ਵੇਖੋ</string>
+    <string name="month_view">ਮਹੀਨਾ</string>
+    <string name="week_view">ਹਫ਼ਤਾ</string>
+    <string name="day_view">ਦਿਨ</string>
+    <string name="agenda_view">ਕਾਰਜ</string>
+    <string name="show_day_view">ਦਿਨ ਵਿਖਾਓ</string>
+    <string name="calendar_refresh">ਤਾਜ਼ਾ ਕਰੋ</string>
+    <plurals name="weekN">
+        <item quantity="one">ਹਫ਼ਤਾ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 ਦਿਨ</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਦਿਨ</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 ਘੰਟਾ</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਘੰਟੇ</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 ਮਿੰਟ</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਮਿੰਟ</item>
+    </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">1 ਮਿੰਟ</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਮਿੰਟ</item>
+    </plurals>
+    <string name="no_title_label">ਕੋਈ ਸਿਰਲੇਖ ਨਹੀਂ</string>
+    <string name="repeats_label">ਵਾਰ-ਵਾਰ</string>
+    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt">ਕੱਲ੍ਹ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt; ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt">ਅੱਜ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt; ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="tomorrow">ਕੱਲ੍ਹ</string>
+    <string name="today">ਅੱਜ</string>
+    <string name="attendees_label">ਪ੍ਰਾਹੁਣੇ</string>
+    <string name="timezone_label">ਸਮਾਂ ਖੇਤਰ</string>
+    <string name="when_label">ਕਦੋਂ</string>
+    <string name="where_label">ਕਿੱਥੇ</string>
+    <string name="what_label">ਕੀ</string>
+    <string name="app_label">ਜੰਤਰੀ</string>
+</resources>
