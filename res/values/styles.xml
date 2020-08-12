@@ -24,6 +24,53 @@
 
     </style>
 
+    <style name="Base.CalendarAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="light_dark">@color/bg_black</item>
+        <item name="settings_titleText">?android:attr/textAppearanceLargeInverse</item>
+        <item name="month_header_bgcolor">@color/month_other_bgcolor</item>
+        <item name="agenda_general_bgcolor">@color/agenda_general_background_color</item>
+        <item name="agenda_day_item_text_color">@color/agenda_day_item_text_color</item>
+        <item name="edit_event_bgcolor">@color/edit_event_color</item>
+        <item name="editEvent_small_color">@color/edit_event_small</item>
+        <item name="recurrence_picker_bgcolor_up">@android:color/white</item>
+        <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background</item>
+        <item name="done_text_recurrence">@color/recurrence_done_text_color</item>
+        <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground</item>
+        <item name="event_info_bgcolor">@color/background_color</item>
+        <item name="event_info_scrollview_bgcolor">@android:color/white</item>
+        <item name="event_info_organizer_color">@color/event_info_organizer_color</item>
+        <item name="event_info_description_color">@color/event_info_description_color</item>
+        <item name="event_info_body_color">@color/event_info_body_color</item>
+        <item name="event_info_label_color">@color/event_info_label_color</item>
+        <item name="android:itemBackground">@android:color/white</item>
+        <item name="create_event_date_color">@color/create_event_date_color</item>
+        <item name="calendar_owner_text_color">@color/calendar_owner_text_color</item>
+        <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
+        <item name="app_bar_color">@color/app_bar</item>
+        <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
+        <item name="minus_button">@drawable/ic_menu_remove_field_holo_light</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_light</item>
+        <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
+        <item name="month_other_bgcolor">@color/month_other_bgcolor</item>
+        <item name="settings_calendar_offline">@drawable/ic_sync_off_light</item>
+        <item name="iconAboutAuthors">@drawable/ic_create_light</item>
+        <item name="iconAboutLicense">@drawable/ic_description_light</item>
+        <item name="iconSettingsAbout">@drawable/ic_info_outline_light</item>
+
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemSelected">@android:color/white</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+    </style>
+
+    <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
+        <item name="itemIconTint">?attr/colorNavigationItem</item>
+        <item name="itemTextColor">?attr/colorNavigationItem</item>
+        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+    </style>
+
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

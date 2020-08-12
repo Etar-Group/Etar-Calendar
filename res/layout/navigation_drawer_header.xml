@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout_nav_drawer"
     android:layout_width="match_parent"
     android:layout_height="148dp"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/nav_drawer_header_background"
     android:orientation="vertical">
 
 
