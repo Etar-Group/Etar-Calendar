@@ -788,7 +788,17 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         if (mCurrentView == ViewType.EDIT || mBackToPreviousView) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, mPreviousView);
         } else {
-            super.onBackPressed();
+            SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(this);
+            int defaultStart = Integer.valueOf(prefs.getString(GeneralPreferences.KEY_DEFAULT_START, GeneralPreferences.DEFAULT_DEFAULT_START));
+
+            // if the current view is the default one, quit app. If not, go back to default view.
+            if (mController.getViewType() == defaultStart
+                    || defaultStart == com.android.calendar.CalendarController.ViewType.AGENDA
+                    || defaultStart == com.android.calendar.CalendarController.ViewType.DAY ) {
+                super.onBackPressed();
+            }else{
+                mController.sendEvent(this, EventType.GO_TO, null, null, -1, defaultStart);
+            }
         }
     }
 
