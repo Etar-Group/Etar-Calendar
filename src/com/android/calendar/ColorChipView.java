@@ -52,7 +52,7 @@ public class ColorChipView extends View {
 
     private static int CHIP_RECT_ROUNDING = 25;
     private static int CHIP_MARGIN = 10;
-    private static float CHIP_SHADOW_INTENSITY = 7.0f;
+    private static float CHIP_SHADOW_INTENSITY = 0.0f;
     private static float CHIP_SHADOW_X = 1.0f;
     private static float CHIP_SHADOW_Y = 2.0f;
 
