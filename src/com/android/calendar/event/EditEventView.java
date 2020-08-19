@@ -1526,6 +1526,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         prepareReminders();
         prepareAvailability();
         prepareAccess();
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            mActivity.getWindow().setStatusBarColor(displayColor);
+        }
     }
 
     /**
