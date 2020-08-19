@@ -560,14 +560,15 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         Activity act = getActivity();
         if (mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
                 && mView.prepareForSave()) {
-            mOnDone.setDoneCode(Utils.DONE_SAVE);
-            mOnDone.run();
+            //mOnDone.setDoneCode(Utils.DONE_SAVE);
+            //mOnDone.run();
+            Toast.makeText(mActivity, ws.xsoh.etar.R.string.unsaved_event, android.widget.Toast.LENGTH_SHORT).show();
         }
         if (act !=null && (Build.VERSION.SDK_INT < 23 ||
-                    ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
+                ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
                         Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED))
-            act.finish();
-        super.onPause();
+            // act.finish();
+            super.onPause();
     }
 
     @Override
