@@ -1,0 +1,4 @@
+- Zeitzohnen sind wieder auswählbar
+- SVG App-Icon
+- Überarbeitung und Reaktivierung des Widgets
+- Neue Übersetzungen

@@ -1,0 +1,4 @@
+- Recover time zone database
+- SVG app icon
+- Rework and reactivate the widget
+- New translations
