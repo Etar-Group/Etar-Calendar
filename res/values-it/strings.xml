@@ -331,7 +331,7 @@
     <string name="preferences_calendar_delete_delete">Elimina calendario</string>
     <string name="preferences_calendar_delete_cancel">Annulla</string>
     <string name="preferences_menu_about">Altro su Etar</string>
-    <string name="app_copyright">Progetto Etar © 2015-<xliff:g>%s</xliff:g>. Parte del progetto Android Open Source © 2005-<xliff:g>%s</xliff:g>.</string>
+    <string name="app_copyright">Progetto Etar © 2015-<xliff:g>%1$s</xliff:g>. Parte del progetto Android Open Source © 2005-<xliff:g>%1$s</xliff:g>.</string>
     <string name="preferences_calendar_no_display_name">Calendario senza nome</string>
     <string name="preferences_calendar_account_local">Calendario non in linea</string>
     <string name="preferences_calendar_configure_account">Configura calendario in %1$s</string>

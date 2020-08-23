@@ -326,7 +326,7 @@
 \n
 \nIn DAVx⁵ kann \'Kalenderfarben verwalten\' deaktiviert werden, um dies zu verhindern.</string>
     <string name="preferences_list_add_remote">Kalender hinzufügen (CalDAV)</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Teile davon © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Teile davon © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Autoren</string>
     <string name="changelog">Änderungsübersicht</string>
     <string name="license">Lizenz</string>

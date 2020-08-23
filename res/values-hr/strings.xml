@@ -342,7 +342,7 @@
     <string name="preferences_calendar_delete_cancel">Odustani</string>
     <string name="preferences_menu_about">Informacije o Etaru</string>
     <string name="offline_account_name">Izvanmrežni kalendar</string>
-    <string name="app_copyright">© 2015. – <xliff:g>%s</xliff:g>. The Etar Project. Dijelovi © 2005. – <xliff:g>%s</xliff:g>. The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015. – <xliff:g>%1$s</xliff:g>. The Etar Project. Dijelovi © 2005. – <xliff:g>%1$s</xliff:g>. The Android Open Source Project.</string>
     <string name="authors">Autori</string>
     <string name="changelog">Zapis promjena</string>
     <string name="license">Licenca</string>

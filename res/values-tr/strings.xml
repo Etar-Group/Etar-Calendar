@@ -325,7 +325,7 @@
     <string name="preferences_calendar_delete_cancel">İptal</string>
     <string name="preferences_menu_about">Etar Hakkında</string>
     <string name="offline_account_name">Çevrimdışı Takvim</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Etar Projsi. Portions © 2005-<xliff:g>%s</xliff:g> Android Açık Kaynak Projesi.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Etar Projsi. Portions © 2005-<xliff:g>%1$s</xliff:g> Android Açık Kaynak Projesi.</string>
     <string name="authors">Yazarlar</string>
     <string name="changelog">Değişiklikler</string>
     <string name="license">Lisans</string>
