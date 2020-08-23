@@ -44,7 +44,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Week <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Refresh"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Show day"</string>
@@ -297,7 +297,7 @@
     <string name="fifteen_minutes">15 minutes</string>
     <string name="zero_minutes">0 minutes</string>
     <string name="visibility_confidential">Confidential</string>
-    <string name="calendar_permission_not_granted">Required permissions were denied, enable them from Settings app to edit events</string>
+    <string name="calendar_permission_not_granted">Sorry this feature can\'t work. Etar requires calendar read and write permissions to work properly</string>
     <string name="user_rejected_calendar_write_permission">Etar requires calendar read and write permissions to work properly. Please try again.</string>
     <string name="source_code">Source</string>
     <string name="preferences_issues">Report issues</string>
@@ -329,7 +329,7 @@
     <string name="preferences_month_view_landscape">Month view layout (Landscape)</string>
     <string name="preferences_month_view_portrait">Month view layout (Portrait)</string>
     <string name="no_map">There is no maps app installed</string>
-    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync.</string>
+    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync. Please mute</string>
     <string name="foreground_notification_channel_name">Alert sync</string>
     <string name="rsvp_declined">Responded no.</string>
     <string name="rsvp_tentative">Responded maybe.</string>
