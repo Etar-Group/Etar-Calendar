@@ -342,7 +342,7 @@
     <string name="preferences_calendar_delete_cancel">Отмена</string>
     <string name="preferences_menu_about">Об Etar</string>
     <string name="offline_account_name">Локальный календарь</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Проект Etar. Частично © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Проект Etar. Частично © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Авторы</string>
     <string name="changelog">История изменений</string>
     <string name="license">Лицензия</string>

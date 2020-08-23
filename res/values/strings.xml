@@ -555,7 +555,7 @@
     <string name="app_authors" translatable="false">The Etar Project</string>
     <string name="app_authors_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar/graphs/contributors</string>
     <string name="app_changelog" translatable="false">https://github.com/Etar-Group/Etar-Calendar/releases</string>
-    <string name="app_copyright">\u00a9 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions \u00a9 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">\u00a9 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions \u00a9 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="app_issues_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar/issues</string>
     <string name="app_license" translatable="false">GPLv3</string>
     <string name="app_license_url" translatable="false">https://www.gnu.org/licenses/gpl-3.0.html</string>

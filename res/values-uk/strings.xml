@@ -345,7 +345,7 @@
     <string name="preferences_calendar_delete_cancel">Скасувати</string>
     <string name="preferences_menu_about">Про Etar</string>
     <string name="offline_account_name">Автономний календар</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Проєкт Etar. Частково © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Проєкт Etar. Частково © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Автори</string>
     <string name="changelog">Перелік змін</string>
     <string name="license">Ліцензія</string>

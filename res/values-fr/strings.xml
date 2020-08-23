@@ -326,7 +326,7 @@
     <string name="preferences_calendar_delete_cancel">Annuler</string>
     <string name="preferences_menu_about">À propos d’Etar</string>
     <string name="offline_account_name">Calendrier hors-ligne</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Auteurs</string>
     <string name="changelog">Journal des modifications</string>
     <string name="license">Licence</string>

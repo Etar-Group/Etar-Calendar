@@ -317,7 +317,7 @@
     <string name="preferences_calendar_configure_account">Configurar calendário em %1$s</string>
     <string name="offline_account_name">Calendário local</string>
     <string name="preferences_calendar_synchronize">Sincronizar este calendário</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_list_add_offline_cancel">Cancelar</string>
     <string name="preferences_calendar_info_category">Informação do calendário</string>
     <string name="preferences_calendar_account">Conta %1$s</string>
