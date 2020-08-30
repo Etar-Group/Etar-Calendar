@@ -35,32 +35,27 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 minuta.</item>
-        <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> minuty</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> minut</item>
+        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> minuty</item>
+        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> minut</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> minut</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 godzina.</item>
-        <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> godziny</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> godzin</item>
+        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> godziny</item>
+        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> godzin</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> godzin</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 dzień.</item>
-        <item quantity="few">
-            <xliff:g id="COUNT">%d</xliff:g> dni</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> dni</item>
+        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> dni</item>
+        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> dni</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> dni</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">tydzień <xliff:g id="COUNT">%d</xliff:g>
-        </item>
-        <item quantity="few">tygodni <xliff:g id="COUNT">%d</xliff:g>
-        </item>
-        <item quantity="many">tygodnie <xliff:g id="COUNT">%d</xliff:g>
-        </item>
+        <item quantity="one">tydzień <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="few">tygodni <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="many">tygodnie <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="other">tygodnie <xliff:g id="COUNT">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Odśwież"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Pokaż dzień"</string>
