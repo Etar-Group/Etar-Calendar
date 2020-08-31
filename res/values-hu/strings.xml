@@ -33,19 +33,20 @@
         <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> perc"</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 p"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> p"</item>
+        <item quantity="one">1 p</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> p</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 óra"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> óra"</item>
+        <item quantity="one">1 óra</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> óra</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 nap"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> nap"</item>
+        <item quantity="one">1 nap</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> nap</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g>. hét"</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g>. hét</item>
+        <item quantity="other"></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Frissítés"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Nap megjelenítése"</string>
@@ -118,9 +119,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Saját válasz írása..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Szervező:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Emlékeztetők"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"ma, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"tegnap, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"holnap, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Ma, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">tegnap, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">holnap, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Betöltés…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Érintse meg <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> előtti események megtekintéséhez"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Érintse meg <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> utáni események megtekintéséhez"</string>
@@ -180,8 +181,8 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Hét számának megjelenítése"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build verziószáma"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Nincsenek közelgő események a naptárban"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Kísérleti"</string>
@@ -207,29 +208,29 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Új esemény"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_COUNT">%2$s</xliff:g>/<xliff:g id="ITEM_INDEX">%1$s</xliff:g> esemény."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 esemény"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> esemény"</item>
+        <item quantity="one">1 esemény</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> esemény</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"+1 esemény"</item>
-        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> esemény"</item>
+        <item quantity="one">+1 esemény</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> esemény</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Kiválasztott esemény"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> naponta"</item>
-        <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g> naponta"</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> naponta</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> naponta</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> hetente"</item>
-        <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g> hetente"</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> hetente</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hetente</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> havonta"</item>
-        <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g> havonta"</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> havonta</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> havonta</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> évente"</item>
-        <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g> évente"</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> évente</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> évente</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"havonta ugyanakkor"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Végtelenszer"</string>
@@ -250,4 +251,81 @@
     <string name="snooze_delay_dialog_title">Szundi beállítása</string>
     <string name="preferences_default_snooze_delay_title">Szundi időtartama</string>
     <string name="preferences_default_snooze_delay_dialog">Alapértelmezett szundi időtartama</string>
+    <string name="preferences_calendar_synchronize">Naptár szinkronizálása</string>
+    <string name="offline_account_name">Offline naptár</string>
+    <string name="preferences_menu_about">Az Etar névjegye</string>
+    <string name="preferences_list_add_offline_cancel">Mégse</string>
+    <string name="preferences_list_add_offline_name">Név</string>
+    <string name="preferences_list_add_offline_button">Naptár hozzáadása</string>
+    <string name="preferences_list_add_offline_message">Az offline naptárak NINCSENEK szinkronizálva felhőszolgáltatással, és csak a telefonján érhetők el.</string>
+    <string name="preferences_list_add_offline_error_empty">Adja meg a naptár nevét!</string>
+    <string name="preferences_list_add_offline_title">Offline naptár hozzáadása</string>
+    <string name="preferences_list_add_offline">Offline naptár hozzáadása</string>
+    <string name="preferences_list_add_remote">Távoli naptár hozzáadása (CalDAV)</string>
+    <string name="preferences_list_general">Általános beállítások</string>
+    <string name="preferences_list_calendar_summary_invisible">Az események nem jelennek meg</string>
+    <string name="preferences_list_calendar_summary_sync_off">Nincs szinkronizálva</string>
+    <string name="preferences_calendar_delete_cancel">Mégse</string>
+    <string name="preferences_calendar_delete_delete">Naptár törlése</string>
+    <string name="preferences_calendar_delete_message">Tényleg törölni szeretné ezt a naptárt\?</string>
+    <string name="preferences_calendar_color_warning_button">Megértettem</string>
+    <string name="preferences_calendar_color_warning_title">Figyelmeztetés</string>
+    <string name="preferences_calendar_visible">Események megjelenítése</string>
+    <string name="preferences_calendar_color">Szín</string>
+    <string name="preferences_calendar_info_category">Naptár információ</string>
+    <string name="preferences_calendar_display_name">Név változtatása</string>
+    <string name="preferences_calendar_delete">Naptár törlése</string>
+    <string name="preferences_calendar_number_of_events">%1$d esemény</string>
+    <string name="preferences_calendar_account_local">Offline naptár</string>
+    <string name="preferences_calendar_account">%1$s fiók</string>
+    <string name="preferences_calendar_no_display_name">Névtelen naptár</string>
+    <string name="show_time_no">Ne mutassa az időt</string>
+    <string name="cal_pick_ics">Válassza ki az importálni kívánt fájlt</string>
+    <string name="cal_import_error_date_msg">A megadott dátum nem értelmezhető: %s</string>
+    <string name="cal_import_error_time_zone_msg">A megadott időzóna nem értelmezhető: %s</string>
+    <string name="cal_import_error_msg">Importálás a naptárba sikertelen</string>
+    <string name="cal_nothing_to_import">Nincs mit importálni</string>
+    <string name="cal_import_menu_title">Esemény importálása</string>
+    <string name="cal_export_succ_msg">Esemény sikeresen exportálva: %1$s</string>
+    <string name="cal_export_event_sdcard_title">Exportálás SD kártyára</string>
+    <string name="cal_share_intent_title">Esemény küldése:</string>
+    <string name="error_generating_ics">Problémák merültek fel az esemény megosztásakor</string>
+    <string name="two_hours">2 óra</string>
+    <string name="one_and_a_half_hours">1,5 óra</string>
+    <string name="one_hour">1 óra</string>
+    <string name="thirty_minutes">30 perc</string>
+    <string name="fifteen_minutes">15 perc</string>
+    <string name="zero_minutes">0 perc</string>
+    <string name="seven_days">7 nap</string>
+    <string name="six_days">6 nap</string>
+    <string name="five_days">5 nap</string>
+    <string name="four_days">4 nap</string>
+    <string name="three_days">3 nap</string>
+    <string name="two_days">2 nap</string>
+    <string name="calendar_permission_not_granted">A szükséges engedélyek el vannak utasítva. Engedélyezze őket a Beállításokban az események szerkesztéséhez</string>
+    <string name="source_code">Forrás</string>
+    <string name="preferences_issues">Hibák jelentése</string>
+    <string name="license">Licenc</string>
+    <string name="authors">Szerzők</string>
+    <string name="preferences_default_event_duration_title">Esemény alapértelmezett hossza</string>
+    <string name="display_options">Megjelenítési beállítások</string>
+    <string name="default_start_last">Előzőleg használt nézet</string>
+    <string name="maximum_number_of_lines">Maximum sorok száma az eseményben</string>
+    <string name="display_location">Hely megjelenítése</string>
+    <string name="display_time">Idő megjelenítése</string>
+    <string name="default_start_title">Alapértelmezett nézet</string>
+    <string name="preferences_color_pick">Elsődleges szín</string>
+    <string name="preferences_color">Elsődleges szín</string>
+    <string name="preferences_black_theme">Fekete</string>
+    <string name="preferences_dark_theme">Sötét</string>
+    <string name="preferences_light_theme">Világos</string>
+    <string name="preferences_system_theme">Rendszer alapértelmezett</string>
+    <string name="preferences_theme">Téma</string>
+    <string name="preferences_month_view_portrait">Havi nézet (Álló)</string>
+    <string name="rsvp_declined">Nemmel válaszolt.</string>
+    <string name="rsvp_tentative">Talánnal válaszolt.</string>
+    <string name="rsvp_accepted">Igennel válaszolt.</string>
+    <string name="view_settings">Beállítások megtekintése</string>
+    <string name="goto_date">Ugrás dátumra…</string>
+    <string name="share_label">Megosztás</string>
 </resources>
