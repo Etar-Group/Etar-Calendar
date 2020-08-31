@@ -310,6 +310,7 @@
     <string name="preferences_list_calendar_summary_invisible">事件未显示</string>
     <string name="preferences_list_general">通用设置</string>
     <string name="preferences_list_add_remote">添加远程日历 (CalDAV)</string>
+    <string name="preferences_list_add_remote_etesync">添加远程日历 (EteSync)</string>
     <string name="preferences_list_add_offline">添加离线日历</string>
     <string name="preferences_list_add_offline_title">添加离线日历</string>
     <string name="preferences_list_add_offline_error_empty">输入日历名称！</string>

@@ -303,6 +303,7 @@
     <string name="preferences_list_calendar_summary_invisible">Begivenheder vises ikke</string>
     <string name="preferences_list_general">Generel opsætning</string>
     <string name="preferences_list_add_remote">Tilføj fjernkalender (CalDAV)</string>
+    <string name="preferences_list_add_remote_etesync">Tilføj fjernkalender (EteSync)</string>
     <string name="preferences_list_add_offline">Tilføj offlinekalender</string>
     <string name="preferences_list_add_offline_title">Tilføj offlinekalender</string>
     <string name="preferences_list_add_offline_error_empty">Indtast kalendernavn!</string>

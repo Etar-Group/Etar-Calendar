@@ -325,6 +325,7 @@
     <string name="preferences_list_calendar_summary_invisible">Događaji se ne prikazuju</string>
     <string name="preferences_list_general">Opće postavke</string>
     <string name="preferences_list_add_remote">Dodaj udaljeni kalendar (CalDAV)</string>
+    <string name="preferences_list_add_remote_etesync">Dodaj udaljeni kalendar (EteSync)</string>
     <string name="preferences_list_add_offline">Dodaj izvanmrežni kalendar</string>
     <string name="preferences_list_add_offline_title">Dodaj izvanmrežni kalendar</string>
     <string name="preferences_list_add_offline_error_empty">Upiši ime kalendara!</string>

@@ -325,6 +325,7 @@
     <string name="preferences_calendar_no_display_name">Calendário sem nome</string>
     <string name="cal_import_error_time_zone_msg">Incapaz de entender o fuso horário: %s</string>
     <string name="preferences_list_add_remote">Adicionar calendário remoto (CalDAV)</string>
+    <string name="preferences_list_add_remote_etesync">Adicionar calendário remoto (EteSync)</string>
     <string name="preferences_list_add_offline">Adicionar calendário local</string>
     <string name="preferences_list_add_offline_title">Adicionar calendário local</string>
     <string name="preferences_list_add_offline_error_empty">Introduza um nome!</string>

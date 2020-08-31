@@ -311,6 +311,7 @@
     <string name="preferences_list_add_offline_title">Afegeix un calendari fora de línia</string>
     <string name="preferences_list_add_offline">Afegeix un calendari fora de línia</string>
     <string name="preferences_list_add_remote">Afegeix un calendari remot (CalDAV)</string>
+    <string name="preferences_list_add_remote_etesync">Afegeix un calendari remot (EteSync)</string>
     <string name="preferences_list_general">Configuració general</string>
     <string name="preferences_list_calendar_summary_invisible">No es mostren els esdeveniments</string>
     <string name="preferences_list_calendar_summary_sync_off">No sincronitzat</string>

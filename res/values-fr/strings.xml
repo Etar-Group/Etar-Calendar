@@ -309,6 +309,7 @@
     <string name="preferences_list_calendar_summary_invisible">Les évènements ne sont pas affichés</string>
     <string name="preferences_list_general">Paramètres généraux</string>
     <string name="preferences_list_add_remote">Ajouter un calendrier distant (CalDAV)</string>
+    <string name="preferences_list_add_remote_etesync">Ajouter un calendrier distant (EteSync)</string>
     <string name="preferences_list_add_offline">Ajouter un calendrier hors-ligne</string>
     <string name="preferences_list_add_offline_title">Ajouter un calendrier hors-ligne</string>
     <string name="preferences_list_add_offline_error_empty">Veuillez saisir le nom du calendrier !</string>
