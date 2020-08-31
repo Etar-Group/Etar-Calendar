@@ -296,7 +296,7 @@
     <string name="cal_import_error_date_msg">Impossible d’interpréter la date donnée : %s</string>
     <string name="show_time_start_end_below">Heure de début et de fin au-dessous de l’évènement</string>
     <string name="maximum_number_of_lines">Nombre maximum de lignes par évènement</string>
-    <string name="foreground_notification_channel_name">Alerte de synchronisation</string>
+    <string name="foreground_notification_channel_name">Synchronisation de l’alarme</string>
     <string name="foreground_notification_channel_description">La synchronisation d’alerte interne nécessite les notifications au premier plan.</string>
     <string name="cal_import_error_time_zone_msg">Impossible de comprendre le fuseau horaire donné : %s</string>
     <string name="preferences_calendar_account">Compte %1$s</string>
