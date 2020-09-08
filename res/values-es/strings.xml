@@ -308,7 +308,6 @@
     <string name="preferences_list_calendar_summary_sync_off">No sincronizado</string>
     <string name="preferences_list_calendar_summary_invisible">No se están mostrando los eventos</string>
     <string name="preferences_list_general">Configuración general</string>
-    <string name="preferences_list_add_remote">Añadir calendario remoto (CalDAV)</string>
     <string name="preferences_list_add_offline">Añadir calendario fuera de línea</string>
     <string name="preferences_list_add_offline_title">Añadir calendario fuera de línea</string>
     <string name="preferences_list_add_offline_error_empty">¡Entrar nombre de calendario!</string>

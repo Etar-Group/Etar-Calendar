@@ -302,7 +302,6 @@
     <string name="preferences_calendar_synchronize">Sincronizza questo calendario</string>
     <string name="preferences_list_calendar_summary_sync_off">Non sincronizzato</string>
     <string name="preferences_list_general">Impostazioni generali</string>
-    <string name="preferences_list_add_remote">Aggiungi calendario remoto (CalDAV)</string>
     <string name="preferences_list_add_offline">Aggiungi calendario offline</string>
     <string name="offline_account_name">Calendario offline</string>
     <string name="authors">Autori</string>

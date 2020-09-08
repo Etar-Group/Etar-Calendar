@@ -161,6 +161,13 @@ class MainListPreferences : PreferenceFragmentCompat() {
             launchDavX5Login()
             true
         }
+        val addEtesyncPreference = Preference(context).apply {
+            title = getString(R.string.preferences_list_add_remote_etesync)
+        }
+        addEtesyncPreference.setOnPreferenceClickListener {
+            launchAddEtesync()
+            true
+        }
         val addOfflinePreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_offline)
         }
@@ -170,6 +177,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
         }
         screen.addPreference(generalPreference)
         screen.addPreference(addCaldavPreference)
+        screen.addPreference(addEtesyncPreference)
         screen.addPreference(addOfflinePreference)
     }
 
@@ -199,6 +207,33 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 val downloadIntent = Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"))
                 if (downloadIntent.resolveActivity(activity!!.packageManager) != null) {
+                    startActivity(downloadIntent)
+                } else {
+                    Toast.makeText(activity, "No browser available!", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private fun launchAddEtesync() {
+        val packageManager = requireActivity().packageManager
+        val etesyncPackage = "com.etesync.syncadapter"
+        val etesyncIntent = packageManager.getLaunchIntentForPackage(etesyncPackage)
+
+        if (etesyncIntent != null) {
+            startActivity(etesyncIntent)
+        } else {
+            // EteSync is not installed
+            val installIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${etesyncPackage}"))
+
+            // launch market
+            if (installIntent.resolveActivity(packageManager) != null) {
+                startActivity(installIntent)
+            } else {
+                // no f-droid market app or Play store installed -> launch browser for f-droid url
+                val downloadIntent = Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://f-droid.org/repository/browse/?fdid=${etesyncPackage}"))
+                if (downloadIntent.resolveActivity(packageManager) != null) {
                     startActivity(downloadIntent)
                 } else {
                     Toast.makeText(activity, "No browser available!", Toast.LENGTH_LONG).show()

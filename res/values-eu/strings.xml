@@ -303,7 +303,6 @@
     <string name="preferences_list_calendar_summary_sync_off">Ez sinkronizatuta</string>
     <string name="preferences_list_calendar_summary_invisible">Gertaerak ez dira bistaratzen</string>
     <string name="preferences_list_general">Ezarpen orokorrak</string>
-    <string name="preferences_list_add_remote">Gehitu urruneko egutegia (CalDAV)</string>
     <string name="preferences_list_add_offline">Gehitu lineaz kanpoko egutegia</string>
     <string name="preferences_list_add_offline_title">Gehitu lineaz kanpoko egutegia</string>
     <string name="preferences_list_add_offline_error_empty">Idatzi egutegiaren izena!</string>

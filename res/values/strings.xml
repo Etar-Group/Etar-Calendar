@@ -789,7 +789,8 @@
     <string name="preferences_list_calendar_summary_sync_off">Not synchronized</string>
     <string name="preferences_list_calendar_summary_invisible">Events are not displayed</string>
     <string name="preferences_list_general">General settings</string>
-    <string name="preferences_list_add_remote">Add remote calendar (CalDAV)</string>
+    <string name="preferences_list_add_remote">Add CalDAV calendar</string>
+    <string name="preferences_list_add_remote_etesync">Add EteSync calendar</string>
     <string name="preferences_list_add_offline">Add offline calendar</string>
     <string name="preferences_list_add_offline_title">Add offline calendar</string>
     <string name="preferences_list_add_offline_error_empty">Enter a calendar name!</string>

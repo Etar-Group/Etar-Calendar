@@ -327,7 +327,6 @@
     <string name="preferences_list_calendar_summary_sync_off">Не синхронізовано</string>
     <string name="preferences_list_calendar_summary_invisible">Події не показуються</string>
     <string name="preferences_list_general">Загальні налаштування</string>
-    <string name="preferences_list_add_remote">Додати віддалений календар (CalDAV)</string>
     <string name="preferences_list_add_offline">Додати автономний календар</string>
     <string name="preferences_list_add_offline_title">Додати автономний календар</string>
     <string name="preferences_list_add_offline_error_empty">Введіть назву календаря!</string>
