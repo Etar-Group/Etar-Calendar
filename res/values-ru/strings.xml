@@ -324,8 +324,6 @@
     <string name="preferences_list_calendar_summary_sync_off">Не синхронизирован</string>
     <string name="preferences_list_calendar_summary_invisible">События не отображаются</string>
     <string name="preferences_list_general">Общие настройки</string>
-    <string name="preferences_list_add_remote">Добавить удалённый календарь (CalDAV)</string>
-    <string name="preferences_list_add_remote_etesync">Добавить удалённый календарь (EteSync)</string>
     <string name="preferences_list_add_offline">Добавить локальный календарь</string>
     <string name="preferences_list_add_offline_title">Добавить локальный календарь</string>
     <string name="preferences_list_add_offline_error_empty">Введите название календаря!</string>

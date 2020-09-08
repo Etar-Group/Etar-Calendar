@@ -325,8 +325,6 @@
     <string name="preferences_calendar_color_warning_message">Die Änderung der Farbe kann zurückgesetzt werden, wenn der Kalender erneut synchronisiert wird.
 \n
 \nIn DAVx⁵ kann \'Kalenderfarben verwalten\' deaktiviert werden, um dies zu verhindern.</string>
-    <string name="preferences_list_add_remote">Kalender hinzufügen (CalDAV)</string>
-    <string name="preferences_list_add_remote_etesync">Kalender hinzufügen (EteSync)</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Teile davon © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Autoren</string>
     <string name="changelog">Änderungsübersicht</string>

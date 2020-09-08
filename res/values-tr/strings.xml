@@ -307,8 +307,6 @@
     <string name="preferences_list_calendar_summary_sync_off">Senkronize değil</string>
     <string name="preferences_list_calendar_summary_invisible">Olaylar gösterilmiyor</string>
     <string name="preferences_list_general">Genel ayarlar</string>
-    <string name="preferences_list_add_remote">Uzak takvim ekle (CalDAV)</string>
-    <string name="preferences_list_add_remote_etesync">Uzak takvim ekle (EteSync)</string>
     <string name="preferences_list_add_offline">Çevrimdışı takvim ekle</string>
     <string name="preferences_list_add_offline_title">Çevrimdışı takvim ekle</string>
     <string name="preferences_list_add_offline_error_empty">Bir takvim adı girin!</string>

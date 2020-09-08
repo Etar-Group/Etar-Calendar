@@ -244,8 +244,8 @@
     <string name="visibility_private">Private</string>
     <string name="visibility_public">Public</string>
     <string name="share_label">Partilhar</string>
-    <string name="preferences_list_add_remote">Add remote calendar (CalDAV)</string>
-    <string name="preferences_list_add_remote_etesync">Add remote calendar (EteSync)</string>
+    <string name="preferences_list_add_remote">Add CalDAV calendar</string>
+    <string name="preferences_list_add_remote_etesync">Add EteSync calendar</string>
     <string name="preferences_list_add_offline">Add offline calendar</string>
     <string name="preferences_list_add_offline_title">Add offline calendar</string>
     <string name="preferences_list_add_offline_error_empty">Enter a calendar name!</string>
