@@ -358,4 +358,6 @@
     <string name="three_days">3 дня</string>
     <string name="two_days">2 дня</string>
     <string name="preferences_system_theme">Системная</string>
+    <string name="preferences_list_add_remote_etesync">Добавить календарь EteSync</string>
+    <string name="preferences_list_add_remote">Добавить календарь CalDAV</string>
 </resources>
