@@ -2142,7 +2142,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // new event that aren't in the default set.
         Resources r = mActivity.getResources();
         mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
-        mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
+        mReminderMinuteLabels = EventViewUtils.constructReminderLabelsFromValues(mContext,
+                mReminderMinuteValues, false);
         mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
         mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
 

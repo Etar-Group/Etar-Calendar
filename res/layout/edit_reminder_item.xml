@@ -39,8 +39,7 @@
         android:layout_weight="1"
         android:gravity="top|left"
         android:layout_marginRight="0dip"
-        android:contentDescription="@string/accessibility_reminder_type"
-        android:entries="@array/reminder_methods_labels"/>
+        android:contentDescription="@string/accessibility_reminder_type"/>
 
     <ImageButton android:id="@+id/reminder_remove"
         style="@style/MinusButton"

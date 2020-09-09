@@ -91,6 +91,16 @@
              days is a parameter. -->
         <item quantity="other"><xliff:g id="count">%d</xliff:g> days</item>
     </plurals>
+    <!-- This is the number of weeks displayed for a calendar reminder.  For example,
+         a reminder of 2 weeks would be displayed as '2 weeks'.  The translation
+         should use the shortest acceptable abbreviation of 'week' to save space. -->
+    <plurals name="Nweeks">
+        <!-- This is the label for a reminder of 1 week. -->
+        <item quantity="one">1 week</item>
+        <!-- This is the label for a reminder of 2 or more weeks. The actual number of
+             weeks is a parameter. -->
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> weeks</item>
+    </plurals>
     <!-- This is for displaying the week of the year near the date. Eg. "January, 2011 Week 1" -->
     <plurals name="weekN">
         <!-- Label for displaying week of the year for all week values [CHAR LIMIT=16] -->

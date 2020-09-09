@@ -103,10 +103,12 @@
         <item>60</item>
         <item>120</item>
         <item>180</item>
-        <item>720</item>
-        <item>1440</item>
-        <item>2880</item>
-        <item>10080</item>
+        <item>720</item> <!-- 12 hours -->
+        <item>1440</item> <!-- 24 hours -->
+        <item>2880</item> <!-- 2 days -->
+        <item>10080</item> <!-- 1 week -->
+        <item>20160</item> <!-- 2 weeks -->
+        <item>40320</item> <!-- 4 weeks -->
     </integer-array>
 
   <!-- Choices for the "Reminder minutes" spinner in the settings.
