@@ -88,6 +88,8 @@
         <item>24 hours</item>
         <item>2 days</item>
         <item>1 week</item>
+        <item>2 weeks</item>
+        <item>4 weeks</item>
     </string-array>
 
     <integer-array name="reminder_minutes_values" translatable="false">
@@ -133,6 +135,8 @@
         <item>24 hours</item>
         <item>2 days</item>
         <item>1 week</item>
+        <item>2 weeks</item>
+        <item>4 weeks</item>
     </string-array>
 
     <string-array name="preferences_default_reminder_values" translatable="false">
@@ -153,6 +157,8 @@
         <item>"1440"</item>
         <item>"2880"</item>
         <item>"10080"</item>
+        <item>"20160"</item>
+        <item>"40320"</item>
     </string-array>
 
     <string-array name="preferences_default_snooze_delay_values" translatable="false">
