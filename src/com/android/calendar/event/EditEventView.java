@@ -741,7 +741,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // is mostly relevant for "methods", since we shouldn't have any "minutes" values in a
         // new event that aren't in the default set.
         mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
-        mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
+        mReminderMinuteLabels = EventViewUtils.constructReminderLabelsFromValues(mActivity,
+                mReminderMinuteValues, false);
         mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
         mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
 
