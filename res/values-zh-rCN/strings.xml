@@ -342,4 +342,6 @@
     <string name="three_days">3天</string>
     <string name="two_days">2天</string>
     <string name="preferences_system_theme">系统默认</string>
+    <string name="preferences_list_add_remote_etesync">添加 EteSync 日历</string>
+    <string name="preferences_list_add_remote">添加 CalDAV日历</string>
 </resources>
