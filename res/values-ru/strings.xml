@@ -280,7 +280,7 @@
     <string name="preferences_default_event_duration_title">Продолжительность события по умолчанию</string>
     <string name="preferences_issues">Сообщить о проблеме</string>
     <string name="user_rejected_calendar_write_permission">Для правильной работы Etar требуются разрешения на чтение и запись календаря. Пожалуйста, попробуйте ещё раз.</string>
-    <string name="calendar_permission_not_granted">Необходимые разрешения были отклонены, включите их из настроек приложения для редактирования событий.</string>
+    <string name="calendar_permission_not_granted">Необходимые разрешения были отклонены, включите их из настроек приложения для редактирования событий</string>
     <string name="visibility_confidential">Конфиденциальное</string>
     <string name="zero_minutes">0 минут</string>
     <string name="fifteen_minutes">15 минут</string>
