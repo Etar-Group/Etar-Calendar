@@ -1556,7 +1556,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 r.bottom-=EVENT_RECT_MARGIN_BOTTOM;
                 //canvas.drawRect(r, mEventSquarePaint);
                 canvas.drawRoundRect(new RectF(r), EVENT_RECT_ALLDAY_ROUNDING, EVENT_RECT_ALLDAY_ROUNDING, mEventSquarePaint);
-            }else{
+            } else {
                 r.left+=EVENT_RECT_MARGIN_LEFT;
                 r.right+=EVENT_RECT_MARGIN_LEFT;
                 r.top+=EVENT_RECT_MARGIN_TOP;
