@@ -59,7 +59,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 
-import android.graphics.RectF ;
+import android.graphics.RectF;
 
 import ws.xsoh.etar.R;
 
@@ -627,8 +627,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         boolean isBold = false;
         mMonthNumPaint.setColor(isFocusMonth ? mMonthNumColor : mMonthNumOtherColor);
 
-        float twelveDp = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 16,
-                getResources().getDisplayMetrics() );
+        float twelveDp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16,
+                getResources().getDisplayMetrics());
         mMonthNumPaint.setTextSize(twelveDp);
 
         // Get the julian monday used to show the lunar info.
@@ -1550,16 +1550,15 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mEventSquarePaint.setColor(getRectangleColor());
 
             if(mEvent.allDay){
-                r.left+=EVENT_RECT_MARGIN_LEFT;
-                r.right-=EVENT_RECT_MARGIN_RIGHT;
-                r.top+=EVENT_RECT_MARGIN_TOP;
-                r.bottom-=EVENT_RECT_MARGIN_BOTTOM;
-                //canvas.drawRect(r, mEventSquarePaint);
+                r.left += EVENT_RECT_MARGIN_LEFT;
+                r.right -= EVENT_RECT_MARGIN_RIGHT;
+                r.top += EVENT_RECT_MARGIN_TOP;
+                r.bottom -= EVENT_RECT_MARGIN_BOTTOM;
                 canvas.drawRoundRect(new RectF(r), EVENT_RECT_ALLDAY_ROUNDING, EVENT_RECT_ALLDAY_ROUNDING, mEventSquarePaint);
             } else {
-                r.left+=EVENT_RECT_MARGIN_LEFT;
-                r.right+=EVENT_RECT_MARGIN_LEFT;
-                r.top+=EVENT_RECT_MARGIN_TOP;
+                r.left += EVENT_RECT_MARGIN_LEFT;
+                r.right += EVENT_RECT_MARGIN_LEFT;
+                r.top += EVENT_RECT_MARGIN_TOP;
                 canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, mEventSquarePaint);
             }
         }
@@ -1661,7 +1660,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                     lineText = baseText.subSequence(mTextLayout.getLineStart(i),
                             mTextLayout.getLineEnd(i));
                 }
-                canvas.drawText(lineText.toString(), mBoundaries.getTextX()+EVENT_RECT_TEXT_MARGIN_LEFT, mBoundaries.getTextY()+EVENT_RECT_TEXT_MARGIN_TOP,
+                canvas.drawText(lineText.toString(), mBoundaries.getTextX() + EVENT_RECT_TEXT_MARGIN_LEFT, mBoundaries.getTextY() + EVENT_RECT_TEXT_MARGIN_TOP,
                         getTextPaint());
                 mBoundaries.moveLinesDown(1);
             }
