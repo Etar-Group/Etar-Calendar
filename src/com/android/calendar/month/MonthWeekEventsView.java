@@ -1549,18 +1549,18 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mEventSquarePaint.setStyle(getRectanglePaintStyle());
             mEventSquarePaint.setColor(getRectangleColor());
 
-            if(!mEvent.allDay){
-                r.left+=EVENT_RECT_MARGIN_LEFT;
-                r.right+=EVENT_RECT_MARGIN_LEFT;
-                r.top+=EVENT_RECT_MARGIN_TOP;
-                canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, mEventSquarePaint);
-            }else{
+            if(mEvent.allDay){
                 r.left+=EVENT_RECT_MARGIN_LEFT;
                 r.right-=EVENT_RECT_MARGIN_RIGHT;
                 r.top+=EVENT_RECT_MARGIN_TOP;
                 r.bottom-=EVENT_RECT_MARGIN_BOTTOM;
                 //canvas.drawRect(r, mEventSquarePaint);
                 canvas.drawRoundRect(new RectF(r), EVENT_RECT_ALLDAY_ROUNDING, EVENT_RECT_ALLDAY_ROUNDING, mEventSquarePaint);
+            }else{
+                r.left+=EVENT_RECT_MARGIN_LEFT;
+                r.right+=EVENT_RECT_MARGIN_LEFT;
+                r.top+=EVENT_RECT_MARGIN_TOP;
+                canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, mEventSquarePaint);
             }
         }
 
