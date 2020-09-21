@@ -118,7 +118,8 @@
     <!-- Text color of non-declined events in agenda view -->
     <color name="agenda_item_standard_color">#FF333333</color>
     <!-- Text color of past events in agenda view -->
-    <color name="agenda_item_past_color">#989898</color>
+    <color name="agenda_item_past_color">#7E7E7E</color>
+    <color name="agenda_item_past_color_background">#F0F0F0</color>
     <!-- Background Color of present/future events in agenda view  -->
     <color name="agenda_day_bar_background_color">#FFFFFFFF</color>
     <!-- Background Color of past events in agenda view  -->
@@ -257,6 +258,8 @@
     <color name="agenda_item_standard_color_black">#ffffff</color>
     <color name="agenda_item_where_text_color_black">#f5f5f5</color>
     <color name="agenda_day_item_text_color_black">#e0e0e0</color>
+    <color name="agenda_item_past_color_black">#7E7E7E</color>
+    <color name="agenda_item_past_color_background_black">#F0F0F0</color>
 
     <!-- Black Color EventView -->
     <color name="edit_event_color_black">@color/bg_black</color>
@@ -360,6 +363,8 @@
     <color name="agenda_item_standard_color_dark">#ffffff</color>
     <color name="agenda_item_where_text_color_dark">#f5f5f5</color>
     <color name="agenda_day_item_text_color_dark">#e0e0e0</color>
+    <color name="agenda_item_past_color_dark">#7E7E7E</color>
+    <color name="agenda_item_past_color_background_dark">#F0F0F0</color>
 
     <!-- Dark Color EventView -->
     <color name="edit_event_color_dark">@color/bg_dark</color>
