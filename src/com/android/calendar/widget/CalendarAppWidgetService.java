@@ -45,9 +45,9 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.android.calendar.Utils;
-import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
-import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
-import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
+import com.android.calendar.widget.general.DayInfo;
+import com.android.calendar.widget.general.EventInfo;
+import com.android.calendar.widget.general.RowInfo;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -129,7 +129,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
     public static class CalendarFactory extends BroadcastReceiver implements
             RemoteViewsService.RemoteViewsFactory, Loader.OnLoadCompleteListener<Cursor> {
-        private static final boolean LOGD = false;
+        private static final boolean LOGD = true;
         private static final AtomicInteger currentVersion = new AtomicInteger(0);
         // Suppress unnecessary logging about update time. Need to be static as this object is
         // re-instanciated frequently.
@@ -141,7 +141,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private static volatile int mSerialNum = 0;
         private final Handler mHandler = new Handler();
         private final ExecutorService executor = Executors.newSingleThreadExecutor();
-        private Context mContext;
+        public Context mContext;
         private Resources mResources;
         private int mLastSerialNum = -1;
         private CursorLoader mLoader;
@@ -157,6 +157,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private int mDeclinedColor;
         private int mStandardColor;
         private int mAllDayColor;
+        public int mListid = R.id.events_list;
 
         protected CalendarFactory(Context context, Intent intent) {
             mContext = context;
@@ -172,6 +173,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         public CalendarFactory() {
             // This is being created as part of onReceive
 
+        }
+
+        public void setContext(Context mContext) {
+            this.mContext = mContext;
         }
 
         /* @VisibleForTesting */
@@ -211,9 +216,12 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         private Runnable createUpdateLoaderRunnable(final String selection,
                 final PendingResult result, final int version) {
+            Log.wtf(TAG, "createUpdateLoaderRunnable");
             return new Runnable() {
                 @Override
                 public void run() {
+
+                    Log.wtf(TAG, "createUpdateLoaderRunnable2");
                     // If there is a newer load request in the queue, skip loading.
                     if (mLoader != null && version >= currentVersion.get()) {
                         Uri uri = createLoaderUri();
@@ -492,9 +500,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
          */
         @Override
         public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
+            Log.wtf(TAG, "onLoadComplete");
             if (cursor == null) {
                 return;
             }
+            Log.wtf(TAG, "onLoadComplete2");
             // If a newer update has happened since we started clean up and
             // return
             synchronized (mLock) {
@@ -513,7 +523,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 // Copy it to a local static cursor.
                 MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
                 try {
-                    mModel = buildAppWidgetModel(mContext, matrixCursor, tz);
+                    mModel = buildAppWidgetModel(mContext, matrixCursor, tz);Log.wtf(TAG, "onLoadComplete3");
                 } finally {
                     if (matrixCursor != null) {
                         matrixCursor.close();
@@ -563,10 +573,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
                 AppWidgetManager widgetManager = AppWidgetManager.getInstance(mContext);
                 if (mAppWidgetId == -1) {
-                    int[] ids = widgetManager.getAppWidgetIds(CalendarAppWidgetProvider
-                            .getComponentName(mContext));
-
-                    widgetManager.notifyAppWidgetViewDataChanged(ids, R.id.events_list);
+                    int[] ids = widgetManager.getAppWidgetIds(CalendarAppWidgetProvider.getComponentName(mContext));
+                    widgetManager.notifyAppWidgetViewDataChanged(ids, mListid);
                 } else {
                     widgetManager.notifyAppWidgetViewDataChanged(mAppWidgetId, R.id.events_list);
                 }
@@ -618,6 +626,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     }
                 }
             });
+        }
+
+        public static CalendarAppWidgetModel getModel(){
+            return mModel;
         }
     }
 }

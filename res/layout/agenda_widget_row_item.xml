@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android2="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@drawable/chips_ic_close_24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/imageView"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Marshmallow"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.android.calendar.Utils;
+import com.android.calendar.widget.general.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -34,16 +35,16 @@ import java.util.TimeZone;
 
 import ws.xsoh.etar.R;
 
-class CalendarAppWidgetModel {
+public class CalendarAppWidgetModel {
     private static final String TAG = CalendarAppWidgetModel.class.getSimpleName();
     private static final boolean LOGD = false;
-    final List<RowInfo> mRowInfos;
-    final List<EventInfo> mEventInfos;
-    final List<DayInfo> mDayInfos;
-    final Context mContext;
-    final long mNow;
-    final int mTodayJulianDay;
-    final int mMaxJulianDay;
+    public final List<RowInfo> mRowInfos;
+    public final List<EventInfo> mEventInfos;
+    public final List<DayInfo> mDayInfos;
+    public final Context mContext;
+    public final long mNow;
+    public final int mTodayJulianDay;
+    public final int mMaxJulianDay;
     private String mHomeTZName;
     private boolean mShowTZ;
 
@@ -228,211 +229,6 @@ class CalendarAppWidgetModel {
         return builder.toString();
     }
 
-    /**
-     * {@link RowInfo} is a class that represents a single row in the widget. It
-     * is actually only a pointer to either a {@link DayInfo} or an
-     * {@link EventInfo} instance, since a row in the widget might be either a
-     * day header or an event.
-     */
-    static class RowInfo {
-        static final int TYPE_DAY = 0;
-        static final int TYPE_MEETING = 1;
 
-        /**
-         * mType is either a day header (TYPE_DAY) or an event (TYPE_MEETING)
-         */
-        final int mType;
 
-        /**
-         * If mType is TYPE_DAY, then mData is the index into day infos.
-         * Otherwise mType is TYPE_MEETING and mData is the index into event
-         * infos.
-         */
-        final int mIndex;
-
-        RowInfo(int type, int index) {
-            mType = type;
-            mIndex = index;
-        }
-    }
-
-    /**
-     * {@link EventInfo} is a class that represents an event in the widget. It
-     * contains all of the data necessary to display that event, including the
-     * properly localized strings and visibility settings.
-     */
-    static class EventInfo {
-        int visibWhen; // Visibility value for When textview (View.GONE or View.VISIBLE)
-        String when;
-        int visibWhere; // Visibility value for Where textview (View.GONE or View.VISIBLE)
-        String where;
-        int visibTitle; // Visibility value for Title textview (View.GONE or View.VISIBLE)
-        String title;
-        int status;
-        int selfAttendeeStatus;
-
-        long id;
-        long start;
-        long end;
-        boolean allDay;
-        int color;
-
-        public EventInfo() {
-            visibWhen = View.GONE;
-            visibWhere = View.GONE;
-            visibTitle = View.GONE;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("EventInfo [visibTitle=");
-            builder.append(visibTitle);
-            builder.append(", title=");
-            builder.append(title);
-            builder.append(", visibWhen=");
-            builder.append(visibWhen);
-            builder.append(", id=");
-            builder.append(id);
-            builder.append(", when=");
-            builder.append(when);
-            builder.append(", visibWhere=");
-            builder.append(visibWhere);
-            builder.append(", where=");
-            builder.append(where);
-            builder.append(", color=");
-            builder.append(String.format("0x%x", color));
-            builder.append(", status=");
-            builder.append(status);
-            builder.append(", selfAttendeeStatus=");
-            builder.append(selfAttendeeStatus);
-            builder.append("]");
-            return builder.toString();
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + (allDay ? 1231 : 1237);
-            result = prime * result + (int) (id ^ (id >>> 32));
-            result = prime * result + (int) (end ^ (end >>> 32));
-            result = prime * result + (int) (start ^ (start >>> 32));
-            result = prime * result + ((title == null) ? 0 : title.hashCode());
-            result = prime * result + visibTitle;
-            result = prime * result + visibWhen;
-            result = prime * result + visibWhere;
-            result = prime * result + ((when == null) ? 0 : when.hashCode());
-            result = prime * result + ((where == null) ? 0 : where.hashCode());
-            result = prime * result + color;
-            result = prime * result + selfAttendeeStatus;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            EventInfo other = (EventInfo) obj;
-            if (id != other.id)
-                return false;
-            if (allDay != other.allDay)
-                return false;
-            if (end != other.end)
-                return false;
-            if (start != other.start)
-                return false;
-            if (title == null) {
-                if (other.title != null)
-                    return false;
-            } else if (!title.equals(other.title))
-                return false;
-            if (visibTitle != other.visibTitle)
-                return false;
-            if (visibWhen != other.visibWhen)
-                return false;
-            if (visibWhere != other.visibWhere)
-                return false;
-            if (when == null) {
-                if (other.when != null)
-                    return false;
-            } else if (!when.equals(other.when)) {
-                return false;
-            }
-            if (where == null) {
-                if (other.where != null)
-                    return false;
-            } else if (!where.equals(other.where)) {
-                return false;
-            }
-            if (color != other.color) {
-                return false;
-            }
-            if (selfAttendeeStatus != other.selfAttendeeStatus) {
-                return false;
-            }
-            return true;
-        }
-    }
-
-    /**
-     * {@link DayInfo} is a class that represents a day header in the widget. It
-     * contains all of the data necessary to display that day header, including
-     * the properly localized string.
-     */
-    static class DayInfo {
-
-        /**
-         * The Julian day
-         */
-        final int mJulianDay;
-
-        /**
-         * The string representation of this day header, to be displayed
-         */
-        final String mDayLabel;
-
-        DayInfo(int julianDay, String label) {
-            mJulianDay = julianDay;
-            mDayLabel = label;
-        }
-
-        @Override
-        public String toString() {
-            return mDayLabel;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((mDayLabel == null) ? 0 : mDayLabel.hashCode());
-            result = prime * result + mJulianDay;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            DayInfo other = (DayInfo) obj;
-            if (mDayLabel == null) {
-                if (other.mDayLabel != null)
-                    return false;
-            } else if (!mDayLabel.equals(other.mDayLabel))
-                return false;
-            if (mJulianDay != other.mJulianDay)
-                return false;
-            return true;
-        }
-
-    }
 }

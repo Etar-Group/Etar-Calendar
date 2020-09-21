@@ -96,8 +96,8 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * @param goToTime time that calendar should take the user to, or 0 to
      *                 indicate no specific start time.
      */
-    static Intent getLaunchFillInIntent(Context context, long id, long start, long end,
-                                        boolean allDay) {
+    public static Intent getLaunchFillInIntent(Context context, long id, long start, long end,
+                                               boolean allDay) {
         final Intent fillInIntent = new Intent();
         String dataString = "content://com.android.calendar/events";
         if (id != 0) {

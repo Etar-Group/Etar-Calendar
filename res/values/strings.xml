@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2006 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,7 +19,7 @@
     <string name="app_label">Calendar</string>
 
     <!-- Shared Labels. These labels are shared among the activities. -->
-    <skip/>
+    <skip />
     <!-- This is the label for the title or name of an event -->
     <string name="what_label">What</string>
     <!-- This is the label for the location of an event -->
@@ -98,7 +97,7 @@
     </plurals>
 
     <!-- Menu items: -->
-    <skip/>
+    <skip />
     <!-- This is a label on a context menu item. Pressing this menu item to initiate
         syncing of your Calendar data with the server. [CHAR LIMIT=11] -->
     <string name="calendar_refresh">"Refresh"</string>
@@ -160,15 +159,15 @@
 
 
     <!-- Month view -->
-    <skip/>
+    <skip />
 
     <!-- Select Visible Calendars activity -->
-    <skip/>
+    <skip />
     <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
     <string name="select_synced_calendars_button">Calendars to sync</string>
 
     <!-- Event edit activity -->
-    <skip/>
+    <skip />
 
     <!-- Default value of What field (as a hint to the user) [CHAR LIMIT=15] -->
     <string name="hint_what">"Event name"</string>
@@ -201,21 +200,21 @@
 
 
     <!-- Create event dialog -->
-    <skip/>
+    <skip />
     <!-- Create event dialog save button [CHAR LIMIT=10] -->
     <string name="create_event_dialog_save">Save</string>
 
     <!-- The alert toast is not actually being displayed for some reason. -->
-    <skip/>
+    <skip />
     <!-- the title of the alert/notification activity -->
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
-    <skip/>
+    <skip />
     <string name="foreground_notification_channel_name">Alert sync</string>
     <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync.</string>
 
     <!-- Event info/edit screen labels:-->
-    <skip/>
+    <skip />
     <!-- This is the title of the screen used to view the details of an event -->
     <string name="event_info_title">View event</string>
     <!-- This is the title of the screen used to view the details of an invitation
@@ -223,7 +222,7 @@
     <string name="event_info_title_invite">Meeting invitation</string>
 
     <!-- EditEventActivity specific strings: -->
-    <skip/>
+    <skip />
     <!-- Events have a start date/time and an end date/time. The display shows
          the start and end times like 'From start date To end date'. This is the
          label before the 'end date'. -->
@@ -256,7 +255,7 @@
     <string name="add_account">Add account</string>
 
     <!-- View Event -->
-    <skip/>
+    <skip />
     <!-- Label for which calendar an event is part of -->
     <string name="view_event_calendar_label">Calendar:</string>
     <!-- Label for the event organizer -->
@@ -319,7 +318,7 @@
         <item>Be there in about 10 minutes.</item>
         <item>Go ahead and start without me.</item>
         <item>Sorry, I can\'t make it. We\'ll have to reschedule.</item>
-        </string-array>
+    </string-array>
     <!-- Option to create a custom response instead of using defaults [CHAR LIMIT=none] -->
     <string name="quick_response_custom_msg">Write your own\u2026</string>
 
@@ -331,7 +330,7 @@
     <string name="event_info_reminders_label">Reminders</string>
 
     <!-- Agenda View strings -->
-    <skip/>
+    <skip />
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
     <string name="agenda_today">Today, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
@@ -346,12 +345,12 @@
     <string name="show_newer_events">Touch to view events after <xliff:g id="newest_search_range">%1$s</xliff:g></string>
 
     <!-- Search activity strings -->
-    <skip/>
+    <skip />
     <!-- Title of the search screen [CHAR LIMIT=30] -->
     <string name="search_title">Search my calendars</string>
 
     <!-- Button labels: -->
-    <skip/>
+    <skip />
     <!-- This is the title of a popup window that is displayed when the user
          edits a repeating event. [CHAR LIMIT=20]-->
     <string name="edit_event_label">"Details"</string>
@@ -368,7 +367,7 @@
     <string name="discard_label">Cancel</string>
 
     <!-- Button labels on expanded notification reminders: -->
-    <skip/>
+    <skip />
     <!-- The button label for making the reminder alarms go away temporarily.
          The reminder alarms will fire off again in 5 minutes. -->
     <!-- The button label for dismissing all the current reminder alarms. This
@@ -379,7 +378,7 @@
     <string name="snooze_label">"Snooze"</string>
 
     <!-- Repetition dialog options: -->
-    <skip/>
+    <skip />
     <!-- A label in a multiple-choice list for the specifying that an event does
          not repeat -->
     <string name="does_not_repeat">One-time event</string>
@@ -440,7 +439,7 @@
     <!-- This is the button to create a new event in a dialog window. [CHAR LIMIT=30] -->
     <string name="new_event_dialog_option">"New event"</string>
     <!-- Confirmation dialog message -->
-    <skip/>
+    <skip />
     <!-- This is a confirmation message in a popup dialog that appears when the
          user has asked to delete an event. The user still has a chance to cancel
          this operation. -->
@@ -568,7 +567,7 @@
     <string name="source_code">Source</string>
 
     <!-- Widget -->
-    <skip/>
+    <skip />
     <!-- Title for calendar gadget when displayed in list of all other gadgets -->
 
     <!-- Shown in month view next to event icon when additional events exist for that day, but no
@@ -646,7 +645,7 @@
     -->
     <string name="template_announce_item_index">Event <xliff:g id="item_index">%1$s</xliff:g> of <xliff:g id="item_count">%2$s</xliff:g>.</string>
 
-        <!-- number of events in the notification bar -->
+    <!-- number of events in the notification bar -->
     <plurals name="Nevents">
         <!-- This is the label for a 1 event. -->
         <item quantity="one">1 event</item>
@@ -800,5 +799,6 @@
     <string name="preferences_menu_about">About Etar</string>
 
     <string name="offline_account_name">Offline Calendar</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

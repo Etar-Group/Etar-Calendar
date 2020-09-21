@@ -280,6 +280,22 @@
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS">
         </service-->
+        <receiver
+            android:exported="false"
+            android:name="com.android.calendar.widget.agenda.AgendaWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.color.appwidget.list.UPDATE_LIST" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/agenda_widget_info" />
+        </receiver>
+
+        <service
+            android:name="com.android.calendar.widget.agenda.EventService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <service android:name="com.android.calendar.AsyncQueryServiceHelper" />
 
