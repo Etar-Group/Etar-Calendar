@@ -15,6 +15,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
@@ -57,7 +58,7 @@
     </LinearLayout>
 
     <!-- CALENDAR DISPLAY for existing events -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/calendar_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,19 +66,34 @@
         android:paddingTop="5dip"
         android:paddingBottom="5dip">
 
+        <ImageView
+            android:id="@+id/cancel_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:cropToPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_menu_cancel"
+            tools:srcCompat="@drawable/ic_menu_cancel" />
+
         <LinearLayout
-            android:layout_width="0dip"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:focusable="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/change_color_existing_event"
+            app:layout_constraintStart_toEndOf="@+id/cancel_imageview"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/calendar_textview"
                 style="@style/TextAppearance.EditEvent_Value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dip"
                 android:layout_marginRight="24dip"
                 android:textColor="#FFFFFFFF" />
 
@@ -86,7 +102,6 @@
                 style="@style/TextAppearance.EditEvent_Value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dip"
                 android:layout_marginRight="24dip"
                 android:textColor="#FFFFFFFF"
                 android:textSize="14sp" />
@@ -98,14 +113,16 @@
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dip"
             android:contentDescription="@string/choose_event_color_label"
             android:enabled="false"
             android:padding="8dip"
             android:scaleType="centerInside"
             android:src="@drawable/ic_colorpicker"
-            android:visibility="gone" />
-    </LinearLayout>
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- WHAT -->
 

@@ -350,6 +350,15 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             @Override
             public void onClick(View v) {saveEvent();}
         });
+
+
+        final View cancel = view.findViewById(R.id.cancel_imageview);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mOnDone.setDoneCode(Utils.DONE_REVERT);
+                mOnDone.run();
+            }
+        });
         return view;
     }
 

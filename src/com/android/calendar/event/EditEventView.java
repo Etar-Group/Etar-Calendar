@@ -992,7 +992,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             mActivity.getWindow().setStatusBarColor(displayColor);
-            mView.findViewById(ws.xsoh.etar.R.id.saveFab).setBackgroundTintList(ColorStateList.valueOf(displayColor));
+            mView.findViewById(R.id.saveFab).setBackgroundTintList(ColorStateList.valueOf(displayColor));
         }
     }
 
