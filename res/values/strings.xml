@@ -800,5 +800,6 @@
 
     <string name="offline_account_name">Offline Calendar</string>
     <string name="add_widget">Add widget</string>
+    <string name="widget_all_day">All Day Event</string>
 
 </resources>

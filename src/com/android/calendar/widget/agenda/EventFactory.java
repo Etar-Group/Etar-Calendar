@@ -1,5 +1,6 @@
 package com.android.calendar.widget.agenda;
 
+import android.app.*;
 import android.content.*;
 import android.graphics.*;
 import android.os.*;
@@ -40,46 +41,41 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
             return null;
         }
 
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.agenda_widget_row_item);
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.agenda_widget_row_item_heading);
 
         RowInfo rowInfo = getModel().mRowInfos.get(position);
         final EventInfo eventInfo = getModel().mEventInfos.get(rowInfo.mIndex);
-        final EventInfo lastEvent = getModel().mEventInfos.get(getModel().mRowInfos.get(position-1).mIndex);
 
         views.setImageViewBitmap(R.id.dividerView, createDivider());
         views.setTextViewText(R.id.date_header, AgendaWidget.Companion.getFormattedDate(new Date(eventInfo.start)));
 
         if(position == 0 ){
-            if(isSameDay(eventInfo.start, (new Date()).getTime())) {
-                views.setViewVisibility(R.id.headingLayout, View. GONE);
+            if(isSameDay((new Date()).getTime(), eventInfo.start)) {
+                views = new RemoteViews(mContext.getPackageName(), R.layout.agenda_widget_row_item);
             }
-        }
-
-        if(position > 0 ){
+        }else {
+            final EventInfo lastEvent = getModel().mEventInfos.get(getModel().mRowInfos.get(position-1).mIndex);
             if(isSameDay(eventInfo.start, lastEvent.start)){
-                views.setViewVisibility(R.id.headingLayout, View. GONE);
+                views = new RemoteViews(mContext.getPackageName(), R.layout.agenda_widget_row_item);
             }
         }
 
         Log.e("Test", eventInfo.title);
 
         if (eventInfo.allDay) {
-            views.setTextViewText(R.id.secondary, "ALLDAY");
+            views.setTextViewText(R.id.secondary, mContext.getString(R.string.widget_all_day));
         }else{
-            String t = eventInfo.when + " - " + eventInfo.where ;
+            String location = " - " + eventInfo.where;
+            if(eventInfo.where == null){
+                location = "";
+            }
+            String t = eventInfo.when + location;
             views.setTextViewText(R.id.secondary, t);
         }
         views.setTextViewText(R.id.primary, eventInfo.title);
 
         int displayColor = Utils.getDisplayColorFromColor(eventInfo.color);
         views.setImageViewBitmap(R.id.imageView, createChip(displayColor));
-
-        final long now = System.currentTimeMillis();
-        if (!eventInfo.allDay && eventInfo.start <= now && now <= eventInfo.end) {
-            //views.setInt(R.id.widget_row, "setBackgroundResource", R.drawable.agenda_item_bg_secondary);
-        } else {
-            //views.setInt(R.id.widget_row, "setBackgroundResource", R.drawable.agenda_item_bg_primary);
-        }
 
         if (eventInfo.status == CalendarContract.Events.STATUS_CANCELED) {
             views.setInt(R.id.primary, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
@@ -94,23 +90,29 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
             start = Utils.convertAlldayLocalToUTC(recycle, start, tz);
             end = Utils.convertAlldayLocalToUTC(recycle, end, tz);
         }
-        final Intent fillInIntent = CalendarAppWidgetProvider.getLaunchFillInIntent(mContext, eventInfo.id, start, end, eventInfo.allDay);
-        views.setOnClickFillInIntent(R.id.widget_row, fillInIntent);
+
+        Bundle extras = new Bundle();
+        extras.putLong("key", eventInfo.id);
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtras(extras);
+        views.setOnClickFillInIntent(R.id.row_layout, fillInIntent);
 
         return views;
     }
 
     private boolean isSameDay(long date_first, long date_second) {
+
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         cal1.setTime(new Date(date_first));
         cal2.setTime(new Date(date_second));
+
         return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
     }
 
     public Bitmap createChip(int color) {
-        int h = 300;
-        int w = 50;
+        int h = 100;
+        int w = 30;
         int m = 5;
         int r = 50;
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);

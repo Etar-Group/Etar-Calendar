@@ -7,11 +7,13 @@
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         android:background="@drawable/widget_agenda_background_header"
-        android:gravity="start|center_vertical"
+        android:gravity="end|center_vertical"
         android:paddingStart="16dp"
-        android:text="TextView" />
+        android:paddingEnd="16dp"
+        android:text="Saturday, 22 August"
+        android:textSize="16sp" />
 
     <ListView
         android:id="@+id/agendaid"
@@ -20,6 +22,5 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/date"
         android:orientation="vertical">
-
     </ListView>
 </RelativeLayout>
