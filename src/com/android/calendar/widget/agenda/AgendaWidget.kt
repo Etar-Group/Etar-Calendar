@@ -5,9 +5,11 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.graphics.*
 import android.net.Uri
 import android.widget.RemoteViews
 import com.android.calendar.AllInOneActivity
+import com.android.calendar.DynamicTheme
 import com.android.calendar.widget.agenda.AgendaWidget.Companion.getFormattedDate
 import ws.xsoh.etar.R
 import java.text.DateFormat
@@ -42,9 +44,43 @@ class AgendaWidget : AppWidgetProvider() {
     }
 }
 
+
+private fun createDynamicGradient(): Bitmap? {
+    val colors = IntArray(2)
+    colors[0] = Color.parseColor("#123456")
+    colors[1] = Color.parseColor("#123456")
+    val p = Paint()
+    p.setDither(true)
+    val bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    canvas.drawRect(RectF(0f, 0f, 400f, 400f), p)
+    return bitmap
+}
+
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.agenda_widget)
+
+
+    var headerThemeId = R.drawable.widget_agenda_background_header
+    when (DynamicTheme.getPrimaryColor(context)) {
+        DynamicTheme.TEAL -> headerThemeId = R.drawable.widget_agenda_background_header
+        DynamicTheme.BLUE -> headerThemeId = R.drawable.widget_agenda_background_header_blue
+        DynamicTheme.ORANGE -> headerThemeId = R.drawable.widget_agenda_background_header_orange
+        DynamicTheme.GREEN -> headerThemeId = R.drawable.widget_agenda_background_header_green
+        DynamicTheme.RED -> headerThemeId = R.drawable.widget_agenda_background_header_red
+        DynamicTheme.PURPLE -> headerThemeId = R.drawable.widget_agenda_background_header_purple
+    }
+    views.setInt(R.id.date, "setBackgroundResource", headerThemeId)
+
+
+    var listThemeId = R.drawable.widget_agenda_background
+    when (DynamicTheme.getTheme(context)) {
+        DynamicTheme.DARK -> listThemeId = R.drawable.widget_agenda_background_dark
+        DynamicTheme.BLACK -> listThemeId = R.drawable.widget_agenda_background_black
+        DynamicTheme.LIGHT -> listThemeId = R.drawable.widget_agenda_background
+    }
+    views.setInt(R.id.agendaid, "setBackgroundResource", listThemeId)
 
     val service = Intent(context, EventService::class.java)
     views.setRemoteAdapter(R.id.agendaid, service)

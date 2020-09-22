@@ -18,6 +18,9 @@ import java.util.*;
 
 import ws.xsoh.etar.*;
 
+import static com.android.calendar.DynamicTheme.BLACK;
+import static com.android.calendar.DynamicTheme.DARK;
+
 class EventFactory extends CalendarAppWidgetService.CalendarFactory {
     private static final String TAG = "WidgetDataProvider";
 
@@ -27,6 +30,15 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
     }
 
 
+    private boolean needLightColors(){
+        switch (DynamicTheme.getTheme(mContext)) {
+            case BLACK:
+            case DARK:
+                return true;
+            default:
+                return false;
+        }
+    }
     @Override
     public RemoteViews getViewAt(int position) {
         // we use getCount here so that it doesn't return null when empty
@@ -96,6 +108,15 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
         Intent fillInIntent = new Intent();
         fillInIntent.putExtras(extras);
         views.setOnClickFillInIntent(R.id.row_layout, fillInIntent);
+
+
+        boolean isDark = needLightColors();
+        if(isDark){
+            views.setTextColor(R.id.primary, mContext.getResources().getColor(R.color.agenda_day_item_text_color_dark));
+            views.setTextColor(R.id.secondary, mContext.getResources().getColor(R.color.agenda_item_where_text_color_dark));
+            views.setTextColor(R.id.date_header, mContext.getResources().getColor(R.color.agenda_item_where_text_color_dark));
+        }
+
 
         return views;
     }

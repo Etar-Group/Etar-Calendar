@@ -17,16 +17,16 @@ public class DynamicTheme {
 
     private static final String THEME_PREF = "pref_theme";
     private static final String COLOR_PREF = "pref_color";
-    private static final String SYSTEM = "system";
-    private static final String LIGHT = "light";
-    private static final String DARK  = "dark";
-    private static final String BLACK = "black";
-    private static final String TEAL = "teal";
-    private static final String BLUE = "blue";
-    private static final String ORANGE  = "orange";
-    private static final String GREEN  = "green";
-    private static final String RED  = "red";
-    private static final String PURPLE = "purple";
+    public static final String SYSTEM = "system";
+    public static final String LIGHT = "light";
+    public static final String DARK  = "dark";
+    public static final String BLACK = "black";
+    public static final String TEAL = "teal";
+    public static final String BLUE = "blue";
+    public static final String ORANGE  = "orange";
+    public static final String GREEN  = "green";
+    public static final String RED  = "red";
+    public static final String PURPLE = "purple";
     private int currentTheme;
 
 
@@ -45,7 +45,7 @@ public class DynamicTheme {
         }
     }
 
-    private static String getTheme(Context context) {
+    public static String getTheme(Context context) {
         return Utils.getSharedPreference(context, THEME_PREF, systemThemeAvailable() ? SYSTEM : LIGHT);
     }
 
