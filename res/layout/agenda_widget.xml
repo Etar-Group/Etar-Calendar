@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_agenda_background"
+    android:padding="@dimen/widget_margin">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@drawable/widget_agenda_background_header"
+        android:gravity="start|center_vertical"
+        android:paddingStart="16dp"
+        android:text="TextView" />
+
+    <ListView
+        android:id="@+id/agendaid"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/date"
+        android:orientation="vertical">
+
+    </ListView>
+</RelativeLayout>
