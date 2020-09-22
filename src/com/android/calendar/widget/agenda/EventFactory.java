@@ -41,26 +41,22 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
         }
 
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.agenda_widget_row_item);
-        if(position == 0 ){
-            views.setViewVisibility(R.id.headingLayout, View. GONE);
-        }
 
         RowInfo rowInfo = getModel().mRowInfos.get(position);
         final EventInfo eventInfo = getModel().mEventInfos.get(rowInfo.mIndex);
+        final EventInfo lastEvent = getModel().mEventInfos.get(getModel().mRowInfos.get(position-1).mIndex);
+
+        views.setImageViewBitmap(R.id.dividerView, createDivider());
+        views.setTextViewText(R.id.date_header, AgendaWidget.Companion.getFormattedDate(new Date(eventInfo.start)));
+
+        if(position == 0 ){
+            if(isSameDay(eventInfo.start, (new Date()).getTime())) {
+                views.setViewVisibility(R.id.headingLayout, View. GONE);
+            }
+        }
 
         if(position > 0 ){
-            RowInfo last = getModel().mRowInfos.get(position-1);
-            EventInfo lastEvent = getModel().mEventInfos.get(last.mIndex);
-
-            views.setTextViewText(R.id.date_header, AgendaWidget.Companion.getFormattedDate(new Date(eventInfo.start)));
-            views.setImageViewBitmap(R.id.dividerView, createDivider());
-
-            Calendar cal1 = Calendar.getInstance();
-            Calendar cal2 = Calendar.getInstance();
-            cal1.setTime(new Date(lastEvent.start));
-            cal2.setTime(new Date(eventInfo.start));
-            boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
-            if(sameDay){
+            if(isSameDay(eventInfo.start, lastEvent.start)){
                 views.setViewVisibility(R.id.headingLayout, View. GONE);
             }
         }
@@ -102,6 +98,14 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
         views.setOnClickFillInIntent(R.id.widget_row, fillInIntent);
 
         return views;
+    }
+
+    private boolean isSameDay(long date_first, long date_second) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(new Date(date_first));
+        cal2.setTime(new Date(date_second));
+        return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
     }
 
     public Bitmap createChip(int color) {
