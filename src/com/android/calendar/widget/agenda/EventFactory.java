@@ -2,6 +2,7 @@ package com.android.calendar.widget.agenda;
 
 import android.content.*;
 import android.graphics.*;
+import android.os.*;
 import android.provider.*;
 import android.text.format.*;
 import android.util.*;
@@ -40,8 +41,32 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
         }
 
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.agenda_widget_row_item);
+        if(position == 0 ){
+            views.setViewVisibility(R.id.headingLayout, View. GONE);
+        }
+
         RowInfo rowInfo = getModel().mRowInfos.get(position);
         final EventInfo eventInfo = getModel().mEventInfos.get(rowInfo.mIndex);
+
+        if(position > 0 ){
+            RowInfo last = getModel().mRowInfos.get(position-1);
+            EventInfo lastEvent = getModel().mEventInfos.get(last.mIndex);
+
+            views.setTextViewText(R.id.date_header, AgendaWidget.Companion.getFormattedDate(new Date(eventInfo.start)));
+            views.setImageViewBitmap(R.id.dividerView, createDivider());
+
+            Calendar cal1 = Calendar.getInstance();
+            Calendar cal2 = Calendar.getInstance();
+            cal1.setTime(new Date(lastEvent.start));
+            cal2.setTime(new Date(eventInfo.start));
+            boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+            if(sameDay){
+                views.setViewVisibility(R.id.headingLayout, View. GONE);
+            }
+        }
+
+        Log.e("Test", eventInfo.title);
+
         if (eventInfo.allDay) {
             views.setTextViewText(R.id.secondary, "ALLDAY");
         }else{
@@ -80,12 +105,29 @@ class EventFactory extends CalendarAppWidgetService.CalendarFactory {
     }
 
     public Bitmap createChip(int color) {
-
-        Bitmap bitmap = Bitmap.createBitmap(40, 80, Bitmap.Config.ARGB_8888);
+        int h = 300;
+        int w = 50;
+        int m = 5;
+        int r = 50;
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         Paint p = new Paint();
         p.setColor(color);
-        canvas.drawCircle(20, 40, 5, p);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            canvas.drawRoundRect(m,m,w-m,h-m,r,r,p);
+        }else{
+            canvas.drawRect(m,m,w-m,h-m, p);
+        }
+        return bitmap;
+    }
+
+    public Bitmap createDivider() {
+
+        Bitmap bitmap = Bitmap.createBitmap(200, 4, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint p = new Paint();
+        p.setColor(Color.GRAY);
+        canvas.drawRect(0, 0, 200, 4,  p);
         return bitmap;
     }
 
