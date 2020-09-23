@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list
+    android:height="300dp"
+    android:width="400dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item>
+        <shape android:shape="rectangle">
+            <corners android:bottomRightRadius="16dp" />
+            <solid android:color="?attr/colorAccent" />
+            <size android:height="300dp"
+                android:width="400dp"/>
+        </shape>
+    </item>
+
+
+    <item android:height="80dp"
+        android:width="100dp">
         <shape android:shape="rectangle"
-            >
-            <solid android:color="?attr/colorPrimary" />
-            <corners
-                android:bottomLeftRadius="16dp"
-                android:bottomRightRadius="16dp"
-                />
+            android:dither="true">
+            <corners android:bottomRightRadius="16dp" />
+            <solid android:color="?attr/colorPrimaryDark" />
+        </shape>
+    </item>
+
+    <item android:height="70dp"
+        android:width="90dp">
+        <shape android:shape="rectangle"
+            android:dither="true">
+            <corners android:bottomRightRadius="16dp" />
+            <solid android:color="?attr/colorAccent" />
+        </shape>
+    </item>
+
+    <item android:height="60dp"
+        android:width="80dp">
+        <shape android:shape="rectangle"
+            android:dither="true">
+            <corners android:bottomRightRadius="16dp" />
+            <solid android:color="?attr/colorPrimaryDark" />
         </shape>
     </item>
 </layer-list>
