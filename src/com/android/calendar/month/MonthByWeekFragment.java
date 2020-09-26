@@ -262,7 +262,11 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     @Override
     protected void setUpAdapter() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
-        mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        if (mIsMiniMonth) {
+            mShowWeekNumber = false;
+        } else {
+            mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        }
 
         HashMap<String, Integer> weekParams = new HashMap<String, Integer>();
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
@@ -356,7 +360,11 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     @Override
     public void doResumeUpdates() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
-        mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        if (mIsMiniMonth) {
+            mShowWeekNumber = false;
+        } else {
+            mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        }
         boolean prevHideDeclined = mHideDeclined;
         mHideDeclined = Utils.getHideDeclinedEvents(mContext);
         if (prevHideDeclined != mHideDeclined && mLoader != null) {
