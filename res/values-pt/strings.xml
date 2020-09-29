@@ -255,7 +255,7 @@
     <string name="rsvp_accepted">Respondeu sim.</string>
     <string name="rsvp_tentative">Respondeu talvez.</string>
     <string name="rsvp_declined">Respondeu não.</string>
-    <string name="no_map">Não existe nenhuma aplicação de mapas instalada</string>
+    <string name="no_map">Não existe nenhuma app de mapas instalada</string>
     <string name="preferences_month_view_portrait">Vista mensal (vertical)</string>
     <string name="preferences_month_view_landscape">Vista mensal (horizontal)</string>
     <string name="preferences_theme">Tema</string>
