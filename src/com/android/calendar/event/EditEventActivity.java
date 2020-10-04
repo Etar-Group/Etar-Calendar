@@ -22,7 +22,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
@@ -37,6 +36,7 @@ import com.android.calendar.Utils;
 import java.util.ArrayList;
 
 import ws.xsoh.etar.R;
+import ws.xsoh.etar.databinding.SimpleFrameLayoutMaterialBinding;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
@@ -67,13 +67,14 @@ public class EditEventActivity extends AbstractCalendarActivity {
         super.onCreate(icicle);
 
         dynamicTheme.onCreate(this);
-        setContentView(R.layout.simple_frame_layout_material);
         mEventInfo = getEventInfoFromIntent(icicle);
         mReminders = getReminderEntriesFromIntent();
         mEventColorInitialized = getIntent().hasExtra(EXTRA_EVENT_COLOR);
         mEventColor = getIntent().getIntExtra(EXTRA_EVENT_COLOR, -1);
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
+
+        SimpleFrameLayoutMaterialBinding binding = SimpleFrameLayoutMaterialBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.include.toolbar);
 
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.body_frame);
 
