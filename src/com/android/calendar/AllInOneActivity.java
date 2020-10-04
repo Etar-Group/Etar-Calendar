@@ -53,6 +53,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
@@ -84,7 +85,6 @@ import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -121,7 +121,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private static boolean mIsTabletConfig;
     private static boolean mShowAgendaWithMonth;
     private static boolean mShowEventDetailsWithAgenda;
-    DayOfMonthDrawable mDayOfMonthIcon;
     int mOrientation;
     BroadcastReceiver mCalIntentReceiver;
     private CalendarController mController;
@@ -196,7 +195,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
-    private int mCurrentMenuItem;
     private CalendarToolbarHandler mCalendarToolbarHandler;
     // Action bar
     private ActionBar mActionBar;
@@ -470,7 +468,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     public void openDrawer() {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     public void setupNavDrawer() {
@@ -1180,8 +1178,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mShowWeekNum = Utils.getShowWeekNumber(this);
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
         if (visibleMillisSinceEpoch != -1) {
-            int weekNum = Utils.getWeekNumberFromTime(visibleMillisSinceEpoch, this);
-            mWeekNum = weekNum;
+            mWeekNum = Utils.getWeekNumberFromTime(visibleMillisSinceEpoch, this);
         }
 
         if (mShowWeekNum && (mCurrentView == ViewType.WEEK) && mIsTabletConfig
