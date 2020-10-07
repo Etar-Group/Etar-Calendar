@@ -29,6 +29,10 @@
             app:entries="@array/pref_color_entries"
             app:entryValues="@array/pref_color_values"
             app:defaultValue="teal"/>
+        <SwitchPreference
+            app:key="pref_pure_black_night_mode"
+            app:defaultValue="false"
+            app:title="@string/preferences_pure_black_night_mode" />
         <ListPreference
             app:key="preferences_default_start"
             app:defaultValue="-2"
