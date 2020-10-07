@@ -32,8 +32,7 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> minutter</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; minutter</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">Én time</item>
