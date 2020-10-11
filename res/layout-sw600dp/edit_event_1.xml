@@ -16,6 +16,8 @@
 
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:shrinkColumns="1"
     android:stretchColumns="1">
 
@@ -70,7 +72,7 @@
         <TextView
             style="@style/TextAppearance.EditEvent_Label"
             android:text="@string/edit_event_calendar_label" />
-        <LinearLayout 
+        <LinearLayout
             android:id="@+id/calendar_textview_with_colorpicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
