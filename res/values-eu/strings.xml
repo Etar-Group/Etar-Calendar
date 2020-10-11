@@ -296,7 +296,6 @@
     <string name="preferences_calendar_account">%1$s kontua</string>
     <string name="preferences_calendar_delete">Ezabatu egutegia</string>
     <string name="preferences_calendar_display_name">Aldatu izena</string>
-    <string name="preferences_calendar_account_category">Kontu mota</string>
     <string name="preferences_calendar_color">Kolorea</string>
     <string name="preferences_calendar_visible">Erakutsi gertaerak</string>
     <string name="preferences_calendar_synchronize">Sinkronizatu egutegi hau</string>
