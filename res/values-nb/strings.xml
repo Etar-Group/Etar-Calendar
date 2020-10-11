@@ -335,4 +335,13 @@
     <string name="preferences_calendar_configure_account">Sett opp kalender i %1$s</string>
     <string name="preferences_calendar_number_of_events">%1d aktiviteter</string>
     <string name="preferences_calendar_info_category">Kalenderinfo</string>
+    <string name="preferences_list_add_remote_etesync">Legg til EteSync-kalender</string>
+    <string name="preferences_list_add_remote">Legg til CalDAV-kalender</string>
+    <string name="seven_days">7 dager</string>
+    <string name="six_days">6 dager</string>
+    <string name="five_days">5 dager</string>
+    <string name="four_days">4 dager</string>
+    <string name="three_days">3 dager</string>
+    <string name="two_days">2 dager</string>
+    <string name="preferences_system_theme">Systemforvalg</string>
 </resources>
