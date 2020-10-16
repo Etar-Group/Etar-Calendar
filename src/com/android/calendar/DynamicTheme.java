@@ -52,11 +52,11 @@ public class DynamicTheme {
 
     private static int getSelectedTheme(Activity activity) {
         String theme = getTheme(activity) + getPrimaryColor(activity);
-        boolean pureblack = Utils.getSharedPreference(activity, PURE_BLACK_NIGHT_MODE, false  );
+        boolean pureBlack = Utils.getSharedPreference(activity, PURE_BLACK_NIGHT_MODE, false);
         switch (theme) {
             case SYSTEM+TEAL:
                 if (isSystemInDarkTheme(activity)) {
-                    if (pureblack) {
+                    if (pureBlack) {
                         return R.style.CalendarAppThemeBlackTeal;
                     } else {
                         return R.style.CalendarAppThemeDarkTeal;
@@ -72,7 +72,7 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackTeal;
             case SYSTEM+ORANGE:
                 if (isSystemInDarkTheme(activity)) {
-                    if (pureblack) {
+                    if (pureBlack) {
                         return R.style.CalendarAppThemeBlackOrange;
                     } else {
                         return R.style.CalendarAppThemeDarkOrange;
@@ -88,7 +88,7 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackOrange;
             case SYSTEM+BLUE:
                 if (isSystemInDarkTheme(activity)) {
-                    if (pureblack) {
+                    if (pureBlack) {
                         return R.style.CalendarAppThemeBlackBlue;
                     } else {
                         return R.style.CalendarAppThemeDarkBlue;
@@ -104,7 +104,7 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackBlue;
             case SYSTEM+GREEN:
                 if (isSystemInDarkTheme(activity)) {
-                    if (pureblack) {
+                    if (pureBlack) {
                         return R.style.CalendarAppThemeBlackGreen;
                     } else {
                         return R.style.CalendarAppThemeDarkGreen;
@@ -120,7 +120,7 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackGreen;
             case SYSTEM+RED:
                 if (isSystemInDarkTheme(activity)) {
-                    if (pureblack) {
+                    if (pureBlack) {
                         return R.style.CalendarAppThemeBlackRed;
                     } else {
                         return R.style.CalendarAppThemeDarkRed;
@@ -136,7 +136,7 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackRed;
             case SYSTEM+PURPLE:
                 if (isSystemInDarkTheme(activity)) {
-                    if (pureblack) {
+                    if (pureBlack) {
                         return R.style.CalendarAppThemeBlackPurple;
                     } else {
                         return R.style.CalendarAppThemeDarkPurple;
