@@ -112,11 +112,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         val prefs = CalendarUtils.getSharedPreferences(activity!!,
                 Utils.SHARED_PREFS_NAME)
 
-        //Conditions under which the Preference pureBlackNightMode is visible
-        if (!(themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(requireActivity()))) {
-            pureBlackNightModePref.isVisible = false
-        }
-
         if (Utils.isOreoOrLater()) {
             notificationPref = preferenceScreen.findPreference(KEY_NOTIFICATION)!!
         } else {
@@ -290,7 +285,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             }
             KEY_THEME_PREF -> a.recreate()
             KEY_COLOR_PREF -> a.recreate()
-            KEY_PURE_BLACK_NIGHT_MODE -> a.recreate()
+        }
+        //pureBlackNightMode refresh condition
+        if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a)) {
+            a.recreate()
         }
     }
 
