@@ -52,6 +52,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
     private lateinit var themePref: ListPreference
     private lateinit var colorPref: Preference
+    private lateinit var pureBlackNightModePref: SwitchPreference
     private lateinit var defaultStartPref: ListPreference
     private lateinit var hideDeclinedPref: CheckBoxPreference
     private lateinit var weekStartPref: ListPreference
@@ -94,6 +95,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         themePref = preferenceScreen.findPreference(KEY_THEME_PREF)!!
         colorPref = preferenceScreen.findPreference(KEY_COLOR_PREF)!!
+        pureBlackNightModePref = preferenceScreen.findPreference(KEY_PURE_BLACK_NIGHT_MODE)!!
         defaultStartPref = preferenceScreen.findPreference(KEY_DEFAULT_START)!!
         hideDeclinedPref = preferenceScreen.findPreference(KEY_HIDE_DECLINED)!!
         weekStartPref = preferenceScreen.findPreference(KEY_WEEK_START_DAY)!!
@@ -244,6 +246,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private fun setPreferenceListeners(listener: Preference.OnPreferenceChangeListener) {
         themePref.onPreferenceChangeListener = listener
         colorPref.onPreferenceChangeListener = listener
+        pureBlackNightModePref.onPreferenceChangeListener = listener
         defaultStartPref.onPreferenceChangeListener = listener
         hideDeclinedPref.onPreferenceChangeListener = listener
         weekStartPref.onPreferenceChangeListener = listener
@@ -282,6 +285,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             }
             KEY_THEME_PREF -> a.recreate()
             KEY_COLOR_PREF -> a.recreate()
+        }
+        //pureBlackNightMode refresh condition
+        if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a)) {
+            a.recreate()
         }
     }
 
@@ -482,6 +489,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         // Preference keys
         const val KEY_THEME_PREF = "pref_theme"
         const val KEY_COLOR_PREF = "pref_color"
+        const val KEY_PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode"
         const val KEY_DEFAULT_START = "preferences_default_start"
         const val KEY_HIDE_DECLINED = "preferences_hide_declined"
         const val KEY_WEEK_START_DAY = "preferences_week_start_day"

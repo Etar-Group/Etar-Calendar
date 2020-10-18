@@ -22,13 +22,17 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         app:title="@string/preferences_theme"
         app:entries="@array/pref_theme_entries"
         app:entryValues="@array/pref_theme_values"
-        app:defaultValue="system"/>
+        app:defaultValue="system" />
+    <SwitchPreference
+        app:defaultValue="false"
+        app:key="pref_pure_black_night_mode"
+        app:title="@string/preferences_pure_black_night_mode" />
     <Preference
         app:key="pref_color"
         app:title="@string/preferences_color"
         app:entries="@array/pref_color_entries"
         app:entryValues="@array/pref_color_values"
-        app:defaultValue="teal"/>
+        app:defaultValue="teal" />
     <ListPreference
         app:key="preferences_default_start"
         app:defaultValue="-2"
@@ -66,8 +70,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         app:defaultValue="60"
         app:title="@string/preferences_default_event_duration_title"
         app:entries="@array/preferences_default_duration_labels"
-        app:entryValues="@array/preferences_default_duration_values"
-        />
+        app:entryValues="@array/preferences_default_duration_values" />
     <CheckBoxPreference
         app:key="preferences_home_tz_enabled"
         app:defaultValue="false"
