@@ -385,4 +385,5 @@
     <string name="preferences_calendar_color_warning_message">החלפת הצבע עלולה להתחלף בחזרה עם הסנכרון הבא של לוח השנה.
 \n
 \nב־DAVx⁵ ניתן להשבית ‚ניהול צבעי לוח שנה’ כדי למנוע זאת.</string>
+    <string name="preferences_pure_black_night_mode">מצב לילה שחור טהור</string>
 </resources>
