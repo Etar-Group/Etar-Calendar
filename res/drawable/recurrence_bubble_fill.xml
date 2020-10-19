@@ -20,7 +20,7 @@
     <item android:state_enabled="false" android:state_checked="false"
           android:drawable="@drawable/ic_recurrence_bubble_outline_disabled" />
     <item android:state_enabled="false" android:state_checked="true"
-          android:drawable="@drawable/ic_recurrence_bubble_disabled" />
+          android:drawable="@drawable/ic_recurrence_bubble_fill_disabled" />
     <item android:state_pressed="true" android:state_window_focused="true"
           android:drawable="@drawable/ic_recurrence_bubble_fill"/>
     <item android:state_checked="true"
