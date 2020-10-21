@@ -43,8 +43,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dager</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">uke <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">uke <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">Uke &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other">uke &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Last inn"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Vis dag"</string>
@@ -121,9 +121,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv din egen\u2026"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Arrangør:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Påminnelser"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"i dag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"i går, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"i morgen, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">I dag, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">I går, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">I morgen, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">Laster inn …</string>
     <string name="show_older_events" msgid="5140647493681439926">"Trykk for å vise aktiviteter før <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Trykk for å vise aktiviteter etter <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -232,8 +232,8 @@
         <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> uke</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Hver måned <xliff:g id="count">%d</xliff:g> måned</item>
-        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g>måned</item>
+        <item quantity="one">Hver måned &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; måned</item>
+        <item quantity="other">Hver &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; måned</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Hvert <xliff:g id="count">%d</xliff:g> år</item>
@@ -258,7 +258,7 @@
     <string name="preferences_color_pick">Hovedfarge</string>
     <string name="preferences_default_event_duration_title">Forvalgt aktivitetsvarighet</string>
     <string name="user_rejected_calendar_write_permission">Etar krever tilgang til å lese og skrive kalender for å virke. Prøv igjen.</string>
-    <string name="calendar_permission_not_granted">Denne funksjonen kan ikke virke siden Etar krever tilgang til lesing og skriving av kalender for å virke</string>
+    <string name="calendar_permission_not_granted">Innvilg påkrevde tilganger i innstillinger for å redigere hendelser</string>
     <string name="visibility_confidential">Konfidensiell</string>
     <string name="zero_minutes">Umiddelbart</string>
     <string name="fifteen_minutes">Ett kvarter</string>
@@ -279,7 +279,7 @@
     <string name="default_start_last">Forrige valgte visning</string>
     <string name="cal_share_intent_title">Send aktiviteten til:</string>
     <string name="cal_export_event_sdcard_title">Eksporter til SD-kortet</string>
-    <string name="cal_export_succ_msg">Eksporteringen av aktiviteten var vellykket: %1s</string>
+    <string name="cal_export_succ_msg">Eksporteringen av aktiviteten var vellykket: %1$s</string>
     <string name="cal_import_menu_title">Importer aktivitet</string>
     <string name="cal_nothing_to_import">Det er ingenting å importere</string>
     <string name="cal_import_error_msg">Importering til kalenderen mislyktes</string>
@@ -333,7 +333,7 @@
     <string name="preferences_calendar_no_display_name">Kalender uten navn</string>
     <string name="preferences_calendar_account_local">Frakoblet kalender</string>
     <string name="preferences_calendar_configure_account">Sett opp kalender i %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d aktiviteter</string>
+    <string name="preferences_calendar_number_of_events">%1$d aktiviteter</string>
     <string name="preferences_calendar_info_category">Kalenderinfo</string>
     <string name="preferences_list_add_remote_etesync">Legg til EteSync-kalender</string>
     <string name="preferences_list_add_remote">Legg til CalDAV-kalender</string>
@@ -344,4 +344,5 @@
     <string name="three_days">3 dager</string>
     <string name="two_days">2 dager</string>
     <string name="preferences_system_theme">Systemforvalg</string>
+    <string name="preferences_pure_black_night_mode">Beksvart nattmodus</string>
 </resources>
