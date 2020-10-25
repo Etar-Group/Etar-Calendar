@@ -60,9 +60,9 @@
         <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
         <item name="month_other_bgcolor">@color/month_other_bgcolor</item>
         <item name="settings_calendar_offline">@drawable/ic_sync_off_light</item>
-        <item name="iconAboutAuthors">@drawable/ic_create_light</item>
-        <item name="iconAboutLicense">@drawable/ic_description_light</item>
-        <item name="iconSettingsAbout">@drawable/ic_info_outline_light</item>
+        <item name="iconAboutAuthors">@android:color/black</item>
+        <item name="iconAboutLicense">@android:color/black</item>
+        <item name="iconSettingsAbout">@android:color/black</item>
         <item name="iconSettingsGeneral">@android:color/black</item>
         <item name="iconAddCalendar">@android:color/black</item>
         <item name="iconCalendarAccount">@android:color/black</item>
