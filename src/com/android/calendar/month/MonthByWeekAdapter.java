@@ -417,12 +417,20 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                 case MotionEvent.ACTION_UP:
                     mwev.invalidate();
                     mListView.unblockScroll();
-                    Log.e(TAG, "Open cells: "+(cell-init_cell)+1);
+                    Log.e(TAG, "Open cells: "+((cell-init_cell)+1));
 
 
                     long delay = System.currentTimeMillis() - mClickTime;
 
                     int indexOfEnd = mListView.indexOfChild(v)+mwev.mSelectedDayIndexes.size();
+                    if(event.getY()<0){
+                        Log.e(TAG, "Released above row!");
+                    }
+
+                    if(event.getY()>mListView.getChildAt(indexOfEnd).getHeight()){
+                        Log.e(TAG, "Released below row!");
+                    }
+
                     mDoSelectionTapUpStart = (MonthWeekEventsView) v;
                     mDoSelectionTapUpOffset = event.getX();
 
@@ -440,11 +448,13 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                     //Time day_n = mSingleTapUpView.getDayFromLocation(event.getX());
                     //mController.sendEvent(mContext, EventType.GO_TO, day, day_n, -1, ViewType.WEEK, CalendarController.EXTRA_GOTO_DATE, null, null);
                 case MotionEvent.ACTION_SCROLL:
-                    Log.e(TAG, "ACTION_SCROLL");
                 case MotionEvent.ACTION_CANCEL:
-                    Log.e(TAG, "ACTION_CANCEL");
                     clearClickedView((MonthWeekEventsView) v);
                     break;
+                case MonthListView.MOTION_EVENT_MOVE_LISTBLOCKED:
+                    //this "new" event allows the event to be handled, so that we can properly draw the selection.
+                    //if we dont change the event, the selection still works, but since the event is not propagated,
+                    //the selection does not update in the ui.
                 case MotionEvent.ACTION_MOVE:
                     // No need to cancel on vertical movement, ACTION_SCROLL will do that.
                     mwev.invalidate();

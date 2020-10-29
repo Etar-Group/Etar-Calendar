@@ -45,6 +45,9 @@ public class MonthListView extends ListView {
     private static int FLING_VELOCITY_DIVIDER = 500;
     private static int FLING_TIME = 1000;
 
+
+    public static final int MOTION_EVENT_MOVE_LISTBLOCKED = MotionEvent.ACTION_MOVE *-1;
+
     // disposable variable used for time calculations
     protected Time mTempTime;
     private long mDownActionTime;
@@ -92,6 +95,16 @@ public class MonthListView extends ListView {
                 FLING_VELOCITY_DIVIDER *= mScale;
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(mBlockScroll && ev.getAction() == MotionEvent.ACTION_MOVE){
+          //  return true;
+            ev.setAction(MOTION_EVENT_MOVE_LISTBLOCKED);
+            super.dispatchTouchEvent(ev);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -202,8 +215,13 @@ public class MonthListView extends ListView {
         Log.e(TAG, "blockScroll");
         mBlockScroll=true;
     }
+
     public void unblockScroll(){
         Log.e(TAG, "unblockScroll");
         mBlockScroll=false;
+    }
+
+    public boolean isScrollBlocked(){
+        return mBlockScroll;
     }
 }
