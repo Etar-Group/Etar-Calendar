@@ -22,6 +22,7 @@ this app would be just a dream. So thanks to them!
 - Material designed.
 - Support offline calendar.
 - Agenda widget.
+- Multilingual UI.
 
 ## How to use Etar
 Store your calendar on the phone only:
