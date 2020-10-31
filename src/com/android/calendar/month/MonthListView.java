@@ -212,16 +212,10 @@ public class MonthListView extends ListView {
     }
 
     public void blockScroll(){
-        Log.e(TAG, "blockScroll");
         mBlockScroll=true;
     }
 
     public void unblockScroll(){
-        Log.e(TAG, "unblockScroll");
         mBlockScroll=false;
-    }
-
-    public boolean isScrollBlocked(){
-        return mBlockScroll;
     }
 }

@@ -69,6 +69,12 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     MonthWeekEventsView mClickedView;
     MonthWeekEventsView mDoSelectionTapUpStart;
     float mDoSelectionTapUpOffset;
+    private final int SELECTION_ABOVE = -1;
+    private final int SELECTION_BELOW = 1;
+    private final int SELECTION_SAMEROW = 0;
+    private final int LIMIT_SELECTION = 14;
+    int mSelectionAboveBelow = SELECTION_SAMEROW;
+    int mAdditionalWeeksOffset = 0;
     MonthWeekEventsView mSingleTapUpView;
     MonthWeekEventsView mLongClickedView;
     float mClickedXLocation;                // Used to find which day was clicked
@@ -113,16 +119,41 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         @Override
         public void run() {
             if (mDoSelectionTapUpStart != null) {
+
                 Time start = mDoSelectionTapUpStart.getDayFromLocation(mClickedXLocation);
                 Time end = mDoSelectionTapUpStart.getDayFromLocation(mDoSelectionTapUpOffset);
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
-                    Log.d(TAG, "Touched day at Row=" + mSingleTapUpView.mWeek + " day=" + start.toString());
+
+                if(mSelectionAboveBelow == SELECTION_ABOVE) {
+                    end = start;
+                    start = mDoSelectionTapUpStart.getDayFromLocation(mDoSelectionTapUpOffset);
+                    int fullWeeksBetweenStartAndEndRow = Math.abs(mAdditionalWeeksOffset)+1;
+                    int daysBetweeen = fullWeeksBetweenStartAndEndRow*7;
+                    start.set(start.toMillis(false)-(daysBetweeen*24*60*60*1000));
+
+                    //if the selection is larger than the limit, show only LIMIT_SELECTION days, starting with the earliest date in the selection
+                    if((end.toMillis(false)-start.toMillis(false)) > -1* LIMIT_SELECTION*24*60*60*1000){
+                        start.set(end.toMillis(false)-(LIMIT_SELECTION*24*60*60*1000));
+                    }
                 }
-                if(start.toMillis(false)<end.toMillis(false)){
-                    onDayTapped(start, end);
-                }else{
+
+                if(mSelectionAboveBelow == SELECTION_BELOW) {
+                    int goDaysBackwards = 7*Math.abs(mAdditionalWeeksOffset);
+                    end.set(end.toMillis(false)+(goDaysBackwards*24*60*60*1000));
+
+                    //if the selection is larger than the limit, show only LIMIT_SELECTION days, starting with the earliest date in the selection
+                    if((end.toMillis(false)-start.toMillis(false)) > LIMIT_SELECTION*24*60*60*1000){
+                        end.set(start.toMillis(false)+(LIMIT_SELECTION*24*60*60*1000));
+                    }
+                }
+
+                //Switch start&end when they are selected backwards on the same row
+                if(mSelectionAboveBelow == SELECTION_SAMEROW && start.toMillis(false)>=end.toMillis(false)) {
+                    // We dont need LIMIT_SELECTION here, because we are on the same row. So max of 7 days anyway.
                     onDayTapped(end, start);
+                } else {
+                    onDayTapped(start, end);
                 }
+
 
                 clearClickedView(mDoSelectionTapUpStart);
                 mDoSelectionTapUpStart = null;
@@ -413,22 +444,30 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                     mClickedYLocation = event.getY();
                     mClickTime = System.currentTimeMillis();
                     mListView.postDelayed(mDoClick, mOnDownDelay);
+                    mSelectionAboveBelow = SELECTION_SAMEROW;
+                    mAdditionalWeeksOffset = 0;
                     break;
                 case MotionEvent.ACTION_UP:
                     mwev.invalidate();
                     mListView.unblockScroll();
                     Log.e(TAG, "Open cells: "+((cell-init_cell)+1));
 
-
                     long delay = System.currentTimeMillis() - mClickTime;
 
                     int indexOfEnd = mListView.indexOfChild(v)+mwev.mSelectedDayIndexes.size();
-                    if(event.getY()<0){
-                        Log.e(TAG, "Released above row!");
+                    int dayheigth = mListView.getChildAt(indexOfEnd).getHeight();
+                    float offsetFromInitialCell = event.getY();
+                    float rest = offsetFromInitialCell % dayheigth;
+                    mAdditionalWeeksOffset = (int) ((offsetFromInitialCell-rest)/dayheigth);
+
+                    if(offsetFromInitialCell<0){
+                        Log.e(TAG, "Released above row! Additional full weeks:"+mAdditionalWeeksOffset);
+                        mSelectionAboveBelow = SELECTION_ABOVE;
                     }
 
-                    if(event.getY()>mListView.getChildAt(indexOfEnd).getHeight()){
-                        Log.e(TAG, "Released below row!");
+                    if(offsetFromInitialCell>dayheigth){
+                        Log.e(TAG, "Released below row! Additional full weeks:"+mAdditionalWeeksOffset);
+                        mSelectionAboveBelow = SELECTION_BELOW;
                     }
 
                     mDoSelectionTapUpStart = (MonthWeekEventsView) v;
