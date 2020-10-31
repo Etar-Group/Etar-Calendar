@@ -131,7 +131,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                     start.set(start.toMillis(false)-(daysBetweeen*24*60*60*1000));
 
                     //if the selection is larger than the limit, show only LIMIT_SELECTION days, starting with the earliest date in the selection
-                    if((end.toMillis(false)-start.toMillis(false)) > -1* LIMIT_SELECTION*24*60*60*1000){
+                    if((end.toMillis(false)-start.toMillis(false)) > LIMIT_SELECTION*24*60*60*1000){
                         start.set(end.toMillis(false)-(LIMIT_SELECTION*24*60*60*1000));
                     }
                 }
