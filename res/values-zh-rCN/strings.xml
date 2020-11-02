@@ -142,8 +142,7 @@
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
     <plurals name="weekly">
-        <item quantity="other">每 &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%1$d&lt;/xliff:g&gt;周的
-\n&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;</item>
+        <item quantity="other">每 &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%1$d&lt;/xliff:g&gt; 周的&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"每月"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
