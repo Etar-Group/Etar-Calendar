@@ -19,7 +19,6 @@
     android:id="@+id/edit_event"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/EditEvent_Layout"
     android:background="?attr/edit_event_bgcolor">
     <TextView
         android:id="@+id/loading_message"
@@ -55,26 +54,10 @@
                 android:layout_gravity="center_horizontal|top"
                 android:background="?attr/edit_event_bgcolor"/>
 
-            <LinearLayout
-                android:id="@+id/two_pane"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top">
-
-                <!-- TOP HALF -->
-                <include
-                    layout="@layout/edit_event_1"
+            <include
+                    layout="@layout/edit_event_all"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
-                <!-- BOTTOM HALF GUESTS/ATTENDEES -->
-                <include
-                    layout="@layout/edit_event_2"
-                    android:id="@+id/attendees_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
             <View android:id="@+id/color_chip"
                 android:layout_width="25dip"

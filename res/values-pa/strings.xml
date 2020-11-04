@@ -46,27 +46,19 @@
         <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਮਿੰਟ</item>
     </plurals>
     <string name="no_title_label">ਕੋਈ ਸਿਰਲੇਖ ਨਹੀਂ</string>
-    <string name="repeats_label">ਵਾਰ-ਵਾਰ</string>
     <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt">ਕੱਲ੍ਹ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt; ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
     <string name="today_at_time_fmt">ਅੱਜ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt; ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
     <string name="tomorrow">ਕੱਲ੍ਹ</string>
     <string name="today">ਅੱਜ</string>
-    <string name="attendees_label">ਪ੍ਰਾਹੁਣੇ</string>
-    <string name="timezone_label">ਸਮਾਂ ਖੇਤਰ</string>
     <string name="when_label">ਕਦੋਂ</string>
-    <string name="where_label">ਕਿੱਥੇ</string>
-    <string name="what_label">ਕੀ</string>
     <string name="app_label">ਜੰਤਰੀ</string>
     <string name="no_syncable_calendars">ਕੋਈ ਜੰਤਰੀ ਨਹੀਂ</string>
     <string name="reminders_label">ਯਾਦ-ਸੂਚਨਾ ਜੋੜੋ</string>
     <string name="privacy_label">ਪਰਦੇਦਾਰੀ</string>
     <string name="presence_label">ਮੈਨੂੰ ਇੰਝ ਵਿਖਾਓ</string>
-    <string name="description_label">ਵਰਣਨ</string>
     <string name="edit_event_calendar_label">ਜੰਤਰੀ</string>
     <string name="edit_event_all_day_label">ਸਾਰਾ ਦਿਨ</string>
-    <string name="edit_event_from_label">ਵੱਲੋਂ</string>
-    <string name="edit_event_to_label">ਵੱਲ</string>
     <string name="event_info_title_invite">ਸਭਾ ਦਾ ਸੱਦਾ</string>
     <string name="event_info_title">ਵਰਤਾਰਾ ਵੇਖੋ</string>
     <string name="foreground_notification_channel_description">ਅੰਦਰੂਨੀ ਸੁਚੇਤਨਾ ਸਮਕਾਲੀਕਰਨ ਲਈ ਮੂਹਰਲੀ ਸੂਚਨਾ ਲੋੜੀਂਦੀ ਹੈ।</string>

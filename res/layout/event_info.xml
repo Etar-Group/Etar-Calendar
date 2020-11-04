@@ -306,7 +306,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dip"
-                android:layout_marginStart="-8dip"
+                android:layout_marginStart="4dip"
                 android:layout_marginEnd="8dip"
                 android:orientation="vertical" />
             <Button

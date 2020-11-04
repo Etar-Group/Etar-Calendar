@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">Egutegia</string>
-    <string name="what_label">Zer</string>
-    <string name="where_label">Non</string>
     <string name="when_label">Noiz</string>
-    <string name="timezone_label">Ordu-zona</string>
-    <string name="attendees_label">Gonbidatuak</string>
     <string name="today">Gaur</string>
     <string name="tomorrow">Bihar</string>
     <string name="date_time_fmt">
         <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
-    <string name="repeats_label">Errepikapena</string>
     <string name="no_title_label">(Izenbururik ez)</string>
     <string name="calendar_refresh">Eguneratu</string>
     <string name="show_day_view">Erakutsi eguna</string>
@@ -48,11 +43,8 @@
     <string name="alert_title">Egutegi jakinarazpenak</string>
     <string name="event_info_title">Ikusi gertaera</string>
     <string name="event_info_title_invite">Bilera gonbidapenak</string>
-    <string name="edit_event_to_label">Noiz arte</string>
-    <string name="edit_event_from_label">Noiztik</string>
     <string name="edit_event_all_day_label">Egun osoa</string>
     <string name="edit_event_calendar_label">Egutegia</string>
-    <string name="description_label">Deskribapena</string>
     <string name="presence_label">Erakutsi horrela</string>
     <string name="privacy_label">Pribatutasuna</string>
     <string name="reminders_label">Gehitu jakinarazpena</string>

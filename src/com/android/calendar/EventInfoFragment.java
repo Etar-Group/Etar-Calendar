@@ -57,6 +57,7 @@ import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.QuickContact;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -302,7 +303,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static int DIALOG_TOP_MARGIN = 8;
 
 
-    private final ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
+    private final ArrayList<ConstraintLayout> mReminderViews = new ArrayList<ConstraintLayout>(0);
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mOriginalReminders = new ArrayList<ReminderEntry>();
     public ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
@@ -779,7 +780,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhenDateTime = (TextView) mView.findViewById(R.id.when_datetime);
         mWhere = (TextView) mView.findViewById(R.id.where);
-        mDesc = (ExpandableTextView) mView.findViewById(R.id.description);
+        mDesc =  mView.findViewById(R.id.description);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
 
@@ -2096,7 +2097,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onClick(View view) {
 
         // This must be a click on one of the "remove reminder" buttons
-        LinearLayout reminderItem = (LinearLayout) view.getParent();
+        ConstraintLayout reminderItem = (ConstraintLayout) view.getParent();
         LinearLayout parent = (LinearLayout) reminderItem.getParent();
         parent.removeView(reminderItem);
         mReminderViews.remove(reminderItem);

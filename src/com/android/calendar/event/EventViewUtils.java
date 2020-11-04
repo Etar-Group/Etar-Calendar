@@ -27,6 +27,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 
 import java.util.ArrayList;
@@ -114,12 +116,12 @@ public class EventViewUtils {
      * @return Array with reminder data.
      */
     public static ArrayList<ReminderEntry> reminderItemsToReminders(
-            ArrayList<LinearLayout> reminderItems, ArrayList<Integer> reminderMinuteValues,
+            ArrayList<ConstraintLayout> reminderItems, ArrayList<Integer> reminderMinuteValues,
             ArrayList<Integer> reminderMethodValues) {
         int len = reminderItems.size();
         ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>(len);
         for (int index = 0; index < len; index++) {
-            LinearLayout layout = reminderItems.get(index);
+            ConstraintLayout layout = reminderItems.get(index);
             Spinner minuteSpinner = (Spinner) layout.findViewById(R.id.reminder_minutes_value);
             Spinner methodSpinner = (Spinner) layout.findViewById(R.id.reminder_method_value);
             int minutes = reminderMinuteValues.get(minuteSpinner.getSelectedItemPosition());
@@ -223,7 +225,7 @@ public class EventViewUtils {
      * with any new position setting.
      */
     public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
-            ArrayList<LinearLayout> items, ArrayList<Integer> minuteValues,
+            ArrayList<ConstraintLayout> items, ArrayList<Integer> minuteValues,
             ArrayList<String> minuteLabels, ArrayList<Integer> methodValues,
             ArrayList<String> methodLabels, ReminderEntry newReminder, int maxReminders,
             OnItemSelectedListener onItemSelected) {
@@ -234,7 +236,7 @@ public class EventViewUtils {
 
         LayoutInflater inflater = activity.getLayoutInflater();
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.reminder_items_container);
-        LinearLayout reminderItem = (LinearLayout) inflater.inflate(R.layout.edit_reminder_item,
+        ConstraintLayout reminderItem = (ConstraintLayout) inflater.inflate(R.layout.edit_reminder_item,
                 null);
         parent.addView(reminderItem);
 
@@ -281,7 +283,7 @@ public class EventViewUtils {
      * Enables/disables the 'add reminder' button depending on the current number of
      * reminders.
      */
-    public static void updateAddReminderButton(View view, ArrayList<LinearLayout> reminders,
+    public static void updateAddReminderButton(View view, ArrayList<ConstraintLayout> reminders,
             int maxReminders) {
         View reminderAddButton = view.findViewById(R.id.reminder_add);
         if (reminderAddButton != null) {

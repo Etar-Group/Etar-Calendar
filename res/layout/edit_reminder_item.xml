@@ -14,40 +14,42 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:paddingTop="1dip"
-    android:gravity="center_vertical"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/edit_reminder_min_size">
+    android:layout_height="wrap_content">
 
-    <Spinner android:id="@+id/reminder_minutes_value"
-        style="@style/TextAppearance.EditEvent_Spinner"
-        android:layout_width="0dip"
+    <Spinner
+        android:id="@+id/reminder_minutes_value"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="top|left"
-        android:layout_marginRight="0dip"
+        android:layout_marginTop="4dp"
         android:contentDescription="@string/accessibility_reminder_time"
-        android:entries="@array/reminder_minutes_labels"/>
+        android:entries="@array/reminder_minutes_labels"
+        android:gravity="top|start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner android:id="@+id/reminder_method_value"
-        style="@style/TextAppearance.EditEvent_Spinner"
-        android:layout_width="0dip"
+    <Spinner
+        android:id="@+id/reminder_method_value"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="top|left"
-        android:layout_marginRight="0dip"
         android:contentDescription="@string/accessibility_reminder_type"
-        android:entries="@array/reminder_methods_labels"/>
+        android:entries="@array/reminder_methods_labels"
+        android:gravity="top|start"
+        app:layout_constraintEnd_toStartOf="@+id/reminder_remove"
+        app:layout_constraintStart_toEndOf="@+id/reminder_minutes_value"
+        app:layout_constraintTop_toTopOf="@+id/reminder_minutes_value" />
 
-    <ImageButton android:id="@+id/reminder_remove"
+    <ImageButton
+        android:id="@+id/reminder_remove"
         style="@style/MinusButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:contentDescription="@string/accessibility_remove_reminder"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/reminder_method_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/reminder_method_value" />
 
-    />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
