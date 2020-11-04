@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">Agenda</string>
-    <string name="what_label">O que</string>
-    <string name="where_label">Onde</string>
     <string name="when_label">Quando</string>
-    <string name="timezone_label">Fuso horário</string>
-    <string name="attendees_label">Convidados</string>
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
     <string name="today_at_time_fmt">Hoje, às <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="tomorrow_at_time_fmt">Amanhã, às <xliff:g id="TIME_INTERVAL">%s</xliff:g></string>
     <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label">Repetições</string>
     <string name="no_title_label">(Sem título)</string>
     <string name="calendar_refresh">Atualizar</string>
     <string name="show_day_view">Mostrar dia</string>
@@ -47,11 +42,8 @@
     <string name="alert_title">Notificações da agenda</string>
     <string name="event_info_title">Visualizar evento</string>
     <string name="event_info_title_invite">Convite para reunião</string>
-    <string name="edit_event_to_label">a</string>
-    <string name="edit_event_from_label">De</string>
     <string name="edit_event_all_day_label">O dia todo</string>
     <string name="edit_event_calendar_label">Agenda</string>
-    <string name="description_label">Descrição</string>
     <string name="presence_label">Mostrar-me como</string>
     <string name="privacy_label">Privacidade</string>
     <string name="reminders_label">Adicionar lembrete</string>

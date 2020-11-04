@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">Calendário</string>
-    <string name="what_label" msgid="1933578391985810049">O quê</string>
-    <string name="where_label" msgid="3472482206065595118">"Onde"</string>
     <string name="when_label" msgid="894636567327261599">"Quando"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Fuso horário"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Convidados"</string>
     <string name="today" msgid="8577375020252453006">"Hoje"</string>
     <string name="tomorrow" msgid="614434811813859237">"Amanhã"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">Hoje, às <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Amanhã, às <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"Repetições"</string>
     <string name="no_title_label" msgid="302177118061368042">(sem título)</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
@@ -75,11 +70,8 @@
     <string name="alert_title" msgid="7869592820853066853">Notificações do calendário</string>
     <string name="event_info_title" msgid="56024222340421620">Ver evento</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Convite para reunião"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">Até</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"De"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">Todo o dia</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">Calendário</string>
-    <string name="description_label" msgid="7193475046717505855">"Descrição"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mostrar-me como"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacidade"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Adicionar lembrete"</string>

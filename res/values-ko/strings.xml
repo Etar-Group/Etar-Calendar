@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"캘린더"</string>
-    <string name="what_label" msgid="1933578391985810049">"내용"</string>
-    <string name="where_label" msgid="3472482206065595118">"장소"</string>
     <string name="when_label" msgid="894636567327261599">"일시"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"시간대"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"참석자"</string>
     <string name="today" msgid="8577375020252453006">"오늘"</string>
     <string name="tomorrow" msgid="614434811813859237">"내일"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"오늘 <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"내일 <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"반복"</string>
     <string name="no_title_label" msgid="302177118061368042">"(제목 없음)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1분"</item>
@@ -74,11 +69,8 @@
     <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>
     <string name="event_info_title" msgid="56024222340421620">"일정 보기"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"회의 초대"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">종료</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">시작</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"종일"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"캘린더"</string>
-    <string name="description_label" msgid="7193475046717505855">"일정 설명"</string>
     <string name="presence_label" msgid="6169724148441175862">"내 상태"</string>
     <string name="privacy_label" msgid="9215031965259597335">"공개여부"</string>
     <string name="reminders_label" msgid="7292389181815525676">"알림 추가"</string>
