@@ -18,7 +18,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/edit_event"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/edit_event_bgcolor">
 
     <TextView
         android:id="@+id/loading_message"
@@ -28,8 +29,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/loading"
-        style="?android:attr/textAppearanceLarge"
-        android:background="?attr/edit_event_bgcolor"/>
+        style="?android:attr/textAppearanceLarge" />
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -44,16 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View android:id="@+id/event_bg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal|top"
-                android:background="?attr/edit_event_bgcolor"/>
-
             <include
-                    layout="@layout/edit_event_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                layout="@layout/edit_event_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <View android:id="@+id/color_chip"
                 android:layout_width="25dip"
@@ -61,7 +55,7 @@
                 android:visibility="gone"
                 android:layout_marginStart="0dip"
                 android:layout_marginTop="0dip"
-                android:layout_gravity="start|top"/>
+                android:layout_gravity="start|top" />
         </FrameLayout>
     </ScrollView>
 </LinearLayout>
