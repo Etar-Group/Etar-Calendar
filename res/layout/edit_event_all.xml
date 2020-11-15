@@ -48,9 +48,10 @@
         <!-- CALENDARS SELECTOR for new events -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginTop="8dp"
             android:background="@null"
             android:focusable="true"
@@ -59,6 +60,7 @@
             android:minHeight="48dip"
             android:singleLine="true"
             android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -211,7 +213,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="4dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_end_date"
             android:singleLine="true"
@@ -221,12 +222,12 @@
         <Button
             android:id="@+id/start_time"
             style="@style/TextAppearance.EditEvent"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_start_time"
-            android:gravity="center_vertical|end"
+            android:minWidth="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/start_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/start_date" />
@@ -234,14 +235,12 @@
         <Button
             android:id="@+id/end_time"
             style="@style/TextAppearance.EditEvent"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
-            android:layout_weight="4"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_end_time"
-            android:gravity="center_vertical|end"
+            android:minWidth="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_time" />
 
@@ -262,7 +261,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_time_zone"
@@ -540,7 +538,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             android:focusable="true"
             android:orientation="vertical"
             android:translationY="-6dp"
