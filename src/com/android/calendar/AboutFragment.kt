@@ -25,7 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
@@ -45,7 +45,7 @@ class AboutFragment : Fragment() {
         val year = Calendar.getInstance().get(Calendar.YEAR).toString()
         view.findViewById<TextView>(R.id.copyright).text = getString(R.string.app_copyright, year)
 
-        view.findViewById<LinearLayout>(R.id.authorsLayout).setOnClickListener {
+        view.findViewById<ImageView>(R.id.authorsLayout).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_authors_url))))
         }
 
@@ -57,7 +57,7 @@ class AboutFragment : Fragment() {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_issues_url))))
         }
 
-        view.findViewById<LinearLayout>(R.id.licenseLayout).setOnClickListener {
+        view.findViewById<ImageView>(R.id.licenseLayout).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_license_url))))
         }
 
