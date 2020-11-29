@@ -334,4 +334,7 @@
     <string name="three_days">3 gün</string>
     <string name="two_days">2 gün</string>
     <string name="preferences_system_theme">Sistem öntanımlı değeri</string>
+    <string name="preferences_list_add_remote_etesync">EteSync takvimi ekle</string>
+    <string name="preferences_list_add_remote">CalDAV takvimi ekle</string>
+    <string name="preferences_pure_black_night_mode">Saf siyah gece modu</string>
 </resources>

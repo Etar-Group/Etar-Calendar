@@ -282,7 +282,7 @@
     <string name="preferences_list_calendar_summary_sync_off">Tidak disinkronisasi</string>
     <string name="preferences_list_calendar_summary_invisible">Acara tidak ditampilkan</string>
     <string name="preferences_list_general">Pengaturan umum</string>
-    <string name="preferences_list_add_remote">Tambah kalender (CalDav)</string>
+    <string name="preferences_list_add_remote">Tambah kalender CalDav</string>
     <string name="preferences_list_add_offline">Tambah kalender luring</string>
     <string name="preferences_list_add_offline_title">Tambah kalender luring</string>
     <string name="preferences_list_add_offline_error_empty">Masukkan nama kalender!</string>
@@ -317,4 +317,6 @@
     <string name="three_days">3 hari</string>
     <string name="two_days">2 hari</string>
     <string name="preferences_system_theme">Bawaan sistem</string>
+    <string name="preferences_list_add_remote_etesync">Tambah kalender EteSync</string>
+    <string name="preferences_pure_black_night_mode">Mode malam hitam pekat</string>
 </resources>
