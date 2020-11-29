@@ -240,4 +240,17 @@
     <string name="snooze_delay_dialog_title">スヌーズ遅延を設定</string>
     <string name="preferences_default_snooze_delay_title">デフォルトのスヌーズ遅延時間</string>
     <string name="preferences_default_snooze_delay_dialog">デフォルトのスヌーズ遅延</string>
+    <string name="preferences_black_theme">ブラック</string>
+    <string name="preferences_dark_theme">ダークテーマ</string>
+    <string name="preferences_light_theme">ライトテーマ</string>
+    <string name="preferences_system_theme">システムのデフォルト</string>
+    <string name="preferences_theme">テーマ</string>
+    <string name="preferences_month_view_landscape">月表示レイアウト（横）</string>
+    <string name="preferences_month_view_portrait">月表示レイアウト（ポートレート）</string>
+    <string name="no_map">マップアプリがインストールされていません</string>
+    <string name="rsvp_declined">拒否しました。</string>
+    <string name="rsvp_accepted">承諾しました。</string>
+    <string name="view_settings">設定を表示</string>
+    <string name="goto_date">移動…</string>
+    <string name="share_label">共有する</string>
 </resources>

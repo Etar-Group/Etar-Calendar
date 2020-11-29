@@ -169,7 +169,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Eigen tijdzone gebruiken"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Toon agenda\'s en afspraaktijden op reis in tijdzone van thuis</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Eigen tijdzone"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">Ton weeknummer</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">Toon weeknummer</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build-versie"</string>
     <plurals name="month_more_events">
         <item quantity="one" msgid="8971334808414201327">"+1"</item>
@@ -272,7 +272,7 @@
     <string name="error_generating_ics">Problemen ondervonden tijdens het delen van een afspraak</string>
     <string name="cal_share_intent_title">Stuur afspraak naar:</string>
     <string name="cal_export_event_sdcard_title">Exporteer naar SD-kaart</string>
-    <string name="cal_export_succ_msg">Afspraak is succesvol geëxporteerd: %1s</string>
+    <string name="cal_export_succ_msg">Afspraak is succesvol geëxporteerd: %1$s</string>
     <string name="cal_import_menu_title">Importeer afspraak</string>
     <string name="cal_nothing_to_import">Niets te importeren</string>
     <string name="cal_import_error_msg">Import naar kalender mislukt</string>
@@ -291,4 +291,50 @@
     <string name="maximum_number_of_lines">Maximaal aantal regels in afspraak</string>
     <string name="foreground_notification_channel_name">Alarmsynchronisatie</string>
     <string name="foreground_notification_channel_description">Voorgrondnotificatie is nodig voor interne alarmsynchronisatie. Zet deze melding uit</string>
+    <string name="preferences_calendar_account">%1$s account</string>
+    <string name="changelog">Wijzigingslogboek</string>
+    <string name="offline_account_name">Offline Agenda</string>
+    <string name="preferences_menu_about">Over Etar</string>
+    <string name="preferences_list_add_remote_etesync">EteSync agenda toevoegen</string>
+    <string name="preferences_list_add_remote">CalDAV agenda toevoegen</string>
+    <string name="preferences_list_calendar_summary_invisible">Afspraken worden niet weergegeven</string>
+    <string name="preferences_list_calendar_summary_sync_off">Niet gesynchroniseerd</string>
+    <string name="preferences_calendar_delete_cancel">Annuleer</string>
+    <string name="preferences_calendar_delete_delete">Verwijder agenda</string>
+    <string name="preferences_calendar_delete_message">Wil je deze agenda echt verwijderen\?</string>
+    <string name="preferences_calendar_color_warning_button">Ik begrijp het</string>
+    <string name="preferences_calendar_color_warning_message">Het veranderen van de kleur kan worden teruggedraaid wanneer de agenda weer gesynchroniseerd wordt.
+\n
+\nIn DAVx⁵ kan \'Beheer agendakleuren\' worden uitgeschakeld om dit te voorkomen.</string>
+    <string name="preferences_calendar_color_warning_title">Waarschuwing</string>
+    <string name="preferences_calendar_synchronize">Synchroniseer deze agenda</string>
+    <string name="preferences_calendar_visible">Toon afspraken</string>
+    <string name="preferences_calendar_color">Kleur</string>
+    <string name="preferences_calendar_info_category">Agenda informatie</string>
+    <string name="preferences_calendar_display_name">Verander naam</string>
+    <string name="preferences_calendar_delete">Verwijder agenda</string>
+    <string name="preferences_calendar_number_of_events">%1$d afspraken</string>
+    <string name="preferences_calendar_configure_account">Configureer agenda in %1$s</string>
+    <string name="preferences_calendar_account_local">Offline agenda</string>
+    <string name="preferences_calendar_no_display_name">Naamloze agenda</string>
+    <string name="cal_import_error_time_zone_msg">Niet in staat om een bepaalde tijdzone te begrijpen: %s</string>
+    <string name="seven_days">7 dagen</string>
+    <string name="six_days">6 dagen</string>
+    <string name="five_days">5 dagen</string>
+    <string name="four_days">4 dagen</string>
+    <string name="three_days">3 dagen</string>
+    <string name="two_days">2 dagen</string>
+    <string name="source_code">Bron</string>
+    <string name="license">Licentie</string>
+    <string name="authors">Auteurs</string>
+    <string name="preferences_pure_black_night_mode">Zuiver zwarte nachtmodus</string>
+    <string name="preferences_system_theme">Systeemstandaard</string>
+    <string name="preferences_list_add_offline_cancel">Annuleer</string>
+    <string name="preferences_list_add_offline_name">Naam</string>
+    <string name="preferences_list_add_offline_button">Agenda toevoegen</string>
+    <string name="preferences_list_add_offline_message">Offline agenda\'s worden NIET gesynchroniseerd met een cloudservice en zijn alleen beschikbaar op uw telefoon.</string>
+    <string name="preferences_list_add_offline_error_empty">Voer een agendanaam in!</string>
+    <string name="preferences_list_add_offline_title">Offline agenda toevoegen</string>
+    <string name="preferences_list_add_offline">Offline agenda toevoegen</string>
+    <string name="preferences_list_general">Algemene instellingen</string>
 </resources>

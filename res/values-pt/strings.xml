@@ -247,7 +247,7 @@
     <string name="rsvp_accepted">Respondeu sim.</string>
     <string name="rsvp_tentative">Respondeu talvez.</string>
     <string name="rsvp_declined">Respondeu não.</string>
-    <string name="no_map">Não existe nenhuma aplicação de mapas instalada</string>
+    <string name="no_map">Não existe nenhuma app de mapas instalada</string>
     <string name="preferences_month_view_portrait">Vista mensal (vertical)</string>
     <string name="preferences_month_view_landscape">Vista mensal (horizontal)</string>
     <string name="preferences_theme">Tema</string>
@@ -334,4 +334,6 @@
     <string name="three_days">3 dias</string>
     <string name="two_days">2 dias</string>
     <string name="preferences_system_theme">Predefinições do sistema</string>
+    <string name="preferences_list_add_remote_etesync">Adicionar calendário EteSync</string>
+    <string name="preferences_list_add_remote">Adicionar calendário CalDAV</string>
 </resources>

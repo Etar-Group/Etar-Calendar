@@ -322,7 +322,7 @@
     <string name="preferences_month_view_landscape">Month view layout (Landscape)</string>
     <string name="preferences_month_view_portrait">Month view layout (Portrait)</string>
     <string name="no_map">There is no maps app installed</string>
-    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync. Please mute</string>
+    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync.</string>
     <string name="foreground_notification_channel_name">Alert sync</string>
     <string name="rsvp_declined">Responded no.</string>
     <string name="rsvp_tentative">Responded maybe.</string>

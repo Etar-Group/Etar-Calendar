@@ -184,8 +184,8 @@
         <item quantity="many">и ещё <xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">В календаре нет предстоящих событий</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Экспериментальная версия"</string>
-    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Пропустить напоминания"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">Экспериментальные настройки</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">Пропуск напоминаний</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Пропустить напоминания"</string>
     <string name="copy_db" msgid="437691290566699292">"Отправить базу данных"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Поиск в <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
@@ -238,8 +238,8 @@
         <item quantity="many">Каждые <xliff:g id="count">%d</xliff:g> лет</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">ежемесячно в этот день</string>
-    <string name="recurrence_end_continously" msgid="6898950241634912991">"Всегда"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">До определённой даты</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">бесконечно</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">До даты</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">До <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Несколько раз</string>
     <plurals name="recurrence_end_count">
@@ -270,9 +270,9 @@
     <string name="preferences_days_per_week_title">Дней в неделе</string>
     <string name="preferences_days_per_week_dialog">Дней в неделе</string>
     <string name="preferences_default_event_duration_title">Продолжительность события по умолчанию</string>
-    <string name="preferences_issues">Сообщить о проблеме</string>
+    <string name="preferences_issues">Проблема</string>
     <string name="user_rejected_calendar_write_permission">Для правильной работы Etar требуются разрешения на чтение и запись календаря. Пожалуйста, попробуйте ещё раз.</string>
-    <string name="calendar_permission_not_granted">Необходимые разрешения были отклонены, включите их из настроек приложения для редактирования событий.</string>
+    <string name="calendar_permission_not_granted">Необходимые разрешения были отклонены, включите их из настроек приложения для редактирования событий</string>
     <string name="visibility_confidential">Конфиденциальное</string>
     <string name="zero_minutes">0 минут</string>
     <string name="fifteen_minutes">15 минут</string>
@@ -327,7 +327,7 @@
     <string name="preferences_calendar_color_warning_message">Изменение цвета может быть отменено при повторной синхронизации календаря.
 \n
 \nТакое поведение можно отключить в \"Управлении цветами календаря\" DAVx⁵.</string>
-    <string name="preferences_calendar_color_warning_button">Я понимаю</string>
+    <string name="preferences_calendar_color_warning_button">Понятно</string>
     <string name="preferences_calendar_delete_message">Вы действительно хотите удалить этот календарь\?</string>
     <string name="preferences_calendar_delete_delete">Удалить календарь</string>
     <string name="preferences_calendar_delete_cancel">Отмена</string>
@@ -335,13 +335,13 @@
     <string name="offline_account_name">Локальный календарь</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Проект Etar. Частично © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Авторы</string>
-    <string name="changelog">История изменений</string>
+    <string name="changelog">Изменения</string>
     <string name="license">Лицензия</string>
     <string name="source_code">Исходный код</string>
     <string name="preferences_calendar_no_display_name">Календарь без названия</string>
-    <string name="preferences_calendar_account_local">Автономный календарь</string>
+    <string name="preferences_calendar_account_local">Локальный календарь</string>
     <string name="preferences_calendar_configure_account">Настройка календаря в %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1$d событий</string>
+    <string name="preferences_calendar_number_of_events">Событий: %1$d</string>
     <string name="preferences_calendar_info_category">О календаре</string>
     <string name="seven_days">7 дней</string>
     <string name="six_days">6 дней</string>
@@ -350,4 +350,7 @@
     <string name="three_days">3 дня</string>
     <string name="two_days">2 дня</string>
     <string name="preferences_system_theme">Системная</string>
+    <string name="preferences_list_add_remote_etesync">Добавить календарь EteSync</string>
+    <string name="preferences_list_add_remote">Добавить календарь CalDAV</string>
+    <string name="preferences_pure_black_night_mode">Чёрный ночной режим</string>
 </resources>

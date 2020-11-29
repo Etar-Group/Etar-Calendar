@@ -126,8 +126,7 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="endByDate" msgid="7654221304929538201">"；直到<xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"1次"</item>
-        <item quantity="other" msgid="4855496837834652446">"<xliff:g id="NUMBER">%d</xliff:g>次"</item>
+        <item quantity="other">; 重复&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;次</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one">每 <xliff:g id="number">%d</xliff:g> 天</item>
@@ -135,8 +134,7 @@
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
     <plurals name="weekly">
-        <item quantity="one">每周的 <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="other"/>
+        <item quantity="other">每 &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%1$d&lt;/xliff:g&gt; 周的&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"每月"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
@@ -171,8 +169,7 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"显示周数"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
     <plurals name="month_more_events">
-        <item quantity="one">+1</item>
-        <item quantity="other"/>
+        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"最近没有任何日历活动"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"实验性"</string>
@@ -275,7 +272,7 @@
     <string name="cal_import_menu_title">导入事件</string>
     <string name="cal_nothing_to_import">无可导入事件</string>
     <string name="cal_import_error_msg">导入日历失败</string>
-    <string name="cal_import_error_date_msg">未能理解给定日期: %1s</string>
+    <string name="cal_import_error_date_msg">无法理解给定日期:%s</string>
     <string name="cal_pick_ics">选择导入文件</string>
     <string name="view_settings">查看设置</string>
     <string name="preferences_month_view_portrait">月视图布局(纵向)</string>
@@ -334,4 +331,7 @@
     <string name="three_days">3天</string>
     <string name="two_days">2天</string>
     <string name="preferences_system_theme">系统默认</string>
+    <string name="preferences_list_add_remote_etesync">添加 EteSync 日历</string>
+    <string name="preferences_list_add_remote">添加 CalDAV日历</string>
+    <string name="preferences_pure_black_night_mode">纯黑夜间模式</string>
 </resources>
