@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">Kada</string>
     <string name="today" msgid="8577375020252453006">"Danas"</string>
     <string name="tomorrow" msgid="614434811813859237">"Sutra"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">Danas u &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Sutra u &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Danas u &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Sutra u &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(bez naslova)"</string>
     <plurals name="Nminutes">
@@ -188,7 +188,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">Zanemari podsjetnike</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">Zanemari podsjetnike</string>
     <string name="copy_db" msgid="437691290566699292">Pošalji bazu podataka</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">Pretražuje se &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DOMAIN\"&gt;%s&lt;/xliff:g&gt; …<xliff:g id="DOMAIN">%s</xliff:g> …</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Pretražuje se &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"domain\"&gt;%s&lt;/xliff:g&gt;…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Ukloni sudionika"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Datum početka"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Vrijeme početka"</string>
