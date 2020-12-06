@@ -893,10 +893,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 }
             };
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,datePickerListener,t.year, t.month,t.monthDay);
-            if (Build.VERSION.SDK_INT >= 21) {
-                datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
-            }
-            datePickerDialog.show();
+                    datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
 
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;

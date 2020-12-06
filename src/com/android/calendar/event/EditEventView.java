@@ -1785,12 +1785,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (mDatePickerDialog != null) {
                 mDatePickerDialog.dismiss();
             }
-            mDatePickerDialog = new DatePickerDialog(mActivity, listener,
-                    mTime.year, mTime.month, mTime.monthDay);
-            if (Build.VERSION.SDK_INT >= 21) {
+            mDatePickerDialog = new DatePickerDialog(mActivity, listener, mTime.year, mTime.month, mTime.monthDay);
                 mDatePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
-            }
-            mDatePickerDialog.show();
         }
     }
 }
