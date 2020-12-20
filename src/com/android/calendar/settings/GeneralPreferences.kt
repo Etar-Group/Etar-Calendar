@@ -283,11 +283,18 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 }
                 a.sendBroadcast(intent)
             }
-            KEY_THEME_PREF -> a.recreate()
-            KEY_COLOR_PREF -> a.recreate()
+            KEY_THEME_PREF -> {
+                Utils.sendUpdateWidgetIntent(a)
+                a.recreate()
+            }
+            KEY_COLOR_PREF -> {
+                Utils.sendUpdateWidgetIntent(a)
+                a.recreate()
+            }
         }
         //pureBlackNightMode refresh condition
         if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a)) {
+            Utils.sendUpdateWidgetIntent(a)
             a.recreate()
         }
     }

@@ -44,6 +44,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
@@ -297,11 +298,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
                 final long now = System.currentTimeMillis();
                 if (!eventInfo.allDay && eventInfo.start <= now && now <= eventInfo.end) {
-                    views.setInt(R.id.widget_row, "setBackgroundResource",
-                            R.drawable.agenda_item_bg_secondary);
+                    int past_bg_color = R.color.agenda_past_days_bar_background_color;
+                    views.setInt(R.id.widget_row, "setBackgroundResource", past_bg_color);
                 } else {
-                    views.setInt(R.id.widget_row, "setBackgroundResource",
-                            R.drawable.agenda_item_bg_primary);
+                    int future_bg_color = DynamicTheme.getWidgetBackgroundStyle(mContext);
+                    views.setInt(R.id.widget_row, "setBackgroundResource", future_bg_color);
                 }
 
                 if (!eventInfo.allDay) {
@@ -553,9 +554,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     time2.set(sLastUpdateTime);
                     time2.normalize(true);
                     if (time.year != time2.year || time.yearDay != time2.yearDay) {
-                        final Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(mContext));
-                        updateIntent.setClass(mContext, CalendarAppWidgetProvider.class);
-                        mContext.sendBroadcast(updateIntent);
+                        Utils.sendUpdateWidgetIntent(mContext);
                     }
 
                     sLastUpdateTime = time.toMillis(true);

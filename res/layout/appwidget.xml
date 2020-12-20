@@ -16,6 +16,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
@@ -27,7 +28,6 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
         android:gravity="center_vertical|start"
         android:minHeight="48dip"
         android:orientation="vertical"
@@ -54,9 +54,9 @@
         android:layout_weight="1"
         android:paddingTop="6dp"
         android:clipToPadding="false"
-        android:background="@android:color/white"
         android:cacheColorHint="@null"
         android:divider="@null"
         android:dividerHeight="4dp"
+        android:scrollbarThumbVertical="@color/appwidget_scrollbar"
         android:listSelector="@android:color/transparent" />
 </LinearLayout>
