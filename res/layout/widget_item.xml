@@ -18,7 +18,6 @@
     android:id="@android:id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_event_cal_widget_holo"
     android:minHeight="32sp">
 
     <FrameLayout

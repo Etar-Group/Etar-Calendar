@@ -254,6 +254,31 @@ public class DynamicTheme {
         }
     }
 
+    public static int getWidgetBackgroundStyle(Context context) {
+        String theme = getTheme(context);
+        boolean pureBlack = Utils.getSharedPreference(context, PURE_BLACK_NIGHT_MODE, false);
+        switch (theme) {
+            case SYSTEM:
+                if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
+                    if (pureBlack) {
+                        return R.color.bg_black;
+                    } else {
+                        return R.color.bg_dark;
+                    }
+                } else {
+                    return R.color.background_color;
+                }
+            case LIGHT:
+                return R.color.background_color;
+            case DARK:
+                return R.color.bg_dark;
+            case BLACK:
+                return R.color.bg_black;
+            default:
+                throw new UnsupportedOperationException("Unknown theme: " + theme);
+        }
+    }
+
     private static boolean systemThemeAvailable() {
         return Build.VERSION.SDK_INT >= 29;
     }

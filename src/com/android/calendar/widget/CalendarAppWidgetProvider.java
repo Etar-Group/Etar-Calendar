@@ -31,6 +31,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.android.calendar.AllInOneActivity;
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 
@@ -198,6 +199,15 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
                             | DateUtils.FORMAT_NO_YEAR);
             views.setTextViewText(R.id.day_of_week, dayOfWeek);
             views.setTextViewText(R.id.date, date);
+
+            // Set widget header background based on chosen primary app color
+            int headerColor = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
+            views.setInt(R.id.header, "setBackgroundResource", headerColor);
+
+            // Set widget background color based on chosen app theme
+            int backgroundColor = DynamicTheme.getWidgetBackgroundStyle(context);
+            views.setInt(R.id.widget_background, "setBackgroundResource", backgroundColor);
+
             // Attach to list of events
             views.setRemoteAdapter(R.id.events_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.events_list);

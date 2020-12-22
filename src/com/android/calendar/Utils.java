@@ -56,6 +56,7 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.widget.CalendarAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -242,6 +243,14 @@ public class Utils {
      */
     public static String getWidgetScheduledUpdateAction(Context context) {
         return "com.android.calendar.APPWIDGET_SCHEDULED_UPDATE";
+    }
+    /**
+     * Send Broadcast to update widget.
+     */
+    public static void sendUpdateWidgetIntent(Context context) {
+        Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(context));
+        updateIntent.setClass(context, CalendarAppWidgetProvider.class);
+        context.sendBroadcast(updateIntent);
     }
 
     /**
