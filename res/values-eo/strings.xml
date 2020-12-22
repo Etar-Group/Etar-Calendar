@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="preferences_title">Agordoj</string>
+    <string name="delete_recurring_event_title">Ĉu forigi &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"eventtitle\"&gt; %s &lt;/xliff:g&gt;\?</string>
+    <string name="delete_this_event_title">Ĉu forigi ĉi tiun eventon\?</string>
+    <string name="new_event_dialog_option">Nova evento</string>
+    <string name="new_event_dialog_label">Nova evento</string>
+    <string name="every_weekday">Ĉiu labortago (lun - ven)</string>
+    <string name="discard_label">Nuligi</string>
+    <string name="delete_label">Forigi</string>
+    <string name="edit_label">Redakti</string>
+    <string name="edit_event_label">Detaloj</string>
+    <string name="search_title">Serĉi en miajn kalendarojn</string>
+    <string name="agenda_tomorrow">Morgaŭ, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_yesterday">Hieraŭ, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_today">Hodiaŭ, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="event_info_reminders_label">Memorigiloj</string>
+    <string name="map_label">Mapo</string>
+    <string name="response_no">Ne</string>
+    <string name="response_maybe">Eble</string>
+    <string name="response_yes">Jes</string>
+    <string name="calendar_color_picker_dialog_title">Kalendara koloro</string>
+    <string name="event_color_picker_dialog_title">Eventa koloro</string>
+    <string name="view_event_calendar_label">Kalendaro:</string>
+    <string name="add_account">Aldoni konton</string>
+    <string name="no_syncable_calendars">Ne estas kalendaroj</string>
+    <string name="reminders_label">Aldoni memorigilon</string>
+    <string name="privacy_label">Privateco</string>
+    <string name="edit_event_calendar_label">Kalendaro</string>
+    <string name="event_info_title">Vidi evento</string>
+    <string name="alert_title">Kalendara sciigoj</string>
+    <string name="create_event_dialog_save">Konservi</string>
+    <string name="rsvp_declined">Respondis: ne.</string>
+    <string name="rsvp_tentative">Respondis: eble.</string>
+    <string name="rsvp_accepted">Respondis: jes.</string>
+    <string name="saving_event_with_guest">Ĝisdatigoj sendos.</string>
+    <string name="saving_event">Evento konservita.</string>
+    <string name="creating_event">Evento kreita.</string>
+    <string name="hint_attendees">Gastoj</string>
+    <string name="hint_description">Priskribo</string>
+    <string name="hint_where">Loko</string>
+    <string name="hint_what">Eventa nomo</string>
+    <string name="search">Serĉi</string>
+    <string name="menu_preferences">Agordoj</string>
+    <string name="goto_date">Iri al…</string>
+    <string name="goto_today">Hodiaŭ</string>
+    <string name="share_label">Kunhavigi</string>
+    <string name="event_delete">Forigi eventon</string>
+    <string name="event_edit">Redakti eventon</string>
+    <string name="event_create">Nova evento</string>
+    <string name="month_view">Monato</string>
+    <string name="week_view">Semajno</string>
+    <string name="day_view">Tago</string>
+    <string name="agenda_view">Agendo</string>
+    <string name="show_day_view">Montri tagon</string>
+    <string name="calendar_refresh">Aktualigi</string>
+    <plurals name="weekN">
+        <item quantity="one">semajno &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 tago</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tagoj</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 horo</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; horoj</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 min</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; min</item>
+    </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minuto</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; minutoj</item>
+    </plurals>
+    <string name="no_title_label">(Sen titolo)</string>
+    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
+    <string name="tomorrow_at_time_fmt">Morgaŭ je &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="today_at_time_fmt">Hodiaŭ je &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="tomorrow">Morgaŭ</string>
+    <string name="today">Hodiaŭ</string>
+    <string name="when_label">Kiam</string>
+    <string name="app_label">Kalendaro</string>
+</resources>

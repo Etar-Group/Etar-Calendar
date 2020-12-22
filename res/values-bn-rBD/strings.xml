@@ -124,4 +124,27 @@
         <item quantity="one">; একবারের জন্য</item>
         <item quantity="other">; <xliff:g id="number"> জন্য %d</xliff:g> এত বার</item>
     </plurals>
+    <string name="visibility_default">ডিফল্ট</string>
+    <string name="recurrence_end_continously">সর্বদা</string>
+    <string name="accessibility_reminder_privacy">গোপনীয়তা</string>
+    <string name="preferences_experimental_category">পরীক্ষামূলক</string>
+    <plurals name="month_more_events">
+        <item quantity="one">+১</item>
+        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
+    </plurals>
+    <string name="source_code">উৎস</string>
+    <string name="license">অনুমতিপত্র</string>
+    <string name="changelog">পরিবর্তনসূচী</string>
+    <string name="authors">লেখক</string>
+    <string name="preferences_default_reminder_default">১০</string>
+    <string name="preferences_alerts_ringtone_title">শব্দ</string>
+    <string name="preferences_alerts_vibrateWhen_title">কম্পন</string>
+    <string name="preferences_alerts_title">বিজ্ঞপ্তি</string>
+    <string name="preferences_black_theme">কালো</string>
+    <string name="preferences_dark_theme">অন্ধকার</string>
+    <string name="preferences_light_theme">হালকা</string>
+    <string name="preferences_theme">থিম</string>
+    <string name="preferences_title">সেটিংস</string>
+    <string name="yearly_plain">বার্ষিক</string>
+    <string name="monthly">মাসিক</string>
 </resources>
