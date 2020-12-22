@@ -43,6 +43,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.imageview.ShapeableImageView;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -173,7 +175,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
                         // First listing for a distinct contact should have the name/icon.
                         addressesForName = new ArrayList<Result>();
                         nameToAddresses.put(name, addressesForName);
-                        result = new Result(name, address, R.drawable.ic_contact_picture,
+                        result = new Result(name, address, R.drawable.ic_baseline_account_circle,
                                 contactPhotoUri);
                     } else {
                         // Do not include name/icon in subsequent listings for the same contact.
@@ -256,7 +258,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
         // Copy the sorted results.
         List<Result> results = new ArrayList<Result>();
         for (String location : locations) {
-            results.add(new Result(null, location, R.drawable.ic_history_holo_light, null));
+            results.add(new Result(null, location, R.drawable.ic_baseline_history, null));
         }
         return results;
     }
@@ -304,7 +306,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
         }
 
         // Update the icon.
-        final ImageView imageView = (ImageView) view.findViewById(R.id.icon);
+        final ShapeableImageView imageView = view.findViewById(R.id.icon);
         if (imageView != null) {
             if (result.mDefaultIcon == null) {
                 imageView.setVisibility(View.INVISIBLE);
