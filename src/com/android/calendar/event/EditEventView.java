@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -1787,6 +1786,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
             mDatePickerDialog = new DatePickerDialog(mActivity, listener, mTime.year, mTime.month, mTime.monthDay);
                 mDatePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
+                mDatePickerDialog.show();
         }
     }
 }

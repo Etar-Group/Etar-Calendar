@@ -63,7 +63,6 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -894,6 +893,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             };
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,datePickerListener,t.year, t.month,t.monthDay);
                     datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
+                    datePickerDialog.show();
 
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
