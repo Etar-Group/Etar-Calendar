@@ -285,4 +285,11 @@
     <string name="show_time_start">Apenas hora de início</string>
     <string name="show_time_start_end">Hora de início e de fim</string>
     <string name="show_time_start_end_below">Hora de início e de fim para além do evento</string>
+    <string name="license">Licença</string>
+    <string name="authors">Autores</string>
+    <string name="maximum_number_of_lines">Número máximo de linhas em um evento</string>
+    <string name="preferences_pure_black_night_mode">Modo escuro em preto puro</string>
+    <string name="preferences_system_theme">Padrão do sistema</string>
+    <string name="foreground_notification_channel_description">Notificações em segundo plano necessárias para o alerta interno de sincronização.</string>
+    <string name="foreground_notification_channel_name">Alerta de sincronização</string>
 </resources>
