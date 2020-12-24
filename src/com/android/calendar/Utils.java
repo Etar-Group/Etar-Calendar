@@ -75,6 +75,7 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ws.xsoh.etar.BuildConfig;
 import ws.xsoh.etar.R;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
@@ -257,7 +258,7 @@ public class Utils {
      * Gets the intent action for telling the widget to update.
      */
     public static String getSearchAuthority(Context context) {
-        return "ws.xsoh.etar.CalendarRecentSuggestionsProvider";
+        return BuildConfig.APPLICATION_ID + ".CalendarRecentSuggestionsProvider";
     }
 
     /**

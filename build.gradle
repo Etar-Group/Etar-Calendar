@@ -192,12 +192,14 @@ android {
         release {
             // TODO: could be enabled for ProGuard minimization
             minifyEnabled false
+            resValue "string", "search_authority", defaultConfig.applicationId + '.CalendarRecentSuggestionsProvider'
         }
 
         debug {
             minifyEnabled false
 
             applicationIdSuffix ".debug"
+            resValue "string", "search_authority", defaultConfig.applicationId + '.debug.CalendarRecentSuggestionsProvider'
         }
     }
 

@@ -190,7 +190,7 @@
 
         <provider android:name="com.android.calendar.CalendarRecentSuggestionsProvider"
             android:exported="false"
-            android:authorities="ws.xsoh.etar.CalendarRecentSuggestionsProvider" />
+            android:authorities="${applicationId}.CalendarRecentSuggestionsProvider" />
 
         <!-- Declarations for alerts/reminders -->
         <activity
