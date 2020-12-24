@@ -188,7 +188,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
 
     private fun addOfflineCalendar() {
         val dialog = AddOfflineCalendarDialogFragment()
-        dialog.show(fragmentManager!!, "addOfflineCalendar")
+        dialog.show(parentFragmentManager, "addOfflineCalendar")
     }
 
     /**

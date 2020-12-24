@@ -206,7 +206,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         colorPickerDialog.setOnColorSelectedListener { colour ->
             Utils.setSharedPreference(activity, KEY_COLOR_PREF, DynamicTheme.getColorName(colorMap.get(colour)))
         }
-        colorPickerDialog.show(fragmentManager!!, "colorpicker")
+        colorPickerDialog.show(parentFragmentManager, "colorpicker")
     }
 
     private fun initializeColorMap() {

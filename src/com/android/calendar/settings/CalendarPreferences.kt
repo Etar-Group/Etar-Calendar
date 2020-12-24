@@ -170,7 +170,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     }
 
     private fun displayCalendarColorPicker() {
-        if (fragmentManager!!.findFragmentByTag(COLOR_PICKER_DIALOG_TAG) != null) {
+        if (parentFragmentManager.findFragmentByTag(COLOR_PICKER_DIALOG_TAG) != null) {
             return
         }
 
@@ -182,7 +182,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
                         colorPref.icon = getColorIcon(color)
                     }
                 })
-        calendarDialogPicker.show(fragmentManager!!, COLOR_PICKER_DIALOG_TAG)
+        calendarDialogPicker.show(parentFragmentManager, COLOR_PICKER_DIALOG_TAG)
     }
 
     data class AuthenticatorInfo(val label: String?,
