@@ -22,7 +22,7 @@
     android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
     android:voiceLanguageModel="free_form"
 
-    android:searchSuggestAuthority="ws.xsoh.etar.CalendarRecentSuggestionsProvider"
+    android:searchSuggestAuthority="@string/search_authority"
     android:searchSuggestSelection=" ? "
     android:imeOptions="actionSearch" >
 </searchable>
