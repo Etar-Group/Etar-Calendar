@@ -26,8 +26,8 @@
         <item msgid="5644461630927544936" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
     </plurals>
     <plurals name="Nmins">
-        <item msgid="9191090668359663663" quantity="one">"1 min"</item>
-        <item msgid="9175648445939148974" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> mins"</item>
+        <item quantity="one">1 min</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; min</item>
     </plurals>
     <plurals name="Nhours">
         <item msgid="4793697728599296830" quantity="one">"1 hour"</item>
@@ -81,7 +81,7 @@
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiser:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Choose event colour"</string>
-    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Event Colour"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">Event colour</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Set to default calendar colour"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Calendar Colour"</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Colour picker"</string>
@@ -336,4 +336,5 @@
     <string name="three_days">3 days</string>
     <string name="two_days">2 days</string>
     <string name="preferences_system_theme">System default</string>
+    <string name="preferences_pure_black_night_mode">Pure black night mode</string>
 </resources>
