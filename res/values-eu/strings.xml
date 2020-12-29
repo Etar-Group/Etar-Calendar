@@ -4,9 +4,7 @@
     <string name="when_label">Noiz</string>
     <string name="today">Gaur</string>
     <string name="tomorrow">Bihar</string>
-    <string name="date_time_fmt">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
     <string name="no_title_label">(Izenbururik ez)</string>
     <string name="calendar_refresh">Eguneratu</string>
     <string name="show_day_view">Erakutsi eguna</string>
@@ -80,9 +78,7 @@
     <string name="agenda_yesterday">Atzo, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
     <string name="agenda_tomorrow">Bihar, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
     <string name="loading">Kargatzen…</string>
-    <string name="show_older_events">
-        <xliff:g id="oldest_search_range">%1$s</xliff:g>
-    </string>
+    <string name="show_older_events">Ukitu &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"oldest_search_range\"&gt;%1$s&lt;/xliff:g&gt; baino lehenagoko gertaerak ikusteko</string>
     <string name="search_title">Bilatu nire egutegiak</string>
     <string name="edit_event_label">Xehetasunak</string>
     <string name="edit_label">Editatu</string>
@@ -97,8 +93,7 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">Egunero</item>
-        <item quantity="other">
-            <xliff:g id="number">%d</xliff:g> egunero</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt; egunero</item>
     </plurals>
     <string name="every_weekday">Lanegun guztietan (Al-Ol)</string>
     <string name="monthly">Hilabetero</string>
@@ -174,13 +169,10 @@
     <string name="recurrence_month_pattern_by_day">egun berean hilabetero</string>
     <string name="recurrence_end_continously">Beti</string>
     <string name="recurrence_end_date_label">Data arte</string>
-    <string name="recurrence_end_date">
-        <xliff:g id="date">%s</xliff:g> arte</string>
+    <string name="recurrence_end_date">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt; arte</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">
-            <xliff:g id="event_count">%d</xliff:g> gertaerarentzat</item>
-        <item quantity="other">
-            <xliff:g id="event_count">%d</xliff:g> gertaerentzat</item>
+        <item quantity="one">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; gertaerarentzat</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; gertaerentzat</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description">aldatu bukera data</string>
     <string name="user_rejected_calendar_write_permission">Etar-ek egutegiaren irakurketa eta idazketa baimenak behar ditu ondo funtzionatzeko. Saiatu berri mesedez.</string>
@@ -234,9 +226,8 @@
     <string name="does_not_repeat">Aldi baterako gertaera</string>
     <string name="endByDate">; <xliff:g id="date">%s</xliff:g> arte</string>
     <plurals name="weekly">
-        <item quantity="one">Astero <xliff:g id="days_of_week">%2$s</xliff:g>(e)tan</item>
-        <item quantity="other">
-            <xliff:g id="number">%1$d</xliff:g> astero <xliff:g id="days_of_week">%2$s</xliff:g>(e)tan</item>
+        <item quantity="one">Astero &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;(e)tan</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%1$d&lt;/xliff:g&gt; astero &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;(e)tan</item>
     </plurals>
     <string name="custom" product="default">Pertsonalizatua (ezin da pertsonalizatu telefonoan)</string>
     <string name="preferences_use_home_tz_descrip">Bidaiatzen zaudela zure etxeko ordu-zonan egutegiak eta gertaerak erakusten ditu</string>
