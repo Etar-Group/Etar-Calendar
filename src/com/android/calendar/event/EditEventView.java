@@ -92,6 +92,7 @@ import com.android.ex.chips.RecipientEditTextView;
 import com.android.timezonepicker.TimeZoneInfo;
 import com.android.timezonepicker.TimeZonePickerDialog;
 import com.android.timezonepicker.TimeZonePickerUtils;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -962,6 +963,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         updateView();
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
+        setTitleFocus();
         sendAccessibilityEvent();
     }
 
@@ -971,6 +973,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void setSpinnerBackgroundColor(int displayColor) {
         mCalendarSelectorGroupBackground.setBackgroundColor(displayColor);
+    }
+
+    private void setTitleFocus() {
+        mTitleTextView.requestFocus();
+        ((TextInputEditText)mTitleTextView).setSelection(mTitleTextView.getText().length());
     }
 
     private void sendAccessibilityEvent() {
