@@ -421,6 +421,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
         }
         mRowInfo = rowInfo;
+        //Only use this for phone "mode". On tablet "mode" this will cause a OutOfBoundsException!
         if (!Utils.getConfigBool(mContext, R.bool.tablet_config)) {
             if (mTodayJulianDay >= dayAdapterInfo.start && mTodayJulianDay <= dayAdapterInfo.end) {
                 insertTodayRowIfNeeded();
