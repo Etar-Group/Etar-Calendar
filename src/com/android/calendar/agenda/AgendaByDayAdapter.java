@@ -421,8 +421,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
         }
         mRowInfo = rowInfo;
-        if (mTodayJulianDay >= dayAdapterInfo.start && mTodayJulianDay <=  dayAdapterInfo.end) {
-            insertTodayRowIfNeeded();
+        if (!Utils.getConfigBool(mContext, R.bool.tablet_config)) {
+            if (mTodayJulianDay >= dayAdapterInfo.start && mTodayJulianDay <= dayAdapterInfo.end) {
+                insertTodayRowIfNeeded();
+            }
         }
     }
 
