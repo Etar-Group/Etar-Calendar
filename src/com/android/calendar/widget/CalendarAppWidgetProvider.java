@@ -23,6 +23,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
@@ -47,6 +48,9 @@ import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 public class CalendarAppWidgetProvider extends AppWidgetProvider {
     static final String TAG = "CalendarAppWidgetProvider";
     static final boolean LOGD = false;
+
+    private static boolean sWidgetChecked = false;
+    private static boolean sWidgetSupported = false;
 
     // TODO Move these to Calendar.java
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
@@ -134,6 +138,10 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         if (LOGD)
             Log.d(TAG, "AppWidgetProvider got the intent: " + intent.toString());
         if (Utils.getWidgetUpdateAction(context).equals(action)) {
+            if (!isWidgetSupported(context)) {
+                return;
+            }
+
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             performUpdate(context, appWidgetManager,
                     appWidgetManager.getAppWidgetIds(getComponentName(context)),
@@ -177,6 +185,10 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     private void performUpdate(Context context,
             AppWidgetManager appWidgetManager, int[] appWidgetIds,
             long[] changedEventIds) {
+        if (!isWidgetSupported(context)) {
+            return;
+        }
+
         // Launch over to service so it can perform update
         for (int appWidgetId : appWidgetIds) {
             if (LOGD) Log.d(TAG, "Building widget update...");
@@ -230,5 +242,18 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
+    }
+
+    public static boolean isWidgetSupported(Context context) {
+        if (!sWidgetChecked) {
+            sWidgetSupported = hasAppWidgetsSystemFeature(context);
+            sWidgetChecked = true;
+        }
+
+        return sWidgetSupported;
+    }
+
+    private static boolean hasAppWidgetsSystemFeature(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_APP_WIDGETS);
     }
 }
