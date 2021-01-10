@@ -517,7 +517,7 @@ public class AgendaWindowAdapter extends BaseAdapter
 
     private AgendaItem buildAgendaItemFromCursor(final Cursor cursor, int cursorPosition,
             boolean isDayHeader) {
-        if (cursorPosition == -1) {
+        if (cursorPosition <= -1) {
             cursor.moveToFirst();
         } else {
             cursor.moveToPosition(cursorPosition);
