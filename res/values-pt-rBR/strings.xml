@@ -204,20 +204,16 @@
             <xliff:g id="count">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 hora</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> horas</item>
+        <item quantity="one">1 hora&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xlifhf:g&gt; hora</item>
+        <item quantity="other">1 hora&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; horas</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 dia</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> dias</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; dias</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">semana <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="other">semana <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="one">semana &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other">semanas &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="goto_date">Ir para…</string>
     <string name="no_map">Não existe nenhum aplicativo de mapas instalado</string>
