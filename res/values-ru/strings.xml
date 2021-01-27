@@ -311,7 +311,7 @@
     <string name="preferences_calendar_delete">Удалить календарь</string>
     <string name="preferences_calendar_display_name">Переименовать</string>
     <string name="preferences_calendar_color">Цвет</string>
-    <string name="preferences_calendar_visible">Отображение событий</string>
+    <string name="preferences_calendar_visible">Показывать события</string>
     <string name="preferences_calendar_synchronize">Синхронизировать этот календарь</string>
     <string name="preferences_list_calendar_summary_sync_off">Не синхронизирован</string>
     <string name="preferences_list_calendar_summary_invisible">События не отображаются</string>
