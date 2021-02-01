@@ -28,7 +28,7 @@
     <string name="privacy_label">Privateco</string>
     <string name="edit_event_calendar_label">Kalendaro</string>
     <string name="event_info_title">Vidi evento</string>
-    <string name="alert_title">Kalendara sciigoj</string>
+    <string name="alert_title">Kalendaraj sciigoj</string>
     <string name="create_event_dialog_save">Konservi</string>
     <string name="rsvp_declined">Respondis: ne.</string>
     <string name="rsvp_tentative">Respondis: eble.</string>
@@ -56,7 +56,7 @@
     <string name="calendar_refresh">Aktualigi</string>
     <plurals name="weekN">
         <item quantity="one">semajno &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 tago</item>
@@ -82,4 +82,87 @@
     <string name="today">Hodiaŭ</string>
     <string name="when_label">Kiam</string>
     <string name="app_label">Kalendaro</string>
+    <string name="preferences_list_add_offline_cancel">Rezigni</string>
+    <string name="preferences_list_add_offline_name">Nomo</string>
+    <string name="preferences_list_add_offline_error_empty">Tajpu kalendara nomo!</string>
+    <string name="preferences_list_add_offline_button">Aldoni kalendaron</string>
+    <string name="preferences_list_general">Ĝeneralaj agordoj</string>
+    <string name="preferences_calendar_delete_cancel">Rezigni</string>
+    <string name="preferences_calendar_delete_delete">Forigi kalendaron</string>
+    <string name="preferences_calendar_color_warning_button">Mi komprenas</string>
+    <string name="preferences_calendar_color_warning_title">Averto</string>
+    <string name="preferences_calendar_color">Koloro</string>
+    <string name="preferences_calendar_info_category">Kalendara informo</string>
+    <string name="preferences_calendar_display_name">Ŝanĝi nomon</string>
+    <string name="preferences_calendar_delete">Forigi kalendaron</string>
+    <string name="preferences_calendar_number_of_events">%1$d eventoj</string>
+    <string name="cal_share_intent_title">Sendi eventon al:</string>
+    <string name="two_hours">2 horoj</string>
+    <string name="one_and_a_half_hours">1,5 horoj</string>
+    <string name="one_hour">1 horo</string>
+    <string name="thirty_minutes">30 minutoj</string>
+    <string name="fifteen_minutes">15 minutoj</string>
+    <string name="zero_minutes">0 minutoj</string>
+    <string name="seven_days">7 tagoj</string>
+    <string name="six_days">6 tagoj</string>
+    <string name="five_days">5 tagoj</string>
+    <string name="four_days">4 tagoj</string>
+    <string name="three_days">3 tagoj</string>
+    <string name="two_days">2 tagoj</string>
+    <string name="visibility_public">Publika</string>
+    <string name="visibility_private">Privata</string>
+    <string name="visibility_default">Defaŭlte</string>
+    <string name="recurrence_end_date">Ĝis &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="recurrence_end_date_label">Ĝis dato</string>
+    <string name="acessibility_selected_marker_description">Elektita evento</string>
+    <plurals name="N_remaining_events">
+        <item quantity="one">+1 evento</item>
+        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; eventoj</item>
+    </plurals>
+    <plurals name="Nevents">
+        <item quantity="one">1 evento</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; eventoj</item>
+    </plurals>
+    <string name="template_announce_item_index">Evento &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"item_index\"&gt;%1$s&lt;/xliff:g&gt; de &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"item_count\"&gt;%2$s&lt;/xliff:g&gt;.&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"item_index\"&gt;</string>
+    <string name="day_view_new_event_hint">+ Nova evento</string>
+    <string name="accessibility_reminder_privacy">Privateco</string>
+    <string name="accessibility_reminder_showmeas">Montri min kiel</string>
+    <string name="accessibility_reminder_type">Tipo de memorigilo</string>
+    <string name="accessibility_remove_reminder">Forigi memorigilon</string>
+    <string name="accessibility_add_reminder">Aldoni memorigilon</string>
+    <string name="directory_searching_fmt">Serĉado por</string>
+    <string name="copy_db">Sendi datumbazon</string>
+    <string name="license">Permesilo</string>
+    <string name="changelog">Ŝanĝprotokolo</string>
+    <string name="authors">Aŭtoroj</string>
+    <string name="preferences_alerts_ringtone_title">Sono</string>
+    <string name="preferences_reminder_title">Sciigoj kaj memorigiloj</string>
+    <string name="preferences_pure_black_night_mode">Klara nigra nokta reĝimo</string>
+    <string name="preferences_color_pick">Ĉefa koloro</string>
+    <string name="preferences_color">Ĉefa koloro</string>
+    <string name="preferences_black_theme">Nigra</string>
+    <string name="endByDate">; ĝis &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="loading">Ŝarĝado</string>
+    <string name="quick_response_custom_msg">Tajpi vian propran…</string>
+    <string name="event_not_found">Evento ne trovita.</string>
+    <string name="view_event_response_label">Ĉu ĉeestos\?</string>
+    <string name="choose_event_color_label">Elekti koloron de evento</string>
+    <string name="presence_label">Montri min kiel</string>
+    <string name="empty_event">Malplena evento ne kreita.</string>
+    <string name="view_settings">Vidi agordojn</string>
+    <string name="event_view">Vidi eventon</string>
+    <string name="save_label">Farite</string>
+    <string name="source_code">Fonto</string>
+    <string name="preferences_menu_about">Pri Etar</string>
+    <string name="preferences_calendar_delete_message">Ĉu vi certas ke vi volas forigi ĉi tiun kalendaron\?</string>
+    <string name="accessibility_all_day">Tuta taga evento</string>
+    <string name="edit_event_all_day_label">Tuta tago</string>
+    <string name="does_not_repeat">Unu-folia evento</string>
+    <string name="preferences_days_per_week_dialog">Tagoj en semajno</string>
+    <string name="preferences_days_per_week_title">Tagoj en semajno</string>
+    <string name="preferences_alerts_popup_title">Ŝprucosciigo</string>
+    <string name="preferences_alerts_title">Sciigoj</string>
+    <string name="preferences_light_theme">Hela</string>
+    <string name="preferences_theme">Etoso</string>
+    <string name="preferences_dark_theme">Malhela</string>
 </resources>
