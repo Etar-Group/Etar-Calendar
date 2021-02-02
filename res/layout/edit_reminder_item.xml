@@ -21,7 +21,7 @@
 
     <Spinner
         android:id="@+id/reminder_minutes_value"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:contentDescription="@string/accessibility_reminder_time"
@@ -32,11 +32,13 @@
 
     <Spinner
         android:id="@+id/reminder_method_value"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_reminder_type"
         android:entries="@array/reminder_methods_labels"
-        android:gravity="top|start"
+        android:gravity="top|end"
+        android:paddingStart="0dp"
+        android:paddingEnd="28dp"
         app:layout_constraintEnd_toStartOf="@+id/reminder_remove"
         app:layout_constraintStart_toEndOf="@+id/reminder_minutes_value"
         app:layout_constraintTop_toTopOf="@+id/reminder_minutes_value" />
