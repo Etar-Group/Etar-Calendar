@@ -17,12 +17,9 @@
     <string name="when_label" msgid="894636567327261599">"מתי"</string>
     <string name="today" msgid="8577375020252453006">"היום"</string>
     <string name="tomorrow" msgid="614434811813859237">"מחר"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="date_time_fmt" msgid="1642972650061946484">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־ <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־ <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(אין כותרת)"</string>
     <plurals name="Nminutes">
         <item quantity="one">דקה אחת</item>
@@ -49,10 +46,10 @@
         <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ימים</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">שבוע &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="two">שבוע &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="many">שבוע &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="other">שבוע &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="one">שבוע <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="two">שבוע <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">שבוע <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">שבוע <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">רענן</string>
     <string name="show_day_view" msgid="5782512782605466016">הצג יום</string>
@@ -122,17 +119,12 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">יצירת תגובה משלך…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">ארגון:</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"תזכורות"</string>
-    <string name="agenda_today" msgid="5965841338467422191">היום, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">אתמול, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">מחר, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>
-    </string>
+    <string name="agenda_today" msgid="5965841338467422191">היום, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">אתמול, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">מחר, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">בטעינה…</string>
-    <string name="show_older_events" msgid="5140647493681439926">יש לגעת כדי להציג אירועים לפני &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"oldest_search_range\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="oldest_search_range">%1$s</xliff:g>
-    </string>
-    <string name="show_newer_events" msgid="2604638815440163080">יש לגעת כדי להציג אירועים אחרי &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"newest_search_range\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="newest_search_range">%1$s</xliff:g>
-    </string>
+    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="oldest_search_range">%1$s</xliff:g> יש לגעת כדי להציג אירועים לפני "</string>
+    <string name="show_newer_events" msgid="2604638815440163080">יש לגעת כדי להציג אירועים אחרי <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">חיפוש בלוחות השנה שלי</string>
     <string name="edit_event_label" msgid="7413222956349977161">"פרטים"</string>
     <string name="edit_label" msgid="8934331258435656534">"ערוך"</string>
@@ -263,8 +255,7 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"באותו יום בכל חודש"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"ללא תאריך סיום"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"עד תאריך מסוים"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">עד &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="date">%s</xliff:g>
-    </string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">עד <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">עבור אירוע אחד</item>
@@ -331,7 +322,7 @@
     <string name="foreground_notification_channel_name">סנכרון התראות</string>
     <string name="maximum_number_of_lines">מספר שורות מרבי באירוע</string>
     <string name="foreground_notification_channel_description">נדרשות התראות בחזית לטובת סנכרון התרעות פנימי.</string>
-    <string name="app_copyright">© 2015-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; מיזם Etar. חלקים מהמיזם © 2005-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; מיזם הקוד הפתוח של Android.<xliff:g>%1$s</xliff:g> The Etar Project. Portions \u00a9 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_list_add_offline">הוספת לוח שנה בלתי מקוון</string>
     <string name="preferences_list_add_remote_etesync">הוספת לוח שנה EteSync</string>
     <string name="preferences_list_add_remote">הוספת לוח שנה CalDAV</string>
