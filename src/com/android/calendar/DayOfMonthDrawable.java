@@ -56,7 +56,7 @@ public class DayOfMonthDrawable extends Drawable {
         mPaint.getTextBounds(mDayOfMonth, 0, mDayOfMonth.length(), mTextBounds);
         int textHeight = mTextBounds.bottom - mTextBounds.top;
         Rect bounds = getBounds();
-        canvas.drawText(mDayOfMonth, bounds.right / 2, ((float) bounds.bottom + textHeight + 1) / 2,
+        canvas.drawText(mDayOfMonth, bounds.right / 2, ((float) bounds.bottom + textHeight + 1) / 1.75f,
                 mPaint);
     }
 
