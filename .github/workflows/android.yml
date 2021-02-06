@@ -29,8 +29,6 @@ jobs:
         shell: bash
         run: |
           git submodule update --init
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Build with Gradle
