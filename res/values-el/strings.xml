@@ -67,7 +67,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Δεν δημιουργήθηκε κενό συμβάν."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Θα σταλούν προσκλήσεις."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Θα σταλούν ενημερώσεις."</string>
-    <string name="create_event_dialog_save" msgid="1080859798521717414">"Aποθήκευση"</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">Αποθήκευση</string>
     <string name="alert_title" msgid="7869592820853066853">"Ειδοποιήσεις ημερολογίου"</string>
     <string name="event_info_title" msgid="56024222340421620">"Προβολή συμβάντος"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Πρόσκληση συνάντησης"</string>
