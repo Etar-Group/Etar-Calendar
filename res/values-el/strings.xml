@@ -118,10 +118,10 @@
     <string name="show_newer_events" msgid="2604638815440163080">"Αγγίξτε για την προβολή συμβάντων μετά από <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Αναζήτηση στα ημερολόγιά μου"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Λεπτομέρειες"</string>
-    <string name="edit_label" msgid="8934331258435656534">"Επεξ/σία"</string>
+    <string name="edit_label" msgid="8934331258435656534">Επεξεργασία</string>
     <string name="delete_label" msgid="874742811918030739">"Διαγραφή"</string>
     <string name="save_label" msgid="2133599104834432589">"Τέλος"</string>
-    <string name="discard_label" msgid="2394623883289782541">"Ακύρωση"</string>
+    <string name="discard_label" msgid="2394623883289782541">Άκυρο</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Παράβλεψη όλων"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Αναβολή"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Συμβάν που δεν επαναλαμβάνεται"</string>
