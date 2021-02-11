@@ -29,22 +29,22 @@
         <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> minut</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 minuta.</item>
-        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> minuty</item>
-        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> minut</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> minut</item>
+        <item quantity="one">1 min</item>
+        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; minuty</item>
+        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; minut</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; minut</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 godzina.</item>
-        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> godziny</item>
-        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> godzin</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> godzin</item>
+        <item quantity="one">1 godz</item>
+        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; godziny</item>
+        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; godzin</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; godzin</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">1 dzień.</item>
-        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> dni</item>
-        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> dni</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> dni</item>
+        <item quantity="one">1 dzień</item>
+        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; dni</item>
+        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; dni</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; dni</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">tydzień <xliff:g id="COUNT">%d</xliff:g></item>
