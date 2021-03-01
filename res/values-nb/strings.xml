@@ -246,11 +246,11 @@
     <string name="visibility_private">Privat</string>
     <string name="visibility_public">Offentlig</string>
     <string name="preferences_black_theme">Svart</string>
-    <string name="preferences_color">Hovedfarge</string>
+    <string name="preferences_color">Primærfarge</string>
     <string name="preferences_color_pick">Hovedfarge</string>
     <string name="preferences_default_event_duration_title">Forvalgt aktivitetsvarighet</string>
     <string name="user_rejected_calendar_write_permission">Etar krever tilgang til å lese og skrive kalender for å virke. Prøv igjen.</string>
-    <string name="calendar_permission_not_granted">Innvilg påkrevde tilganger i innstillinger for å redigere hendelser</string>
+    <string name="calendar_permission_not_granted">Nødvendige tillatelser ble nektet, aktiver dem fra Innstillinger-appen for å redigere hendelser</string>
     <string name="visibility_confidential">Konfidensiell</string>
     <string name="zero_minutes">Umiddelbart</string>
     <string name="fifteen_minutes">Ett kvarter</string>
@@ -288,8 +288,8 @@
     <string name="show_time_start_end">Start- og slutttid</string>
     <string name="show_time_start_end_below">Start- og sluttid under aktiviteten</string>
     <string name="maximum_number_of_lines">Maksimalt antall linjer i aktivitet</string>
-    <string name="foreground_notification_channel_name">Varselsynkronisering</string>
-    <string name="foreground_notification_channel_description">Forgrunnsmerknader kreves for intern varselssynkronisering. Forstum lyden.</string>
+    <string name="foreground_notification_channel_name">Varselssynkronisering</string>
+    <string name="foreground_notification_channel_description">Forvarsel kreves for intern varslingssynkronisering.</string>
     <string name="cal_import_error_time_zone_msg">Angitt tidssone er uforståelig: %s</string>
     <string name="preferences_calendar_account">%1$s konto</string>
     <string name="preferences_calendar_delete">Slett kalender</string>
@@ -303,7 +303,7 @@
     <string name="preferences_list_add_offline">Legg til frakoblet kalender</string>
     <string name="preferences_list_add_offline_title">Legg til frakoblet kalender</string>
     <string name="preferences_list_add_offline_error_empty">Skriv inn kalendernavn!</string>
-    <string name="preferences_list_add_offline_message">Frakoblede kalendere synkroniseres IKKE til en skytjeneste, og er kun tilgjengelig på din enhet.</string>
+    <string name="preferences_list_add_offline_message">Frakoblede kalendere er IKKE synkronisert med en skytjeneste og er bare tilgjengelig på telefonen din.</string>
     <string name="preferences_list_add_offline_button">Legg til kalender</string>
     <string name="preferences_list_add_offline_name">Navn</string>
     <string name="preferences_list_add_offline_cancel">Avbryt</string>
