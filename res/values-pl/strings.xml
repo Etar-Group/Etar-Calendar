@@ -19,9 +19,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Jutro"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Dzisiaj o <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Jutro o <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
     <string name="no_title_label" msgid="302177118061368042">"(Bez tytułu)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minuta</item>
@@ -120,9 +118,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napisz własną…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Przypomnienia"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"dziś, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"wczoraj, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"jutro, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Dzisiaj, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Wczoraj, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Jutro, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
     <string name="loading" msgid="3772533493214331230">Trwa wczytywanie…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Dotknij, aby wyświetlić wydarzenia przed <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Dotknij, aby wyświetlić wydarzenia po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -148,12 +146,10 @@
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Codziennie (pn-pt)"</string>
     <plurals name="weekly">
-        <item quantity="one">Co tydzień w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
-        </item>
-        <item quantity="few">Co <xliff:g id="NUMBER">%1$d</xliff:g> tygodni w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
-        </item>
-        <item quantity="many">Co <xliff:g id="NUMBER">%1$d</xliff:g> tygodnie w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>
-        </item>
+        <item quantity="one">Co tydzień w &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DAYS_OF_WEEK\"&gt;%2$s&lt;/xliff:g&gt;</item>
+        <item quantity="few">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%1$d&lt;/xliff:g&gt; tygodni w &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DAYS_OF_WEEK\"&gt;%2$s&lt;/xliff:g&gt;</item>
+        <item quantity="many">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%1$d&lt;/xliff:g&gt; tygodnie w &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DAYS_OF_WEEK\"&gt;%2$s&lt;/xliff:g&gt;</item>
+        <item quantity="other">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%1$d&lt;/xliff:g&gt; tygodnie w &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DAYS_OF_WEEK\"&gt;%2$s&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Co miesiąc"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Co rok"</string>
@@ -189,10 +185,9 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Wersja kompilacji"</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="few">+<xliff:g id="NUMBER">%d</xliff:g>
-        </item>
-        <item quantity="many">+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="few">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="many">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Brak zbliżających się wydarzeń w kalendarzu"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperymentalny"</string>
@@ -218,16 +213,16 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nowe wydarzenie"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Wydarzenie <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one">1 wydarzenie.</item>
-        <item quantity="few">Nowe wydarzenia <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="many">Nowych wydarzeń <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="one">1 wydarzenie</item>
+        <item quantity="few">Nowe wydarzenia &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="many">Nowych wydarzeń &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other">Nowych wydarzeń &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">+1 wydarzenie.</item>
-        <item quantity="few">+<xliff:g id="count">%d</xliff:g> wydarzenia</item>
-        <item quantity="many">+<xliff:g id="count">%d</xliff:g> wydarzeń</item>
+        <item quantity="one">+1 wydarzenie</item>
+        <item quantity="few">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; wydarzenia</item>
+        <item quantity="many">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; wydarzeń</item>
+        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; wydarzeń</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Wybrane wydarzenie"</string>
     <plurals name="recurrence_interval_daily">
@@ -236,9 +231,10 @@
         <item quantity="many">Co <xliff:g id="COUNT">%d</xliff:g> dni</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">"Co  "<xliff:g id="count">%d</xliff:g> tydzień</item>
-        <item quantity="few">Co <xliff:g id="count">%d</xliff:g> tygodni</item>
-        <item quantity="many">Co <xliff:g id="count">%d</xliff:g> tygodnie</item>
+        <item quantity="one">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tydzień</item>
+        <item quantity="few">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tygodnie</item>
+        <item quantity="many">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tygodni</item>
+        <item quantity="other">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tygodni</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> miesiąc</item>
@@ -278,14 +274,14 @@
     <string name="preferences_light_theme">Jasny</string>
     <string name="preferences_dark_theme">Ciemny</string>
     <string name="preferences_black_theme">Czarny</string>
-    <string name="preferences_color">Podstawowy Kolor</string>
+    <string name="preferences_color">Kolor podstawowy</string>
     <string name="preferences_color_pick">Podstawowy kolor</string>
     <string name="preferences_days_per_week_title">Dni w tygodniu</string>
     <string name="preferences_days_per_week_dialog">Dni w tygodniu</string>
     <string name="preferences_default_event_duration_title">Domyślna długość zdarzenia</string>
     <string name="preferences_issues">Zgłoś problem</string>
     <string name="user_rejected_calendar_write_permission">Etar wymaga uprawnień czytania i zapisywania kalendarza aby funkcjonować. Proszę spróbować ponownie.</string>
-    <string name="calendar_permission_not_granted">Niestety ta funkcja nie działa. Etar wymaga uprawnień czytania i zapisywania kalendarza aby funkcjonować poprawnie</string>
+    <string name="calendar_permission_not_granted">Wymagane uprawnienia zostały odrzucone, włącz je w aplikacji Ustawienia, aby edytować wydarzenia</string>
     <string name="visibility_confidential">Poufne</string>
     <string name="zero_minutes">0 minut</string>
     <string name="fifteen_minutes">15 minut</string>
@@ -314,11 +310,11 @@
     <string name="show_time_start_end_below">Czas rozpoczęcia i zakończenia poniżej wydarzenia</string>
     <string name="share_label">Udostępnij</string>
     <string name="no_map">Nie masz zainstalowanej aplikacji do obsługi map</string>
-    <string name="cal_export_succ_msg">Zdarzenie zostało pomyślnie wyeksportowane: %1s</string>
+    <string name="cal_export_succ_msg">Zdarzenie zostało pomyślnie wyeksportowane: %1$s</string>
     <string name="preferences_month_view_portrait">Układ widoku miesiąca (Portret)</string>
     <string name="preferences_month_view_landscape">Układ widoku miesiąca (Krajobraz)</string>
     <string name="foreground_notification_channel_name">Synchronizacja alertów</string>
-    <string name="foreground_notification_channel_description">Powiadomienie na pierwszym planie jest wymagane do wewnętrznej synchronizacji alertów. Proszę wyciszyć</string>
+    <string name="foreground_notification_channel_description">Powiadomienie na pierwszym planie jest wymagane do wewnętrznej synchronizacji alertów.</string>
     <string name="preferences_calendar_delete">Usuń kalendarz</string>
     <string name="preferences_list_add_offline_cancel">Anuluj</string>
     <string name="preferences_menu_about">O programie Etar</string>
@@ -327,4 +323,38 @@
     <string name="license">Licencja</string>
     <string name="source_code">Źródło</string>
     <string name="preferences_calendar_no_display_name">Nienazwany kalendarz</string>
+    <string name="preferences_list_calendar_summary_sync_off">Niezsynchronizowane</string>
+    <string name="preferences_calendar_visible">Wyświetl wydarzenia</string>
+    <string name="preferences_calendar_info_category">Informacje o kalendarzu</string>
+    <string name="preferences_calendar_configure_account">Skonfiguruj kalendarz w %1$s</string>
+    <string name="preferences_calendar_account">%1$s konto</string>
+    <string name="app_copyright">© 2015-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; The Etar Project. Portions © 2005-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; The Android Open Source Project.</string>
+    <string name="preferences_pure_black_night_mode">Tryb czystej czerni w nocy</string>
+    <string name="six_days">6 dni</string>
+    <string name="five_days">5 dni</string>
+    <string name="four_days">4 dni</string>
+    <string name="three_days">3 dni</string>
+    <string name="two_days">2 dni</string>
+    <string name="preferences_system_theme">Domyślny systemu</string>
+    <string name="offline_account_name">Kalendarz offline</string>
+    <string name="preferences_list_add_offline_name">Nazwa</string>
+    <string name="preferences_list_add_offline_button">Dodaj kalendarz</string>
+    <string name="preferences_list_add_offline_error_empty">Wprowadź nazwę kalendarza!</string>
+    <string name="preferences_list_add_offline_title">Dodaj kalendarz offline</string>
+    <string name="preferences_list_add_offline">Dodaj kalendarz offline</string>
+    <string name="preferences_list_add_remote_etesync">Dodaj kalendarz EteSync</string>
+    <string name="preferences_list_add_remote">Dodaj kalendarz CalDAV</string>
+    <string name="preferences_list_general">Ustawienia ogólne</string>
+    <string name="preferences_list_calendar_summary_invisible">Wydarzenia nie są wyświetlane</string>
+    <string name="preferences_calendar_delete_cancel">Anuluj</string>
+    <string name="preferences_calendar_delete_delete">Usuń kalendarz</string>
+    <string name="preferences_calendar_delete_message">Czy naprawdę chcesz usunąć ten kalendarz\?</string>
+    <string name="preferences_calendar_color_warning_button">Rozumiem</string>
+    <string name="preferences_calendar_color_warning_title">Ostrzeżenie</string>
+    <string name="preferences_calendar_synchronize">Synchronizuj ten kalendarz</string>
+    <string name="preferences_calendar_color">Kolor</string>
+    <string name="preferences_calendar_display_name">Zmień nazwę</string>
+    <string name="preferences_calendar_number_of_events">%1$d wydarzenia</string>
+    <string name="preferences_calendar_account_local">Kalendarz offline</string>
+    <string name="seven_days">7 dni</string>
 </resources>
