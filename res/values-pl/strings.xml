@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">"Kiedy"</string>
     <string name="today" msgid="8577375020252453006">"Dzisiaj"</string>
     <string name="tomorrow" msgid="614434811813859237">"Jutro"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Dzisiaj o <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Jutro o <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Dzisiaj o &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Jutro o &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
     <string name="date_time_fmt" msgid="1642972650061946484">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
     <string name="no_title_label" msgid="302177118061368042">"(Bez tytułu)"</string>
     <plurals name="Nminutes">
@@ -28,9 +28,9 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; minuty</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; minut</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; minut</item>
+        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; min</item>
+        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; min</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; min</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 godz</item>
@@ -45,10 +45,10 @@
         <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; dni</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">tydzień <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="few">tygodni <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="many">tygodnie <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="other">tygodnie <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="one">tydzień &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="few">tygodnie &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="many">tygodni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other">tygodni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Odśwież"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Pokaż dzień"</string>
@@ -174,7 +174,7 @@
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Powiadomienia"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Wibracje"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Dźwięk"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Wyświetl na ekranie"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">Wyskakujące powiadomienie</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Domyślne przypomnienie"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Domyślne przypomnienie"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
@@ -185,16 +185,16 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Wersja kompilacji"</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="few">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="few">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
         <item quantity="many">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
         <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Brak zbliżających się wydarzeń w kalendarzu"</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperymentalny"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">Eksperymentalne</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Pomiń przypomnienia"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Pomiń przypomnienia"</string>
     <string name="copy_db" msgid="437691290566699292">"Wyślij bazę danych"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Trwa wyszukiwanie w witrynie <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Trwa wyszukiwanie w &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DOMAIN\"&gt;%s&lt;/xliff:g&gt;…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Usuń uczestnika"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Data rozpoczęcia"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Godzina rozpoczęcia"</string>
@@ -226,9 +226,10 @@
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Wybrane wydarzenie"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> dzień</item>
-        <item quantity="few">Co <xliff:g id="COUNT">%d</xliff:g> dni</item>
-        <item quantity="many">Co <xliff:g id="COUNT">%d</xliff:g> dni</item>
+        <item quantity="one">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; dzień</item>
+        <item quantity="few">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; dni</item>
+        <item quantity="many">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; dni</item>
+        <item quantity="other">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; dni</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tydzień</item>
@@ -237,19 +238,21 @@
         <item quantity="other">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tygodni</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> miesiąc</item>
-        <item quantity="few">Co <xliff:g id="count">%d</xliff:g> miesięcy</item>
-        <item quantity="many">Co <xliff:g id="count">%d</xliff:g> miesięce</item>
+        <item quantity="one">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; miesiąc</item>
+        <item quantity="few">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; miesiące</item>
+        <item quantity="many">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; miesięcy</item>
+        <item quantity="other">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; miesięcy</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Co <xliff:g id="COUNT">%d</xliff:g> rok</item>
-        <item quantity="few">Co <xliff:g id="count">%d</xliff:g> lat</item>
-        <item quantity="many">Co <xliff:g id="count">%d</xliff:g> lata</item>
+        <item quantity="one">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; rok</item>
+        <item quantity="few">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; lata</item>
+        <item quantity="many">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; lat</item>
+        <item quantity="other">Co &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; lat</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"tego samego dnia miesiąca"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Bez końca"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do daty"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">Do &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt;</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Określona liczba powtórzeń"</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">Dla <xliff:g id="event_count">%d</xliff:g> wydarzenia</item>
@@ -275,12 +278,12 @@
     <string name="preferences_dark_theme">Ciemny</string>
     <string name="preferences_black_theme">Czarny</string>
     <string name="preferences_color">Kolor podstawowy</string>
-    <string name="preferences_color_pick">Podstawowy kolor</string>
+    <string name="preferences_color_pick">Kolor podstawowy</string>
     <string name="preferences_days_per_week_title">Dni w tygodniu</string>
     <string name="preferences_days_per_week_dialog">Dni w tygodniu</string>
-    <string name="preferences_default_event_duration_title">Domyślna długość zdarzenia</string>
+    <string name="preferences_default_event_duration_title">Domyślna długość wydarzenia</string>
     <string name="preferences_issues">Zgłoś problem</string>
-    <string name="user_rejected_calendar_write_permission">Etar wymaga uprawnień czytania i zapisywania kalendarza aby funkcjonować. Proszę spróbować ponownie.</string>
+    <string name="user_rejected_calendar_write_permission">Etar do poprawnego działania wymaga uprawnień do odczytu i zapisu kalendarza. Proszę spróbować ponownie.</string>
     <string name="calendar_permission_not_granted">Wymagane uprawnienia zostały odrzucone, włącz je w aplikacji Ustawienia, aby edytować wydarzenia</string>
     <string name="visibility_confidential">Poufne</string>
     <string name="zero_minutes">0 minut</string>
@@ -294,12 +297,12 @@
     <string name="display_options">Szczegóły widoku</string>
     <string name="display_time">Wyświetl czas</string>
     <string name="display_location">Wyświetl lokalizację</string>
-    <string name="maximum_number_of_lines">Maksymalna ilość lini w wydarzeniu</string>
+    <string name="maximum_number_of_lines">Maksymalna ilość linii w wydarzeniu</string>
     <string name="default_start_last">Poprzednio używany widok</string>
-    <string name="error_generating_ics">Podczas udostępniania zdarzenia wystąpiły problemy</string>
-    <string name="cal_share_intent_title">Wyślij zdarzenie, aby:</string>
+    <string name="error_generating_ics">Podczas udostępniania wydarzenia wystąpiły problemy</string>
+    <string name="cal_share_intent_title">Wyślij wydarzenie do:</string>
     <string name="cal_export_event_sdcard_title">Eksportuj na kartę SD</string>
-    <string name="cal_import_menu_title">Importuj zdarzenie</string>
+    <string name="cal_import_menu_title">Importuj wydarzenie</string>
     <string name="cal_nothing_to_import">Nic do zaimportowania</string>
     <string name="cal_import_error_msg">Importowanie do kalendarza nie powiodło się</string>
     <string name="cal_import_error_date_msg">Nie można zrozumieć podanej daty: %s</string>
@@ -311,8 +314,8 @@
     <string name="share_label">Udostępnij</string>
     <string name="no_map">Nie masz zainstalowanej aplikacji do obsługi map</string>
     <string name="cal_export_succ_msg">Zdarzenie zostało pomyślnie wyeksportowane: %1$s</string>
-    <string name="preferences_month_view_portrait">Układ widoku miesiąca (Portret)</string>
-    <string name="preferences_month_view_landscape">Układ widoku miesiąca (Krajobraz)</string>
+    <string name="preferences_month_view_portrait">Układ widoku miesiąca (pionowy)</string>
+    <string name="preferences_month_view_landscape">Układ widoku miesiąca (poziomy)</string>
     <string name="foreground_notification_channel_name">Synchronizacja alertów</string>
     <string name="foreground_notification_channel_description">Powiadomienie na pierwszym planie jest wymagane do wewnętrznej synchronizacji alertów.</string>
     <string name="preferences_calendar_delete">Usuń kalendarz</string>
@@ -329,7 +332,7 @@
     <string name="preferences_calendar_configure_account">Skonfiguruj kalendarz w %1$s</string>
     <string name="preferences_calendar_account">%1$s konto</string>
     <string name="app_copyright">© 2015-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; The Etar Project. Portions © 2005-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; The Android Open Source Project.</string>
-    <string name="preferences_pure_black_night_mode">Tryb czystej czerni w nocy</string>
+    <string name="preferences_pure_black_night_mode">Tryb nocny czystej czerni</string>
     <string name="six_days">6 dni</string>
     <string name="five_days">5 dni</string>
     <string name="four_days">4 dni</string>
@@ -357,4 +360,9 @@
     <string name="preferences_calendar_number_of_events">%1$d wydarzenia</string>
     <string name="preferences_calendar_account_local">Kalendarz offline</string>
     <string name="seven_days">7 dni</string>
+    <string name="preferences_calendar_color_warning_message">Zmiana koloru może zostać cofnięta po ponownej synchronizacji kalendarza.
+\n
+\nW aplikacji DAVx⁵ można wyłączyć \'Zarządzanie kolorami kalendarza\', aby temu zapobiec.</string>
+    <string name="cal_import_error_time_zone_msg">Nie można zrozumieć podanej strefy czasowej: %s</string>
+    <string name="preferences_list_add_offline_message">Kalendarze offline NIE SĄ synchronizowane z usługą w chmurze i są dostępne tylko w Twoim telefonie.</string>
 </resources>
