@@ -1,2 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="cal_pick_ics">Импорттау үшін файлды таңдау</string>
+    <string name="preferences_calendar_delete">Күнтізбені жою</string>
+    <string name="preferences_calendar_color">Түс</string>
+    <string name="preferences_calendar_delete_message">Бұл күнтізбені шынымен жойғыңыз келе ме\?</string>
+    <string name="preferences_calendar_delete_cancel">Болдырмау</string>
+    <string name="preferences_calendar_delete_delete">Күнтізбені жою</string>
+    <string name="preferences_list_add_offline_cancel">Болдырмау</string>
+    <string name="preferences_menu_about">Etar туралы</string>
+    <string name="discard_label">Болдырмау</string>
+    <string name="delete_label">Жою</string>
+    <string name="edit_label">Өңдеу</string>
+    <string name="search_title">Күнтізбелерімнен іздеу</string>
+    <string name="loading">Жүктелуде…</string>
+    <string name="event_info_organizer">Ұйымдастырушы:</string>
+    <string name="map_label">Карта</string>
+    <string name="event_not_found">Оқиға табылмады.</string>
+    <string name="response_no">Жоқ</string>
+    <string name="response_yes">Иә</string>
+    <string name="calendar_color_picker_dialog_title">Күнтізбенің түсі</string>
+    <string name="event_color_picker_dialog_title">Оқиғаның түсі</string>
+    <string name="view_event_organizer_label">Ұйымдастырушы:</string>
+    <string name="view_event_calendar_label">Күнтізбе:</string>
+    <string name="no_syncable_calendars">Күнтізбе жоқ</string>
+    <string name="privacy_label">Құпиялылық</string>
+    <string name="edit_event_calendar_label">Күнтізбе</string>
+    <string name="edit_event_all_day_label">Күні бойы</string>
+    <string name="create_event_dialog_save">Сақтау</string>
+    <string name="saving_event">Оқиға сақталды.</string>
+    <string name="hint_description">Сипаттама</string>
+    <string name="hint_what">Оқиға атауы</string>
+    <string name="search">Іздеу</string>
+    <string name="menu_preferences">Баптаулар</string>
+    <string name="goto_today">Бүгін</string>
+    <string name="share_label">Бөлісу</string>
+    <string name="event_delete">Оқиғаны жою</string>
+    <string name="event_edit">Оқиғаны өңдеу</string>
+    <string name="event_create">Жаңа оқиға</string>
+    <string name="month_view">Ай</string>
+    <string name="week_view">Апта</string>
+    <string name="day_view">Күн</string>
+    <string name="agenda_view">Күн тәртібі</string>
+    <string name="calendar_refresh">Жаңарту</string>
+    <plurals name="weekN">
+        <item quantity="one">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; апта</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 күн</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; күн</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 сағат</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; сағат</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 мин</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; мин</item>
+    </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">1 минут</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; минут</item>
+    </plurals>
+    <string name="no_title_label">(Тақырыпсыз)</string>
+    <string name="tomorrow">Ертең</string>
+    <string name="today">Бүгін</string>
+    <string name="when_label">Қашан</string>
+    <string name="app_label">Күнтізбе</string>
+</resources>
