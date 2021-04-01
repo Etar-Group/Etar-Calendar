@@ -137,4 +137,20 @@
     <string name="maximum_number_of_lines">Оқиғадағы жолдардың ең көп саны</string>
     <string name="rsvp_declined">«Жоқ» деп жауап берілді.</string>
     <string name="rsvp_accepted">«Иә» деп жауап берілді.</string>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> күн сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> күн сайын</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> жыл сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> жыл сайын</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> ай сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> ай сайын</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> апта сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> апта сайын</item>
+    </plurals>
 </resources>
