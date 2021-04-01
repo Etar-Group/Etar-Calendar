@@ -135,4 +135,6 @@
     <string name="tomorrow_at_time_fmt">Ертең сағат <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="today_at_time_fmt">Бүгін сағат <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="maximum_number_of_lines">Оқиғадағы жолдардың ең көп саны</string>
+    <string name="rsvp_declined">«Жоқ» деп жауап берілді.</string>
+    <string name="rsvp_accepted">«Иә» деп жауап берілді.</string>
 </resources>
