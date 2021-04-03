@@ -153,4 +153,5 @@
         <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> апта сайын</item>
         <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> апта сайын</item>
     </plurals>
+    <string name="goto_date">Көшу…</string>
 </resources>
