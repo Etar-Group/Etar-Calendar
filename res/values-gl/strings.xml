@@ -141,7 +141,7 @@
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Preguntar tempo mínimo para adiar recordatorios</string>
     <string name="preferences_alerts_custom_snooze_delay_title">Preguntar tempo para adiar</string>
     <string name="quick_response_custom_msg">Escribir a súa propia…</string>
-    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
+    <string name="date_time_fmt"><xliff:g id="DATE">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="preferences_show_week_num_title">Amosar número da semana</string>
     <string name="preferences_home_tz_title">Fuso horario local</string>
     <string name="preferences_use_home_tz_title">Empregar fuso horario local</string>
@@ -182,7 +182,7 @@
     <string name="preferences_general_title">Preferenzas da vista de calendario</string>
     <string name="preferences_title">Preferenzas</string>
     <string name="change_response_title">Cambiar resposta</string>
-    <string name="delete_recurring_event_title">Eliminar &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"eventtitle\"&gt;%s&lt;/xliff:g&gt;\?</string>
+    <string name="delete_recurring_event_title">Eliminar <xliff:g id="EVENTTITLE">%s</xliff:g>\?</string>
     <string name="delete_this_event_title">Eliminar este evento\?</string>
     <string name="new_event_dialog_option">Novo evento</string>
     <string name="new_event_dialog_label">Novo evento</string>
@@ -293,7 +293,7 @@
     <string name="calendar_refresh">Refrescar</string>
     <plurals name="weekN">
         <item quantity="one">Semana &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 día</item>
@@ -305,7 +305,7 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; mins</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
