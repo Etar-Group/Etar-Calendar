@@ -19,28 +19,22 @@
     <string name="tomorrow" msgid="614434811813859237">"Ngày mai"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Hôm nay lúc <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Ngày mai lúc <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Không có tiêu đề)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 phút"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> phút"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> phút</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 phút"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> phút"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> phút</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 giờ"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> giờ"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> tiếng</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 ngày"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ngày"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ngày</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"tuần <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="other">Tuần <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Làm mới"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Hiển thị ngày"</string>
@@ -108,11 +102,11 @@
         <item msgid="8036557974294987511">"Rất tiếc, tôi không thu xếp được. Chúng ta phải lên lịch lại."</item>
     </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Viết trả lời của riêng bạn…"</string>
-    <string name="event_info_organizer" msgid="9138683335394832629">"Người t.chức"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">Ng. tổ chức:</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Lời nhắc"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"hôm nay, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"hôm qua, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"ngày mai, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Hôm nay, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Hôm qua, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Ngày mai, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Đang tải…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Chạm để xem sự kiện trước <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Chạm để xem sự kiện sau <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -127,17 +121,14 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Sự kiện diễn ra một lần"</string>
     <string name="endByDate" msgid="7654221304929538201">"; cho đến <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; một lần"</item>
-        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> lần"</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> lần</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Hàng ngày"</item>
-        <item quantity="other" msgid="5455230727715859264">"Định kỳ <xliff:g id="NUMBER">%d</xliff:g> ngày"</item>
+        <item quantity="other">Mỗi <xliff:g id="number">%d</xliff:g> ngày</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Ngày trong tuần (Thứ Hai - Thứ Sáu)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Hàng tuần vào <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Định kỳ <xliff:g id="NUMBER">%1$d</xliff:g> tuần vào <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other">Mỗi <xliff:g id="number">%1$d</xliff:g> tuần vào <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Hàng tháng"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Hàng năm"</string>
@@ -170,10 +161,9 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Hiện lịch và thời gian sự kiện trong múi giờ chính khi đi du lịch"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Múi giờ chính"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Hiển thị số tuần"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"Phiên bản đóng gói"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">Phiên bản bản dựng</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Không có sự kiện sắp tới trên lịch"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Thử nghiệm"</string>
@@ -199,12 +189,10 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Sự kiện mới"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Sự kiện <xliff:g id="ITEM_INDEX">%1$s</xliff:g> trong tổng số <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 sự kiện"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> sự kiện</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"+1 sự kiện"</item>
-        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> sự kiện</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Sự kiện đã chọn"</string>
     <plurals name="recurrence_interval_daily">
@@ -236,4 +224,106 @@
     <string name="visibility_default">Mặc định</string>
     <string name="visibility_private">Riêng tư</string>
     <string name="visibility_public">Công khai</string>
+    <string name="offline_account_name">Lịch ngoại tuyến</string>
+    <string name="preferences_menu_about">Về Etar</string>
+    <string name="preferences_list_add_offline_cancel">Huỷ</string>
+    <string name="preferences_list_add_offline_name">Tên</string>
+    <string name="preferences_list_add_offline_button">Thêm lịch</string>
+    <string name="preferences_list_add_offline_message">Các lịch ngoại tuyến KHÔNG được đồng bộ hoá đến một dịch vụ đám mây và chỉ có sẵn trên điện thoại của bạn.</string>
+    <string name="preferences_list_add_offline_error_empty">Hãy nhập tên lịch!</string>
+    <string name="preferences_list_add_offline_title">Thêm lịch ngoại tuyến</string>
+    <string name="preferences_list_add_offline">Thêm lịch ngoại tuyến</string>
+    <string name="preferences_list_add_remote_etesync">Thêm lịch EteSync</string>
+    <string name="preferences_list_add_remote">Thêm lịch CalDAV</string>
+    <string name="preferences_list_general">Cài đặt chung</string>
+    <string name="preferences_list_calendar_summary_invisible">Các sự kiện không được hiển thị</string>
+    <string name="preferences_list_calendar_summary_sync_off">Không được đồng bộ hoá</string>
+    <string name="preferences_calendar_delete_cancel">Huỷ</string>
+    <string name="preferences_calendar_delete_delete">Xoá lịch</string>
+    <string name="preferences_calendar_delete_message">Bạn có thực sự muốn xoá lịch này không\?</string>
+    <string name="preferences_calendar_color_warning_button">Tôi hiểu</string>
+    <string name="preferences_calendar_color_warning_message">Việc đổi màu có thể sẽ bị hoàn tác khi lịch được đồng bộ hoá lại.
+\n
+\nTrong DAVx⁵ \'Quản lý màu lịch\' có thể được tắt để ngăn chặn điều này.</string>
+    <string name="preferences_calendar_color_warning_title">Cảnh báo</string>
+    <string name="preferences_calendar_synchronize">Đồng bộ hoá lịch này</string>
+    <string name="preferences_calendar_visible">Hiển thị sự kiện</string>
+    <string name="preferences_calendar_color">Màu</string>
+    <string name="preferences_calendar_info_category">Thông tin lịch</string>
+    <string name="preferences_calendar_display_name">Đổi tên</string>
+    <string name="preferences_calendar_delete">Xoá lịch</string>
+    <string name="preferences_calendar_number_of_events">%1$d sự kiện</string>
+    <string name="preferences_calendar_configure_account">Thiết lập lịch trong %1$s</string>
+    <string name="preferences_calendar_account_local">Lịch ngoại tuyến</string>
+    <string name="preferences_calendar_account">%1$s tài khoản</string>
+    <string name="preferences_calendar_no_display_name">Lịch chưa được đặt tên</string>
+    <string name="show_time_start_end_below">Thời gian bắt đầu và kết thúc ở dưới sự kiện</string>
+    <string name="show_time_start_end">Thời gian bắt đầu và kết thúc</string>
+    <string name="show_time_start">Chỉ thời gian bắt đầu</string>
+    <string name="show_time_no">Không hiện thời gian</string>
+    <string name="cal_pick_ics">Chọn tệp để nhập</string>
+    <string name="cal_import_error_date_msg">Không thể hiểu ngày được đưa ra: %s</string>
+    <string name="cal_import_error_time_zone_msg">Không thể hiểu múi giờ được đưa ra: %s</string>
+    <string name="cal_import_error_msg">Nhập vào lịch thất bại</string>
+    <string name="cal_nothing_to_import">Không có gì để nhập</string>
+    <string name="cal_import_menu_title">Nhập sự kiện</string>
+    <string name="cal_export_succ_msg">Xuất sự kiện thành công: %1$s</string>
+    <string name="cal_export_event_sdcard_title">Xuất ra thẻ SD</string>
+    <string name="cal_share_intent_title">Gửi sự kiện đến:</string>
+    <string name="error_generating_ics">Đã gặp vấn đề khi chia sẻ sự kiện</string>
+    <string name="two_hours">2 tiếng</string>
+    <string name="one_and_a_half_hours">1.5 tiếng</string>
+    <string name="one_hour">1 tiếng</string>
+    <string name="thirty_minutes">30 phút</string>
+    <string name="fifteen_minutes">15 phút</string>
+    <string name="zero_minutes">0 phút</string>
+    <string name="seven_days">7 ngày</string>
+    <string name="six_days">6 ngày</string>
+    <string name="five_days">5 ngày</string>
+    <string name="four_days">4 ngày</string>
+    <string name="three_days">3 ngày</string>
+    <string name="two_days">2 ngày</string>
+    <string name="visibility_confidential">Bí mật</string>
+    <string name="calendar_permission_not_granted">Các quyền được yêu cầu bị từ chối, hãy bật chúng trong ứng dụng Cài đặt để chỉnh sửa các sự kiện</string>
+    <string name="user_rejected_calendar_write_permission">Etar yêu cầu quyền đọc và ghi vào lịch để hoạt động đúng. Vui lòng thử lại.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Dự án Etar. Một phần © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="source_code">Mã nguồn</string>
+    <string name="preferences_issues">Báo cáo vấn đề</string>
+    <string name="license">Giấy phép</string>
+    <string name="changelog">Nhật ký thay đổi</string>
+    <string name="authors">Các tác giả</string>
+    <string name="preferences_default_snooze_delay_dialog">Thời gian báo lại mặc định</string>
+    <string name="preferences_default_snooze_delay_title">Thời gian báo lại mặc định</string>
+    <string name="snooze_delay_dialog_title">Đặt thời gian báo lại</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Luôn sử dụng thời gian báo lại mặc định</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Hỏi thời gian báo lại khi đặt báo lại lời nhắc</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Hỏi thời gian báo lại lời nhắc</string>
+    <string name="preferences_default_event_duration_title">Thời hạn sự kiện mặc định</string>
+    <string name="preferences_days_per_week_dialog">Số ngày trong tuần</string>
+    <string name="preferences_days_per_week_title">Số ngày trong tuần</string>
+    <string name="default_start_last">Mục hiển thị được sử dụng trước đó</string>
+    <string name="maximum_number_of_lines">Số dòng tối đa trong sự kiện</string>
+    <string name="display_location">Hiển thị vị trí</string>
+    <string name="display_time">Hiển thị thời gian</string>
+    <string name="display_options">Tuỳ chọn hiển thị</string>
+    <string name="default_start_title">Hiển thị mặc định</string>
+    <string name="preferences_pure_black_night_mode">Chế độ ban đêm đen thuần tuý</string>
+    <string name="preferences_color_pick">Màu chính</string>
+    <string name="preferences_color">Màu chính</string>
+    <string name="preferences_black_theme">Đen</string>
+    <string name="preferences_dark_theme">Tối</string>
+    <string name="preferences_light_theme">Sáng</string>
+    <string name="preferences_system_theme">Mặc định hệ thống</string>
+    <string name="preferences_theme">Chủ đề</string>
+    <string name="preferences_month_view_landscape">Bố cục hiển thị tháng (Ngang)</string>
+    <string name="preferences_month_view_portrait">Bố cục hiển thị tháng (Dọc)</string>
+    <string name="no_map">Không có ứng dụng bản đồ nào được cài đặt</string>
+    <string name="foreground_notification_channel_description">Yêu cầu thông báo ở trước cho báo động đồng bộ hoá nội bộ.</string>
+    <string name="foreground_notification_channel_name">Báo động đồng bộ hoá</string>
+    <string name="rsvp_declined">Đã phản hồi là không.</string>
+    <string name="rsvp_tentative">Đã phản hồi là có thể.</string>
+    <string name="rsvp_accepted">Đã phản hồi là có.</string>
+    <string name="view_settings">Xem cài đặt</string>
+    <string name="goto_date">Đi đến…</string>
+    <string name="share_label">Chia sẻ</string>
 </resources>
