@@ -293,7 +293,7 @@
     <string name="cal_import_error_time_zone_msg">Zeitzone konnte nicht erkannt werden: %s</string>
     <string name="preferences_calendar_account">%1$s Konto</string>
     <string name="preferences_calendar_delete">Kalender löschen</string>
-    <string name="preferences_calendar_display_name">Namen ändern</string>
+    <string name="preferences_calendar_display_name">Name ändern</string>
     <string name="preferences_calendar_color">Farbe</string>
     <string name="preferences_calendar_visible">Termine anzeigen</string>
     <string name="preferences_calendar_synchronize">Kalender synchronisieren</string>
