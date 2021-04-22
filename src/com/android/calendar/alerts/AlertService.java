@@ -964,6 +964,7 @@ public class AlertService extends Service {
                     ALERT_CHANNEL_ID,
                     context.getString(R.string.standalone_app_label),
                     NotificationManager.IMPORTANCE_HIGH);
+            channel.enableLights(true);
 
             NotificationChannel foregroundChannel = new NotificationChannel(
                     FOREGROUND_CHANNEL_ID,
