@@ -281,7 +281,7 @@
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_import_error_msg">Falha ao importar para o calendário</string>
-    <string name="cal_import_error_date_msg">Não foi possível processar a data indicada: %1</string>
+    <string name="cal_import_error_date_msg">Não foi possível processar a data indicada: %s</string>
     <string name="cal_pick_ics">Escolha o ficheiro a importar</string>
     <string name="show_time_no">Não mostrar hora</string>
     <string name="show_time_start">Apenas hora de início</string>
@@ -325,7 +325,7 @@
     <string name="preferences_calendar_delete_message">Tem a certeza de que deseja remover este calendário\?</string>
     <string name="preferences_calendar_account_local">Calendário local</string>
     <string name="preferences_calendar_configure_account">Configurar calendário em %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1$s eventos</string>
+    <string name="preferences_calendar_number_of_events">%1$d eventos</string>
     <string name="preferences_calendar_info_category">Informação do calendário</string>
     <string name="seven_days">7 dias</string>
     <string name="six_days">6 dias</string>
