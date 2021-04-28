@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="CalendarAppThemeLightTeal" parent="CalendarAppTheme">
+    <style name="CalendarAppThemeLightTeal" parent="CalendarAppThemeLight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -16,7 +16,7 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
-    <style name="CalendarAppThemeLightOrange" parent="CalendarAppTheme">
+    <style name="CalendarAppThemeLightOrange" parent="CalendarAppThemeLight">
         <item name="colorPrimary">@color/colorOrangePrimary</item>
         <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
         <item name="colorAccent">@color/colorOrangeAccent</item>
@@ -31,7 +31,7 @@
         <item name="android:statusBarColor">@color/colorOrangePrimary</item>
     </style>
 
-    <style name="CalendarAppThemeLightBlue" parent="CalendarAppTheme">
+    <style name="CalendarAppThemeLightBlue" parent="CalendarAppThemeLight">
         <item name="colorPrimary">@color/colorBluePrimary</item>
         <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
         <item name="colorAccent">@color/colorBlueAccent</item>
@@ -46,7 +46,7 @@
         <item name="android:statusBarColor">@color/colorBluePrimary</item>
     </style>
 
-    <style name="CalendarAppThemeLightGreen" parent="CalendarAppTheme">
+    <style name="CalendarAppThemeLightGreen" parent="CalendarAppThemeLight">
         <item name="colorPrimary">@color/colorGreenPrimary</item>
         <item name="colorPrimaryDark">@color/colorGreenPrimaryDark</item>
         <item name="colorAccent">@color/colorGreenAccent</item>
@@ -60,7 +60,7 @@
         <item name="app_bar_color">@color/colorGreenPrimary</item>
         <item name="android:statusBarColor">@color/colorGreenPrimary</item>
     </style>
-    <style name="CalendarAppThemeLightRed" parent="CalendarAppTheme">
+    <style name="CalendarAppThemeLightRed" parent="CalendarAppThemeLight">
         <item name="colorPrimary">@color/colorRedPrimary</item>
         <item name="colorPrimaryDark">@color/colorRedPrimaryDark</item>
         <item name="colorAccent">@color/colorRedAccent</item>
@@ -75,7 +75,7 @@
         <item name="android:statusBarColor">@color/colorRedPrimary</item>
     </style>
 
-    <style name="CalendarAppThemeLightPurple" parent="CalendarAppTheme">
+    <style name="CalendarAppThemeLightPurple" parent="CalendarAppThemeLight">
         <item name="colorPrimary">@color/colorPurplePrimary</item>
         <item name="colorPrimaryDark">@color/colorPurplePrimaryDark</item>
         <item name="colorAccent">@color/colorPurpleAccent</item>
