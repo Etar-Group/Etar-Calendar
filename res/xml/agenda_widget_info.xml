@@ -4,7 +4,6 @@
     android:initialLayout="@layout/agenda_widget"
     android:minWidth="110dp"
     android:minHeight="110dp"
-    android:previewImage="@drawable/example_appwidget_preview"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="864000"
     android:widgetCategory="home_screen"></appwidget-provider>
