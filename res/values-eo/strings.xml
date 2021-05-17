@@ -165,4 +165,12 @@
     <string name="preferences_light_theme">Hela</string>
     <string name="preferences_theme">Etoso</string>
     <string name="preferences_dark_theme">Malhela</string>
+    <string name="select_synced_calendars_button">Kalendaroj por sinkronigi</string>
+    <string name="event_info_organizer">Planilo:</string>
+    <string name="view_event_organizer_label">Planilo:</string>
+    <string name="call_label">Altelefoni</string>
+    <string name="calendar_square_color_picker_description">Kolorelektilo</string>
+    <string name="event_color_set_to_default">Agordi defaŭltan koloron de kalendaro</string>
+    <string name="show_controls">Montri kontrolilojn</string>
+    <string name="hide_controls">Kaŝi kontrolilojn</string>
 </resources>
