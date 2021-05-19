@@ -125,10 +125,10 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Répéter"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">Évènement ponctuel</string>
-    <string name="endByDate" msgid="7654221304929538201">; jusqu’au <xliff:g id="date">%s</xliff:g></string>
+    <string name="endByDate" msgid="7654221304929538201">; jusqu\'à <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; une seule fois</item>
-        <item quantity="other">; <xliff:g id="number">%d</xliff:g> fois</item>
+        <item quantity="other">; pour <xliff:g id="number">%d</xliff:g> fois</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one" msgid="5169052946627480942">"Quotidien"</item>
@@ -216,19 +216,19 @@
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Évènement sélectionné</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">Tous les jours</item>
-        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> jours</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> jour</item>
+        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> jours</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">Toutes les semaines</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> semaine</item>
         <item quantity="other">Toutes les <xliff:g id="count">%d</xliff:g> semaines</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Tous les mois</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> mois</item>
         <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> mois</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Tous les ans</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> année</item>
         <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> ans</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"le même jour chaque mois"</string>
