@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.4.32'
+    ext.kotlin_version = '1.5.0'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.android.tools.build:gradle:4.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -14,7 +14,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -23,7 +23,7 @@ project(':external:calendar') {
 
     android {
         compileSdkVersion 30
-        buildToolsVersion '29.0.2'
+        buildToolsVersion '30.0.3'
 
         defaultConfig {
             minSdkVersion 21
@@ -54,7 +54,7 @@ project(':external:colorpicker') {
 
     android {
         compileSdkVersion 30
-        buildToolsVersion '29.0.2'
+        buildToolsVersion '30.0.3'
 
         defaultConfig {
             minSdkVersion 21
@@ -88,7 +88,7 @@ project(':external:timezonepicker') {
 
     android {
         compileSdkVersion 30
-        buildToolsVersion '29.0.2'
+        buildToolsVersion '30.0.3'
 
         defaultConfig {
             minSdkVersion 21
@@ -117,7 +117,7 @@ project(':external:chips') {
 
     android {
         compileSdkVersion 30
-        buildToolsVersion '29.0.2'
+        buildToolsVersion '30.0.3'
 
         defaultConfig {
             minSdkVersion 21
@@ -148,11 +148,11 @@ apply plugin: 'kotlin-android'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
 
     implementation 'androidx.preference:preference:1.1.1'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.material:material:1.3.0'
 
@@ -164,7 +164,7 @@ dependencies {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion '29.0.2'
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         minSdkVersion 21
