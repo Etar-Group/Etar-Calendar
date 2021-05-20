@@ -34,6 +34,7 @@
     <queries>
         <package android:name="at.bitfire.davdroid" />
         <package android:name="com.etesync.syncadapter" />
+        <package android:name="com.google.android.gm" />
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
