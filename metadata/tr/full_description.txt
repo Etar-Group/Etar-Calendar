@@ -1,0 +1,14 @@
+Özellikler:
+ - Aylık görünüm.
+ - Hafta, gün ve ajanda görünümü.
+ - Android takvim senkronizasyonunu kullanır.  Google Takvim, Exchange vb. ile çalışır.
+ - Materyal tasarım.
+ - Koyu ve açık tema.
+ - Ücretsiz, açık kaynak ve kesinlikle reklamsız.
+ - ICS aracılığıyla takvim paylaşımı ve SD karttan içe/dışa aktarma özelliği.
+ - Çok dilli kullanıcı arayüzü.
+
+Hata ve geri bildirimler için:
+https://github.com/Etar-Group/Etar-Calendar/issues
+Kaynak kod:
+ https://github.com/Etar-Group/Etar-Calendar
