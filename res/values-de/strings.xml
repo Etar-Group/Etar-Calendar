@@ -26,8 +26,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> Minuten</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 Min.</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> Min.</item>
+        <item quantity="one">Eine Minute</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> Minuten</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 Stunde</item>
@@ -152,7 +152,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Benachrichtigungen &amp; Erinnerungen"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausbl."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">Abgelehnte Termine ausblenden</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Suchverlauf löschen"</string>
@@ -228,8 +228,8 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Bis <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Mehrere Wiederholungen"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g>-mal"</item>
-        <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g>-mal"</item>
+        <item quantity="one"><xliff:g id="EVENT_COUNT">%d</xliff:g>-einmal</item>
+        <item quantity="other"><xliff:g id="EVENT_COUNT">%d</xliff:g>-male</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"Enddatum ändern"</string>
     <string name="preferences_theme">"Darstellung"</string>
@@ -274,9 +274,9 @@
     <string name="preferences_alerts_custom_snooze_delay_title">Erinnerungs-Wiederholungszeit</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Jedesmal nach Verzögerung fragen, wenn später erinnert werden soll</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Immer nach Standardzeit erinnern</string>
-    <string name="snooze_delay_dialog_title">Erinnern in\u2026</string>
+    <string name="snooze_delay_dialog_title">Stelle die Schlummerverzögerung ein</string>
     <string name="preferences_default_snooze_delay_title">Standard-Wiederholungszeit</string>
-    <string name="preferences_default_snooze_delay_dialog">Erinnerung wiederholen nach\u2026</string>
+    <string name="preferences_default_snooze_delay_dialog">Standard-Schlummverzögerung</string>
     <string name="view_settings">Ansichtseinstellungen</string>
     <string name="preferences_month_view_portrait">Monatsansicht (Portrait)</string>
     <string name="preferences_month_view_landscape">Monatsansicht (Landscape)</string>
@@ -334,7 +334,7 @@
     <string name="three_days">3 Tage</string>
     <string name="two_days">2 Tage</string>
     <string name="preferences_system_theme">Systemstandard</string>
-    <string name="preferences_list_add_remote_etesync">EteSync-Kalender hinzufügen</string>
-    <string name="preferences_list_add_remote">CalDAV-Kalender hinzufügen</string>
+    <string name="preferences_list_add_remote_etesync">Füge EteSync Kalender hinzu</string>
+    <string name="preferences_list_add_remote">Füge CalDAV Kalender hinzu</string>
     <string name="preferences_pure_black_night_mode">Rein schwarzer Nachtmodus</string>
 </resources>
