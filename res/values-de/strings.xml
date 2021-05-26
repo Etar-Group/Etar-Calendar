@@ -22,7 +22,7 @@
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Kein Titel)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">1 Minute</item>
+        <item quantity="one">Eine Minute</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> Minuten</item>
     </plurals>
     <plurals name="Nmins">
@@ -30,16 +30,16 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> Minuten</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 Stunde</item>
+        <item quantity="one">Eine Stunde</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> Stunden</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">1 Tag</item>
+        <item quantity="one">Ein Tag</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> Tage</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Woche <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">Woche <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">Eine Woche <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Wochen <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aktualisieren"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tag anzeigen"</string>
