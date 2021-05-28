@@ -291,11 +291,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 Utils.sendUpdateWidgetIntent(a)
                 a.recreate()
             }
-        }
-        //pureBlackNightMode refresh condition
-        if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a)) {
-            Utils.sendUpdateWidgetIntent(a)
-            a.recreate()
+            KEY_PURE_BLACK_NIGHT_MODE -> {
+                Utils.sendUpdateWidgetIntent(a)
+                a.recreate()
+            }
         }
     }
 
