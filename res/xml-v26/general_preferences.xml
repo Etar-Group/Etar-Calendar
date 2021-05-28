@@ -43,11 +43,11 @@
             app:key="pref_view_details"
             app:title="@string/display_options"
             app:fragment="com.android.calendar.settings.ViewDetailsPreferences" />
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_hide_declined"
             app:defaultValue="false"
             app:title="@string/preferences_hide_declined_title" />
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_show_week_num"
             app:defaultValue="false"
             app:title="@string/preferences_show_week_num_title" />
@@ -93,12 +93,12 @@
             app:key="preferences_notification"
             app:title="@string/preferences_alerts_title" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_alerts_popup"
             app:defaultValue="false"
             app:title="@string/preferences_alerts_popup_title" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_custom_snooze_delay"
             app:defaultValue="false"
             app:title="@string/preferences_alerts_custom_snooze_delay_title"
