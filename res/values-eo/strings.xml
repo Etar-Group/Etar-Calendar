@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="preferences_title">Agordoj</string>
-    <string name="delete_recurring_event_title">Ĉu forigi &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"eventtitle\"&gt; %s &lt;/xliff:g&gt;\?</string>
+    <string name="delete_recurring_event_title">Ĉu forigi <xliff:g id="eventtitle">%s</xliff:g>?</string>
     <string name="delete_this_event_title">Ĉu forigi ĉi tiun okazaĵon\?</string>
     <string name="new_event_dialog_option">Nova okazaĵo</string>
     <string name="new_event_dialog_label">Nova okazaĵo</string>
@@ -11,9 +11,9 @@
     <string name="edit_label">Redakti</string>
     <string name="edit_event_label">Detaloj</string>
     <string name="search_title">Serĉi en miajn kalendarojn</string>
-    <string name="agenda_tomorrow">Morgaŭ, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="agenda_yesterday">Hieraŭ, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="agenda_today">Hodiaŭ, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_tomorrow">Morgaŭ, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday">Hieraŭ, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_today">Hodiaŭ, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="event_info_reminders_label">Memorigiloj</string>
     <string name="map_label">Mapo</string>
     <string name="response_no">Ne</string>
@@ -55,29 +55,29 @@
     <string name="show_day_view">Montri tagon</string>
     <string name="calendar_refresh">Aktualigi</string>
     <plurals name="weekN">
-        <item quantity="one">semajno &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="one">semajno <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other"/>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 tago</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; tagoj</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> tagoj</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 horo</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; horoj</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> horoj</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; min</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
     </plurals>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; minutoj</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutoj</item>
     </plurals>
     <string name="no_title_label">(Sen titolo)</string>
-    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
-    <string name="tomorrow_at_time_fmt">Morgaŭ je &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
-    <string name="today_at_time_fmt">Hodiaŭ je &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt">Morgaŭ je <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="today_at_time_fmt">Hodiaŭ je <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="tomorrow">Morgaŭ</string>
     <string name="today">Hodiaŭ</string>
     <string name="when_label">Kiam</string>
@@ -112,7 +112,7 @@
     <string name="visibility_public">Publika</string>
     <string name="visibility_private">Privata</string>
     <string name="visibility_default">Defaŭlte</string>
-    <string name="recurrence_end_date">Ĝis &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="recurrence_end_date">Ĝis <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_date_label">Ĝis dato</string>
     <string name="acessibility_selected_marker_description">Elektita okazaĵo</string>
     <plurals name="N_remaining_events">
@@ -123,7 +123,7 @@
         <item quantity="one">1 okazaĵo</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> okazaĵoj</item>
     </plurals>
-    <string name="template_announce_item_index">Okazaĵo &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"item_index\"&gt;%1$s&lt;/xliff:g&gt; de &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"item_count\"&gt;%2$s&lt;/xliff:g&gt;.&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"item_index\"&gt;</string>
+    <string name="template_announce_item_index">Okazaĵo <xliff:g id="item_index">%1$s</xliff:g> de <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <string name="day_view_new_event_hint">+ Nova okazaĵo</string>
     <string name="accessibility_reminder_privacy">Privateco</string>
     <string name="accessibility_reminder_showmeas">Montri min kiel</string>
@@ -141,7 +141,7 @@
     <string name="preferences_color_pick">Ĉefa koloro</string>
     <string name="preferences_color">Ĉefa koloro</string>
     <string name="preferences_black_theme">Nigra</string>
-    <string name="endByDate">; ĝis &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="endByDate">; ĝis <xliff:g id="date">%s</xliff:g></string>
     <string name="loading">Ŝarĝado</string>
     <string name="quick_response_custom_msg">Tajpi vian propran…</string>
     <string name="event_not_found">Okazaĵo ne trovita.</string>

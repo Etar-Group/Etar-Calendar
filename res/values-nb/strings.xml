@@ -27,7 +27,7 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; minutter</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutter</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">Én time</item>
@@ -38,8 +38,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dager</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Uke &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="other">uke &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="one">Uke <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">uke <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Last inn"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Vis dag"</string>
@@ -113,9 +113,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv din egen\u2026"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Arrangør:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Påminnelser"</string>
-    <string name="agenda_today" msgid="5965841338467422191">I dag, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">I går, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">I morgen, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">I dag, <xliff:g id="DATE">%1$s</xliff:g><xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">I går, <xliff:g id="DATE">%1$s</xliff:g><xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">I morgen, <xliff:g id="DATE">%1$s</xliff:g><xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">Laster inn …</string>
     <string name="show_older_events" msgid="5140647493681439926">"Trykk for å vise aktiviteter før <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Trykk for å vise aktiviteter etter <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -224,8 +224,8 @@
         <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> uke</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Hver måned &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; måned</item>
-        <item quantity="other">Hver &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; måned</item>
+        <item quantity="one">Hver måned <xliff:g id="count">%d</xliff:g> måned</item>
+        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> måned</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Hvert <xliff:g id="count">%d</xliff:g> år</item>

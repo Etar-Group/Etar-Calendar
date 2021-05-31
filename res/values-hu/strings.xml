@@ -19,7 +19,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Holnap"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Ma <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Holnap <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Nincs cím)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1 perc"</item>
@@ -329,7 +329,7 @@
     <string name="visibility_confidential">Titkosított</string>
     <string name="user_rejected_calendar_write_permission">Az Etar működéséhez naptárolvasási és -írási engedély szükséges. Próbálja újra.</string>
     <string name="changelog">Változásnapló</string>
-    <string name="app_copyright">© 2015-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; Az Etar projekt. Egyes részekre a következő vonatkozik: © 2005-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Az Etar projekt. Egyes részekre a következő vonatkozik: © 2005-<xliff:g>%1$s</xliff:g> Android Open Source Project.</string>
     <string name="preferences_days_per_week_dialog">A hét napjainak száma</string>
     <string name="preferences_days_per_week_title">A hét napjainak száma</string>
     <string name="preferences_pure_black_night_mode">Teljesen fekete éjszakai mód</string>

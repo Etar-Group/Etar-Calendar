@@ -67,40 +67,40 @@
     <string name="user_rejected_calendar_write_permission">Etar require permisos de lectura e escritura de calendarios para funcionar correctamente. Por favor, inténteo de novo.</string>
     <string name="acessibility_recurrence_choose_end_date_description">cambiar data de fin</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">Durante &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; evento</item>
-        <item quantity="other">Durante &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; eventos</item>
+        <item quantity="one">Durante <xliff:g id="event_count">%d</xliff:g> evento</item>
+        <item quantity="other">Durante <xliff:g id="event_count">%d</xliff:g> eventos</item>
     </plurals>
     <string name="recurrence_end_count_label">Durante un número de eventos</string>
-    <string name="recurrence_end_date">Ata o &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="recurrence_end_date">Ata o <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_date_label">Ata unha data</string>
     <string name="recurrence_end_continously">Sempre</string>
     <string name="recurrence_month_pattern_by_day">no mesmo día cada mes</string>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ano</item>
-        <item quantity="other">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; anos</item>
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> ano</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> anos</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; mes</item>
-        <item quantity="other">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; meses</item>
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> mes</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> meses</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; semana</item>
-        <item quantity="other">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; semanas</item>
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> semana</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; día</item>
-        <item quantity="other">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; días</item>
+        <item quantity="one">Cada <xliff:g id="count">%d</xliff:g> día</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> días</item>
     </plurals>
     <string name="acessibility_selected_marker_description">Evento seleccionado</string>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 evento</item>
-        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; eventos</item>
+        <item quantity="other">+<xliff:g id="COUNT">%d</xliff:g> eventos</item>
     </plurals>
     <plurals name="Nevents">
         <item quantity="one">1 evento</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; eventos</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> eventos</item>
     </plurals>
-    <string name="template_announce_item_index">Evento &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"ITEM_INDEX\"&gt;%1$s&lt;/xliff:g&gt; de &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"ITEM_COUNT\"&gt;%2$s&lt;/xliff:g&gt;.</string>
+    <string name="template_announce_item_index">Evento <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
     <string name="day_view_new_event_hint">+ Novo evento</string>
     <string name="accessibility_reminder_privacy">Privacidade</string>
     <string name="accessibility_reminder_showmeas">Amosarme como</string>
@@ -117,7 +117,7 @@
     <string name="accessibility_pick_start_time">Hora de inicio</string>
     <string name="accessibility_pick_start_date">Data de inicio</string>
     <string name="accessibility_remove_attendee">Eliminar asistente</string>
-    <string name="directory_searching_fmt">Buscando &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DOMAIN\"&gt;%s&lt;/xliff:g&gt;…</string>
+    <string name="directory_searching_fmt">Buscando <xliff:g id="DOMAIN">%s</xliff:g>…</string>
     <string name="copy_db">Enviar base de datos</string>
     <string name="preferences_reminders_responded_dialog">Ignorar Recordatorios</string>
     <string name="preferences_reminders_responded_label">Ignorar Recordatorios</string>
@@ -125,7 +125,7 @@
     <string name="gadget_no_events">Non hai eventos próximos</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="other">+<xliff:g id="NUMBER">%d</xliff:g></item>
     </plurals>
     <string name="source_code">Código fonte</string>
     <string name="preferences_issues">Rexistrar erros</string>
@@ -133,7 +133,7 @@
     <string name="license">Licenza</string>
     <string name="changelog">Rexistro de cambios</string>
     <string name="authors">Autores</string>
-    <string name="app_copyright">© 2015-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; The Etar Project. Portions © 2005-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_default_snooze_delay_dialog">Atraso predefinido para adiar</string>
     <string name="preferences_default_snooze_delay_title">Tempo para adiar predefinido</string>
     <string name="snooze_delay_dialog_title">Definir tempo para adiar</string>
@@ -193,19 +193,19 @@
     <string name="yearly_plain">Anualmente</string>
     <string name="monthly">Mensualmente</string>
     <plurals name="weekly">
-        <item quantity="one">Semanalmente o &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DAYS_OF_WEEK\"&gt;%2$s&lt;/xliff:g&gt;</item>
-        <item quantity="other">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%1$d&lt;/xliff:g&gt; semanas o &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DAYS_OF_WEEK\"&gt;%2$s&lt;/xliff:g&gt;</item>
+        <item quantity="one">Semanalmente o <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g></item>
+        <item quantity="other">Cada <xliff:g id="NUMBER">%1$d</xliff:g> semanas o <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g></item>
     </plurals>
     <string name="every_weekday">Cada día da semana (Lun-Ven)</string>
     <plurals name="daily">
         <item quantity="one">Diario</item>
-        <item quantity="other">Cada &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%d&lt;/xliff:g&gt; días</item>
+        <item quantity="other">Cada <xliff:g id="NUMBER">%d</xliff:g> días</item>
     </plurals>
     <plurals name="endByCount">
         <item quantity="one">; unha vez</item>
-        <item quantity="other">; &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%d&lt;/xliff:g&gt; veces</item>
+        <item quantity="other">; <xliff:g id="NUMBER">%d</xliff:g> veces</item>
     </plurals>
-    <string name="endByDate">; ata &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="endByDate">; ata <xliff:g id="DATE">%s</xliff:g></string>
     <string name="does_not_repeat">Evento único</string>
     <string name="snooze_label">Adiar</string>
     <string name="dismiss_all_label">Descartar todo</string>
@@ -215,12 +215,12 @@
     <string name="edit_label">Editar</string>
     <string name="edit_event_label">Detalles</string>
     <string name="search_title">Buscar nos meus calendarios</string>
-    <string name="show_newer_events">Preme para ver eventos posteriores a &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NEWEST_SEARCH_RANGE\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="show_older_events">Preme para ver eventos anteriores a &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"OLDEST_SEARCH_RANGE\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="show_newer_events">Preme para ver eventos posteriores a <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g></string>
+    <string name="show_older_events">Preme para ver eventos anteriores a <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g></string>
     <string name="loading">Cargando…</string>
-    <string name="agenda_tomorrow">Mañá, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="agenda_yesterday">Onte, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="agenda_today">Hoxe, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_tomorrow">Mañá, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_yesterday">Onte, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_today">Hoxe, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="event_info_reminders_label">Recordatorios</string>
     <string name="event_info_organizer">Organizador:</string>
     <string name="quick_response_email_failed">Non se atopou ningunha aplicación de email</string>
@@ -292,16 +292,16 @@
     <string name="show_day_view">Amosar día</string>
     <string name="calendar_refresh">Refrescar</string>
     <plurals name="weekN">
-        <item quantity="one">Semana &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="one">Semana <xliff:g id="COUNT">%d</xliff:g></item>
         <item quantity="other"/>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 día</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; días</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> días</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 hora</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; horas</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
@@ -309,11 +309,11 @@
     </plurals>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; minutos</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> minutos</item>
     </plurals>
     <string name="no_title_label">(Sen título)</string>
-    <string name="tomorrow_at_time_fmt">Mañá ás &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"TIME_INTERVAL\"&gt;%s&lt;/xliff:g&gt;</string>
-    <string name="today_at_time_fmt">Hoxe ás &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"TIME_INTERVAL\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="tomorrow_at_time_fmt">Mañá ás <xliff:g id="TIME_INTERVAL">%s</xliff:g></string>
+    <string name="today_at_time_fmt">Hoxe ás <xliff:g id="TIME_INTERVAL">%s</xliff:g></string>
     <string name="tomorrow">Mañá</string>
     <string name="today">Hoxe</string>
     <string name="when_label">Cando</string>

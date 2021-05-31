@@ -26,29 +26,29 @@
     <string name="show_day_view">ਦਿਨ ਵਿਖਾਓ</string>
     <string name="calendar_refresh">ਤਾਜ਼ਾ ਕਰੋ</string>
     <plurals name="weekN">
-        <item quantity="one">ਹਫ਼ਤਾ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="one">ਹਫ਼ਤਾ <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other"/>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 ਦਿਨ</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਦਿਨ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਦਿਨ</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 ਘੰਟਾ</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਘੰਟੇ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਘੰਟੇ</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 ਮਿੰਟ</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਮਿੰਟ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਮਿੰਟ</item>
     </plurals>
     <plurals name="Nminutes">
         <item quantity="one">1 ਮਿੰਟ</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ਮਿੰਟ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਮਿੰਟ</item>
     </plurals>
     <string name="no_title_label">ਕੋਈ ਸਿਰਲੇਖ ਨਹੀਂ</string>
-    <string name="date_time_fmt">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;<xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt">ਕੱਲ੍ਹ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt; ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
-    <string name="today_at_time_fmt">ਅੱਜ &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt; ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt">ਕੱਲ੍ਹ <xliff:g id="time_interval">%s</xliff:g> ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt">ਅੱਜ <xliff:g id="time_interval">%s</xliff:g> ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
     <string name="tomorrow">ਕੱਲ੍ਹ</string>
     <string name="today">ਅੱਜ</string>
     <string name="when_label">ਕਦੋਂ</string>
