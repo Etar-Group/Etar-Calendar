@@ -275,7 +275,7 @@
     <string name="cal_export_succ_msg">تم تصدير الحدث بنجاح: %1$s</string>
     <string name="changelog">التغييرات</string>
     <string name="authors">المطورون</string>
-    <string name="app_copyright">© 2015- &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt; %1$s &lt;/xliff:g&gt; مشروع إيتار. أجزاء © 2005- &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt; %1$s &lt;/xliff:g&gt; مشروع Android مفتوح المصدر.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> مشروع إيتار. أجزاء © 2005-<xliff:g>%1$s</xliff:g> مشروع Android مفتوح المصدر.</string>
     <string name="preferences_default_snooze_delay_title">وقت تأخير الغفوة الافتراضي</string>
     <string name="snooze_delay_dialog_title">ضبط مهلة الغفوة</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">استخدم دائمًا مهلة الغفوة الافتراضية</string>

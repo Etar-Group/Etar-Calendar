@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">Kada</string>
     <string name="today" msgid="8577375020252453006">"Danas"</string>
     <string name="tomorrow" msgid="614434811813859237">"Sutra"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">Danas u &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Sutra u &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Danas u <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Sutra u <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(bez naslova)"</string>
     <plurals name="Nminutes">
@@ -118,8 +118,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">Jučer, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Sutra, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Učitavanje …</string>
-    <string name="show_older_events" msgid="5140647493681439926">Dodirni za prikaz događaja prije &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"OLDEST_SEARCH_RANGE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">Dodirni za prikaz događaja nakon &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NEWEST_SEARCH_RANGE\"&gt;%1$s&lt;/xliff:g&gt;<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">Dodirni za prikaz događaja prije <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g><xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">Dodirni za prikaz događaja nakon <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g><xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Pretraži moje kalendare"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detalji"</string>
     <string name="edit_label" msgid="8934331258435656534">"Uredi"</string>
@@ -188,7 +188,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">Zanemari podsjetnike</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">Zanemari podsjetnike</string>
     <string name="copy_db" msgid="437691290566699292">Pošalji bazu podataka</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">Pretražuje se &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"domain\"&gt;%s&lt;/xliff:g&gt;…</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Pretražuje se <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Ukloni sudionika"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Datum početka"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Vrijeme početka"</string>
@@ -205,7 +205,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Moje stanje</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privatnost"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Novi događaj"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"ITEM_INDEX\"&gt;%1$s.&lt;/xliff:g&gt; od &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"ITEM_COUNT\"&gt;%2$s&lt;/xliff:g&gt; događaja.<xliff:g id="ITEM_INDEX">%1$s</xliff:g> od <xliff:g id="ITEM_COUNT">%2$s</xliff:g> događaja."</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110"><xliff:g id="ITEM_INDEX">%1$s.</xliff:g> od <xliff:g id="ITEM_COUNT">%2$s</xliff:g> događaja.<xliff:g id="ITEM_INDEX">%1$s</xliff:g> od <xliff:g id="ITEM_COUNT">%2$s</xliff:g> događaja."</string>
     <plurals name="Nevents">
         <item quantity="one">1 događaj</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> događaja</item>
@@ -213,8 +213,8 @@
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 događaj</item>
-        <item quantity="few">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; događaja</item>
-        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; događaja</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> događaja</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> događaja</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Odabrani događaj"</string>
     <plurals name="recurrence_interval_daily">
@@ -243,9 +243,9 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Ovoliko puta</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; događaj</item>
-        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; događaja</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; događaja</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> događaj</item>
+        <item quantity="few"><xliff:g id="event_count">%d</xliff:g> događaja</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> događaja</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">promijeni datum završetka</string>
     <string name="visibility_default">Standardno</string>

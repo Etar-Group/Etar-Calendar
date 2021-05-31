@@ -19,7 +19,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Morgen"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Vandaag om <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Morgen om <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"date\"&gt;%1$s&lt;/xliff:g&gt;, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%2$s&lt;/xliff:g&gt;</string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">(naamloos)</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1 minuut"</item>
@@ -109,11 +109,11 @@
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringen"</string>
     <string name="agenda_today" msgid="5965841338467422191">"vandaag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">Gisteren, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">Morgen, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Gisteren, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Morgen, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Bezig met laden…</string>
-    <string name="show_older_events" msgid="5140647493681439926">Druk om afspraken vóór &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"OLDEST_SEARCH_RANGE\"&gt;%1$s&lt;/xliff:g&gt; te bekijken</string>
-    <string name="show_newer_events" msgid="2604638815440163080">Druk om afspraken ná &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NEWEST_SEARCH_RANGE\"&gt;%1$s&lt;/xliff:g&gt; te bekijken</string>
+    <string name="show_older_events" msgid="5140647493681439926">Druk om afspraken vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> te bekijken</string>
+    <string name="show_newer_events" msgid="2604638815440163080">Druk om afspraken ná <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> te bekijken</string>
     <string name="search_title" msgid="8898015280250716254">Agenda\'s doorzoeken</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Bewerken"</string>
@@ -126,7 +126,7 @@
     <string name="endByDate" msgid="7654221304929538201">"; tot <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
         <item quantity="one">; eenmalig</item>
-        <item quantity="other">; &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"NUMBER\"&gt;%d&lt;/xliff:g&gt; keer</item>
+        <item quantity="other">; <xliff:g id="NUMBER">%d</xliff:g> keer</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one" msgid="5169052946627480942">"Dagelijks"</item>
@@ -146,7 +146,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Nieuwe afspraak"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Nieuwe afspraak"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">Afspraak verwijderen\?</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"EVENTTITLE\"&gt;%s&lt;/xliff:g&gt; verwijderen\?</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206"><xliff:g id="EVENTTITLE">%s</xliff:g> verwijderen\?</string>
     <string name="change_response_title" msgid="7704714776070974984">Reactie aanpassen</string>
     <string name="preferences_title" msgid="8045855493262131773">"Instellingen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">Agendaweergave-instelling</string>
@@ -178,7 +178,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Herinneringen overslaan"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Herinneringen overslaan"</string>
     <string name="copy_db" msgid="437691290566699292">Databank versturen</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">Bezig met zoeken naar&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DOMAIN\"&gt;%s&lt;/xliff:g&gt;…</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Bezig met zoeken naar<xliff:g id="DOMAIN">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">Gast verwijderen</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">Begindatum</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">Begintijd</string>
@@ -335,5 +335,5 @@
     <string name="preferences_list_add_offline_title">Offline-agenda toevoegen</string>
     <string name="preferences_list_add_offline">Offline-agenda toevoegen</string>
     <string name="preferences_list_general">Algemene instellingen</string>
-    <string name="app_copyright">© 2015-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; Het Etar-project. Delen van het © 2005-&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\"&gt;%1$s&lt;/xliff:g&gt; Het Android Open Source-project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Het Etar-project. Delen van het © 2005-<xliff:g>%1$s</xliff:g> Het Android Open Source-project.</string>
 </resources>

@@ -38,7 +38,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dies</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Setmana &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="one">Setmana <xliff:g id="COUNT">%d</xliff:g></item>
         <item quantity="other"></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualitza"</string>
@@ -109,9 +109,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escriu la teva…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organitz.:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Recordatoris"</string>
-    <string name="agenda_today" msgid="5965841338467422191">Avui, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">Ahir, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">Demà, &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"DATE\"&gt;%1$s&lt;/xliff:g&gt;</string>
+    <string name="agenda_today" msgid="5965841338467422191">Avui, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Ahir, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Demà, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"S\'està carregant…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Toca per mostrar esdeveniments anteriors a <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Toca per mostrar esdeveniments posteriors a <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

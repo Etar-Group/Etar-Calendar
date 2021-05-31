@@ -23,27 +23,27 @@
     <string name="no_title_label" msgid="302177118061368042">"(אין כותרת)"</string>
     <plurals name="Nminutes">
         <item quantity="one">דקה אחת</item>
-        <item quantity="two">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; דקות</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; דקות</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"COUNT\"&gt;%d&lt;/xliff:g&gt; דקות</item>
+        <item quantity="two"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
+        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">דקה אחת</item>
-        <item quantity="two">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; דקות</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; דקות</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; דקות</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> דקות</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> דקות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">שעה אחת</item>
         <item quantity="two">שעתיים</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; שעות</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; שעות</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> שעות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> שעות</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">יום אחד</item>
         <item quantity="two">יומיים</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ימים</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ימים</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> ימים</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ימים</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">שבוע <xliff:g id="count">%d</xliff:g></item>
@@ -144,15 +144,15 @@
     <plurals name="daily">
         <item quantity="one">יומי</item>
         <item quantity="two">כל יומיים</item>
-        <item quantity="many">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt; ימים</item>
-        <item quantity="other">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt; ימים</item>
+        <item quantity="many">כל <xliff:g id="number">%d</xliff:g> ימים</item>
+        <item quantity="other">כל <xliff:g id="number">%d</xliff:g> ימים</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"כל יום חול (ראשון-חמישי)"</string>
     <plurals name="weekly">
-        <item quantity="one">פעם בשבוע ב&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;</item>
-        <item quantity="two">כל שבועיים ב&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;</item>
-        <item quantity="many">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%1$d&lt;/xliff:g&gt; שבועות ב&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;</item>
-        <item quantity="other">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%1$d&lt;/xliff:g&gt; שבועות ב&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;%2$s&lt;/xliff:g&gt;</item>
+        <item quantity="one">פעם בשבוע ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="two">כל שבועיים ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="many">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"כל חודש"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
@@ -188,9 +188,9 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"גרסת Build"</string>
     <plurals name="month_more_events">
         <item quantity="one">‎+1</item>
-        <item quantity="two">‎+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="many">‎+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
-        <item quantity="other">‎+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"number\"&gt;%d&lt;/xliff:g&gt;</item>
+        <item quantity="two">‎+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="many">‎+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">‎+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"אין אירועים צפויים בלוח השנה"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"ניסיוני"</string>
@@ -217,40 +217,40 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
         <item quantity="one">אירוע אחד</item>
-        <item quantity="two">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> אירועים</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> אירועים</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> אירועים</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+אירוע אחד</item>
-        <item quantity="two">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
-        <item quantity="many">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
-        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
+        <item quantity="two">+<xliff:g id="count">%d</xliff:g> אירועים</item>
+        <item quantity="many">+<xliff:g id="count">%d</xliff:g> אירועים</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> אירועים</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"אירוע נבחר"</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">כל יום</item>
         <item quantity="two">כל יומיים</item>
-        <item quantity="many">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ימים</item>
-        <item quantity="other">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; ימים</item>
+        <item quantity="many">כל <xliff:g id="count">%d</xliff:g> ימים</item>
+        <item quantity="other">כל <xliff:g id="count">%d</xliff:g> ימים</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one">כל שבוע</item>
         <item quantity="two">כל שבועיים</item>
-        <item quantity="many">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; שבועות</item>
-        <item quantity="other">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; שבועות</item>
+        <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
+        <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">כל חודש</item>
         <item quantity="two">כל חודשיים</item>
-        <item quantity="many">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; חודשים</item>
-        <item quantity="other">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; חודשים</item>
+        <item quantity="many">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
+        <item quantity="other">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">כל שנה</item>
         <item quantity="two">כל שנתיים</item>
-        <item quantity="many">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; שנים</item>
-        <item quantity="other">כל &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xliff:g&gt; שנים</item>
+        <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שנים</item>
+        <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שנים</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"באותו יום בכל חודש"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"ללא תאריך סיום"</string>
@@ -259,9 +259,9 @@
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">עבור אירוע אחד</item>
-        <item quantity="two">עבור &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
-        <item quantity="many">עבור &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
-        <item quantity="other">עבור &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt;%d&lt;/xliff:g&gt; אירועים</item>
+        <item quantity="two">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
+        <item quantity="many">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
+        <item quantity="other">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">שינוי תאריך הסיום</string>
     <string name="visibility_default">בררת מחדל</string>
