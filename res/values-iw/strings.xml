@@ -36,8 +36,8 @@
     <plurals name="Nhours">
         <item quantity="one">שעה אחת</item>
         <item quantity="two">שעתיים</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> שעות</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> שעות</item>
+        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; שעות</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; שעות</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">יום אחד</item>
@@ -123,7 +123,7 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">אתמול, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">מחר, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">בטעינה…</string>
-    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="oldest_search_range">%1$s</xliff:g> יש לגעת כדי להציג אירועים לפני "</string>
+    <string name="show_older_events" msgid="5140647493681439926"><xliff:g id="oldest_search_range">%1$s</xliff:g> גע כדי להציג אירועים לפני</string>
     <string name="show_newer_events" msgid="2604638815440163080">יש לגעת כדי להציג אירועים אחרי <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">חיפוש בלוחות השנה שלי</string>
     <string name="edit_event_label" msgid="7413222956349977161">"פרטים"</string>
