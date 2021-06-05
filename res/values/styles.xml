@@ -38,6 +38,7 @@
 
     <style name="ThemeOverlay.CalendarAppTheme.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/titleTextColor</item>
+        <item name="android:textColor">?attr/light_dark</item>
     </style>
 
 
