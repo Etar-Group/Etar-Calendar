@@ -24,8 +24,12 @@
     </string>
     <string name="no_title_label" msgid="302177118061368042">"(بلا عنوان)"</string>
     <plurals name="Nminutes">
-        <item msgid="4871052965772159239" quantity="one">"دقيقة واحدة"</item>
-        <item msgid="5644461630927544936" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> دقيقة"</item>
+        <item quantity="zero">دقيقة واحدة</item>
+        <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتين</item>
+        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; دقائق</item>
+        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; دقائق</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; دقائق</item>
     </plurals>
     <plurals name="Nmins">
         <item msgid="9191090668359663663" quantity="one">"دقيقة واحدة"</item>
