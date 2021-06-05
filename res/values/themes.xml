@@ -47,10 +47,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="light_dark">@android:color/white</item>
         <item name="android:windowBackground">@color/bg_dark</item>
-        <item name="android:textColorPrimary">@color/fg_dark_primary</item>
-        <item name="android:textColor">@color/fg_dark_primary</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="android:textColorSecondary">@color/fg_dark_secondary</item>
         <item name="settings_titleText">?android:attr/textAppearanceLarge</item>
         <item name="month_header_bgcolor">@color/month_bgcolor_dark</item>
         <item name="agenda_general_bgcolor">@color/agenda_general_background_color_dark</item>
@@ -91,10 +88,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="light_dark">@android:color/white</item>
         <item name="android:windowBackground">@color/bg_black</item>
-        <item name="android:textColorPrimary">@color/fg_black_primary</item>
-        <item name="android:textColor">@color/fg_black_primary</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="android:textColorSecondary">@color/fg_black_secondary</item>
         <item name="settings_titleText">?android:attr/textAppearanceLarge</item>
         <item name="month_header_bgcolor">@color/month_bgcolor_black</item>
         <item name="agenda_general_bgcolor">@color/agenda_general_background_color_black</item>
