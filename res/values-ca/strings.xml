@@ -38,8 +38,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dies</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Setmana <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="other"></item>
+        <item quantity="one">Setmana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Setmanes <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualitza"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostra el dia"</string>
@@ -109,7 +109,7 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escriu la teva…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organitz.:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Recordatoris"</string>
-    <string name="agenda_today" msgid="5965841338467422191">Avui, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_today" msgid="5965841338467422191">Avui, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_yesterday" msgid="4170964206728599693">Ahir, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Demà, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"S\'està carregant…"</string>
