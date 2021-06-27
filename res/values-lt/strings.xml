@@ -19,9 +19,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Rytoj"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Šiandien <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Rytoj <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Nėra pavadinimo)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1 min."</item>
@@ -40,7 +38,9 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> d."</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g> savaitė"</item>
+        <item quantity="one"><xliff:g id="COUNT">%d</xliff:g> savaitė</item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atnaujinti"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Rodyti dieną"</string>
@@ -110,9 +110,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Sukurkite patys…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Tvarkytuvė:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Priminimai"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"šiandien, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"vakar, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"rytoj, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Šiandien, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Vakar, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Rytoj, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Įkeliama…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Jei norite peržiūrėti įvykius iki <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>, palieskite"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Jei norite peržiūrėti įvykius po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>, palieskite"</string>
@@ -237,4 +237,105 @@
     <string name="visibility_private">Privatus</string>
     <string name="visibility_public">Viešas</string>
     <string name="share_label">Dalintis</string>
+    <string name="foreground_notification_channel_description">Pranešimai yra reikalingi vidiniam įspėjimų sinchronizavimui.</string>
+    <string name="offline_account_name">Kalendorius neprisijungus</string>
+    <string name="preferences_menu_about">Apie Etar</string>
+    <string name="preferences_list_add_offline_cancel">Atšaukti</string>
+    <string name="preferences_list_add_offline_name">Vardas</string>
+    <string name="preferences_list_add_offline_button">Pridėti kalendorių</string>
+    <string name="preferences_list_add_offline_error_empty">Įrašykite kalendoriaus pavadinimą!</string>
+    <string name="preferences_list_add_offline_title">Pridėti vietinį kalendorių</string>
+    <string name="preferences_list_add_offline">Pridėti vietinį kalendorių</string>
+    <string name="preferences_list_add_remote_etesync">Pridėti EteSync kalendorių</string>
+    <string name="preferences_list_add_remote">Pridėti CalDAV kalendorių</string>
+    <string name="preferences_list_general">Bendrieji nustatymai</string>
+    <string name="preferences_list_calendar_summary_invisible">Įvykiai nėra rodomi</string>
+    <string name="preferences_list_calendar_summary_sync_off">Nesinchronizuotas</string>
+    <string name="preferences_calendar_delete_cancel">Atšaukti</string>
+    <string name="preferences_calendar_delete_delete">Ištrinti kalendorių</string>
+    <string name="preferences_calendar_color_warning_button">Aš suprantu</string>
+    <string name="preferences_calendar_color_warning_title">Įspėjimas</string>
+    <string name="preferences_calendar_synchronize">Sinchronizuoti šį kalendorių</string>
+    <string name="preferences_calendar_visible">Rodyti įvykius</string>
+    <string name="preferences_calendar_color">Spalva</string>
+    <string name="preferences_calendar_info_category">Kalendoriaus informacija</string>
+    <string name="preferences_calendar_display_name">Pakeisti vardą</string>
+    <string name="preferences_calendar_delete">Ištrinti kalendorių</string>
+    <string name="preferences_calendar_number_of_events">%1$d įvykiai</string>
+    <string name="preferences_calendar_configure_account">Konfigūruoti kalendorių %1$s</string>
+    <string name="preferences_calendar_account_local">Kalendorius neprisijungus</string>
+    <string name="preferences_calendar_account">%1$s paskyra</string>
+    <string name="preferences_calendar_no_display_name">Kalendorius be pavadinimo</string>
+    <string name="show_time_start_end">Pradžios ir pabaigos laikas</string>
+    <string name="show_time_start">Tik pradžios laikas</string>
+    <string name="show_time_no">Nerodyti laiko</string>
+    <string name="cal_pick_ics">Pasirinkite failą, kurį norite importuoti</string>
+    <string name="cal_import_error_date_msg">Nepavyksta suprasti nurodytos datos: %s</string>
+    <string name="cal_import_error_time_zone_msg">Nepavyksta suprasti nurodytos laiko juostos: %s</string>
+    <string name="cal_import_error_msg">Nepavyko importuoti į kalendorių</string>
+    <string name="cal_nothing_to_import">Nėra ką importuoti</string>
+    <string name="cal_import_menu_title">Importuoti įvykį</string>
+    <string name="cal_export_succ_msg">Įvykis sėkmingai eksportuotas: %1$s</string>
+    <string name="cal_export_event_sdcard_title">Eksportuoti į SD kortelę</string>
+    <string name="cal_share_intent_title">Siųsti įvykį:</string>
+    <string name="error_generating_ics">Dalijantis įvykiu iškilo problemų</string>
+    <string name="two_hours">2 valandos</string>
+    <string name="one_and_a_half_hours">1.5 valandos</string>
+    <string name="one_hour">1 valanda</string>
+    <string name="thirty_minutes">30 minučių</string>
+    <string name="show_time_start_end_below">Pradžios ir pabaigos laikas žemiau įvykio</string>
+    <string name="preferences_calendar_delete_message">Ar tikrai norite ištrinti šį kalendorių\?</string>
+    <string name="preferences_list_add_offline_message">Vietiniai kalendoriai NĖRA sinchronizuojami su debesų paslauga ir yra pasiekiami tik jūsų telefone.</string>
+    <string name="preferences_calendar_color_warning_message">Spalvos pakeitimas gali būti atšauktas, kai kalendorius vėl sinchronizuojamas.
+\n
+\nDAVx⁵ programoje „Tvarkyti kalendoriaus spalvas“ galima išjungti, kad to išvengtumėte.</string>
+    <string name="fifteen_minutes">15 minučių</string>
+    <string name="zero_minutes">0 minučių</string>
+    <string name="seven_days">7 dienos</string>
+    <string name="six_days">6 dienos</string>
+    <string name="five_days">5 dienos</string>
+    <string name="four_days">4 dienos</string>
+    <string name="three_days">3 dienos</string>
+    <string name="two_days">2 dienos</string>
+    <string name="visibility_confidential">Konfidencialu</string>
+    <string name="calendar_permission_not_granted">Reikalingi leidimai buvo atmesti. Įgalinkite juos „Nustatymų“ programoje, kad galėtumėte redaguoti įvykius</string>
+    <string name="user_rejected_calendar_write_permission">Kad „Etar“ veiktų tinkamai, reikia kalendoriaus skaitymo ir rašymo leidimų. Pabandykite dar kartą.</string>
+    <string name="source_code">Kodas</string>
+    <string name="preferences_issues">Pranešti apie problemas</string>
+    <string name="license">Licencija</string>
+    <string name="changelog">Pasikeitimai</string>
+    <string name="authors">Autoriai</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Prašyti priminimo snaudimo atidėjimo</string>
+    <string name="preferences_default_snooze_delay_dialog">Numatytasis snaudimo atidėjimas</string>
+    <string name="preferences_default_snooze_delay_title">Numatytasis snaudimo atidėjimo laikas</string>
+    <string name="snooze_delay_dialog_title">Nustatyti snaudimo atidėjimą</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Visada naudoti numatytąjį snaudimo atidėjimą</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Prašyti priminimo atidėjimo kai snaudžia priminimai</string>
+    <string name="preferences_default_event_duration_title">Numatytoji įvykio trukmė</string>
+    <string name="preferences_days_per_week_dialog">Dienos per savaitę</string>
+    <string name="preferences_days_per_week_title">Dienos per savaitę</string>
+    <string name="default_start_last">Anksčiau naudotas vaizdas</string>
+    <string name="maximum_number_of_lines">Didžiausias eilučių skaičius įvykyje</string>
+    <string name="display_location">Rodyti vietą</string>
+    <string name="display_time">Rodymo laikas</string>
+    <string name="display_options">Rodymo parinktys</string>
+    <string name="default_start_title">Numatytasis vaizdas</string>
+    <string name="preferences_pure_black_night_mode">Visiška juoda - nakties režimas</string>
+    <string name="preferences_color_pick">Pagrindinė spalva</string>
+    <string name="preferences_color">Pagrindinė spalva</string>
+    <string name="preferences_black_theme">Juoda</string>
+    <string name="preferences_dark_theme">Tamsi</string>
+    <string name="preferences_light_theme">Šviesi</string>
+    <string name="preferences_system_theme">Sistemos numatyta</string>
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_month_view_landscape">Mėnesio rodinio išdėstymas (gulsčias)</string>
+    <string name="preferences_month_view_portrait">Mėnesio rodinio išdėstymas (portretas)</string>
+    <string name="no_map">Nėra įdiegta jokia žemėlapių programa</string>
+    <string name="foreground_notification_channel_name">Įspėjimo sinchronizavimas</string>
+    <string name="rsvp_tentative">Atsakė gal.</string>
+    <string name="rsvp_declined">Atsakė ne.</string>
+    <string name="rsvp_accepted">Atsakė taip.</string>
+    <string name="view_settings">Peržiūrėti nustatymus</string>
+    <string name="goto_date">Eiti į…</string>
 </resources>
