@@ -194,79 +194,66 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view1" />
 
-        <LinearLayout
-            android:id="@+id/start_date_layout"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/start_date"
+            style="@style/TextAppearance.EditEvent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/is_all_day">
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/accessibility_pick_start_date"
+            android:gravity="start|center_vertical"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/start_time"
+            app:layout_constraintTop_toBottomOf="@+id/is_all_day_label" />
 
-            <Button
-                android:id="@+id/start_date"
-                style="@style/TextAppearance.EditEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="start|center_vertical"
-                android:textAlignment="textStart"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/accessibility_pick_start_date"
-                app:layout_constraintTop_toBottomOf="@+id/is_all_day_label" />
-
-            <Button
-                android:id="@+id/start_time"
-                style="@style/TextAppearance.EditEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:gravity="end|center_vertical"
-                android:textAlignment="textEnd"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/accessibility_pick_start_time"
-                android:minWidth="48dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/end_date_layout"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/end_date"
+            style="@style/TextAppearance.EditEvent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="4dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/accessibility_pick_end_date"
+            android:gravity="start|center_vertical"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/end_time"
+            app:layout_constraintTop_toBottomOf="@+id/start_date" />
+
+        <Button
+            android:id="@+id/start_time"
+            style="@style/TextAppearance.EditEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_date_layout">
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/accessibility_pick_start_time"
+            android:gravity="end|center_vertical"
+            android:textAlignment="textEnd"
+            android:minWidth="48dp"
+            app:layout_constraintStart_toEndOf="@+id/start_date"
+            app:layout_constraintBottom_toBottomOf="@+id/start_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/start_date" />
 
-            <Button
-                android:id="@+id/end_date"
-                style="@style/TextAppearance.EditEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="start|center_vertical"
-                android:textAlignment="textStart"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/accessibility_pick_end_date"
-                app:layout_constraintTop_toBottomOf="@+id/start_date" />
-
-            <Button
-                android:id="@+id/end_time"
-                style="@style/TextAppearance.EditEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:gravity="end|center_vertical"
-                android:textAlignment="textEnd"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/accessibility_pick_end_time"
-                android:minWidth="48dp" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/end_time"
+            style="@style/TextAppearance.EditEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/accessibility_pick_end_time"
+            android:gravity="end|center_vertical"
+            android:textAlignment="textEnd"
+            android:minWidth="48dp"
+            app:layout_constraintStart_toEndOf="@+id/end_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/end_date"
+            app:layout_constraintTop_toBottomOf="@+id/start_time" />
 
         <!-- TIME ZONE - Read/write version with button to launch picker -->
         <ImageView
@@ -291,7 +278,7 @@
             android:gravity="start|center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timezone_icon"
-            app:layout_constraintTop_toBottomOf="@+id/end_date_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/end_date" />
 
         <View
             android:id="@+id/view7"
