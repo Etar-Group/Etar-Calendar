@@ -44,7 +44,7 @@
     <string name="calendar_refresh">Жаңарту</string>
     <plurals name="weekN">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> апта</item>
-        <item quantity="other"/>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> апта</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 күн</item>
@@ -154,4 +154,9 @@
         <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> апта сайын</item>
     </plurals>
     <string name="goto_date">Көшу…</string>
+    <string name="view_settings">Баптауларға өту</string>
+    <string name="show_controls">Бүйірлік тақтаны көрсету</string>
+    <string name="hide_controls">Бүйірлік тақтаны жасыру</string>
+    <string name="event_view">Оқиғаны қарау</string>
+    <string name="show_day_view">Күнді көрсету</string>
 </resources>
