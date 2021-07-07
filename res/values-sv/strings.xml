@@ -294,4 +294,5 @@
     <string name="maximum_number_of_lines">Max antal rader i händelse</string>
     <string name="foreground_notification_channel_name">Varningssynkronisering</string>
     <string name="foreground_notification_channel_description">Förgrundsmeddelande krävs för intern varningssynkronisering. Vänligen stäng av ljudet</string>
+    <string name="preferences_system_theme">Systemets standard</string>
 </resources>
