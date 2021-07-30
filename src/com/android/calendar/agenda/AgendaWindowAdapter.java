@@ -64,10 +64,8 @@ Bugs Bugs Bugs:
 - Track ball clicks at the header/footer doesn't work.
 - Potential ping pong effect if the prefetch window is big and data is limited
 - Add index in calendar provider
-
 ToDo ToDo ToDo:
 Get design of header and footer from designer
-
 Make scrolling smoother.
 Test for correctness
 Loading speed
@@ -75,7 +73,7 @@ Check for leaks and excessive allocations
  */
 
 public class AgendaWindowAdapter extends BaseAdapter
-    implements StickyHeaderListView.HeaderIndexer, StickyHeaderListView.HeaderHeightListener{
+        implements StickyHeaderListView.HeaderIndexer, StickyHeaderListView.HeaderHeightListener{
 
     public static final int INDEX_INSTANCE_ID = 0;
     public static final int INDEX_TITLE = 1;
@@ -214,7 +212,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     private AgendaAdapter.ViewHolder mSelectedVH = null;
 
     public AgendaWindowAdapter(Context context,
-            AgendaListView agendaListView, boolean showEventOnStart) {
+                               AgendaListView agendaListView, boolean showEventOnStart) {
         mContext = context;
         mResources = context.getResources();
         mSelectedItemBackgroundColor = mResources
@@ -333,7 +331,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             if (curPos >= 0) {
                 info.cursor.moveToPosition(curPos);
                 return info.cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID) << 20 +
-                    info.cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
+                        info.cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
             }
             // Day Header
             return info.dayAdapter.findJulianDayFromPosition(position);
@@ -481,7 +479,7 @@ public class AgendaWindowAdapter extends BaseAdapter
      * @return
      */
     public AgendaItem getAgendaItemByPosition(final int positionInListView,
-            boolean returnEventStartDay) {
+                                              boolean returnEventStartDay) {
         if (DEBUGLOG) Log.e(TAG, "getEventByPosition " + positionInListView);
         if (positionInListView < 0) {
             return null;
@@ -516,7 +514,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     }
 
     private AgendaItem buildAgendaItemFromCursor(final Cursor cursor, int cursorPosition,
-            boolean isDayHeader) {
+                                                 boolean isDayHeader) {
         if (cursorPosition <= -1) {
             cursor.moveToFirst();
         } else {
@@ -569,15 +567,15 @@ public class AgendaWindowAdapter extends BaseAdapter
             Log.d(TAG, "Sent (AgendaWindowAdapter): VIEW EVENT: " + new Date(startTime));
         }
         CalendarController.getInstance(mContext)
-        .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
-                item.id, startTime, endTime, 0,
-                0, CalendarController.EventInfo.buildViewExtraLong(
-                        Attendees.ATTENDEE_STATUS_NONE,
-                        item.allDay), selectedTime);
+                .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
+                        item.id, startTime, endTime, 0,
+                        0, CalendarController.EventInfo.buildViewExtraLong(
+                                Attendees.ATTENDEE_STATUS_NONE,
+                                item.allDay), selectedTime);
     }
 
     public void refresh(Time goToTime, long id, String searchQuery, boolean forced,
-            boolean refreshEventInfo) {
+                        boolean refreshEventInfo) {
         if (searchQuery != null) {
             mSearchQuery = searchQuery;
         }
@@ -749,7 +747,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     }
 
     private boolean queueQuery(int start, int end, Time goToTime,
-            String searchQuery, int queryType, long id) {
+                               String searchQuery, int queryType, long id) {
         QuerySpec queryData = new QuerySpec(queryType);
         queryData.goToTime = new Time(goToTime);    // Creates a new time reference per QuerySpec.
         queryData.start = start;
@@ -1077,10 +1075,15 @@ public class AgendaWindowAdapter extends BaseAdapter
             QuerySpec data = (QuerySpec)cookie;
 
             if (cursor == null) {
-              if (mAgendaListView != null && mAgendaListView.getContext() instanceof Activity) {
-                ((Activity) mAgendaListView.getContext()).finish();
-              }
-              return;
+                if (mAgendaListView != null && mAgendaListView.getContext() instanceof Activity) {
+                    if (Utils.isCalendarPermissionGranted(mContext)) {
+                        //If permission is granted then return.
+                        ((Activity) mAgendaListView.getContext()).finish();
+                    } else {
+                        mHeaderView.setText(R.string.calendar_permission_not_granted);
+                    }
+                }
+                return;
             }
 
             if (BASICLOG) {
@@ -1177,12 +1180,12 @@ public class AgendaWindowAdapter extends BaseAdapter
                             // know about the selected view and fill it in.
                             mSelectedVH = new AgendaAdapter.ViewHolder();
                             mSelectedVH.allDay =
-                                cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+                                    cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
                             tempCursor = cursor;
                         }
                     } else if (newPosition != -1) {
-                         tempCursor = getCursorByPosition(newPosition);
-                         tempCursorPosition = getCursorPositionByPosition(newPosition);
+                        tempCursor = getCursorByPosition(newPosition);
+                        tempCursorPosition = getCursorPositionByPosition(newPosition);
                     }
                     if (tempCursor != null) {
                         AgendaItem item = buildAgendaItemFromCursor(tempCursor, tempCursorPosition,

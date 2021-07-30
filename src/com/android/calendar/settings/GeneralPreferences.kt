@@ -312,14 +312,17 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         when (preference) {
             useHomeTzPref -> {
-                val useHomeTz = newValue as Boolean
-                val tz: String? = if (useHomeTz) {
-                    timeZoneId
-                } else {
-                    CalendarCache.TIMEZONE_TYPE_AUTO
+                if (Utils.isCalendarPermissionGranted(requireContext())) {
+                    //If permission is not granted then return.
+                    val useHomeTz = newValue as Boolean
+                    val tz: String? = if (useHomeTz) {
+                        timeZoneId
+                    } else {
+                        CalendarCache.TIMEZONE_TYPE_AUTO
+                    }
+                    Utils.setTimeZone(activity, tz)
+                    return true
                 }
-                Utils.setTimeZone(activity, tz)
-                return true
             }
             themePref -> {
                 themePref.value = newValue as String

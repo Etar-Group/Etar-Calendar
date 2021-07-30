@@ -29,14 +29,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Events;
 import android.provider.SearchRecentSuggestions;
-import androidx.appcompat.app.ActionBar;
-import androidx.core.view.MenuItemCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -55,11 +56,11 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     protected static final String BUNDLE_KEY_RESTORE_SEARCH_QUERY =
-        "key_restore_search_query";
+            "key_restore_search_query";
     private static final String TAG = SearchActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
     private static final int HANDLER_KEY = 0;
-   private static boolean mIsMultipane;
+    private static boolean mIsMultipane;
     // display event details to the side of the event list
     private boolean mShowEventDetailsWithAgenda;
     private CalendarController mController;
@@ -103,7 +104,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
 
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
         mShowEventDetailsWithAgenda =
-            Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
+                Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
 
         SimpleFrameLayoutMaterialBinding binding = SimpleFrameLayoutMaterialBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -119,7 +120,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
             }
         } else {
             if (getSupportActionBar() != null) {
-               getSupportActionBar().setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
+                getSupportActionBar().setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
             }
         }
 
@@ -320,9 +321,12 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         // Make sure the today icon is up to date
         invalidateOptionsMenu();
         mTimeChangesReceiver = Utils.setTimeChangesReceiver(this, mTimeChangesUpdater);
-        mContentResolver.registerContentObserver(Events.CONTENT_URI, true, mObserver);
-        // We call this in case the user changed the time zone
-        eventsChanged();
+
+        if (Utils.isCalendarPermissionGranted(getApplicationContext())) {
+            mContentResolver.registerContentObserver(Events.CONTENT_URI, true, mObserver);
+            // We call this in case the user changed the time zone
+            eventsChanged();
+        }
     }
 
     @Override
