@@ -313,7 +313,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         when (preference) {
             useHomeTzPref -> {
                 if (Utils.isCalendarPermissionGranted(requireContext())) {
-                    //If permission is not granted then return.
                     val useHomeTz = newValue as Boolean
                     val tz: String? = if (useHomeTz) {
                         timeZoneId

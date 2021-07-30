@@ -421,11 +421,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_CALENDAR: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay!
-                    if (mController.getViewType() == ViewType.MONTH) {
-                        initFragments(mController.getTime(), ViewType.MONTH, null);
-                    }
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.user_rejected_calendar_write_permission, Toast.LENGTH_LONG).show();
                 }

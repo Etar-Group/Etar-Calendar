@@ -347,7 +347,6 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             String where = updateWhere();
 
             if (!Utils.isCalendarPermissionGranted(mContext)) {
-                //If permission is not granted then return.
                 return null;
             }
             loader = new CursorLoader(
