@@ -43,6 +43,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.calendar.Utils;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.InputStream;
@@ -211,9 +212,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
             return null;
         }
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, true)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return null;

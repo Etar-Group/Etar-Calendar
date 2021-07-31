@@ -607,7 +607,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                                if (!Utils.isCalendarPermissionGranted(context, true)) {
                                     return;
                                 }
                                 initLoader(selection);

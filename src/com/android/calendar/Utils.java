@@ -2131,12 +2131,14 @@ public class Utils {
         }
     }
 
-    public static boolean isCalendarPermissionGranted(Context context) {
+    public static boolean isCalendarPermissionGranted(Context context, boolean showWarningToast) {
         if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else{
-            Toast.makeText(context, R.string.user_rejected_calendar_write_permission, Toast.LENGTH_SHORT).show();
+            if (showWarningToast) {
+                Toast.makeText(context, R.string.user_rejected_calendar_write_permission, Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
     }

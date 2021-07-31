@@ -47,7 +47,7 @@ abstract class ContentProviderLiveData<T>(
     }
 
     override fun onActive() {
-        if (Utils.isCalendarPermissionGranted(context)) {
+        if (Utils.isCalendarPermissionGranted(context, true)) {
             context.contentResolver.registerContentObserver(uri, true, observer)
             getContentProviderValueAsync()
         }

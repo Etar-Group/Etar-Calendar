@@ -342,11 +342,11 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         synchronized (mUpdateLoader) {
             mFirstLoadedJulianDay =
                     Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff)
-                            - (mNumWeeks * 7 / 2);
+                    - (mNumWeeks * 7 / 2);
             mEventUri = updateUri();
             String where = updateWhere();
 
-            if (!Utils.isCalendarPermissionGranted(mContext)) {
+            if (!Utils.isCalendarPermissionGranted(mContext, true)) {
                 return null;
             }
             loader = new CursorLoader(
@@ -428,8 +428,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             boolean animate = true;
             if (mDaysPerWeek * mNumWeeks * 2 < Math.abs(
                     Time.getJulianDay(event.selectedTime.toMillis(true), event.selectedTime.gmtoff)
-                            - Time.getJulianDay(mFirstVisibleDay.toMillis(true), mFirstVisibleDay.gmtoff)
-                            - mDaysPerWeek * mNumWeeks / 2)) {
+                    - Time.getJulianDay(mFirstVisibleDay.toMillis(true), mFirstVisibleDay.gmtoff)
+                    - mDaysPerWeek * mNumWeeks / 2)) {
                 animate = false;
             }
             mDesiredDay.set(event.selectedTime);

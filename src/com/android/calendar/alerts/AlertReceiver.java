@@ -488,9 +488,7 @@ public class AlertReceiver extends BroadcastReceiver {
     }
 
     private static Cursor getAttendeesCursor(Context context, long eventId) {
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return null;

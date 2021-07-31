@@ -104,7 +104,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
 
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
         mShowEventDetailsWithAgenda =
-                Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
+            Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
 
         SimpleFrameLayoutMaterialBinding binding = SimpleFrameLayoutMaterialBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -120,7 +120,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
             }
         } else {
             if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
+               getSupportActionBar().setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
             }
         }
 
@@ -322,7 +322,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         invalidateOptionsMenu();
         mTimeChangesReceiver = Utils.setTimeChangesReceiver(this, mTimeChangesUpdater);
 
-        if (Utils.isCalendarPermissionGranted(getApplicationContext())) {
+        if (Utils.isCalendarPermissionGranted(getApplicationContext(), true)) {
             mContentResolver.registerContentObserver(Events.CONTENT_URI, true, mObserver);
             // We call this in case the user changed the time zone
             eventsChanged();

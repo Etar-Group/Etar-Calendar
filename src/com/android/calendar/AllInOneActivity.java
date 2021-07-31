@@ -401,11 +401,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 Manifest.permission.WRITE_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.READ_CALENDAR)
-                        != PackageManager.PERMISSION_GRANTED ||
+                Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED)) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)) {
 
             // No explanation needed, we can request the permission.
 
@@ -531,7 +531,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                         mIntentEventStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
-                                ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
+                            ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
                         mIntentAllDay = intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false);
                         timeMillis = mIntentEventStartMillis;
                     }
@@ -568,9 +568,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.registerFirstEventHandler(HANDLER_KEY, this);
         mOnSaveInstanceStateCalled = false;
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(this, true)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return;
@@ -623,9 +621,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mPaused = true;
         mHomeTime.removeCallbacks(mHomeTimeUpdater);
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(this, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
             return;
@@ -904,8 +900,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 }
             };
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,datePickerListener,t.year, t.month,t.monthDay);
-            datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
-            datePickerDialog.show();
+                    datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
+                    datePickerDialog.show();
 
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
@@ -933,7 +929,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             intent.putExtra(SettingsActivityKt.EXTRA_SHOW_FRAGMENT, ViewDetailsPreferences.class.getName());
             startActivity(intent);
         } else {
-            return mExtensions.handleItemSelected(item, this);
+                return mExtensions.handleItemSelected(item, this);
         }
 
         return true;
@@ -1210,7 +1206,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         if (mHomeTime != null
                 && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK
-                || mCurrentView == ViewType.AGENDA)
+                        || mCurrentView == ViewType.AGENDA)
                 && !TextUtils.equals(mTimeZone, Time.getCurrentTimezone())) {
             Time time = new Time(mTimeZone);
             time.setToNow();
@@ -1271,12 +1267,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     // hide minimonth and calendar frag
                     mShowSideViews = false;
                     if (!mHideControls) {
-                        final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
+                            final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
                                 "controlsOffset", 0, animationSize);
-                        slideAnimation.addListener(mSlideAnimationDoneListener);
-                        slideAnimation.setDuration(mCalendarControlsAnimationTime);
-                        ObjectAnimator.setFrameDelay(0);
-                        slideAnimation.start();
+                            slideAnimation.addListener(mSlideAnimationDoneListener);
+                            slideAnimation.setDuration(mCalendarControlsAnimationTime);
+                            ObjectAnimator.setFrameDelay(0);
+                            slideAnimation.start();
                     } else {
                         mMiniMonth.setVisibility(View.GONE);
                         mCalendarsList.setVisibility(View.GONE);
@@ -1290,7 +1286,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mMiniMonthContainer.setVisibility(View.VISIBLE);
                     if (!mHideControls &&
                             (mController.getPreviousViewType() == ViewType.MONTH ||
-                                    mController.getPreviousViewType() == ViewType.AGENDA)) {
+                             mController.getPreviousViewType() == ViewType.AGENDA)) {
                         final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
                                 "controlsOffset", animationSize, 0);
                         slideAnimation.setDuration(mCalendarControlsAnimationTime);
@@ -1325,7 +1321,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                             CalendarController.EXTRA_GOTO_TIME, null, null);
                 } else if (event.selectedTime != null) {
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
-                            event.selectedTime, event.id, ViewType.AGENDA);
+                        event.selectedTime, event.id, ViewType.AGENDA);
                 }
             } else {
                 // TODO Fix the temp hack below: && mCurrentView !=

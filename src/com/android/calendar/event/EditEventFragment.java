@@ -324,7 +324,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
         mView = new EditEventView(mActivity, view, mOnDone);
 
-        if (!Utils.isCalendarPermissionGranted(mActivity)) {
+        if (!Utils.isCalendarPermissionGranted(mActivity, true)) {
             //If permission is not granted
             ((TextView)view.findViewById(R.id.loading_message)).setText(R.string.calendar_permission_not_granted);
         } else {
