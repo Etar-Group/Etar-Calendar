@@ -569,9 +569,9 @@ public class AgendaWindowAdapter extends BaseAdapter
         CalendarController.getInstance(mContext)
         .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
                 item.id, startTime, endTime, 0,
-                0, CalendarController.EventInfo.buildViewExtraLong(
-                            Attendees.ATTENDEE_STATUS_NONE,
-                            item.allDay), selectedTime);
+               0, CalendarController.EventInfo.buildViewExtraLong(
+                           Attendees.ATTENDEE_STATUS_NONE,
+                           item.allDay), selectedTime);
     }
 
     public void refresh(Time goToTime, long id, String searchQuery, boolean forced,

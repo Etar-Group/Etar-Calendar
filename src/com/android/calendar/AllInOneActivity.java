@@ -423,7 +423,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
                     // permission was granted, yay!
+
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.user_rejected_calendar_write_permission, Toast.LENGTH_LONG).show();
                 }
@@ -1268,7 +1270,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mShowSideViews = false;
                     if (!mHideControls) {
                             final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
-                                "controlsOffset", 0, animationSize);
+                                    "controlsOffset", 0, animationSize);
                             slideAnimation.addListener(mSlideAnimationDoneListener);
                             slideAnimation.setDuration(mCalendarControlsAnimationTime);
                             ObjectAnimator.setFrameDelay(0);

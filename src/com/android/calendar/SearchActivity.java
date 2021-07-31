@@ -56,7 +56,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     protected static final String BUNDLE_KEY_RESTORE_SEARCH_QUERY =
-            "key_restore_search_query";
+        "key_restore_search_query";
     private static final String TAG = SearchActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
     private static final int HANDLER_KEY = 0;
