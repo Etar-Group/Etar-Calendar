@@ -2136,7 +2136,7 @@ public class Utils {
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             return true;
-        } else{
+        } else {
             if (showWarningToast) {
                 Toast.makeText(context, R.string.user_rejected_calendar_write_permission, Toast.LENGTH_SHORT).show();
             }
