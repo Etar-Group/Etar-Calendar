@@ -2132,7 +2132,8 @@ public class Utils {
     }
 
     public static boolean isCalendarPermissionGranted(Context context, boolean showWarningToast) {
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+        if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else{
