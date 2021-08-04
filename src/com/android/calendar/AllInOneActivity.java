@@ -73,7 +73,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -82,7 +81,6 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.alerts.AlertService;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
-
 import java.io.File;
 import java.util.Calendar;
 import java.util.List;
@@ -556,9 +554,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.registerFirstEventHandler(HANDLER_KEY, this);
         mOnSaveInstanceStateCalled = false;
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(this, true)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return;
@@ -611,9 +607,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mPaused = true;
         mHomeTime.removeCallbacks(mHomeTimeUpdater);
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(this, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
             return;

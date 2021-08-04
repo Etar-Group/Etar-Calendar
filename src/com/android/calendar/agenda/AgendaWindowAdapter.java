@@ -64,10 +64,8 @@ Bugs Bugs Bugs:
 - Track ball clicks at the header/footer doesn't work.
 - Potential ping pong effect if the prefetch window is big and data is limited
 - Add index in calendar provider
-
 ToDo ToDo ToDo:
 Get design of header and footer from designer
-
 Make scrolling smoother.
 Test for correctness
 Loading speed
@@ -571,9 +569,9 @@ public class AgendaWindowAdapter extends BaseAdapter
         CalendarController.getInstance(mContext)
         .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
                 item.id, startTime, endTime, 0,
-                0, CalendarController.EventInfo.buildViewExtraLong(
-                        Attendees.ATTENDEE_STATUS_NONE,
-                        item.allDay), selectedTime);
+               0, CalendarController.EventInfo.buildViewExtraLong(
+                           Attendees.ATTENDEE_STATUS_NONE,
+                           item.allDay), selectedTime);
     }
 
     public void refresh(Time goToTime, long id, String searchQuery, boolean forced,
@@ -1077,10 +1075,14 @@ public class AgendaWindowAdapter extends BaseAdapter
             QuerySpec data = (QuerySpec)cookie;
 
             if (cursor == null) {
-              if (mAgendaListView != null && mAgendaListView.getContext() instanceof Activity) {
-                ((Activity) mAgendaListView.getContext()).finish();
-              }
-              return;
+                if (mAgendaListView != null && mAgendaListView.getContext() instanceof Activity) {
+                    if (Utils.isCalendarPermissionGranted(mContext, true)) {
+                        ((Activity) mAgendaListView.getContext()).finish();
+                    } else {
+                        mHeaderView.setText(R.string.calendar_permission_not_granted);
+                    }
+                }
+                return;
             }
 
             if (BASICLOG) {

@@ -137,9 +137,7 @@ public class AlarmScheduler {
         final long utcStartMin = localStartMin - localOffset;
         final long utcStartMax = utcStartMin + EVENT_LOOKAHEAD_WINDOW_MS;
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, true)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return null;
@@ -245,9 +243,7 @@ public class AlarmScheduler {
             // Query the reminders table for the events found.
             Cursor cursor = null;
             try {
-                if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                        Manifest.permission.READ_CALENDAR)
-                        != PackageManager.PERMISSION_GRANTED) {
+                if (!Utils.isCalendarPermissionGranted(context, false)) {
                     //If permission is not granted then just return.
                     Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
                     return;

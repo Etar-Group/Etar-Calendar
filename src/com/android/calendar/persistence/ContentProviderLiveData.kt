@@ -21,6 +21,7 @@ import android.content.Context
 import android.database.ContentObserver
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
+import com.android.calendar.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -46,8 +47,10 @@ abstract class ContentProviderLiveData<T>(
     }
 
     override fun onActive() {
-        context.contentResolver.registerContentObserver(uri, true, observer)
-        getContentProviderValueAsync()
+        if (Utils.isCalendarPermissionGranted(context, true)) {
+            context.contentResolver.registerContentObserver(uri, true, observer)
+            getContentProviderValueAsync()
+        }
     }
 
     override fun onInactive() {

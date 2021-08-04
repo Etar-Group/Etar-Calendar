@@ -346,6 +346,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             mEventUri = updateUri();
             String where = updateWhere();
 
+            if (!Utils.isCalendarPermissionGranted(mContext, true)) {
+                return null;
+            }
             loader = new CursorLoader(
                     getActivity(), mEventUri, Event.EVENT_PROJECTION, where,
                     null /* WHERE_CALENDARS_SELECTED_ARGS */, INSTANCES_SORT_ORDER);
@@ -356,7 +359,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
         return loader;
     }
-    
+
     @Override
     public void doResumeUpdates() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);

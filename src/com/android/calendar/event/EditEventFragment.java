@@ -57,6 +57,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.calendar.AsyncQueryService;
@@ -323,11 +324,9 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
         mView = new EditEventView(mActivity, view, mOnDone);
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(mActivity,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(mActivity, true)) {
             //If permission is not granted
-            Toast.makeText(mActivity, R.string.calendar_permission_not_granted, Toast.LENGTH_LONG).show();
+            ((TextView)view.findViewById(R.id.loading_message)).setText(R.string.calendar_permission_not_granted);
         } else {
             startQuery();
         }
