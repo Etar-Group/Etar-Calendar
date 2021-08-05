@@ -309,7 +309,7 @@
     <color name="fg_dark_secondary">#99ffffff</color>
     <color name="app_bar_dark">@color/bg_dark</color>
 
-    <color name="grid_line_dark">#424242</color>
+    <color name="grid_line_dark">#FF6A6A6A</color>
 
     <color name="month_bgcolor_dark">@color/bg_dark</color>
     <color name="month_selected_week_bgcolor_dark">#FFDDDDDD</color>
