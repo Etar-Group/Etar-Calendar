@@ -22,24 +22,6 @@
     <item msgid="2658001219380695677">"SMS"</item>
     <item msgid="7926918288165444873">"Alarm"</item>
   </string-array>
-  <string-array name="reminder_minutes_labels">
-    <item msgid="2416970002377237011">"0 minut"</item>
-    <item msgid="6681865010714743948">"1 minuta"</item>
-    <item msgid="2327505114623595779">"5 minut"</item>
-    <item msgid="1657410063332547113">"10 minut"</item>
-    <item msgid="366087535181197780">"15 minut"</item>
-    <item msgid="6252612791145061929">"20 minut"</item>
-    <item msgid="7896694531989090700">"25 minut"</item>
-    <item msgid="8754510169374808607">"30 minut"</item>
-    <item msgid="3113380274218454394">"45 minut"</item>
-    <item msgid="8546646645868526283">"1 ura"</item>
-    <item msgid="6467845211024768872">"2 uri"</item>
-    <item msgid="8201677619511076575">"3 ure"</item>
-    <item msgid="7172504281650128893">"12 ur"</item>
-    <item msgid="9114286702181482496">"24 ur"</item>
-    <item msgid="3107009344872997366">"2 dni"</item>
-    <item msgid="6135563708172153696">"1 teden"</item>
-  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item msgid="7495163916242649023">"Brez"</item>
     <item msgid="5883344836499335043">"0 minut"</item>
@@ -58,6 +40,8 @@
     <item msgid="3172669681920709561">"24 ur"</item>
     <item msgid="5557836606782821910">"2 dneva"</item>
     <item msgid="8336577387266744930">"1 teden"</item>
+    <item>2 weeks</item>
+    <item>4 weeks</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"Privzete območne nastavitve"</item>
