@@ -321,4 +321,5 @@
     <string name="preferences_pure_black_night_mode">Mode malam hitam pekat</string>
     <string name="foreground_notification_channel_name">Sinkronisasi peringatan</string>
     <string name="foreground_notification_channel_description">Notifikasi latar depan dibutuhkan untuk sinkronisasi peringatan internal.</string>
+    <string name="no_reminder_label">Tak Satu Pun</string>
 </resources>

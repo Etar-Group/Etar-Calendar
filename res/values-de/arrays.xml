@@ -22,27 +22,6 @@
     <item msgid="2658001219380695677">"SMS"</item>
     <item msgid="7926918288165444873">"Wecker"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"Keine"</item>
-    <item msgid="5883344836499335043">"0 Minuten"</item>
-    <item msgid="4354350447805231188">"1 Minute"</item>
-    <item msgid="265674592625309858">"5 Minuten"</item>
-    <item msgid="8011089417728419666">"10 Minuten"</item>
-    <item msgid="6177098581805412986">"15 Minuten"</item>
-    <item msgid="356346660503078923">"20 Minuten"</item>
-    <item msgid="992592434377054063">"25 Minuten"</item>
-    <item msgid="9191353668596201944">"30 Minuten"</item>
-    <item msgid="1192985682962908244">"45 Minuten"</item>
-    <item msgid="1694315499429259938">"1 Stunde"</item>
-    <item msgid="8281019320591769635">"2 Stunden"</item>
-    <item msgid="2062931719019287773">"3 Stunden"</item>
-    <item msgid="4086495711621133006">"12 Stunden"</item>
-    <item msgid="3172669681920709561">"24 Stunden"</item>
-    <item msgid="5557836606782821910">"2 Tage"</item>
-    <item msgid="8336577387266744930">"1 Woche"</item>
-    <item>2 Wochen</item>
-    <item>4 Wochen</item>
-  </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"Gebietsschema - Standard"</item>
     <item msgid="134027225275475280">"Samstag"</item>

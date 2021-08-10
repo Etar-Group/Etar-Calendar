@@ -242,4 +242,5 @@
     <string name="snooze_delay_dialog_title">Ορισμός καθυστέρησης αναβολής</string>
     <string name="preferences_default_snooze_delay_title">Προεπιλεγμένος χρόνος καθυστέρησης αναβολής</string>
     <string name="preferences_default_snooze_delay_dialog">Προεπιλεγμένη καθυστέρηση αναβολής</string>
+    <string name="no_reminder_label">Κανένα</string>
 </resources>

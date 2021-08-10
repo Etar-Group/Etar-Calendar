@@ -236,4 +236,5 @@
     <string name="visibility_default">ነባሪ</string>
     <string name="visibility_private">የግል</string>
     <string name="visibility_public">ሕዝብ</string>
+    <string name="no_reminder_label">የለም</string>
 </resources>

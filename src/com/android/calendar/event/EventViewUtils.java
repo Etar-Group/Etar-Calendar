@@ -49,7 +49,14 @@ public class EventViewUtils {
         Resources resources = context.getResources();
         int value, resId;
 
-        if (minutes % 60 != 0 || minutes == 0) {
+        if (minutes < 0) {
+            value = 0;
+            resId = R.string.no_reminder_label;
+
+            String format = resources.getString(resId, value);
+            return String.format(format, value);
+
+        } else if (minutes % 60 != 0 || minutes == 0) {
             value = minutes;
             if (abbrev) {
                 resId = R.plurals.Nmins;

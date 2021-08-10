@@ -289,4 +289,5 @@
     <string name="maximum_number_of_lines">이벤트의 최대 라인 수</string>
     <string name="foreground_notification_channel_name">동기화 경고</string>
     <string name="foreground_notification_channel_description">Foreground 알림 내부 경계 태세를 동기화에 필요하다. 음소거 해달라</string>
+    <string name="no_reminder_label">없음</string>
 </resources>

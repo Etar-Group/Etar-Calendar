@@ -326,4 +326,5 @@
     <string name="view_settings">Xem cài đặt</string>
     <string name="goto_date">Đi đến…</string>
     <string name="share_label">Chia sẻ</string>
+    <string name="no_reminder_label">Không</string>
 </resources>

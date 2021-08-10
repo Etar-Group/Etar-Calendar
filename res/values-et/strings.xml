@@ -236,4 +236,5 @@
     <string name="visibility_default">Vaikeseade</string>
     <string name="visibility_private">Privaatne</string>
     <string name="visibility_public">Avalik</string>
+    <string name="no_reminder_label">Puudub</string>
 </resources>

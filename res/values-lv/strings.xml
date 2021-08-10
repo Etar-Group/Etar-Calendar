@@ -236,4 +236,5 @@
     <string name="visibility_default">Noklusējums</string>
     <string name="visibility_private">Privāts</string>
     <string name="visibility_public">Publisks</string>
+    <string name="no_reminder_label">Nav</string>
 </resources>

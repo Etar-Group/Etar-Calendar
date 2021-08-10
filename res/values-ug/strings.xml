@@ -242,4 +242,5 @@
     <string name="snooze_delay_dialog_title">ئەسكەرتىشنى ۋاقىتلىق توختىتىدىغان قايتىلىنىش ۋاقتىنى بەلگىلەش</string>
     <string name="preferences_default_snooze_delay_title">كۆڭۈلدىكى ئەسكەرتىشنى ۋاقىتلىق توختىتىش ۋاقتىنىڭ ئۇزۇنلۇقى</string>
     <string name="preferences_default_snooze_delay_dialog">كۆڭۈلدىكى ئەسكەرتىشنى ۋاقىتلىق توختىتىش ۋاقتى</string>
+    <string name="no_reminder_label">يوق</string>
 </resources>

@@ -237,4 +237,5 @@
     <string name="visibility_default">डिफ़ॉल्ट</string>
     <string name="visibility_private">निजी</string>
     <string name="visibility_public">सार्वजनिक</string>
+    <string name="no_reminder_label">कोई नहीं</string>
 </resources>

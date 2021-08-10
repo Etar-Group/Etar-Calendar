@@ -255,4 +255,5 @@
     <string name="display_options">Погледај детаље</string>
     <string name="display_time">Прикажи Време</string>
     <string name="display_location">Прикажи Локацију</string>
+    <string name="no_reminder_label">Ништа</string>
 </resources>

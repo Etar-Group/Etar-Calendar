@@ -22,27 +22,6 @@
     <item msgid="2658001219380695677">"رسائل SMS"</item>
     <item msgid="7926918288165444873">"المنبه"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"لا شيء"</item>
-    <item msgid="5883344836499335043">"0 دقائق"</item>
-    <item msgid="4354350447805231188">"دقيقة واحدة"</item>
-    <item msgid="265674592625309858">"5 دقائق"</item>
-    <item msgid="8011089417728419666">"10 دقائق"</item>
-    <item msgid="6177098581805412986">"15 دقيقة"</item>
-    <item msgid="356346660503078923">"20 دقيقة"</item>
-    <item msgid="992592434377054063">"25 دقيقة"</item>
-    <item msgid="9191353668596201944">"30 دقيقة"</item>
-    <item msgid="1192985682962908244">"45 دقيقة"</item>
-    <item msgid="1694315499429259938">"ساعة واحدة"</item>
-    <item msgid="8281019320591769635">"ساعتان"</item>
-    <item msgid="2062931719019287773">"3 ساعات"</item>
-    <item msgid="4086495711621133006">"12 ساعة"</item>
-    <item msgid="3172669681920709561">"24 ساعة"</item>
-    <item msgid="5557836606782821910">"يومان"</item>
-    <item msgid="8336577387266744930">"أسبوع واحد"</item>
-    <item>2 weeks</item>
-    <item>4 weeks</item>
-  </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"اللغة الافتراضية"</item>
     <item msgid="134027225275475280">"السبت"</item>
