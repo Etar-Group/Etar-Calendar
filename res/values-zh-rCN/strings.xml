@@ -334,4 +334,5 @@
     <string name="preferences_list_add_remote_etesync">添加 EteSync 日历</string>
     <string name="preferences_list_add_remote">添加 CalDAV日历</string>
     <string name="preferences_pure_black_night_mode">纯黑夜间模式</string>
+    <string name="no_reminder_label">无</string>
 </resources>

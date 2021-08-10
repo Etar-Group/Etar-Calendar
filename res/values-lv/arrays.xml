@@ -22,27 +22,6 @@
     <item msgid="2658001219380695677">"Īsziņa"</item>
     <item msgid="7926918288165444873">"Signāls"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"Nav"</item>
-    <item msgid="5883344836499335043">"0 minūšu"</item>
-    <item msgid="4354350447805231188">"1 minūte"</item>
-    <item msgid="265674592625309858">"5 minūtes"</item>
-    <item msgid="8011089417728419666">"10 minūtes"</item>
-    <item msgid="6177098581805412986">"15 minūtes"</item>
-    <item msgid="356346660503078923">"20 minūtes"</item>
-    <item msgid="992592434377054063">"25 minūtes"</item>
-    <item msgid="9191353668596201944">"30 minūtes"</item>
-    <item msgid="1192985682962908244">"45 minūtes"</item>
-    <item msgid="1694315499429259938">"1 stunda"</item>
-    <item msgid="8281019320591769635">"2 stundas"</item>
-    <item msgid="2062931719019287773">"3 stundas"</item>
-    <item msgid="4086495711621133006">"12 stundas"</item>
-    <item msgid="3172669681920709561">"24 stundas"</item>
-    <item msgid="5557836606782821910">"2 dienas"</item>
-    <item msgid="8336577387266744930">"1 nedēļa"</item>
-    <item>2 weeks</item>
-    <item>4 weeks</item>
-  </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"Lokalizācijas noklusējums"</item>
     <item msgid="134027225275475280">"Sestdiena"</item>

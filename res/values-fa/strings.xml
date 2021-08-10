@@ -236,4 +236,5 @@
     <string name="visibility_default">پیش‌فرض</string>
     <string name="visibility_private">خصوصی</string>
     <string name="visibility_public">عمومی</string>
+    <string name="no_reminder_label">هیچکدام</string>
 </resources>

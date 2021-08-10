@@ -236,4 +236,5 @@
     <string name="visibility_default">Prestabilit</string>
     <string name="visibility_private">Privat</string>
     <string name="visibility_public">Public</string>
+    <string name="no_reminder_label">Niciunul</string>
 </resources>

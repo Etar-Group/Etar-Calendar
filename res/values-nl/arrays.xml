@@ -22,27 +22,6 @@
     <item msgid="2658001219380695677">"Sms"</item>
     <item msgid="7926918288165444873">"Alarm"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"Geen"</item>
-    <item msgid="5883344836499335043">"0 minuten"</item>
-    <item msgid="4354350447805231188">"1 minuut"</item>
-    <item msgid="265674592625309858">"5 minuten"</item>
-    <item msgid="8011089417728419666">"10 minuten"</item>
-    <item msgid="6177098581805412986">"15 minuten"</item>
-    <item msgid="356346660503078923">"20 minuten"</item>
-    <item msgid="992592434377054063">"25 minuten"</item>
-    <item msgid="9191353668596201944">"30 minuten"</item>
-    <item msgid="1192985682962908244">"45 minuten"</item>
-    <item msgid="1694315499429259938">"1 uur"</item>
-    <item msgid="8281019320591769635">"2 uur"</item>
-    <item msgid="2062931719019287773">"3 uur"</item>
-    <item msgid="4086495711621133006">"12 uur"</item>
-    <item msgid="3172669681920709561">"24 uur"</item>
-    <item msgid="5557836606782821910">"2 dagen"</item>
-    <item msgid="8336577387266744930">"1 week"</item>
-    <item>2 weeks</item>
-    <item>4 weeks</item>
-  </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"Standaardlandinstelling"</item>
     <item msgid="134027225275475280">"Zaterdag"</item>

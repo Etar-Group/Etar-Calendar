@@ -22,27 +22,6 @@
     <item msgid="2658001219380695677">"پیامک"</item>
     <item msgid="7926918288165444873">"زنگ هشدار"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"هیچکدام"</item>
-    <item msgid="5883344836499335043">"0 دقیقه"</item>
-    <item msgid="4354350447805231188">"۱ دقیقه"</item>
-    <item msgid="265674592625309858">"۵ دقیقه"</item>
-    <item msgid="8011089417728419666">"۱۰ دقیقه"</item>
-    <item msgid="6177098581805412986">"۱۵ دقیقه"</item>
-    <item msgid="356346660503078923">"۲۰ دقیقه"</item>
-    <item msgid="992592434377054063">"۲۵ دقیقه"</item>
-    <item msgid="9191353668596201944">"۳۰ دقیقه"</item>
-    <item msgid="1192985682962908244">"۴۵ دقیقه"</item>
-    <item msgid="1694315499429259938">"۱ ساعت"</item>
-    <item msgid="8281019320591769635">"۲ ساعت"</item>
-    <item msgid="2062931719019287773">"۳ ساعت"</item>
-    <item msgid="4086495711621133006">"۱۲ ساعت"</item>
-    <item msgid="3172669681920709561">"۲۴ ساعت"</item>
-    <item msgid="5557836606782821910">"۲ روز"</item>
-    <item msgid="8336577387266744930">"۱ هفته"</item>
-    <item>2 weeks</item>
-    <item>4 weeks</item>
-  </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"پیش‌فرض محلی"</item>
     <item msgid="134027225275475280">"شنبه"</item>

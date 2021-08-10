@@ -289,4 +289,5 @@
     <string name="show_time_start_end">Čas začatia a ukončenia</string>
     <string name="show_time_start_end_below">Počiatočný a koncový čas pod udalosťou</string>
     <string name="maximum_number_of_lines">Maximálny počet riadkov v udalosti</string>
+    <string name="no_reminder_label">Žiadne</string>
 </resources>

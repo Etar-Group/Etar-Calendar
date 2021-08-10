@@ -236,4 +236,5 @@
     <string name="visibility_default">Default</string>
     <string name="visibility_private">Pribado</string>
     <string name="visibility_public">Pampubliko</string>
+    <string name="no_reminder_label">Wala</string>
 </resources>

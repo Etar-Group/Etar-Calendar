@@ -236,4 +236,5 @@
     <string name="visibility_default">Стандартно</string>
     <string name="visibility_private">Частно</string>
     <string name="visibility_public">Обществено</string>
+    <string name="no_reminder_label">Няма</string>
 </resources>

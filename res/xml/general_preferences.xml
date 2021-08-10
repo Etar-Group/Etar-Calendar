@@ -131,7 +131,6 @@
             app:key="preferences_default_reminder"
             app:defaultValue="@string/preferences_default_reminder_default"
             app:title="@string/preferences_default_reminder_title"
-            app:entries="@array/preferences_default_reminder_labels"
             app:entryValues="@array/preferences_default_reminder_values"
             app:dialogTitle="@string/preferences_default_reminder_dialog" />
 

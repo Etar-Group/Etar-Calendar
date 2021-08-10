@@ -236,4 +236,5 @@
     <string name="visibility_default">Privzeto</string>
     <string name="visibility_private">Zasebno</string>
     <string name="visibility_public">Javno</string>
+    <string name="no_reminder_label">Brez</string>
 </resources>

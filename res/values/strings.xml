@@ -40,6 +40,7 @@
     <string name="no_title_label">(No title)</string>
 
     <!-- Reminder format strings -->
+    <string name="no_reminder_label">None</string>
     <plurals name="Nminutes">
         <!-- This is the label for a 1-minute reminder. -->
         <item quantity="one">1 minute</item>

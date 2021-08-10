@@ -236,4 +236,5 @@
     <string name="visibility_default">เริ่มต้น</string>
     <string name="visibility_private">ส่วนบุคคล</string>
     <string name="visibility_public">สาธารณะ</string>
+    <string name="no_reminder_label">ไม่มี</string>
 </resources>

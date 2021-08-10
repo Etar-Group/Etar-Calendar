@@ -236,4 +236,5 @@
     <string name="visibility_default">Chaguo-msingi</string>
     <string name="visibility_private">Faragha</string>
     <string name="visibility_public">Umma</string>
+    <string name="no_reminder_label">Hamna</string>
 </resources>

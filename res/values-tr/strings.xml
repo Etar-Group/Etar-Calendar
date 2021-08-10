@@ -337,4 +337,5 @@
     <string name="preferences_list_add_remote_etesync">EteSync takvimi ekle</string>
     <string name="preferences_list_add_remote">CalDAV takvimi ekle</string>
     <string name="preferences_pure_black_night_mode">Saf siyah gece modu</string>
+    <string name="no_reminder_label">Yok</string>
 </resources>

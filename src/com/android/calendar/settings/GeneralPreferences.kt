@@ -136,6 +136,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         }
 
         buildSnoozeDelayEntries()
+        buildDefaultReminderPrefEntries()
         defaultEventDurationPref.summary = defaultEventDurationPref.entry
         themePref.summary = themePref.entry
         weekStartPref.summary = weekStartPref.entry
@@ -389,6 +390,19 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         }
 
         snoozeDelayPref.entries = entries
+    }
+
+    private fun buildDefaultReminderPrefEntries() {
+        val values = defaultReminderPref.entryValues
+        val count = values.size
+        val entries = arrayOfNulls<CharSequence>(count)
+
+        for (i in 0 until count) {
+            val value = Integer.parseInt(values[i].toString())
+            entries[i] = EventViewUtils.constructReminderLabel(requireActivity(), value, false)
+        }
+
+        defaultReminderPref.entries = entries
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {

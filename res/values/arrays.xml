@@ -85,32 +85,6 @@
         <item>40320</item> <!-- 4 weeks -->
     </integer-array>
 
-  <!-- Choices for the "Reminder minutes" spinner in the settings.
-         These must be kept in sync with the preferences_default_reminder_values array.
-         [CHAR LIMIT=12]
-    -->
-       <string-array name="preferences_default_reminder_labels">
-        <item>None</item>
-        <item>0 minutes</item>
-        <item>1 minute</item>
-        <item>5 minutes</item>
-        <item>10 minutes</item>
-        <item>15 minutes</item>
-        <item>20 minutes</item>
-        <item>25 minutes</item>
-        <item>30 minutes</item>
-        <item>45 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>3 hours</item>
-        <item>12 hours</item>
-        <item>24 hours</item>
-        <item>2 days</item>
-        <item>1 week</item>
-        <item>2 weeks</item>
-        <item>4 weeks</item>
-    </string-array>
-
     <string-array name="preferences_default_reminder_values" translatable="false">
         <item>"-1"</item>
         <item>"0"</item>

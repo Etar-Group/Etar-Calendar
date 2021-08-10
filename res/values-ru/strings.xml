@@ -353,4 +353,5 @@
     <string name="preferences_list_add_remote_etesync">Добавить календарь EteSync</string>
     <string name="preferences_list_add_remote">Добавить календарь CalDAV</string>
     <string name="preferences_pure_black_night_mode">Чёрный ночной режим</string>
+    <string name="no_reminder_label">Нет</string>
 </resources>

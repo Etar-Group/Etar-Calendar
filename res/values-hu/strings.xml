@@ -337,4 +337,5 @@
     <string name="no_map">Nincs térképalkalmazás telepítve</string>
     <string name="foreground_notification_channel_description">Előtérbeli értesítés szükséges a belső riasztásszinkronizálásához.</string>
     <string name="foreground_notification_channel_name">Riasztások szinkronizálása</string>
+    <string name="no_reminder_label">Semelyik</string>
 </resources>
