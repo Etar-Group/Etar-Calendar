@@ -338,4 +338,5 @@
     <string name="rsvp_accepted">Atsakė taip.</string>
     <string name="view_settings">Peržiūrėti nustatymus</string>
     <string name="goto_date">Eiti į…</string>
+    <string name="no_reminder_label">Nėra</string>
 </resources>

@@ -337,4 +337,5 @@
     <string name="two_days">2 dager</string>
     <string name="preferences_system_theme">Systemforvalg</string>
     <string name="preferences_pure_black_night_mode">Beksvart nattmodus</string>
+    <string name="no_reminder_label">Ingen</string>
 </resources>

@@ -330,4 +330,5 @@
     <string name="preferences_system_theme">Järjestelmän oletusasetus</string>
     <string name="foreground_notification_channel_description">Sisäisen hälytyksen synkronointiin tarvitaan tulosilmoitus.</string>
     <string name="foreground_notification_channel_name">Hälytyksen synkronointi</string>
+    <string name="no_reminder_label">Ei mitään</string>
 </resources>

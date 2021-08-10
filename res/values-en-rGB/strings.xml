@@ -337,4 +337,5 @@
     <string name="two_days">2 days</string>
     <string name="preferences_system_theme">System default</string>
     <string name="preferences_pure_black_night_mode">Pure black night mode</string>
+    <string name="no_reminder_label">None</string>
 </resources>

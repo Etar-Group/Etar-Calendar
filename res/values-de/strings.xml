@@ -341,4 +341,5 @@
     <string name="preferences_list_add_remote_etesync">Füge EteSync Kalender hinzu</string>
     <string name="preferences_list_add_remote">Füge CalDAV Kalender hinzu</string>
     <string name="preferences_pure_black_night_mode">Rein schwarzer Nachtmodus</string>
+    <string name="no_reminder_label">Keine</string>
 </resources>

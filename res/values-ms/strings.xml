@@ -236,4 +236,5 @@
     <string name="visibility_default">Lalai</string>
     <string name="visibility_private">Peribadi</string>
     <string name="visibility_public">Awam</string>
+    <string name="no_reminder_label">Tiada</string>
 </resources>

@@ -342,4 +342,5 @@
     <string name="foreground_notification_channel_name">تنبيه التزامن</string>
     <string name="rsvp_declined">تمت الإجابة بلا.</string>
     <string name="rsvp_tentative">تمت الإحابة بمحتمل.</string>
+    <string name="no_reminder_label">لا شيء</string>
 </resources>
