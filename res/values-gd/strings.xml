@@ -1,2 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="one_and_a_half_hours">Uair gu leth a thìde</string>
+    <string name="one_hour">Uair a thìde</string>
+    <string name="thirty_minutes">Leth-uair a thìde</string>
+    <string name="fifteen_minutes">Cairteal na h-uarach</string>
+    <string name="zero_minutes">0 mionaid</string>
+    <string name="visibility_public">Poblach</string>
+    <string name="visibility_private">Prìobhaideach</string>
+    <string name="visibility_confidential">Fo rùn</string>
+    <string name="visibility_default">Bun-roghainn</string>
+    <string name="user_rejected_calendar_write_permission">Feumaidh Etar cead leughadh is sgrìobhadh mìosachain ach an obraich e mar bu chòir. Feuch ris a-rithist.</string>
+    <string name="acessibility_recurrence_choose_end_date_description">atharraich an ceann-là crìochnachaidh</string>
+    <plurals name="recurrence_end_count">
+        <item quantity="one">Fad <xliff:g id="event_count">%d</xliff:g> tachartas</item>
+        <item quantity="two">Fad <xliff:g id="event_count">%d</xliff:g> thachartas</item>
+        <item quantity="few">Fad <xliff:g id="event_count">%d</xliff:g> tachartasan</item>
+        <item quantity="other">Fad <xliff:g id="event_count">%d</xliff:g> tachartas</item>
+    </plurals>
+    <string name="recurrence_end_count_label">Fad àireamh de thachartasan</string>
+    <string name="recurrence_end_date">Gu ruige <xliff:g id="date">%s</xliff:g></string>
+    <string name="recurrence_end_date_label">Gu ruige ceann-là</string>
+    <string name="recurrence_end_continously">Gu bràth</string>
+    <string name="recurrence_month_pattern_by_day">air an aon latha gach mìos</string>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Gach <xliff:g id="count">%d</xliff:g> bhliadhna</item>
+        <item quantity="two">Gach <xliff:g id="count">%d</xliff:g> bliadhna</item>
+        <item quantity="few">Gach <xliff:g id="count">%d</xliff:g> bliadhna</item>
+        <item quantity="other">Gach <xliff:g id="count">%d</xliff:g> bliadhna</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one">Gach <xliff:g id="count">%d</xliff:g> mhìos</item>
+        <item quantity="two">Gach <xliff:g id="count">%d</xliff:g> mìos</item>
+        <item quantity="few">Gach <xliff:g id="count">%d</xliff:g> mìos</item>
+        <item quantity="other">Gach <xliff:g id="count">%d</xliff:g> mìos</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one">Gach <xliff:g id="count">%d</xliff:g> seachdain</item>
+        <item quantity="two">Gach <xliff:g id="count">%d</xliff:g> seachdain</item>
+        <item quantity="few">Gach <xliff:g id="count">%d</xliff:g> seachdain</item>
+        <item quantity="other">Gach <xliff:g id="count">%d</xliff:g> seachdain</item>
+    </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Gach <xliff:g id="count">%d</xliff:g> latha</item>
+        <item quantity="two">Gach <xliff:g id="count">%d</xliff:g> latha</item>
+        <item quantity="few">Gach <xliff:g id="count">%d</xliff:g> latha</item>
+        <item quantity="other">Gach <xliff:g id="count">%d</xliff:g> latha</item>
+    </plurals>
+    <string name="acessibility_selected_marker_description">Chaidh an tachartas a thaghadh</string>
+    <plurals name="N_remaining_events">
+        <item quantity="one">+<xliff:g id="count">%d</xliff:g> tachartas</item>
+        <item quantity="two">+<xliff:g id="count">%d</xliff:g> thachartas</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> tachartasan</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> tachartas</item>
+    </plurals>
+    <plurals name="Nevents">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> tachartas</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> thachartas</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> tachartasan</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> tachartas</item>
+    </plurals>
+    <string name="template_announce_item_index">Tachartas <xliff:g id="item_index">%1$s</xliff:g> à <xliff:g id="item_count">%2$s</xliff:g>.</string>
+    <string name="day_view_new_event_hint">+ Tachartas ùr</string>
+    <string name="accessibility_reminder_privacy">Prìobhaideachd</string>
+    <string name="accessibility_reminder_showmeas">Seall mi mar</string>
+    <string name="accessibility_reminder_type">Seòrsa a’ chuimhneachain</string>
+    <string name="accessibility_reminder_time">Àm a’ chuimhneachain</string>
+    <string name="accessibility_all_day">Tachartas fad an latha</string>
+    <string name="accessibility_add_attendee">Cuir freastalaiche ris</string>
+    <string name="accessibility_remove_reminder">Thoir an cuimhneachan air falbh</string>
+    <string name="accessibility_add_reminder">Cuir cuimhneachan ris</string>
+    <string name="accessibility_pick_recurrence">Dèan an tachartas a-rithist</string>
+    <string name="accessibility_pick_end_time">Àm crìochnachaidh</string>
+    <string name="accessibility_pick_end_date">Ceann-là crìochnachaidh</string>
+    <string name="accessibility_pick_start_time">Àm tòiseachaidh</string>
+    <string name="accessibility_pick_start_date">Ceann-là tòiseachaidh</string>
+    <string name="accessibility_remove_attendee">Thoir am freastalaiche air falbh</string>
+    <string name="directory_searching_fmt">A’ lorg <xliff:g id="domain">%s</xliff:g>…</string>
+    <string name="copy_db">Cuir an stòr-dàta</string>
+    <string name="preferences_reminders_responded_dialog">Thoir leum thairis air cuimhneachain</string>
+    <string name="preferences_reminders_responded_label">Thoir leum thairis air cuimhneachain</string>
+    <string name="preferences_experimental_category">Deuchainneil</string>
+    <string name="gadget_no_events">Chan eil tachartas ri thighinn air a’ mhìosachan</string>
+    <plurals name="month_more_events">
+        <item quantity="one">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="two">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="few">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+    </plurals>
+    <string name="source_code">Bun-tùs</string>
+    <string name="preferences_issues">Dèan aithris air duilgheadasan</string>
+    <string name="preferences_build_version">Tionndadh na togail</string>
+    <string name="preferences_default_snooze_delay_dialog">Dàil bhunaiteach an dùsail</string>
+    <string name="preferences_default_snooze_delay_title">Faid bhunaiteach dàil an dùsail</string>
+    <string name="snooze_delay_dialog_title">Suidhich dàil dùsail</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Cleachd dàil dùsail bhunaiteach an-còmhnaidh</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Iarr dàil dùsail nuair a chuireas tu cuimhneachan ’na dhùsal</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Iarr dàil air cuimhneachan dùsail</string>
+    <string name="preferences_show_week_num_title">Seall àireamhan na seachdain</string>
+    <string name="preferences_home_tz_title">Roinn-tìde na dachaigh</string>
+    <string name="preferences_use_home_tz_descrip">Seallaidh seo na mìosachain agus amannan nan tachartasan aig roinn-tìde do dhachaigh nuair a bhios tu a’ siubhal</string>
+    <string name="preferences_use_home_tz_title">Cleachd roinn-tìde na dachaigh</string>
+    <string name="preferences_default_reminder_default">10</string>
+    <string name="preferences_default_reminder_dialog">Àm cuimhneachaidh bunaiteach</string>
+    <string name="preferences_default_reminder_title">Àm cuimhneachaidh bunaiteach</string>
+    <string name="preferences_alerts_popup_title">Brath priob-uinneige</string>
+    <string name="preferences_alerts_ringtone_title">Fuaim</string>
+    <string name="preferences_alerts_vibrateWhen_title">Crith</string>
+    <string name="preferences_alerts_title">Brathan</string>
+    <string name="search_history_cleared">Chaidh eachdraidh nan lorg fhalamhachadh.</string>
+    <string name="preferences_clear_search_history_summary">Thoir air falbh gach lorg a rinn thu roimhe</string>
+    <string name="preferences_clear_search_history_title">Falamhaich eachdraidh nan lorg</string>
+    <string name="preferences_default_event_duration_title">Fhaid bhunaiteach nan tachartasan</string>
+    <string name="preferences_days_per_week_dialog">Làithean gach seachdain</string>
+    <string name="preferences_days_per_week_title">Làithean gach seachdain</string>
+    <string name="preferences_week_start_day_dialog">Tòisichidh an t-seachdain</string>
+    <string name="preferences_week_start_day_title">Tòisichidh an t-seachdain</string>
+    <string name="default_start_last">Sealladh a chleachd thu roimhe</string>
+    <string name="maximum_number_of_lines">Àireamh as motha de loidhnichean ann an tachartas</string>
+    <string name="display_location">Seall d’ ionad</string>
+    <string name="display_time">Seall an t-àm</string>
+    <string name="display_options">Roghainnean taisbeanaidh</string>
+    <string name="default_start_title">An sealladh bunaiteach</string>
+    <string name="preferences_hide_declined_title">Falaich tachartasan a chaidh a dhiùltadh</string>
+    <string name="preferences_reminder_title">Brathan ⁊ cuimhneachain</string>
+    <string name="preferences_color_pick">Prìomh-dhath</string>
+    <string name="preferences_black_theme">Dubh</string>
+    <string name="preferences_dark_theme">Dorcha</string>
+    <string name="preferences_light_theme">Soilleir</string>
+    <string name="preferences_theme">Ùrlar</string>
+    <string name="preferences_month_view_landscape">Co-dhealbhachd a’ mhìosa (dreach-tìre)</string>
+    <string name="preferences_month_view_portrait">Co-dhealbhachd a’ mhìosa (portraid)</string>
+    <string name="preferences_general_title">Roghainnean sealladh a’ mhìosachain</string>
+    <string name="preferences_title">Roghainnean</string>
+    <string name="change_response_title">Atharraich an fhreagairt</string>
+    <string name="delete_recurring_event_title">A bheil thu airson <xliff:g id="eventtitle">%s</xliff:g> a sguabadh às\?</string>
+    <string name="delete_this_event_title">A bheil thu airson an tachartas seo a sguabadh às\?</string>
+    <string name="new_event_dialog_option">Tachartas ùr</string>
+    <string name="new_event_dialog_label">Tachartas ùr</string>
+    <string name="modify_all_following">Atharraich seo ’s gach tachartas ’na dhèidh</string>
+    <string name="modify_all">Atharraich gach tachartas san t-sreath</string>
+    <string name="modify_event">Na atharraich ach an tachartas seo</string>
+    <string name="custom" product="default">Gnàthaichte (cha ghabh a ghnàthachadh air fòn)</string>
+    <string name="yearly_plain">Bliadhnail</string>
+    <string name="monthly">Gach mìos</string>
+    <plurals name="weekly">
+        <item quantity="one">Gach <xliff:g id="number">%1$d</xliff:g> seachdain <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="two">Gach <xliff:g id="number">%1$d</xliff:g> seachdain <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="few">Gach <xliff:g id="number">%1$d</xliff:g> seachdain <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Gach <xliff:g id="number">%1$d</xliff:g> seachdain <xliff:g id="days_of_week">%2$s</xliff:g></item>
+    </plurals>
+    <string name="every_weekday">Gach là-obrach (DiL–Dih)</string>
+    <plurals name="daily">
+        <item quantity="one">Gach <xliff:g id="number">%d</xliff:g> latha</item>
+        <item quantity="two">Gach <xliff:g id="number">%d</xliff:g> latha</item>
+        <item quantity="few">Gach <xliff:g id="number">%d</xliff:g> latha</item>
+        <item quantity="other">Gach <xliff:g id="number">%d</xliff:g> latha</item>
+    </plurals>
+    <plurals name="endByCount">
+        <item quantity="one">; <xliff:g id="number">%d</xliff:g> turas</item>
+        <item quantity="two">; <xliff:g id="number">%d</xliff:g> thuras</item>
+        <item quantity="few">; <xliff:g id="number">%d</xliff:g> tursan</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> turas</item>
+    </plurals>
+    <string name="endByDate">; gu ruige <xliff:g id="date">%s</xliff:g></string>
+    <string name="does_not_repeat">Tachartas aon turais</string>
+    <string name="snooze_label">Dèan dùsal</string>
+    <string name="dismiss_all_label">Leig seachad na h-uile</string>
+    <string name="discard_label">Sguir dheth</string>
+    <string name="save_label">Deiseil</string>
+    <string name="delete_label">Sguab às</string>
+    <string name="edit_label">Deasaich</string>
+    <string name="edit_event_label">Mion-fhiosrachadh</string>
+    <string name="search_title">Lorg sna mìosachain agam</string>
+    <string name="show_newer_events">Suath ris a dh’fhaicinn tachartasan an dèidh <xliff:g id="newest_search_range">%1$s</xliff:g></string>
+    <string name="show_older_events">Suath ris a dh’fhaicinn tachartasan ron <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="loading">’Ga luchdadh…</string>
+    <string name="event_info_reminders_label">Cuimhneachain</string>
+    <string name="event_info_organizer">Eagraiche:</string>
+    <string name="quick_response_custom_msg">Sgrìobh teachdaireachd agad fhèin…</string>
+    <string name="quick_response_email_failed">Cha do lorg sinn prògram puist-d</string>
+    <string name="quick_response_dialog_title">Tagh grad-fhreagairt</string>
+    <string name="quick_response_settings_edit_title">Grad-fhreagairt</string>
+    <string name="quick_response_settings_summary">Deasaich na freagairtean bunaiteach nuair a chuireas tu post-d dha na h-aoighean</string>
+    <string name="quick_response_settings">Grad-fhreagairtean</string>
+    <string name="call_label">Cuir fòn</string>
+    <string name="no_map">Cha deach aplacaid mhapaichean a stàladh</string>
+    <string name="map_label">Mapa</string>
+    <string name="event_not_found">Cha deach an tachartas a lorg.</string>
+    <string name="email_picker_label">Cuir post-d le</string>
+    <string name="email_organizer_label">Cuir post-d gun eagraiche</string>
+    <string name="email_guests_label">Cuir post-d dha na h-aoighean</string>
+    <string name="response_no">Cha bhi</string>
+    <string name="response_maybe">Gun chinnt</string>
+    <string name="response_yes">Bidh</string>
+    <string name="view_event_response_label">Am bi thu an làthair\?</string>
+    <string name="calendar_square_color_picker_description">Roghnaichear nan dathan</string>
+    <string name="calendar_color_picker_dialog_title">Dath a’ mhìosachain</string>
+    <string name="event_color_set_to_default">Suidhich air dath bunaiteach a’ mhìosachain</string>
+    <string name="event_color_picker_dialog_title">Dath an tachartais</string>
+    <string name="choose_event_color_label">Tagh dath an tachartais</string>
+    <string name="view_event_organizer_label">Eagraiche:</string>
+    <string name="view_event_calendar_label">Mìosachan:</string>
+    <string name="add_account">Cuir cunntas ris</string>
+    <string name="no_calendars_found">Mus cuir thu tachartas ris, feumaidh tu cunntas mìosachain a chur ris an uidheam agad agus mìosachan a nochdadh. Suath ri “Cuir cunntas ris” a chur cunntas ris (ma tha thu dìreach air cunntas a chur ris, fuirich gus am bi an sioncronachadh deiseil is feuch ris a-rithist an uairsin). No suath ri “Sguir dheth” agus dèan cinnteach gu bheil mìosachan a nochdas ann.</string>
+    <string name="no_syncable_calendars">Chan eil mìosachan ann</string>
+    <string name="reminders_label">Cuir cuimhneachan ris</string>
+    <string name="privacy_label">Prìobhaideachd</string>
+    <string name="presence_label">Seall mi mar</string>
+    <string name="edit_event_calendar_label">Mìosachan</string>
+    <string name="edit_event_all_day_label">Fad an latha</string>
+    <string name="event_info_title_invite">Cuireadh coinneimh</string>
+    <string name="event_info_title">Seall an tachartas</string>
+    <string name="alert_title">Brathan a’ mhìosachain</string>
+    <string name="create_event_dialog_save">Sàbhail</string>
+    <string name="rsvp_declined">Chaidh a dhiùltadh.</string>
+    <string name="rsvp_tentative">Chaidh gabhail ris gun chinnt.</string>
+    <string name="rsvp_accepted">Chaidh gabhail ris.</string>
+    <string name="saving_event_with_guest">Thèid ùrachaidhean a chur.</string>
+    <string name="creating_event_with_guest">Thèid cuiridhean a chur.</string>
+    <string name="empty_event">Cha deach tachartas bàn a chruthachadh.</string>
+    <string name="saving_event">Chaidh an tachartas a shàbhaladh.</string>
+    <string name="creating_event">Chaidh an tachartas a chruthachadh.</string>
+    <string name="hint_description">Tuairisgeul</string>
+    <string name="hint_where">Ionad</string>
+    <string name="hint_what">Ainm an tachartais</string>
+    <string name="select_synced_calendars_button">Mìosachain a thèid a shioncronachadh</string>
+    <string name="view_settings">Roghainnean seallaidh</string>
+    <string name="show_controls">Seall na h-uidheaman-smachd</string>
+    <string name="hide_controls">Falaich na h-uidheaman-smachd</string>
+    <string name="search">Lorg</string>
+    <string name="menu_preferences">Roghainnean</string>
+    <string name="goto_date">Rach gu…</string>
+    <string name="goto_today">An-diugh</string>
+    <string name="share_label">Co-roinn</string>
+    <string name="event_delete">Sguab às an tachartas</string>
+    <string name="event_edit">Deasaich an tachartas</string>
+    <string name="event_create">Tachartas ùr</string>
+    <string name="event_view">Seall an tachartas</string>
+    <string name="month_view">Mìos</string>
+    <string name="week_view">Seachdain</string>
+    <string name="day_view">Latha</string>
+    <string name="agenda_view">Clàr-gnothaich</string>
+    <string name="show_day_view">Seall an latha</string>
+    <string name="calendar_refresh">Ath-nuadhaich</string>
+    <plurals name="Ndays">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> latha</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> latha</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> làithean</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> latha</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> uair a thìde</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> uair a thìde</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> uairean a thìde</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> uair a thìde</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> mhion</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> mhion</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> mion</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mion</item>
+    </plurals>
+    <string name="tomorrow">A-màireach</string>
+    <string name="today">An-diugh</string>
+    <string name="hint_attendees">Aoighean</string>
+    <string name="accessibility_pick_time_zone">Roinn-tìde</string>
+    <string name="when_label">Cuin</string>
+    <string name="app_label">Mìosachan</string>
+    <string name="offline_account_name">Mìosachan far loidhne</string>
+    <string name="preferences_list_add_offline_cancel">Sguir dheth</string>
+    <string name="preferences_list_add_offline_name">Ainm</string>
+    <string name="preferences_list_add_offline_button">Cuir mìosachan ris</string>
+    <string name="preferences_list_add_offline_message">CHA DÈID mìosachain far loidhne a shioncronachadh le seirbheis neòil agus chan fhaigh thu ach air an fhòn agad iad.</string>
+    <string name="preferences_list_add_offline_error_empty">Cuir a-steach ainm mìosachain!</string>
+    <string name="preferences_list_add_offline_title">Cuir mìosachan far loidhne ris</string>
+    <string name="preferences_list_add_offline">Cuir mìosachan far loidhne ris</string>
+    <string name="preferences_list_general">Roghainnean coitcheann</string>
+    <string name="preferences_list_calendar_summary_invisible">Chan eil tachartasan ’gan sealltainn</string>
+    <string name="preferences_list_calendar_summary_sync_off">Gun sioncronachadh</string>
+    <string name="preferences_calendar_delete_cancel">Sguir dheth</string>
+    <string name="preferences_calendar_delete_delete">Sguab às am mìosachan</string>
+    <string name="preferences_calendar_delete_message">An sguab thu às am mìosachan seo\?</string>
+    <string name="preferences_calendar_color_warning_button">Tha mi agaibh</string>
+    <string name="preferences_calendar_color_warning_message">Dh’fhaoidte gun dèid atharrachadh an datha a thilleadh nuair a thèid am mìosachan a shioncronachadh a-rithist.
+\n
+\nGabhaidh “Stiùirich dathan a’ mhìosachian” DAVx⁵ a chur à comas airson seo a sheachnadh.</string>
+    <string name="preferences_calendar_color_warning_title">Rabhadh</string>
+    <string name="preferences_calendar_synchronize">Sioncronaich am mìosachan seo</string>
+    <string name="preferences_calendar_visible">Seall na tachartasan</string>
+    <string name="preferences_calendar_color">Dath</string>
+    <string name="preferences_calendar_display_name">Atharraich an t-ainm</string>
+    <string name="preferences_calendar_delete">Sguab às am mìosachan</string>
+    <string name="preferences_calendar_account">Cunntas %1$s</string>
+    <string name="preferences_calendar_no_display_name">Mìosachan gun ainm</string>
+    <string name="preferences_calendar_info_category">Fiosrachadh mu aplacaid a’ mhìosachain</string>
+    <string name="authors">Ùghdaran</string>
+    <string name="show_time_start_end_below">Àm tòiseachaidh ’s crìochnachaidh fon tachartas</string>
+    <string name="show_time_start_end">Àm tòiseachaidh ’s crìochnachaidh</string>
+    <string name="show_time_start">Àm tòiseachaidh a-mhàin</string>
+    <string name="show_time_no">Na seall an t-àm</string>
+    <string name="cal_pick_ics">Tagh faidhle airson ion-phortadh</string>
+    <string name="cal_import_error_date_msg">Cha tuig sinn an ceann-latha a chaidh a thoirt seachad: %s</string>
+    <string name="cal_import_error_time_zone_msg">Cha tuig sinn an roinn-tìde a chaidh a thoirt seachad: %s</string>
+    <string name="cal_import_error_msg">Dh’fhàillig ion-phortadh a’ mhìosachain</string>
+    <string name="cal_nothing_to_import">Chan eil dad ri ion-phortadh</string>
+    <string name="cal_import_menu_title">Ion-phortaich tachartas</string>
+    <string name="cal_export_event_sdcard_title">Às-phortaich gu cairt SD</string>
+    <string name="cal_share_intent_title">Cuir an tachartas gu:</string>
+    <string name="error_generating_ics">Dh’èirich duilgheadas nuair a bha sinn a’ co-roinneadh an tachartais</string>
+    <string name="two_hours">2 uair a thìde</string>
+    <plurals name="Nminutes">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> mhionaid</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> mhionaid</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> mionaidean</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mionaid</item>
+    </plurals>
+    <string name="no_title_label">(Gun tiotal)</string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt">A-màireach aig <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="today_at_time_fmt">An-diugh aig <xliff:g id="time_interval">%s</xliff:g></string>
+</resources>
