@@ -357,4 +357,10 @@
     <string name="preferences_pure_black_night_mode">Чистий чорний нічний режим</string>
     <string name="preferences_system_theme">Системна</string>
     <string name="no_reminder_label">Немає</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 тиждень</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> тижня</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> тижнів</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> тижнів</item>
+    </plurals>
 </resources>
