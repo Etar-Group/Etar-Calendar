@@ -136,7 +136,7 @@
     <string name="every_weekday" msgid="5896574838353902978">Todos os dias úteis (seg-sex)</string>
     <plurals name="weekly">
         <item quantity="one">Semanalmente às <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="other">A cada <xliff:g id="number">%1$d</xliff:g> semanas ás <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">A cada <xliff:g id="number">%1$d</xliff:g> semanas às <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Mensalmente"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Anualmente"</string>
@@ -292,7 +292,7 @@
     <string name="foreground_notification_channel_description">Requer notificação em primeiro plano para mostrar o alerta de sincronização.</string>
     <string name="preferences_calendar_account">Conta %1$s</string>
     <string name="preferences_calendar_delete">Remover calendário</string>
-    <string name="preferences_calendar_display_name">Mudar nome</string>
+    <string name="preferences_calendar_display_name">Alterar nome</string>
     <string name="preferences_calendar_color">Cor</string>
     <string name="preferences_calendar_visible">Mostrar eventos</string>
     <string name="preferences_calendar_synchronize">Sincronizar este calendário</string>
@@ -306,13 +306,13 @@
     <string name="preferences_calendar_color_warning_button">Percebi</string>
     <string name="preferences_calendar_delete_delete">Remover calendário</string>
     <string name="preferences_calendar_delete_cancel">Cancelar</string>
-    <string name="preferences_menu_about">Acerca de Etar</string>
+    <string name="preferences_menu_about">Sobre o Etar</string>
     <string name="offline_account_name">Calendário local</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Autores</string>
     <string name="changelog">Alterações</string>
     <string name="license">Licença</string>
-    <string name="source_code">Código fonte</string>
+    <string name="source_code">Código-fonte</string>
     <string name="preferences_calendar_no_display_name">Calendário sem nome</string>
     <string name="cal_import_error_time_zone_msg">Incapaz de entender o fuso horário: %s</string>
     <string name="preferences_list_add_offline">Adicionar calendário local</string>
@@ -338,4 +338,8 @@
     <string name="preferences_list_add_remote">Adicionar calendário CalDAV</string>
     <string name="preferences_pure_black_night_mode">Modo escuro em preto puro</string>
     <string name="no_reminder_label">Nenhum</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 semana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
+    </plurals>
 </resources>
