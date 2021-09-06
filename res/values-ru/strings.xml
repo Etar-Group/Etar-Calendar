@@ -354,4 +354,10 @@
     <string name="preferences_list_add_remote">Добавить календарь CalDAV</string>
     <string name="preferences_pure_black_night_mode">Чёрный ночной режим</string>
     <string name="no_reminder_label">Нет</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 неделя</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> недели</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> недель</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> недель</item>
+    </plurals>
 </resources>
