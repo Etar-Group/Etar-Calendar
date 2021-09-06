@@ -294,10 +294,10 @@
     <string name="preferences_calendar_delete">Takvimi sil</string>
     <string name="preferences_calendar_display_name">İsmini değiştir</string>
     <string name="preferences_calendar_color">Renk</string>
-    <string name="preferences_calendar_visible">Olayları görüntüle</string>
+    <string name="preferences_calendar_visible">Etkinlikleri görüntüle</string>
     <string name="preferences_calendar_synchronize">Bu takvimi senkronize et</string>
     <string name="preferences_list_calendar_summary_sync_off">Senkronize değil</string>
-    <string name="preferences_list_calendar_summary_invisible">Olaylar gösterilmiyor</string>
+    <string name="preferences_list_calendar_summary_invisible">Etkinlikler gösterilmiyor</string>
     <string name="preferences_list_general">Genel ayarlar</string>
     <string name="preferences_list_add_offline">Çevrimdışı takvim ekle</string>
     <string name="preferences_list_add_offline_title">Çevrimdışı takvim ekle</string>
@@ -338,4 +338,8 @@
     <string name="preferences_list_add_remote">CalDAV takvimi ekle</string>
     <string name="preferences_pure_black_night_mode">Saf siyah gece modu</string>
     <string name="no_reminder_label">Yok</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 hafta</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hafta</item>
+    </plurals>
 </resources>
