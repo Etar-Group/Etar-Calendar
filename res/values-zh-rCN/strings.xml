@@ -335,4 +335,7 @@
     <string name="preferences_list_add_remote">添加 CalDAV日历</string>
     <string name="preferences_pure_black_night_mode">纯黑夜间模式</string>
     <string name="no_reminder_label">无</string>
+    <plurals name="Nweeks">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 周</item>
+    </plurals>
 </resources>
