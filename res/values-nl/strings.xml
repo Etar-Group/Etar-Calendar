@@ -337,4 +337,8 @@
     <string name="preferences_list_general">Algemene instellingen</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Het Etar-project. Delen van het © 2005-<xliff:g>%1$s</xliff:g> Het Android Open Source-project.</string>
     <string name="no_reminder_label">Geen</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 week</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; weken</item>
+    </plurals>
 </resources>
