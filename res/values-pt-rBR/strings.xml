@@ -75,17 +75,12 @@
     <string name="quick_response_custom_msg">Escreva sua resposta…</string>
     <string name="event_info_organizer">Organizador:</string>
     <string name="event_info_reminders_label">Lembretes</string>
-    <string name="agenda_today">hoje, <xliff:g id="DATE">%1$s</xliff:g>
-    </string>
-    <string name="agenda_yesterday">ontem, <xliff:g id="DATE">%1$s</xliff:g>
-    </string>
-    <string name="agenda_tomorrow">amanhã, <xliff:g id="DATE">%1$s</xliff:g>
-    </string>
+    <string name="agenda_today">Hoje, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday">Ontem, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow">Amanhã, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading">Carregando…</string>
-    <string name="show_older_events">Toque para ver os eventos antes de <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>
-    </string>
-    <string name="show_newer_events">Toque para ver os eventos depois de <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>
-    </string>
+    <string name="show_older_events">Toque para ver os eventos antes de <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events">Toque para ver os eventos depois de <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title">Pesquisar minhas agendas</string>
     <string name="edit_event_label">Detalhes</string>
     <string name="edit_label">Editar</string>
@@ -95,8 +90,7 @@
     <string name="dismiss_all_label">Encerrar tudo</string>
     <string name="snooze_label">Soneca</string>
     <string name="does_not_repeat">Evento único</string>
-    <string name="endByDate">; até <xliff:g id="DATE">%s</xliff:g>
-    </string>
+    <string name="endByDate">; até <xliff:g id="date">%s</xliff:g></string>
     <string name="every_weekday">Todos os dias da semana (de segunda a sexta)</string>
     <string name="monthly">Mensalmente</string>
     <string name="yearly_plain">Anualmente</string>
@@ -177,8 +171,7 @@
     <string name="recurrence_month_pattern_by_day">no mesmo dia de cada mês</string>
     <string name="recurrence_end_continously">Sempre</string>
     <string name="recurrence_end_date_label">Até uma data</string>
-    <string name="recurrence_end_date">Até <xliff:g id="DATE">%s</xliff:g>
-    </string>
+    <string name="recurrence_end_date">Até <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label">Vários eventos</string>
     <string name="acessibility_recurrence_choose_end_date_description">alterar data de término</string>
     <string name="visibility_default">Padrão</string>
@@ -195,17 +188,15 @@
     <string name="show_time_no">Não</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> minutos</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min.</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> min.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 hora<xliff:g id="count">%d</xliff:g> hora</item>
-        <item quantity="other">1 hora<xliff:g id="count">%d</xliff:g> horas</item>
+        <item quantity="one">1 hora</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 dia</item>
@@ -226,23 +217,19 @@
         <item quantity="other">Cada <xliff:g id="number">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="weekly">
-        <item quantity="one">Semanalmente às <xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
-        <item quantity="other">Cada <xliff:g id="number">%1$d</xliff:g> semanas, às <xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
+        <item quantity="one">Semanalmente às &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"days_of_week\"&gt;</item>
+        <item quantity="other">Cada <xliff:g id="number">%1$d</xliff:g> semanas, às <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="default_start_title">Vista padrão</string>
     <string name="default_start_last">Vista anterior usada</string>
     <string name="preferences_default_event_duration_title">Duração padrão dos eventos</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <plurals name="Nevents">
         <item quantity="one">1 evento</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> eventos</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> eventos</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 evento</item>
@@ -269,14 +256,14 @@
         <item quantity="other">Para <xliff:g id="event_count">%d</xliff:g> eventos</item>
     </plurals>
     <string name="user_rejected_calendar_write_permission">Etar necessita de permissões para ler e escrever no calendário para funcionar corretamente. Tente novamente.</string>
-    <string name="calendar_permission_not_granted">Esta funcionalidade não pode ser executada. Etar necessita de permissões para ler e escrever no calendário para funcionar corretamente</string>
+    <string name="calendar_permission_not_granted">As permissões necessárias foram negadas. Ative-as nas configurações para editar eventos</string>
     <string name="one_and_a_half_hours">1 hora e meia</string>
     <string name="cal_export_event_sdcard_title">Exportar para cartão SD</string>
-    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1s</string>
+    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1$s</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada a importar</string>
     <string name="cal_import_error_msg">Falha importando para o calendário</string>
-    <string name="cal_import_error_date_msg">Não foi possível processar a data indicada: %1</string>
+    <string name="cal_import_error_date_msg">Não foi possível processar a data indicada: %s</string>
     <string name="cal_pick_ics">Escolha o arquivo a importar</string>
     <string name="show_time_start">Apenas hora de início</string>
     <string name="show_time_start_end">Hora de início e de fim</string>
@@ -288,4 +275,52 @@
     <string name="preferences_system_theme">Padrão do sistema</string>
     <string name="foreground_notification_channel_description">Notificações em segundo plano necessárias para o alerta interno de sincronização.</string>
     <string name="foreground_notification_channel_name">Alerta de sincronização</string>
+    <string name="preferences_calendar_account_local">Calendário offline</string>
+    <string name="offline_account_name">Calendário offline</string>
+    <string name="preferences_menu_about">Sobre Etar</string>
+    <string name="preferences_list_add_offline_cancel">Cancelar</string>
+    <string name="preferences_list_add_offline_name">Nome</string>
+    <string name="preferences_list_add_offline_button">Adicionar calendário</string>
+    <string name="preferences_list_add_offline_message">Os calendários offline NÃO são sincronizados com um serviço em nuvem e estão disponíveis apenas no seu celular.</string>
+    <string name="preferences_list_add_offline_error_empty">Digite um nome de calendário!</string>
+    <string name="preferences_list_add_offline_title">Adicionar calendário offline</string>
+    <string name="preferences_list_add_offline">Adicionar calendário offline</string>
+    <string name="preferences_list_add_remote_etesync">Adicionar calendário EteSync</string>
+    <string name="preferences_list_add_remote">Adicionar calendário CalDAV</string>
+    <string name="preferences_list_general">Configurações gerais</string>
+    <string name="preferences_list_calendar_summary_invisible">Eventos não são exibidos</string>
+    <string name="preferences_list_calendar_summary_sync_off">Não sincronizado</string>
+    <string name="preferences_calendar_delete_cancel">Cancelar</string>
+    <string name="preferences_calendar_delete_delete">Excluir calendário</string>
+    <string name="preferences_calendar_delete_message">Tem certeza de que deseja excluir este calendário\?</string>
+    <string name="preferences_calendar_color_warning_button">Eu entendo</string>
+    <string name="preferences_calendar_color_warning_message">A alteração da cor pode ser revertida quando o calendário for sincronizado novamente.
+\n
+\nNo DAVx⁵, \'Gerenciar cores do calendário\' pode ser desativado para evitar isso.</string>
+    <string name="preferences_calendar_color_warning_title">Aviso</string>
+    <string name="preferences_calendar_synchronize">Sincronizar este calendário</string>
+    <string name="preferences_calendar_visible">Exibir eventos</string>
+    <string name="preferences_calendar_color">Cor</string>
+    <string name="preferences_calendar_info_category">Informação do calendário</string>
+    <string name="preferences_calendar_display_name">Mudar nome</string>
+    <string name="preferences_calendar_delete">Excluir calendário</string>
+    <string name="preferences_calendar_number_of_events">%1$d eventos</string>
+    <string name="preferences_calendar_configure_account">Configurar calendário em %1$s</string>
+    <string name="preferences_calendar_account">Conta %1$s</string>
+    <string name="preferences_calendar_no_display_name">Calendário sem nome</string>
+    <string name="cal_import_error_time_zone_msg">Não foi possível processar o fuso horário fornecido: %s</string>
+    <string name="seven_days">7 dias</string>
+    <string name="six_days">6 dias</string>
+    <string name="five_days">5 dias</string>
+    <string name="four_days">4 dias</string>
+    <string name="three_days">3 dias</string>
+    <string name="two_days">2 dias</string>
+    <string name="source_code">Código-fonte</string>
+    <string name="changelog">Registro de mudanças</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="no_reminder_label">Nenhum</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 semana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
+    </plurals>
 </resources>
