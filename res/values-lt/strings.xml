@@ -22,25 +22,29 @@
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Nėra pavadinimo)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 min."</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+        <item quantity="one">1 minutė</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> minutės</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minučių</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 min."</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+        <item quantity="one">1 min.</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> min.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 val."</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> val."</item>
+        <item quantity="one">1 val.</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> val.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> val.</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 d."</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> d."</item>
+        <item quantity="one">1 d.</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> d.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> d.</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one"><xliff:g id="COUNT">%d</xliff:g> savaitė</item>
-        <item quantity="few"/>
-        <item quantity="other"/>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> savaitė</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> savaitės</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> savaičių</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atnaujinti"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Rodyti dieną"</string>
@@ -127,17 +131,20 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Vienkartinis įvykis"</string>
     <string name="endByDate" msgid="7654221304929538201">", iki <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">", vieną kartą"</item>
-        <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g> k."</item>
+        <item quantity="one">, vieną kartą</item>
+        <item quantity="few">, <xliff:g id="number">%d</xliff:g> kartus</item>
+        <item quantity="other">, <xliff:g id="number">%d</xliff:g> kartų</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Kasdien"</item>
-        <item quantity="other" msgid="5455230727715859264">"Kas <xliff:g id="NUMBER">%d</xliff:g> d."</item>
+        <item quantity="one">Kasdien</item>
+        <item quantity="few">Kas <xliff:g id="number">%d</xliff:g> dienas</item>
+        <item quantity="other">Kas <xliff:g id="number">%d</xliff:g> dienų</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Savaitės dienomis (Pi–Pe)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Kas savaitę, <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Kas <xliff:g id="NUMBER">%1$d</xliff:g> sav., <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Kas savaitę, <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="few">Kas <xliff:g id="number">%1$d</xliff:g> savaites, <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Kas <xliff:g id="number">%1$d</xliff:g> savaičių, <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Kas mėnesį"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Kasmet"</string>
@@ -172,8 +179,9 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Rodyti savaitės numerį"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versija"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="few">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Nėra būsimų kalendoriaus įvykių"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimentinė versija"</string>
@@ -199,29 +207,35 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Naujas įvykis"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_INDEX">%1$s</xliff:g> įvyk. iš <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 įvyk."</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> įvyk."</item>
+        <item quantity="one">1 įvykis</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> įvykiai</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> įvykių</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"Dar 1 įvykis"</item>
-        <item quantity="other" msgid="3609243840882275136">"Dar <xliff:g id="COUNT">%d</xliff:g> įvykiai (-ių)"</item>
+        <item quantity="one">+1 įvykis</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> įvykiai</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> įvykių</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Pasirinktas įvykis"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Kas <xliff:g id="COUNT">%d</xliff:g> d."</item>
-        <item quantity="other" msgid="707566499994398250">"Kas <xliff:g id="COUNT">%d</xliff:g> d."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> dieną</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> dienas</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> dienų</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Kas <xliff:g id="COUNT">%d</xliff:g> sav."</item>
-        <item quantity="other" msgid="7094801039989237061">"Kas <xliff:g id="COUNT">%d</xliff:g> sav."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> savaitę</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> savaites</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> savaičių</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Kas <xliff:g id="COUNT">%d</xliff:g> mėn."</item>
-        <item quantity="other" msgid="5419723710346646523">"Kas <xliff:g id="COUNT">%d</xliff:g> mėn."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> mėnesį</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> mėnesius</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> mėnesių</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Kas <xliff:g id="COUNT">%d</xliff:g> m."</item>
-        <item quantity="other" msgid="5678653649746562060">"Kas <xliff:g id="COUNT">%d</xliff:g> m."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> metus</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> metus</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> metų</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">kiekvieno mėnesio tą pačią dieną</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Visada"</string>
@@ -229,8 +243,9 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Iki <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Vykstant keliems įvykiams"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"Vykstant <xliff:g id="EVENT_COUNT">%d</xliff:g> įvyk."</item>
-        <item quantity="other" msgid="8779598489398048259">"Vykstant <xliff:g id="EVENT_COUNT">%d</xliff:g> įvyk."</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> įvykiui</item>
+        <item quantity="few"><xliff:g id="event_count">%d</xliff:g> įvykiams</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> įvykių</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"keisti pabaigos datą"</string>
     <string name="visibility_default">Numatytasis</string>
@@ -339,4 +354,9 @@
     <string name="view_settings">Peržiūrėti nustatymus</string>
     <string name="goto_date">Eiti į…</string>
     <string name="no_reminder_label">Nėra</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 savaitė</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> savaitės</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> savaičių</item>
+    </plurals>
 </resources>
