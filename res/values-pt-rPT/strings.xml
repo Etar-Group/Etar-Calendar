@@ -299,7 +299,7 @@
     <string name="preferences_list_add_offline_title">Adicionar calendário local</string>
     <string name="preferences_list_add_offline">Adicionar calendário local</string>
     <string name="preferences_calendar_delete">Remover calendário</string>
-    <string name="preferences_menu_about">Acerca de Etar</string>
+    <string name="preferences_menu_about">Sobre o Etar</string>
     <string name="preferences_calendar_configure_account">Configurar calendário em %1$s</string>
     <string name="offline_account_name">Calendário local</string>
     <string name="preferences_calendar_synchronize">Sincronizar este calendário</string>
@@ -311,7 +311,7 @@
     <string name="preferences_list_general">Definições gerais</string>
     <string name="preferences_list_add_offline_name">Nome</string>
     <string name="preferences_list_add_offline_message">Os calendários locais não são sincronizados e apenas estão disponíveis no seu dispositivo.</string>
-    <string name="source_code">Código fonte</string>
+    <string name="source_code">Código-fonte</string>
     <string name="preferences_calendar_color_warning_button">Percebi</string>
     <string name="preferences_list_add_offline_button">Adicionar calendário</string>
     <string name="preferences_list_calendar_summary_sync_off">Não sincronizado</string>
@@ -328,7 +328,7 @@
     <string name="preferences_system_theme">Predefinições do sistema</string>
     <string name="preferences_calendar_delete_cancel">Cancelar</string>
     <string name="preferences_calendar_visible">Mostrar eventos</string>
-    <string name="preferences_calendar_display_name">Mudar nome</string>
+    <string name="preferences_calendar_display_name">Alterar nome</string>
     <string name="license">Licença</string>
     <string name="preferences_calendar_color">Cor</string>
     <string name="changelog">Alterações</string>
@@ -338,4 +338,8 @@
     <string name="preferences_list_add_remote">Adicionar calendário CalDAV</string>
     <string name="preferences_pure_black_night_mode">Modo escuro em preto puro</string>
     <string name="no_reminder_label">Nenhum</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 semana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
+    </plurals>
 </resources>
