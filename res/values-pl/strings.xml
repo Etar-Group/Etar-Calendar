@@ -366,4 +366,10 @@
     <string name="cal_import_error_time_zone_msg">Nie można zrozumieć podanej strefy czasowej: %s</string>
     <string name="preferences_list_add_offline_message">Kalendarze offline NIE SĄ synchronizowane z usługą w chmurze i są dostępne tylko w Twoim telefonie.</string>
     <string name="no_reminder_label">Brak</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 tydzień</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> tygodnie</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> tygodni</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> tygodni</item>
+    </plurals>
 </resources>
