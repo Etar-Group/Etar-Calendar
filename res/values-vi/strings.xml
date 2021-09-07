@@ -327,4 +327,7 @@
     <string name="goto_date">Đi đến…</string>
     <string name="share_label">Chia sẻ</string>
     <string name="no_reminder_label">Không</string>
+    <plurals name="Nweeks">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> tuần</item>
+    </plurals>
 </resources>
