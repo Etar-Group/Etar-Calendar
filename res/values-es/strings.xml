@@ -338,4 +338,8 @@
     <string name="preferences_list_add_remote">Añadir calendario CalDAV</string>
     <string name="preferences_pure_black_night_mode">Modo noche negro puro</string>
     <string name="no_reminder_label">Ninguno</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 semana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
+    </plurals>
 </resources>
