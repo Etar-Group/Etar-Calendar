@@ -64,7 +64,7 @@ import ws.xsoh.etar.R;
  */
 public class AlertService extends Service {
 
-    public static final String ALERT_CHANNEL_ID = "alert_channel_01";// The id of the channel.
+    public static final String ALERT_CHANNEL_ID = "alert_channel_01";
     public static final String FOREGROUND_CHANNEL_ID = "foreground_channel_01";
 
     // Hard limit to the number of notifications displayed.
@@ -925,7 +925,7 @@ public class AlertService extends Service {
 
                 createChannels(this);
                 Notification notification = new NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
-                        .setContentTitle("Event notifications")
+                        .setContentTitle(getString(R.string.foreground_notification_title))
                         .setSmallIcon(R.drawable.stat_notify_calendar)
                         .setShowWhen(false)
                         .build();
