@@ -209,8 +209,9 @@
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
     <skip/>
-    <string name="foreground_notification_channel_name">Alert sync</string>
-    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync.</string>
+    <string name="foreground_notification_title">Scheduling new reminders…</string>
+    <string name="foreground_notification_channel_name">Background tasks</string>
+    <string name="foreground_notification_channel_description">Notifications required for internal sync. You can safely hide this channel.</string>
 
     <!-- Event info/edit screen labels:-->
     <skip/>
