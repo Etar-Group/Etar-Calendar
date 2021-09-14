@@ -288,8 +288,8 @@
     <string name="show_time_start_end">Hora de início e de término</string>
     <string name="show_time_start_end_below">Hora de início e de término para além do evento</string>
     <string name="maximum_number_of_lines">Número máximo de linhas no evento</string>
-    <string name="foreground_notification_channel_name">Alerta de sincronização</string>
-    <string name="foreground_notification_channel_description">Requer notificação em primeiro plano para mostrar o alerta de sincronização.</string>
+    <string name="foreground_notification_channel_name">Tarefas em segundo plano</string>
+    <string name="foreground_notification_channel_description">Notificações necessárias para a sincronização interna. Pode ocultar este canal com segurança.</string>
     <string name="preferences_calendar_number_of_events">%1$d eventos</string>
     <string name="preferences_list_add_offline_error_empty">Introduza um nome!</string>
     <string name="preferences_calendar_delete_delete">Remover calendário</string>
@@ -342,4 +342,5 @@
         <item quantity="one">1 semana</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
+    <string name="foreground_notification_title">A agendar novos lembretes…</string>
 </resources>
