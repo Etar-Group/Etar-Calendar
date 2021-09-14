@@ -273,8 +273,8 @@
     <string name="maximum_number_of_lines">Número máximo de linhas em um evento</string>
     <string name="preferences_pure_black_night_mode">Modo escuro em preto puro</string>
     <string name="preferences_system_theme">Padrão do sistema</string>
-    <string name="foreground_notification_channel_description">Notificações em segundo plano necessárias para o alerta interno de sincronização.</string>
-    <string name="foreground_notification_channel_name">Alerta de sincronização</string>
+    <string name="foreground_notification_channel_description">Notificações necessárias para sincronização interna. Você pode ocultar este canal com segurança.</string>
+    <string name="foreground_notification_channel_name">Tarefas em segundo plano</string>
     <string name="preferences_calendar_account_local">Calendário offline</string>
     <string name="offline_account_name">Calendário offline</string>
     <string name="preferences_menu_about">Sobre Etar</string>
@@ -323,4 +323,5 @@
         <item quantity="one">1 semana</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
+    <string name="foreground_notification_title">Agendando novos lembretes…</string>
 </resources>
