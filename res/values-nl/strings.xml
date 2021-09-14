@@ -75,7 +75,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Voordat je een afspraak kunt toevoegen, moet je minimaal één agenda-account aan je apparaat toevoegen en de agenda zichtbaar maken. Druk op \'Account toevoegen\' om een account toe te voegen (als je net een account hebt toegevoegd, wacht dan tot het synchroniseren is voltooid en probeer het opnieuw), of druk op \'Annuleren\' en zorg er voor dat er minimaal één agenda zichtbaar is.</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Voordat je een afspraak kunt toevoegen, moet je minimaal één agenda-account aan je apparaat toevoegen en de agenda zichtbaar maken. Druk op ‘Account toevoegen’ om een account toe te voegen (als je net een account hebt toegevoegd, wacht dan tot het synchroniseren is voltooid en probeer het opnieuw), of druk op ‘Annuleren’ en zorg er voor dat er minimaal één agenda zichtbaar is.</string>
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
@@ -241,9 +241,9 @@
     <string name="preferences_default_snooze_delay_title">Standaard uitstelduur</string>
     <string name="preferences_default_snooze_delay_dialog">Standaard uitstelduur</string>
     <string name="goto_date">Ga naar…</string>
-    <string name="rsvp_accepted">Met \'ja\' beantwoord.</string>
-    <string name="rsvp_tentative">Met \'misschien\' beantwoord.</string>
-    <string name="rsvp_declined">Met \'nee\' beantwoord.</string>
+    <string name="rsvp_accepted">Met ‘ja’ beantwoord.</string>
+    <string name="rsvp_tentative">Met ‘misschien’ beantwoord.</string>
+    <string name="rsvp_declined">Met ‘nee’ beantwoord.</string>
     <string name="preferences_theme">Thema</string>
     <string name="preferences_light_theme">Licht</string>
     <string name="preferences_dark_theme">Donker</string>
@@ -287,8 +287,8 @@
     <string name="show_time_start_end">Begin- en eindtijd</string>
     <string name="show_time_start_end_below">Begin- en eindtijd onder de afspraak</string>
     <string name="maximum_number_of_lines">Max. aantal regels in afspraak</string>
-    <string name="foreground_notification_channel_name">Alarmsynchronisatie</string>
-    <string name="foreground_notification_channel_description">Voorgrondmelding is nodig voor interne alarmsynchronisatie.</string>
+    <string name="foreground_notification_channel_name">Achtergrondtaken</string>
+    <string name="foreground_notification_channel_description">Meldingen zijn nodig voor interne synchronisatie. Je kunt dit kanaal veilig verbergen.</string>
     <string name="preferences_calendar_account">%1$s-account</string>
     <string name="changelog">Wijzigingslog</string>
     <string name="offline_account_name">Offline-agenda</string>
@@ -303,7 +303,7 @@
     <string name="preferences_calendar_color_warning_button">Ik begrijp het</string>
     <string name="preferences_calendar_color_warning_message">Het veranderen van de kleur kan worden teruggedraaid als de agenda weer gesynchroniseerd wordt.
 \n
-\nIn DAVx⁵ kan \'Agendakleuren beheren\' worden uitgeschakeld om dit te voorkomen.</string>
+\nIn DAVx⁵ kan ‘Agendakleuren beheren’ worden uitgeschakeld om dit te voorkomen.</string>
     <string name="preferences_calendar_color_warning_title">Waarschuwing</string>
     <string name="preferences_calendar_synchronize">Agenda synchroniseren</string>
     <string name="preferences_calendar_visible">Afspraken bekijken</string>
@@ -341,4 +341,5 @@
         <item quantity="one">1 week</item>
         <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; weken</item>
     </plurals>
+    <string name="foreground_notification_title">Bezig met inplannen van nieuwe herinneringen…</string>
 </resources>
