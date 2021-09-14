@@ -307,8 +307,8 @@
     <string name="show_time_start_end">Час початку і завершення</string>
     <string name="show_time_start_end_below">Час початку і завершення нижче події</string>
     <string name="maximum_number_of_lines">Максимальна кількість рядків у події</string>
-    <string name="foreground_notification_channel_name">Синхронізація сповіщень</string>
-    <string name="foreground_notification_channel_description">Фонове сповіщення необхідне для внутрішньої синхронізації.</string>
+    <string name="foreground_notification_channel_name">Фонові завдання</string>
+    <string name="foreground_notification_channel_description">Сповіщення, необхідні для внутрішньої синхронізації. Ви можете безпечно сховати цей канал.</string>
     <string name="cal_import_error_time_zone_msg">Не вдалося розпізнати часову зону: %s</string>
     <string name="preferences_calendar_account">Обліковий запис %1$s</string>
     <string name="preferences_calendar_delete">Видалити календар</string>
@@ -363,4 +363,5 @@
         <item quantity="many"><xliff:g id="count">%d</xliff:g> тижнів</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> тижнів</item>
     </plurals>
+    <string name="foreground_notification_title">Планування нових нагадувань…</string>
 </resources>
