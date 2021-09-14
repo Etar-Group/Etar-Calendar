@@ -288,7 +288,7 @@
     <string name="show_time_start_end">Başlangıç ve bitiş saatleri</string>
     <string name="show_time_start_end_below">Etkinliğin altında başlangıç ve bitiş saatleri</string>
     <string name="maximum_number_of_lines">Etkinlikteki maksimum satır sayısı</string>
-    <string name="foreground_notification_channel_name">Uyarı eşitlemesi</string>
+    <string name="foreground_notification_channel_name">Arka plan görevleri</string>
     <string name="cal_import_error_time_zone_msg">Verilen saat dilimi anlaşılamıyor: %s</string>
     <string name="preferences_calendar_account">%1$s hesap</string>
     <string name="preferences_calendar_delete">Takvimi sil</string>
@@ -326,7 +326,7 @@
     <string name="preferences_calendar_configure_account">%1$s içinde takvimi yapılandır</string>
     <string name="preferences_calendar_account_local">Çevrim dışı takvim</string>
     <string name="preferences_calendar_no_display_name">Adsız takvim</string>
-    <string name="foreground_notification_channel_description">Dahili uyarı eşzamanlaması için ön planda bildirim gerekli.</string>
+    <string name="foreground_notification_channel_description">Dahili eşzamanlama için gereken bildirimler. Bu kanalı güvenle gizleyebilirsiniz.</string>
     <string name="seven_days">7 gün</string>
     <string name="six_days">6 gün</string>
     <string name="five_days">5 gün</string>
@@ -342,4 +342,5 @@
         <item quantity="one">1 hafta</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> hafta</item>
     </plurals>
+    <string name="foreground_notification_title">Yeni hatırlatıcılar planlanıyor…</string>
 </resources>
