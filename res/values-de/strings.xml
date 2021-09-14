@@ -292,8 +292,8 @@
     <string name="show_time_start_end">Start- und Endzeit</string>
     <string name="show_time_start_end_below">Start- und Endzeit unterhalb des Termins</string>
     <string name="maximum_number_of_lines">Maximale Zeilenanzahl pro Kalendereintrag</string>
-    <string name="foreground_notification_channel_name">Alarmsynchronisation</string>
-    <string name="foreground_notification_channel_description">Vordergrundbenachrichtigung für die interne Alarmsynchronisation erforderlich.</string>
+    <string name="foreground_notification_channel_name">Aufgaben im Hintergrund</string>
+    <string name="foreground_notification_channel_description">Benachrichtigungen sind für die interne Synchronisierung erforderlich. Du kannst diesen Kanal sicher ausblenden.</string>
     <string name="cal_import_error_time_zone_msg">Zeitzone konnte nicht erkannt werden: %s</string>
     <string name="preferences_calendar_account">%1$s Konto</string>
     <string name="preferences_calendar_delete">Kalender löschen</string>
@@ -342,4 +342,5 @@
     <string name="preferences_list_add_remote">Füge CalDAV Kalender hinzu</string>
     <string name="preferences_pure_black_night_mode">Rein schwarzer Nachtmodus</string>
     <string name="no_reminder_label">Keine</string>
+    <string name="foreground_notification_title">Neue Erinnerungen planen…</string>
 </resources>
