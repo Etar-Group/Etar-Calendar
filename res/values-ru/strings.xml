@@ -304,8 +304,8 @@
     <string name="show_time_start_end">Время начала и окончания</string>
     <string name="show_time_start_end_below">Время начала и окончания под событием</string>
     <string name="maximum_number_of_lines">Максимум строк для события</string>
-    <string name="foreground_notification_channel_name">Синхронизация оповещений</string>
-    <string name="foreground_notification_channel_description">Уведомление требуется для внутренней синхронизации оповещений.</string>
+    <string name="foreground_notification_channel_name">Фоновые задачи</string>
+    <string name="foreground_notification_channel_description">Уведомления нужны для внутренней синхронизации. Вы можете спокойно скрыть этот канал.</string>
     <string name="cal_import_error_time_zone_msg">Невозможно определить предлагаемый часовой пояс: %s</string>
     <string name="preferences_calendar_account">Аккаунт %1$s</string>
     <string name="preferences_calendar_delete">Удалить календарь</string>
@@ -360,4 +360,5 @@
         <item quantity="many"><xliff:g id="count">%d</xliff:g> недель</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> недель</item>
     </plurals>
+    <string name="foreground_notification_title">Планирование новых напоминаний…</string>
 </resources>
