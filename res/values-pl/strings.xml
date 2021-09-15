@@ -316,8 +316,8 @@
     <string name="cal_export_succ_msg">Zdarzenie zostało pomyślnie wyeksportowane: %1$s</string>
     <string name="preferences_month_view_portrait">Układ widoku miesiąca (pionowy)</string>
     <string name="preferences_month_view_landscape">Układ widoku miesiąca (poziomy)</string>
-    <string name="foreground_notification_channel_name">Synchronizacja alertów</string>
-    <string name="foreground_notification_channel_description">Powiadomienie na pierwszym planie jest wymagane do wewnętrznej synchronizacji alertów.</string>
+    <string name="foreground_notification_channel_name">Zadania w tle</string>
+    <string name="foreground_notification_channel_description">Powiadomienia wymagane do wewnętrznej synchronizacji. Możesz bezpiecznie ukryć ten kanał.</string>
     <string name="preferences_calendar_delete">Usuń kalendarz</string>
     <string name="preferences_list_add_offline_cancel">Anuluj</string>
     <string name="preferences_menu_about">O programie Etar</string>
@@ -372,4 +372,5 @@
         <item quantity="many"><xliff:g id="count">%d</xliff:g> tygodni</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> tygodni</item>
     </plurals>
+    <string name="foreground_notification_title">Planowanie nowych przypomnień…</string>
 </resources>
