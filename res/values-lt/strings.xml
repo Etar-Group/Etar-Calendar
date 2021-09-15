@@ -252,7 +252,7 @@
     <string name="visibility_private">Privatus</string>
     <string name="visibility_public">Viešas</string>
     <string name="share_label">Dalintis</string>
-    <string name="foreground_notification_channel_description">Pranešimai yra reikalingi vidiniam įspėjimų sinchronizavimui.</string>
+    <string name="foreground_notification_channel_description">Vidinei sinchronizacijai reikalingi pranešimai. Šį kanalą galite saugiai paslėpti.</string>
     <string name="offline_account_name">Kalendorius neprisijungus</string>
     <string name="preferences_menu_about">Apie Etar</string>
     <string name="preferences_list_add_offline_cancel">Atšaukti</string>
@@ -347,7 +347,7 @@
     <string name="preferences_month_view_landscape">Mėnesio rodinio išdėstymas (gulsčias)</string>
     <string name="preferences_month_view_portrait">Mėnesio rodinio išdėstymas (portretas)</string>
     <string name="no_map">Nėra įdiegta jokia žemėlapių programa</string>
-    <string name="foreground_notification_channel_name">Įspėjimo sinchronizavimas</string>
+    <string name="foreground_notification_channel_name">Foninės užduotys</string>
     <string name="rsvp_tentative">Atsakė gal.</string>
     <string name="rsvp_declined">Atsakė ne.</string>
     <string name="rsvp_accepted">Atsakė taip.</string>
@@ -359,4 +359,5 @@
         <item quantity="few"><xliff:g id="count">%d</xliff:g> savaitės</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> savaičių</item>
     </plurals>
+    <string name="foreground_notification_title">Planuojami nauji priminimai…</string>
 </resources>
