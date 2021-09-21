@@ -79,7 +79,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendar"</string>
     <string name="presence_label" msgid="6169724148441175862">Prikaži me kao</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privatnost"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Dodavanje podsjetnika"</string>
+    <string name="reminders_label" msgid="7292389181815525676">Dodaj podsjetnik</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nema kalendara"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">Prije nego što ćeš moći dodati događaj moraš dodati barem jedan račun za kalendar na svoj uređaj i kalendar učiniti vidljivim. Za dodavanje računa, dodirni „Dodaj račun” (ako si upravo dodao/la račun, pričekaj dovršavanje sinkronizacije i pokušaj ponovo) ili dodirni „Odustani” i provjeri, je li barem jedan kalendar vidljiv.</string>
     <string name="add_account" msgid="1669072099756774952">Dodaj račun</string>
@@ -304,8 +304,8 @@
     <string name="show_time_start_end">Vrijeme početka i završetka</string>
     <string name="show_time_start_end_below">Vrijeme početka i završetka ispod događaja</string>
     <string name="maximum_number_of_lines">Maksimalan broj redaka u događaju</string>
-    <string name="foreground_notification_channel_name">Sinkronizacija alarma</string>
-    <string name="foreground_notification_channel_description">Neophodna obavijest za unutarnju sinkronizaciju alarma.</string>
+    <string name="foreground_notification_channel_name">Pozadinski zadaci</string>
+    <string name="foreground_notification_channel_description">Obavijesti potrebne za internu sinkronizaciju. Ovaj kanal možeš sakriti.</string>
     <string name="cal_import_error_time_zone_msg">Nerazumljiva vremenska zona: %s</string>
     <string name="preferences_calendar_account">%1$s račun</string>
     <string name="preferences_calendar_delete">Izbriši kalendar</string>
@@ -359,4 +359,5 @@
         <item quantity="few"><xliff:g id="count">%d</xliff:g> tjedna</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> tjedana</item>
     </plurals>
+    <string name="foreground_notification_title">Planiranje novih podsjetnika …</string>
 </resources>
