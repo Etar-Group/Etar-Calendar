@@ -34,13 +34,13 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">שעה אחת</item>
+        <item quantity="one">שעה</item>
         <item quantity="two">שעתיים</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; שעות</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; שעות</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> שעות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> שעות</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">יום אחד</item>
+        <item quantity="one">יום</item>
         <item quantity="two">יומיים</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> ימים</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> ימים</item>
@@ -319,9 +319,9 @@
     <string name="show_time_start">רק את מועד ההתחלה</string>
     <string name="show_time_start_end">מועד התחלה וסיום</string>
     <string name="show_time_start_end_below">מועד התחלה וסיום מתחת לאירוע</string>
-    <string name="foreground_notification_channel_name">סנכרון התראות</string>
+    <string name="foreground_notification_channel_name">משימות רקע</string>
     <string name="maximum_number_of_lines">מספר שורות מרבי באירוע</string>
-    <string name="foreground_notification_channel_description">נדרשות התראות בחזית לטובת סנכרון התרעות פנימי.</string>
+    <string name="foreground_notification_channel_description">נדרשות התראות לסנכרון פנימי. ניתן להסתיר את הערוץ הזה ללא חשש.</string>
     <string name="app_copyright">2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_list_add_offline">הוספת לוח שנה בלתי מקוון</string>
     <string name="preferences_list_add_remote_etesync">הוספת לוח שנה EteSync</string>
@@ -370,4 +370,11 @@
 \nב־DAVx⁵ ניתן להשבית ‚ניהול צבעי לוח שנה’ כדי למנוע זאת.</string>
     <string name="preferences_pure_black_night_mode">מצב לילה שחור טהור</string>
     <string name="no_reminder_label">ללא</string>
+    <plurals name="Nweeks">
+        <item quantity="one">שבוע</item>
+        <item quantity="two">שבועיים</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> שבועות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> שבועות</item>
+    </plurals>
+    <string name="foreground_notification_title">תזכורות חדשות מתוזמנות…</string>
 </resources>
