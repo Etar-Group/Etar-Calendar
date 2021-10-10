@@ -319,7 +319,11 @@
     <string name="preferences_system_theme">Bawaan sistem</string>
     <string name="preferences_list_add_remote_etesync">Tambah kalender EteSync</string>
     <string name="preferences_pure_black_night_mode">Mode malam hitam pekat</string>
-    <string name="foreground_notification_channel_name">Sinkronisasi peringatan</string>
-    <string name="foreground_notification_channel_description">Notifikasi latar depan dibutuhkan untuk sinkronisasi peringatan internal.</string>
+    <string name="foreground_notification_channel_name">Proses latar belakang</string>
+    <string name="foreground_notification_channel_description">Notifikasi dibutuhkan untuk sinkronisasi internal. Anda bisa menyembunyikan kanal ini.</string>
     <string name="no_reminder_label">Tak Satu Pun</string>
+    <plurals name="Nweeks">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minggu</item>
+    </plurals>
+    <string name="foreground_notification_title">Menjadwalkan pengingat baru…</string>
 </resources>
