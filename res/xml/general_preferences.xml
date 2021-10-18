@@ -145,7 +145,8 @@
         app:title="@string/preferences_experimental_category">
         <Preference
             app:key="preferences_copy_db"
-            app:title="@string/copy_db" />
+            app:title="@string/copy_db"
+            app:isPreferenceVisible="false" />
 
         <ListPreference
             app:key="preferences_reminders_responded"
