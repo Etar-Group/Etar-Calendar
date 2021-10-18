@@ -92,7 +92,7 @@ class AddOfflineCalendarDialogFragment : DialogFragment() {
             return
         }
 
-        val repository = CalendarRepository(activity!!.application)
+        val repository = CalendarRepository(requireActivity().application)
         repository.addLocalCalendar(accountName, displayName)
         dismiss()
     }
