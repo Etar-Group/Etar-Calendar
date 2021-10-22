@@ -426,14 +426,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // smallest height to draw an event with
     private static float MIN_EVENT_HEIGHT = 24.0F; // in pixels
     private static int CALENDAR_COLOR_SQUARE_SIZE = 10;
-    private static int EVENT_RECT_ROUNDING = 40;
+    private static int EVENT_RECT_ROUNDING = 10;
     private static float EVENT_RECT_SHADOW_INTENSITY = 0.0f;
     private static float EVENT_RECT_SHADOW_X = 1.0f;
     private static float EVENT_RECT_SHADOW_Y = 2.0f;
-    private static int EVENT_RECT_TOP_MARGIN = 3;
-    private static int EVENT_RECT_BOTTOM_MARGIN = 3;
-    private static int EVENT_RECT_LEFT_MARGIN = 3;
-    private static int EVENT_RECT_RIGHT_MARGIN = 3;
+    private static int EVENT_RECT_TOP_MARGIN = 1;
+    private static int EVENT_RECT_BOTTOM_MARGIN = 1;
+    private static int EVENT_RECT_LEFT_MARGIN = 1;
+    private static int EVENT_RECT_RIGHT_MARGIN = 1;
     private static int EVENT_RECT_STROKE_WIDTH = 2;
     private static int EVENT_TEXT_TOP_MARGIN = 4;
     private static int EVENT_TEXT_BOTTOM_MARGIN = 2;
