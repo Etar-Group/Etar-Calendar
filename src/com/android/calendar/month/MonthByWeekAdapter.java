@@ -305,7 +305,11 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     @Override
     protected void refresh() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
-        mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        if (mIsMiniMonth) {
+            mShowWeekNumber = false;
+        } else {
+            mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        }
         mHomeTimeZone = Utils.getTimeZone(mContext, null);
         mOrientation = mContext.getResources().getConfiguration().orientation;
         updateTimeZones();

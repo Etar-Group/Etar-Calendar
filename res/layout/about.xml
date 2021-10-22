@@ -34,7 +34,7 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
                 <ImageView
-                    android:src="?attr/iconSettingsAbout"
+                    android:src="@drawable/ic_create"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center" />
@@ -71,7 +71,7 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
                 <ImageView
-                    android:src="?attr/iconAboutAuthors"
+                    android:src="@drawable/ic_description"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center" />
@@ -108,7 +108,7 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
                 <ImageView
-                    android:src="?attr/iconAboutLicense"
+                    android:src="@drawable/ic_info_outline"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center" />

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="preferences_alerts_ringtone_title">Тавыш</string>
+    <string name="preferences_default_reminder_default">10</string>
+    <string name="create_event_dialog_save">Саклау</string>
+    <string name="app_label">Календарь</string>
+    <string name="preferences_color">Беренчел төс</string>
+    <string name="preferences_black_theme">Кара</string>
+    <string name="preferences_dark_theme">Караңгы</string>
+    <string name="preferences_theme">Тема</string>
+    <string name="preferences_title">Көйләүләр</string>
+    <string name="discard_label">Баш тарту</string>
+    <string name="delete_label">Бетерү</string>
+    <string name="response_no">Юк</string>
+    <string name="response_yes">Әйе</string>
+    <string name="view_event_calendar_label">Календарь:</string>
+    <string name="no_syncable_calendars">Календарьлар юк</string>
+    <string name="privacy_label">Хосусыйлык</string>
+    <string name="edit_event_calendar_label">Календарь</string>
+    <string name="view_settings">Көйләүләрне карау</string>
+    <string name="search">Эзләү</string>
+    <string name="menu_preferences">Көйләүләр</string>
+    <string name="goto_today">Бүген</string>
+    <string name="month_view">Ай</string>
+    <string name="week_view">Атна</string>
+    <string name="day_view">Көн</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 минут</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="tomorrow">Иртәгә</string>
+    <string name="today">Бүген</string>
+</resources>

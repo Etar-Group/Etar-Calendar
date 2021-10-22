@@ -264,9 +264,7 @@ public class CalendarUtils {
                         if (mHandler == null) {
                             mHandler = new AsyncTZHandler(context.getContentResolver());
                         }
-                        if (Build.VERSION.SDK_INT < 23 || ContextCompat.checkSelfPermission(context,
-                                Manifest.permission.READ_CALENDAR) ==
-                                PackageManager.PERMISSION_GRANTED) {
+                        if (Utils.isCalendarPermissionGranted(context, false)) {
                             mHandler.startQuery(0, context, CalendarCache.URI,
                                     CALENDAR_CACHE_POJECTION, null, null, null);
                         }

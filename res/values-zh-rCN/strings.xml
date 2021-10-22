@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"日历"</string>
-    <string name="what_label" msgid="1933578391985810049">"内容"</string>
-    <string name="where_label" msgid="3472482206065595118">"地点"</string>
     <string name="when_label" msgid="894636567327261599">"时间"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"时区"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"邀请对象"</string>
     <string name="today" msgid="8577375020252453006">"今天"</string>
     <string name="tomorrow" msgid="614434811813859237">"明天"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"今天 <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"明天 <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"重复"</string>
     <string name="no_title_label" msgid="302177118061368042">"（无标题）"</string>
     <plurals name="Nminutes">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> 分钟</item>
@@ -75,11 +70,8 @@
     <string name="alert_title" msgid="7869592820853066853">"日历通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"查看活动"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"会议邀请"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"到"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"从"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"全天"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"日历"</string>
-    <string name="description_label" msgid="7193475046717505855">"说明"</string>
     <string name="presence_label" msgid="6169724148441175862">"将我的状态显示为"</string>
     <string name="privacy_label" msgid="9215031965259597335">"活动性质"</string>
     <string name="reminders_label" msgid="7292389181815525676">"添加提醒"</string>
@@ -134,8 +126,7 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="endByDate" msgid="7654221304929538201">"；直到<xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"1次"</item>
-        <item quantity="other" msgid="4855496837834652446">"<xliff:g id="NUMBER">%d</xliff:g>次"</item>
+        <item quantity="other">; 重复<xliff:g id="number">%d</xliff:g>次</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one">每 <xliff:g id="number">%d</xliff:g> 天</item>
@@ -143,8 +134,7 @@
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
     <plurals name="weekly">
-        <item quantity="one">每周的 <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="other"/>
+        <item quantity="other">每 <xliff:g id="number">%1$d</xliff:g> 周的 <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"每月"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
@@ -179,8 +169,7 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"显示周数"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
     <plurals name="month_more_events">
-        <item quantity="one">+1</item>
-        <item quantity="other"/>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"最近没有任何日历活动"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"实验性"</string>
@@ -283,7 +272,7 @@
     <string name="cal_import_menu_title">导入事件</string>
     <string name="cal_nothing_to_import">无可导入事件</string>
     <string name="cal_import_error_msg">导入日历失败</string>
-    <string name="cal_import_error_date_msg">未能理解给定日期: %1s</string>
+    <string name="cal_import_error_date_msg">无法理解给定日期:%s</string>
     <string name="cal_pick_ics">选择导入文件</string>
     <string name="view_settings">查看设置</string>
     <string name="preferences_month_view_portrait">月视图布局(纵向)</string>
@@ -302,14 +291,12 @@
     <string name="preferences_calendar_account">%1$s 账户</string>
     <string name="preferences_calendar_delete">删除日历</string>
     <string name="preferences_calendar_display_name">更改名称</string>
-    <string name="preferences_calendar_account_category">帐户类型</string>
     <string name="preferences_calendar_color">颜色</string>
     <string name="preferences_calendar_visible">显示事件</string>
     <string name="preferences_calendar_synchronize">同步此日历</string>
     <string name="preferences_list_calendar_summary_sync_off">未同步</string>
     <string name="preferences_list_calendar_summary_invisible">事件未显示</string>
     <string name="preferences_list_general">通用设置</string>
-    <string name="preferences_list_add_remote">添加远程日历 (CalDAV)</string>
     <string name="preferences_list_add_offline">添加离线日历</string>
     <string name="preferences_list_add_offline_title">添加离线日历</string>
     <string name="preferences_list_add_offline_error_empty">输入日历名称！</string>
@@ -327,7 +314,7 @@
     <string name="preferences_calendar_delete_cancel">取消</string>
     <string name="preferences_menu_about">关于 Etar</string>
     <string name="offline_account_name">离线日历</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">作者</string>
     <string name="changelog">更新日志</string>
     <string name="license">许可证</string>
@@ -343,4 +330,12 @@
     <string name="four_days">4天</string>
     <string name="three_days">3天</string>
     <string name="two_days">2天</string>
+    <string name="preferences_system_theme">系统默认</string>
+    <string name="preferences_list_add_remote_etesync">添加 EteSync 日历</string>
+    <string name="preferences_list_add_remote">添加 CalDAV日历</string>
+    <string name="preferences_pure_black_night_mode">纯黑夜间模式</string>
+    <string name="no_reminder_label">无</string>
+    <plurals name="Nweeks">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 周</item>
+    </plurals>
 </resources>

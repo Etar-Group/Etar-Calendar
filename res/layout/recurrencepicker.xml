@@ -61,12 +61,11 @@
                         android:gravity="start"
                         android:padding="0dp" />
 
-                    <Switch
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/repeat_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:thumb="@drawable/switch_thumb"
                         android:layout_marginStart="4dp" />
                 </LinearLayout>
 
@@ -78,15 +77,15 @@
                     android:orientation="vertical"
                     android:paddingBottom="4dp"
                     android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:paddingTop="4dp" >
+                    android:paddingRight="12dp" >
 
                     <LinearLayout
                         android:id="@+id/intervalGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:paddingStart="4dp" >
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp" >
 
                         <TextView
                             android:id="@+id/intervalPreText"
@@ -188,7 +187,9 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:orientation="horizontal"
-                        android:paddingStart="0dp" >
+                        android:layout_marginStart="-8dp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp" >
 
                         <Spinner
                             android:id="@+id/endSpinner"
@@ -196,7 +197,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="-4dp"
                             android:layout_marginEnd="8dp"
                             android:entries="@array/recurrence_freq"
                             android:gravity="start|center_vertical"
@@ -213,8 +213,8 @@
                             android:inputType="number"
                             android:maxLength="3"
                             android:selectAllOnFocus="true"
-                            android:textSize="15sp"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/postEndCount"
@@ -229,22 +229,22 @@
 
                         <TextView
                             android:id="@+id/endDate"
-                            style="@style/TextAppearance.EditEvent_SpinnerButton"
-                            android:textSize="15sp"
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+
                             android:layout_gravity="center"
-                            android:singleLine="true"
-                            android:minWidth="80dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="0dp"
                             android:contentDescription="@string/acessibility_recurrence_choose_end_date_description"
                             android:gravity="center_horizontal|bottom"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginLeft="0dp"
-                            android:layout_marginRight="0dp"
+                            android:minWidth="80dp"
                             android:paddingStart="12dp"
-                            android:paddingEnd="16dp"
+                            android:paddingEnd="0dp"
                             android:paddingBottom="8dp"
+                            android:singleLine="true"
+                            android:textColor="#757575"
+                            android:textSize="15sp"
                             android:visibility="gone" />
                     </LinearLayout>
                 </LinearLayout>

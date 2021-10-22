@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
-    <string name="what_label" msgid="1933578391985810049">"Objet"</string>
-    <string name="where_label" msgid="3472482206065595118">"Lieu"</string>
     <string name="when_label" msgid="894636567327261599">"Date"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Fuseau horaire"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Invités"</string>
     <string name="today" msgid="8577375020252453006">Aujourd’hui</string>
     <string name="tomorrow" msgid="614434811813859237">"Demain"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">Aujourd’hui, <xliff:g id="TIME_INTERVAL">%s</xliff:g></string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Demain, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"Fréquence"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Sans titre)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minute</item>
@@ -76,11 +71,8 @@
     <string name="alert_title" msgid="7869592820853066853">Notifications de l’agenda</string>
     <string name="event_info_title" msgid="56024222340421620">Afficher l’évènement</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitation à une réunion"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Au"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Du"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Journée entière"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Agenda"</string>
-    <string name="description_label" msgid="7193475046717505855">"Description"</string>
     <string name="presence_label" msgid="6169724148441175862">"Ma disponibilité"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Confidentialité"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Ajouter un rappel"</string>
@@ -133,10 +125,10 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Répéter"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">Évènement ponctuel</string>
-    <string name="endByDate" msgid="7654221304929538201">; jusqu’au <xliff:g id="date">%s</xliff:g></string>
+    <string name="endByDate" msgid="7654221304929538201">; jusqu\'à <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; une seule fois</item>
-        <item quantity="other">; <xliff:g id="number">%d</xliff:g> fois</item>
+        <item quantity="other">; pour <xliff:g id="number">%d</xliff:g> fois</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one" msgid="5169052946627480942">"Quotidien"</item>
@@ -224,19 +216,19 @@
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Évènement sélectionné</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">Tous les jours</item>
-        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> jours</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> jour</item>
+        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> jours</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">Toutes les semaines</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> semaine</item>
         <item quantity="other">Toutes les <xliff:g id="count">%d</xliff:g> semaines</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Tous les mois</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> mois</item>
         <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> mois</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Tous les ans</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> année</item>
         <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> ans</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"le même jour chaque mois"</string>
@@ -282,7 +274,7 @@
     <string name="error_generating_ics">Problèmes rencontrés lors du partage de l’évènement</string>
     <string name="cal_share_intent_title">Envoyer l’évènement à :</string>
     <string name="cal_export_event_sdcard_title">Exporter sur la carte SD</string>
-    <string name="cal_export_succ_msg">Évènement exporté avec succès : %1s</string>
+    <string name="cal_export_succ_msg">Évènement exporté avec succès : %1$s</string>
     <string name="cal_import_menu_title">Importer évènement</string>
     <string name="cal_nothing_to_import">Rien à importer</string>
     <string name="cal_import_error_msg">L’importation dans l’agenda a échoué</string>
@@ -296,7 +288,7 @@
     <string name="cal_import_error_date_msg">Impossible d’interpréter la date donnée : %s</string>
     <string name="show_time_start_end_below">Heure de début et de fin au-dessous de l’évènement</string>
     <string name="maximum_number_of_lines">Nombre maximum de lignes par évènement</string>
-    <string name="foreground_notification_channel_name">Alerte de synchronisation</string>
+    <string name="foreground_notification_channel_name">Synchronisation de l’alarme</string>
     <string name="foreground_notification_channel_description">La synchronisation d’alerte interne nécessite les notifications au premier plan.</string>
     <string name="cal_import_error_time_zone_msg">Impossible de comprendre le fuseau horaire donné : %s</string>
     <string name="preferences_calendar_account">Compte %1$s</string>
@@ -308,7 +300,6 @@
     <string name="preferences_list_calendar_summary_sync_off">Non synchronisé</string>
     <string name="preferences_list_calendar_summary_invisible">Les évènements ne sont pas affichés</string>
     <string name="preferences_list_general">Paramètres généraux</string>
-    <string name="preferences_list_add_remote">Ajouter un calendrier distant (CalDAV)</string>
     <string name="preferences_list_add_offline">Ajouter un calendrier hors-ligne</string>
     <string name="preferences_list_add_offline_title">Ajouter un calendrier hors-ligne</string>
     <string name="preferences_list_add_offline_error_empty">Veuillez saisir le nom du calendrier !</string>
@@ -326,7 +317,7 @@
     <string name="preferences_calendar_delete_cancel">Annuler</string>
     <string name="preferences_menu_about">À propos d’Etar</string>
     <string name="offline_account_name">Calendrier hors-ligne</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Auteurs</string>
     <string name="changelog">Journal des modifications</string>
     <string name="license">Licence</string>
@@ -334,7 +325,7 @@
     <string name="preferences_calendar_no_display_name">Calendrier anonyme</string>
     <string name="preferences_calendar_account_local">Calendrier hors-ligne</string>
     <string name="preferences_calendar_configure_account">Configurer le calendrier dans %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d évènements</string>
+    <string name="preferences_calendar_number_of_events">%1$d évènements</string>
     <string name="preferences_calendar_info_category">Détails du calendrier</string>
     <string name="seven_days">7 jours</string>
     <string name="six_days">6 jours</string>
@@ -342,4 +333,9 @@
     <string name="four_days">4 jours</string>
     <string name="three_days">3 jours</string>
     <string name="two_days">2 jours</string>
+    <string name="preferences_system_theme">Système</string>
+    <string name="preferences_list_add_remote_etesync">Ajouter un calendrier EteSync</string>
+    <string name="preferences_list_add_remote">Ajouter un calendrier CalDAV</string>
+    <string name="preferences_pure_black_night_mode">Mode pure nuit noire</string>
+    <string name="no_reminder_label">Aucun</string>
 </resources>

@@ -64,7 +64,7 @@ import ws.xsoh.etar.R;
  */
 public class AlertService extends Service {
 
-    public static final String ALERT_CHANNEL_ID = "alert_channel_01";// The id of the channel.
+    public static final String ALERT_CHANNEL_ID = "alert_channel_01";
     public static final String FOREGROUND_CHANNEL_ID = "foreground_channel_01";
 
     // Hard limit to the number of notifications displayed.
@@ -164,9 +164,7 @@ public class AlertService extends Service {
             Log.d(TAG, "Beginning updateAlertNotification");
         }
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return false;
@@ -789,9 +787,7 @@ public class AlertService extends Service {
             CalendarContract.CalendarAlerts.ALARM_TIME,
         };
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return;
@@ -929,7 +925,7 @@ public class AlertService extends Service {
 
                 createChannels(this);
                 Notification notification = new NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
-                        .setContentTitle("Event notifications")
+                        .setContentTitle(getString(R.string.foreground_notification_title))
                         .setSmallIcon(R.drawable.stat_notify_calendar)
                         .setShowWhen(false)
                         .build();
@@ -964,6 +960,7 @@ public class AlertService extends Service {
                     ALERT_CHANNEL_ID,
                     context.getString(R.string.standalone_app_label),
                     NotificationManager.IMPORTANCE_HIGH);
+            channel.enableLights(true);
 
             NotificationChannel foregroundChannel = new NotificationChannel(
                     FOREGROUND_CHANNEL_ID,

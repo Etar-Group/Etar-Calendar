@@ -16,6 +16,7 @@
 
 package com.android.calendar;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -41,6 +42,8 @@ import android.provider.CalendarContract.Calendars;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -51,11 +54,13 @@ import android.text.format.Time;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.widget.CalendarAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +79,7 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ws.xsoh.etar.BuildConfig;
 import ws.xsoh.etar.R;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
@@ -243,12 +249,20 @@ public class Utils {
     public static String getWidgetScheduledUpdateAction(Context context) {
         return "com.android.calendar.APPWIDGET_SCHEDULED_UPDATE";
     }
+    /**
+     * Send Broadcast to update widget.
+     */
+    public static void sendUpdateWidgetIntent(Context context) {
+        Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(context));
+        updateIntent.setClass(context, CalendarAppWidgetProvider.class);
+        context.sendBroadcast(updateIntent);
+    }
 
     /**
      * Gets the intent action for telling the widget to update.
      */
     public static String getSearchAuthority(Context context) {
-        return "ws.xsoh.etar.CalendarRecentSuggestionsProvider";
+        return BuildConfig.APPLICATION_ID + ".CalendarRecentSuggestionsProvider";
     }
 
     /**
@@ -2114,6 +2128,19 @@ public class Utils {
                     mCallBack.run();
                 }
             }
+        }
+    }
+
+    public static boolean isCalendarPermissionGranted(Context context, boolean showWarningToast) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            if (showWarningToast) {
+                Toast.makeText(context, R.string.user_rejected_calendar_write_permission, Toast.LENGTH_SHORT).show();
+            }
+            return false;
         }
     }
 

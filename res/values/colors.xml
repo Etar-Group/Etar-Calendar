@@ -183,7 +183,7 @@
     <!-- Text color of declined events in widget view -->
     <color name="appwidget_item_declined_color">#66333333</color>
     <!-- Text color of non-declined events in widget view -->
-    <color name="appwidget_item_standard_color">#ff333333</color>
+    <color name="appwidget_item_standard_color">#FFFFFF</color>
     <!-- Text color for all day events in widget view -->
     <color name="appwidget_item_allday_color">#ffffffff</color>
 
@@ -191,6 +191,7 @@
     <color name="appwidget_when">#ffffffff</color>
     <color name="appwidget_where">#ffffffff</color>
     <color name="appwidget_no_events">#ffffffff</color>
+    <color name="appwidget_scrollbar">#99A5A5A5</color>
 
     <color name="recurrence_picker_background">#fff2f2f2</color>
     <color name="recurrence_bubble_text_normal">#ff737373</color>
@@ -308,7 +309,7 @@
     <color name="fg_dark_secondary">#99ffffff</color>
     <color name="app_bar_dark">@color/bg_dark</color>
 
-    <color name="grid_line_dark">#424242</color>
+    <color name="grid_line_dark">#FF6A6A6A</color>
 
     <color name="month_bgcolor_dark">@color/bg_dark</color>
     <color name="month_selected_week_bgcolor_dark">#FFDDDDDD</color>

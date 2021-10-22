@@ -22,13 +22,17 @@
             app:title="@string/preferences_theme"
             app:entries="@array/pref_theme_entries"
             app:entryValues="@array/pref_theme_values"
-            app:defaultValue="light"/>
+            app:defaultValue="light" />
+        <SwitchPreference
+            app:key="pref_pure_black_night_mode"
+            app:defaultValue="false"
+            app:title="@string/preferences_pure_black_night_mode" />
         <Preference
             app:key="pref_color"
             app:title="@string/preferences_color"
             app:entries="@array/pref_color_entries"
             app:entryValues="@array/pref_color_values"
-            app:defaultValue="teal"/>
+            app:defaultValue="teal" />
         <ListPreference
             app:key="preferences_default_start"
             app:defaultValue="-2"
@@ -39,11 +43,11 @@
             app:key="pref_view_details"
             app:title="@string/display_options"
             app:fragment="com.android.calendar.settings.ViewDetailsPreferences" />
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_hide_declined"
             app:defaultValue="false"
             app:title="@string/preferences_hide_declined_title" />
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_show_week_num"
             app:defaultValue="false"
             app:title="@string/preferences_show_week_num_title" />
@@ -66,8 +70,7 @@
             app:defaultValue="60"
             app:title="@string/preferences_default_event_duration_title"
             app:entries="@array/preferences_default_duration_labels"
-            app:entryValues="@array/preferences_default_duration_values"
-            />
+            app:entryValues="@array/preferences_default_duration_values" />
         <CheckBoxPreference
             app:key="preferences_home_tz_enabled"
             app:defaultValue="false"
@@ -97,20 +100,20 @@
             app:defaultValue="content://settings/system/notification_sound"
             app:dependency="preferences_alerts" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             app:layout="?android:attr/preferenceLayoutChild"
             app:key="preferences_alerts_vibrate"
             app:title="@string/preferences_alerts_vibrateWhen_title"
             app:defaultValue="false"
             app:dependency="preferences_alerts" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_alerts_popup"
             app:defaultValue="false"
             app:title="@string/preferences_alerts_popup_title"
             app:dependency="preferences_alerts" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             app:key="preferences_custom_snooze_delay"
             app:defaultValue="false"
             app:title="@string/preferences_alerts_custom_snooze_delay_title"
@@ -128,7 +131,6 @@
             app:key="preferences_default_reminder"
             app:defaultValue="@string/preferences_default_reminder_default"
             app:title="@string/preferences_default_reminder_title"
-            app:entries="@array/preferences_default_reminder_labels"
             app:entryValues="@array/preferences_default_reminder_values"
             app:dialogTitle="@string/preferences_default_reminder_dialog" />
 
@@ -143,7 +145,8 @@
         app:title="@string/preferences_experimental_category">
         <Preference
             app:key="preferences_copy_db"
-            app:title="@string/copy_db" />
+            app:title="@string/copy_db"
+            app:isPreferenceVisible="false" />
 
         <ListPreference
             app:key="preferences_reminders_responded"

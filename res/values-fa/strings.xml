@@ -14,11 +14,7 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"تقویم"</string>
-    <string name="what_label" msgid="1933578391985810049">"چه چیزی"</string>
-    <string name="where_label" msgid="3472482206065595118">"کجا"</string>
     <string name="when_label" msgid="894636567327261599">"زمان"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"منطقهٔ زمانی"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"مهمان ها"</string>
     <string name="today" msgid="8577375020252453006">"امروز"</string>
     <string name="tomorrow" msgid="614434811813859237">"فردا"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"امروز در <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
@@ -26,7 +22,6 @@
     <string name="date_time_fmt" msgid="1642972650061946484">
         <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
-    <string name="repeats_label" msgid="7414023871434593196">"تکرار"</string>
     <string name="no_title_label" msgid="302177118061368042">"(بدون عنوان)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"۱ دقیقه"</item>
@@ -76,11 +71,8 @@
     <string name="alert_title" msgid="7869592820853066853">"اعلان‌های تقویم"</string>
     <string name="event_info_title" msgid="56024222340421620">"مشاهده رویداد"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"دعوت نامه جلسه"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"تا"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"از"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"همه روز"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"تقویم"</string>
-    <string name="description_label" msgid="7193475046717505855">"توضیح"</string>
     <string name="presence_label" msgid="6169724148441175862">"نمایش من به‌عنوان"</string>
     <string name="privacy_label" msgid="9215031965259597335">"رازداری"</string>
     <string name="reminders_label" msgid="7292389181815525676">"افزودن یادآور"</string>
@@ -244,4 +236,5 @@
     <string name="visibility_default">پیش‌فرض</string>
     <string name="visibility_private">خصوصی</string>
     <string name="visibility_public">عمومی</string>
+    <string name="no_reminder_label">هیچکدام</string>
 </resources>
