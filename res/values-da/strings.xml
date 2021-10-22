@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <string name="what_label" msgid="1933578391985810049">"Hvad"</string>
-    <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
     <string name="when_label" msgid="894636567327261599">"Hvornår"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Tidszone"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Gæster"</string>
     <string name="today" msgid="8577375020252453006">"I dag"</string>
     <string name="tomorrow" msgid="614434811813859237">"I morgen"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"I dag kl. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"I morgen kl. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"Gentagelse"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Ingen titel)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1 minut"</item>
@@ -74,11 +69,8 @@
     <string name="alert_title" msgid="7869592820853066853">"Meddelelser fra Kalender"</string>
     <string name="event_info_title" msgid="56024222340421620">"Vis begivenhed"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Mødeinvitation"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Til"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Fra"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Hele dagen"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
-    <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
     <string name="presence_label" msgid="6169724148441175862">"Vis mig som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Tilføj påmindelse"</string>
@@ -302,7 +294,6 @@
     <string name="preferences_list_calendar_summary_sync_off">Ikke synkroniseret</string>
     <string name="preferences_list_calendar_summary_invisible">Begivenheder vises ikke</string>
     <string name="preferences_list_general">Generel opsætning</string>
-    <string name="preferences_list_add_remote">Tilføj fjernkalender (CalDAV)</string>
     <string name="preferences_list_add_offline">Tilføj offlinekalender</string>
     <string name="preferences_list_add_offline_title">Tilføj offlinekalender</string>
     <string name="preferences_list_add_offline_error_empty">Indtast kalendernavn!</string>
@@ -316,7 +307,7 @@
     <string name="preferences_calendar_delete_cancel">Annuller</string>
     <string name="preferences_menu_about">Om Etar</string>
     <string name="offline_account_name">Offlinekalender</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Etar Projektet. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Etar Projektet. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Forfattere</string>
     <string name="changelog">Ændringslog</string>
     <string name="license">Licens</string>
@@ -327,4 +318,5 @@
     <string name="preferences_calendar_configure_account">Indstille kalender i %1$s</string>
     <string name="preferences_calendar_number_of_events">%1d begivenheder</string>
     <string name="preferences_calendar_info_category">Kalendar information</string>
+    <string name="no_reminder_label">Ingen</string>
 </resources>

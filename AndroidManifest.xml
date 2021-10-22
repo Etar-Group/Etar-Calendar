@@ -31,6 +31,24 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <queries>
+        <package android:name="at.bitfire.davdroid" />
+        <package android:name="com.etesync.syncadapter" />
+        <package android:name="com.google.android.gm" />
+
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="http" />
+        </intent>
+
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
     <application android:name="com.android.calendar.CalendarApplication"
         android:requestLegacyExternalStorage="true"
         android:hardwareAccelerated="true"
@@ -39,7 +57,7 @@
         android:taskAffinity="ws.xsoh.etar.task"
         android:requiredAccountType="*"
         android:usesCleartextTraffic="false"
-        android:theme="@style/CalendarAppTheme">
+        android:theme="@style/CalendarAppThemeLight">
 
         <activity
             android:name="com.android.calendar.AllInOneActivity"
@@ -190,7 +208,7 @@
 
         <provider android:name="com.android.calendar.CalendarRecentSuggestionsProvider"
             android:exported="false"
-            android:authorities="ws.xsoh.etar.CalendarRecentSuggestionsProvider" />
+            android:authorities="${applicationId}.CalendarRecentSuggestionsProvider" />
 
         <!-- Declarations for alerts/reminders -->
         <activity
@@ -248,7 +266,7 @@
         <service android:name="com.android.calendar.alerts.SnoozeAlarmsService" />
 
         <!-- Declarations for the widget -->
-        <!--receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider" android:label="@string/gadget_title">
+        <receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.android.calendar.APPWIDGET_UPDATE" />
@@ -279,7 +297,7 @@
         <service android:name="com.android.calendar.widget.CalendarAppWidgetService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS">
-        </service-->
+        </service>
 
         <service android:name="com.android.calendar.AsyncQueryServiceHelper" />
 

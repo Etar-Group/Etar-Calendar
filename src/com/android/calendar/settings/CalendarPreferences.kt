@@ -41,14 +41,14 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     private var numberOfEvents: Long = -1
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        calendarId = arguments!!.getLong(ARG_CALENDAR_ID)
-        calendarRepository = CalendarRepository(activity!!.application)
+        calendarId = requireArguments().getLong(ARG_CALENDAR_ID)
+        calendarRepository = CalendarRepository(requireActivity().application)
         account = calendarRepository.queryAccount(calendarId)!!
         numberOfEvents = calendarRepository.queryNumberOfEvents(calendarId)!!
 
         // use custom data store to save/retrieve calendar preferences in Android's calendar database
         val preferenceManager = preferenceManager
-        preferenceManager.preferenceDataStore = CalendarDataStore(activity!!, calendarId)
+        preferenceManager.preferenceDataStore = CalendarDataStore(requireActivity(), calendarId)
 
         populatePreferences()
     }
@@ -157,20 +157,20 @@ class CalendarPreferences : PreferenceFragmentCompat() {
 
     private fun getThemeDrawable(attr: Int): Drawable {
         val typedValue = TypedValue()
-        context!!.theme.resolveAttribute(attr, typedValue, true)
+        requireContext().theme.resolveAttribute(attr, typedValue, true)
         val imageResId = typedValue.resourceId
-        return ContextCompat.getDrawable(context!!, imageResId)
+        return ContextCompat.getDrawable(requireContext(), imageResId)
                 ?: throw IllegalArgumentException("Cannot load drawable $imageResId")
     }
 
     private fun getColorIcon(color: Int): Drawable {
-        val icon: Drawable = ContextCompat.getDrawable(context!!, R.drawable.circle)!!
+        val icon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.circle)!!
         icon.mutate().setColorFilter(color, Mode.SRC_IN)
         return icon
     }
 
     private fun displayCalendarColorPicker() {
-        if (fragmentManager!!.findFragmentByTag(COLOR_PICKER_DIALOG_TAG) != null) {
+        if (parentFragmentManager.findFragmentByTag(COLOR_PICKER_DIALOG_TAG) != null) {
             return
         }
 
@@ -182,7 +182,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
                         colorPref.icon = getColorIcon(color)
                     }
                 })
-        calendarDialogPicker.show(fragmentManager!!, COLOR_PICKER_DIALOG_TAG)
+        calendarDialogPicker.show(parentFragmentManager, COLOR_PICKER_DIALOG_TAG)
     }
 
     data class AuthenticatorInfo(val label: String?,
@@ -213,7 +213,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     }
 
     private fun deleteCalendar() {
-        val warningDialog = AlertDialog.Builder(activity!!)
+        val warningDialog = AlertDialog.Builder(requireActivity())
                 .setMessage(R.string.preferences_calendar_delete_message)
                 .setPositiveButton(R.string.preferences_calendar_delete_delete) { _, _ ->
                     calendarRepository.deleteLocalCalendar(account.name, calendarId)

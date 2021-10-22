@@ -45,5 +45,8 @@
         <attr name="iconAboutAuthors" format="reference"/>
         <attr name="iconAboutLicense" format="reference"/>
         <attr name="iconSettingsAbout" format="reference" />
+        <attr name="iconSettingsGeneral" format="reference" />
+        <attr name="iconAddCalendar" format="reference" />
+        <attr name="iconCalendarAccount" format="reference" />
     </declare-styleable>
 </resources>

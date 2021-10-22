@@ -21,16 +21,8 @@
 
     <!-- Shared Labels. These labels are shared among the activities. -->
     <skip/>
-    <!-- This is the label for the title or name of an event -->
-    <string name="what_label">What</string>
-    <!-- This is the label for the location of an event -->
-    <string name="where_label">Where</string>
     <!-- This is the label for the time of an event [CHAR LIMIT=30] -->
     <string name="when_label">When</string>
-    <!-- This is the label for the timezone of an event [CHAR LIMIT=30] -->
-    <string name="timezone_label">Time zone</string>
-    <!-- This is the label for the Guests/Attendees of an event -->
-    <string name="attendees_label">Guests</string>
     <!-- Text to show when an event starts on the current day -->
     <string name="today">Today</string>
     <!-- Text to show when an event starts on the next day -->
@@ -44,15 +36,11 @@
     <!-- Format string for a date and time description.  For ex:
          "April 19, 2012, 3:00pm - 4:00pm" [CHAR LIMIT=NONE] -->
     <string name="date_time_fmt">"<xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
-
-    <!-- Some events repeat daily, weekly, monthly, or yearly.  This is the label
-         for all the choices about how often an event repeats (including the choice
-         of not repeating). -->
-    <string name="repeats_label">Repetition</string>
     <!-- Title of event when no explicit title is specified by the user -->
     <string name="no_title_label">(No title)</string>
 
     <!-- Reminder format strings -->
+    <string name="no_reminder_label">None</string>
     <plurals name="Nminutes">
         <!-- This is the label for a 1-minute reminder. -->
         <item quantity="one">1 minute</item>
@@ -90,6 +78,16 @@
         <!-- This is the label for a reminder of 2 or more days. The actual number of
              days is a parameter. -->
         <item quantity="other"><xliff:g id="count">%d</xliff:g> days</item>
+    </plurals>
+    <!-- This is the number of weeks displayed for a calendar reminder.  For example,
+         a reminder of 2 weeks would be displayed as '2 weeks'.  The translation
+         should use the shortest acceptable abbreviation of 'week' to save space. -->
+    <plurals name="Nweeks">
+        <!-- This is the label for a reminder of 1 week. -->
+        <item quantity="one">1 week</item>
+        <!-- This is the label for a reminder of 2 or more weeks. The actual number of
+             weeks is a parameter. -->
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> weeks</item>
     </plurals>
     <!-- This is for displaying the week of the year near the date. Eg. "January, 2011 Week 1" -->
     <plurals name="weekN">
@@ -211,8 +209,9 @@
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
     <skip/>
-    <string name="foreground_notification_channel_name">Alert sync</string>
-    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync.</string>
+    <string name="foreground_notification_title">Scheduling new reminders…</string>
+    <string name="foreground_notification_channel_name">Background tasks</string>
+    <string name="foreground_notification_channel_description">Notifications required for internal sync. You can safely hide this channel.</string>
 
     <!-- Event info/edit screen labels:-->
     <skip/>
@@ -224,21 +223,11 @@
 
     <!-- EditEventActivity specific strings: -->
     <skip/>
-    <!-- Events have a start date/time and an end date/time. The display shows
-         the start and end times like 'From start date To end date'. This is the
-         label before the 'end date'. -->
-    <string name="edit_event_to_label">To</string>
-    <!-- Events have a start date/time and an end date/time. The display shows
-         the start and end times like 'From start date To end date'. This is the
-         label before the 'start date'. -->
-    <string name="edit_event_from_label">From</string>
     <!-- Check box label that specifies if this is an all-day event -->
     <string name="edit_event_all_day_label">All day</string>
     <!-- Label for choosing one of the calendars -->
     <string name="edit_event_calendar_label">Calendar</string>
     <!-- Menu item to show all choices [CHAR LIMIT=22]-->
-    <!-- Label for the event description -->
-    <string name="description_label">Description</string>
     <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
          or 'available'  [CHAR LIMIT=15] -->
     <string name="presence_label">Show me as</string>
@@ -464,6 +453,7 @@
     <!-- This is the title of a section in the Settings screen for settings
          related to viewing calendar events in Month view for landscape orientation -->
     <string name="preferences_month_view_landscape">Month view layout (Landscape)</string>
+
     <!-- This is the title of a section in the Settings screen for settings
          related to app theme -->
     <string name="preferences_theme">Theme</string>
@@ -471,6 +461,7 @@
     <string name="preferences_light_theme">Light</string>
     <string name="preferences_dark_theme">Dark</string>
     <string name="preferences_black_theme">Black</string>
+
     <string name="preferences_color">Primary color</string>
     <string name="preferences_color_teal" translatable="false">Teal</string>
     <string name="preferences_color_blue" translatable="false">Blue</string>
@@ -479,6 +470,9 @@
     <string name="preferences_color_red" translatable="false">Red</string>
     <string name="preferences_color_purple" translatable="false">Purple</string>
     <string name="preferences_color_pick">Primary color</string>
+
+    <string name="preferences_pure_black_night_mode">Pure black night mode</string>
+
     <!-- This is the title of a section in the Settings screen for settings
          related to reminders for calendar events -->
     <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
@@ -555,7 +549,7 @@
     <string name="app_authors" translatable="false">The Etar Project</string>
     <string name="app_authors_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar/graphs/contributors</string>
     <string name="app_changelog" translatable="false">https://github.com/Etar-Group/Etar-Calendar/releases</string>
-    <string name="app_copyright">\u00a9 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions \u00a9 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">\u00a9 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions \u00a9 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="app_issues_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar/issues</string>
     <string name="app_license" translatable="false">GPLv3</string>
     <string name="app_license_url" translatable="false">https://www.gnu.org/licenses/gpl-3.0.html</string>
@@ -789,7 +783,8 @@
     <string name="preferences_list_calendar_summary_sync_off">Not synchronized</string>
     <string name="preferences_list_calendar_summary_invisible">Events are not displayed</string>
     <string name="preferences_list_general">General settings</string>
-    <string name="preferences_list_add_remote">Add remote calendar (CalDAV)</string>
+    <string name="preferences_list_add_remote">Add CalDAV calendar</string>
+    <string name="preferences_list_add_remote_etesync">Add EteSync calendar</string>
     <string name="preferences_list_add_offline">Add offline calendar</string>
     <string name="preferences_list_add_offline_title">Add offline calendar</string>
     <string name="preferences_list_add_offline_error_empty">Enter a calendar name!</string>

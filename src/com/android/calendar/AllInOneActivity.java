@@ -53,6 +53,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
@@ -62,7 +63,6 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,7 +73,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -82,13 +81,15 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.alerts.AlertService;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
-
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import ws.xsoh.etar.R;
+import ws.xsoh.etar.databinding.AllInOneMaterialBinding;
+import ws.xsoh.etar.databinding.DateRangeTitleBinding;
 
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
@@ -117,7 +118,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private static boolean mIsTabletConfig;
     private static boolean mShowAgendaWithMonth;
     private static boolean mShowEventDetailsWithAgenda;
-    DayOfMonthDrawable mDayOfMonthIcon;
     int mOrientation;
     BroadcastReceiver mCalIntentReceiver;
     private CalendarController mController;
@@ -188,10 +188,10 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private long mIntentEventEndMillis = -1;
     private int mIntentAttendeeResponse = Attendees.ATTENDEE_STATUS_NONE;
     private boolean mIntentAllDay = false;
+    private AllInOneMaterialBinding binding;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
-    private int mCurrentMenuItem;
     private CalendarToolbarHandler mCalendarToolbarHandler;
     // Action bar
     private ActionBar mActionBar;
@@ -335,33 +335,35 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
         // setContentView must be called before configureActionBar
-        setContentView(R.layout.all_in_one_material);
+        binding = AllInOneMaterialBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-        mFab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        mDrawerLayout = binding.drawerLayout;
+        mNavigationView = binding.navigationView;
+
+        mFab = binding.floatingActionButton;
 
         if (mIsTabletConfig) {
-            mDateRange = (TextView) findViewById(R.id.date_bar);
-            mWeekTextView = (TextView) findViewById(R.id.week_num);
+            mDateRange = binding.include.dateBar;
+            mWeekTextView = binding.include.weekNum;
         } else {
-            mDateRange = (TextView) getLayoutInflater().inflate(R.layout.date_range_title, null);
+            mDateRange = DateRangeTitleBinding.inflate(getLayoutInflater()).getRoot();
         }
 
         setupToolbar(viewType);
         setupNavDrawer();
         setupFloatingActionButton();
 
-        mHomeTime = (TextView) findViewById(R.id.home_time);
-        mMiniMonth = findViewById(R.id.mini_month);
+        mHomeTime = binding.include.homeTime;
+        mMiniMonth = binding.include.miniMonth;
         if (mIsTabletConfig && mOrientation == Configuration.ORIENTATION_PORTRAIT) {
             mMiniMonth.setLayoutParams(new RelativeLayout.LayoutParams(mControlsAnimateWidth,
                     mControlsAnimateHeight));
         }
-        mCalendarsList = findViewById(R.id.calendar_list);
-        mMiniMonthContainer = findViewById(R.id.mini_month_container);
-        mSecondaryPane = findViewById(R.id.secondary_pane);
+        mCalendarsList = binding.include.calendarList;
+        mMiniMonthContainer = binding.include.miniMonthContainer;
+        mSecondaryPane = binding.include.secondaryPane;
 
         // Must register as the first activity because this activity can modify
         // the list of event handlers in it's handle method. This affects who
@@ -423,13 +425,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     private void setupToolbar(int viewType) {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar == null) {
-            if (DEBUG) {
-                Log.d(TAG, "Didn't find a toolbar");
-            }
-            return;
-        }
+        mToolbar = binding.toolbar;
 
         if (!mIsTabletConfig) {
             mCalendarToolbarHandler = new CalendarToolbarHandler(this, mToolbar, viewType);
@@ -469,16 +465,10 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     public void openDrawer() {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     public void setupNavDrawer() {
-        if (mDrawerLayout == null) {
-            if (DEBUG) {
-                Log.d(TAG, "mDrawerLayout is null - Can not setup the NavDrawer! Have you set the android.support.v7.widget.DrawerLayout?");
-            }
-            return;
-        }
         mNavigationView.setNavigationItemSelectedListener(this);
         showActionBar();
     }
@@ -564,9 +554,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.registerFirstEventHandler(HANDLER_KEY, this);
         mOnSaveInstanceStateCalled = false;
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(this, true)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return;
@@ -619,9 +607,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mPaused = true;
         mHomeTime.removeCallbacks(mHomeTimeUpdater);
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(this, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
             return;
@@ -702,10 +688,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
      */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     private void initFragments(long timeMillis, int viewType, Bundle icicle) {
@@ -868,6 +851,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             t = new Time(mTimeZone);
             t.setToNow();
             extras |= CalendarController.EXTRA_GOTO_TODAY;
+            mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
+            return true;
         } else if (itemId == R.id.action_goto) {
             Time todayTime;
             t = new Time(mTimeZone);
@@ -882,15 +867,27 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Time selectedTime = new Time(mTimeZone);
+                    selectedTime.setToNow();  // Needed for recalc function in DayView(time + gmtoff)
                     selectedTime.year = year;
                     selectedTime.month = monthOfYear;
                     selectedTime.monthDay = dayOfMonth;
+
+                    Calendar c = Calendar.getInstance();
+                    c.set(year, monthOfYear, dayOfMonth);
+                    int weekday = c.get(Calendar.DAY_OF_WEEK);
+                    if (weekday == 1) {
+                        selectedTime.weekDay = 7;
+                    } else {
+                        selectedTime.weekDay = weekday-1;
+                    }
+
                     long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
                     mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
                 }
             };
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,datePickerListener,t.year, t.month,t.monthDay);
-            datePickerDialog.show();
+                    datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
+                    datePickerDialog.show();
 
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
@@ -920,7 +917,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         } else {
                 return mExtensions.handleItemSelected(item, this);
         }
-        mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
+
         return true;
     }
 
@@ -1169,8 +1166,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mShowWeekNum = Utils.getShowWeekNumber(this);
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
         if (visibleMillisSinceEpoch != -1) {
-            int weekNum = Utils.getWeekNumberFromTime(visibleMillisSinceEpoch, this);
-            mWeekNum = weekNum;
+            mWeekNum = Utils.getWeekNumberFromTime(visibleMillisSinceEpoch, this);
         }
 
         if (mShowWeekNum && (mCurrentView == ViewType.WEEK) && mIsTabletConfig

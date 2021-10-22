@@ -38,6 +38,7 @@ import android.util.Pair;
 
 import com.android.calendar.CloudNotificationBackplane;
 import com.android.calendar.ExtensionsFactory;
+import com.android.calendar.Utils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -425,9 +426,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
         Map<Long, Long> eventsToCalendars = new HashMap<Long, Long>();
         ContentResolver resolver = context.getContentResolver();
         String eventSelection = buildMultipleIdQuery(eventIds, Events._ID);
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return null;
@@ -461,9 +460,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
                 new HashMap<Long, Pair<String, String>>();
         ContentResolver resolver = context.getContentResolver();
         String calendarSelection = buildMultipleIdQuery(calendars, Calendars._ID);
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return null;

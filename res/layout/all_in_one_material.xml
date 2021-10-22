@@ -14,10 +14,11 @@
         android:layout_height="match_parent">
 
         <include
+            android:id="@+id/include"
             layout="@layout/all_in_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"></include>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

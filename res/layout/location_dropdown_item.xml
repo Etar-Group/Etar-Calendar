@@ -15,20 +15,25 @@
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="48dip"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:background="?android:attr/activatedBackgroundIndicator">
-    <ImageView
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/icon"
         android:layout_width="48dip"
         android:layout_height="48dip"
-        android:layout_marginLeft="0dip"
-        android:src="@drawable/ic_contact_picture"
+        android:padding="2dp"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_baseline_account_circle"
+        app:shapeAppearanceOverlay="@style/locationIconRounded"
         android:cropToPadding="true"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"/>
+
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
@@ -36,11 +41,11 @@
         android:orientation="vertical"
         android:layout_weight="1">
         <TextView android:id="@+id/location_name"
-                  android:textColor="@drawable/list_item_font_primary"
+                  android:textColor="?attr/light_dark"
                   android:textSize="18sp"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:paddingLeft="8dip"
+                  android:paddingStart="2dp"
                   android:singleLine="true"
                   android:ellipsize="end" />
         <TextView android:id="@+id/location_address"
@@ -48,7 +53,7 @@
                   android:textSize="14sp"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:paddingLeft="8dip"
+                  android:paddingStart="2dp"
                   android:singleLine="true"
                   android:ellipsize="end"
                   android:layout_marginTop="-4dip" />

@@ -14,68 +14,70 @@
      limitations under the License.
 -->
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/content"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:minHeight="48dp"
-    android:background="@drawable/bg_event_cal_widget_holo">
+    android:layout_height="wrap_content"
+    android:minHeight="32sp">
+
+    <FrameLayout
+        android:id="@+id/widget_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+            android:id="@+id/agenda_item_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:scaleType="fitXY" />
 
     <LinearLayout
-        android:id="@+id/widget_row"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:paddingBottom="2dp"
-        android:orientation="horizontal"
-        android:minHeight="48dp" >
-        <ImageView
-            android:id="@+id/agenda_item_color"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_width="16dip"
-            android:layout_height="16dip"
-            android:scaleType="fitXY"
-            android:layout_marginEnd="4dip" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="4dip"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/title"
+                style="?android:attr/textAppearanceMediumInverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 android:ellipsize="marquee"
+                android:maxLines="2"
+                android:paddingStart="8dip"
+                android:paddingEnd="8dip"
                 android:textColor="@color/appwidget_title"
-                style="?android:attr/textAppearanceMediumInverse" />
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/when"
+                style="?android:attr/textAppearanceSmallInverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:ellipsize="marquee"
-                android:textSize="12sp"
+                android:maxLines="1"
+                android:paddingStart="8dip"
+                android:paddingEnd="8dip"
                 android:textColor="@color/appwidget_when"
-                style="?android:attr/textAppearanceSmallInverse" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/where"
+                style="?android:attr/textAppearanceSmallInverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:ellipsize="marquee"
+                android:maxLines="1"
+                android:paddingStart="8dip"
+                android:paddingEnd="8dip"
                 android:paddingBottom="2dip"
-                android:textSize="12sp"
                 android:textColor="@color/appwidget_where"
-                style="?android:attr/textAppearanceSmallInverse" />
+                android:textSize="12sp" />
         </LinearLayout>
-    </LinearLayout>
-
 </FrameLayout>

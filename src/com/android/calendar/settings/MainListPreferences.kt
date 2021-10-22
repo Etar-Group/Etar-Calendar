@@ -77,6 +77,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 accountCategory = PreferenceCategory(context).apply {
                     key = accountCategoryUniqueKey
                     title = calendar.accountName
+                    icon = ContextCompat.getDrawable(context!!, R.drawable.ic_account_circle)
                     order = if (calendar.isLocal) 10 else 11 // show offline calendar first
                     isOrderingAsAdded = false // use alphabetic ordering for children
                 }
@@ -152,17 +153,28 @@ class MainListPreferences : PreferenceFragmentCompat() {
     private fun addGeneralPreferences(screen: PreferenceScreen) {
         val generalPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_general)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_settings)
             fragment = GeneralPreferences::class.java.name
         }
         val addCaldavPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_remote)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_add)
         }
         addCaldavPreference.setOnPreferenceClickListener {
             launchDavX5Login()
             true
         }
+        val addEtesyncPreference = Preference(context).apply {
+            title = getString(R.string.preferences_list_add_remote_etesync)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_add)
+        }
+        addEtesyncPreference.setOnPreferenceClickListener {
+            launchAddEtesync()
+            true
+        }
         val addOfflinePreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_offline)
+            icon = ContextCompat.getDrawable(context!!, R.drawable.ic_add)
         }
         addOfflinePreference.setOnPreferenceClickListener {
             addOfflineCalendar()
@@ -170,12 +182,13 @@ class MainListPreferences : PreferenceFragmentCompat() {
         }
         screen.addPreference(generalPreference)
         screen.addPreference(addCaldavPreference)
+        screen.addPreference(addEtesyncPreference)
         screen.addPreference(addOfflinePreference)
     }
 
     private fun addOfflineCalendar() {
         val dialog = AddOfflineCalendarDialogFragment()
-        dialog.show(fragmentManager!!, "addOfflineCalendar")
+        dialog.show(parentFragmentManager, "addOfflineCalendar")
     }
 
     /**
@@ -205,6 +218,43 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 }
             }
         }
+    }
+
+    private fun launchAddEtesync() {
+        val packageManager = requireActivity().packageManager
+        val etesyncPackage = "com.etesync.syncadapter"
+        val etesyncIntent = packageManager.getLaunchIntentForPackage(etesyncPackage)
+
+        if (etesyncIntent != null) {
+            startActivity(etesyncIntent)
+        } else {
+            // EteSync is not installed
+            val installIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${etesyncPackage}"))
+
+            // launch market
+            if (installIntent.resolveActivity(packageManager) != null) {
+                startActivity(installIntent)
+            } else {
+                // no f-droid market app or Play store installed -> launch browser for f-droid url
+                val downloadIntent = Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://f-droid.org/repository/browse/?fdid=${etesyncPackage}"))
+                if (downloadIntent.resolveActivity(packageManager) != null) {
+                    startActivity(downloadIntent)
+                } else {
+                    Toast.makeText(activity, "No browser available!", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val context = preferenceManager.context
+        val screen = preferenceManager.createPreferenceScreen(context)
+
+        addGeneralPreferences(screen)
+
+        preferenceScreen = screen
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

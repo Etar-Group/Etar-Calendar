@@ -212,8 +212,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // Build the text for the day of the week.
             // Should be yesterday/today/tomorrow (if applicable) + day of the week
 
-            Time date = mTmpTime;
-            long millis = date.setJulianDay(row.mDay);
+            final Time date = mTmpTime;
+            final long millis = date.setJulianDay(row.mDay);
             int flags = DateUtils.FORMAT_SHOW_WEEKDAY;
             mStringBuilder.setLength(0);
 
@@ -421,6 +421,9 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
         }
         mRowInfo = rowInfo;
+        if (mTodayJulianDay >= dayAdapterInfo.start && mTodayJulianDay <=  dayAdapterInfo.end) {
+            insertTodayRowIfNeeded();
+        }
     }
 
     /**
@@ -449,6 +452,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
         int minDay = 0;
         boolean idFound = false;
         int len = mRowInfo.size();
+        int julianDay = Time.getJulianDay(millis, time.gmtoff);
+        int dayIndex = -1;
 
         // Loop through the events and find the best match
         // 1. Event id and start time matches requested id and time
@@ -461,6 +466,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
         for (int index = 0; index < len; index++) {
             RowInfo row = mRowInfo.get(index);
             if (row.mType == TYPE_DAY) {
+                // if we don't find a better matching event we will use the day
+                if (row.mDay == julianDay) {
+                    dayIndex = index;
+                }
                 continue;
             }
 
@@ -504,6 +513,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
         // Closest event with the same id
         if (idFound) {
             return idFoundMinIndex;
+        }
+        // prefer an exact day match (might be the dummy today one)
+        if (dayIndex != -1) {
+            return dayIndex;
         }
         // Event which occurs at the searched time
         if (eventInTimeIndex != -1) {
@@ -677,6 +690,30 @@ public class AgendaByDayAdapter extends BaseAdapter {
             mEventEndTimeMilli = endTime;
             mInstanceId = instanceId;
             mAllDay = allDay;
+        }
+    }
+
+    public void insertTodayRowIfNeeded() {
+        int len = mRowInfo.size();
+        int lastDay = -1;
+        int insertIndex = -1;
+
+        for (int index = 0; index < len; index++) {
+            RowInfo row = mRowInfo.get(index);
+            if (row.mDay == mTodayJulianDay) {
+                return;
+            }
+            if (row.mDay > mTodayJulianDay && lastDay < mTodayJulianDay) {
+                insertIndex = index;
+                break;
+            }
+            lastDay = row.mDay;
+        }
+
+        if (insertIndex != -1) {
+            mRowInfo.add(insertIndex, new RowInfo(TYPE_DAY, mTodayJulianDay));
+        } else {
+            mRowInfo.add(new RowInfo(TYPE_DAY, mTodayJulianDay));
         }
     }
 }

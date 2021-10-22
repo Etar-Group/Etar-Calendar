@@ -48,8 +48,6 @@
     </string>
     <string name="delete_this_event_title">Skasować zdarzynie\?</string>
     <string name="rsvp_tentative">Ôdpowiedziano \"możno\".</string>
-    <string name="what_label">Co</string>
-    <string name="edit_event_from_label">Ôd</string>
     <string name="quick_response_settings_edit_title">Gibko ôdpowiydź</string>
     <string name="visibility_private">Prywatne</string>
     <string name="privacy_label">Prywatność</string>
@@ -65,7 +63,6 @@
     <string name="when_label">Kedy</string>
     <string name="preferences_alerts_custom_snooze_delay_title">Pytej, po jakim czasie spōmnieć ô zdarzyniu</string>
     <string name="search_title">Szukej w mojich kalyndorzach</string>
-    <string name="timezone_label">Strefa czasowo</string>
     <string name="cal_import_menu_title">Importuj zdarzynie</string>
     <string name="cal_export_succ_msg">Zadarzynie sprownie eksportowane: %1s</string>
     <string name="display_location">Pokoż lokalizacyjo</string>
@@ -130,7 +127,6 @@
     <string name="event_not_found">Niy szło znojś zdarzynio.</string>
     <string name="rsvp_declined">Ôdpowiedziano \"niy\".</string>
     <string name="search_history_cleared">Historyjo wyszukowanio była wysnożōno.</string>
-    <string name="where_label">Kaj</string>
     <string name="alert_title">Powiadōmiynia kalyndorza</string>
     <string name="saving_event_with_guest">Aktualizacyje bydōm wysłane.</string>
     <string name="hint_attendees">Goście</string>
@@ -181,7 +177,6 @@
         </item>
     </plurals>
     <string name="modify_event">Zmiyń ino to zdarzynie</string>
-    <string name="description_label">Ôpis</string>
     <string name="copy_db">Wyślij baza danych</string>
     <string name="acessibility_recurrence_choose_end_date_description">zmiyń data kōńca</string>
     <string name="edit_event_calendar_label">Kalyndorz</string>
@@ -221,7 +216,6 @@
     <string name="quick_response_settings">Gibke ôdpowiedzi</string>
     <string name="map_label">Mapa</string>
     <string name="cal_import_error_date_msg">Niy idzie zrozumieć podanyj daty: %s</string>
-    <string name="repeats_label">Powtorzanie</string>
     <string name="preferences_alerts_vibrateWhen_title">Wibracyje</string>
     <string name="display_options">Pokoż informacyje</string>
     <string name="search">Szukej</string>
@@ -271,7 +265,6 @@
     <string name="custom" product="default">Niysztandardowo (niy idzie przipasować na telefōnie)</string>
     <string name="app_label">Kalyndorz</string>
     <string name="select_synced_calendars_button">Kalyndorze do synchrōnizacyje</string>
-    <string name="attendees_label">Goście</string>
     <string name="no_calendars_found">Przed stworzyniym zdarzynio musisz przidać do masziny kōnto z Kalyndorzym i nasztelować ôbrany kalyndorz za widzialny. Ôbier „Przidej kōnto” (jeźli to prawie było zrobiōno, to na kōniec synchrōnizacyje i sprōbuj zaś). Możesz tyż tyknōńć Pociep i dać pozōr, żeby aby jedyn kalyndorz bōł widzialny.</string>
     <string name="hint_what">Miano zdarzynio</string>
     <string name="today">Dzisiej</string>
@@ -290,7 +283,6 @@
         </item>
         <item quantity="other">tydziyń <xliff:g id="count">%d</xliff:g></item>
     </plurals>
-    <string name="edit_event_to_label">Do</string>
     <string name="preferences_month_view_portrait">Widok miesiōnca (portret)</string>
     <string name="view_event_calendar_label">Kalyndorz:</string>
     <string name="event_info_title">Pokoż zdarzynie</string>
