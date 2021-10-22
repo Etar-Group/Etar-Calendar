@@ -13,14 +13,14 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-    <string-array name="pref_theme_entries" translatable="false">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="pref_theme_entries" translatable="false" tools:ignore="InconsistentArrays">
         <item>@string/preferences_light_theme</item>
         <item>@string/preferences_dark_theme</item>
         <item>@string/preferences_black_theme</item>
     </string-array>
 
-    <string-array name="pref_theme_values" translatable="false">
+    <string-array name="pref_theme_values" translatable="false" tools:ignore="InconsistentArrays">
         <item>light</item>
         <item>dark</item>
         <item>black</item>
@@ -64,32 +64,6 @@
         <item>4</item>  <!-- METHOD_ALARM -->
     </integer-array>
 
-    <!-- Choices for the "Reminder minutes" spinner.
-         These must be kept in sync with the reminder_minutes_values array.
-         For consistency, the format should match what
-         EventViewUtils.constructReminderLabel() generates.  (TODO: eliminate
-         this and just generate the list from reminder_minutes_values?)
-         [CHAR LIMIT=15]
-    -->
-    <string-array name="reminder_minutes_labels">
-        <item>0 minutes</item>
-        <item>1 minute</item>
-        <item>5 minutes</item>
-        <item>10 minutes</item>
-        <item>15 minutes</item>
-        <item>20 minutes</item>
-        <item>25 minutes</item>
-        <item>30 minutes</item>
-        <item>45 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>3 hours</item>
-        <item>12 hours</item>
-        <item>24 hours</item>
-        <item>2 days</item>
-        <item>1 week</item>
-    </string-array>
-
     <integer-array name="reminder_minutes_values" translatable="false">
         <item>0</item>
         <item>1</item>
@@ -103,35 +77,13 @@
         <item>60</item>
         <item>120</item>
         <item>180</item>
-        <item>720</item>
-        <item>1440</item>
-        <item>2880</item>
-        <item>10080</item>
+        <item>720</item> <!-- 12 hours -->
+        <item>1440</item> <!-- 24 hours -->
+        <item>2880</item> <!-- 2 days -->
+        <item>10080</item> <!-- 1 week -->
+        <item>20160</item> <!-- 2 weeks -->
+        <item>40320</item> <!-- 4 weeks -->
     </integer-array>
-
-  <!-- Choices for the "Reminder minutes" spinner in the settings.
-         These must be kept in sync with the preferences_default_reminder_values array.
-         [CHAR LIMIT=12]
-    -->
-       <string-array name="preferences_default_reminder_labels">
-        <item>None</item>
-        <item>0 minutes</item>
-        <item>1 minute</item>
-        <item>5 minutes</item>
-        <item>10 minutes</item>
-        <item>15 minutes</item>
-        <item>20 minutes</item>
-        <item>25 minutes</item>
-        <item>30 minutes</item>
-        <item>45 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>3 hours</item>
-        <item>12 hours</item>
-        <item>24 hours</item>
-        <item>2 days</item>
-        <item>1 week</item>
-    </string-array>
 
     <string-array name="preferences_default_reminder_values" translatable="false">
         <item>"-1"</item>
@@ -151,6 +103,8 @@
         <item>"1440"</item>
         <item>"2880"</item>
         <item>"10080"</item>
+        <item>"20160"</item>
+        <item>"40320"</item>
     </string-array>
 
     <string-array name="preferences_default_snooze_delay_values" translatable="false">

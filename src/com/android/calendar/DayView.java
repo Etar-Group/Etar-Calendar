@@ -1219,6 +1219,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void adjustToBeginningOfWeek(Time time) {
         int dayOfWeek = time.weekDay;
+        // Avoid zero when Sunday is selected as the start day of the week.
+        if (mFirstDayOfWeek == 0) {
+            mFirstDayOfWeek = 7;
+        }
         int diff = dayOfWeek - mFirstDayOfWeek;
         if (diff != 0) {
             if (diff < 0) {
@@ -2025,6 +2029,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // The start date is the beginning of the week at 12am
         Time weekStart = new Time(Utils.getTimeZone(mContext, mTZUpdater));
         weekStart.set(mBaseDate);
+        // Avoid zero when Sunday is selected as the start day of the week.
+        if (mFirstDayOfWeek == 0) {
+            mFirstDayOfWeek = 7;
+        }
+        weekStart.weekDay = mFirstDayOfWeek;
         weekStart.hour = 0;
         weekStart.minute = 0;
         weekStart.second = 0;
@@ -2503,6 +2512,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 p.setStyle(Paint.Style.FILL);
                 p.setTextSize(NEW_EVENT_HINT_FONT_SIZE);
                 p.setTextAlign(Paint.Align.LEFT);
+                p.setAntiAlias(true);
                 p.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 canvas.drawText(mNewEventHintString, r.left + EVENT_TEXT_LEFT_MARGIN,
                         r.top + Math.abs(p.getFontMetrics().ascent) + EVENT_TEXT_TOP_MARGIN , p);
@@ -4544,8 +4554,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         Uri uri = Calendars.CONTENT_URI;
         String where = String.format(CALENDARS_WHERE, calId);
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, false)) {
             // If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return 0;

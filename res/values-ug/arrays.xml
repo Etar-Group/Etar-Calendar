@@ -20,43 +20,6 @@
     <item msgid="2658001219380695677">"قىسقا ئۇچۇر"</item>
     <item msgid="7926918288165444873">"قوڭغۇراق"</item>
   </string-array>
-  <string-array name="reminder_minutes_labels">
-    <item msgid="2416970002377237011">"0 مىنۇت"</item>
-    <item msgid="6681865010714743948">"1 مىنۇت"</item>
-    <item msgid="2327505114623595779">"5 مىنۇت"</item>
-    <item msgid="1657410063332547113">"10 مىنۇت"</item>
-    <item msgid="366087535181197780">"15 مىنۇت"</item>
-    <item msgid="6252612791145061929">"20 مىنۇت"</item>
-    <item msgid="7896694531989090700">"25 مىنۇت"</item>
-    <item msgid="8754510169374808607">"30 مىنۇت"</item>
-    <item msgid="3113380274218454394">"45 مىنۇت"</item>
-    <item msgid="8546646645868526283">"1 سائەت"</item>
-    <item msgid="6467845211024768872">"2 سائەت"</item>
-    <item msgid="8201677619511076575">"3 سائەت"</item>
-    <item msgid="7172504281650128893">"12 سائەت"</item>
-    <item msgid="9114286702181482496">"24 سائەت"</item>
-    <item msgid="3107009344872997366">"2 كۈن"</item>
-    <item msgid="6135563708172153696">"1 ھەپتە"</item>
-  </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"يوق"</item>
-    <item msgid="5883344836499335043">"0 مىنۇت"</item>
-    <item msgid="4354350447805231188">"1 مىنۇت"</item>
-    <item msgid="265674592625309858">"5 مىنۇت"</item>
-    <item msgid="8011089417728419666">"10 مىنۇت"</item>
-    <item msgid="6177098581805412986">"15 مىنۇت"</item>
-    <item msgid="356346660503078923">"20 مىنۇت"</item>
-    <item msgid="992592434377054063">"25 مىنۇت"</item>
-    <item msgid="9191353668596201944">"30 مىنۇت"</item>
-    <item msgid="1192985682962908244">"45 مىنۇت"</item>
-    <item msgid="1694315499429259938">"1 سائەت"</item>
-    <item msgid="8281019320591769635">"2 سائەت"</item>
-    <item msgid="2062931719019287773">"3 سائەت"</item>
-    <item msgid="4086495711621133006">"12 سائەت"</item>
-    <item msgid="3172669681920709561">"24 سائەت"</item>
-    <item msgid="5557836606782821910">"2 كۈن"</item>
-    <item msgid="8336577387266744930">"1 ھەپتە"</item>
-  </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"يەرلىك كۆڭۈلدىكى قىممەت"</item>
     <item msgid="134027225275475280">"شەنبە"</item>

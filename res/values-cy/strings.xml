@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">Calendr</string>
-    <string name="what_label">Beth</string>
-    <string name="where_label">Ble</string>
     <string name="when_label">Pryd</string>
-    <string name="timezone_label">Cylchfa Amser</string>
-    <string name="attendees_label">Gwesteion</string>
     <string name="today">Heddiw</string>
     <string name="tomorrow">Yfory</string>
     <string name="today_at_time_fmt">Heddiw am <xliff:g id="time_interval">%s</xliff:g>
@@ -15,7 +11,6 @@
     <string name="date_time_fmt">
         <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
-    <string name="repeats_label">Ailadrodd</string>
     <string name="no_title_label">(Dim teitl)</string>
     <plurals name="Nminutes">
         <item quantity="zero">Dim munudau</item>
@@ -92,11 +87,8 @@
     <string name="alert_title">Hysbysiadau calendr</string>
     <string name="event_info_title">Gweld digwyddiad</string>
     <string name="event_info_title_invite">Gwahoddiad i gyfarfod</string>
-    <string name="edit_event_to_label">At</string>
-    <string name="edit_event_from_label">Oddi wrth</string>
     <string name="edit_event_all_day_label">Trwy\'r dydd</string>
     <string name="edit_event_calendar_label">Calendr</string>
-    <string name="description_label">Disgrifiad</string>
     <string name="presence_label">Fy nangos fel</string>
     <string name="privacy_label">Preifatrwydd</string>
     <string name="reminders_label">Ychwanegu nodyn atgoffa</string>

@@ -1,0 +1,7 @@
+- Reduce font size of event names in week view
+- Activate recent search suggestions
+- Fix export to SD card
+- Strike through title of canceled events
+- Make use of system theme setting on android 10
+- New translations
+- Bugfixes

@@ -6,6 +6,7 @@ Features:
 - Dark and light theme.
 - Free, open source and absolutely no ads.
 - Support sharing calendars via ICS and the ability to import/export from SD card.
+- Multilingual UI.
 
 Bugs and feedback: https://github.com/Etar-Group/Etar-Calendar/issues
 Source code: https://github.com/Etar-Group/Etar-Calendar

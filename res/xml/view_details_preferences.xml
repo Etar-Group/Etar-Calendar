@@ -14,7 +14,7 @@
             android:summary="%s"
             android:entries="@array/show_time"
             android:entryValues="@array/show_time_values" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="pref_display_location_vertical"
             android:title="@string/display_location"
             android:defaultValue="false" />
@@ -33,7 +33,7 @@
             android:summary="%s"
             android:entries="@array/show_time"
             android:entryValues="@array/show_time_values" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="pref_display_location_horizontal"
             android:title="@string/display_location"
             android:defaultValue="false" />

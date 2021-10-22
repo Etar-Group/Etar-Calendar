@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Takvim"</string>
-    <string name="what_label" msgid="1933578391985810049">Ne</string>
-    <string name="where_label" msgid="3472482206065595118">"Yer"</string>
     <string name="when_label" msgid="894636567327261599">Ne zaman</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Saat dilimi"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Davetliler"</string>
     <string name="today" msgid="8577375020252453006">"Bugün"</string>
     <string name="tomorrow" msgid="614434811813859237">"Yarın"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Bugün şu saatler arasında: <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Yarın şu saatler arasında: <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"Tekrar"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Başlıksız)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 dakika</item>
@@ -75,11 +70,8 @@
     <string name="alert_title" msgid="7869592820853066853">"Takvim bildirimleri"</string>
     <string name="event_info_title" msgid="56024222340421620">"Etkinliği görüntüle"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Toplantı davetiyesi"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">Bitiş</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">Başlama</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Tüm gün"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Takvim"</string>
-    <string name="description_label" msgid="7193475046717505855">"Açıklama"</string>
     <string name="presence_label" msgid="6169724148441175862">Bana şunun gibi göster</string>
     <string name="privacy_label" msgid="9215031965259597335">"Gizlilik"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Hatırlatıcı ekle"</string>
@@ -117,9 +109,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Kendi yanıtınızı oluşturun…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Düzenleyici:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Hatırlatıcılar"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"bugün, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"dün, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"yarin, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Bugün, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Dün, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Yarın, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Yükleniyor…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> öncesindeki etkinlikleri görüntülemek için dokunun"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> sonrasındaki etkinlikleri görüntülemek için dokunun"</string>
@@ -251,14 +243,14 @@
     <string name="preferences_light_theme">Açık</string>
     <string name="preferences_dark_theme">Koyu</string>
     <string name="preferences_black_theme">Siyah</string>
-    <string name="preferences_color">Birincil Renk</string>
+    <string name="preferences_color">Birincil renk</string>
     <string name="preferences_color_pick">Birincil renk</string>
     <string name="preferences_days_per_week_title">Haftalık günler</string>
     <string name="preferences_days_per_week_dialog">Haftalık günler</string>
     <string name="preferences_default_event_duration_title">Varsayılan etkinlik süresi</string>
     <string name="preferences_issues">Sorunları bildir</string>
     <string name="user_rejected_calendar_write_permission">Etar, düzgün çalışmak için takvim okuma ve yazma izinlerini gerektirir. Lütfen tekrar deneyin.</string>
-    <string name="calendar_permission_not_granted">Üzgünüz, bu özellik çalışamıyor. Etar\'ın düzgün çalışabilmesi için takvim okuma ve yazma izinleri gerekir</string>
+    <string name="calendar_permission_not_granted">Gerekli izinler reddedildi, etkinlikleri düzenlemek için Ayarlar uygulamasından etkinleştirin</string>
     <string name="visibility_confidential">Gizli</string>
     <string name="zero_minutes">0 dakika</string>
     <string name="fifteen_minutes">15 dakika</string>
@@ -279,7 +271,7 @@
     <string name="error_generating_ics">Etkinlik paylaşılırken bir hata oluştu</string>
     <string name="cal_share_intent_title">Etkinliği şuna gönder:</string>
     <string name="cal_export_event_sdcard_title">SD karta aktar</string>
-    <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı: %1s</string>
+    <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı: %1$s</string>
     <string name="cal_import_menu_title">Etkinliği içeri aktar</string>
     <string name="cal_nothing_to_import">İçeri aktarılacak hiçbir şey yok</string>
     <string name="cal_import_error_msg">Takvime aktarma başarısız oldu</string>
@@ -302,12 +294,11 @@
     <string name="preferences_calendar_delete">Takvimi sil</string>
     <string name="preferences_calendar_display_name">İsmini değiştir</string>
     <string name="preferences_calendar_color">Renk</string>
-    <string name="preferences_calendar_visible">Olayları görüntüle</string>
+    <string name="preferences_calendar_visible">Etkinlikleri görüntüle</string>
     <string name="preferences_calendar_synchronize">Bu takvimi senkronize et</string>
     <string name="preferences_list_calendar_summary_sync_off">Senkronize değil</string>
-    <string name="preferences_list_calendar_summary_invisible">Olaylar gösterilmiyor</string>
+    <string name="preferences_list_calendar_summary_invisible">Etkinlikler gösterilmiyor</string>
     <string name="preferences_list_general">Genel ayarlar</string>
-    <string name="preferences_list_add_remote">Uzak takvim ekle (CalDAV)</string>
     <string name="preferences_list_add_offline">Çevrimdışı takvim ekle</string>
     <string name="preferences_list_add_offline_title">Çevrimdışı takvim ekle</string>
     <string name="preferences_list_add_offline_error_empty">Bir takvim adı girin!</string>
@@ -325,15 +316,30 @@
     <string name="preferences_calendar_delete_cancel">İptal</string>
     <string name="preferences_menu_about">Etar Hakkında</string>
     <string name="offline_account_name">Çevrimdışı Takvim</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Etar Projsi. Portions © 2005-<xliff:g>%s</xliff:g> Android Açık Kaynak Projesi.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Etar Projsi. Portions © 2005-<xliff:g>%1$s</xliff:g> Android Açık Kaynak Projesi.</string>
     <string name="authors">Yazarlar</string>
     <string name="changelog">Değişiklikler</string>
     <string name="license">Lisans</string>
     <string name="source_code">Kaynak kod</string>
     <string name="preferences_calendar_info_category">Takvim bilgileri</string>
-    <string name="preferences_calendar_number_of_events">%1d etkinlik</string>
+    <string name="preferences_calendar_number_of_events">%1$d etkinlik</string>
     <string name="preferences_calendar_configure_account">%1$s içinde takvimi yapılandır</string>
     <string name="preferences_calendar_account_local">Çevrim dışı takvim</string>
     <string name="preferences_calendar_no_display_name">Adsız takvim</string>
-    <string name="foreground_notification_channel_description">Dahili uyarı eşzamanlaması için ön planda bildirim gerekli. Lütfen sessize alın</string>
+    <string name="foreground_notification_channel_description">Dahili uyarı eşzamanlaması için ön planda bildirim gerekli.</string>
+    <string name="seven_days">7 gün</string>
+    <string name="six_days">6 gün</string>
+    <string name="five_days">5 gün</string>
+    <string name="four_days">4 gün</string>
+    <string name="three_days">3 gün</string>
+    <string name="two_days">2 gün</string>
+    <string name="preferences_system_theme">Sistem öntanımlı değeri</string>
+    <string name="preferences_list_add_remote_etesync">EteSync takvimi ekle</string>
+    <string name="preferences_list_add_remote">CalDAV takvimi ekle</string>
+    <string name="preferences_pure_black_night_mode">Saf siyah gece modu</string>
+    <string name="no_reminder_label">Yok</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 hafta</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hafta</item>
+    </plurals>
 </resources>

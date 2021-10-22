@@ -158,9 +158,7 @@ public class GoogleCalendarUriIntentFilter extends Activity {
 
                     if (debug) Log.d(TAG, "selection: " + selection);
 
-                    if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.READ_CALENDAR)
-                            != PackageManager.PERMISSION_GRANTED) {
+                    if (!Utils.isCalendarPermissionGranted(this, false)) {
                         //If permission is not granted then just return.
                         Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
                         return;
