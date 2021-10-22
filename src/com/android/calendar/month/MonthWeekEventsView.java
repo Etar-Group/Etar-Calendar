@@ -165,16 +165,16 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private int[] mDayXs;
 
     private static int EVENT_RECT_ROUNDING = 5;
-    private static int EVENT_RECT_ALLDAY_ROUNDING = 5;
+    private static int EVENT_RECT_ALLDAY_ROUNDING = 2;
     private static int EVENT_RECT_MARGIN_LEFT = 5;
-    private static int EVENT_RECT_MARGIN_RIGHT = 5;
+    private static int EVENT_RECT_MARGIN_RIGHT = 2;
     private static int EVENT_RECT_MARGIN_TOP = 5;
     private static int EVENT_RECT_MARGIN_BOTTOM = 5;
 
-    private static int EVENT_RECT_TEXT_MARGIN_LEFT = 5;
+    private static int EVENT_RECT_TEXT_MARGIN_LEFT = 15;
     private static int EVENT_RECT_TEXT_MARGIN_RIGHT = 5;
-    private static int EVENT_RECT_TEXT_MARGIN_TOP= 0;
-    private static int EVENT_RECT_TEXT_MARGIN_BOTTOM  = 5;
+    private static int EVENT_RECT_TEXT_MARGIN_TOP= 10;
+    private static int EVENT_RECT_TEXT_MARGIN_BOTTOM  = 10;
 
     /**
      * Shows up as an error if we don't include this.
@@ -1563,13 +1563,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 r.left += EVENT_RECT_MARGIN_LEFT;
                 r.right -= EVENT_RECT_MARGIN_RIGHT;
                 r.top += EVENT_RECT_MARGIN_TOP;
-                r.bottom -= EVENT_RECT_MARGIN_BOTTOM;
+                r.bottom += EVENT_RECT_MARGIN_BOTTOM+EVENT_RECT_TEXT_MARGIN_BOTTOM;
                 canvas.drawRoundRect(new RectF(r), EVENT_RECT_ALLDAY_ROUNDING, EVENT_RECT_ALLDAY_ROUNDING, mEventSquarePaint);
             } else {
                 r.left += EVENT_RECT_MARGIN_LEFT;
                 r.right += EVENT_RECT_MARGIN_RIGHT;
-                r.top += EVENT_RECT_MARGIN_TOP;
-                r.bottom += EVENT_RECT_MARGIN_BOTTOM;
+                r.top += EVENT_RECT_MARGIN_TOP+EVENT_RECT_TEXT_MARGIN_TOP; //both so that the bar aligns with the text
+                r.bottom += EVENT_RECT_TEXT_MARGIN_BOTTOM;
                 canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, mEventSquarePaint);
             }
         }
