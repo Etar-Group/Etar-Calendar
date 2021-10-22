@@ -144,6 +144,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         defaultReminderPref.summary = defaultReminderPref.entry
         snoozeDelayPref.summary = snoozeDelayPref.entry
         defaultStartPref.summary = defaultStartPref.entry
+        skipRemindersPref.summary = skipRemindersPref.entry
 
         // This triggers an asynchronous call to the provider to refresh the data in shared pref
         timeZoneId = Utils.getTimeZone(activity, null)
@@ -165,31 +166,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
         tzpd?.setOnTimeZoneSetListener(this)
 
-        updateSkipRemindersSummary(skipRemindersPref.value)
-
         initializeColorMap()
-    }
-
-    /**
-     * Update the summary for the SkipReminders preference.
-     * @param value The corresponding value of which summary to set. If null, the default summary
-     * will be set, and the value will be set accordingly too.
-     */
-    private fun updateSkipRemindersSummary(value: String?) {
-        // Default to "declined". Must match with R.array.preferences_skip_reminders_values.
-        var index = 0
-        val values = skipRemindersPref.entryValues
-        val entries = skipRemindersPref.entries
-        for (value_i in values.indices) {
-            if (values[value_i] == value) {
-                index = value_i
-                break
-            }
-        }
-        skipRemindersPref.summary = entries[index].toString()
-        if (value == null) { // Value was not known ahead of time, so the default value will be set.
-            skipRemindersPref.value = values[index].toString()
-        }
     }
 
     private fun showColorPickerDialog() {
@@ -361,7 +338,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 return true
             }
             skipRemindersPref -> {
-                updateSkipRemindersSummary(newValue as String)
+                skipRemindersPref.value = newValue as String
+                skipRemindersPref.summary = skipRemindersPref.entry
             }
             else -> {
                 return true
