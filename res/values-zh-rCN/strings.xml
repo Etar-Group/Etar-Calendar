@@ -285,8 +285,8 @@
     <string name="show_time_start_end">开始和结束时间</string>
     <string name="show_time_start_end_below">在事件下方显示开始和结束时间</string>
     <string name="maximum_number_of_lines">事件最大行数</string>
-    <string name="foreground_notification_channel_name">警告同步</string>
-    <string name="foreground_notification_channel_description">需要前台通知进行内部警告同步.</string>
+    <string name="foreground_notification_channel_name">后台任务</string>
+    <string name="foreground_notification_channel_description">内部同步需要通知。你可以安全地隐藏这个通道。</string>
     <string name="cal_import_error_time_zone_msg">无法理解给定时区： %s</string>
     <string name="preferences_calendar_account">%1$s 账户</string>
     <string name="preferences_calendar_delete">删除日历</string>
