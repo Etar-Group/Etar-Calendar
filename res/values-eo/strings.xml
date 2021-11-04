@@ -33,7 +33,7 @@
     <string name="rsvp_declined">Respondis: ne.</string>
     <string name="rsvp_tentative">Respondis: eble.</string>
     <string name="rsvp_accepted">Respondis: jes.</string>
-    <string name="saving_event_with_guest">Ĝisdatigoj sendos.</string>
+    <string name="saving_event_with_guest">Ĝisdatigoj sendiĝos.</string>
     <string name="saving_event">Okazaĵo konservita.</string>
     <string name="creating_event">Okazaĵo kreita.</string>
     <string name="hint_attendees">Gastoj</string>
@@ -200,4 +200,24 @@
     <string name="quick_response_settings">Rapidaj respondoj</string>
     <string name="no_map">Ne estas mapa apo instalita</string>
     <string name="offline_account_name">Senreta kalendaro</string>
+    <string name="foreground_notification_channel_name">Fonaj taskoj</string>
+    <string name="preferences_calendar_account">Konto de %1$s</string>
+    <string name="preferences_calendar_account_local">Senkonekta kalendaro</string>
+    <string name="creating_event_with_guest">Invitoj sendiĝos.</string>
+    <string name="preferences_system_theme">Sistema implicitaĵo</string>
+    <string name="preferences_general_title">Agordoj pri vido de kalendaro</string>
+    <string name="cal_pick_ics">Elektu enportotan dosieron</string>
+    <string name="cal_nothing_to_import">Nenio enportebla</string>
+    <string name="show_time_no">Ne montri tempon</string>
+    <string name="preferences_calendar_no_display_name">Sennoma kalendaro</string>
+    <string name="show_time_start">Nur komenca tempo</string>
+    <string name="show_time_start_end">Komenca kaj fina tempoj</string>
+    <string name="show_time_start_end_below">Komenca kaj fina tempo sub la okazaĵo</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 semajno</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semajnoj</item>
+    </plurals>
+    <string name="event_info_title_invite">Invito al renkontiĝo</string>
+    <string name="change_response_title">Ŝanĝi respondon</string>
+    <string name="no_reminder_label">Nenio</string>
 </resources>
