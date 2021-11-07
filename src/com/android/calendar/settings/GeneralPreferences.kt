@@ -34,6 +34,7 @@ import android.provider.CalendarContract.CalendarCache
 import android.provider.SearchRecentSuggestions
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import android.util.SparseIntArray
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -360,7 +361,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 return true
             }
             skipRemindersPref -> {
-                updateSkipRemindersSummary(newValue as String)
+                skipRemindersPref.value = newValue as String
+                skipRemindersPref.summary = skipRemindersPref.entry
             }
             else -> {
                 return true
