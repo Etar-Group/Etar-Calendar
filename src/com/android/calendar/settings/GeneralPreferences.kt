@@ -34,7 +34,6 @@ import android.provider.CalendarContract.CalendarCache
 import android.provider.SearchRecentSuggestions
 import android.provider.Settings
 import android.text.TextUtils
-import android.util.Log
 import android.util.SparseIntArray
 import android.widget.Toast
 import androidx.core.content.ContextCompat
