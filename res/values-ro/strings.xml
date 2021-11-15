@@ -43,8 +43,8 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Săptămâna <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="few"></item>
-        <item quantity="other"></item>
+        <item quantity="few"/>
+        <item quantity="other"/>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizaţi"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Afişaţi ziua"</string>
@@ -279,4 +279,85 @@
     <string name="preferences_color">Culoare principală</string>
     <string name="default_start_title">Aspect implicit</string>
     <string name="display_options">Opţiuni ecran</string>
+    <string name="seven_days">7 zile</string>
+    <string name="one_hour">1 oră</string>
+    <string name="preferences_calendar_configure_account">Configurează calendarul în %1$s</string>
+    <string name="preferences_calendar_info_category">Informaţii despre calendar</string>
+    <string name="preferences_calendar_color_warning_button">Am înţeles</string>
+    <string name="preferences_list_add_offline_name">Nume</string>
+    <string name="preferences_calendar_color">Culoare</string>
+    <string name="two_hours">2 ore</string>
+    <string name="cal_import_error_date_msg">Data introdusă nu este corectă: %s</string>
+    <string name="three_days">3 zile</string>
+    <string name="four_days">4 zile</string>
+    <string name="show_time_no">Nu arăta timpul</string>
+    <string name="cal_import_error_msg">Importarea în calendar a eșuat</string>
+    <string name="preferences_calendar_no_display_name">Calendar fără nume</string>
+    <string name="show_time_start_end_below">Timpul de pornire si final sub eveniment</string>
+    <string name="preferences_calendar_account">contul %1$s</string>
+    <string name="preferences_calendar_color_warning_message">Când calendarul se va sincroniza iar este posibil ca culorile să nu rămână memorate.
+\n
+\nÎn aplicaţia DAVx⁵ setarea \"Gestionare culori calendar\" trebuie să fie dezactivată pentru a preveni acest lucru.</string>
+    <string name="preferences_calendar_color_warning_title">Atenţie</string>
+    <string name="preferences_calendar_delete_cancel">Anulare</string>
+    <string name="preferences_list_calendar_summary_sync_off">Nu este sincronizat</string>
+    <string name="preferences_list_add_remote">Adaugă un calendar CalDAV</string>
+    <string name="preferences_menu_about">Despre Etar</string>
+    <string name="preferences_list_add_offline_button">Adaugă calendar</string>
+    <string name="offline_account_name">Calendar offline</string>
+    <string name="maximum_number_of_lines">Numărul maxim de propoziții intr-un eveniment</string>
+    <string name="default_start_last">Vizualizarea precedentă</string>
+    <string name="preferences_days_per_week_title">Zile pe săptămână</string>
+    <string name="preferences_days_per_week_dialog">Zile pe săptămână</string>
+    <string name="preferences_default_event_duration_title">Durata prestabilită a unui eveniment</string>
+    <string name="display_time">Timpul afișat</string>
+    <string name="display_location">Locația afișată</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Întreabă pentru întârziere alarmă</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Solicitați întârzierea de amânare ori de câte ori amânați mementourile</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Folosește mereu valoarea prestabilită pentru timpul de intârziere</string>
+    <string name="snooze_delay_dialog_title">Setează întârzierea mementourilor</string>
+    <string name="preferences_default_snooze_delay_title">Timpul prestabilit de întârziere</string>
+    <string name="preferences_default_snooze_delay_dialog">Timpul prestabilit de snooze</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Proiectul Etar. Porțiuni © 2005-<xliff:g>%1$s</xliff:g> Proiectul Open Source Android.</string>
+    <string name="authors">Autori</string>
+    <string name="changelog">Jurnal de modificări</string>
+    <string name="license">Licență</string>
+    <string name="preferences_issues">Raportează o problemă</string>
+    <string name="cal_nothing_to_import">Nimic de importat</string>
+    <string name="user_rejected_calendar_write_permission">Etar necesită permisiunile de citire și scriere a calendarului pentru a funcționa corect. Vă rugăm să încercați din nou.</string>
+    <string name="calendar_permission_not_granted">Permisiunile necesare au fost respinse, puteți schimba acest lucru în aplicația Setări pentru a edita evenimente</string>
+    <string name="two_days">2 zile</string>
+    <string name="five_days">5 zile</string>
+    <string name="six_days">6 zile</string>
+    <string name="zero_minutes">0 minute</string>
+    <string name="fifteen_minutes">15 minute</string>
+    <string name="thirty_minutes">30 de minute</string>
+    <string name="one_and_a_half_hours">1.5 ore</string>
+    <string name="error_generating_ics">Problemele apărute în timpul partajării evenimentului</string>
+    <string name="cal_share_intent_title">Trimite evenimentul către:</string>
+    <string name="cal_export_event_sdcard_title">Exportă pe cardul SD</string>
+    <string name="cal_export_succ_msg">Evenimentul a fost exportat cu succes: %1$s</string>
+    <string name="cal_import_menu_title">Importă eveniment</string>
+    <string name="visibility_confidential">Secret</string>
+    <string name="cal_import_error_time_zone_msg">Fusul orar nu este corect: %s</string>
+    <string name="cal_pick_ics">Alege fișierul de importat</string>
+    <string name="show_time_start">Pornește doar timpul</string>
+    <string name="show_time_start_end">Timpul de pornire și final</string>
+    <string name="preferences_calendar_account_local">Calendar offline</string>
+    <string name="preferences_calendar_number_of_events">%1$d evenimente</string>
+    <string name="preferences_calendar_delete">Şterge calendarul</string>
+    <string name="preferences_calendar_display_name">Schimbă numele</string>
+    <string name="preferences_calendar_visible">Afişează evenimente</string>
+    <string name="preferences_calendar_synchronize">Sincronizează acest calendar</string>
+    <string name="preferences_calendar_delete_message">Eşti sigur că doreşti să ştergi acest calendar \?</string>
+    <string name="preferences_calendar_delete_delete">Şterge calendarul</string>
+    <string name="preferences_list_calendar_summary_invisible">Evenimentele nu sunt afişate</string>
+    <string name="preferences_list_general">Setări generale</string>
+    <string name="preferences_list_add_remote_etesync">Adugă un calendar EteSync</string>
+    <string name="preferences_list_add_offline">Adaugă un calendar offline</string>
+    <string name="preferences_list_add_offline_title">Adaugă un calendar offline</string>
+    <string name="preferences_list_add_offline_error_empty">Introdu un nume pentru calendar!</string>
+    <string name="preferences_list_add_offline_message">Calendarele offline NU sunt sincronizate şi sunt disponibile pe telefonul dumnoeavostră.</string>
+    <string name="preferences_list_add_offline_cancel">Anulare</string>
+    <string name="source_code">Sursă</string>
 </resources>
