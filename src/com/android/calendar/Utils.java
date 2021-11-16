@@ -204,6 +204,36 @@ public class Utils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
+    /**
+     * Returns whether the system supports Material You.
+     *
+     * As of Android 12.0, Material You is only available on some devices (Pixel, select Samsung
+     * devices). On other devices (e.g., AOSP-based ROMs), the system_* color resources will still
+     * exist but cannot be configured by the user.
+     */
+    public static boolean isMonetAvailable(Context context) {
+        if (Build.VERSION.SDK_INT < 31) {
+            return false;
+        }
+
+        // Wallpaper-based theming requires a color extraction engine and is enabled when the `flag_monet`
+        // config flag is enabled in SystemUI. It's unclear how to access this information from a
+        // normal application.
+        //
+        // To determine whether Material You is available on the device, we use a naive heuristic which
+        // is to compare the palette against known default values in AOSP.
+        Resources resources = context.getResources();
+        int probe1 = resources.getColor(android.R.color.system_accent1_500, context.getTheme());
+        int probe2 = resources.getColor(android.R.color.system_accent2_500, context.getTheme());
+        if (probe1 == Color.parseColor("#007fac") && probe2 == Color.parseColor("#657985")) {
+            // AOSP palette
+            Log.d(TAG, "Material You not available - Detected AOSP palette");
+            return false;
+        }
+
+        return true;
+    }
+
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
         Bundle extras = intent.getExtras();

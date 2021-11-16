@@ -135,6 +135,11 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             ringtonePref.summary = ringtoneDisplayString ?: ""
         }
 
+        if (Utils.isMonetAvailable(requireContext())) {
+            // Palette is controlled by user wallpaper
+            preferenceScreen.removePreferenceRecursively(KEY_COLOR_PREF);
+        }
+
         buildSnoozeDelayEntries()
         buildDefaultReminderPrefEntries()
         defaultEventDurationPref.summary = defaultEventDurationPref.entry
