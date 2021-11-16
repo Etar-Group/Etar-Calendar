@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import ws.xsoh.etar.R;
@@ -14,6 +16,7 @@ import ws.xsoh.etar.R;
  * Created by Gitsaibot on 01.07.16.
  */
 public class DynamicTheme {
+    private static final String TAG = "DynamicTheme";
 
     private static final String THEME_PREF = "pref_theme";
     private static final String COLOR_PREF = "pref_color";
@@ -28,6 +31,7 @@ public class DynamicTheme {
     private static final String GREEN  = "green";
     private static final String RED  = "red";
     private static final String PURPLE = "purple";
+    private static final String MONET = "monet";
     private int currentTheme;
 
 
@@ -52,8 +56,34 @@ public class DynamicTheme {
 
     private static int getSelectedTheme(Activity activity) {
         String theme = getTheme(activity) + getPrimaryColor(activity);
+
+        if (theme.endsWith("monet") && !Utils.isMonetAvailable(activity.getApplicationContext())) {
+            // Fall back to teal theme
+            Log.d(TAG, "Monet theme chosen but system does not support Material You");
+            theme = getTheme(activity) + "teal";
+        }
+
         boolean pureBlack = Utils.getSharedPreference(activity, PURE_BLACK_NIGHT_MODE, false);
         switch (theme) {
+            // System palette (Android 12+)
+            case SYSTEM+MONET:
+                if (isSystemInDarkTheme(activity)) {
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackMonet;
+                    } else {
+                        return R.style.CalendarAppThemeDarkMonet;
+                    }
+                } else {
+                    return R.style.CalendarAppThemeLightMonet;
+                }
+            case LIGHT+MONET:
+                return R.style.CalendarAppThemeLightMonet;
+            case DARK+MONET:
+                return R.style.CalendarAppThemeDarkMonet;
+            case BLACK+MONET:
+                return R.style.CalendarAppThemeBlackMonet;
+
+            // Colors
             case SYSTEM+TEAL:
                 if (isSystemInDarkTheme(activity)) {
                     if (pureBlack) {
@@ -156,7 +186,11 @@ public class DynamicTheme {
     }
 
     public static String getPrimaryColor(Context context) {
-        return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
+        if (Utils.isMonetAvailable(context)) {
+            return MONET;
+        } else {
+            return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
+        }
     }
 
     private static String getSuffix(Context context) {
@@ -191,6 +225,8 @@ public class DynamicTheme {
                 return R.color.colorRedPrimary;
             case PURPLE:
                 return R.color.colorPurplePrimary;
+            case MONET:
+                return android.R.color.system_accent1_500;
             default:
                 throw new UnsupportedOperationException("Unknown color name : " + name);
         }
