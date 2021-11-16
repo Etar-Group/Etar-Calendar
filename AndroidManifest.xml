@@ -93,6 +93,7 @@
         </activity>
 
         <activity android:name="com.android.calendar.EventInfoActivity"
+            android:exported="true"
             android:parentActivityName="com.android.calendar.AllInOneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -130,6 +131,7 @@
 
         <activity
             android:name="com.android.calendar.GoogleCalendarUriIntentFilter"
+            android:exported="true"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_label"
             android:theme="@android:style/Theme.NoDisplay">
@@ -183,6 +185,7 @@
         </activity>
 
         <activity android:name="com.android.calendar.ImportActivity"
+            android:exported="true"
             android:theme="@android:style/Theme.NoDisplay"
             android:launchMode="singleTop">
              <intent-filter>
@@ -230,7 +233,8 @@
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Holo.Dialog" />
 
-        <receiver android:name="com.android.calendar.alerts.AlertReceiver">
+        <receiver android:name="com.android.calendar.alerts.AlertReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
                 <action android:name="android.intent.action.TIME_SET" />
@@ -249,7 +253,8 @@
         <receiver android:name="com.android.calendar.alerts.GlobalDismissManager"
                   android:exported="false" />
 
-        <receiver android:name="com.android.calendar.UpgradeReceiver">
+        <receiver android:name="com.android.calendar.UpgradeReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -266,7 +271,8 @@
         <service android:name="com.android.calendar.alerts.SnoozeAlarmsService" />
 
         <!-- Declarations for the widget -->
-        <receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider">
+        <receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.android.calendar.APPWIDGET_UPDATE" />
@@ -274,7 +280,8 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/appwidget_info" />
         </receiver>
 
-        <receiver android:name="com.android.calendar.widget.CalendarAppWidgetService$CalendarFactory">
+        <receiver android:name="com.android.calendar.widget.CalendarAppWidgetService$CalendarFactory"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
                 <action android:name="android.intent.action.DATE_CHANGED"/>

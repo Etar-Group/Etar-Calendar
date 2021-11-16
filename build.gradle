@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -23,12 +23,12 @@ project(':external:calendar') {
     apply plugin: 'com.android.library'
 
     android {
-        compileSdkVersion 30
-        buildToolsVersion '30.0.3'
+        compileSdkVersion 31
+        buildToolsVersion '31.0.0'
 
         defaultConfig {
             minSdkVersion 21
-            targetSdkVersion 30
+            targetSdkVersion 31
         }
 
         sourceSets {
@@ -54,12 +54,12 @@ project(':external:colorpicker') {
     apply plugin: 'com.android.library'
 
     android {
-        compileSdkVersion 30
-        buildToolsVersion '30.0.3'
+        compileSdkVersion 31
+        buildToolsVersion '31.0.0'
 
         defaultConfig {
             minSdkVersion 21
-            targetSdkVersion 30
+            targetSdkVersion 31
         }
 
         sourceSets {
@@ -88,12 +88,12 @@ project(':external:timezonepicker') {
     }
 
     android {
-        compileSdkVersion 30
-        buildToolsVersion '30.0.3'
+        compileSdkVersion 31
+        buildToolsVersion '31.0.0'
 
         defaultConfig {
             minSdkVersion 21
-            targetSdkVersion 30
+            targetSdkVersion 31
         }
 
         sourceSets {
@@ -117,12 +117,12 @@ project(':external:chips') {
     apply plugin: 'com.android.library'
 
     android {
-        compileSdkVersion 30
-        buildToolsVersion '30.0.3'
+        compileSdkVersion 31
+        buildToolsVersion '31.0.0'
 
         defaultConfig {
             minSdkVersion 21
-            targetSdkVersion 30
+            targetSdkVersion 31
         }
 
         sourceSets {
@@ -164,12 +164,12 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion '30.0.3'
+    compileSdkVersion 31
+    buildToolsVersion '31.0.0'
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 28
         versionName "1.0.26"
         applicationId "ws.xsoh.etar"
