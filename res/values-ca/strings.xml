@@ -288,8 +288,8 @@
     <string name="show_time_start_end">Hora d\'inici i finalització</string>
     <string name="show_time_start_end_below">Hora d\'inici i de finalització sota l\'esdeveniment</string>
     <string name="maximum_number_of_lines">Número màxim de línies a l\'esdeveniment</string>
-    <string name="foreground_notification_channel_name">Sincronització d\'alertes</string>
-    <string name="foreground_notification_channel_description">És necessari una notificació principal per sincronitzar el servei intern d\'alertes.</string>
+    <string name="foreground_notification_channel_name">Tasques en segon pla</string>
+    <string name="foreground_notification_channel_description">Les notificacions són necessaries per a la sincronització interna. Pots ocultar aquest canal amb seguretat.</string>
     <string name="preferences_list_add_offline_message">Els calendaris fora de línia NO es sincronitzen al núvol i només són disponibles al teu telèfon.</string>
     <string name="preferences_calendar_color_warning_message">El canvi de color podria ser revertit quan el calendari es torni a sincronitzar.
 \n
@@ -338,4 +338,9 @@
     <string name="preferences_system_theme">Sistema</string>
     <string name="preferences_list_add_remote">Afegeix un calendari CalDAV</string>
     <string name="no_reminder_label">Cap</string>
+    <string name="foreground_notification_title">Planificant nous recordatoris…</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 setmana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> setmanes</item>
+    </plurals>
 </resources>
