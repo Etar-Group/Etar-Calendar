@@ -30,7 +30,6 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +45,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
+import com.android.calendarcommon2.Time;
 
 import java.util.Date;
 import java.util.Formatter;

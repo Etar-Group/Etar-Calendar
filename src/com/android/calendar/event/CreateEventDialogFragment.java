@@ -30,7 +30,6 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,9 +44,9 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
-
 
 /**
  * Allows the user to quickly create a new all-day event from the calendar's month view.

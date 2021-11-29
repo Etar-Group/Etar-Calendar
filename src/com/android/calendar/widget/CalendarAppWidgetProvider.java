@@ -32,7 +32,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -41,6 +40,7 @@ import com.android.calendar.DynamicTheme;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventActivity;
+import com.android.calendarcommon2.Time;
 
 import java.util.Calendar;
 

@@ -29,7 +29,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.util.TimeFormatException;
 import android.view.LayoutInflater;
@@ -59,6 +58,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.EventRecurrence;
+import com.android.calendarcommon2.Time;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;

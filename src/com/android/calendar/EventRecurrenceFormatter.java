@@ -19,10 +19,10 @@ package com.android.calendar;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.TimeFormatException;
 
 import com.android.calendarcommon2.EventRecurrence;
+import com.android.calendarcommon2.Time;
 
 import java.util.Calendar;
 

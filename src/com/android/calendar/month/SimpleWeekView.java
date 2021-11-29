@@ -26,7 +26,6 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -34,6 +33,7 @@ import android.view.accessibility.AccessibilityManager;
 
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
+import com.android.calendarcommon2.Time;
 
 import java.security.InvalidParameterException;
 import java.text.NumberFormat;

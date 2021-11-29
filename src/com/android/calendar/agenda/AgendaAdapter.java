@@ -25,7 +25,6 @@ import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -35,6 +34,7 @@ import android.widget.TextView;
 import com.android.calendar.ColorChipView;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
+import com.android.calendarcommon2.Time;
 
 import java.util.Formatter;
 import java.util.Locale;

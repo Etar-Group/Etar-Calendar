@@ -38,7 +38,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
@@ -51,6 +50,7 @@ import com.android.calendar.Event;
 import com.android.calendar.LunarUtils;
 import com.android.calendar.Utils;
 import com.android.calendar.settings.ViewDetailsPreferences;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Formatter;

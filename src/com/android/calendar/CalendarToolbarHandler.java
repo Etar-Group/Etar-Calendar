@@ -3,11 +3,12 @@ package com.android.calendar;
 import android.content.Context;
 import android.os.Handler;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.android.calendarcommon2.Time;
 
 import java.util.Formatter;
 import java.util.Locale;

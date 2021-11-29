@@ -21,7 +21,6 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +30,7 @@ import android.widget.TextView;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Formatter;

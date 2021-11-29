@@ -18,6 +18,7 @@ package com.android.calendar;
 
 import com.android.calendar.Utils;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
+import com.android.calendarcommon2.Time;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -30,7 +31,6 @@ import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.format.Time;
 import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;

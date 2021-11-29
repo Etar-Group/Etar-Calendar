@@ -22,7 +22,6 @@ import android.content.Loader.OnLoadCompleteListener;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +30,13 @@ import android.widget.TextView;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.LunarUtils.LunarInfoLoader;
+import com.android.calendarcommon2.Time;
 
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Locale;
 
 import ws.xsoh.etar.R;
-
 
 /*
  * The MenuSpinnerAdapter defines the look of the ActionBar's pull down menu

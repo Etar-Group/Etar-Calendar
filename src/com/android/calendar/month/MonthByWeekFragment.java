@@ -33,7 +33,6 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -52,6 +51,7 @@ import com.android.calendar.DynamicTheme;
 import com.android.calendar.Event;
 import com.android.calendar.Utils;
 import com.android.calendar.event.CreateEventDialogFragment;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Calendar;

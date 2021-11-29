@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -37,6 +36,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 

@@ -19,8 +19,9 @@ package com.android.calendar;
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
+
+import com.android.calendarcommon2.Time;
 
 import java.util.Calendar;
 
