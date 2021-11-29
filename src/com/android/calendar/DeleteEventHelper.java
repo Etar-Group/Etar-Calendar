@@ -29,13 +29,13 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.persistence.CalendarRepository;
 import com.android.calendarcommon2.EventRecurrence;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Arrays;

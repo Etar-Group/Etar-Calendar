@@ -44,7 +44,6 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -52,6 +51,7 @@ import androidx.core.content.ContextCompat;
 
 import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.HashMap;

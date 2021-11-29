@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -35,6 +34,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
 import com.android.calendar.Utils;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.HashMap;

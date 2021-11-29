@@ -36,13 +36,13 @@ import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
-import android.text.format.Time;
 import android.util.Log;
 import android.util.Pair;
 
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivity;
+import com.android.calendarcommon2.Time;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;

@@ -20,7 +20,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
-import android.text.format.Time;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +35,7 @@ import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
 import com.android.calendar.agenda.AgendaWindowAdapter.AgendaItem;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
+import com.android.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
 

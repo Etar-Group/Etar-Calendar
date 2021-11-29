@@ -63,7 +63,6 @@ import android.provider.ContactsContract.QuickContact;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
@@ -119,6 +118,7 @@ import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
+import com.android.calendarcommon2.Time;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.colorpicker.HsvColorComparator;
 

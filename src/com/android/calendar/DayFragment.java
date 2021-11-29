@@ -19,7 +19,6 @@ package com.android.calendar;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ import android.widget.ViewSwitcher.ViewFactory;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
 

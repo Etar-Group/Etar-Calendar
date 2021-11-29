@@ -16,7 +16,6 @@
 
 package com.android.calendar.agenda;
 
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -24,7 +23,6 @@ import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +40,7 @@ import com.android.calendar.EventInfoFragment;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendarcommon2.Time;
 
 import java.util.Date;
 

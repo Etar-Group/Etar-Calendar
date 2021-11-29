@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +37,7 @@ import android.widget.TextView;
 
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
+import com.android.calendarcommon2.Time;
 
 import java.util.Calendar;
 import java.util.HashMap;

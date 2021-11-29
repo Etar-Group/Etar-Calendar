@@ -48,7 +48,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -80,6 +79,7 @@ import android.widget.ViewSwitcher;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Arrays;

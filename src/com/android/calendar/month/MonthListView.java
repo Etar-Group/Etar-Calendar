@@ -19,7 +19,6 @@ package com.android.calendar.month;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.SystemClock;
-import android.text.format.Time;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -27,6 +26,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.android.calendar.Utils;
+import com.android.calendarcommon2.Time;
 
 public class MonthListView extends ListView {
 

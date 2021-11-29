@@ -35,7 +35,6 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -46,13 +45,13 @@ import com.android.calendar.Utils;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
+import com.android.calendarcommon2.Time;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import ws.xsoh.etar.R;
-
 
 public class CalendarAppWidgetService extends RemoteViewsService {
     static final int EVENT_MIN_COUNT = 20;
