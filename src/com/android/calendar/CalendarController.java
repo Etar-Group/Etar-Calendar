@@ -103,7 +103,7 @@ public class CalendarController {
     private CalendarController(Context context) {
         mContext = context;
         mUpdateTimezone.run();
-        mTime.setToNow();
+        mTime.set(System.currentTimeMillis());
         mDetailViewType = Utils.getSharedPreference(mContext,
                 GeneralPreferences.KEY_DETAILED_VIEW,
                 GeneralPreferences.DEFAULT_DETAILED_VIEW);
@@ -299,19 +299,19 @@ public class CalendarController {
 
         long startMillis = 0;
         if (event.startTime != null) {
-            startMillis = event.startTime.toMillis(false);
+            startMillis = event.startTime.toMillis();
         }
 
         // Set mTime if selectedTime is set
-        if (event.selectedTime != null && event.selectedTime.toMillis(false) != 0) {
+        if (event.selectedTime != null && event.selectedTime.toMillis() != 0) {
             mTime.set(event.selectedTime);
         } else {
             if (startMillis != 0) {
                 // selectedTime is not set so set mTime to startTime iff it is not
                 // within start and end times
-                long mtimeMillis = mTime.toMillis(false);
+                long mtimeMillis = mTime.toMillis();
                 if (mtimeMillis < startMillis
-                        || (event.endTime != null && mtimeMillis > event.endTime.toMillis(false))) {
+                        || (event.endTime != null && mtimeMillis > event.endTime.toMillis())) {
                     mTime.set(event.startTime);
                 }
             }
@@ -416,24 +416,24 @@ public class CalendarController {
             }
 
             // Create/View/Edit/Delete Event
-            long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
+            long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis();
             if (event.eventType == EventType.CREATE_EVENT) {
-                launchCreateEvent(event.startTime.toMillis(false), endTime,
+                launchCreateEvent(event.startTime.toMillis(), endTime,
                         event.extraLong == EXTRA_CREATE_ALL_DAY, event.eventTitle,
                         event.calendarId);
                 return;
             } else if (event.eventType == EventType.VIEW_EVENT) {
-                launchViewEvent(event.id, event.startTime.toMillis(false), endTime,
+                launchViewEvent(event.id, event.startTime.toMillis(), endTime,
                         event.getResponse());
                 return;
             } else if (event.eventType == EventType.EDIT_EVENT) {
-                launchEditEvent(event.id, event.startTime.toMillis(false), endTime, true);
+                launchEditEvent(event.id, event.startTime.toMillis(), endTime, true);
                 return;
             } else if (event.eventType == EventType.VIEW_EVENT_DETAILS) {
-                launchEditEvent(event.id, event.startTime.toMillis(false), endTime, false);
+                launchEditEvent(event.id, event.startTime.toMillis(), endTime, false);
                 return;
             } else if (event.eventType == EventType.DELETE_EVENT) {
-                launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
+                launchDeleteEvent(event.id, event.startTime.toMillis(), endTime);
                 return;
             } else if (event.eventType == EventType.SEARCH) {
                 launchSearch(event.id, event.query, event.componentName);
@@ -505,7 +505,7 @@ public class CalendarController {
      * @return the time that this controller is currently pointed at
      */
     public long getTime() {
-        return mTime.toMillis(false);
+        return mTime.toMillis();
     }
 
     /**

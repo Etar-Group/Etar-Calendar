@@ -61,7 +61,7 @@ public class CalendarToolbarHandler {
         Time time = new Time(mTimeZone);
         long now = System.currentTimeMillis();
         time.set(now);
-        mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);
+        mTodayJulianDay = Time.getJulianDay(now, time.getGmtOffset());
         updateTitle();
         setMidnightHandler();
     }
@@ -112,8 +112,8 @@ public class CalendarToolbarHandler {
         long now = System.currentTimeMillis();
         Time time = new Time(mTimeZone);
         time.set(now);
-        long runInMillis = (24 * 3600 - time.hour * 3600 - time.minute * 60 -
-                time.second + 1) * 1000;
+        long runInMillis = (24 * 3600 - time.getHour() * 3600 - time.getMinute() * 60 -
+                time.getSecond() + 1) * 1000;
         mMidnightHandler.postDelayed(mTimeUpdater, runInMillis);
     }
 
@@ -123,7 +123,7 @@ public class CalendarToolbarHandler {
 
         Time t = new Time(mTimeZone);
         t.set(mMilliTime);
-        long julianDay = Time.getJulianDay(mMilliTime, t.gmtoff);
+        long julianDay = Time.getJulianDay(mMilliTime, t.getGmtOffset());
         String dayOfWeek;
         mStringBuilder.setLength(0);
 
@@ -199,17 +199,17 @@ public class CalendarToolbarHandler {
         Time t = new Time(mTimeZone);
         t.set(mMilliTime);
         int firstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
-        int dayOfWeek = t.weekDay;
+        int dayOfWeek = t.getWeekDay();
         int diff = dayOfWeek - firstDayOfWeek;
         if (diff != 0) {
             if (diff < 0) {
                 diff += 7;
             }
-            t.monthDay -= diff;
-            t.normalize(true /* ignore isDst */);
+            t.setDay(t.getDay() - diff);
+            t.normalize();
         }
 
-        long weekStartTime = t.toMillis(true);
+        long weekStartTime = t.toMillis();
         // The end of the week is 6 days after the start of the week
         long weekEndTime = weekStartTime + DateUtils.WEEK_IN_MILLIS - DateUtils.DAY_IN_MILLIS;
 
@@ -217,7 +217,7 @@ public class CalendarToolbarHandler {
         Time t1 = new Time(mTimeZone);
         t.set(weekEndTime);
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR;
-        if (t.month != t1.month) {
+        if (t.getMonth() != t1.getMonth()) {
             flags |= DateUtils.FORMAT_ABBREV_MONTH;
         }
 

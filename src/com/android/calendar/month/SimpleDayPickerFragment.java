@@ -118,15 +118,15 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected Runnable mTodayUpdater = new Runnable() {
         @Override
         public void run() {
-            Time midnight = new Time(mFirstVisibleDay.timezone);
-            midnight.setToNow();
-            long currentMillis = midnight.toMillis(true);
+            Time midnight = new Time(mFirstVisibleDay.getTimezone());
+            midnight.set(System.currentTimeMillis());
+            long currentMillis = midnight.toMillis();
 
-            midnight.hour = 0;
-            midnight.minute = 0;
-            midnight.second = 0;
-            midnight.monthDay++;
-            long millisToMidnight = midnight.normalize(true) - currentMillis;
+            midnight.setHour(0);
+            midnight.setMinute(0);
+            midnight.setSecond(0);
+            midnight.setDay(midnight.getDay() + 1);
+            long millisToMidnight = midnight.normalize() - currentMillis;
             mHandler.postDelayed(this, millisToMidnight);
 
             if (mAdapter != null) {
@@ -140,8 +140,8 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         @Override
         public void onChanged() {
             Time day = mAdapter.getSelectedDay();
-            if (day.year != mSelectedDay.year || day.yearDay != mSelectedDay.yearDay) {
-                goTo(day.toMillis(true), true, true, false);
+            if (day.getYear() != mSelectedDay.getYear() || day.getYearDay() != mSelectedDay.getYearDay()) {
+                goTo(day.toMillis(), true, true, false);
             }
         }
     };
@@ -161,12 +161,12 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
 
         // Ensure we're in the correct time zone
         mSelectedDay.switchTimezone(tz);
-        mSelectedDay.normalize(true);
-        mFirstDayOfMonth.timezone = tz;
-        mFirstDayOfMonth.normalize(true);
-        mFirstVisibleDay.timezone = tz;
-        mFirstVisibleDay.normalize(true);
-        mTempTime.timezone = tz;
+        mSelectedDay.normalize();
+        mFirstDayOfMonth.setTimezone(tz);
+        mFirstDayOfMonth.normalize();
+        mFirstVisibleDay.setTimezone(tz);
+        mFirstVisibleDay.normalize();
+        mTempTime.setTimezone(tz);
 
         Context c = getActivity();
         mSaturdayColor = DynamicTheme.getColor(c, "month_saturday");
@@ -196,7 +196,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_JULIAN_DAY,
-                Time.getJulianDay(mSelectedDay.toMillis(false), mSelectedDay.gmtoff));
+                Time.getJulianDay(mSelectedDay.toMillis(), mSelectedDay.getGmtOffset()));
         if (mAdapter == null) {
             mAdapter = new SimpleWeeksAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);
@@ -283,7 +283,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putLong(KEY_CURRENT_TIME, mSelectedDay.toMillis(true));
+        outState.putLong(KEY_CURRENT_TIME, mSelectedDay.toMillis());
     }
 
     /**
@@ -298,7 +298,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         mShowWeekNumber = false;
 
         updateHeader();
-        goTo(mSelectedDay.toMillis(true), false, false, false);
+        goTo(mSelectedDay.toMillis(), false, false, false);
         mAdapter.setSelectedDay(mSelectedDay);
         mTodayUpdater.run();
     }
@@ -347,7 +347,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * @return
      */
     public long getSelectedTime() {
-        return mSelectedDay.toMillis(true);
+        return mSelectedDay.toMillis();
     }
 
     /**
@@ -374,7 +374,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         // Set the selected day
         if (setSelected) {
             mSelectedDay.set(time);
-            mSelectedDay.normalize(true);
+            mSelectedDay.normalize();
         }
 
         // If this view isn't returned yet we won't be able to load the lists
@@ -387,11 +387,11 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         }
 
         mTempTime.set(time);
-        long millis = mTempTime.normalize(true);
+        long millis = mTempTime.normalize();
         // Get the week we're going to
         // TODO push Util function into Calendar public api.
         int position = Utils.getWeeksSinceEpochFromJulianDay(
-                Time.getJulianDay(millis, mTempTime.gmtoff), mFirstDayOfWeek);
+                Time.getJulianDay(millis, mTempTime.getGmtOffset()), mFirstDayOfWeek);
 
         View child;
         int i = 0;
@@ -431,11 +431,11 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         // and if so scroll to the month that contains it
         if (position < firstPosition || position > lastPosition || forceScroll) {
             mFirstDayOfMonth.set(mTempTime);
-            mFirstDayOfMonth.monthDay = 1;
-            millis = mFirstDayOfMonth.normalize(true);
+            mFirstDayOfMonth.setDay(1);
+            millis = mFirstDayOfMonth.normalize();
             setMonthDisplayed(mFirstDayOfMonth, true);
             position = Utils.getWeeksSinceEpochFromJulianDay(
-                    Time.getJulianDay(millis, mFirstDayOfMonth.gmtoff), mFirstDayOfWeek);
+                    Time.getJulianDay(millis, mFirstDayOfMonth.getGmtOffset()), mFirstDayOfWeek);
 
             mPreviousScrollState = OnScrollListener.SCROLL_STATE_FLING;
             if (animate) {
@@ -555,7 +555,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         if (!TextUtils.equals(oldMonth, mMonthName.getText())) {
             mMonthName.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
         }
-        mCurrentMonthDisplayed = time.month;
+        mCurrentMonthDisplayed = time.getMonth();
         if (updateHighlight) {
             mAdapter.updateFocusMonth(mCurrentMonthDisplayed);
         }

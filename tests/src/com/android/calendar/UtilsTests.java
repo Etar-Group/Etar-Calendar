@@ -149,8 +149,8 @@ public class UtilsTests extends TestCase {
             int month, int year, String timezone) {
         Time t = new Time(timezone);
         t.set(second, minute, hour, monthDay, month, year);
-        t.normalize(false);
-        return t.toMillis(false);
+        t.normalize();
+        return t.toMillis();
     }
 
     private void setTimezone(String tz) {

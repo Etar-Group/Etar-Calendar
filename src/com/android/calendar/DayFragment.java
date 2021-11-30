@@ -63,21 +63,21 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
                 return;
             }
             String tz = Utils.getTimeZone(getActivity(), mTZUpdater);
-            mSelectedDay.timezone = tz;
-            mSelectedDay.normalize(true);
+            mSelectedDay.setTimezone(tz);
+            mSelectedDay.normalize();
         }
     };
 
     private int mNumDays;
 
     public DayFragment() {
-        mSelectedDay.setToNow();
+        mSelectedDay.set(System.currentTimeMillis());
     }
 
     public DayFragment(long timeMillis, int numOfDays) {
         mNumDays = numOfDays;
         if (timeMillis == 0) {
-            mSelectedDay.setToNow();
+            mSelectedDay.set(System.currentTimeMillis());
         } else {
             mSelectedDay.set(timeMillis);
         }

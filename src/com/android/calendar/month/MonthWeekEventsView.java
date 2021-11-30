@@ -433,10 +433,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * @param tz - time zone
      */
     public boolean updateToday(String tz) {
-        mToday.timezone = tz;
-        mToday.setToNow();
-        mToday.normalize(true);
-        int julianToday = Time.getJulianDay(mToday.toMillis(false), mToday.gmtoff);
+        mToday.setTimezone(tz);
+        mToday.set(System.currentTimeMillis());
+        mToday.normalize();
+        int julianToday = Time.getJulianDay(mToday.toMillis(), mToday.getGmtOffset());
         if (julianToday >= mFirstJulianDay && julianToday < mFirstJulianDay + mNumDays) {
             mHasToday = true;
             mTodayIndex = julianToday - mFirstJulianDay;
@@ -645,9 +645,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
             if (LunarUtils.showLunar(getContext())) {
                 // adjust the year and month
-                int year = time.year;
-                int month = time.month;
-                int julianMondayDay = time.monthDay;
+                int year = time.getYear();
+                int month = time.getMonth();
+                int julianMondayDay = time.getDay();
                 int monthDay = Integer.parseInt(mDayNumbers[i]);
                 if (monthDay != julianMondayDay) {
                     int offsetDay = monthDay - julianMondayDay;
@@ -1797,11 +1797,11 @@ public class MonthWeekEventsView extends SimpleWeekView {
         Time time = new Time(mTimeZone);
         if (mWeek == 0) {
             // This week is weird...
-            if (day < Time.EPOCH_JULIAN_DAY) {
+            if (day < Utils.EPOCH_JULIAN_DAY) {
                 day++;
-            } else if (day == Time.EPOCH_JULIAN_DAY) {
+            } else if (day == Utils.EPOCH_JULIAN_DAY) {
                 time.set(1, 0, 1970);
-                time.normalize(true);
+                time.normalize();
                 return time;
             }
         }
@@ -1823,8 +1823,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
             Time hover = getDayFromLocation(event.getX());
             if (hover != null
-                    && (mLastHoverTime == null || Time.compare(hover, mLastHoverTime) != 0)) {
-                Long millis = hover.toMillis(true);
+                    && (mLastHoverTime == null || hover.compareTo(mLastHoverTime) != 0)) {
+                Long millis = hover.toMillis();
                 String date = Utils.formatDateRange(context, millis, millis,
                         DateUtils.FORMAT_SHOW_DATE);
                 AccessibilityEvent accessEvent = AccessibilityEvent

@@ -129,7 +129,7 @@ public class CalendarViewAdapter extends BaseAdapter {
         Time time = new Time(mTimeZone);
         long now = System.currentTimeMillis();
         time.set(now);
-        mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);
+        mTodayJulianDay = Time.getJulianDay(now, time.getGmtOffset());
         notifyDataSetChanged();
         setMidnightHandler();
     }
@@ -142,8 +142,8 @@ public class CalendarViewAdapter extends BaseAdapter {
         long now = System.currentTimeMillis();
         Time time = new Time(mTimeZone);
         time.set(now);
-        long runInMillis = (24 * 3600 - time.hour * 3600 - time.minute * 60 -
-                time.second + 1) * 1000;
+        long runInMillis = (24 * 3600 - time.getHour() * 3600 - time.getMinute() * 60 -
+                time.getSecond() + 1) * 1000;
         mMidnightHandler.postDelayed(mTimeUpdater, runInMillis);
     }
 
@@ -207,8 +207,8 @@ public class CalendarViewAdapter extends BaseAdapter {
                         Time time = new Time(mTimeZone);
                         time.set(mMilliTime);
                         int flag = LunarUtils.FORMAT_LUNAR_LONG | LunarUtils.FORMAT_MULTI_FESTIVAL;
-                        String lunar = LunarUtils.get(mContext, time.year, time.month,
-                                time.monthDay, flag, false, null);
+                        String lunar = LunarUtils.get(mContext, time.getYear(), time.getMonth(),
+                                time.getDay(), flag, false, null);
                         if (!TextUtils.isEmpty(lunar)) {
                             lunarInfo.setText(lunar);
                         }
@@ -351,7 +351,7 @@ public class CalendarViewAdapter extends BaseAdapter {
 
         Time t = new Time(mTimeZone);
         t.set(mMilliTime);
-        long julianDay = Time.getJulianDay(mMilliTime,t.gmtoff);
+        long julianDay = Time.getJulianDay(mMilliTime,t.getGmtOffset());
         String dayOfWeek = null;
         mStringBuilder.setLength(0);
 
@@ -426,17 +426,17 @@ public class CalendarViewAdapter extends BaseAdapter {
         Time t = new Time(mTimeZone);
         t.set(mMilliTime);
         int firstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
-        int dayOfWeek = t.weekDay;
+        int dayOfWeek = t.getWeekDay();
         int diff = dayOfWeek - firstDayOfWeek;
         if (diff != 0) {
             if (diff < 0) {
                 diff += 7;
             }
-            t.monthDay -= diff;
-            t.normalize(true /* ignore isDst */);
+            t.setDay(t.getDay() - diff);
+            t.normalize();
         }
 
-        long weekStartTime = t.toMillis(true);
+        long weekStartTime = t.toMillis();
         // The end of the week is 6 days after the start of the week
         long weekEndTime = weekStartTime + DateUtils.WEEK_IN_MILLIS - DateUtils.DAY_IN_MILLIS;
 
@@ -444,7 +444,7 @@ public class CalendarViewAdapter extends BaseAdapter {
         Time t1 = new Time(mTimeZone);
         t1.set(weekEndTime);
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR;
-        if (t.month != t1.month) {
+        if (t.getMonth() != t1.getMonth()) {
             flags |= DateUtils.FORMAT_ABBREV_MONTH;
         }
 
@@ -469,12 +469,12 @@ public class CalendarViewAdapter extends BaseAdapter {
 
             // As the first day of previous month;
             Calendar from = Calendar.getInstance();
-            from.set(time.year, time.month - 1, 1);
+            from.set(time.getYear(), time.getMonth() - 1, 1);
 
             // Get the last day of next month.
             Calendar to = Calendar.getInstance();
-            to.set(Calendar.YEAR, time.year);
-            to.set(Calendar.MONTH, time.month + 1);
+            to.set(Calendar.YEAR, time.getYear());
+            to.set(Calendar.MONTH, time.getMonth() + 1);
             to.set(Calendar.DAY_OF_MONTH, to.getMaximum(Calendar.DAY_OF_MONTH));
 
             // Call LunarUtils to load the info.

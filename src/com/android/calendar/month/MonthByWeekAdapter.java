@@ -135,24 +135,24 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         mHomeTimeZone = Utils.getTimeZone(mContext, null);
         mSelectedDay.switchTimezone(mHomeTimeZone);
         mToday = new Time(mHomeTimeZone);
-        mToday.setToNow();
+        mToday.set(System.currentTimeMillis());
         mTempTime = new Time(mHomeTimeZone);
     }
 
     private void updateTimeZones() {
-        mSelectedDay.timezone = mHomeTimeZone;
-        mSelectedDay.normalize(true);
-        mToday.timezone = mHomeTimeZone;
-        mToday.setToNow();
+        mSelectedDay.setTimezone(mHomeTimeZone);
+        mSelectedDay.normalize();
+        mToday.setTimezone(mHomeTimeZone);
+        mToday.set(System.currentTimeMillis());
         mTempTime.switchTimezone(mHomeTimeZone);
     }
 
     @Override
     public void setSelectedDay(Time selectedTime) {
         mSelectedDay.set(selectedTime);
-        long millis = mSelectedDay.normalize(true);
+        long millis = mSelectedDay.normalize();
         mSelectedWeek = Utils.getWeeksSinceEpochFromJulianDay(
-                Time.getJulianDay(millis, mSelectedDay.gmtoff), mFirstDayOfWeek);
+                Time.getJulianDay(millis, mSelectedDay.getGmtOffset()), mFirstDayOfWeek);
         notifyDataSetChanged();
     }
 
@@ -227,7 +227,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             v = (MonthWeekEventsView) convertView;
             // Checking updateToday uses the current params instead of the new
             // params, so this is assuming the view is relatively stable
-            if (mAnimateToday && v.updateToday(mSelectedDay.timezone)) {
+            if (mAnimateToday && v.updateToday(mSelectedDay.getTimezone())) {
                 long currentTime = System.currentTimeMillis();
                 // If it's been too long since we tried to start the animation
                 // don't show it. This can happen if the user stops a scroll
@@ -258,7 +258,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
 
         int selectedDay = -1;
         if (mSelectedWeek == position) {
-            selectedDay = mSelectedDay.weekDay;
+            selectedDay = mSelectedDay.getWeekDay();
         }
 
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_HEIGHT, parent.getHeight() / mNumWeeks);
@@ -275,7 +275,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             mAnimateToday = false;
         }
 
-        v.setWeekParams(drawingParams, mSelectedDay.timezone);
+        v.setWeekParams(drawingParams, mSelectedDay.getTimezone());
         sendEventsToView(v);
         return v;
     }
@@ -334,13 +334,13 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     }
 
     private void setDayParameters(Time day) {
-        day.timezone = mHomeTimeZone;
+        day.setTimezone(mHomeTimeZone);
         Time currTime = new Time(mHomeTimeZone);
         currTime.set(mController.getTime());
-        day.hour = currTime.hour;
-        day.minute = currTime.minute;
-        day.allDay = false;
-        day.normalize(true);
+        day.setHour(currTime.getHour());
+        day.setMinute(currTime.getMinute());
+        day.setAllDay(false);
+        day.normalize();
     }
 
     @Override

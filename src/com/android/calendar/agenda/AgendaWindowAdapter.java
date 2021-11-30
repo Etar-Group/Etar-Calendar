@@ -454,8 +454,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         if (DEBUGLOG) Log.e(TAG, "getAdapterInfoByTime " + time.toString());
 
         Time tmpTime = new Time(time);
-        long timeInMillis = tmpTime.normalize(true);
-        int day = Time.getJulianDay(timeInMillis, tmpTime.gmtoff);
+        long timeInMillis = tmpTime.normalize();
+        int day = Time.getJulianDay(timeInMillis, tmpTime.getGmtOffset());
         synchronized (mAdapterInfos) {
             for (DayAdapterInfo info : mAdapterInfos) {
                 if (info.start <= day && day <= info.end) {
@@ -528,14 +528,14 @@ public class AgendaWindowAdapter extends BaseAdapter
         if (agendaItem.allDay) { // UTC to Local time conversion
             Time time = new Time(mTimeZone);
             time.setJulianDay(Time.getJulianDay(agendaItem.begin, 0));
-            agendaItem.begin = time.toMillis(false /* use isDst */);
+            agendaItem.begin = time.toMillis();
         } else if (isDayHeader) { // Trim to midnight.
             Time time = new Time(mTimeZone);
             time.set(agendaItem.begin);
-            time.hour = 0;
-            time.minute = 0;
-            time.second = 0;
-            agendaItem.begin = time.toMillis(false /* use isDst */);
+            time.setHour(0);
+            time.setMinute(0);
+            time.setSecond(0);
+            agendaItem.begin = time.toMillis();
         }
 
         // If this is not a day header, then it's an event.
@@ -544,7 +544,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             if (agendaItem.allDay) {
                 Time time = new Time(mTimeZone);
                 time.setJulianDay(Time.getJulianDay(agendaItem.end, 0));
-                agendaItem.end = time.toMillis(false /* use isDst */);
+                agendaItem.end = time.toMillis();
             }
         }
         return agendaItem;
@@ -587,7 +587,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                     + (refreshEventInfo ? " refresh event info" : ""));
         }
 
-        int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);
+        int startDay = Time.getJulianDay(goToTime.toMillis(), goToTime.getGmtOffset());
 
         if (!forced && isInRange(startDay, startDay)) {
             // No need to re-query
@@ -612,7 +612,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                                                 false);
                                 mSelectedVH = new AgendaAdapter.ViewHolder();
                                 mSelectedVH.allDay = item.allDay;
-                                sendViewEvent(item, goToTime.toMillis(false));
+                                sendViewEvent(item, goToTime.toMillis());
                             }
                         }
                     }
@@ -832,7 +832,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     private String formatDateString(int julianDay) {
         Time time = new Time(mTimeZone);
         time.setJulianDay(julianDay);
-        long millis = time.toMillis(false);
+        long millis = time.toMillis();
         mStringBuilder.setLength(0);
         return DateUtils.formatDateRange(mContext, mFormatter, millis, millis,
                 DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_DATE
@@ -984,7 +984,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                 result = prime * result + searchQuery.hashCode();
             }
             if (goToTime != null) {
-                long goToTimeMillis = goToTime.toMillis(false);
+                long goToTimeMillis = goToTime.toMillis();
                 result = prime * result + (int) (goToTimeMillis ^ (goToTimeMillis >>> 32));
             }
             result = prime * result + (int) id;
@@ -1004,7 +1004,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             }
 
             if (goToTime != null) {
-                if (goToTime.toMillis(false) != other.goToTime.toMillis(false)) {
+                if (goToTime.toMillis() != other.goToTime.toMillis()) {
                     return false;
                 }
             } else {
@@ -1050,10 +1050,10 @@ public class AgendaWindowAdapter extends BaseAdapter
             Time time = new Time();
             StringBuilder sb = new StringBuilder();
             time.setJulianDay(start);
-            time.normalize(false);
+            time.normalize();
             sb.append("Start:").append(time.toString());
             time.setJulianDay(end);
-            time.normalize(false);
+            time.normalize();
             sb.append(" End:").append(time.toString());
             sb.append(" Offset:").append(offset);
             sb.append(" Size:").append(size);
@@ -1293,7 +1293,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                     Time time = new Time(mTimeZone);
                     long now = System.currentTimeMillis();
                     time.set(now);
-                    int JulianToday = Time.getJulianDay(now, time.gmtoff);
+                    int JulianToday = Time.getJulianDay(now, time.getGmtOffset());
                     if (info != null && JulianToday >= info.start && JulianToday
                             <= mAdapterInfos.getLast().end) {
                         Iterator<DayAdapterInfo> iter = mAdapterInfos.iterator();

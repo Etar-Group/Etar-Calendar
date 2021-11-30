@@ -1510,7 +1510,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             Time date = new Time(Utils.getTimeZone(mActivity, mTZUpdater));
             date.set(mStartMillis);
             if (mAllDay) {
-                date.timezone = Time.TIMEZONE_UTC;
+                date.setTimezone(Time.TIMEZONE_UTC);
             }
             eventRecurrence.setStartDate(date);
             repeatString = EventRecurrenceFormatter.getRepeatString(mContext, context.getResources(),

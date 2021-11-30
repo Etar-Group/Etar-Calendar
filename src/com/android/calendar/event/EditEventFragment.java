@@ -228,10 +228,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mModel.mAllDay = mEvent.extraLong == CalendarController.EXTRA_CREATE_ALL_DAY;
             }
             if (mEvent.startTime != null) {
-                mBegin = mEvent.startTime.toMillis(true);
+                mBegin = mEvent.startTime.toMillis();
             }
             if (mEvent.endTime != null) {
-                mEnd = mEvent.endTime.toMillis(true);
+                mEnd = mEvent.endTime.toMillis();
             }
             if (mEvent.calendarId != -1) {
                 mCalendarId = mEvent.calendarId;
@@ -596,10 +596,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mEventBundle = new EventBundle();
             mEventBundle.id = mEvent.id;
             if (mEvent.startTime != null) {
-                mEventBundle.start = mEvent.startTime.toMillis(true);
+                mEventBundle.start = mEvent.startTime.toMillis();
             }
             if (mEvent.endTime != null) {
-                mEventBundle.end = mEvent.startTime.toMillis(true);
+                mEventBundle.end = mEvent.startTime.toMillis();
             }
         }
         outState.putBoolean(BUNDLE_KEY_EDIT_ON_LAUNCH, mShowModifyDialogOnLaunch);
@@ -958,13 +958,13 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             String tz = Utils.getTimeZone(mActivity, null);
                             Time t = new Time(Time.TIMEZONE_UTC);
                             t.set(start);
-                            t.timezone = tz;
-                            start = t.toMillis(true);
+                            t.setTimezone(tz);
+                            start = t.toMillis();
 
-                            t.timezone = Time.TIMEZONE_UTC;
+                            t.setTimezone(Time.TIMEZONE_UTC);
                             t.set(end);
-                            t.timezone = tz;
-                            end = t.toMillis(true);
+                            t.setTimezone(tz);
+                            end = t.toMillis();
                         }
                         CalendarController.getInstance(mActivity).launchViewEvent(-1, start, end,
                                 Attendees.ATTENDEE_STATUS_NONE);

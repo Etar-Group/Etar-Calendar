@@ -417,11 +417,11 @@ public class DeleteEventHelper {
                 eventRecurrence.parse(rRule);
                 Time date = new Time();
                 if (allDay) {
-                    date.timezone = Time.TIMEZONE_UTC;
+                    date.setTimezone(Time.TIMEZONE_UTC);
                 }
                 date.set(mStartMillis);
-                date.second--;
-                date.normalize(false);
+                date.setSecond(date.getSecond() -1 );
+                date.normalize();
 
                 // Google calendar seems to require the UNTIL string to be
                 // in UTC.

@@ -338,7 +338,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             case RecurrenceModel.END_BY_DATE:
                 if (model.endDate != null) {
                     model.endDate.switchTimezone(Time.TIMEZONE_UTC);
-                    model.endDate.normalize(false);
+                    model.endDate.normalize();
                     er.until = model.endDate.format2445();
                     er.count = 0;
                 } else {
@@ -437,12 +437,12 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
                 String tz = b.getString(BUNDLE_TIME_ZONE);
                 if (!TextUtils.isEmpty(tz)) {
-                    mTime.timezone = tz;
+                    mTime.setTimezone(tz);
                 }
-                mTime.normalize(false);
+                mTime.normalize();
 
                 // Time days of week: Sun=0, Mon=1, etc
-                mModel.weeklyByDayOfWeek[mTime.weekDay] = true;
+                mModel.weeklyByDayOfWeek[mTime.getWeekDay()] = true;
                 String rrule = b.getString(BUNDLE_RRULE);
                 if (!TextUtils.isEmpty(rrule)) {
                     mModel.recurrenceState = RecurrenceModel.STATE_RECURRENCE;
@@ -450,12 +450,12 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                     copyEventRecurrenceToModel(mRecurrence, mModel);
                     // Leave today's day of week as checked by default in weekly view.
                     if (mRecurrence.bydayCount == 0) {
-                        mModel.weeklyByDayOfWeek[mTime.weekDay] = true;
+                        mModel.weeklyByDayOfWeek[mTime.getWeekDay()] = true;
                     }
                 }
 
             } else {
-                mTime.setToNow();
+                mTime.set(System.currentTimeMillis());
             }
         }
 
@@ -532,16 +532,16 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             switch (mModel.freq) {
                 case RecurrenceModel.FREQ_DAILY:
                 case RecurrenceModel.FREQ_WEEKLY:
-                    mModel.endDate.month += 1;
+                    mModel.endDate.setMonth(mModel.endDate.getMonth() + 1);
                     break;
                 case RecurrenceModel.FREQ_MONTHLY:
-                    mModel.endDate.month += 3;
+                    mModel.endDate.setMonth(mModel.endDate.getMonth() + 3);
                     break;
                 case RecurrenceModel.FREQ_YEARLY:
-                    mModel.endDate.year += 3;
+                    mModel.endDate.setYear(mModel.endDate.getYear() + 3);
                     break;
             }
-            mModel.endDate.normalize(false);
+            mModel.endDate.normalize();
         }
 
         mWeekGroup = (LinearLayout) mView.findViewById(R.id.weekGroup);
@@ -749,13 +749,13 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
                 if (mMonthRepeatByDayOfWeekStr == null) {
                     if (mModel.monthlyByNthDayOfWeek == 0) {
-                        mModel.monthlyByNthDayOfWeek = (mTime.monthDay + 6) / 7;
+                        mModel.monthlyByNthDayOfWeek = (mTime.getDay() + 6) / 7;
                         // Since not all months have 5 weeks, we convert 5th NthDayOfWeek to
                         // -1 for last monthly day of the week
                         if (mModel.monthlyByNthDayOfWeek >= FIFTH_WEEK_IN_A_MONTH) {
                             mModel.monthlyByNthDayOfWeek = LAST_NTH_DAY_OF_WEEK;
                         }
-                        mModel.monthlyByDayOfWeek = mTime.weekDay;
+                        mModel.monthlyByDayOfWeek = mTime.getWeekDay();
                     }
 
                     String[] monthlyByNthDayOfWeekStrs =
@@ -780,7 +780,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         mEndSpinner.setSelection(mModel.end);
         if (mModel.end == RecurrenceModel.END_BY_DATE) {
             final String dateStr = DateUtils.formatDateTime(getActivity(),
-                    mModel.endDate.toMillis(false), DateUtils.FORMAT_NUMERIC_DATE);
+                    mModel.endDate.toMillis(), DateUtils.FORMAT_NUMERIC_DATE);
             mEndDateTextView.setText(dateStr);
         } else {
             if (mModel.end == RecurrenceModel.END_BY_COUNT) {
@@ -906,13 +906,15 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         if (mModel.endDate == null) {
-            mModel.endDate = new Time(mTime.timezone);
-            mModel.endDate.hour = mModel.endDate.minute = mModel.endDate.second = 0;
+            mModel.endDate = new Time(mTime.getTimezone());
+            mModel.endDate.setHour(0);
+            mModel.endDate.setMinute(0);
+            mModel.endDate.setSecond(0);
         }
-        mModel.endDate.year = year;
-        mModel.endDate.month = monthOfYear;
-        mModel.endDate.monthDay = dayOfMonth;
-        mModel.endDate.normalize(false);
+        mModel.endDate.setYear(year);
+        mModel.endDate.setMonth(monthOfYear);
+        mModel.endDate.setDay(dayOfMonth);
+        mModel.endDate.normalize();
         updateDialog();
     }
 
@@ -952,7 +954,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                 mDatePickerDialog.dismiss();
             }
             mDatePickerDialog = new DatePickerDialog(getActivity(), this,
-                    mModel.endDate.year, mModel.endDate.month, mModel.endDate.monthDay);
+                    mModel.endDate.getYear(), mModel.endDate.getMonth(), mModel.endDate.getDay());
             mDatePickerDialog.show();
         } else if (mDone == v) {
             String rrule;
@@ -1093,9 +1095,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             dest.writeInt(freq);
             dest.writeInt(interval);
             dest.writeInt(end);
-            dest.writeInt(endDate.year);
-            dest.writeInt(endDate.month);
-            dest.writeInt(endDate.monthDay);
+            dest.writeInt(endDate.getYear());
+            dest.writeInt(endDate.getMonth());
+            dest.writeInt(endDate.getDay());
             dest.writeInt(endCount);
             dest.writeBooleanArray(weeklyByDayOfWeek);
             dest.writeInt(monthlyRepeat);

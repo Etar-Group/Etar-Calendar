@@ -324,7 +324,7 @@ public class AlertService extends Service {
                 Time time = new Time();
                 time.set(nextRefreshTime);
                 String msg = String.format("Scheduling next notification refresh in %d min at: "
-                        + "%d:%02d", minutesBeforeRefresh, time.hour, time.minute);
+                        + "%d:%02d", minutesBeforeRefresh, time.getHour(), time.getMinute());
                 Log.d(TAG, msg);
             }
         } else if (nextRefreshTime < currentTime) {
