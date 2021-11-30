@@ -97,8 +97,8 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
     @SmallTest
     public void testGetAppWidgetModel_1Event() throws Exception {
-        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(), Time
-                .getCurrentTimezone());
+        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(),
+                Utils.getCurrentTimezone());
         MatrixCursor cursor = new MatrixCursor(CalendarAppWidgetService.EVENT_PROJECTION, 0);
 
 
@@ -119,7 +119,7 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Test
         CalendarAppWidgetModel actual = CalendarFactory.buildAppWidgetModel(
-                getContext(), cursor, Time.getCurrentTimezone());
+                getContext(), cursor, Utils.getCurrentTimezone());
 
         assertEquals(expected.toString(), actual.toString());
     }
@@ -127,8 +127,8 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
     @SmallTest
     public void testGetAppWidgetModel_AllDayEventLater() throws Exception {
         Context context = getContext();
-        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(), Time
-                .getCurrentTimezone());
+        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(),
+                Utils.getCurrentTimezone());
         MatrixCursor cursor = new MatrixCursor(CalendarAppWidgetService.EVENT_PROJECTION, 0);
 
         int i = 0;
@@ -168,7 +168,7 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Test
         CalendarAppWidgetModel actual = CalendarAppWidgetService.CalendarFactory.buildAppWidgetModel(
-                context, cursor, Time.getCurrentTimezone());
+                context, cursor, Utils.getCurrentTimezone());
 
         Log.e("Test", " expected: " + expected.toString()
             + " actual: " + actual.toString());

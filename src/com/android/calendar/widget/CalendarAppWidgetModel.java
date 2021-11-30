@@ -67,7 +67,7 @@ class CalendarAppWidgetModel {
             mBuckets.add(new LinkedList<RowInfo>());
         }
         recycle.set(System.currentTimeMillis());
-        mShowTZ = !TextUtils.equals(timeZone, Time.getCurrentTimezone());
+        mShowTZ = !TextUtils.equals(timeZone, Utils.getCurrentTimezone());
         if (mShowTZ) {
             mHomeTZName = TimeZone.getTimeZone(timeZone).getDisplayName(recycle.isDst != 0,
                     TimeZone.SHORT);

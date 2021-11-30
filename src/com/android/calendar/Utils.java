@@ -1578,6 +1578,10 @@ public class Utils {
         return tzDisplay;
     }
 
+    public static String getCurrentTimezone() {
+        return TimeZone.getDefault().getID();
+    }
+
     /**
      * Returns whether the specified time interval is in a single day.
      */

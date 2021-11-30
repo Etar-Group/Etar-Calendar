@@ -1197,7 +1197,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         if (mHomeTime != null
                 && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK
                         || mCurrentView == ViewType.AGENDA)
-                && !TextUtils.equals(mTimeZone, Time.getCurrentTimezone())) {
+                && !TextUtils.equals(mTimeZone, Utils.getCurrentTimezone())) {
             Time time = new Time(mTimeZone);
             time.set(System.currentTimeMillis());
             long millis = time.toMillis();

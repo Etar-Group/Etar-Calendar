@@ -155,7 +155,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mContext = activity;
-        String tz = Time.getCurrentTimezone();
+        String tz = Utils.getCurrentTimezone();
         ViewConfiguration viewConfig = ViewConfiguration.get(activity);
         mMinimumFlingVelocity = viewConfig.getScaledMinimumFlingVelocity();
 
