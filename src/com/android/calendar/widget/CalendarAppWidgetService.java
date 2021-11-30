@@ -110,12 +110,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         long delta = unixTime - now;
         if (delta > DateUtils.MINUTE_IN_MILLIS) {
             delta /= DateUtils.MINUTE_IN_MILLIS;
-            return String.format("[%d] %s (%+d mins)", unixTime,
-                    time.format("%H:%M:%S"), delta);
+            return String.format("[%d] %s (%+d mins)", unixTime, time.format(), delta);
         } else {
             delta /= DateUtils.SECOND_IN_MILLIS;
-            return String.format("[%d] %s (%+d secs)", unixTime,
-                    time.format("%H:%M:%S"), delta);
+            return String.format("[%d] %s (%+d secs)", unixTime, time.format(), delta);
         }
     }
 
@@ -181,20 +179,20 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         private static long getNextMidnightTimeMillis(String timezone) {
             Time time = new Time();
-            time.setToNow();
-            time.monthDay++;
-            time.hour = 0;
-            time.minute = 0;
-            time.second = 0;
-            long midnightDeviceTz = time.normalize(true);
+            time.set(System.currentTimeMillis());
+            time.setDay(time.getDay() + 1);
+            time.setHour(0);
+            time.setMinute(0);
+            time.setSecond(0);
+            long midnightDeviceTz = time.normalize();
 
-            time.timezone = timezone;
-            time.setToNow();
-            time.monthDay++;
-            time.hour = 0;
-            time.minute = 0;
-            time.second = 0;
-            long midnightHomeTz = time.normalize(true);
+            time.setTimezone(timezone);
+            time.set(System.currentTimeMillis());
+            time.setDay(time.getDay() + 1);
+            time.setHour(0);
+            time.setMinute(0);
+            time.setSecond(0);
+            long midnightHomeTz = time.normalize();
 
             return Math.min(midnightDeviceTz, midnightHomeTz);
         }
@@ -545,17 +543,17 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 alertManager.cancel(pendingUpdate);
                 alertManager.set(AlarmManager.RTC, triggerTime, pendingUpdate);
                 Time time = new Time(Utils.getTimeZone(mContext, null));
-                time.setToNow();
+                time.set(System.currentTimeMillis());
 
-                if (time.normalize(true) != sLastUpdateTime) {
+                if (time.normalize() != sLastUpdateTime) {
                     Time time2 = new Time(Utils.getTimeZone(mContext, null));
                     time2.set(sLastUpdateTime);
-                    time2.normalize(true);
-                    if (time.year != time2.year || time.yearDay != time2.yearDay) {
+                    time2.normalize();
+                    if (time.getYear() != time2.getYear() || time.getYearDay() != time2.getYearDay()) {
                         Utils.sendUpdateWidgetIntent(mContext);
                     }
 
-                    sLastUpdateTime = time.toMillis(true);
+                    sLastUpdateTime = time.toMillis();
                 }
 
                 if (CalendarAppWidgetProvider.isWidgetSupported(mContext)) {

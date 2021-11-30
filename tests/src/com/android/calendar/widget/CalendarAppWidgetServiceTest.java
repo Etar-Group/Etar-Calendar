@@ -80,12 +80,12 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Set the "current time" to 2am tomorrow.
         Time time = new Time();
-        time.setToNow();
-        time.monthDay += 1;
-        time.hour = 2;
-        time.minute = 0;
-        time.second = 0;
-        now = time.normalize(false);
+        time.set(System.currentTimeMillis());
+        time.setDay(time.getDay() + 1);
+        time.setHour(2);
+        time.setMinute(0);
+        time.setSecond(0);
+        now = time.normalize();
     }
 
     @Override
@@ -149,12 +149,12 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
         // Set the start time to 5 days from now at midnight UTC.
         Time time = new Time();
         time.set(now);
-        time.monthDay += 5;
-        time.hour = 0;
-        time.timezone = Time.TIMEZONE_UTC;
-        long start = time.normalize(false);
-        time.monthDay += 1;
-        long end = time.normalize(false);
+        time.setDay(time.getDay() + 5);
+        time.setHour(0);
+        time.setTimezone(Time.TIMEZONE_UTC);
+        long start = time.normalize();
+        time.setDay(time.getDay() + 1);
+        long end = time.normalize();
 
         eventInfo = new EventInfo();
         eventInfo.visibWhen = View.VISIBLE;

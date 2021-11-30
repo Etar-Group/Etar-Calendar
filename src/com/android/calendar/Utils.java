@@ -107,7 +107,8 @@ public class Utils {
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
     public static final String INTENT_KEY_HOME = "KEY_HOME";
-    public static final int MONDAY_BEFORE_JULIAN_EPOCH = Time.EPOCH_JULIAN_DAY - 3;
+    public static final int EPOCH_JULIAN_DAY = 2440588;
+    public static final int MONDAY_BEFORE_JULIAN_EPOCH = EPOCH_JULIAN_DAY - 3;
     public static final int DECLINED_EVENT_ALPHA = 0x66;
     public static final int DECLINED_EVENT_TEXT_ALPHA = 0xC0;
     public static final int YEAR_MIN = 1970;
@@ -574,7 +575,7 @@ public class Utils {
     public static String formatMonthYear(Context context, Time time) {
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
                 | DateUtils.FORMAT_SHOW_YEAR;
-        long millis = time.toMillis(true);
+        long millis = time.toMillis();
         return formatDateRange(context, millis, millis, flags);
     }
 
@@ -618,7 +619,7 @@ public class Utils {
         if (diff < 0) {
             diff += 7;
         }
-        int refDay = Time.EPOCH_JULIAN_DAY - diff;
+        int refDay = EPOCH_JULIAN_DAY - diff;
         return (julianDay - refDay) / 7;
     }
 
@@ -626,7 +627,7 @@ public class Utils {
      * Takes a number of weeks since the epoch and calculates the Julian day of
      * the Monday for that week.
      *
-     * This assumes that the week containing the {@link Time#EPOCH_JULIAN_DAY}
+     * This assumes that the week containing the EPOCH_JULIAN_DAY
      * is considered week 0. It returns the Julian day for the Monday
      * {@code week} weeks after the Monday of the week containing the epoch.
      *
@@ -790,20 +791,20 @@ public class Utils {
         if (recycle == null) {
             recycle = new Time();
         }
-        recycle.timezone = Time.TIMEZONE_UTC;
+        recycle.setTimezone(Time.TIMEZONE_UTC);
         recycle.set(utcTime);
-        recycle.timezone = tz;
-        return recycle.normalize(true);
+        recycle.setTimezone(tz);
+        return recycle.normalize();
     }
 
     public static long convertAlldayLocalToUTC(Time recycle, long localTime, String tz) {
         if (recycle == null) {
             recycle = new Time();
         }
-        recycle.timezone = tz;
+        recycle.setTimezone(tz);
         recycle.set(localTime);
-        recycle.timezone = Time.TIMEZONE_UTC;
-        return recycle.normalize(true);
+        recycle.setTimezone(Time.TIMEZONE_UTC);
+        return recycle.normalize();
     }
 
     /**
@@ -817,13 +818,13 @@ public class Utils {
         if (recycle == null) {
             recycle = new Time();
         }
-        recycle.timezone = tz;
+        recycle.setTimezone(tz);
         recycle.set(theTime);
-        recycle.monthDay ++;
-        recycle.hour = 0;
-        recycle.minute = 0;
-        recycle.second = 0;
-        return recycle.normalize(true);
+        recycle.setDay(recycle.getDay() + 1);
+        recycle.setHour(0);
+        recycle.setMinute(0);
+        recycle.setSecond(0);
+        return recycle.normalize();
     }
 
     /**
@@ -1412,18 +1413,18 @@ public class Utils {
     public static int getWeekNumberFromTime(long millisSinceEpoch, Context context) {
         Time weekTime = new Time(getTimeZone(context, null));
         weekTime.set(millisSinceEpoch);
-        weekTime.normalize(true);
+        weekTime.normalize();
         int firstDayOfWeek = getFirstDayOfWeek(context);
         // if the date is on Saturday or Sunday and the start of the week
         // isn't Monday we may need to shift the date to be in the correct
         // week
-        if (weekTime.weekDay == Time.SUNDAY
+        if (weekTime.getWeekDay() == Time.SUNDAY
                 && (firstDayOfWeek == Time.SUNDAY || firstDayOfWeek == Time.SATURDAY)) {
-            weekTime.monthDay++;
-            weekTime.normalize(true);
-        } else if (weekTime.weekDay == Time.SATURDAY && firstDayOfWeek == Time.SATURDAY) {
-            weekTime.monthDay += 2;
-            weekTime.normalize(true);
+            weekTime.setDay(weekTime.getDay() + 1);
+            weekTime.normalize();
+        } else if (weekTime.getWeekDay() == Time.SATURDAY && firstDayOfWeek == Time.SATURDAY) {
+            weekTime.setDay(weekTime.getDay() + 2);
+            weekTime.normalize();
         }
         return weekTime.getWeekNumber();
     }
@@ -1469,8 +1470,8 @@ public class Utils {
         long now = System.currentTimeMillis();
         Time time = new Time(timezone);
         time.set(now);
-        long runInMillis = (24 * 3600 - time.hour * 3600 - time.minute * 60 -
-                time.second + 1) * 1000;
+        long runInMillis = (24 * 3600 - time.getHour() * 3600 - time.getMinute() * 60 -
+                time.getSecond() + 1) * 1000;
         h.removeCallbacks(r);
         h.postDelayed(r, runInMillis);
     }
@@ -1503,10 +1504,10 @@ public class Utils {
             // All day events require special timezone adjustment.
             long localStartMillis = convertAlldayUtcToLocal(null, startMillis, localTimezone);
             long localEndMillis = convertAlldayUtcToLocal(null, endMillis, localTimezone);
-            if (singleDayEvent(localStartMillis, localEndMillis, currentTime.gmtoff)) {
+            if (singleDayEvent(localStartMillis, localEndMillis, currentTime.getGmtOffset())) {
                 // If possible, use "Today" or "Tomorrow" instead of a full date string.
                 int todayOrTomorrow = isTodayOrTomorrow(context.getResources(),
-                        localStartMillis, currentMillis, currentTime.gmtoff);
+                        localStartMillis, currentMillis, currentTime.getGmtOffset());
                 if (TODAY == todayOrTomorrow) {
                     datetimeString = resources.getString(R.string.today);
                 } else if (TOMORROW == todayOrTomorrow) {
@@ -1521,14 +1522,14 @@ public class Utils {
                         endMillis, flagsDate, Time.TIMEZONE_UTC).toString();
             }
         } else {
-            if (singleDayEvent(startMillis, endMillis, currentTime.gmtoff)) {
+            if (singleDayEvent(startMillis, endMillis, currentTime.getGmtOffset())) {
                 // Format the time.
                 String timeString = Utils.formatDateRange(context, startMillis, endMillis,
                         flagsTime);
 
                 // If possible, use "Today" or "Tomorrow" instead of a full date string.
                 int todayOrTomorrow = isTodayOrTomorrow(context.getResources(), startMillis,
-                        currentMillis, currentTime.gmtoff);
+                        currentMillis, currentTime.getGmtOffset());
                 if (TODAY == todayOrTomorrow) {
                     // Example: "Today at 1:00pm - 2:00 pm"
                     datetimeString = resources.getString(R.string.today_at_time_fmt,
@@ -1736,9 +1737,9 @@ public class Utils {
         }
         // Set the day and update the icon
         Time now =  new Time(timezone);
-        now.setToNow();
-        now.normalize(false);
-        today.setDayOfMonth(now.monthDay);
+        now.set(System.currentTimeMillis());
+        now.normalize();
+        today.setDayOfMonth(now.getDay());
         icon.mutate();
         icon.setDrawableByLayerId(R.id.today_icon_day, today);
     }

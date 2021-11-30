@@ -204,7 +204,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // It's difficult to find and update all these adapters when the
             // home tz changes so check it here and update if needed.
             String tz = Utils.getTimeZone(mContext, mTZUpdater);
-            if (!TextUtils.equals(tz, mTmpTime.timezone)) {
+            if (!TextUtils.equals(tz, mTmpTime.getTimezone())) {
                 mTimeZone = tz;
                 mTmpTime = new Time(tz);
             }
@@ -295,7 +295,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         Time tempTime = new Time(mTimeZone);
         long now = System.currentTimeMillis();
         tempTime.set(now);
-        mTodayJulianDay = Time.getJulianDay(now, tempTime.gmtoff);
+        mTodayJulianDay = Time.getJulianDay(now, tempTime.getGmtOffset());
 
         LinkedList<MultipleDayInfo> multipleDayList = new LinkedList<MultipleDayInfo>();
         for (int position = 0; cursor.moveToNext(); position++) {
@@ -441,7 +441,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         if (mRowInfo == null) {
             return 0;
         }
-        long millis = time.toMillis(false /* use isDst */);
+        long millis = time.toMillis();
         long minDistance =  Integer.MAX_VALUE;  // some big number
         long idFoundMinDistance =  Integer.MAX_VALUE;  // some big number
         int minIndex = 0;
@@ -452,7 +452,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         int minDay = 0;
         boolean idFound = false;
         int len = mRowInfo.size();
-        int julianDay = Time.getJulianDay(millis, time.gmtoff);
+        int julianDay = Time.getJulianDay(millis, time.getGmtOffset());
         int dayIndex = -1;
 
         // Loop through the events and find the best match

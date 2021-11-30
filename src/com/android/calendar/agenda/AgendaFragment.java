@@ -94,7 +94,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         mLastHandledEventTime = new Time();
 
         if (mInitialTimeMillis == 0) {
-            mTime.setToNow();
+            mTime.set(System.currentTimeMillis());
         } else {
             mTime.set(mInitialTimeMillis);
         }
@@ -243,7 +243,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         if (mShowEventDetailsWithAgenda) {
             long timeToSave;
             if (mLastHandledEventTime != null) {
-                timeToSave = mLastHandledEventTime.toMillis(true);
+                timeToSave = mLastHandledEventTime.toMillis();
                 mTime.set(mLastHandledEventTime);
             } else {
                 timeToSave =  System.currentTimeMillis();
@@ -398,20 +398,20 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             FragmentTransaction ft = fragmentManager.beginTransaction();
 
             if (allDay) {
-                event.startTime.timezone = Time.TIMEZONE_UTC;
-                event.endTime.timezone = Time.TIMEZONE_UTC;
+                event.startTime.setTimezone(Time.TIMEZONE_UTC);
+                event.endTime.setTimezone(Time.TIMEZONE_UTC);
             }
 
             if (DEBUG) {
                 Log.d(TAG, "***");
-                Log.d(TAG, "showEventInfo: start: " + new Date(event.startTime.toMillis(true)));
-                Log.d(TAG, "showEventInfo: end: " + new Date(event.endTime.toMillis(true)));
+                Log.d(TAG, "showEventInfo: start: " + new Date(event.startTime.toMillis()));
+                Log.d(TAG, "showEventInfo: end: " + new Date(event.endTime.toMillis()));
                 Log.d(TAG, "showEventInfo: all day: " + allDay);
                 Log.d(TAG, "***");
             }
 
-            long startMillis = event.startTime.toMillis(true);
-            long endMillis = event.endTime.toMillis(true);
+            long startMillis = event.startTime.toMillis();
+            long endMillis = event.endTime.toMillis();
             EventInfoFragment fOld =
                     (EventInfoFragment)fragmentManager.findFragmentById(R.id.agenda_event_info);
             if (fOld == null || replaceFragment || fOld.getStartMillis() != startMillis ||
@@ -455,7 +455,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             mJulianDayOnTop = julianDay;
             Time t = new Time(mTimeZone);
             t.setJulianDay(mJulianDayOnTop);
-            mController.setTime(t.toMillis(true));
+            mController.setTime(t.toMillis());
             // Cannot sent a message that eventually may change the layout of the views
             // so instead post a runnable that will run when the layout is done
             if (!mIsTabletConfig) {

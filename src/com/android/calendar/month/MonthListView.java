@@ -56,8 +56,7 @@ public class MonthListView extends ListView {
         @Override
         public void run() {
             if (mTempTime != null && mListContext != null) {
-                mTempTime.timezone =
-                        Utils.getTimeZone(mListContext, mTimezoneUpdater);
+                mTempTime.setTimezone(Utils.getTimeZone(mListContext, mTimezoneUpdater));
             }
         }
     };
@@ -162,12 +161,12 @@ public class MonthListView extends ListView {
         // Get the day of the first day of the next/previous month
         // (according to scroll direction)
         mTempTime.setJulianDay(day);
-        mTempTime.monthDay = 1;
-        mTempTime.month += monthsToJump;
-        long timeInMillis = mTempTime.normalize(false);
+        mTempTime.setDay(1);
+        mTempTime.setMonth(mTempTime.getMonth() + monthsToJump);
+        long timeInMillis = mTempTime.normalize();
         // Since each view is 7 days, round the target day up to make sure the
         // scroll will be  at least one view.
-        int scrollToDay = Time.getJulianDay(timeInMillis, mTempTime.gmtoff)
+        int scrollToDay = Time.getJulianDay(timeInMillis, mTempTime.getGmtOffset())
                 + ((monthsToJump > 0) ? 6 : 0);
 
         // Since all views have the same height, scroll by pixels instead of

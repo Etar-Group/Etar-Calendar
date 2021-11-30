@@ -148,10 +148,10 @@ public class AlertUtils {
             String location) {
         String tz = Utils.getTimeZone(context, null);
         Time time = new Time(tz);
-        time.setToNow();
-        int today = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+        time.set(System.currentTimeMillis());
+        int today = Time.getJulianDay(time.toMillis(), time.getGmtOffset());
         time.set(startMillis);
-        int eventDay = Time.getJulianDay(time.toMillis(false), allDay ? 0 : time.gmtoff);
+        int eventDay = Time.getJulianDay(time.toMillis(), allDay ? 0 : time.getGmtOffset());
 
         int flags = DateUtils.FORMAT_ABBREV_ALL;
         if (!allDay) {
@@ -313,8 +313,8 @@ public class AlertUtils {
 
     private static int getIntervalInDays(long startMillis, long endMillis, Time timeObj) {
         timeObj.set(startMillis);
-        int startDay = Time.getJulianDay(startMillis, timeObj.gmtoff);
+        int startDay = Time.getJulianDay(startMillis, timeObj.getGmtOffset());
         timeObj.set(endMillis);
-        return Time.getJulianDay(endMillis, timeObj.gmtoff) - startDay;
+        return Time.getJulianDay(endMillis, timeObj.getGmtOffset()) - startDay;
     }
 }

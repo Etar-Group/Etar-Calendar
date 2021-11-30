@@ -126,8 +126,8 @@ public class AlarmScheduler {
     private static Cursor queryUpcomingEvents(Context context, ContentResolver contentResolver,
             long currentMillis) {
         Time time = new Time();
-        time.normalize(false);
-        long localOffset = time.gmtoff * 1000;
+        time.normalize();
+        long localOffset = time.getGmtOffset() * 1000;
         final long localStartMin = currentMillis;
         final long localStartMax = localStartMin + EVENT_LOOKAHEAD_WINDOW_MS;
         final long utcStartMin = localStartMin - localOffset;
@@ -227,7 +227,7 @@ public class AlarmScheduler {
                     msg.append("Events cursor result -- eventId:").append(eventId);
                     msg.append(", allDay:").append(allday);
                     msg.append(", start:").append(localStartTime);
-                    msg.append(" (").append(timeObj.format("%a, %b %d, %Y %I:%M%P")).append(")");
+                    msg.append(" (").append(timeObj.format()).append(")");
                     Log.d(TAG, msg.toString());
                 }
             }
@@ -269,7 +269,7 @@ public class AlarmScheduler {
                                 msg.append(", startTime:").append(startTime);
                                 msg.append(", minutes:").append(reminderMinutes);
                                 msg.append(", alarmTime:").append(alarmTime);
-                                msg.append(" (").append(timeObj.format("%a, %b %d, %Y %I:%M%P"))
+                                msg.append(" (").append(timeObj.format())
                                         .append(")");
                                 Log.d(TAG, msg.toString());
                             }
@@ -310,7 +310,7 @@ public class AlarmScheduler {
         if (AlertService.DEBUG) {
             Time time = new Time();
             time.set(alarmTime);
-            String schedTime = time.format("%a, %b %d, %Y %I:%M%P");
+            String schedTime = time.format();
             Log.d(TAG, "Scheduling alarm for EVENT_REMINDER_APP broadcast for event " + eventId
                     + " at " + alarmTime + " (" + schedTime + ")");
         }

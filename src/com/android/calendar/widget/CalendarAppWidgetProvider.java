@@ -207,9 +207,9 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget);
             // Calendar header
             Time time = new Time(Utils.getTimeZone(context, null));
-            time.setToNow();
-            long millis = time.toMillis(true);
-            final String dayOfWeek = DateUtils.getDayOfWeekString(time.weekDay + 1,
+            time.set(System.currentTimeMillis());
+            long millis = time.toMillis();
+            final String dayOfWeek = DateUtils.getDayOfWeekString(time.getWeekDay() + 1,
                     DateUtils.LENGTH_MEDIUM);
             final String date = Utils.formatDateRange(context, millis, millis,
                     DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_DATE

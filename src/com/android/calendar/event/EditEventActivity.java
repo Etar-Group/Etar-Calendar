@@ -146,14 +146,14 @@ public class EditEventActivity extends AbstractCalendarActivity {
         if (end != -1) {
             info.endTime = new Time();
             if (allDay) {
-                info.endTime.timezone = Time.TIMEZONE_UTC;
+                info.endTime.setTimezone(Time.TIMEZONE_UTC);
             }
             info.endTime.set(end);
         }
         if (begin != -1) {
             info.startTime = new Time();
             if (allDay) {
-                info.startTime.timezone = Time.TIMEZONE_UTC;
+                info.startTime.setTimezone(Time.TIMEZONE_UTC);
             }
             info.startTime.set(begin);
         }

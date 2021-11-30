@@ -83,13 +83,13 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         @Override
         public void run() {
             String tz = Utils.getTimeZone(mContext, mTZUpdater);
-            mSelectedDay.timezone = tz;
-            mSelectedDay.normalize(true);
-            mTempTime.timezone = tz;
-            mFirstDayOfMonth.timezone = tz;
-            mFirstDayOfMonth.normalize(true);
-            mFirstVisibleDay.timezone = tz;
-            mFirstVisibleDay.normalize(true);
+            mSelectedDay.setTimezone(tz);
+            mSelectedDay.normalize();
+            mTempTime.setTimezone(tz);
+            mFirstDayOfMonth.setTimezone(tz);
+            mFirstDayOfMonth.normalize();
+            mFirstVisibleDay.setTimezone(tz);
+            mFirstVisibleDay.normalize();
             if (mAdapter != null) {
                 mAdapter.refresh();
             }
@@ -177,11 +177,11 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
         // -1 to ensure we get all day events from any time zone
         mTempTime.setJulianDay(mFirstLoadedJulianDay - 1);
-        long start = mTempTime.toMillis(true);
+        long start = mTempTime.toMillis();
         mLastLoadedJulianDay = mFirstLoadedJulianDay + (mNumWeeks + 2 * WEEKS_BUFFER) * 7;
         // +1 to ensure we get all day events from any time zone
         mTempTime.setJulianDay(mLastLoadedJulianDay + 1);
-        long end = mTempTime.toMillis(true);
+        long end = mTempTime.toMillis();
 
         // Create a new uri with the updated times
         Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
@@ -200,9 +200,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         long first = Long.parseLong(pathSegments.get(size - 2));
         long last = Long.parseLong(pathSegments.get(size - 1));
         mTempTime.set(first);
-        mFirstLoadedJulianDay = Time.getJulianDay(first, mTempTime.gmtoff);
+        mFirstLoadedJulianDay = Time.getJulianDay(first, mTempTime.getGmtOffset());
         mTempTime.set(last);
-        mLastLoadedJulianDay = Time.getJulianDay(last, mTempTime.gmtoff);
+        mLastLoadedJulianDay = Time.getJulianDay(last, mTempTime.getGmtOffset());
     }
 
     protected String updateWhere() {
@@ -274,7 +274,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
         weekParams.put(MonthByWeekAdapter.WEEK_PARAMS_IS_MINI, mIsMiniMonth ? 1 : 0);
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_JULIAN_DAY,
-                Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff));
+                Time.getJulianDay(mSelectedDay.toMillis(), mSelectedDay.getGmtOffset()));
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_DAYS_PER_WEEK, mDaysPerWeek);
         if (mAdapter == null) {
             mAdapter = new MonthByWeekAdapter(getActivity(), weekParams, mEventDialogHandler);
@@ -341,7 +341,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         CursorLoader loader;
         synchronized (mUpdateLoader) {
             mFirstLoadedJulianDay =
-                    Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff)
+                    Time.getJulianDay(mSelectedDay.toMillis(), mSelectedDay.getGmtOffset())
                     - (mNumWeeks * 7 / 2);
             mEventUri = updateUri();
             String where = updateWhere();
@@ -378,7 +378,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         mAdapter.setSelectedDay(mSelectedDay);
         mTZUpdater.run();
         mTodayUpdater.run();
-        goTo(mSelectedDay.toMillis(true), false, true, false);
+        goTo(mSelectedDay.toMillis(), false, true, false);
     }
 
     @Override
@@ -427,15 +427,15 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         if (event.eventType == EventType.GO_TO) {
             boolean animate = true;
             if (mDaysPerWeek * mNumWeeks * 2 < Math.abs(
-                    Time.getJulianDay(event.selectedTime.toMillis(true), event.selectedTime.gmtoff)
-                    - Time.getJulianDay(mFirstVisibleDay.toMillis(true), mFirstVisibleDay.gmtoff)
+                    Time.getJulianDay(event.selectedTime.toMillis(), event.selectedTime.getGmtOffset())
+                    - Time.getJulianDay(mFirstVisibleDay.toMillis(), mFirstVisibleDay.getGmtOffset())
                     - mDaysPerWeek * mNumWeeks / 2)) {
                 animate = false;
             }
             mDesiredDay.set(event.selectedTime);
-            mDesiredDay.normalize(true);
+            mDesiredDay.normalize();
             boolean animateToday = (event.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0;
-            boolean delayAnimation = goTo(event.selectedTime.toMillis(true), animate, true, false);
+            boolean delayAnimation = goTo(event.selectedTime.toMillis(), animate, true, false);
             if (animateToday) {
                 // If we need to flash today start the animation after any
                 // movement from listView has ended.
@@ -457,7 +457,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         super.setMonthDisplayed(time, updateHighlight);
         if (!mIsMiniMonth) {
             boolean useSelected = false;
-            if (time.year == mDesiredDay.year && time.month == mDesiredDay.month) {
+            if (time.getYear() == mDesiredDay.getYear() && time.getMonth() == mDesiredDay.getMonth()) {
                 mSelectedDay.set(mDesiredDay);
                 mAdapter.setSelectedDay(mDesiredDay);
                 useSelected = true;
@@ -466,12 +466,12 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                 mAdapter.setSelectedDay(time);
             }
             CalendarController controller = CalendarController.getInstance(mContext);
-            if (mSelectedDay.minute >= 30) {
-                mSelectedDay.minute = 30;
+            if (mSelectedDay.getMinute() >= 30) {
+                mSelectedDay.setMinute(30);
             } else {
-                mSelectedDay.minute = 0;
+                mSelectedDay.setMinute(0);
             }
-            long newTime = mSelectedDay.normalize(true);
+            long newTime = mSelectedDay.normalize();
             if (newTime != controller.getTime() && mUserScrolled) {
                 long offset = useSelected ? 0 : DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3;
                 controller.setTime(newTime + offset);
@@ -489,7 +489,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             if (scrollState != OnScrollListener.SCROLL_STATE_IDLE) {
                 mShouldLoad = false;
                 stopLoader();
-                mDesiredDay.setToNow();
+                mDesiredDay.set(System.currentTimeMillis());
             } else {
                 mHandler.removeCallbacks(mUpdateLoader);
                 mShouldLoad = true;
@@ -505,7 +505,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        mDesiredDay.setToNow();
+        mDesiredDay.set(System.currentTimeMillis());
         return false;
         // TODO post a cleanup to push us back onto the grid if something went
         // wrong in a scroll such as the user stopping the view but not

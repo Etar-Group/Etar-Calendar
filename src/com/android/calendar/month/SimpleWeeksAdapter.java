@@ -120,7 +120,7 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
     protected void init() {
         mGestureDetector = new GestureDetector(mContext, new CalendarGestureListener());
         mSelectedDay = new Time();
-        mSelectedDay.setToNow();
+        mSelectedDay.set(System.currentTimeMillis());
     }
 
     /**
@@ -164,9 +164,9 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
      */
     public void setSelectedDay(Time selectedTime) {
         mSelectedDay.set(selectedTime);
-        long millis = mSelectedDay.normalize(true);
+        long millis = mSelectedDay.normalize();
         mSelectedWeek = Utils.getWeeksSinceEpochFromJulianDay(
-                Time.getJulianDay(millis, mSelectedDay.gmtoff), mFirstDayOfWeek);
+                Time.getJulianDay(millis, mSelectedDay.getGmtOffset()), mFirstDayOfWeek);
         notifyDataSetChanged();
     }
 
@@ -226,7 +226,7 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
 
         int selectedDay = -1;
         if (mSelectedWeek == position) {
-            selectedDay = mSelectedDay.weekDay;
+            selectedDay = mSelectedDay.getWeekDay();
         }
 
         // pass in all the view parameters
@@ -238,7 +238,7 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_NUM_DAYS, mDaysPerWeek);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_WEEK, position);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
-        v.setWeekParams(drawingParams, mSelectedDay.timezone);
+        v.setWeekParams(drawingParams, mSelectedDay.getTimezone());
         v.invalidate();
 
         return v;
@@ -276,9 +276,9 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
      * @param day The day that was tapped
      */
     protected void onDayTapped(Time day) {
-        day.hour = mSelectedDay.hour;
-        day.minute = mSelectedDay.minute;
-        day.second = mSelectedDay.second;
+        day.setHour(mSelectedDay.getHour());
+        day.setMinute(mSelectedDay.getMinute());
+        day.setSecond(mSelectedDay.getSecond());
         setSelectedDay(day);
     }
 

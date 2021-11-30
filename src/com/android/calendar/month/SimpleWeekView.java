@@ -262,21 +262,21 @@ public class SimpleWeekView extends View {
         // Now adjust our starting day based on the start day of the week
         // If the week is set to start on a Saturday the first week will be
         // Dec 27th 1969 -Jan 2nd, 1970
-        if (time.weekDay != mWeekStart) {
-            int diff = time.weekDay - mWeekStart;
+        if (time.getWeekDay() != mWeekStart) {
+            int diff = time.getWeekDay() - mWeekStart;
             if (diff < 0) {
                 diff += 7;
             }
-            time.monthDay -= diff;
-            time.normalize(true);
+            time.setDay(time.getDay() - diff);
+            time.normalize();
         }
 
-        mFirstJulianDay = Time.getJulianDay(time.toMillis(true), time.gmtoff);
-        mFirstMonth = time.month;
+        mFirstJulianDay = Time.getJulianDay(time.toMillis(), time.getGmtOffset());
+        mFirstMonth = time.getMonth();
 
         // Figure out what day today is
         Time today = new Time(tz);
-        today.setToNow();
+        today.set(System.currentTimeMillis());
         mHasToday = false;
         mToday = -1;
 
@@ -285,29 +285,30 @@ public class SimpleWeekView extends View {
                 : DEFAULT_FOCUS_MONTH;
 
         for (; i < mNumCells; i++) {
-            if (time.monthDay == 1) {
-                mFirstMonth = time.month;
+            if (time.getDay() == 1) {
+                mFirstMonth = time.getMonth();
             }
-            mOddMonth [i] = (time.month %2) == 1;
-            if (time.month == focusMonth) {
+            mOddMonth [i] = (time.getMonth() %2) == 1;
+            if (time.getMonth() == focusMonth) {
                 mFocusDay[i] = true;
             } else {
                 mFocusDay[i] = false;
             }
-            if (time.year == today.year && time.yearDay == today.yearDay) {
+            if (time.getYear() == today.getYear() && time.getYearDay() == today.getYearDay()) {
                 mHasToday = true;
                 mToday = i;
             }
-            mDayNumbers[i] = NumberFormat.getInstance().format(time.monthDay++);
-            time.normalize(true);
+            mDayNumbers[i] = NumberFormat.getInstance().format(time.getDay());
+            time.setDay(time.getDay() + 1);
+            time.normalize();
         }
         // We do one extra add at the end of the loop, if that pushed us to a
         // new month undo it
-        if (time.monthDay == 1) {
-            time.monthDay--;
-            time.normalize(true);
+        if (time.getDay() == 1) {
+            time.setDay(time.getDay() - 1);
+            time.normalize();
         }
-        mLastMonth = time.month;
+        mLastMonth = time.getMonth();
 
         updateSelectionPositions();
     }
@@ -378,11 +379,11 @@ public class SimpleWeekView extends View {
         Time time = new Time(mTimeZone);
         if (mWeek == 0) {
             // This week is weird...
-            if (day < Time.EPOCH_JULIAN_DAY) {
+            if (day < Utils.EPOCH_JULIAN_DAY) {
                 day++;
-            } else if (day == Time.EPOCH_JULIAN_DAY) {
+            } else if (day == Utils.EPOCH_JULIAN_DAY) {
                 time.set(1, 0, 1970);
-                time.normalize(true);
+                time.normalize();
                 return time;
             }
         }
@@ -513,8 +514,8 @@ public class SimpleWeekView extends View {
         if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
             Time hover = getDayFromLocation(event.getX());
             if (hover != null
-                    && (mLastHoverTime == null || Time.compare(hover, mLastHoverTime) != 0)) {
-                Long millis = hover.toMillis(true);
+                    && (mLastHoverTime == null || hover.compareTo(mLastHoverTime) != 0)) {
+                Long millis = hover.toMillis();
                 String date = Utils.formatDateRange(context, millis, millis,
                         DateUtils.FORMAT_SHOW_DATE);
                 AccessibilityEvent accessEvent =

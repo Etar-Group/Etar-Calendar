@@ -50,8 +50,8 @@ class CalendarAppWidgetModel {
     public CalendarAppWidgetModel(Context context, String timeZone) {
         mNow = System.currentTimeMillis();
         Time time = new Time(timeZone);
-        time.setToNow(); // This is needed for gmtoff to be set
-        mTodayJulianDay = Time.getJulianDay(mNow, time.gmtoff);
+        time.set(System.currentTimeMillis()); // This is needed for gmtoff to be set
+        mTodayJulianDay = Time.getJulianDay(mNow, time.getGmtOffset());
         mMaxJulianDay = mTodayJulianDay + CalendarAppWidgetService.MAX_DAYS - 1;
         mEventInfos = new ArrayList<EventInfo>(50);
         mRowInfos = new ArrayList<RowInfo>(50);
@@ -66,7 +66,7 @@ class CalendarAppWidgetModel {
         for (int i = 0; i < CalendarAppWidgetService.MAX_DAYS; i++) {
             mBuckets.add(new LinkedList<RowInfo>());
         }
-        recycle.setToNow();
+        recycle.set(System.currentTimeMillis());
         mShowTZ = !TextUtils.equals(timeZone, Time.getCurrentTimezone());
         if (mShowTZ) {
             mHomeTZName = TimeZone.getTimeZone(timeZone).getDisplayName(recycle.isDst != 0,

@@ -59,7 +59,6 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
 
     private static final String KEY_DATE_STRING = "date_string";
     private static final String KEY_DATE_IN_MILLIS = "date_in_millis";
-    private static final String EVENT_DATE_FORMAT = "%a, %b %d, %Y";
 
     private AlertDialog mAlertDialog;
 
@@ -92,8 +91,8 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
     }
 
     public void setDay(Time day) {
-        mDateString = day.format(EVENT_DATE_FORMAT);
-        mDateInMillis = day.toMillis(true);
+        mDateString = day.format();
+        mDateInMillis = day.toMillis();
     }
 
     @Override

@@ -39,10 +39,10 @@ public class WeekNumberTest extends AndroidTestCase {
             allDayDate = new Time(Time.TIMEZONE_UTC);
 
             date.set(0, 0, 0, day, month, year);
-            date.normalize(true /* ignore isDst */);
+            date.normalize();
 
             allDayDate.set(day, month, year);
-            allDayDate.normalize(true /* ignore isDst */);
+            allDayDate.normalize();
 
             this.expectedWeekNumber = expectedWeekNumber;
         }
@@ -208,7 +208,7 @@ public class WeekNumberTest extends AndroidTestCase {
             DateAndWeekNumber test = tests[index];
             int weekNumber = test.date.getWeekNumber();
             if (weekNumber != test.expectedWeekNumber) {
-                long millis = test.date.toMillis(false /* use isDst */);
+                long millis = test.date.toMillis();
                 int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE;
                 String output = DateUtils.formatDateTime(mContext, millis, flags);
                 Log.i("WeekNumberTest", "index " + index
@@ -220,7 +220,7 @@ public class WeekNumberTest extends AndroidTestCase {
 
             weekNumber = test.allDayDate.getWeekNumber();
             if (weekNumber != test.expectedWeekNumber) {
-                long millis = test.date.toMillis(false /* use isDst */);
+                long millis = test.date.toMillis();
                 int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE;
                 String output = DateUtils.formatDateTime(mContext, millis, flags);
                 Log.i("WeekNumberTest", "(all-day) index " + index
