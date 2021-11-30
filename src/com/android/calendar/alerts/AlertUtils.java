@@ -170,7 +170,7 @@ public class AlertUtils {
         StringBuilder sb = new StringBuilder(Utils.formatDateRange(context, startMillis,
                 startMillis, flags));
 
-        if (!allDay && tz != Time.getCurrentTimezone()) {
+        if (!allDay && tz != Utils.getCurrentTimezone()) {
             // Assumes time was set to the current tz
             time.set(startMillis);
             boolean isDST = time.isDst != 0;

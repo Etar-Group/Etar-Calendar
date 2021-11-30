@@ -157,7 +157,7 @@ public class SimpleWeekView extends View {
     protected int mSelectedRight = -1;
     // The timezone to display times/dates in (used for determining when Today
     // is)
-    protected String mTimeZone = Time.getCurrentTimezone();
+    protected String mTimeZone = Utils.getCurrentTimezone();
 
     protected int mBGColor;
     protected int mSelectedWeekBGColor;

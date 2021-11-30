@@ -415,9 +415,9 @@ public class AlertService extends Service {
         if (info.allDay) {
             Time t = new Time();
             startAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
-                    Time.getCurrentTimezone());
+                    Utils.getCurrentTimezone());
             endAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
-                    Time.getCurrentTimezone());
+                    Utils.getCurrentTimezone());
         }
 
         // We change an event's priority bucket at 15 minutes into the event or 1/4 event duration.

@@ -93,7 +93,7 @@ public class UtilsTests extends TestCase {
     private static final int NOW_DAY = 10;
     private static final int NOW_YEAR = 2012;
     private static final long NOW_TIME = createTimeInMillis(5, 5, 5, NOW_DAY, NOW_MONTH, NOW_YEAR);
-    private static final String DEFAULT_TIMEZONE = Time.getCurrentTimezone();
+    private static final String DEFAULT_TIMEZONE = Utils.getCurrentTimezone();
 
     /**
      * Mock resources.  Add translation strings for test here.
@@ -142,7 +142,7 @@ public class UtilsTests extends TestCase {
     private static long createTimeInMillis(int second, int minute, int hour, int monthDay,
             int month, int year) {
         return createTimeInMillis(second, minute, hour, monthDay, month, year,
-                Time.getCurrentTimezone());
+                Utils.getCurrentTimezone());
     }
 
     private static long createTimeInMillis(int second, int minute, int hour, int monthDay,
@@ -187,7 +187,7 @@ public class UtilsTests extends TestCase {
 
         // Must reset the timezone here, because even though the fake provider will be
         // recreated/cleared, TimeZoneUtils statically holds on to a cached value.
-        setTimezone(Time.getCurrentTimezone());
+        setTimezone(Utils.getCurrentTimezone());
     }
 
     @Smoke
