@@ -28,9 +28,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
+import android.util.Log;
+
 import androidx.core.app.TaskStackBuilder;
 import androidx.core.content.ContextCompat;
-import android.util.Log;
 
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.alerts.GlobalDismissManager.AlarmId;

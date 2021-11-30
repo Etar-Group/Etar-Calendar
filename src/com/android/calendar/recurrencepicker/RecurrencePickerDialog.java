@@ -60,7 +60,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.EventRecurrence;
 
-
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;

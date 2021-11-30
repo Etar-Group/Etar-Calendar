@@ -16,12 +16,6 @@
 
 package com.android.calendar.month;
 
-import com.android.calendar.DynamicTheme;
-import com.android.calendar.Event;
-import com.android.calendar.LunarUtils;
-import com.android.calendar.Utils;
-import com.android.calendar.settings.ViewDetailsPreferences;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -51,6 +45,13 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
 import androidx.core.content.ContextCompat;
+
+import com.android.calendar.DynamicTheme;
+import com.android.calendar.Event;
+import com.android.calendar.LunarUtils;
+import com.android.calendar.Utils;
+import com.android.calendar.settings.ViewDetailsPreferences;
+
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;

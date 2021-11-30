@@ -16,7 +16,8 @@
 
 package com.android.calendar.alerts;
 
-import android.Manifest;
+import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -37,7 +38,6 @@ import android.os.PowerManager;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
-import androidx.core.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -57,8 +57,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import ws.xsoh.etar.R;
-
-import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
 
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
