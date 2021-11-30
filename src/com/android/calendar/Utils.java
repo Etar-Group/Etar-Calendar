@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+
 import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
@@ -39,11 +41,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Calendars;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
-
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -55,6 +52,10 @@ import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
@@ -81,8 +82,6 @@ import java.util.regex.Pattern;
 
 import ws.xsoh.etar.BuildConfig;
 import ws.xsoh.etar.R;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
 public class Utils {
     // Set to 0 until we have UI to perform undo

@@ -16,22 +16,18 @@
 
 package com.android.calendar.event;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.provider.CalendarContract.Events;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.RawContacts;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.calendar.Utils;
+
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.InputStream;

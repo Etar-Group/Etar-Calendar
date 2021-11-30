@@ -16,7 +16,6 @@
 
 package com.android.calendar;
 
-import com.android.calendar.LunarUtils.LunarInfoLoader;
 import android.content.Context;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
@@ -31,6 +30,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.LunarUtils.LunarInfoLoader;
 
 import java.util.Calendar;
 import java.util.Formatter;

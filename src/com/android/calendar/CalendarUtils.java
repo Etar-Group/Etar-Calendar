@@ -16,23 +16,18 @@
 
 package com.android.calendar;
 
-import android.Manifest;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Looper;
 import android.provider.CalendarContract.CalendarCache;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
-
-import androidx.core.content.ContextCompat;
 
 import java.util.Formatter;
 import java.util.HashSet;

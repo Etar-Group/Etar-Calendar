@@ -15,6 +15,10 @@
  */
 package com.android.calendar;
 
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -25,9 +29,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 
@@ -35,10 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ws.xsoh.etar.R;
-
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 public class EventInfoActivity extends AppCompatActivity {
 

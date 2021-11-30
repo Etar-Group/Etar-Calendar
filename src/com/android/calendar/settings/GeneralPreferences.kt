@@ -37,14 +37,24 @@ import android.text.TextUtils
 import android.util.SparseIntArray
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.preference.*
-import com.android.calendar.*
+import androidx.preference.CheckBoxPreference
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreference
+import com.android.calendar.CalendarController
+import com.android.calendar.CalendarRecentSuggestionsProvider
+import com.android.calendar.CalendarUtils
+import com.android.calendar.DynamicTheme
+import com.android.calendar.Utils
 import com.android.calendar.alerts.AlertReceiver
 import com.android.calendar.event.EventViewUtils
 import com.android.timezonepicker.TimeZoneInfo
 import com.android.timezonepicker.TimeZonePickerUtils
 import ws.xsoh.etar.R
-import java.util.*
+import java.util.TimeZone
 
 class GeneralPreferences : PreferenceFragmentCompat(),
         OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener,

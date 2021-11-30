@@ -27,7 +27,11 @@ import android.provider.CalendarContract
 import android.util.TypedValue
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.preference.*
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
 import com.android.calendar.persistence.CalendarRepository
 import ws.xsoh.etar.R

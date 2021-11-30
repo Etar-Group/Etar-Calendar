@@ -16,6 +16,10 @@
 
 package com.android.calendar.widget;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -38,10 +42,6 @@ import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 
 import ws.xsoh.etar.R;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 /**
  * Simple widget to show next upcoming calendar event.

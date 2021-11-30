@@ -18,8 +18,6 @@ package com.android.calendar.month;
 
 // TODO Remove calendar imports when the required methods have been
 // refactored into the public api
-import com.android.calendar.CalendarController;
-import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.text.format.Time;
@@ -32,6 +30,9 @@ import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import com.android.calendar.CalendarController;
+import com.android.calendar.Utils;
 
 import java.util.Calendar;
 import java.util.HashMap;
