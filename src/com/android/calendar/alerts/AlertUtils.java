@@ -173,9 +173,8 @@ public class AlertUtils {
         if (!allDay && tz != Utils.getCurrentTimezone()) {
             // Assumes time was set to the current tz
             time.set(startMillis);
-            boolean isDST = time.isDst != 0;
             sb.append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
-                    isDST, TimeZone.SHORT, Locale.getDefault()));
+                    false, TimeZone.SHORT, Locale.getDefault()));
         }
 
         if (eventDay == today + 1) {

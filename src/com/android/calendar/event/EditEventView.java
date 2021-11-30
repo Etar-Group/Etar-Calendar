@@ -1528,12 +1528,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             long millisStart = mStartTime.toMillis();
             long millisEnd = mEndTime.toMillis();
 
-            boolean isDSTStart = mStartTime.isDst != 0;
-            boolean isDSTEnd = mEndTime.isDst != 0;
-
             // First update the start date and times
             String tzDisplay = TimeZone.getTimeZone(tz).getDisplayName(
-                    isDSTStart, TimeZone.SHORT, Locale.getDefault());
+                    false, TimeZone.SHORT, Locale.getDefault());
             StringBuilder time = new StringBuilder();
 
             mSB.setLength(0);
@@ -1550,10 +1547,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                             mActivity, mF, millisStart, millisStart, flags, tz).toString());
 
             // Make any adjustments needed for the end times
-            if (isDSTEnd != isDSTStart) {
-                tzDisplay = TimeZone.getTimeZone(tz).getDisplayName(
-                        isDSTEnd, TimeZone.SHORT, Locale.getDefault());
-            }
             flags = DateUtils.FORMAT_SHOW_TIME;
             if (is24Format) {
                 flags |= DateUtils.FORMAT_24HOUR;

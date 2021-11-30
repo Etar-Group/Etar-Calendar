@@ -1201,7 +1201,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             Time time = new Time(mTimeZone);
             time.set(System.currentTimeMillis());
             long millis = time.toMillis();
-            boolean isDST = time.isDst != 0;
             int flags = DateUtils.FORMAT_SHOW_TIME;
             if (DateFormat.is24HourFormat(this)) {
                 flags |= DateUtils.FORMAT_24HOUR;
@@ -1210,7 +1209,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             String timeString = (new StringBuilder(
                     Utils.formatDateRange(this, millis, millis, flags))).append(" ").append(
                     TimeZone.getTimeZone(mTimeZone).getDisplayName(
-                            isDST, TimeZone.SHORT, Locale.getDefault())).toString();
+                            false, TimeZone.SHORT, Locale.getDefault())).toString();
             mHomeTime.setText(timeString);
             mHomeTime.setVisibility(View.VISIBLE);
             // Update when the minute changes
