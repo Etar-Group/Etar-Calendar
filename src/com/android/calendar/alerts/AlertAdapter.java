@@ -94,12 +94,11 @@ public class AlertAdapter extends ResourceCursorAdapter {
 
         Time time = new Time(tz);
         time.set(startMillis);
-        boolean isDST = time.isDst != 0;
         StringBuilder sb = new StringBuilder(
                 Utils.formatDateRange(context, startMillis, endMillis, flags));
         if (!allDay && tz != Utils.getCurrentTimezone()) {
             sb.append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
-                    isDST, TimeZone.SHORT, Locale.getDefault()));
+                    false, TimeZone.SHORT, Locale.getDefault()));
         }
 
         when = sb.toString();

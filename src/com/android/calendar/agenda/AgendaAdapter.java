@@ -205,7 +205,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             if (tz == null || tz.getID().equals("GMT")) {
                 displayName = tzString;
             } else {
-                displayName = tz.getDisplayName(date.isDst != 0, TimeZone.SHORT);
+                displayName = tz.getDisplayName(false, TimeZone.SHORT);
             }
             whenString += " (" + displayName + ")";
         }
