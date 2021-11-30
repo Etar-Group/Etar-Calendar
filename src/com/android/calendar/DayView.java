@@ -956,7 +956,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * @return selected time in UTC milliseconds since the epoch.
      */
     long getSelectedTimeInMillis() {
-        Time time = new Time(mBaseDate);
+        Time time = new Time();
+        time.set(mBaseDate);
         time.setJulianDay(mSelectionDay);
         time.setHour(mSelectionHour);
 
@@ -964,7 +965,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     Time getSelectedTime() {
-        Time time = new Time(mBaseDate);
+        Time time = new Time();
+        time.set(mBaseDate);
         time.setJulianDay(mSelectionDay);
         time.setHour(mSelectionHour);
 
@@ -973,7 +975,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     Time getSelectedTimeForAccessibility() {
-        Time time = new Time(mBaseDate);
+        Time time = new Time();
+        time.set(mBaseDate);
         time.setJulianDay(mSelectionDayForAccessibility);
         time.setHour(mSelectionHourForAccessibility);
 
@@ -1104,7 +1107,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     public Time getSelectedDay() {
-        Time time = new Time(mBaseDate);
+        Time time = new Time();
+        time.set(mBaseDate);
         time.setJulianDay(mSelectionDay);
         time.setHour(mSelectionHour);
         time.normalize();
@@ -1112,9 +1116,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     public void updateTitle() {
-        Time start = new Time(mBaseDate);
+        Time start = new Time();
+        start.set(mBaseDate);
         start.normalize();
-        Time end = new Time(start);
+        Time end = new Time();
+        end.set(start);
         end.setDay(end.getDay() + mNumDays - 1);
         // Move it forward one minute so the formatter doesn't lose a day
         end.setMinute(end.getMinute() + 1);
@@ -1639,13 +1645,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             initView(view);
 
-            Time end = new Time(date);
+            Time end = new Time();
+            end.set(date);
             end.setDay(end.getDay() + mNumDays - 1);
             mController.sendEvent(this, EventType.GO_TO, date, end, -1, ViewType.CURRENT);
             return true;
         }
         if (mSelectionDay != selectionDay) {
-            Time date = new Time(mBaseDate);
+            Time date = new Time();
+            date.set(mBaseDate);
             date.setJulianDay(selectionDay);
             date.setHour(mSelectionHour);
             mController.sendEvent(this, EventType.GO_TO, date, date, -1, ViewType.CURRENT);
@@ -1862,11 +1870,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Time newSelected = start;
 
         if (mNumDays == 7) {
-            newSelected = new Time(start);
+            newSelected = new Time();
+            newSelected.set(start);
             adjustToBeginningOfWeek(start);
         }
 
-        final Time end = new Time(start);
+        final Time end = new Time();
+        end.set(start);
         end.setDay(end.getDay() + mNumDays - 1);
 
         // We have to allocate these animation objects each time we switch views
@@ -3893,7 +3903,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         boolean validPosition = setSelectionFromPosition(x, y, false);
         if (!validPosition) {
             if (y < DAY_HEADER_HEIGHT) {
-                Time selectedTime = new Time(mBaseDate);
+                Time selectedTime = new Time();
+                selectedTime.set(mBaseDate);
                 selectedTime.setJulianDay(mSelectionDay);
                 selectedTime.setHour(mSelectionHour);
                 selectedTime.normalize();
@@ -3943,12 +3954,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         } else {
             // Select time
-            Time startTime = new Time(mBaseDate);
+            Time startTime = new Time();
+            startTime.set(mBaseDate);
             startTime.setJulianDay(mSelectionDay);
             startTime.setHour(mSelectionHour);
             startTime.normalize();
 
-            Time endTime = new Time(startTime);
+            Time endTime = new Time();
+            endTime.set(startTime);
             endTime.setHour(endTime.getHour() + 1);
 
             mSelectionMode = SELECTION_SELECTED;

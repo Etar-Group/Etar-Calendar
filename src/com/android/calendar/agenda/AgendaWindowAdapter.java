@@ -453,7 +453,8 @@ public class AgendaWindowAdapter extends BaseAdapter
     private DayAdapterInfo getAdapterInfoByTime(Time time) {
         if (DEBUGLOG) Log.e(TAG, "getAdapterInfoByTime " + time.toString());
 
-        Time tmpTime = new Time(time);
+        Time tmpTime = new Time();
+        tmpTime.set(time);
         long timeInMillis = tmpTime.normalize();
         int day = Time.getJulianDay(timeInMillis, tmpTime.getGmtOffset());
         synchronized (mAdapterInfos) {
@@ -749,7 +750,8 @@ public class AgendaWindowAdapter extends BaseAdapter
     private boolean queueQuery(int start, int end, Time goToTime,
             String searchQuery, int queryType, long id) {
         QuerySpec queryData = new QuerySpec(queryType);
-        queryData.goToTime = new Time(goToTime);    // Creates a new time reference per QuerySpec.
+        queryData.goToTime = new Time();    // Creates a new time reference per QuerySpec.
+        queryData.goToTime.set(goToTime);
         queryData.start = start;
         queryData.end = end;
         queryData.searchQuery = searchQuery;

@@ -528,7 +528,8 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         mEndDateTextView = (TextView) mView.findViewById(R.id.endDate);
         mEndDateTextView.setOnClickListener(this);
         if (mModel.endDate == null) {
-            mModel.endDate = new Time(mTime);
+            mModel.endDate = new Time();
+            mModel.endDate.set(mTime);
             switch (mModel.freq) {
                 case RecurrenceModel.FREQ_DAILY:
                 case RecurrenceModel.FREQ_WEEKLY:
