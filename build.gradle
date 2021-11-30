@@ -12,6 +12,14 @@ buildscript {
     }
 }
 
+plugins {
+    id("org.ec4j.editorconfig") version "0.0.3"
+}
+
+editorconfig {
+    excludes = ['external/**', 'metadata/**', '**/*.webp']
+}
+
 allprojects {
     repositories {
         google()
@@ -221,7 +229,7 @@ android {
             project.hasProperty('signingKeyAlias') &&
             project.hasProperty('signingKeyPassword')) {
         println "Found sign properties in gradle.properties! Signing build…"
-        
+
         signingConfigs {
             release {
                 storeFile file(signingStoreLocation)
