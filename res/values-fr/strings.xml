@@ -128,7 +128,7 @@
     <string name="endByDate" msgid="7654221304929538201">; jusqu\'à <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; une seule fois</item>
-        <item quantity="other">; pour <xliff:g id="number">%d</xliff:g> fois</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> fois</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one" msgid="5169052946627480942">"Quotidien"</item>
@@ -288,8 +288,8 @@
     <string name="cal_import_error_date_msg">Impossible d’interpréter la date donnée : %s</string>
     <string name="show_time_start_end_below">Heure de début et de fin au-dessous de l’évènement</string>
     <string name="maximum_number_of_lines">Nombre maximum de lignes par évènement</string>
-    <string name="foreground_notification_channel_name">Synchronisation de l’alarme</string>
-    <string name="foreground_notification_channel_description">La synchronisation d’alerte interne nécessite les notifications au premier plan.</string>
+    <string name="foreground_notification_channel_name">Tâches en arrière-plan</string>
+    <string name="foreground_notification_channel_description">La synchronisation interne nécessite les notifications. Vous pouvez cacher cette chaîne sans risque.</string>
     <string name="cal_import_error_time_zone_msg">Impossible de comprendre le fuseau horaire donné : %s</string>
     <string name="preferences_calendar_account">Compte %1$s</string>
     <string name="preferences_calendar_delete">Suprrimer le calendrier</string>
@@ -338,4 +338,9 @@
     <string name="preferences_list_add_remote">Ajouter un calendrier CalDAV</string>
     <string name="preferences_pure_black_night_mode">Mode pure nuit noire</string>
     <string name="no_reminder_label">Aucun</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 sem.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> sem.</item>
+    </plurals>
+    <string name="foreground_notification_title">Enregistrement des nouveaux rappels…</string>
 </resources>
