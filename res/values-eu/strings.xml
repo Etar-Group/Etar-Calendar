@@ -270,8 +270,8 @@
     <string name="recurrence_end_count_label">Zenbait gertaerentzako</string>
     <string name="show_time_start_end_below">Hasiera eta bukaera denbora gertaera azpian</string>
     <string name="maximum_number_of_lines">Gertaeraren gehieneko lerro kopurua</string>
-    <string name="foreground_notification_channel_name">Alerta-sinkronizazioa</string>
-    <string name="foreground_notification_channel_description">Lehen planoko jakinarazpena beharrezkoa da barne alertak sinkronizatzeko.</string>
+    <string name="foreground_notification_channel_name">Atzeko planoko zereginak</string>
+    <string name="foreground_notification_channel_description">Barne sinkronizaziorako beharrezkoak diren jakinarazpenak. Kanal hau segurtasunez ezkutatu dezakezu.</string>
     <string name="cal_import_error_time_zone_msg">Ezin da emandako denbora-zona ulertu: %s</string>
     <string name="preferences_calendar_account">%1$s kontua</string>
     <string name="preferences_calendar_delete">Ezabatu egutegia</string>
@@ -319,4 +319,10 @@
     <string name="two_days">2 egun</string>
     <string name="preferences_pure_black_night_mode">Gau beltzeko modua</string>
     <string name="preferences_system_theme">Sistemaren lehenetsia</string>
+    <string name="no_reminder_label">Bat ere ez</string>
+    <string name="foreground_notification_title">Gogorarazle berriak planifikatzen…</string>
+    <plurals name="Nweeks">
+        <item quantity="one">Aste 1</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> aste</item>
+    </plurals>
 </resources>
