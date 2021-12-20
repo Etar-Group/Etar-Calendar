@@ -1,0 +1,5 @@
+- Support Android 12
+- Support Material You Design
+- Remove connection to Android service for database backup (broken in most Android versions)
+- General bug fixes
+- New translations
