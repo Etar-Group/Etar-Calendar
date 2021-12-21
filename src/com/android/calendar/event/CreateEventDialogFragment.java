@@ -46,6 +46,10 @@ import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendarcommon2.Time;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ws.xsoh.etar.R;
 
 /**
@@ -91,7 +95,14 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
     }
 
     public void setDay(Time day) {
-        mDateString = day.format();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date d = sdf.parse(day.format3339(true));
+            sdf.applyPattern("EEE, MMM dd, yyyy");
+            mDateString = sdf.format(d);
+        } catch (ParseException e) {
+            mDateString = day.format();
+        }
         mDateInMillis = day.toMillis();
     }
 
