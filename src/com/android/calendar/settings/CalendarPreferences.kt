@@ -21,6 +21,7 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AuthenticatorDescription
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
@@ -196,13 +197,22 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     private fun getAuthenticatorInfo(account: Account): AuthenticatorInfo? {
         val description = getAuthenticatorDescription(account) ?: return null
 
-        val pm = activity?.packageManager
-        val label = pm?.getResourcesForApplication(description.packageName)?.getString(
+        return try {
+            val pm = activity?.packageManager
+            val label = pm?.getResourcesForApplication(description.packageName)?.getString(
                 description.labelId)
-        val icon = pm?.getDrawable(description.packageName, description.iconId, null)
-        val intent = pm?.getLaunchIntentForPackage(description.packageName)
+            val icon = pm?.getDrawable(description.packageName, description.iconId, null)
+            val intent = pm?.getLaunchIntentForPackage(description.packageName)
 
-        return AuthenticatorInfo(label, icon, intent)
+            AuthenticatorInfo(label, icon, intent)
+
+        } catch (e: PackageManager.NameNotFoundException) {
+            val errorDialog = AlertDialog.Builder(requireActivity())
+                .setMessage("$e")
+                .create()
+            errorDialog.show()
+            return null
+        }
     }
 
     private fun getAuthenticatorDescription(account: Account): AuthenticatorDescription? {
