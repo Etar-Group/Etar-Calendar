@@ -234,7 +234,7 @@
             android:theme="@android:style/Theme.Holo.Dialog" />
 
         <receiver android:name="com.android.calendar.alerts.AlertReceiver"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
                 <action android:name="android.intent.action.TIME_SET" />
@@ -254,7 +254,7 @@
                   android:exported="false" />
 
         <receiver android:name="com.android.calendar.UpgradeReceiver"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -272,7 +272,7 @@
 
         <!-- Declarations for the widget -->
         <receiver android:name="com.android.calendar.widget.CalendarAppWidgetProvider"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.android.calendar.APPWIDGET_UPDATE" />
@@ -281,7 +281,7 @@
         </receiver>
 
         <receiver android:name="com.android.calendar.widget.CalendarAppWidgetService$CalendarFactory"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
                 <action android:name="android.intent.action.DATE_CHANGED"/>
