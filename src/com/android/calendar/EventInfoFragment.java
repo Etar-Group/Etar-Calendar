@@ -1208,7 +1208,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     shareIntent.putExtra(Intent.EXTRA_STREAM, icsFile);
                     // The ics file is sent as an extra, the receiving application decides whether
                     // to parse the file to extract calendar events or treat it as a regular file
-                    shareIntent.setType("application/octet-stream");
+                    shareIntent.setType("text/calendar");
 
                     Intent chooserIntent = Intent.createChooser(shareIntent,
                             getResources().getString(R.string.cal_share_intent_title));
