@@ -323,7 +323,7 @@ public class AlarmScheduler {
         Intent intent = new Intent(AlertReceiver.EVENT_REMINDER_APP_ACTION);
         intent.setClass(context, AlertReceiver.class);
         intent.putExtra(CalendarContract.CalendarAlerts.ALARM_TIME, alarmTime);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, Utils.PI_FLAG_IMMUTABLE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pi);
     }
 }
