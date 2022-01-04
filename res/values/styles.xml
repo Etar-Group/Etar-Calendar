@@ -56,19 +56,13 @@
         <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
         <item name="month_other_bgcolor">@color/month_other_bgcolor</item>
         <item name="settings_calendar_offline">@drawable/ic_sync_off_light</item>
-        <item name="iconAboutAuthors">@drawable/ic_create_light</item>
-        <item name="iconAboutLicense">@drawable/ic_description_light</item>
-        <item name="iconSettingsAbout">@drawable/ic_info_outline_light</item>
+        <item name="iconAboutAuthors">@drawable/ic_create</item>
+        <item name="iconAboutLicense">@drawable/ic_description</item>
+        <item name="iconSettingsAbout">@drawable/ic_info_outline</item>
 
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
         <item name="colorNavigationItemSelected">@android:color/white</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
-    </style>
-
-    <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
-        <item name="itemIconTint">?attr/colorNavigationItem</item>
-        <item name="itemTextColor">?attr/colorNavigationItem</item>
-        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
