@@ -29,7 +29,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -56,8 +55,6 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     // TODO Move these to Calendar.java
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
 
-    private static final int PI_FLAG_IMMUTABLE = Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
-
     /**
      * Build {@link ComponentName} describing this specific
      * {@link AppWidgetProvider}
@@ -79,7 +76,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         intent.setClass(context, CalendarAppWidgetService.CalendarFactory.class);
         intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */, intent,
-                PI_FLAG_IMMUTABLE);
+                Utils.PI_FLAG_IMMUTABLE);
     }
 
     /**
@@ -93,7 +90,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
                 Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         launchIntent.setClass(context, AllInOneActivity.class);
         return PendingIntent.getActivity(context, 0 /* no requestCode */, launchIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PI_FLAG_IMMUTABLE);
+                PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
     }
 
     /**
@@ -234,7 +231,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             launchCalendarIntent
                     .setData(Uri.parse("content://com.android.calendar/time/" + millis));
             final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(
-                    context, 0 /* no requestCode */, launchCalendarIntent, PI_FLAG_IMMUTABLE);
+                    context, 0 /* no requestCode */, launchCalendarIntent, Utils.PI_FLAG_IMMUTABLE);
             views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
 
             // Each list item will call setOnClickExtra() to let the list know

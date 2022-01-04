@@ -21,6 +21,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -112,6 +113,8 @@ public class Utils {
     public static final int YEAR_MAX = 2036;
     public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
+    public static final int PI_FLAG_IMMUTABLE = Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
+
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
     static final int WEEK_IN_MINUTES = DAY_IN_MINUTES * 7;

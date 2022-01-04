@@ -110,8 +110,6 @@ public class AlertReceiver extends BroadcastReceiver {
     static PowerManager.WakeLock mStartingService;
     private static Handler sAsyncHandler;
 
-    private static final int PI_FLAG_IMMUTABLE = Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
-
     static {
         HandlerThread thr = new HandlerThread("AlertReceiver async");
         thr.start();
@@ -186,7 +184,7 @@ public class AlertReceiver extends BroadcastReceiver {
         ContentUris.appendId(builder, eventId);
         ContentUris.appendId(builder, startMillis);
         intent.setData(builder.build());
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PI_FLAG_IMMUTABLE);
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
     }
 
     private static PendingIntent createSnoozeIntent(Context context, long eventId,
@@ -204,10 +202,10 @@ public class AlertReceiver extends BroadcastReceiver {
 
         if (Utils.useCustomSnoozeDelay(context)) {
             intent.setClass(context, SnoozeDelayActivity.class);
-            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PI_FLAG_IMMUTABLE);
+            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
         } else {
             intent.setClass(context, SnoozeAlarmsService.class);
-            return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PI_FLAG_IMMUTABLE);
+            return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
         }
     }
 
@@ -216,7 +214,7 @@ public class AlertReceiver extends BroadcastReceiver {
         clickIntent.setClass(context, AlertActivity.class);
         clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(context, 0, clickIntent,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PI_FLAG_IMMUTABLE);
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
     }
 
     public static NotificationWrapper makeBasicNotification(Context context, String title,
@@ -398,7 +396,7 @@ public class AlertReceiver extends BroadcastReceiver {
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
         deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PI_FLAG_IMMUTABLE);
+                PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
 
         if (digestTitle == null || digestTitle.length() == 0) {
             digestTitle = res.getString(R.string.no_title_label);
@@ -535,7 +533,7 @@ public class AlertReceiver extends BroadcastReceiver {
                         broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                         return PendingIntent.getBroadcast(context,
                                 Long.valueOf(eventId).hashCode(), broadcastIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT | PI_FLAG_IMMUTABLE);
+                                PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
                     }
                 } while (attendeesCursor.moveToNext());
             }
@@ -672,7 +670,7 @@ public class AlertReceiver extends BroadcastReceiver {
                     broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                     return PendingIntent.getBroadcast(context,
                             Long.valueOf(eventId).hashCode(), broadcastIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
+                            PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
                 }
             }
         }
@@ -723,7 +721,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                 return PendingIntent.getBroadcast(context,
                         Long.valueOf(eventId).hashCode(), broadcastIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
+                        PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
             }
         }
 
