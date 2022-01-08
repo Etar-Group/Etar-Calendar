@@ -18,66 +18,71 @@
     android:id="@android:id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rounded_background"
+    android:layout_margin="4dp"
     android:minHeight="32sp">
 
     <FrameLayout
         android:id="@+id/widget_row"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+    </FrameLayout>
 
     <ImageView
-            android:id="@+id/agenda_item_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:scaleType="fitXY" />
+        android:id="@+id/agenda_item_color"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/rounded_background"
+        android:scaleType="fitXY" />
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="4dip"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:id="@+id/title"
+            style="?android:attr/textAppearanceMediumInverse"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="4dip"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:orientation="vertical">
+            android:ellipsize="marquee"
+            android:maxLines="2"
+            android:paddingStart="8dip"
+            android:paddingEnd="8dip"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/title"
-                style="?android:attr/textAppearanceMediumInverse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:maxLines="2"
-                android:paddingStart="8dip"
-                android:paddingEnd="8dip"
-                android:textColor="@color/appwidget_title"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/when"
+            style="?android:attr/textAppearanceSmallInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:paddingStart="8dip"
+            android:paddingEnd="8dip"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/when"
-                style="?android:attr/textAppearanceSmallInverse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:maxLines="1"
-                android:paddingStart="8dip"
-                android:paddingEnd="8dip"
-                android:textColor="@color/appwidget_when"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/where"
-                style="?android:attr/textAppearanceSmallInverse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:maxLines="1"
-                android:paddingStart="8dip"
-                android:paddingEnd="8dip"
-                android:paddingBottom="2dip"
-                android:textColor="@color/appwidget_where"
-                android:textSize="12sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/where"
+            style="?android:attr/textAppearanceSmallInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:paddingStart="8dip"
+            android:paddingEnd="8dip"
+            android:paddingBottom="2dip"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp" />
+    </LinearLayout>
 </FrameLayout>

@@ -294,12 +294,13 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 int displayColor = Utils.getDisplayColorFromColor(eventInfo.color);
 
                 final long now = System.currentTimeMillis();
+                //todo: Find a way to make this compatible with android 12
                 if (!eventInfo.allDay && eventInfo.start <= now && now <= eventInfo.end) {
                     int past_bg_color = R.color.agenda_past_days_bar_background_color;
-                    views.setInt(R.id.widget_row, "setBackgroundResource", past_bg_color);
+                    //views.setInt(R.id.widget_row, "setBackgroundResource", past_bg_color);
                 } else {
                     int future_bg_color = DynamicTheme.getWidgetBackgroundStyle(mContext);
-                    views.setInt(R.id.widget_row, "setBackgroundResource", future_bg_color);
+                    //views.setInt(R.id.widget_row, "setBackgroundResource", future_bg_color);
                 }
 
                 if (!eventInfo.allDay) {
@@ -330,11 +331,14 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     }
                 } else if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
                     views.setInt(R.id.title, "setTextColor", mDeclinedColor);
-                    views.setInt(R.id.when, "setTextColor", mDeclinedColor);
+
+                    //todo think about how to get this in line with android 12 theming
+                    //views.setInt(R.id.when, "setTextColor", mDeclinedColor);
                     views.setInt(R.id.where, "setTextColor", mDeclinedColor);
 
                     views.setInt(R.id.agenda_item_color, "setImageResource",
                             R.drawable.widget_chip_responded_bg);
+
                     // 40% opacity
                     views.setInt(R.id.agenda_item_color, "setColorFilter",
                             Utils.getDeclinedColorFromColor(displayColor));
@@ -342,15 +346,18 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_INVITED) {
                         views.setInt(R.id.agenda_item_color, "setImageResource",
                                 R.drawable.widget_chip_not_responded_bg);
-                        views.setInt(R.id.title, "setTextColor", displayColor);
-                        views.setInt(R.id.when, "setTextColor", displayColor);
-                        views.setInt(R.id.where, "setTextColor", displayColor);
+                        //todo think about how to get this in line with android 12 theming
+                        //views.setInt(R.id.title, "setTextColor", displayColor);
+                        //views.setInt(R.id.when, "setTextColor", displayColor);
+                        //views.setInt(R.id.where, "setTextColor", displayColor);
                     } else {
                         views.setInt(R.id.agenda_item_color, "setImageResource",
                                 R.drawable.widget_chip_responded_bg);
-                        views.setInt(R.id.title, "setTextColor", mStandardColor);
-                        views.setInt(R.id.when, "setTextColor", mStandardColor);
-                        views.setInt(R.id.where, "setTextColor", mStandardColor);
+
+                        //todo think about how to get this in line with android 12 theming
+                        //views.setInt(R.id.title, "setTextColor", mStandardColor);
+                        //views.setInt(R.id.when, "setTextColor", mStandardColor);
+                        //views.setInt(R.id.where, "setTextColor", mStandardColor);
                     }
                     views.setInt(R.id.agenda_item_color, "setColorFilter", displayColor);
                 }

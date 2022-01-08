@@ -32,8 +32,6 @@
     <dimen name="hours_right_margin">4dip</dimen>
     <!-- size of day header in day and week views  -->
     <dimen name="day_header_height">48dp</dimen>
-    <dimen name="widget_day_num_size">36sp</dimen>
-    <dimen name="widget_day_num_top_padding">-4dip</dimen>
     <dimen name="action_bar_date_text_size">22sp</dimen>
     <dimen name="new_event_hint_text_size">12sp</dimen>
     <dimen name="edit_event_view_width">800dip</dimen>
@@ -56,4 +54,10 @@
     <dimen name="recurrence_picker_width">300dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <!--Widget-->
+    <dimen name="widget_day_num_size">36sp</dimen>
+    <dimen name="widget_day_num_top_padding">-4dip</dimen>
+    <dimen name="widget_general_margin">36dp</dimen>
+    <dimen name="system_widget_radius_inner">8dp</dimen>
 </resources>

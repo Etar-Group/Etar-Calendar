@@ -213,12 +213,12 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.date, date);
 
             // Set widget header background based on chosen primary app color
-            int headerColor = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
-            views.setInt(R.id.header, "setBackgroundResource", headerColor);
+            //int headerColor = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
+            //views.setInt(R.id.header, "setBackgroundResource", headerColor);
 
             // Set widget background color based on chosen app theme
-            int backgroundColor = DynamicTheme.getWidgetBackgroundStyle(context);
-            views.setInt(R.id.widget_background, "setBackgroundResource", backgroundColor);
+            //int backgroundColor = DynamicTheme.getWidgetBackgroundStyle(context);
+            //views.setInt(R.id.widget_background, "setBackgroundResource", backgroundColor);
 
             // Attach to list of events
             views.setRemoteAdapter(R.id.events_list, updateIntent);

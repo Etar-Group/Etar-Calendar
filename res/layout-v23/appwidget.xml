@@ -14,65 +14,51 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_general_margin"
-    android:background="?android:attr/colorBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical">
 
     <!-- Header -->
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical|start"
+        android:minHeight="48dip"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:paddingStart="8dip"
+        android:paddingEnd="2dip">
         <TextView
             android:id="@+id/day_of_week"
             style="@style/WidgetDayOfWeekStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="3dip"
             android:shadowColor="#0dffffff"
             android:shadowRadius="3"
-            android:textColor="?android:attr/textColorSecondary" />
-
+            android:textColor="?android:attr/textColorPrimary" />
         <TextView
             android:id="@+id/date"
             style="@style/WidgetDateStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="15dp"
             android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
+    <!-- Event list -->
     <ListView
         android:id="@+id/events_list"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:cacheColorHint="@null"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:paddingTop="6dp"
         android:clipToPadding="false"
+        android:cacheColorHint="@null"
         android:divider="@null"
         android:dividerHeight="4dp"
-        android:listSelector="@android:color/transparent"
-        android:padding="@dimen/widget_general_margin"
+        android:background="?android:attr/colorBackgroundFloating"
         android:scrollbarThumbVertical="@color/appwidget_scrollbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-
-    <!-- Event list -->
+        android:listSelector="@android:color/transparent" />
 </LinearLayout>
