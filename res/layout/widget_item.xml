@@ -24,7 +24,8 @@
 
     <FrameLayout
         android:id="@+id/widget_row"
-        android:layout_width="0dp"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
 
