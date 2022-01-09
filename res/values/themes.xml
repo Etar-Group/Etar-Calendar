@@ -238,6 +238,4 @@
         <item name="colorAccent">@color/colorPurpleAccent</item>
         <item name="app_bar_color">@color/app_bar_black</item>
     </style>
-
-
 </resources>
