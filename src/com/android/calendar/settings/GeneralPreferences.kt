@@ -147,7 +147,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         if (Utils.isMonetAvailable(requireContext())) {
             // Palette is controlled by user wallpaper
-            preferenceScreen.removePreferenceRecursively(KEY_COLOR_PREF);
+            preferenceScreen.removePreferenceRecursively(KEY_COLOR_PREF)
         }
 
         buildSnoozeDelayEntries()
