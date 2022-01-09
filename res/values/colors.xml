@@ -402,6 +402,7 @@
     <color name="chips_dropdown_text_highlighted_dark">@android:color/holo_blue_light</color>
 
     <color name="widget_background">#ffffff</color>
+    <color name="widget_background_secondary">#BBBBBB</color>
     <color name="widget_textcolor_primary">?android:attr/textColorPrimary</color>
     <color name="widget_textcolor_secondary">?android:attr/textColorSecondary</color>
 

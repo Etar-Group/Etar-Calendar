@@ -18,7 +18,7 @@
     android:id="@android:id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_background"
+    android:background="@drawable/rounded_background_secondary"
     android:layout_margin="4dp"
     android:minHeight="32sp">
 
@@ -56,7 +56,7 @@
             android:maxLines="2"
             android:paddingStart="8dip"
             android:paddingEnd="8dip"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/widget_textcolor_primary"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
             android:maxLines="1"
             android:paddingStart="8dip"
             android:paddingEnd="8dip"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="@color/widget_textcolor_secondary"
             android:textSize="12sp" />
 
         <TextView
@@ -82,7 +82,7 @@
             android:paddingStart="8dip"
             android:paddingEnd="8dip"
             android:paddingBottom="2dip"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="@color/widget_textcolor_secondary"
             android:textSize="12sp" />
     </LinearLayout>
 </FrameLayout>
