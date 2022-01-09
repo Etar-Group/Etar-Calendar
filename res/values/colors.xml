@@ -401,6 +401,10 @@
     <color name="chips_dropdown_text_default_dark">#9e9e9e</color>
     <color name="chips_dropdown_text_highlighted_dark">@android:color/holo_blue_light</color>
 
+    <color name="widget_background">#ffffff</color>
+    <color name="widget_textcolor_primary">?android:attr/textColorPrimary</color>
+    <color name="widget_textcolor_secondary">?android:attr/textColorSecondary</color>
+
     <!-- default calendar/event color palette -->
     <array name="defaultCalendarColors">
         <item>#FFD1270C</item>

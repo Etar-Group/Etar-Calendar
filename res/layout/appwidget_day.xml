@@ -39,7 +39,7 @@
         android:paddingStart="4dip"
         android:shadowColor="@color/text_shadow_color"
         android:shadowRadius="1"
-        android:textColor="?android:attr/textColorSecondary"
+        android:textColor="@color/widget_textcolor_primary"
         android:textSize="12sp" />
 
 </LinearLayout>

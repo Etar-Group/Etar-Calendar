@@ -16,13 +16,12 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/widget_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_general_margin"
-    android:background="?android:attr/colorBackground"
+    android:background="@drawable/rounded_background"
     android:clickable="true"
     android:focusable="true">
 
@@ -41,10 +40,11 @@
             style="@style/WidgetDayOfWeekStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:shadowColor="#0dffffff"
             android:shadowRadius="3"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:textColor="@color/widget_textcolor_secondary" />
 
         <TextView
             android:id="@+id/date"
@@ -53,20 +53,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="15dp"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="@color/widget_textcolor_primary" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/events_list"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:cacheColorHint="@null"
         android:clipToPadding="false"
         android:divider="@null"
         android:dividerHeight="4dp"
         android:listSelector="@android:color/transparent"
-        android:padding="@dimen/widget_general_margin"
         android:scrollbarThumbVertical="@color/appwidget_scrollbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
