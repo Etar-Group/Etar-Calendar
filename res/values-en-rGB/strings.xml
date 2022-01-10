@@ -39,7 +39,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Week <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other"/>
+        <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Refresh"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Show day"</string>
