@@ -42,8 +42,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> Wochen</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Eine Woche <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">Wochen <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">Woche <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Woche <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aktualisieren"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tag anzeigen"</string>
