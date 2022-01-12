@@ -1,0 +1,3 @@
+- Option zur Auswahl von Tagen pro Woche hinzugefügt.
+- Option für die Standardansicht beim Start hinzugefügt.
+- Fehlerbehebungen.
