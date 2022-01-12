@@ -1,0 +1,5 @@
+- Dahili uyarı eşzamanlaması için gerekli ek bildirimler. Lütfen sessize alın.
+- Artık gerekli olmayan izinler kaldırıldı.
+- Renkli bildirim simgesi.
+- Hata düzeltmeleri.
+- Yeni çeviriler.

@@ -1,0 +1,7 @@
+- Çevrim dışı takvim eklendi.
+- Yeni etkinlik için kısayol eklendi.
+- Yeni tercihler tasarımı.
+- Yeni tarih saat seçici.
+- Lisans GPLv3 olarak değiştirildi.
+- Hata düzeltmeleri.
+- Yeni çeviriler.

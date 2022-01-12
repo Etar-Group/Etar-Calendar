@@ -1,0 +1,6 @@
+- Android 6 ve üzeri sürümlerde çalışma zamanında izin iste.
+- Başlangıçta çökme düzeltildi.
+- Kullanıcının tüm gün görünecek şekilde ekranı sıkıştırmasına izin ver.
+- Yeni bir etkinlik oluştururken saniyeyi sıfıra ayarla.
+- Küçük görünüm düzeltmeleri.
+- Çok sayıda hata düzeltmesi.

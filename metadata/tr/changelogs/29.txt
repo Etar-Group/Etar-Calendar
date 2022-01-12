@@ -1,0 +1,5 @@
+- Android 12 desteği
+- Material You Tasarım desteği
+- Veri tabanı yedeklemesi için Android hizmetine bağlantı kaldırıldı (çoğu Android sürümünde bozuk)
+- Genel hata düzeltmeleri
+- Yeni çeviriler

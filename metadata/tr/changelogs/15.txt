@@ -1,0 +1,5 @@
+- Android 6 ve üzeri sürümlerde çalışma zamanında izin iste.
+- Dil Çince olduğunda ay/festival görüntüleme desteği.
+- Çeviriler güncellendi.
+- Küçük görünüm düzeltmeleri.
+- Çok sayıda hata düzeltmesi.

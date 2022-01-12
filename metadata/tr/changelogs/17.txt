@@ -1,0 +1,4 @@
+- Ay görünümü iyileştirildi.
+- Kişileri okuma izni yeniden isteğe bağlı.
+- Etkinlik oluşturma sırasında daha güzel metin kutuları.
+- Küçük hata düzeltmeleri.
