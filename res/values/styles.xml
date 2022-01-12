@@ -21,7 +21,6 @@
 
     <!-- Application theme. -->
     <style name="CalendarAppThemeWithActionBar" parent="Base.CalendarAppThemeWithActionBar">
-
     </style>
 
     <style name="Base.CalendarAppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
