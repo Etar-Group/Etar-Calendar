@@ -1,1 +1,1 @@
-Похідна від базового календаря Android в стилі Material Design
+Etar - календар з відкритим кодом та Material design, для всіх!
