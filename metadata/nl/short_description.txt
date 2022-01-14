@@ -1,1 +1,1 @@
-Etar is een met Material Design ontworpen opensourcekalender, voor iedereen!
+Etar is opensource kalender met Material Design vorm gegeven. Voor iedereen!
