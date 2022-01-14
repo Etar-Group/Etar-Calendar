@@ -1,0 +1,7 @@
+- Kleinere lettergrootte in de weekweergave
+- Weergave van recente zoektermen
+- Foutcorrectie export naar SD kaart
+- Geannuleerde vermeldingen worden doorgehaald weergegeven
+- Gebruik systeemkleuren voor weergave (vanaf Android 10)
+- Nieuwe vertalingen
+- Bug fixes

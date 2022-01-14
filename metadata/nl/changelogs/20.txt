@@ -1,0 +1,5 @@
+- Extra meldingen voor interne alarmsynchronisatie, gelieve te dempen.
+- Verwijderde permissies die niet langer nodig zijn.
+- Gekleurd meldingsicoon
+- Bug fixes.
+- Nieuwe vertalingen.

@@ -1,0 +1,4 @@
+- Lay-out voor planning herzien
+- Ondersteuning voor Android 4.4 stopgezet
+- Algemene bugfixes
+- Nieuwe vertalingen

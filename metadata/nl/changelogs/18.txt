@@ -1,0 +1,3 @@
+- Bug fixes in de maandweergave.
+- Een bug in het donkere thema op tablets is opgelost.
+- Nieuwe vertalingen.
