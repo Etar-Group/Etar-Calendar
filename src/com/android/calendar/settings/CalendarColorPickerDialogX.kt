@@ -156,7 +156,7 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
                         dismiss()
                         return
                     }
-                    mSelectedColor = Utils.getDisplayColorFromColor(cursor.getInt(CALENDARS_INDEX_CALENDAR_COLOR))
+                    mSelectedColor = Utils.getDisplayColorFromColor(activity, cursor.getInt(CALENDARS_INDEX_CALENDAR_COLOR))
                     val account = Account(cursor.getString(CALENDARS_INDEX_ACCOUNT_NAME),
                             cursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE))
                     cursor.close()
@@ -184,7 +184,7 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
         do {
             val colorKey = cursor.getInt(COLORS_INDEX_COLOR_KEY)
             val rawColor = cursor.getInt(COLORS_INDEX_COLOR)
-            val displayColor = Utils.getDisplayColorFromColor(rawColor)
+            val displayColor = Utils.getDisplayColorFromColor(activity, rawColor)
             colorKeyMap.put(displayColor, colorKey)
             colors.add(displayColor)
         } while (cursor.moveToNext())

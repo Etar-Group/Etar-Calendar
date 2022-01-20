@@ -19,7 +19,6 @@ package com.android.calendar;
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-
 import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
 
 import android.animation.Animator;
@@ -1517,7 +1516,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             displayedDatetime += "  " + displayedTimezone;
             SpannableStringBuilder sb = new SpannableStringBuilder(displayedDatetime);
             ForegroundColorSpan transparentColorSpan = new ForegroundColorSpan(
-                    resources.getColor(R.color.event_info_headline_transparent_color));
+                    Utils.getAdaptiveTextColor(context,
+                        resources.getColor(R.color.event_info_headline_transparent_color), mCurrentColor));
             sb.setSpan(transparentColorSpan, timezoneIndex, displayedDatetime.length(),
                     Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             setTextCommon(view, R.id.when_datetime, sb);
@@ -1553,6 +1553,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             final TextView textView = mWhere;
             if (textView != null) {
                 textView.setAutoLinkMask(0);
+                final int textColor = Utils.getAdaptiveTextColor(context,
+                        getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
+                textView.setTextColor(textColor);
+                textView.setLinkTextColor(textColor);
                 textView.setText(location.trim());
                 try {
                     textView.setText(Utils.extendedLinkify(textView.getText().toString(), true));
@@ -1984,6 +1988,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         TextView textView = (TextView) view.findViewById(id);
         if (textView == null)
             return;
+
+        final int textColor = Utils.getAdaptiveTextColor(mContext,
+                getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
+        textView.setTextColor(textColor);
+        textView.setLinkTextColor(textColor);
         textView.setText(text);
     }
 
@@ -2246,7 +2255,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onColorSelected(int color) {
         mCurrentColor = color;
         mCurrentColorKey = mDisplayColorKeyMap.get(color);
-        mHeadlines.setBackgroundColor(color);
+        updateEvent(mView);
     }
 
     private class QueryHandler extends AsyncQueryService {
@@ -2273,14 +2282,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         return;
                     }
                     if (!mCalendarColorInitialized) {
-                        mCalendarColor = Utils.getDisplayColorFromColor(
+                        mCalendarColor = Utils.getDisplayColorFromColor(activity,
                                 mEventCursor.getInt(EVENT_INDEX_CALENDAR_COLOR));
                         mCalendarColorInitialized = true;
                     }
 
                     if (!mOriginalColorInitialized) {
                         mOriginalColor = mEventCursor.isNull(EVENT_INDEX_EVENT_COLOR)
-                                ? mCalendarColor : Utils.getDisplayColorFromColor(
+                                ? mCalendarColor : Utils.getDisplayColorFromColor(activity,
                                 mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
                         mOriginalColorInitialized = true;
                     }
@@ -2339,7 +2348,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         do {
                             String colorKey = cursor.getString(COLORS_INDEX_COLOR_KEY);
                             int rawColor = cursor.getInt(COLORS_INDEX_COLOR);
-                            int displayColor = Utils.getDisplayColorFromColor(rawColor);
+                            int displayColor = Utils.getDisplayColorFromColor(activity, rawColor);
                             mDisplayColorKeyMap.put(displayColor, colorKey);
                             colors.add(displayColor);
                         } while (cursor.moveToNext());

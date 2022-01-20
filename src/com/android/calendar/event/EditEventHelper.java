@@ -1042,7 +1042,7 @@ public class EditEventHelper {
      * @param model The model to fill in
      * @param cursor An event cursor that used {@link #EVENT_PROJECTION} for the query
      */
-    public static void setModelFromCursor(CalendarEventModel model, Cursor cursor) {
+    public static void setModelFromCursor(CalendarEventModel model, Cursor cursor, Context context) {
         if (model == null || cursor == null || cursor.getCount() != 1) {
             Log.wtf(TAG, "Attempted to build non-existent model or from an incorrect query.");
             return;
@@ -1087,7 +1087,7 @@ public class EditEventHelper {
         } else {
             rawEventColor = cursor.getInt(EVENT_INDEX_EVENT_COLOR);
         }
-        model.setEventColor(Utils.getDisplayColorFromColor(rawEventColor));
+        model.setEventColor(Utils.getDisplayColorFromColor(context, rawEventColor));
 
         model.mAccessLevel = accessLevel;
         model.mEventStatus = cursor.getInt(EVENT_INDEX_EVENT_STATUS);
@@ -1113,7 +1113,7 @@ public class EditEventHelper {
      * @param cursor An event cursor that used {@link #CALENDARS_PROJECTION} for the query
      * @return returns true if model was updated with the info in the cursor.
      */
-    public static boolean setModelFromCalendarCursor(CalendarEventModel model, Cursor cursor) {
+    public static boolean setModelFromCalendarCursor(CalendarEventModel model, Cursor cursor, Context context) {
         if (model == null || cursor == null) {
             Log.wtf(TAG, "Attempted to build non-existent model or from an incorrect query.");
             return false;
@@ -1139,7 +1139,7 @@ public class EditEventHelper {
 
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
             model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-            model.setCalendarColor(Utils.getDisplayColorFromColor(
+            model.setCalendarColor(Utils.getDisplayColorFromColor(context,
                     cursor.getInt(CALENDARS_INDEX_COLOR)));
 
             model.mCalendarAccountName = cursor.getString(CALENDARS_INDEX_ACCOUNT_NAME);

@@ -57,6 +57,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
@@ -130,6 +131,10 @@ public class Utils {
     private static final float INTENSITY_ADJUST = 0.8f;
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
+
+    private static final float BRIGHTNESS_THRESHOLD = 130;
+    private static final float ADAPTIVE_DARK_TEXT_ALPHA_FACTOR = 0.7f;
+    private static final float ADAPTIVE_LIGHT_TEXT_ALPHA_FACTOR = 0.9f;
 
     /**
     * A coordinate must be of the following form for Google Maps to correctly use it:
@@ -873,12 +878,70 @@ public class Utils {
      *
      * @param color
      */
-    public static int getDisplayColorFromColor(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[1] = Math.min(hsv[1] * SATURATION_ADJUST, 1.0f);
-        hsv[2] = hsv[2] * INTENSITY_ADJUST;
-        return Color.HSVToColor(hsv);
+    public static int getDisplayColorFromColor(Context context, int color) {
+        if (!Utils.getSharedPreference(context, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
+            float[] hsv = new float[3];
+            Color.colorToHSV(color, hsv);
+            hsv[1] = Math.min(hsv[1] * SATURATION_ADJUST, 1.0f);
+            hsv[2] = hsv[2] * INTENSITY_ADJUST;
+            return Color.HSVToColor(hsv);
+        }
+        return color;
+    }
+
+    /**
+     * Calculates the brightness between 0 (dark) and 255 (bright) from the given color
+     * Source: http://alienryderflex.com/hsp.html
+     *
+     * @param color
+     * @return
+     */
+    public static int getBrightnessFromColor(int color) {
+        return (int) Math.sqrt(
+            Color.red(color) * Color.red(color) * .299 +
+            Color.green(color) * Color.green(color) * .587 +
+            Color.blue(color) * Color.blue(color) * .114
+        );
+    }
+
+    /**
+     * If "real event colors" is enabled it returns an alpha value to dimm the event texts slightly.
+     * Alphas are not the same for dark and light colors
+     *
+     * @param context
+     * @param alpha
+     * @param color
+     * @return
+     */
+    public static int getAdaptiveTextAlpha(Context context, int alpha, int color) {
+        if (Utils.getSharedPreference(context, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
+            return (int) (Utils.getBrightnessFromColor(color) > BRIGHTNESS_THRESHOLD?
+                alpha * ADAPTIVE_DARK_TEXT_ALPHA_FACTOR : alpha * ADAPTIVE_LIGHT_TEXT_ALPHA_FACTOR);
+        }
+        return alpha;
+    }
+
+    /**
+     * If real event colors is enabled, this returns a dark or light text color depending on
+     * the event background color
+     *
+     * @param context
+     * @param color
+     * @param eventColor
+     * @return
+     */
+    public static int getAdaptiveTextColor(Context context, int color, int eventColor) {
+        if (Utils.getSharedPreference(context, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
+            if (Utils.getBrightnessFromColor(eventColor) > BRIGHTNESS_THRESHOLD) {
+                color = ColorUtils.setAlphaComponent(Color.BLACK,
+                    (int) Math.round(Color.alpha(color) * ADAPTIVE_DARK_TEXT_ALPHA_FACTOR));
+            }
+            else {
+                color = ColorUtils.setAlphaComponent(Color.WHITE,
+                    (int) Math.round(Color.alpha(color) * ADAPTIVE_LIGHT_TEXT_ALPHA_FACTOR));
+            }
+        }
+        return color;
     }
 
     // This takes a color and computes what it would look like blended with

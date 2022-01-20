@@ -156,7 +156,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         String name = mData[position].displayName;
         boolean selected = mData[position].selected;
 
-        int color = Utils.getDisplayColorFromColor(mData[position].color);
+        int color = Utils.getDisplayColorFromColor(convertView.getContext(), mData[position].color);
         View view;
         if (convertView == null) {
             view = mInflater.inflate(mLayout, parent, false);
