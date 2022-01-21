@@ -1244,7 +1244,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             Log.e("Essi","---------------event.startTime----------------"+event.startTime);
             Log.e("Essi","---------------event.startTime.toMillis----------------"+event.startTime.toMillis(false));
             /**
-             * Chek toMillis method return -1 in DST ===>add 1 hour to start time
+             * Cheeked toMillis method when return -1 in time zone (for example 22 march 2021 Tehran,Iran) when no exist time(DST) ===>add 1 hour to start time
              */
             if (event.startTime.toMillis(true)==-1){
                 event.startTime.set(0,0,1,event.startTime.monthDay,event.startTime.month,event.startTime.year);
