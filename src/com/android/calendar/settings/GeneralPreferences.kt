@@ -292,6 +292,9 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                     a.recreate()
                 }
             }
+            KEY_REAL_EVENT_COLORS -> {
+                Utils.sendUpdateWidgetIntent(a)
+            }
         }
     }
 
