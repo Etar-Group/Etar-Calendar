@@ -1239,6 +1239,16 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 mBackToPreviousView = false;
             }
 
+            Log.e("Essi","-------------------------------");
+            Log.e("Essi","---------------event.startTime----------------"+event.startTime);
+            Log.e("Essi","---------------event.startTime----------------"+event.startTime);
+            Log.e("Essi","---------------event.startTime.toMillis----------------"+event.startTime.toMillis(false));
+            /**
+             * Chek toMillis method return -1 in DST ===>add 1 hour to start time
+             */
+            if (event.startTime.toMillis(true)==-1){
+                event.startTime.set(0,0,1,event.startTime.monthDay,event.startTime.month,event.startTime.year);
+            }
             setMainPane(
                     null, R.id.main_pane, event.viewType, event.startTime.toMillis(false), false);
             if (mSearchView != null) {
