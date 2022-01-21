@@ -1238,12 +1238,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 // Clear the flag is change to a different view type
                 mBackToPreviousView = false;
             }
-
-            Log.e("Essi","-------------------------------");
-            Log.e("Essi","---------------event.startTime----------------"+event.startTime);
-            Log.e("Essi","---------------event.startTime----------------"+event.startTime);
-            Log.e("Essi","---------------event.startTime.toMillis----------------"+event.startTime.toMillis(false));
-            /**
+          /**
              * Cheeked toMillis method when return -1 in time zone (for example 22 march 2021 Tehran,Iran) when no exist time(DST) ===>add 1 hour to start time
              */
             if (event.startTime.toMillis(true)==-1){
