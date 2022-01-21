@@ -2861,7 +2861,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 case Attendees.ATTENDEE_STATUS_ACCEPTED:
                 case Attendees.ATTENDEE_STATUS_TENTATIVE:
                 default:
-                    paint.setColor(Utils.getAdaptiveTextColor(this.getContext(), mEventTextColor, event.color));
+                    paint.setColor(Utils.getAdaptiveTextColor(mContext, mEventTextColor, event.color));
                     break;
             }
 

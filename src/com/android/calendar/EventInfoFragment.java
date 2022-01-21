@@ -87,6 +87,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -357,6 +358,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mTitle;
     private TextView mWhenDateTime;
     private TextView mWhere;
+    private TextView mWhenRepeat;
     private ExpandableTextView mDesc;
     private AttendeesView mLongAttendees;
     private Button emailAttendeesButton;
@@ -781,6 +783,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhenDateTime = (TextView) mView.findViewById(R.id.when_datetime);
         mWhere = (TextView) mView.findViewById(R.id.where);
+        mWhenRepeat = (TextView) mView.findViewById(R.id.when_repeat);
+
         mDesc =  mView.findViewById(R.id.description);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
@@ -1480,7 +1484,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
-        String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
 
         mHeadlines.setBackgroundColor(mCurrentColor);
 
@@ -1496,49 +1499,24 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // When
-        // Set the date and repeats (if any)
-        String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
-
-        Resources resources = context.getResources();
-        String displayedDatetime = Utils.getDisplayedDatetime(mStartMillis, mEndMillis,
-                System.currentTimeMillis(), localTimezone, mAllDay, context);
-
-        String displayedTimezone = null;
-        if (!mAllDay) {
-            displayedTimezone = Utils.getDisplayedTimezone(mStartMillis, localTimezone,
-                    eventTimezone);
-        }
-        // Display the datetime.  Make the timezone (if any) transparent.
-        if (displayedTimezone == null) {
-            setTextCommon(view, R.id.when_datetime, displayedDatetime);
-        } else {
-            int timezoneIndex = displayedDatetime.length();
-            displayedDatetime += "  " + displayedTimezone;
-            SpannableStringBuilder sb = new SpannableStringBuilder(displayedDatetime);
-            ForegroundColorSpan transparentColorSpan = new ForegroundColorSpan(
-                    Utils.getAdaptiveTextColor(context,
-                        resources.getColor(R.color.event_info_headline_transparent_color), mCurrentColor));
-            sb.setSpan(transparentColorSpan, timezoneIndex, displayedDatetime.length(),
-                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            setTextCommon(view, R.id.when_datetime, sb);
-        }
+        updateWhenTextView(view);
 
         // Display the repeat string (if any)
         String repeatString = null;
         if (!TextUtils.isEmpty(rRule)) {
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
-            Time date = new Time(localTimezone);
+            Time date = new Time(Utils.getTimeZone(mActivity, mTZUpdater));
             date.set(mStartMillis);
             if (mAllDay) {
                 date.timezone = Time.TIMEZONE_UTC;
             }
             eventRecurrence.setStartDate(date);
-            repeatString = EventRecurrenceFormatter.getRepeatString(mContext, resources,
+            repeatString = EventRecurrenceFormatter.getRepeatString(mContext, context.getResources(),
                     eventRecurrence, true);
         }
         if (repeatString == null) {
-            view.findViewById(R.id.when_repeat).setVisibility(View.GONE);
+            mWhenRepeat.setVisibility(View.GONE);
         } else {
             setTextCommon(view, R.id.when_repeat, repeatString);
         }
@@ -1596,6 +1574,60 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // Launch Custom App
         updateCustomAppButton();
+
+        updateAdaptiveTextAndIconColors();
+    }
+
+    private void updateWhenTextView(View view) {
+        Context context = view.getContext();
+
+        // Set the date and repeats (if any)
+        String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
+
+        String displayedDatetime = Utils.getDisplayedDatetime(mStartMillis, mEndMillis,
+                System.currentTimeMillis(), localTimezone, mAllDay, context);
+
+        String displayedTimezone = null;
+        if (!mAllDay) {
+            displayedTimezone = Utils.getDisplayedTimezone(mStartMillis, localTimezone,
+                    mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE));
+        }
+        // Display the datetime.  Make the timezone (if any) transparent.
+        if (displayedTimezone == null) {
+            setTextCommon(view, R.id.when_datetime, displayedDatetime);
+        } else {
+            int timezoneIndex = displayedDatetime.length();
+            displayedDatetime += "  " + displayedTimezone;
+            SpannableStringBuilder sb = new SpannableStringBuilder(displayedDatetime);
+            ForegroundColorSpan transparentColorSpan = new ForegroundColorSpan(
+                    Utils.getAdaptiveTextColor(context,
+                            context.getResources().getColor(R.color.event_info_headline_transparent_color), mCurrentColor));
+            sb.setSpan(transparentColorSpan, timezoneIndex, displayedDatetime.length(),
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            setTextCommon(view, R.id.when_datetime, sb);
+        }
+    }
+
+    private void updateAdaptiveTextAndIconColors() {
+        // TextViews
+        int color = Utils.getAdaptiveTextColor(mContext,
+                mContext.getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
+
+        mWhenDateTime.setTextColor(color);
+        mTitle.setTextColor(color);
+        mWhere.setTextColor(color);
+        mWhenRepeat.setTextColor(color);
+        color = Utils.getAdaptiveTextColor(mContext,
+                mContext.getResources().getColor(R.color.event_info_headline_link_color), mCurrentColor);
+        mWhere.setLinkTextColor(color);
+
+        // Icons on Tablet
+        if (mWindowStyle == DIALOG_WINDOW_STYLE) {
+            color = Utils.getAdaptiveTextColor(mContext, Color.WHITE, mCurrentColor);
+            ((ImageButton) mView.findViewById(R.id.edit)).setColorFilter(color);
+            ((ImageButton) mView.findViewById(R.id.delete)).setColorFilter(color);
+            ((ImageButton) mView.findViewById(R.id.change_color)).setColorFilter(color);
+        }
     }
 
     private void updateCustomAppButton() {
@@ -2255,7 +2287,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onColorSelected(int color) {
         mCurrentColor = color;
         mCurrentColorKey = mDisplayColorKeyMap.get(color);
-        updateEvent(mView);
+        mHeadlines.setBackgroundColor(color);
+
+        updateAdaptiveTextAndIconColors();
+
+        // Update the When text color which needs a rebuild of the string
+        updateWhenTextView(mView);
     }
 
     private class QueryHandler extends AsyncQueryService {
