@@ -1297,6 +1297,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             boolean eventColorSaved = saveEventColor();
             if (saveReminders() || responseSaved || eventColorSaved) {
                 Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
+                Utils.sendUpdateWidgetIntent(mContext);
             }
         }
         super.onStop();
@@ -1609,24 +1610,26 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void updateAdaptiveTextAndIconColors() {
-        // TextViews
-        int color = Utils.getAdaptiveTextColor(mContext,
-                mContext.getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
+        if (Utils.getSharedPreference(mContext, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
+            // TextViews
+            int color = Utils.getAdaptiveTextColor(mContext,
+                    mContext.getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
 
-        mWhenDateTime.setTextColor(color);
-        mTitle.setTextColor(color);
-        mWhere.setTextColor(color);
-        mWhenRepeat.setTextColor(color);
-        color = Utils.getAdaptiveTextColor(mContext,
-                mContext.getResources().getColor(R.color.event_info_headline_link_color), mCurrentColor);
-        mWhere.setLinkTextColor(color);
+            mWhenDateTime.setTextColor(color);
+            mTitle.setTextColor(color);
+            mWhere.setTextColor(color);
+            mWhenRepeat.setTextColor(color);
+            color = Utils.getAdaptiveTextColor(mContext,
+                    mContext.getResources().getColor(R.color.event_info_headline_link_color), mCurrentColor);
+            mWhere.setLinkTextColor(color);
 
-        // Icons on Tablet
-        if (mWindowStyle == DIALOG_WINDOW_STYLE) {
-            color = Utils.getAdaptiveTextColor(mContext, Color.WHITE, mCurrentColor);
-            ((ImageButton) mView.findViewById(R.id.edit)).setColorFilter(color);
-            ((ImageButton) mView.findViewById(R.id.delete)).setColorFilter(color);
-            ((ImageButton) mView.findViewById(R.id.change_color)).setColorFilter(color);
+            // Icons on Tablet
+            if (mWindowStyle == DIALOG_WINDOW_STYLE) {
+                color = Utils.getAdaptiveTextColor(mContext, Color.WHITE, mCurrentColor);
+                ((ImageButton) mView.findViewById(R.id.edit)).setColorFilter(color);
+                ((ImageButton) mView.findViewById(R.id.delete)).setColorFilter(color);
+                ((ImageButton) mView.findViewById(R.id.change_color)).setColorFilter(color);
+            }
         }
     }
 
