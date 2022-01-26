@@ -905,7 +905,7 @@ public class Utils {
     }
 
     /**
-     * If "real event colors" is enabled it returns an alpha value to dimm the event texts slightly.
+     * If "real event colors" is enabled it returns an alpha value to dim the event texts slightly.
      * Alphas are not the same for dark and light colors
      *
      * @param context
