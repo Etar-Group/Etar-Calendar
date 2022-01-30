@@ -339,7 +339,7 @@
     <string name="preferences_month_view_landscape">العرض الشهري (عرضي)</string>
     <string name="preferences_month_view_portrait">العرض الشهري (طولي)</string>
     <string name="foreground_notification_channel_description">التنبيه الأمامي مطلوب ليعمل تزامن التنبيه الداخلي.</string>
-    <string name="foreground_notification_channel_name">تنبيه التزامن</string>
+    <string name="foreground_notification_channel_name">مهام في الخلفية</string>
     <string name="rsvp_declined">تمت الإجابة بلا.</string>
     <string name="rsvp_tentative">تمت الإحابة بمحتمل.</string>
     <string name="no_reminder_label">لا شيء</string>
