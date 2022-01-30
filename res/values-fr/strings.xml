@@ -342,5 +342,5 @@
         <item quantity="one">1 sem.</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> sem.</item>
     </plurals>
-    <string name="foreground_notification_title">Enregistrement des nouveaux rappels…</string>
+    <string name="foreground_notification_title">Planification des nouveaux rappels …</string>
 </resources>
