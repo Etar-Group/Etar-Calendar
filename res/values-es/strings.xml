@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
-    <string name="what_label" msgid="1933578391985810049">"Asunto"</string>
-    <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
     <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Zona horaria"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Invitados"</string>
     <string name="today" msgid="8577375020252453006">"Hoy"</string>
     <string name="tomorrow" msgid="614434811813859237">"Mañana"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Hoy a las <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Mañana a las <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"Repetición"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Sin título)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
@@ -75,11 +70,8 @@
     <string name="alert_title" msgid="7869592820853066853">"Notificaciones de Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ver evento"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitación a un evento"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Hasta"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Desde"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Todo el día"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendario"</string>
-    <string name="description_label" msgid="7193475046717505855">"Descripción"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mostrarme como"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacidad"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Añadir recordatorio"</string>
@@ -296,8 +288,8 @@
     <string name="show_time_start_end_below">Hora de comienzo y de terminación debajo del evento</string>
     <string name="cal_import_error_date_msg">No entiendo la fecha proporcionada: %s</string>
     <string name="maximum_number_of_lines">Número máximo de líneas en el evento</string>
-    <string name="foreground_notification_channel_name">Sincronizar alerta</string>
-    <string name="foreground_notification_channel_description">Se requiere notificación en primer plano para sincronizar la alerta interna.</string>
+    <string name="foreground_notification_channel_name">Tareas en segundo plano</string>
+    <string name="foreground_notification_channel_description">Notificaciones requeridas para sincronización interna. Puedes ocultar este canal con seguridad.</string>
     <string name="cal_import_error_time_zone_msg">No entiendo la zona horaria proporcionada: %s</string>
     <string name="preferences_calendar_account">Cuenta %1$s</string>
     <string name="preferences_calendar_delete">Borrar calendario</string>
@@ -308,7 +300,6 @@
     <string name="preferences_list_calendar_summary_sync_off">No sincronizado</string>
     <string name="preferences_list_calendar_summary_invisible">No se están mostrando los eventos</string>
     <string name="preferences_list_general">Configuración general</string>
-    <string name="preferences_list_add_remote">Añadir calendario remoto (CalDAV)</string>
     <string name="preferences_list_add_offline">Añadir calendario fuera de línea</string>
     <string name="preferences_list_add_offline_title">Añadir calendario fuera de línea</string>
     <string name="preferences_list_add_offline_error_empty">¡Entrar nombre de calendario!</string>
@@ -325,12 +316,12 @@
     <string name="offline_account_name">Calendario fuera de línea</string>
     <string name="preferences_calendar_color_warning_message">El cambio de color se puede revertir cuando se sincronice el calendario de nuevo.
 \n
-\nSe puede deshabilitar la opción \'Gestión de colores de calendarios\' de DAVx⁵ para prevenir esto.</string>
+\nEn la opción de DAVx⁵ \'Gestionar colores de calendario\' se puede desactivar para prevenir esto.</string>
     <string name="authors">Autores</string>
     <string name="changelog">Registro de cambios</string>
     <string name="license">Licencia</string>
     <string name="source_code">Fuente</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Porciones © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Porciones © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_calendar_no_display_name">Calendario sin nombre</string>
     <string name="preferences_calendar_configure_account">Configurar calendario en %1$s</string>
     <string name="preferences_calendar_number_of_events">%1$d eventos</string>
@@ -343,4 +334,13 @@
     <string name="three_days">3 días</string>
     <string name="two_days">2 días</string>
     <string name="preferences_system_theme">Sistema por defecto</string>
+    <string name="preferences_list_add_remote_etesync">Añadir calendario EteSync</string>
+    <string name="preferences_list_add_remote">Añadir calendario CalDAV</string>
+    <string name="preferences_pure_black_night_mode">Modo noche negro puro</string>
+    <string name="no_reminder_label">Ninguno</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 semana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
+    </plurals>
+    <string name="foreground_notification_title">Planificando nuevos recordatorios…</string>
 </resources>

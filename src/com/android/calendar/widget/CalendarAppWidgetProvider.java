@@ -16,6 +16,10 @@
 
 package com.android.calendar.widget;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -23,6 +27,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
@@ -31,14 +36,11 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.android.calendar.AllInOneActivity;
+import com.android.calendar.DynamicTheme;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 
 import ws.xsoh.etar.R;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 /**
  * Simple widget to show next upcoming calendar event.
@@ -46,6 +48,9 @@ import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 public class CalendarAppWidgetProvider extends AppWidgetProvider {
     static final String TAG = "CalendarAppWidgetProvider";
     static final boolean LOGD = false;
+
+    private static boolean sWidgetChecked = false;
+    private static boolean sWidgetSupported = false;
 
     // TODO Move these to Calendar.java
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
@@ -68,9 +73,10 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      */
     static PendingIntent getUpdateIntent(Context context) {
         Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(context));
+        intent.setClass(context, CalendarAppWidgetService.CalendarFactory.class);
         intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */, intent,
-                0 /* no flags */);
+                Utils.PI_FLAG_IMMUTABLE);
     }
 
     /**
@@ -84,7 +90,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
                 Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         launchIntent.setClass(context, AllInOneActivity.class);
         return PendingIntent.getActivity(context, 0 /* no requestCode */, launchIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
     }
 
     /**
@@ -132,17 +138,14 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         if (LOGD)
             Log.d(TAG, "AppWidgetProvider got the intent: " + intent.toString());
         if (Utils.getWidgetUpdateAction(context).equals(action)) {
+            if (!isWidgetSupported(context)) {
+                return;
+            }
+
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             performUpdate(context, appWidgetManager,
                     appWidgetManager.getAppWidgetIds(getComponentName(context)),
                     null /* no eventIds */);
-        } else if (action.equals(Intent.ACTION_PROVIDER_CHANGED)
-                || action.equals(Intent.ACTION_TIME_CHANGED)
-                || action.equals(Intent.ACTION_TIMEZONE_CHANGED)
-                || action.equals(Intent.ACTION_DATE_CHANGED)
-                || action.equals(Utils.getWidgetScheduledUpdateAction(context))) {
-            Intent service = new Intent(context, CalendarAppWidgetService.class);
-            context.startService(service);
         } else {
             super.onReceive(context, intent);
         }
@@ -182,6 +185,10 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     private void performUpdate(Context context,
             AppWidgetManager appWidgetManager, int[] appWidgetIds,
             long[] changedEventIds) {
+        if (!isWidgetSupported(context)) {
+            return;
+        }
+
         // Launch over to service so it can perform update
         for (int appWidgetId : appWidgetIds) {
             if (LOGD) Log.d(TAG, "Building widget update...");
@@ -204,8 +211,17 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
                             | DateUtils.FORMAT_NO_YEAR);
             views.setTextViewText(R.id.day_of_week, dayOfWeek);
             views.setTextViewText(R.id.date, date);
+
+            // Set widget header background based on chosen primary app color
+            int headerColor = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
+            views.setInt(R.id.header, "setBackgroundResource", headerColor);
+
+            // Set widget background color based on chosen app theme
+            int backgroundColor = DynamicTheme.getWidgetBackgroundStyle(context);
+            views.setInt(R.id.widget_background, "setBackgroundResource", backgroundColor);
+
             // Attach to list of events
-            views.setRemoteAdapter(appWidgetId, R.id.events_list, updateIntent);
+            views.setRemoteAdapter(R.id.events_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.events_list);
 
 
@@ -215,7 +231,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             launchCalendarIntent
                     .setData(Uri.parse("content://com.android.calendar/time/" + millis));
             final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(
-                    context, 0 /* no requestCode */, launchCalendarIntent, 0 /* no flags */);
+                    context, 0 /* no requestCode */, launchCalendarIntent, Utils.PI_FLAG_IMMUTABLE);
             views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
 
             // Each list item will call setOnClickExtra() to let the list know
@@ -228,13 +244,16 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         }
     }
 
-//    private static PendingIntent getNewEventPendingIntent(Context context) {
-//        Intent newEventIntent = new Intent(Intent.ACTION_EDIT);
-//        newEventIntent.setClass(context, EditEventActivity.class);
-//        Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-//        builder.appendPath("events");
-//        newEventIntent.setData(builder.build());
-//        return PendingIntent.getActivity(context, 0, newEventIntent,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-//    }
+    public static boolean isWidgetSupported(Context context) {
+        if (!sWidgetChecked) {
+            sWidgetSupported = hasAppWidgetsSystemFeature(context);
+            sWidgetChecked = true;
+        }
+
+        return sWidgetSupported;
+    }
+
+    private static boolean hasAppWidgetsSystemFeature(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_APP_WIDGETS);
+    }
 }

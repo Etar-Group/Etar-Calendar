@@ -1,0 +1,2 @@
+- Fix notifications on Android 12
+- Add DecSync and Birthday Adapter to "known" apps and don't crash

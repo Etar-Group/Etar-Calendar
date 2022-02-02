@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import ws.xsoh.etar.R;
@@ -14,9 +16,11 @@ import ws.xsoh.etar.R;
  * Created by Gitsaibot on 01.07.16.
  */
 public class DynamicTheme {
+    private static final String TAG = "DynamicTheme";
 
     private static final String THEME_PREF = "pref_theme";
     private static final String COLOR_PREF = "pref_color";
+    private static final String PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode";
     private static final String SYSTEM = "system";
     private static final String LIGHT = "light";
     private static final String DARK  = "dark";
@@ -27,6 +31,7 @@ public class DynamicTheme {
     private static final String GREEN  = "green";
     private static final String RED  = "red";
     private static final String PURPLE = "purple";
+    private static final String MONET = "monet";
     private int currentTheme;
 
 
@@ -51,10 +56,41 @@ public class DynamicTheme {
 
     private static int getSelectedTheme(Activity activity) {
         String theme = getTheme(activity) + getPrimaryColor(activity);
+
+        if (theme.endsWith("monet") && !Utils.isMonetAvailable(activity.getApplicationContext())) {
+            // Fall back to teal theme
+            Log.d(TAG, "Monet theme chosen but system does not support Material You");
+            theme = getTheme(activity) + "teal";
+        }
+
+        boolean pureBlack = Utils.getSharedPreference(activity, PURE_BLACK_NIGHT_MODE, false);
         switch (theme) {
+            // System palette (Android 12+)
+            case SYSTEM+MONET:
+                if (isSystemInDarkTheme(activity)) {
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackMonet;
+                    } else {
+                        return R.style.CalendarAppThemeDarkMonet;
+                    }
+                } else {
+                    return R.style.CalendarAppThemeLightMonet;
+                }
+            case LIGHT+MONET:
+                return R.style.CalendarAppThemeLightMonet;
+            case DARK+MONET:
+                return R.style.CalendarAppThemeDarkMonet;
+            case BLACK+MONET:
+                return R.style.CalendarAppThemeBlackMonet;
+
+            // Colors
             case SYSTEM+TEAL:
                 if (isSystemInDarkTheme(activity)) {
-                    return R.style.CalendarAppThemeDarkTeal;
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackTeal;
+                    } else {
+                        return R.style.CalendarAppThemeDarkTeal;
+                    }
                 } else {
                     return R.style.CalendarAppThemeLightTeal;
                 }
@@ -66,7 +102,11 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackTeal;
             case SYSTEM+ORANGE:
                 if (isSystemInDarkTheme(activity)) {
-                    return R.style.CalendarAppThemeDarkOrange;
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackOrange;
+                    } else {
+                        return R.style.CalendarAppThemeDarkOrange;
+                    }
                 } else {
                     return R.style.CalendarAppThemeLightOrange;
                 }
@@ -78,7 +118,11 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackOrange;
             case SYSTEM+BLUE:
                 if (isSystemInDarkTheme(activity)) {
-                    return R.style.CalendarAppThemeDarkBlue;
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackBlue;
+                    } else {
+                        return R.style.CalendarAppThemeDarkBlue;
+                    }
                 } else {
                     return R.style.CalendarAppThemeLightBlue;
                 }
@@ -90,7 +134,11 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackBlue;
             case SYSTEM+GREEN:
                 if (isSystemInDarkTheme(activity)) {
-                    return R.style.CalendarAppThemeDarkGreen;
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackGreen;
+                    } else {
+                        return R.style.CalendarAppThemeDarkGreen;
+                    }
                 } else {
                     return R.style.CalendarAppThemeLightGreen;
                 }
@@ -102,7 +150,11 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackGreen;
             case SYSTEM+RED:
                 if (isSystemInDarkTheme(activity)) {
-                    return R.style.CalendarAppThemeDarkRed;
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackRed;
+                    } else {
+                        return R.style.CalendarAppThemeDarkRed;
+                    }
                 } else {
                     return R.style.CalendarAppThemeLightRed;
                 }
@@ -114,7 +166,11 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeBlackRed;
             case SYSTEM+PURPLE:
                 if (isSystemInDarkTheme(activity)) {
-                    return R.style.CalendarAppThemeDarkPurple;
+                    if (pureBlack) {
+                        return R.style.CalendarAppThemeBlackPurple;
+                    } else {
+                        return R.style.CalendarAppThemeDarkPurple;
+                    }
                 } else {
                     return R.style.CalendarAppThemeLightPurple;
                 }
@@ -130,7 +186,11 @@ public class DynamicTheme {
     }
 
     public static String getPrimaryColor(Context context) {
-        return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
+        if (Utils.isMonetAvailable(context)) {
+            return MONET;
+        } else {
+            return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
+        }
     }
 
     private static String getSuffix(Context context) {
@@ -165,6 +225,8 @@ public class DynamicTheme {
                 return R.color.colorRedPrimary;
             case PURPLE:
                 return R.color.colorPurplePrimary;
+            case MONET:
+                return android.R.color.system_accent1_500;
             default:
                 throw new UnsupportedOperationException("Unknown color name : " + name);
         }
@@ -228,11 +290,36 @@ public class DynamicTheme {
         }
     }
 
+    public static int getWidgetBackgroundStyle(Context context) {
+        String theme = getTheme(context);
+        boolean pureBlack = Utils.getSharedPreference(context, PURE_BLACK_NIGHT_MODE, false);
+        switch (theme) {
+            case SYSTEM:
+                if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
+                    if (pureBlack) {
+                        return R.color.bg_black;
+                    } else {
+                        return R.color.bg_dark;
+                    }
+                } else {
+                    return R.color.background_color;
+                }
+            case LIGHT:
+                return R.color.background_color;
+            case DARK:
+                return R.color.bg_dark;
+            case BLACK:
+                return R.color.bg_black;
+            default:
+                throw new UnsupportedOperationException("Unknown theme: " + theme);
+        }
+    }
+
     private static boolean systemThemeAvailable() {
         return Build.VERSION.SDK_INT >= 29;
     }
 
-    private static boolean isSystemInDarkTheme(@NonNull Activity activity) {
+    public static boolean isSystemInDarkTheme(@NonNull Activity activity) {
         return (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 

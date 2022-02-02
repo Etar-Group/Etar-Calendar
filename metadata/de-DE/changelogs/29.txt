@@ -1,0 +1,5 @@
+- Unterstützung für Android 12
+- Unterstütz das neue Material You Design
+- Verknüpfung zum Android Service für ein Datenbank Backup entfernt (in den meisten Android Versionen kaputt)
+- Allgemeine Fehlerbehebungen
+- Neue Übersetzungen

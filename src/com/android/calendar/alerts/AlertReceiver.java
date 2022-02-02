@@ -16,7 +16,8 @@
 
 package com.android.calendar.alerts;
 
-import android.Manifest;
+import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -37,7 +38,6 @@ import android.os.PowerManager;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
-import androidx.core.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -57,8 +57,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import ws.xsoh.etar.R;
-
-import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
 
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
@@ -186,7 +184,7 @@ public class AlertReceiver extends BroadcastReceiver {
         ContentUris.appendId(builder, eventId);
         ContentUris.appendId(builder, startMillis);
         intent.setData(builder.build());
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
     }
 
     private static PendingIntent createSnoozeIntent(Context context, long eventId,
@@ -204,10 +202,10 @@ public class AlertReceiver extends BroadcastReceiver {
 
         if (Utils.useCustomSnoozeDelay(context)) {
             intent.setClass(context, SnoozeDelayActivity.class);
-            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
         } else {
             intent.setClass(context, SnoozeAlarmsService.class);
-            return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
         }
     }
 
@@ -216,7 +214,7 @@ public class AlertReceiver extends BroadcastReceiver {
         clickIntent.setClass(context, AlertActivity.class);
         clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(context, 0, clickIntent,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
     }
 
     public static NotificationWrapper makeBasicNotification(Context context, String title,
@@ -398,7 +396,7 @@ public class AlertReceiver extends BroadcastReceiver {
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
         deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
 
         if (digestTitle == null || digestTitle.length() == 0) {
             digestTitle = res.getString(R.string.no_title_label);
@@ -488,9 +486,7 @@ public class AlertReceiver extends BroadcastReceiver {
     }
 
     private static Cursor getAttendeesCursor(Context context, long eventId) {
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(context, false)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
             return null;
@@ -537,7 +533,7 @@ public class AlertReceiver extends BroadcastReceiver {
                         broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                         return PendingIntent.getBroadcast(context,
                                 Long.valueOf(eventId).hashCode(), broadcastIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT);
+                                PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
                     }
                 } while (attendeesCursor.moveToNext());
             }
@@ -674,7 +670,7 @@ public class AlertReceiver extends BroadcastReceiver {
                     broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                     return PendingIntent.getBroadcast(context,
                             Long.valueOf(eventId).hashCode(), broadcastIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
+                            PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
                 }
             }
         }
@@ -725,7 +721,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                 return PendingIntent.getBroadcast(context,
                         Long.valueOf(eventId).hashCode(), broadcastIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
+                        PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
             }
         }
 

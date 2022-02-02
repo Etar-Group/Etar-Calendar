@@ -16,8 +16,12 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+
+import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -38,9 +42,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract.Calendars;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -51,11 +52,17 @@ import android.text.format.Time;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.widget.CalendarAppWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,9 +81,8 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ws.xsoh.etar.BuildConfig;
 import ws.xsoh.etar.R;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
 public class Utils {
     // Set to 0 until we have UI to perform undo
@@ -107,6 +113,8 @@ public class Utils {
     public static final int YEAR_MAX = 2036;
     public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
+    public static final int PI_FLAG_IMMUTABLE = Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
+
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
     static final int WEEK_IN_MINUTES = DAY_IN_MINUTES * 7;
@@ -198,6 +206,36 @@ public class Utils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
+    /**
+     * Returns whether the system supports Material You.
+     *
+     * As of Android 12.0, Material You is only available on some devices (Pixel, select Samsung
+     * devices). On other devices (e.g., AOSP-based ROMs), the system_* color resources will still
+     * exist but cannot be configured by the user.
+     */
+    public static boolean isMonetAvailable(Context context) {
+        if (Build.VERSION.SDK_INT < 31) {
+            return false;
+        }
+
+        // Wallpaper-based theming requires a color extraction engine and is enabled when the `flag_monet`
+        // config flag is enabled in SystemUI. It's unclear how to access this information from a
+        // normal application.
+        //
+        // To determine whether Material You is available on the device, we use a naive heuristic which
+        // is to compare the palette against known default values in AOSP.
+        Resources resources = context.getResources();
+        int probe1 = resources.getColor(android.R.color.system_accent1_500, context.getTheme());
+        int probe2 = resources.getColor(android.R.color.system_accent2_500, context.getTheme());
+        if (probe1 == Color.parseColor("#007fac") && probe2 == Color.parseColor("#657985")) {
+            // AOSP palette
+            Log.d(TAG, "Material You not available - Detected AOSP palette");
+            return false;
+        }
+
+        return true;
+    }
+
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
         Bundle extras = intent.getExtras();
@@ -243,12 +281,20 @@ public class Utils {
     public static String getWidgetScheduledUpdateAction(Context context) {
         return "com.android.calendar.APPWIDGET_SCHEDULED_UPDATE";
     }
+    /**
+     * Send Broadcast to update widget.
+     */
+    public static void sendUpdateWidgetIntent(Context context) {
+        Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(context));
+        updateIntent.setClass(context, CalendarAppWidgetProvider.class);
+        context.sendBroadcast(updateIntent);
+    }
 
     /**
      * Gets the intent action for telling the widget to update.
      */
     public static String getSearchAuthority(Context context) {
-        return "ws.xsoh.etar.CalendarRecentSuggestionsProvider";
+        return BuildConfig.APPLICATION_ID + ".CalendarRecentSuggestionsProvider";
     }
 
     /**
@@ -2114,6 +2160,19 @@ public class Utils {
                     mCallBack.run();
                 }
             }
+        }
+    }
+
+    public static boolean isCalendarPermissionGranted(Context context, boolean showWarningToast) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            if (showWarningToast) {
+                Toast.makeText(context, R.string.user_rejected_calendar_write_permission, Toast.LENGTH_SHORT).show();
+            }
+            return false;
         }
     }
 

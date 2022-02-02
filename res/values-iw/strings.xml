@@ -14,65 +14,42 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">לוח שנה</string>
-    <string name="what_label" msgid="1933578391985810049">"מה"</string>
-    <string name="where_label" msgid="3472482206065595118">"היכן"</string>
     <string name="when_label" msgid="894636567327261599">"מתי"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"אזור זמן"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"אורחים"</string>
     <string name="today" msgid="8577375020252453006">"היום"</string>
     <string name="tomorrow" msgid="614434811813859237">"מחר"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־<xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־<xliff:g id="time_interval">%s</xliff:g>
-    </string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
-    <string name="repeats_label" msgid="7414023871434593196">"חזרה"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">היום ב־ <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">מחר ב־ <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(אין כותרת)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">This is the label for a 1-minute reminder.1 דקה</item>
-        <item quantity="two">
-            <xliff:g id="COUNT">%d</xliff:g> דקות</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> דקות</item>
-        <item quantity="other">
-            <xliff:g id="COUNT">%d</xliff:g> דקות</item>
+        <item quantity="one">דקה אחת</item>
+        <item quantity="two"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
+        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">דקה אחת</item>
-        <item quantity="two">
-            <xliff:g id="COUNT">%d</xliff:g> דקות</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> דקות</item>
-        <item quantity="other">
-            <xliff:g id="COUNT">%d</xliff:g> דקות</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> דקות</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> דקות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">שעה אחת</item>
+        <item quantity="one">שעה</item>
         <item quantity="two">שעתיים</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> שעות</item>
-        <item quantity="other">
-            <xliff:g id="COUNT">%d</xliff:g> שעות</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> שעות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> שעות</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">יום אחד</item>
+        <item quantity="one">יום</item>
         <item quantity="two">יומיים</item>
-        <item quantity="many">
-            <xliff:g id="COUNT">%d</xliff:g> ימים</item>
-        <item quantity="other">
-            <xliff:g id="COUNT">%d</xliff:g> ימים</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> ימים</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ימים</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">שבוע <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="two">שבוע <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="many">שבוע <xliff:g id="count">%d</xliff:g>
-        </item>
-        <item quantity="other">שבוע <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="one">שבוע <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="two">שבוע <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">שבוע <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">שבוע <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">רענן</string>
     <string name="show_day_view" msgid="5782512782605466016">הצג יום</string>
@@ -103,11 +80,8 @@
     <string name="alert_title" msgid="7869592820853066853">התראות של לוח שנה</string>
     <string name="event_info_title" msgid="56024222340421620">הצגת אירוע</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"הזמנה לפגישה"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"עד"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">מ־</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"כל היום"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">לוח שנה</string>
-    <string name="description_label" msgid="7193475046717505855">"תיאור"</string>
     <string name="presence_label" msgid="6169724148441175862">להציג אותי בתור</string>
     <string name="privacy_label" msgid="9215031965259597335">"פרטיות"</string>
     <string name="reminders_label" msgid="7292389181815525676">הוספת תזכורת</string>
@@ -145,17 +119,12 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">יצירת תגובה משלך…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">ארגון:</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"תזכורות"</string>
-    <string name="agenda_today" msgid="5965841338467422191">היום, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">אתמול, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">מחר, <xliff:g id="date">%1$s</xliff:g>
-    </string>
+    <string name="agenda_today" msgid="5965841338467422191">היום, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">אתמול, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">מחר, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">בטעינה…</string>
-    <string name="show_older_events" msgid="5140647493681439926">יש לגעת כדי להציג אירועים לפני <xliff:g id="oldest_search_range">%1$s</xliff:g>
-    </string>
-    <string name="show_newer_events" msgid="2604638815440163080">יש לגעת כדי להציג אירועים אחרי <xliff:g id="newest_search_range">%1$s</xliff:g>
-    </string>
+    <string name="show_older_events" msgid="5140647493681439926"><xliff:g id="oldest_search_range">%1$s</xliff:g> גע כדי להציג אירועים לפני</string>
+    <string name="show_newer_events" msgid="2604638815440163080">יש לגעת כדי להציג אירועים אחרי <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">חיפוש בלוחות השנה שלי</string>
     <string name="edit_event_label" msgid="7413222956349977161">"פרטים"</string>
     <string name="edit_label" msgid="8934331258435656534">"ערוך"</string>
@@ -174,21 +143,16 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">יומי</item>
-        <item quantity="two">כל <xliff:g id="number">יומיים</xliff:g>
-        </item>
+        <item quantity="two">כל יומיים</item>
         <item quantity="many">כל <xliff:g id="number">%d</xliff:g> ימים</item>
         <item quantity="other">כל <xliff:g id="number">%d</xliff:g> ימים</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"כל יום חול (ראשון-חמישי)"</string>
     <plurals name="weekly">
-        <item quantity="one">פעם בשבוע ב<xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="number">שבועיים</xliff:g> ב<xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
-        <item quantity="many">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
-        <item quantity="other">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
+        <item quantity="one">פעם בשבוע ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="two">כל שבועיים ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="many">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"כל חודש"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
@@ -224,12 +188,9 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"גרסת Build"</string>
     <plurals name="month_more_events">
         <item quantity="one">‎+1</item>
-        <item quantity="two">‎+<xliff:g id="number">%d</xliff:g>
-        </item>
-        <item quantity="many">‎+<xliff:g id="number">%d</xliff:g>
-        </item>
-        <item quantity="other">‎+<xliff:g id="number">%d</xliff:g>
-        </item>
+        <item quantity="two">‎+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="many">‎+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">‎+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"אין אירועים צפויים בלוח השנה"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"ניסיוני"</string>
@@ -256,60 +217,48 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
         <item quantity="one">אירוע אחד</item>
-        <item quantity="two">
-            <xliff:g id="count">%d</xliff:g> אירועים</item>
-        <item quantity="many">
-            <xliff:g id="count">%d</xliff:g> אירועים</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> אירועים</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> אירועים</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> אירועים</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> אירועים</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">אירוע אחד</item>
+        <item quantity="one">+אירוע אחד</item>
         <item quantity="two">+<xliff:g id="count">%d</xliff:g> אירועים</item>
         <item quantity="many">+<xliff:g id="count">%d</xliff:g> אירועים</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> אירועים</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"אירוע נבחר"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">כל &lt;&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;יום&lt;/xliff:g&gt;</item>
-        <item quantity="two">כל <xliff:g id="count">יומיים</xliff:g>
-        </item>
+        <item quantity="one">כל יום</item>
+        <item quantity="two">כל יומיים</item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> ימים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> ימים</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">כל <xliff:g id="count">שבוע</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="count">שבועיים</xliff:g>
-        </item>
+        <item quantity="one">כל שבוע</item>
+        <item quantity="two">כל שבועיים</item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שבועות</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">כל <xliff:g id="count">חודש</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="count">חודשיים</xliff:g>
-        </item>
+        <item quantity="one">כל חודש</item>
+        <item quantity="two">כל חודשיים</item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> חודשים</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">כל <xliff:g id="count">שנה</xliff:g>
-        </item>
-        <item quantity="two">כל <xliff:g id="count">שנתיים</xliff:g>
-        </item>
+        <item quantity="one">כל שנה</item>
+        <item quantity="two">כל שנתיים</item>
         <item quantity="many">כל <xliff:g id="count">%d</xliff:g> שנים</item>
         <item quantity="other">כל <xliff:g id="count">%d</xliff:g> שנים</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"באותו יום בכל חודש"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"ללא תאריך סיום"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"עד תאריך מסוים"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">עד <xliff:g id="date">%s</xliff:g>
-    </string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">עד <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">עבור אירוע <xliff:g id="event_count">אחד</xliff:g>
-        </item>
+        <item quantity="one">עבור אירוע אחד</item>
         <item quantity="two">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
         <item quantity="many">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
         <item quantity="other">עבור <xliff:g id="event_count">%d</xliff:g> אירועים</item>
@@ -333,7 +282,7 @@
     <string name="preferences_default_event_duration_title">משך אירוע כבררת מחדל</string>
     <string name="preferences_issues">דיווח על תקלות</string>
     <string name="user_rejected_calendar_write_permission">ל־Etar נדרשות הרשאות קריאה וכתיבה כדי לפעול כראוי. נא לנסות שוב.</string>
-    <string name="calendar_permission_not_granted">סליחה אך תכונה זו לא יכולה לפעול. ל־Etar נדרשות הרשאות קריאה וכתיבה כדי לפעול כראוי</string>
+    <string name="calendar_permission_not_granted">ההרשאות הנדרשות נדחו, יש להפעיל אותם מהגדרות היישומון כדי לערוך אירועים</string>
     <string name="visibility_confidential">חסוי</string>
     <string name="zero_minutes">0 דקות</string>
     <string name="fifteen_minutes">רבע שעה</string>
@@ -354,7 +303,7 @@
     <string name="error_generating_ics">חלו תקלות בעת שיתוף אירוע</string>
     <string name="cal_share_intent_title">שליחת אירוע אל:</string>
     <string name="cal_export_event_sdcard_title">ייצוא לכרטיס SD</string>
-    <string name="cal_export_succ_msg">האירוע ייוצא בהצלחה: %1s</string>
+    <string name="cal_export_succ_msg">האירוע ייוצא בהצלחה: %1$s</string>
     <string name="cal_import_menu_title">ייבוא אירוע</string>
     <string name="cal_nothing_to_import">אין מה לייבא</string>
     <string name="cal_import_error_msg">הייבוא ללוח השנה נכשל</string>
@@ -370,7 +319,62 @@
     <string name="show_time_start">רק את מועד ההתחלה</string>
     <string name="show_time_start_end">מועד התחלה וסיום</string>
     <string name="show_time_start_end_below">מועד התחלה וסיום מתחת לאירוע</string>
-    <string name="foreground_notification_channel_name">סנכרון התראות</string>
+    <string name="foreground_notification_channel_name">משימות רקע</string>
     <string name="maximum_number_of_lines">מספר שורות מרבי באירוע</string>
-    <string name="foreground_notification_channel_description">נדרשות התראות בחזית לטובת סנכרון התרעות פנימי. נא להשתיק</string>
+    <string name="foreground_notification_channel_description">נדרשות התראות לסנכרון פנימי. ניתן להסתיר את הערוץ הזה ללא חשש.</string>
+    <string name="app_copyright">2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="preferences_list_add_offline">הוספת לוח שנה בלתי מקוון</string>
+    <string name="preferences_list_add_remote_etesync">הוספת לוח שנה EteSync</string>
+    <string name="preferences_list_add_remote">הוספת לוח שנה CalDAV</string>
+    <string name="preferences_list_general">הגדרות כלליות</string>
+    <string name="preferences_list_calendar_summary_invisible">אירועים לא מוצגים</string>
+    <string name="preferences_list_calendar_summary_sync_off">לא מסונכרן</string>
+    <string name="preferences_calendar_delete_cancel">ביטול</string>
+    <string name="preferences_calendar_delete_delete">מחיקת לוח השנה</string>
+    <string name="preferences_calendar_delete_message">למחוק את לוח השנה הזה\?</string>
+    <string name="preferences_calendar_color_warning_button">ברור לי</string>
+    <string name="preferences_calendar_color_warning_title">אזהרה</string>
+    <string name="preferences_calendar_synchronize">סנכרון לוח השנה הזה</string>
+    <string name="preferences_calendar_visible">הצגת אירועים</string>
+    <string name="preferences_calendar_color">צבע</string>
+    <string name="preferences_calendar_info_category">פרטי לוח השנה</string>
+    <string name="preferences_calendar_display_name">החלפת שם</string>
+    <string name="preferences_calendar_delete">מחיקת לוח שנה</string>
+    <string name="preferences_calendar_number_of_events">%1$d אירועים</string>
+    <string name="preferences_calendar_configure_account">הגדרת לוח שנה תחת %1$s</string>
+    <string name="preferences_list_add_offline_cancel">ביטול</string>
+    <string name="preferences_list_add_offline_name">שם</string>
+    <string name="preferences_list_add_offline_button">הוספת לוח שנה</string>
+    <string name="preferences_list_add_offline_message">לוחות שנה בלתי מקוונים אינם מסונכרנים לשירות ענן וזמינים בטלפון שלך בלבד.</string>
+    <string name="preferences_list_add_offline_error_empty">נא למלא שם ללוח השנה!</string>
+    <string name="preferences_list_add_offline_title">הוספת לוח שנה בלתי מקוון</string>
+    <string name="offline_account_name">לוח שנה בלתי מקוון</string>
+    <string name="preferences_menu_about">על אודות Etar</string>
+    <string name="preferences_calendar_account_local">לוח שנה בלתי מקוון</string>
+    <string name="preferences_calendar_account">חשבון %1$s</string>
+    <string name="preferences_calendar_no_display_name">לוח שנה ללא שם</string>
+    <string name="cal_import_error_time_zone_msg">לא ניתן להבין את אזור הזמן שסופק: %s</string>
+    <string name="seven_days">7 ימים</string>
+    <string name="six_days">6 ימים</string>
+    <string name="five_days">5 ימים</string>
+    <string name="four_days">4 ימים</string>
+    <string name="three_days">3 ימים</string>
+    <string name="two_days">יומיים</string>
+    <string name="source_code">מקור</string>
+    <string name="license">רישיון</string>
+    <string name="changelog">יומן שינויים</string>
+    <string name="authors">יוצרים</string>
+    <string name="preferences_system_theme">בררת המחדל של המערכת</string>
+    <string name="preferences_calendar_color_warning_message">החלפת הצבע עלולה להתחלף בחזרה עם הסנכרון הבא של לוח השנה.
+\n
+\nב־DAVx⁵ ניתן להשבית ‚ניהול צבעי לוח שנה’ כדי למנוע זאת.</string>
+    <string name="preferences_pure_black_night_mode">מצב לילה שחור טהור</string>
+    <string name="no_reminder_label">ללא</string>
+    <plurals name="Nweeks">
+        <item quantity="one">שבוע</item>
+        <item quantity="two">שבועיים</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> שבועות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> שבועות</item>
+    </plurals>
+    <string name="foreground_notification_title">תזכורות חדשות מתוזמנות…</string>
 </resources>

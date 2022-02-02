@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -47,7 +46,6 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -57,7 +55,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -70,6 +67,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.TimePicker;
+
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -92,6 +92,8 @@ import com.android.ex.chips.RecipientEditTextView;
 import com.android.timezonepicker.TimeZoneInfo;
 import com.android.timezonepicker.TimeZonePickerDialog;
 import com.android.timezonepicker.TimeZonePickerUtils;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,13 +137,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Button mTimezoneButton;
     View mColorPickerNewEvent;
     View mColorPickerExistingEvent;
-    OnClickListener mChangeColorOnClickListener;
     View mTimezoneRow;
     TextView mStartTimeHome;
     TextView mStartDateHome;
     TextView mEndTimeHome;
     TextView mEndDateHome;
-    CheckBox mAllDayCheckBox;
+    SwitchCompat mAllDayCheckBox;
     Spinner mCalendarsSpinner;
     Button mRruleButton;
     Spinner mAvailabilitySpinner;
@@ -153,11 +154,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mDescriptionTextView;
     TextView mWhenView;
     TextView mTimezoneTextView;
-    TextView mTimezoneLabel;
-    LinearLayout mRemindersContainer;
     MultiAutoCompleteTextView mAttendeesList;
     View mCalendarSelectorGroup;
-    View mCalendarSelectorWrapper;
+    View mCalendarSelectorGroupBackground;
     View mCalendarStaticGroup;
     View mLocationGroup;
     View mDescriptionGroup;
@@ -217,7 +216,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private boolean mAllDay = false;
     private int mModification = EditEventHelper.MODIFY_UNINITIALIZED;
     private EventRecurrence mEventRecurrence = new EventRecurrence();
-    private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
+    private ArrayList<ConstraintLayout> mReminderItems = new ArrayList<ConstraintLayout>(0);
     private ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
     private String mRrule;
 
@@ -236,7 +235,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mTitleTextView = (TextView) view.findViewById(R.id.title);
         mLocationTextView = (AutoCompleteTextView) view.findViewById(R.id.location);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
-        mTimezoneLabel = (TextView) view.findViewById(R.id.timezone_label);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
         mEndDateButton = (Button) view.findViewById(R.id.end_date);
         mWhenView = (TextView) mView.findViewById(R.id.when);
@@ -255,17 +253,17 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mStartDateHome = (TextView) view.findViewById(R.id.start_date_home_tz);
         mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home_tz);
         mEndDateHome = (TextView) view.findViewById(R.id.end_date_home_tz);
-        mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
+        mAllDayCheckBox = view.findViewById(R.id.is_all_day);
         mRruleButton = (Button) view.findViewById(R.id.rrule);
         mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
         mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
         mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
-        mCalendarSelectorWrapper = view.findViewById(R.id.calendar_selector_wrapper);
+        mCalendarSelectorGroupBackground = view.findViewById(R.id.calendar_selector_group_background);
         mCalendarStaticGroup = view.findViewById(R.id.calendar_group);
-        mRemindersGroup = view.findViewById(R.id.reminders_row);
-        mResponseGroup = view.findViewById(R.id.response_row);
+        mRemindersGroup = view.findViewById(R.id.reminder_items_container);
+        mResponseGroup = view.findViewById(R.id.response_group);
         mOrganizerGroup = view.findViewById(R.id.organizer_row);
-        mAttendeesGroup = view.findViewById(R.id.add_attendees_row);
+        mAttendeesGroup = view.findViewById(R.id.add_attendees_group);
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
         mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
@@ -273,7 +271,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
 
         mColorPickerNewEvent = view.findViewById(R.id.change_color_new_event);
-        mColorPickerExistingEvent = view.findViewById(R.id.change_color_existing_event);
+        mColorPickerExistingEvent = view.findViewById(R.id.change_color_new_event);
 
         mTitleTextView.setTag(mTitleTextView.getBackground());
         mLocationTextView.setTag(mLocationTextView.getBackground());
@@ -337,18 +335,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         mViewOnlyList.add(view.findViewById(R.id.when_row));
         mViewOnlyList.add(view.findViewById(R.id.timezone_textview_row));
-
-        mEditOnlyList.add(view.findViewById(R.id.all_day_row));
-        mEditOnlyList.add(view.findViewById(R.id.availability_row));
-        mEditOnlyList.add(view.findViewById(R.id.visibility_row));
-        mEditOnlyList.add(view.findViewById(R.id.from_row));
-        mEditOnlyList.add(view.findViewById(R.id.to_row));
-        mEditOnlyList.add(mTimezoneRow);
+        mEditOnlyList.add(view.findViewById(R.id.edit_event_all));
         mEditOnlyList.add(mStartHomeGroup);
         mEditOnlyList.add(mEndHomeGroup);
 
         mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
-        mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
 
         mTimezone = Utils.getTimeZone(activity, null);
         mIsMultipane = activity.getResources().getBoolean(R.bool.tablet_config);
@@ -556,7 +547,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         // This must be a click on one of the "remove reminder" buttons
-        LinearLayout reminderItem = (LinearLayout) view.getParent();
+        ConstraintLayout reminderItem = (ConstraintLayout) view.getParent();
         LinearLayout parent = (LinearLayout) reminderItem.getParent();
         parent.removeView(reminderItem);
         mReminderItems.remove(reminderItem);
@@ -585,7 +576,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         } else if (dialog == mNoCalendarsDialog) {
             mDone.setDoneCode(Utils.DONE_REVERT);
             mDone.run();
-            return;
         }
     }
 
@@ -710,7 +700,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         Resources r = mActivity.getResources();
         mAccessLabels = loadStringArray(r, R.array.visibility);
         mAccessAdapter = new ArrayAdapter<String>(mActivity,
-                android.R.layout.simple_spinner_item, mAccessLabels);
+                R.layout.simple_spinner_item, mAccessLabels);
         mAccessAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAccessLevelSpinner.setAdapter(mAccessAdapter);
     }
@@ -730,7 +720,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         mAvailabilityAdapter = new ArrayAdapter<String>(mActivity,
-                android.R.layout.simple_spinner_item, mAvailabilityLabels);
+                R.layout.simple_spinner_item, mAvailabilityLabels);
         mAvailabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAvailabilitySpinner.setAdapter(mAvailabilityAdapter);
     }
@@ -752,7 +742,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // is mostly relevant for "methods", since we shouldn't have any "minutes" values in a
         // new event that aren't in the default set.
         mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
-        mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
+        mReminderMinuteLabels = EventViewUtils.constructReminderLabelsFromValues(mActivity,
+                mReminderMinuteValues, false);
         mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
         mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
 
@@ -952,7 +943,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // This is an existing event so hide the calendar spinner
             // since we can't change the calendar.
             View calendarGroup = mView.findViewById(R.id.calendar_selector_group);
-            calendarGroup.setVisibility(View.GONE);
+            calendarGroup.setVisibility(View.VISIBLE);
             TextView tv = (TextView) mView.findViewById(R.id.calendar_textview);
             tv.setText(model.mCalendarDisplayName);
             tv = (TextView) mView.findViewById(R.id.calendar_textview_secondary);
@@ -964,7 +955,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             calendarGroup.setVisibility(View.GONE);
         }
         if (model.isEventColorInitialized()) {
-            updateHeadlineColor(model, model.getEventColor());
+            updateHeadlineColor(model.getEventColor());
         }
 
         populateWhen();
@@ -974,28 +965,21 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         updateView();
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
+        setTitleFocus();
         sendAccessibilityEvent();
     }
 
-    public void updateHeadlineColor(CalendarEventModel model, int displayColor) {
-        if (model.mUri != null) {
-            if (mIsMultipane) {
-                mView.findViewById(R.id.calendar_textview_with_colorpicker)
-                    .setBackgroundColor(displayColor);
-            } else {
-                mView.findViewById(R.id.calendar_group).setBackgroundColor(displayColor);
-            }
-        } else {
-            setSpinnerBackgroundColor(displayColor);
-        }
+    public void updateHeadlineColor(int displayColor) {
+        setSpinnerBackgroundColor(displayColor);
     }
 
     private void setSpinnerBackgroundColor(int displayColor) {
-        if (mIsMultipane) {
-            mCalendarSelectorWrapper.setBackgroundColor(displayColor);
-        } else {
-            mCalendarSelectorGroup.setBackgroundColor(displayColor);
-        }
+        mCalendarSelectorGroupBackground.setBackgroundColor(displayColor);
+    }
+
+    private void setTitleFocus() {
+        mTitleTextView.requestFocus();
+        ((TextInputEditText)mTitleTextView).setSelection(mTitleTextView.getText().length());
     }
 
     private void sendAccessibilityEvent() {
@@ -1290,9 +1274,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void updateRemindersVisibility(int numReminders) {
         if (numReminders == 0) {
-            mRemindersContainer.setVisibility(View.GONE);
+            mRemindersGroup.setVisibility(View.GONE);
         } else {
-            mRemindersContainer.setVisibility(View.VISIBLE);
+            mRemindersGroup.setVisibility(View.VISIBLE);
         }
     }
 
@@ -1809,12 +1793,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (mDatePickerDialog != null) {
                 mDatePickerDialog.dismiss();
             }
-            mDatePickerDialog = new DatePickerDialog(mActivity, listener,
-                    mTime.year, mTime.month, mTime.monthDay);
-            if (Build.VERSION.SDK_INT >= 21) {
+            mDatePickerDialog = new DatePickerDialog(mActivity, listener, mTime.year, mTime.month, mTime.monthDay);
                 mDatePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
-            }
-            mDatePickerDialog.show();
+                mDatePickerDialog.show();
         }
     }
 }

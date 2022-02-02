@@ -37,14 +37,24 @@ import android.text.TextUtils
 import android.util.SparseIntArray
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.preference.*
-import com.android.calendar.*
+import androidx.preference.CheckBoxPreference
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreference
+import com.android.calendar.CalendarController
+import com.android.calendar.CalendarRecentSuggestionsProvider
+import com.android.calendar.CalendarUtils
+import com.android.calendar.DynamicTheme
+import com.android.calendar.Utils
 import com.android.calendar.alerts.AlertReceiver
 import com.android.calendar.event.EventViewUtils
 import com.android.timezonepicker.TimeZoneInfo
 import com.android.timezonepicker.TimeZonePickerUtils
 import ws.xsoh.etar.R
-import java.util.*
+import java.util.TimeZone
 
 class GeneralPreferences : PreferenceFragmentCompat(),
         OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener,
@@ -52,14 +62,15 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
     private lateinit var themePref: ListPreference
     private lateinit var colorPref: Preference
+    private lateinit var pureBlackNightModePref: SwitchPreference
     private lateinit var defaultStartPref: ListPreference
-    private lateinit var hideDeclinedPref: CheckBoxPreference
+    private lateinit var hideDeclinedPref: SwitchPreference
     private lateinit var weekStartPref: ListPreference
     private lateinit var dayWeekPref: ListPreference
     private lateinit var defaultEventDurationPref: ListPreference
     private lateinit var useHomeTzPref: CheckBoxPreference
     private lateinit var homeTzPref: Preference
-    private lateinit var popupPref: CheckBoxPreference
+    private lateinit var popupPref: SwitchPreference
     private lateinit var snoozeDelayPref: ListPreference
     private lateinit var defaultReminderPref: ListPreference
     private lateinit var copyDbPref: Preference
@@ -71,7 +82,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     // < 26
     private lateinit var alertPref: CheckBoxPreference
     private lateinit var ringtonePref: Preference
-    private lateinit var vibratePref: CheckBoxPreference
+    private lateinit var vibratePref: SwitchPreference
 
     private lateinit var tzPickerUtils: TimeZonePickerUtils
     private var timeZoneId: String? = null
@@ -94,6 +105,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         themePref = preferenceScreen.findPreference(KEY_THEME_PREF)!!
         colorPref = preferenceScreen.findPreference(KEY_COLOR_PREF)!!
+        pureBlackNightModePref = preferenceScreen.findPreference(KEY_PURE_BLACK_NIGHT_MODE)!!
         defaultStartPref = preferenceScreen.findPreference(KEY_DEFAULT_START)!!
         hideDeclinedPref = preferenceScreen.findPreference(KEY_HIDE_DECLINED)!!
         weekStartPref = preferenceScreen.findPreference(KEY_WEEK_START_DAY)!!
@@ -107,7 +119,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         copyDbPref = preferenceScreen.findPreference(KEY_OTHER_COPY_DB)!!
         skipRemindersPref = preferenceScreen.findPreference(KEY_OTHER_REMINDERS_RESPONDED)!!
 
-        val prefs = CalendarUtils.getSharedPreferences(activity!!,
+        val prefs = CalendarUtils.getSharedPreferences(requireActivity(),
                 Utils.SHARED_PREFS_NAME)
 
         if (Utils.isOreoOrLater()) {
@@ -115,7 +127,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         } else {
             alertPref = preferenceScreen.findPreference(KEY_ALERTS)!!
             vibratePref = preferenceScreen.findPreference(KEY_ALERTS_VIBRATE)!!
-            val vibrator = activity!!.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            val vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             if (!vibrator.hasVibrator()) {
                 val alertGroup = preferenceScreen
                         .findPreference<PreferenceCategory>(KEY_ALERTS_CATEGORY)!!
@@ -129,11 +141,17 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             val editor = prefs.edit()
             editor.putString(KEY_ALERTS_RINGTONE, ringtoneUriString).apply()
 
-            val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringtoneUriString)
+            val ringtoneDisplayString = getRingtoneTitleFromUri(requireActivity(), ringtoneUriString)
             ringtonePref.summary = ringtoneDisplayString ?: ""
         }
 
+        if (Utils.isMonetAvailable(requireContext())) {
+            // Palette is controlled by user wallpaper
+            preferenceScreen.removePreferenceRecursively(KEY_COLOR_PREF);
+        }
+
         buildSnoozeDelayEntries()
+        buildDefaultReminderPrefEntries()
         defaultEventDurationPref.summary = defaultEventDurationPref.entry
         themePref.summary = themePref.entry
         weekStartPref.summary = weekStartPref.entry
@@ -141,6 +159,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         defaultReminderPref.summary = defaultReminderPref.entry
         snoozeDelayPref.summary = snoozeDelayPref.entry
         defaultStartPref.summary = defaultStartPref.entry
+        skipRemindersPref.summary = skipRemindersPref.entry
 
         // This triggers an asynchronous call to the provider to refresh the data in shared pref
         timeZoneId = Utils.getTimeZone(activity, null)
@@ -158,62 +177,38 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 System.currentTimeMillis(), false)
         homeTzPref.summary = timezoneName ?: timeZoneId
 
-        val tzpd = activity!!.supportFragmentManager
+        val tzpd = requireActivity().supportFragmentManager
                 .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
         tzpd?.setOnTimeZoneSetListener(this)
 
-        updateSkipRemindersSummary(skipRemindersPref.value)
-
         initializeColorMap()
-    }
-
-    /**
-     * Update the summary for the SkipReminders preference.
-     * @param value The corresponding value of which summary to set. If null, the default summary
-     * will be set, and the value will be set accordingly too.
-     */
-    private fun updateSkipRemindersSummary(value: String?) {
-        // Default to "declined". Must match with R.array.preferences_skip_reminders_values.
-        var index = 0
-        val values = skipRemindersPref.entryValues
-        val entries = skipRemindersPref.entries
-        for (value_i in values.indices) {
-            if (values[value_i] == value) {
-                index = value_i
-                break
-            }
-        }
-        skipRemindersPref.summary = entries[index].toString()
-        if (value == null) { // Value was not known ahead of time, so the default value will be set.
-            skipRemindersPref.value = values[index].toString()
-        }
     }
 
     private fun showColorPickerDialog() {
         val colorPickerDialog = ColorPickerDialogX()
         val selectedColorName = Utils.getSharedPreference(activity, KEY_COLOR_PREF, "teal")
-        val selectedColor = ContextCompat.getColor(context!!, DynamicTheme.getColorId(selectedColorName))
+        val selectedColor = ContextCompat.getColor(requireContext(), DynamicTheme.getColorId(selectedColorName))
         colorPickerDialog.initialize(R.string.preferences_color_pick,
-                intArrayOf(ContextCompat.getColor(context!!, R.color.colorPrimary),
-                        ContextCompat.getColor(context!!, R.color.colorBluePrimary),
-                        ContextCompat.getColor(context!!, R.color.colorPurplePrimary),
-                        ContextCompat.getColor(context!!, R.color.colorRedPrimary),
-                        ContextCompat.getColor(context!!, R.color.colorOrangePrimary),
-                        ContextCompat.getColor(context!!, R.color.colorGreenPrimary)),
+                intArrayOf(ContextCompat.getColor(requireContext(), R.color.colorPrimary),
+                        ContextCompat.getColor(requireContext(), R.color.colorBluePrimary),
+                        ContextCompat.getColor(requireContext(), R.color.colorPurplePrimary),
+                        ContextCompat.getColor(requireContext(), R.color.colorRedPrimary),
+                        ContextCompat.getColor(requireContext(), R.color.colorOrangePrimary),
+                        ContextCompat.getColor(requireContext(), R.color.colorGreenPrimary)),
                 selectedColor, 3, 2)
         colorPickerDialog.setOnColorSelectedListener { colour ->
             Utils.setSharedPreference(activity, KEY_COLOR_PREF, DynamicTheme.getColorName(colorMap.get(colour)))
         }
-        colorPickerDialog.show(fragmentManager!!, "colorpicker")
+        colorPickerDialog.show(parentFragmentManager, "colorpicker")
     }
 
     private fun initializeColorMap() {
-        colorMap.put(ContextCompat.getColor(context!!, R.color.colorPrimary), R.color.colorPrimary)
-        colorMap.put(ContextCompat.getColor(context!!, R.color.colorBluePrimary), R.color.colorBluePrimary)
-        colorMap.put(ContextCompat.getColor(context!!, R.color.colorOrangePrimary), R.color.colorOrangePrimary)
-        colorMap.put(ContextCompat.getColor(context!!, R.color.colorGreenPrimary), R.color.colorGreenPrimary)
-        colorMap.put(ContextCompat.getColor(context!!, R.color.colorRedPrimary), R.color.colorRedPrimary)
-        colorMap.put(ContextCompat.getColor(context!!, R.color.colorPurplePrimary), R.color.colorPurplePrimary)
+        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorPrimary), R.color.colorPrimary)
+        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorBluePrimary), R.color.colorBluePrimary)
+        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorOrangePrimary), R.color.colorOrangePrimary)
+        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorGreenPrimary), R.color.colorGreenPrimary)
+        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorRedPrimary), R.color.colorRedPrimary)
+        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorPurplePrimary), R.color.colorPurplePrimary)
     }
 
     private fun showTimezoneDialog() {
@@ -222,7 +217,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             putString(TimeZonePickerDialogX.BUNDLE_TIME_ZONE, Utils.getTimeZone(activity, null))
         }
 
-        val fm = activity!!.supportFragmentManager
+        val fm = requireActivity().supportFragmentManager
         var tzpd: TimeZonePickerDialogX? = fm.findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
         tzpd?.dismiss()
 
@@ -244,6 +239,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private fun setPreferenceListeners(listener: Preference.OnPreferenceChangeListener) {
         themePref.onPreferenceChangeListener = listener
         colorPref.onPreferenceChangeListener = listener
+        pureBlackNightModePref.onPreferenceChangeListener = listener
         defaultStartPref.onPreferenceChangeListener = listener
         hideDeclinedPref.onPreferenceChangeListener = listener
         weekStartPref.onPreferenceChangeListener = listener
@@ -280,8 +276,20 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 }
                 a.sendBroadcast(intent)
             }
-            KEY_THEME_PREF -> a.recreate()
-            KEY_COLOR_PREF -> a.recreate()
+            KEY_THEME_PREF -> {
+                Utils.sendUpdateWidgetIntent(a)
+                a.recreate()
+            }
+            KEY_COLOR_PREF -> {
+                Utils.sendUpdateWidgetIntent(a)
+                a.recreate()
+            }
+            KEY_PURE_BLACK_NIGHT_MODE -> {
+                if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a)) {
+                    Utils.sendUpdateWidgetIntent(a)
+                    a.recreate()
+                }
+            }
         }
     }
 
@@ -297,14 +305,16 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         when (preference) {
             useHomeTzPref -> {
-                val useHomeTz = newValue as Boolean
-                val tz: String? = if (useHomeTz) {
-                    timeZoneId
-                } else {
-                    CalendarCache.TIMEZONE_TYPE_AUTO
+                if (Utils.isCalendarPermissionGranted(requireContext(), true)) {
+                    val useHomeTz = newValue as Boolean
+                    val tz: String? = if (useHomeTz) {
+                        timeZoneId
+                    } else {
+                        CalendarCache.TIMEZONE_TYPE_AUTO
+                    }
+                    Utils.setTimeZone(activity, tz)
+                    return true
                 }
-                Utils.setTimeZone(activity, tz)
-                return true
             }
             themePref -> {
                 themePref.value = newValue as String
@@ -314,7 +324,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 hideDeclinedPref.isChecked = newValue as Boolean
                 val intent = Intent(Utils.getWidgetScheduledUpdateAction(activity))
                 intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE)
-                activity!!.sendBroadcast(intent)
+                requireActivity().sendBroadcast(intent)
                 return true
             }
             weekStartPref -> {
@@ -343,7 +353,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 return true
             }
             skipRemindersPref -> {
-                updateSkipRemindersSummary(newValue as String)
+                skipRemindersPref.value = newValue as String
+                skipRemindersPref.summary = skipRemindersPref.entry
             }
             else -> {
                 return true
@@ -368,10 +379,23 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         for (i in 0 until count) {
             val value = Integer.parseInt(values[i].toString())
-            entries[i] = EventViewUtils.constructReminderLabel(activity!!, value, false)
+            entries[i] = EventViewUtils.constructReminderLabel(requireActivity(), value, false)
         }
 
         snoozeDelayPref.entries = entries
+    }
+
+    private fun buildDefaultReminderPrefEntries() {
+        val values = defaultReminderPref.entryValues
+        val count = values.size
+        val entries = arrayOfNulls<CharSequence>(count)
+
+        for (i in 0 until count) {
+            val value = Integer.parseInt(values[i].toString())
+            entries[i] = EventViewUtils.constructReminderLabel(requireActivity(), value, false)
+        }
+
+        defaultReminderPref.entries = entries
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
@@ -423,7 +447,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private fun showNotificationChannel() {
         val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
             putExtra(Settings.EXTRA_CHANNEL_ID, "alert_channel_01")
-            putExtra(Settings.EXTRA_APP_PACKAGE, activity!!.packageName)
+            putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
         }
         startActivity(intent)
     }
@@ -464,7 +488,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             val ringtoneString = ringtone?.toString() ?: ""
 
             Utils.setRingtonePreference(activity, ringtoneString)
-            val ringtoneDisplayString = getRingtoneTitleFromUri(activity!!, ringtoneString)
+            val ringtoneDisplayString = getRingtoneTitleFromUri(requireActivity(), ringtoneString)
             ringtonePref.summary = ringtoneDisplayString ?: ""
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -482,6 +506,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         // Preference keys
         const val KEY_THEME_PREF = "pref_theme"
         const val KEY_COLOR_PREF = "pref_color"
+        const val KEY_PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode"
         const val KEY_DEFAULT_START = "preferences_default_start"
         const val KEY_HIDE_DECLINED = "preferences_hide_declined"
         const val KEY_WEEK_START_DAY = "preferences_week_start_day"

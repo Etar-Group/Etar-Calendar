@@ -179,7 +179,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // Set scroll listener so that the date on the ActionBar can be set while
             // the user scrolls the view
             lv.setOnScrollListener(this);
-            lv.setHeaderSeparator(getResources().getColor(R.color.agenda_list_separator_color), 1);
             topListView = lv;
         } else {
             topListView = mAgendaListView;

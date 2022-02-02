@@ -28,9 +28,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-
-import java.util.Calendar
 import ws.xsoh.etar.R
+import java.util.Calendar
 
 class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,7 +42,7 @@ class AboutFragment : Fragment() {
         view.findViewById<TextView>(R.id.version).text = getVersionNumber()
 
         val year = Calendar.getInstance().get(Calendar.YEAR).toString()
-        view.findViewById<TextView>(R.id.copyright).text = getString(R.string.app_copyright, year, year)
+        view.findViewById<TextView>(R.id.copyright).text = getString(R.string.app_copyright, year)
 
         view.findViewById<LinearLayout>(R.id.authorsLayout).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_authors_url))))

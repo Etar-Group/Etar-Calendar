@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
-    <string name="what_label" msgid="1933578391985810049">"Che cosa"</string>
-    <string name="where_label" msgid="3472482206065595118">"Dove"</string>
     <string name="when_label" msgid="894636567327261599">"Intervallo di tempo"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Fuso orario"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Invitati"</string>
     <string name="today" msgid="8577375020252453006">"Oggi"</string>
     <string name="tomorrow" msgid="614434811813859237">"Domani"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Oggi alle <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Domani alle <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Oggi alle <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Domani alle <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">"Ripetizione"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Senza titolo)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
@@ -43,8 +38,8 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> giorni"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">settimana <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="other">settimana <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="one">Settimana <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="other">Settimana <xliff:g id="COUNT">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aggiorna"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostra giorno"</string>
@@ -54,7 +49,7 @@
     <string name="month_view" msgid="7287101431749285412">"Mese"</string>
     <string name="event_view" msgid="7621353079385122317">"Visualizza evento"</string>
     <string name="event_create" msgid="6941040556709110617">"Nuovo evento"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Modifica  evento"</string>
+    <string name="event_edit" msgid="4006961928830064662">Modifica evento</string>
     <string name="event_delete" msgid="2386667193277770442">"Elimina evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Oggi"</string>
     <string name="goto_date">"Vai al…"</string>
@@ -79,11 +74,8 @@
     <string name="alert_title" msgid="7869592820853066853">"Notifiche di Etar Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualizza evento"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invito a riunione"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"A"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Da"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Tutto il giorno"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendario"</string>
-    <string name="description_label" msgid="7193475046717505855">"Descrizione"</string>
     <string name="presence_label" msgid="6169724148441175862">"Imposta il mio stato su"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Aggiungi promemoria"</string>
@@ -101,14 +93,14 @@
     <string name="response_yes" msgid="2027484304899988350">"Sì"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Forse"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Invia email agli invitati"</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">"Invia email all\'organizzatore"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"Invia email con"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">Invia un’e-mail agli invitati</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">Invia un’e-mail all’organizzatore</string>
+    <string name="email_picker_label" msgid="4808253965057791781">Invia un’e-mail con</string>
     <string name="event_not_found" msgid="8356864185947582727">"Evento non trovato."</string>
     <string name="map_label" msgid="8795383535586556038">"Mappa"</string>
     <string name="call_label" msgid="2960328220008869083">"Chiama"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Risposte rapide"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Modifica risposte predefinite in caso di email agli invitati"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Modifica risposte predefinite in caso di e-mail agli invitati</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Risposta rapida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Scegli risposta rapida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Reperimento di un programma di posta elettronica non riuscito"</string>
@@ -121,9 +113,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Scrivi la tua risposta personale…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Agenda:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Promemoria"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"oggi, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"ieri, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"domani, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Oggi, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Ieri, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Domani, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Caricamento…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tocca per visualizzare eventi precedenti a: <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tocca per visualizzare eventi successivi a: <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -251,7 +243,7 @@
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifica data di fine"</string>
     <string name="user_rejected_calendar_write_permission">Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare. Riprova.</string>
-    <string name="calendar_permission_not_granted">Spiacenti, questo non può funzionare. Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare</string>
+    <string name="calendar_permission_not_granted">Le autorizzazioni necessarie sono state negate, abilitarle nelle Impostazioni dell’app per modificare gli eventi</string>
     <string name="visibility_default">Predefinito</string>
     <string name="visibility_private">Privato</string>
     <string name="visibility_public">Pubblico</string>
@@ -267,7 +259,7 @@
     <string name="preferences_month_view_portrait">Vista mese (Verticale)</string>
     <string name="preferences_month_view_landscape">Vista mese (Orizzontale)</string>
     <string name="preferences_black_theme">Nero</string>
-    <string name="preferences_color">Colore Principale</string>
+    <string name="preferences_color">Colore principale</string>
     <string name="preferences_color_pick">Colore principale</string>
     <string name="default_start_title">Vista predefinita</string>
     <string name="display_options">Vedi Dettagli</string>
@@ -285,7 +277,7 @@
     <string name="error_generating_ics">Si sono verificati dei problemi durante la condivisione dell\'evento</string>
     <string name="cal_share_intent_title">Invia evento a:</string>
     <string name="cal_export_event_sdcard_title">Esporta sulla scheda SD</string>
-    <string name="cal_export_succ_msg">Evento esportato con successo: %1s</string>
+    <string name="cal_export_succ_msg">Evento esportato con successo: %1$s</string>
     <string name="cal_import_menu_title">Importa evento</string>
     <string name="cal_nothing_to_import">Niente da importare</string>
     <string name="cal_import_error_msg">Importazione del calendario non riuscita</string>
@@ -296,13 +288,12 @@
     <string name="show_time_start_end">Ora di inizio e fine</string>
     <string name="show_time_start_end_below">Ora di inizio e fine sotto all\'evento</string>
     <string name="maximum_number_of_lines">Max numero di linee in evento</string>
-    <string name="foreground_notification_channel_name">Sincronizza Allarme</string>
-    <string name="foreground_notification_channel_description">Notifica in primo piano richiesta per la sincronizzazione dell\'allarme interna. Per favore silenziala</string>
+    <string name="foreground_notification_channel_name">Attività in background</string>
+    <string name="foreground_notification_channel_description">Notifiche necessarie per la sincronizzazione interna. Puoi nascondere questo canale in sicurezza.</string>
     <string name="preferences_calendar_color">Colore</string>
     <string name="preferences_calendar_synchronize">Sincronizza questo calendario</string>
     <string name="preferences_list_calendar_summary_sync_off">Non sincronizzato</string>
     <string name="preferences_list_general">Impostazioni generali</string>
-    <string name="preferences_list_add_remote">Aggiungi calendario remoto (CalDAV)</string>
     <string name="preferences_list_add_offline">Aggiungi calendario offline</string>
     <string name="offline_account_name">Calendario offline</string>
     <string name="authors">Autori</string>
@@ -313,7 +304,6 @@
     <string name="preferences_calendar_account">%1$s account</string>
     <string name="preferences_calendar_delete">Elimina calendario</string>
     <string name="preferences_calendar_display_name">Cambia nome</string>
-    <string name="preferences_calendar_account_category">Tipo account</string>
     <string name="preferences_calendar_visible">Visualizza eventi</string>
     <string name="preferences_list_calendar_summary_invisible">Gli eventi non vengono visualizzati</string>
     <string name="preferences_list_add_offline_title">Aggiungi calendario offline</string>
@@ -331,10 +321,26 @@
     <string name="preferences_calendar_delete_delete">Elimina calendario</string>
     <string name="preferences_calendar_delete_cancel">Annulla</string>
     <string name="preferences_menu_about">Altro su Etar</string>
-    <string name="app_copyright">Progetto Etar © 2015-<xliff:g>%s</xliff:g>. Parte del progetto Android Open Source © 2005-<xliff:g>%s</xliff:g>.</string>
+    <string name="app_copyright">Progetto Etar © 2015-<xliff:g>%1$s</xliff:g>. Parte del progetto Android Open Source © 2005-<xliff:g>%1$s</xliff:g>.</string>
     <string name="preferences_calendar_no_display_name">Calendario senza nome</string>
     <string name="preferences_calendar_account_local">Calendario non in linea</string>
     <string name="preferences_calendar_configure_account">Configura calendario in %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d eventi</string>
+    <string name="preferences_calendar_number_of_events">%1$d eventi</string>
     <string name="preferences_calendar_info_category">Informazioni calendario</string>
+    <string name="seven_days">7 giorni</string>
+    <string name="six_days">6 giorni</string>
+    <string name="five_days">5 giorni</string>
+    <string name="four_days">4 giorni</string>
+    <string name="three_days">3 giorni</string>
+    <string name="two_days">2 giorni</string>
+    <string name="preferences_system_theme">Predefinito del sistema</string>
+    <string name="preferences_list_add_remote_etesync">Aggiungi un calendario EteSync</string>
+    <string name="preferences_list_add_remote">Aggiungi calendario CalDAV</string>
+    <string name="preferences_pure_black_night_mode">Modalità notte nera pura</string>
+    <string name="no_reminder_label">Nessuno</string>
+    <string name="foreground_notification_title">Pianificazione nuovi promemoria…</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 settimana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> settimane</item>
+    </plurals>
 </resources>

@@ -20,8 +20,9 @@ this app would be just a dream. So thanks to them!
 - Week, day & agenda view.
 - Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
 - Material designed.
-- Support offline calendar
-- -Agenda widget.- (disabled until #373 and #374 are fixed. Use [Calendar Widget](https://f-droid.org/de/packages/com.plusonelabs.calendar/) as an alternative.)
+- Support offline calendar.
+- Agenda widget.
+- Multilingual UI.
 
 ## How to use Etar
 Store your calendar on the phone only:

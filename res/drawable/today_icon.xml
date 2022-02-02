@@ -17,10 +17,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/today_icon_background"
-        android:drawable="@drawable/ic_menu_today_holo_light"
-        android:gravity="center" />
+        android:drawable="@drawable/ic_baseline_calendar_dayofmonth"
+        android:gravity="center"
+        android:bottom="4dp"/>
     <item
         android:id="@+id/today_icon_day"
-        android:drawable="@drawable/ic_menu_today_holo_light"
-        android:gravity="center"/>
+        android:drawable="@drawable/ic_baseline_calendar_dayofmonth"
+        android:gravity="center"
+        android:bottom="4dp"/>
 </layer-list>

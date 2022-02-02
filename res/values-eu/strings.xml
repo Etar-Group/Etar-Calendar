@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">Egutegia</string>
-    <string name="what_label">Zer</string>
-    <string name="where_label">Non</string>
     <string name="when_label">Noiz</string>
-    <string name="timezone_label">Ordu-zona</string>
-    <string name="attendees_label">Gonbidatuak</string>
     <string name="today">Gaur</string>
     <string name="tomorrow">Bihar</string>
-    <string name="date_time_fmt">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
-    <string name="repeats_label">Errepikapena</string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label">(Izenbururik ez)</string>
     <string name="calendar_refresh">Eguneratu</string>
     <string name="show_day_view">Erakutsi eguna</string>
@@ -48,11 +41,8 @@
     <string name="alert_title">Egutegi jakinarazpenak</string>
     <string name="event_info_title">Ikusi gertaera</string>
     <string name="event_info_title_invite">Bilera gonbidapenak</string>
-    <string name="edit_event_to_label">Noiz arte</string>
-    <string name="edit_event_from_label">Noiztik</string>
     <string name="edit_event_all_day_label">Egun osoa</string>
     <string name="edit_event_calendar_label">Egutegia</string>
-    <string name="description_label">Deskribapena</string>
     <string name="presence_label">Erakutsi horrela</string>
     <string name="privacy_label">Pribatutasuna</string>
     <string name="reminders_label">Gehitu jakinarazpena</string>
@@ -84,16 +74,11 @@
     <string name="quick_response_custom_msg">Idatzi zurea…</string>
     <string name="event_info_organizer">Antolatzailea:</string>
     <string name="event_info_reminders_label">Oharrak</string>
-    <string name="agenda_today">gaur, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_yesterday">atzo, <xliff:g id="date">%1$s</xliff:g>
-    </string>
-    <string name="agenda_tomorrow">bihar, <xliff:g id="date">%1$s</xliff:g>
-    </string>
+    <string name="agenda_today">Gaur, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday">Atzo, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow">Bihar, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading">Kargatzen…</string>
-    <string name="show_older_events">
-        <xliff:g id="oldest_search_range">%1$s</xliff:g>
-    </string>
+    <string name="show_older_events">Ukitu <xliff:g id="oldest_search_range">%1$s</xliff:g> baino lehenagoko gertaerak ikusteko</string>
     <string name="search_title">Bilatu nire egutegiak</string>
     <string name="edit_event_label">Xehetasunak</string>
     <string name="edit_label">Editatu</string>
@@ -108,8 +93,7 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">Egunero</item>
-        <item quantity="other">
-            <xliff:g id="number">%d</xliff:g> egunero</item>
+        <item quantity="other"><xliff:g id="number">%d</xliff:g> egunero</item>
     </plurals>
     <string name="every_weekday">Lanegun guztietan (Al-Ol)</string>
     <string name="monthly">Hilabetero</string>
@@ -130,7 +114,7 @@
     <string name="preferences_light_theme">Argia</string>
     <string name="preferences_dark_theme">Iluna</string>
     <string name="preferences_black_theme">Beltza</string>
-    <string name="preferences_color">Kolore Nagusia</string>
+    <string name="preferences_color">Kolore nagusia</string>
     <string name="preferences_color_pick">Kolore Nagusia</string>
     <string name="preferences_reminder_title">Jakinarazpenak eta abisuak</string>
     <string name="preferences_hide_declined_title">Ezkutatu baztertutako gertaerak</string>
@@ -185,17 +169,14 @@
     <string name="recurrence_month_pattern_by_day">egun berean hilabetero</string>
     <string name="recurrence_end_continously">Beti</string>
     <string name="recurrence_end_date_label">Data arte</string>
-    <string name="recurrence_end_date">
-        <xliff:g id="date">%s</xliff:g> arte</string>
+    <string name="recurrence_end_date"><xliff:g id="date">%s</xliff:g> arte</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">
-            <xliff:g id="event_count">%d</xliff:g> gertaerarentzat</item>
-        <item quantity="other">
-            <xliff:g id="event_count">%d</xliff:g> gertaerentzat</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> gertaerarentzat</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> gertaerentzat</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description">aldatu bukera data</string>
     <string name="user_rejected_calendar_write_permission">Etar-ek egutegiaren irakurketa eta idazketa baimenak behar ditu ondo funtzionatzeko. Saiatu berri mesedez.</string>
-    <string name="calendar_permission_not_granted">Barkatu, aukera hau ez dabil. Etar-ek egutegiaren irakurketa eta idazketa baimenak behar ditu ondo funtzionatzeko</string>
+    <string name="calendar_permission_not_granted">Eskatutako baimenak ukatu egin dira. Gaitu itzazu ezarpenak aplikaziotik gertaerak editatzeko</string>
     <string name="visibility_default">Lehenetsia</string>
     <string name="visibility_confidential">Isilpekoa</string>
     <string name="visibility_private">Pribatua</string>
@@ -209,7 +190,7 @@
     <string name="error_generating_ics">Arazoak gertatu dira gertaera partekatzerakoan</string>
     <string name="cal_share_intent_title">Bidali gertaera honi:</string>
     <string name="cal_export_event_sdcard_title">Esportatu SD txartelara</string>
-    <string name="cal_export_succ_msg">Gertaera behar bezala esportatu da: %1s</string>
+    <string name="cal_export_succ_msg">Gertaera behar bezala esportatu da: %1$s</string>
     <string name="cal_import_menu_title">Inportatu gertaera</string>
     <string name="cal_nothing_to_import">Ezer ez inportatzeko</string>
     <string name="cal_import_error_msg">Errorea egutegia inportatzean</string>
@@ -238,7 +219,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one"><xliff:g id="count">%d</xliff:g>. astea</item>
-        <item quantity="other"/>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>. astea</item>
     </plurals>
     <string name="no_calendars_found">Gertaera bat gehitu aurretik, gutxienez Egutegi bat gehitu behar duzu zure gailuan eta egutegia ikusgarri bezala markatu. Ukitu Gehitu Kontua kontu bat gehitzeko (kontu bat gehitu baduzu, itxaron sinkronizazioa bukatu arte eta saiatu berriz). Edo ukitu Utzi eta ziurtatu gutxienez egutegi bat dagoela ikusgarri.</string>
     <string name="show_newer_events">Ukitu gertaerak ikusteko <xliff:g id="newest_search_range">%1$s</xliff:g> baino geroago</string>
@@ -246,8 +227,7 @@
     <string name="endByDate">; <xliff:g id="date">%s</xliff:g> arte</string>
     <plurals name="weekly">
         <item quantity="one">Astero <xliff:g id="days_of_week">%2$s</xliff:g>(e)tan</item>
-        <item quantity="other">
-            <xliff:g id="number">%1$d</xliff:g> astero <xliff:g id="days_of_week">%2$s</xliff:g>(e)tan</item>
+        <item quantity="other"><xliff:g id="number">%1$d</xliff:g> astero <xliff:g id="days_of_week">%2$s</xliff:g>(e)tan</item>
     </plurals>
     <string name="custom" product="default">Pertsonalizatua (ezin da pertsonalizatu telefonoan)</string>
     <string name="preferences_use_home_tz_descrip">Bidaiatzen zaudela zure etxeko ordu-zonan egutegiak eta gertaerak erakusten ditu</string>
@@ -290,20 +270,18 @@
     <string name="recurrence_end_count_label">Zenbait gertaerentzako</string>
     <string name="show_time_start_end_below">Hasiera eta bukaera denbora gertaera azpian</string>
     <string name="maximum_number_of_lines">Gertaeraren gehieneko lerro kopurua</string>
-    <string name="foreground_notification_channel_name">Alerta-sinkronizazioa</string>
-    <string name="foreground_notification_channel_description">Lehen planoko jakinarazpena beharrezkoa da barne alertak sinkronizatzeko. Mesedez, isildu</string>
+    <string name="foreground_notification_channel_name">Atzeko planoko zereginak</string>
+    <string name="foreground_notification_channel_description">Barne sinkronizaziorako beharrezkoak diren jakinarazpenak. Kanal hau segurtasunez ezkutatu dezakezu.</string>
     <string name="cal_import_error_time_zone_msg">Ezin da emandako denbora-zona ulertu: %s</string>
     <string name="preferences_calendar_account">%1$s kontua</string>
     <string name="preferences_calendar_delete">Ezabatu egutegia</string>
     <string name="preferences_calendar_display_name">Aldatu izena</string>
-    <string name="preferences_calendar_account_category">Kontu mota</string>
     <string name="preferences_calendar_color">Kolorea</string>
     <string name="preferences_calendar_visible">Erakutsi gertaerak</string>
     <string name="preferences_calendar_synchronize">Sinkronizatu egutegi hau</string>
     <string name="preferences_list_calendar_summary_sync_off">Ez sinkronizatuta</string>
     <string name="preferences_list_calendar_summary_invisible">Gertaerak ez dira bistaratzen</string>
     <string name="preferences_list_general">Ezarpen orokorrak</string>
-    <string name="preferences_list_add_remote">Gehitu urruneko egutegia (CalDAV)</string>
     <string name="preferences_list_add_offline">Gehitu lineaz kanpoko egutegia</string>
     <string name="preferences_list_add_offline_title">Gehitu lineaz kanpoko egutegia</string>
     <string name="preferences_list_add_offline_error_empty">Idatzi egutegiaren izena!</string>
@@ -321,7 +299,7 @@
     <string name="preferences_calendar_delete_cancel">Utzi</string>
     <string name="preferences_menu_about">Etar-i buruz</string>
     <string name="offline_account_name">Lineaz kanpoko egutegia</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Egileak</string>
     <string name="changelog">Aldaketa egunkaria</string>
     <string name="license">Lizentzia</string>
@@ -329,6 +307,22 @@
     <string name="preferences_calendar_no_display_name">Izen gabeko egutegia</string>
     <string name="preferences_calendar_account_local">Lineaz kanpoko egutegia</string>
     <string name="preferences_calendar_configure_account">Konfiguratu %1$s egutegia</string>
-    <string name="preferences_calendar_number_of_events">%1d gertaera</string>
+    <string name="preferences_calendar_number_of_events">%1$d gertaera</string>
     <string name="preferences_calendar_info_category">Egutegiaren informazioa</string>
+    <string name="preferences_list_add_remote_etesync">Gehitu EteSync egutegia</string>
+    <string name="preferences_list_add_remote">Gehitu CalDAV egutegia</string>
+    <string name="seven_days">7 egun</string>
+    <string name="six_days">6 egun</string>
+    <string name="five_days">5 egun</string>
+    <string name="four_days">4 egun</string>
+    <string name="three_days">3 egun</string>
+    <string name="two_days">2 egun</string>
+    <string name="preferences_pure_black_night_mode">Gau beltzeko modua</string>
+    <string name="preferences_system_theme">Sistemaren lehenetsia</string>
+    <string name="no_reminder_label">Bat ere ez</string>
+    <string name="foreground_notification_title">Gogorarazle berriak planifikatzen…</string>
+    <plurals name="Nweeks">
+        <item quantity="one">Aste 1</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> aste</item>
+    </plurals>
 </resources>

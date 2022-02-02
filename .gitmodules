@@ -2,19 +2,24 @@
 	path = external/colorpicker
 	url = https://github.com/Etar-Group/android_frameworks_opt_colorpicker.git
 	branch = rebase
+	ignore = untracked
 [submodule "external/timezonepicker"]
 	path = external/timezonepicker
 	url = https://github.com/Etar-Group/standalone-calendar-timezonepicker.git
 	branch = rebase
+	ignore = untracked
 [submodule "external/calendar"]
 	path = external/calendar
 	url = https://github.com/Etar-Group/android_frameworks_opt_calendar.git
 	branch = master
+	ignore = untracked
 [submodule "external/ex"]
 	path = external/ex
 	url = https://github.com/Etar-Group/standalone-calendar-frameworks-ex.git
 	branch = master
+	ignore = untracked
 [submodule "external/chips"]
 	path = external/chips
 	url = https://github.com/Etar-Group/android_frameworks_opt_chips.git
 	branch = rebase
+	ignore = untracked

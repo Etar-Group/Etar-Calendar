@@ -1,0 +1,2 @@
+- Bugfix für Benachrichtigungen auf Android 12
+- DecSync und Birthday Adapter als bekannte Apps hinzugefügt Crash bei anderen Apps abgefangen
