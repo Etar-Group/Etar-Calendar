@@ -14,38 +14,37 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendorius"</string>
-    <string name="what_label" msgid="1933578391985810049">"Kas"</string>
-    <string name="where_label" msgid="3472482206065595118">"Kur"</string>
     <string name="when_label" msgid="894636567327261599">"Kada"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Laiko juosta"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Svečiai"</string>
     <string name="today" msgid="8577375020252453006">"Šiandien"</string>
     <string name="tomorrow" msgid="614434811813859237">"Rytoj"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Šiandien <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Rytoj <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
-    <string name="repeats_label" msgid="7414023871434593196">"Pasikartojimas"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Nėra pavadinimo)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 min."</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+        <item quantity="one">1 minutė</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> minutės</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minučių</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 min."</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+        <item quantity="one">1 min.</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> min.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 val."</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> val."</item>
+        <item quantity="one">1 val.</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> val.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> val.</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 d."</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> d."</item>
+        <item quantity="one">1 d.</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> d.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> d.</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g> savaitė"</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> savaitė</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> savaitės</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> savaičių</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atnaujinti"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Rodyti dieną"</string>
@@ -76,11 +75,8 @@
     <string name="alert_title" msgid="7869592820853066853">"Kalendoriaus įspėjimai"</string>
     <string name="event_info_title" msgid="56024222340421620">"Žiūrėti įvykį"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Kvietimas į susitikimą"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Iki"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Nuo"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Visos dienos"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendorius"</string>
-    <string name="description_label" msgid="7193475046717505855">"Aprašas"</string>
     <string name="presence_label" msgid="6169724148441175862">"Rodyti mane kaip"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privatumas"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Pridėti priminimą"</string>
@@ -105,7 +101,7 @@
     <string name="map_label" msgid="8795383535586556038">"Žemėlapis"</string>
     <string name="call_label" msgid="2960328220008869083">"Skambinti"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Greiti atsakai"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Red. num. ats. sveč. siunč. el. laišk."</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Redaguoti numatytuosius atsakymus siunčiant el. laišką svečiams</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Greitas atsakas"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Pasirinkti greitą atsaką"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Nepavyko rasti el. pašto programos"</string>
@@ -118,9 +114,9 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Sukurkite patys…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Tvarkytuvė:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Priminimai"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"šiandien, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"vakar, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"rytoj, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Šiandien, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Vakar, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Rytoj, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Įkeliama…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Jei norite peržiūrėti įvykius iki <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>, palieskite"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Jei norite peržiūrėti įvykius po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>, palieskite"</string>
@@ -135,17 +131,20 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Vienkartinis įvykis"</string>
     <string name="endByDate" msgid="7654221304929538201">", iki <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">", vieną kartą"</item>
-        <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g> k."</item>
+        <item quantity="one">, vieną kartą</item>
+        <item quantity="few">, <xliff:g id="number">%d</xliff:g> kartus</item>
+        <item quantity="other">, <xliff:g id="number">%d</xliff:g> kartų</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Kasdien"</item>
-        <item quantity="other" msgid="5455230727715859264">"Kas <xliff:g id="NUMBER">%d</xliff:g> d."</item>
+        <item quantity="one">Kasdien</item>
+        <item quantity="few">Kas <xliff:g id="number">%d</xliff:g> dienas</item>
+        <item quantity="other">Kas <xliff:g id="number">%d</xliff:g> dienų</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Savaitės dienomis (Pi–Pe)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Kas savaitę, <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Kas <xliff:g id="NUMBER">%1$d</xliff:g> sav., <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Kas savaitę, <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="few">Kas <xliff:g id="number">%1$d</xliff:g> savaites, <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Kas <xliff:g id="number">%1$d</xliff:g> savaičių, <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Kas mėnesį"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Kasmet"</string>
@@ -180,8 +179,9 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Rodyti savaitės numerį"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versija"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="few">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Nėra būsimų kalendoriaus įvykių"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimentinė versija"</string>
@@ -207,42 +207,157 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Naujas įvykis"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_INDEX">%1$s</xliff:g> įvyk. iš <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 įvyk."</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> įvyk."</item>
+        <item quantity="one">1 įvykis</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> įvykiai</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> įvykių</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"Dar 1 įvykis"</item>
-        <item quantity="other" msgid="3609243840882275136">"Dar <xliff:g id="COUNT">%d</xliff:g> įvykiai (-ių)"</item>
+        <item quantity="one">+1 įvykis</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> įvykiai</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> įvykių</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Pasirinktas įvykis"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Kas <xliff:g id="COUNT">%d</xliff:g> d."</item>
-        <item quantity="other" msgid="707566499994398250">"Kas <xliff:g id="COUNT">%d</xliff:g> d."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> dieną</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> dienas</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> dienų</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Kas <xliff:g id="COUNT">%d</xliff:g> sav."</item>
-        <item quantity="other" msgid="7094801039989237061">"Kas <xliff:g id="COUNT">%d</xliff:g> sav."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> savaitę</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> savaites</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> savaičių</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Kas <xliff:g id="COUNT">%d</xliff:g> mėn."</item>
-        <item quantity="other" msgid="5419723710346646523">"Kas <xliff:g id="COUNT">%d</xliff:g> mėn."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> mėnesį</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> mėnesius</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> mėnesių</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Kas <xliff:g id="COUNT">%d</xliff:g> m."</item>
-        <item quantity="other" msgid="5678653649746562060">"Kas <xliff:g id="COUNT">%d</xliff:g> m."</item>
+        <item quantity="one">Kas <xliff:g id="count">%d</xliff:g> metus</item>
+        <item quantity="few">Kas <xliff:g id="count">%d</xliff:g> metus</item>
+        <item quantity="other">Kas <xliff:g id="count">%d</xliff:g> metų</item>
     </plurals>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"kas mėn. tą pačią d."</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">kiekvieno mėnesio tą pačią dieną</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Visada"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Iki nurodytos datos"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Iki <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Vykstant keliems įvykiams"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"Vykstant <xliff:g id="EVENT_COUNT">%d</xliff:g> įvyk."</item>
-        <item quantity="other" msgid="8779598489398048259">"Vykstant <xliff:g id="EVENT_COUNT">%d</xliff:g> įvyk."</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> įvykiui</item>
+        <item quantity="few"><xliff:g id="event_count">%d</xliff:g> įvykiams</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> įvykių</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"keisti pabaigos datą"</string>
     <string name="visibility_default">Numatytasis</string>
     <string name="visibility_private">Privatus</string>
     <string name="visibility_public">Viešas</string>
     <string name="share_label">Dalintis</string>
+    <string name="foreground_notification_channel_description">Vidinei sinchronizacijai reikalingi pranešimai. Šį kanalą galite saugiai paslėpti.</string>
+    <string name="offline_account_name">Kalendorius neprisijungus</string>
+    <string name="preferences_menu_about">Apie Etar</string>
+    <string name="preferences_list_add_offline_cancel">Atšaukti</string>
+    <string name="preferences_list_add_offline_name">Vardas</string>
+    <string name="preferences_list_add_offline_button">Pridėti kalendorių</string>
+    <string name="preferences_list_add_offline_error_empty">Įrašykite kalendoriaus pavadinimą!</string>
+    <string name="preferences_list_add_offline_title">Pridėti vietinį kalendorių</string>
+    <string name="preferences_list_add_offline">Pridėti vietinį kalendorių</string>
+    <string name="preferences_list_add_remote_etesync">Pridėti EteSync kalendorių</string>
+    <string name="preferences_list_add_remote">Pridėti CalDAV kalendorių</string>
+    <string name="preferences_list_general">Bendrieji nustatymai</string>
+    <string name="preferences_list_calendar_summary_invisible">Įvykiai nėra rodomi</string>
+    <string name="preferences_list_calendar_summary_sync_off">Nesinchronizuotas</string>
+    <string name="preferences_calendar_delete_cancel">Atšaukti</string>
+    <string name="preferences_calendar_delete_delete">Ištrinti kalendorių</string>
+    <string name="preferences_calendar_color_warning_button">Aš suprantu</string>
+    <string name="preferences_calendar_color_warning_title">Įspėjimas</string>
+    <string name="preferences_calendar_synchronize">Sinchronizuoti šį kalendorių</string>
+    <string name="preferences_calendar_visible">Rodyti įvykius</string>
+    <string name="preferences_calendar_color">Spalva</string>
+    <string name="preferences_calendar_info_category">Kalendoriaus informacija</string>
+    <string name="preferences_calendar_display_name">Pakeisti vardą</string>
+    <string name="preferences_calendar_delete">Ištrinti kalendorių</string>
+    <string name="preferences_calendar_number_of_events">%1$d įvykiai</string>
+    <string name="preferences_calendar_configure_account">Konfigūruoti kalendorių %1$s</string>
+    <string name="preferences_calendar_account_local">Kalendorius neprisijungus</string>
+    <string name="preferences_calendar_account">%1$s paskyra</string>
+    <string name="preferences_calendar_no_display_name">Kalendorius be pavadinimo</string>
+    <string name="show_time_start_end">Pradžios ir pabaigos laikas</string>
+    <string name="show_time_start">Tik pradžios laikas</string>
+    <string name="show_time_no">Nerodyti laiko</string>
+    <string name="cal_pick_ics">Pasirinkite failą, kurį norite importuoti</string>
+    <string name="cal_import_error_date_msg">Nepavyksta suprasti nurodytos datos: %s</string>
+    <string name="cal_import_error_time_zone_msg">Nepavyksta suprasti nurodytos laiko juostos: %s</string>
+    <string name="cal_import_error_msg">Nepavyko importuoti į kalendorių</string>
+    <string name="cal_nothing_to_import">Nėra ką importuoti</string>
+    <string name="cal_import_menu_title">Importuoti įvykį</string>
+    <string name="cal_export_succ_msg">Įvykis sėkmingai eksportuotas: %1$s</string>
+    <string name="cal_export_event_sdcard_title">Eksportuoti į SD kortelę</string>
+    <string name="cal_share_intent_title">Siųsti įvykį:</string>
+    <string name="error_generating_ics">Dalijantis įvykiu iškilo problemų</string>
+    <string name="two_hours">2 valandos</string>
+    <string name="one_and_a_half_hours">1.5 valandos</string>
+    <string name="one_hour">1 valanda</string>
+    <string name="thirty_minutes">30 minučių</string>
+    <string name="show_time_start_end_below">Pradžios ir pabaigos laikas žemiau įvykio</string>
+    <string name="preferences_calendar_delete_message">Ar tikrai norite ištrinti šį kalendorių\?</string>
+    <string name="preferences_list_add_offline_message">Vietiniai kalendoriai NĖRA sinchronizuojami su debesų paslauga ir yra pasiekiami tik jūsų telefone.</string>
+    <string name="preferences_calendar_color_warning_message">Spalvos pakeitimas gali būti atšauktas, kai kalendorius vėl sinchronizuojamas.
+\n
+\nDAVx⁵ programoje „Tvarkyti kalendoriaus spalvas“ galima išjungti, kad to išvengtumėte.</string>
+    <string name="fifteen_minutes">15 minučių</string>
+    <string name="zero_minutes">0 minučių</string>
+    <string name="seven_days">7 dienos</string>
+    <string name="six_days">6 dienos</string>
+    <string name="five_days">5 dienos</string>
+    <string name="four_days">4 dienos</string>
+    <string name="three_days">3 dienos</string>
+    <string name="two_days">2 dienos</string>
+    <string name="visibility_confidential">Konfidencialu</string>
+    <string name="calendar_permission_not_granted">Reikalingi leidimai buvo atmesti. Įgalinkite juos „Nustatymų“ programoje, kad galėtumėte redaguoti įvykius</string>
+    <string name="user_rejected_calendar_write_permission">Kad „Etar“ veiktų tinkamai, reikia kalendoriaus skaitymo ir rašymo leidimų. Pabandykite dar kartą.</string>
+    <string name="source_code">Kodas</string>
+    <string name="preferences_issues">Pranešti apie problemas</string>
+    <string name="license">Licencija</string>
+    <string name="changelog">Pasikeitimai</string>
+    <string name="authors">Autoriai</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Prašyti priminimo snaudimo atidėjimo</string>
+    <string name="preferences_default_snooze_delay_dialog">Numatytasis snaudimo atidėjimas</string>
+    <string name="preferences_default_snooze_delay_title">Numatytasis snaudimo atidėjimo laikas</string>
+    <string name="snooze_delay_dialog_title">Nustatyti snaudimo atidėjimą</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Visada naudoti numatytąjį snaudimo atidėjimą</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Prašyti priminimo atidėjimo kai snaudžia priminimai</string>
+    <string name="preferences_default_event_duration_title">Numatytoji įvykio trukmė</string>
+    <string name="preferences_days_per_week_dialog">Dienos per savaitę</string>
+    <string name="preferences_days_per_week_title">Dienos per savaitę</string>
+    <string name="default_start_last">Anksčiau naudotas vaizdas</string>
+    <string name="maximum_number_of_lines">Didžiausias eilučių skaičius įvykyje</string>
+    <string name="display_location">Rodyti vietą</string>
+    <string name="display_time">Rodymo laikas</string>
+    <string name="display_options">Rodymo parinktys</string>
+    <string name="default_start_title">Numatytasis vaizdas</string>
+    <string name="preferences_pure_black_night_mode">Visiška juoda - nakties režimas</string>
+    <string name="preferences_color_pick">Pagrindinė spalva</string>
+    <string name="preferences_color">Pagrindinė spalva</string>
+    <string name="preferences_black_theme">Juoda</string>
+    <string name="preferences_dark_theme">Tamsi</string>
+    <string name="preferences_light_theme">Šviesi</string>
+    <string name="preferences_system_theme">Sistemos numatyta</string>
+    <string name="preferences_theme">Tema</string>
+    <string name="preferences_month_view_landscape">Mėnesio rodinio išdėstymas (gulsčias)</string>
+    <string name="preferences_month_view_portrait">Mėnesio rodinio išdėstymas (portretas)</string>
+    <string name="no_map">Nėra įdiegta jokia žemėlapių programa</string>
+    <string name="foreground_notification_channel_name">Foninės užduotys</string>
+    <string name="rsvp_tentative">Atsakė gal.</string>
+    <string name="rsvp_declined">Atsakė ne.</string>
+    <string name="rsvp_accepted">Atsakė taip.</string>
+    <string name="view_settings">Peržiūrėti nustatymus</string>
+    <string name="goto_date">Eiti į…</string>
+    <string name="no_reminder_label">Nėra</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 savaitė</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> savaitės</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> savaičių</item>
+    </plurals>
+    <string name="foreground_notification_title">Planuojami nauji priminimai…</string>
 </resources>

@@ -20,8 +20,9 @@ this app would be just a dream. So thanks to them!
 - Week, day & agenda view.
 - Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
 - Material designed.
-- Support offline calendar
-- -Agenda widget.- (disabled until #373 and #374 are fixed. Use [Calendar Widget](https://f-droid.org/de/packages/com.plusonelabs.calendar/) as an alternative.)
+- Support offline calendar.
+- Agenda widget.
+- Multilingual UI.
 
 ## How to use Etar
 Store your calendar on the phone only:
@@ -47,7 +48,8 @@ an event to which calendar it should be added.
 ### Important permissions Etar requires
 - READ_EXTERNAL_STORAGE & WRITE_EXTERNAL_STORAGE  
 ->import and export ics calendar files  
-- READ_CONTACTS  
+- READ_CONTACTS(optional)  
+  Is queried the first time an appointment is created and can be rejected. But then search and location suggestions no longer work.
 ->allows search and location suggestions when adding guests to an event  
 - READ_CALENDAR & WRITE_CALENDAR  
 ->read and create calendar events

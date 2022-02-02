@@ -58,6 +58,22 @@
         android:layout_height="0dip"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/date_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="42dip"
+        android:gravity="center_vertical"
+        android:textSize="24sp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/week_num"
+        android:layout_width="wrap_content"
+        android:layout_height="42dip"
+        android:gravity="center_vertical"
+        android:paddingStart="8dip"
+        android:textSize="18sp"
+        android:visibility="gone"/>
+
     <FrameLayout
         android:id="@+id/mini_month"
         android:layout_width="0dip"

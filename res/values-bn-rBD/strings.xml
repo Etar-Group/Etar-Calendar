@@ -2,24 +2,19 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <plurals name="Nmins">
         <item quantity="one">১ মি.</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; %d &lt;/xliff:g&gt; মি.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> মি.</item>
     </plurals>
     <plurals name="Nminutes">
         <item quantity="one">১ মিনিট</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; %d &lt;/xliff:g&gt; মিনিট</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> মিনিট</item>
     </plurals>
     <string name="no_title_label">(শিরোনাম নেই)</string>
-    <string name="repeats_label">পুনরাবৃত্তি</string>
     <string name="date_time_fmt"><xliff:g id="time_interval"> সময় </xliff:g>,<xliff:g id="date"> তারিখ </xliff:g></string>
-    <string name="tomorrow_at_time_fmt">আগামীকাল &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>"</string>
-    <string name="today_at_time_fmt">আজকে &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"time_interval\"&gt;%s&lt;/xliff:g&gt;<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt">আগামীকাল <xliff:g id="time_interval">%s</xliff:g><xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt">আজকে <xliff:g id="time_interval">%s</xliff:g><xliff:g id="time_interval">%s</xliff:g>"</string>
     <string name="tomorrow">আগামীকাল</string>
     <string name="today">আজকে</string>
-    <string name="attendees_label">অতিথিবৃন্দ</string>
-    <string name="timezone_label">টাইম জোন</string>
     <string name="when_label">যখন</string>
-    <string name="where_label">কোথায়</string>
-    <string name="what_label">কি</string>
     <string name="app_label">বর্ষপঞ্জি</string>
     <string name="event_color_picker_dialog_title">কাজের রং</string>
     <string name="choose_event_color_label">কাজের রঙ নিন</string>
@@ -30,10 +25,8 @@
     <string name="reminders_label">রিমাইন্ডার(স্মরণলিপি) যোগ করুন</string>
     <string name="privacy_label">গোপনীয়তা</string>
     <string name="presence_label">আমাকে দেখান</string>
-    <string name="description_label">বর্ণনা</string>
     <string name="edit_event_calendar_label">বর্ষপঞ্জি</string>
     <string name="edit_event_all_day_label">সারাদিন</string>
-    <string name="edit_event_to_label">থেকে</string>
     <string name="event_info_title_invite">সভার আমন্ত্রণ</string>
     <string name="event_info_title">কাজ দেখুন</string>
     <string name="foreground_notification_channel_description">ইন্টারনাল(অভ্যন্তরীণ) সতর্কতা সিঙ্কের জন্য ফরগ্রাওউন্ড(অগ্রভাগের) বিজ্ঞপ্তি প্রয়োজন। মিউট করুন</string>
@@ -57,7 +50,7 @@
     <string name="show_controls">কন্ট্রোল দেখান</string>
     <string name="hide_controls">কন্ট্রোল লুকান</string>
     <string name="search">সার্চ</string>
-    <string name="menu_preferences">সেটিংস</string>
+    <string name="menu_preferences">পছন্দসমূহ</string>
     <string name="goto_date">যান…</string>
     <string name="goto_today">আজকে</string>
     <string name="share_label">শেয়ার</string>
@@ -131,5 +124,27 @@
         <item quantity="one">; একবারের জন্য</item>
         <item quantity="other">; <xliff:g id="number"> জন্য %d</xliff:g> এত বার</item>
     </plurals>
-    <string name="edit_event_from_label">শুরু</string>
+    <string name="visibility_default">ডিফল্ট</string>
+    <string name="recurrence_end_continously">সর্বদা</string>
+    <string name="accessibility_reminder_privacy">গোপনীয়তা</string>
+    <string name="preferences_experimental_category">পরীক্ষামূলক</string>
+    <plurals name="month_more_events">
+        <item quantity="one">+১</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+    </plurals>
+    <string name="source_code">উৎস</string>
+    <string name="license">অনুমতিপত্র</string>
+    <string name="changelog">পরিবর্তনসূচী</string>
+    <string name="authors">লেখক</string>
+    <string name="preferences_default_reminder_default">১০</string>
+    <string name="preferences_alerts_ringtone_title">শব্দ</string>
+    <string name="preferences_alerts_vibrateWhen_title">কম্পন</string>
+    <string name="preferences_alerts_title">বিজ্ঞপ্তি</string>
+    <string name="preferences_black_theme">কালো</string>
+    <string name="preferences_dark_theme">অন্ধকার</string>
+    <string name="preferences_light_theme">হালকা</string>
+    <string name="preferences_theme">থিম</string>
+    <string name="preferences_title">সেটিংস</string>
+    <string name="yearly_plain">বার্ষিক</string>
+    <string name="monthly">মাসিক</string>
 </resources>

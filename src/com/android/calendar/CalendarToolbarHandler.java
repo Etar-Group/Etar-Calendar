@@ -2,11 +2,12 @@ package com.android.calendar;
 
 import android.content.Context;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.LayoutInflater;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Formatter;
 import java.util.Locale;

@@ -50,15 +50,15 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.widget.SwitchCompat;
+
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.EventRecurrence;
-
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -118,7 +118,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     private Toast mToast;
     private View mView;
     private Spinner mFreqSpinner;
-    private Switch mRepeatSwitch;
+    private SwitchCompat mRepeatSwitch;
     private EditText mInterval;
     private TextView mIntervalPreText;
     private TextView mIntervalPostText;
@@ -465,7 +465,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         final Activity activity = getActivity();
         final Configuration config = activity.getResources().getConfiguration();
 
-        mRepeatSwitch = (Switch) mView.findViewById(R.id.repeat_switch);
+        mRepeatSwitch = mView.findViewById(R.id.repeat_switch);
         mRepeatSwitch.setChecked(mModel.recurrenceState == RecurrenceModel.STATE_RECURRENCE);
         mRepeatSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 

@@ -16,6 +16,11 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -45,11 +50,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.WeakHashMap;
-
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 public class CalendarController {
     public static final String EVENT_EDIT_ON_LAUNCH = "editMode";

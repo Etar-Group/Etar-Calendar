@@ -14,17 +14,12 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Календар"</string>
-    <string name="what_label" msgid="1933578391985810049">"Що"</string>
-    <string name="where_label" msgid="3472482206065595118">"Де"</string>
     <string name="when_label" msgid="894636567327261599">"Коли"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Часовий пояс"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Гості"</string>
     <string name="today" msgid="8577375020252453006">"Сьогодні"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Сьогодні о <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Завтра о <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="repeats_label" msgid="7414023871434593196">Повторення</string>
     <string name="no_title_label" msgid="302177118061368042">"(Без назви)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 хвилина</item>
@@ -50,16 +45,17 @@
         <item quantity="one"><xliff:g id="count">%d</xliff:g> тиждень</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> тижні</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> тижнів</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> тижнів</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Оновити"</string>
-    <string name="show_day_view" msgid="5782512782605466016">"Показ. день"</string>
+    <string name="show_day_view" msgid="5782512782605466016">Показати день</string>
     <string name="agenda_view" msgid="5566084759423843245">Порядок денний</string>
     <string name="day_view" msgid="4467754504843584437">"День"</string>
     <string name="week_view" msgid="6775043022159508060">"Тиждень"</string>
     <string name="month_view" msgid="7287101431749285412">"Місяць"</string>
-    <string name="event_view" msgid="7621353079385122317">"Перегл. подію"</string>
+    <string name="event_view" msgid="7621353079385122317">Переглянути подію</string>
     <string name="event_create" msgid="6941040556709110617">"Нова подія"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Редаг. подію"</string>
+    <string name="event_edit" msgid="4006961928830064662">Змінити подію</string>
     <string name="event_delete" msgid="2386667193277770442">"Видалити подію"</string>
     <string name="goto_today" msgid="9162136434410891230">"Сьогодні"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Налаштування"</string>
@@ -78,24 +74,21 @@
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Оновлення буде надіслано."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Зберегти"</string>
     <string name="alert_title" msgid="7869592820853066853">"Сповіщення календаря"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Перегл. подію"</string>
+    <string name="event_info_title" msgid="56024222340421620">Переглянути подію</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Запрошення на зустріч"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"До"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"З"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Увесь день"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Календар"</string>
-    <string name="description_label" msgid="7193475046717505855">"Опис"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Мій статус"</string>
-    <string name="privacy_label" msgid="9215031965259597335">Конфіденційність</string>
+    <string name="presence_label" msgid="6169724148441175862">Мій стан</string>
+    <string name="privacy_label" msgid="9215031965259597335">Приватність</string>
     <string name="reminders_label" msgid="7292389181815525676">"Додати нагадування"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">Немає календарів</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Перш ніж додавати подію, потрібно додати в пристрій хоча б один обліковий запис служби Календар і зробити календар видимим. Щоб додати обліковий запис, торкніться опції \"Додати обліковий запис\" (якщо ви його щойно додали, зачекайте завершення синхронізації та повторіть спробу). Або торкніться опції \"Скасувати\" та переконайтеся, що принаймні один календар видимий."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Перш ніж додавати подію, потрібно додати в пристрій хоча б один обліковий запис служби Календар і зробити календар видимим. Щоб додати обліковий запис, торкніться опції «Додати обліковий запис» (якщо ви його щойно додали, зачекайте завершення синхронізації та повторіть спробу). Або торкніться опції \"Скасувати\" та переконайтеся, що принаймні один календар видимий.</string>
     <string name="add_account" msgid="1669072099756774952">"Додати обліковий запис"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календар:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Організатор:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Виберіть колір події"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Колір події"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"Установити колір календаря за умовчанням"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">Установити типовим кольором календаря</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Колір календаря"</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Вибір кольору"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Підете?"</string>
@@ -109,7 +102,7 @@
     <string name="map_label" msgid="8795383535586556038">"Карта"</string>
     <string name="call_label" msgid="2960328220008869083">"Виклик"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Швидкі відповіді"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Редагувати відповіді за умовчанням"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Змінити типові відповіді сповіщень учасників е-поштою</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Швидка відповідь"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Вибрати швидку відповідь"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Не вдалося знайти поштову програму"</string>
@@ -122,11 +115,11 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Напишіть власну відповідь…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Організатор:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Нагадування"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"СЬОГОДНІ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"ВЧОРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"ЗАВТРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"Завант-ня…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Торкніться, щоб див. події до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Сьогодні, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Вчора, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Завтра, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="loading" msgid="3772533493214331230">Завантаження…</string>
+    <string name="show_older_events" msgid="5140647493681439926">Торкніться, щоб переглянути події до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g></string>
     <string name="show_newer_events" msgid="2604638815440163080">"Торкн., щоб див. події після <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Пошук у моїх календарях"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Деталі"</string>
@@ -140,22 +133,21 @@
     <string name="endByDate" msgid="7654221304929538201">"; до <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
         <item quantity="one">; один раз</item>
-        <item quantity="few">; <xliff:g id="NUMBER">%d</xliff:g> рази</item>
-        <item quantity="many">; <xliff:g id="NUMBER">%d</xliff:g> разів</item>
+        <item quantity="few">; <xliff:g id="number">%d</xliff:g> рази</item>
+        <item quantity="many">; <xliff:g id="number">%d</xliff:g> разів</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> разів</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one">Щодня</item>
         <item quantity="few">Кожні <xliff:g id="number">%d</xliff:g> дні</item>
         <item quantity="many">Кожні <xliff:g id="number">%d</xliff:g> днів</item>
     </plurals>
-    <string name="every_weekday" msgid="5896574838353902978">"Будні дні (пн.-пт.)"</string>
+    <string name="every_weekday" msgid="5896574838353902978">У будні (пн.-пт.)</string>
     <plurals name="weekly">
-        <item quantity="one">Щотижня у <xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
-        <item quantity="few">Кожні <xliff:g id="number">%1$d</xliff:g> тижні у <xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
-        <item quantity="many">Кожні <xliff:g id="number">%1$d</xliff:g> тижнів у <xliff:g id="days_of_week">%2$s</xliff:g>
-        </item>
+        <item quantity="one">Щотижня у <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="few">Кожні <xliff:g id="number">%1$d</xliff:g> тижні у <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="many">Кожні <xliff:g id="number">%1$d</xliff:g> тижнів у <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Кожні <xliff:g id="number">%1$d</xliff:g> тижнів у <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Щомісяця"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Щороку"</string>
@@ -180,13 +172,13 @@
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Сповіщення"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вібросигнал"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Звук"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Спливаюче сповіщення"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">Спливне сповіщення</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">Типовий час нагадування</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Типовий час нагадування</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Викор.рідн.час.пояс"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Показувати календарі й час подій у рідному час. поясі під час подорожі"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Рідний час. пояс"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Домашній часовий пояс</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Показувати календарі й час події у домашньому часовому поясі під час подорожі</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">Домашній часовий пояс</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показувати номер тижня"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версія складання"</string>
     <plurals name="month_more_events">
@@ -213,8 +205,8 @@
     <string name="accessibility_all_day" msgid="4146955438811915282">"Подія на цілий день"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Час нагадування"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Тип нагадування"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Мій статус"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Конфіденційність"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Мій стан</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">Приватність</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Нова подія"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Подія <xliff:g id="ITEM_INDEX">%1$s</xliff:g> з <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
@@ -276,8 +268,8 @@
     <string name="preferences_days_per_week_dialog">Днів на тиждень</string>
     <string name="preferences_default_event_duration_title">Типова тривалість події</string>
     <string name="preferences_issues">Повідомити про проблеми</string>
-    <string name="user_rejected_calendar_write_permission">Для коректної роботи Etar потребує дозволу на читання та запис до календаря. Спробуйте ще раз, будь ласка.</string>
-    <string name="calendar_permission_not_granted">На жаль, ця функція не може працювати. Для коректної роботи Etar потребує дозволу на читання та запис до календаря.</string>
+    <string name="user_rejected_calendar_write_permission">Для коректної роботи Etar потребує дозволу на читання та запис до календаря. Спробуйте ще раз.</string>
+    <string name="calendar_permission_not_granted">Відмовлено в необхідних дозволах, увімкніть їх у Налаштуваннях для редагування подій</string>
     <string name="visibility_confidential">Конфіденційно</string>
     <string name="zero_minutes">0 хвилин</string>
     <string name="fifteen_minutes">15 хвилин</string>
@@ -286,7 +278,7 @@
     <string name="one_and_a_half_hours">1,5 години</string>
     <string name="two_hours">2 години</string>
     <string name="share_label">Поділитися</string>
-    <string name="no_map">"Додатки з  мапами не встановлені"</string>
+    <string name="no_map">Застосунки з карами не встановлені</string>
     <string name="default_start_title">Типовий вигляд</string>
     <string name="default_start_last">Вигляд, що використовувався раніше</string>
     <string name="preferences_alerts_custom_snooze_delay_title">Запитувати про інтервал повторного нагадування</string>
@@ -295,28 +287,28 @@
     <string name="snooze_delay_dialog_title">Встановити інтервал повторного нагадування</string>
     <string name="preferences_default_snooze_delay_title">Типовий інтервал часу до повторного нагадування</string>
     <string name="preferences_default_snooze_delay_dialog">Типовий інтервал до повторного нагадування</string>
-    <string name="error_generating_ics">Під час поширення події виникли проблеми</string>
+    <string name="error_generating_ics">Під час надстлання події виникли проблеми</string>
     <string name="cal_share_intent_title">Надіслати подію до:</string>
     <string name="cal_export_event_sdcard_title">Експортувати на SD-карту</string>
-    <string name="cal_export_succ_msg">Подія успішно експортована: %1s</string>
+    <string name="cal_export_succ_msg">Подія успішно експортована: %1$s</string>
     <string name="cal_import_menu_title">Імпортувати подію</string>
     <string name="cal_nothing_to_import">Нічого імпортувати</string>
     <string name="cal_import_error_msg">Не вдалося імпортувати до календаря</string>
     <string name="cal_import_error_date_msg">Не вдалося розпізнати надану дату: %s</string>
     <string name="cal_pick_ics">Оберіть файл для імпорту</string>
-    <string name="view_settings">Опції перегляду</string>
+    <string name="view_settings">Налаштування вигляду</string>
     <string name="preferences_month_view_portrait">Макет помісячного відображення (портретний режим)</string>
     <string name="preferences_month_view_landscape">Макет помісячного відображення (ландшафтний режим)</string>
     <string name="display_options">Подробиці</string>
     <string name="display_time">Показувати час</string>
     <string name="display_location">Показувати місце</string>
     <string name="show_time_no">Не показувати час</string>
-    <string name="show_time_start">Тільки час початку</string>
-    <string name="show_time_start_end">Час початку і закінчення</string>
-    <string name="show_time_start_end_below">Час початку і закінчення нижче події</string>
+    <string name="show_time_start">Лише час початку</string>
+    <string name="show_time_start_end">Час початку і завершення</string>
+    <string name="show_time_start_end_below">Час початку і завершення нижче події</string>
     <string name="maximum_number_of_lines">Максимальна кількість рядків у події</string>
-    <string name="foreground_notification_channel_name">Синхронізація сповіщень</string>
-    <string name="foreground_notification_channel_description">Фонове сповіщення необхідне для внутрішньої синхронізації. Будь ласка, вимкніть для нього звук</string>
+    <string name="foreground_notification_channel_name">Фонові завдання</string>
+    <string name="foreground_notification_channel_description">Сповіщення, необхідні для внутрішньої синхронізації. Ви можете безпечно сховати цей канал.</string>
     <string name="cal_import_error_time_zone_msg">Не вдалося розпізнати часову зону: %s</string>
     <string name="preferences_calendar_account">Обліковий запис %1$s</string>
     <string name="preferences_calendar_delete">Видалити календар</string>
@@ -327,25 +319,24 @@
     <string name="preferences_list_calendar_summary_sync_off">Не синхронізовано</string>
     <string name="preferences_list_calendar_summary_invisible">Події не показуються</string>
     <string name="preferences_list_general">Загальні налаштування</string>
-    <string name="preferences_list_add_remote">Додати віддалений календар (CalDAV)</string>
     <string name="preferences_list_add_offline">Додати автономний календар</string>
     <string name="preferences_list_add_offline_title">Додати автономний календар</string>
     <string name="preferences_list_add_offline_error_empty">Введіть назву календаря!</string>
-    <string name="preferences_list_add_offline_message">Автономні календарі НЕ синхронізуються із хмарними сервісами та доступні лише на вашому пристрою.</string>
+    <string name="preferences_list_add_offline_message">Автономні календарі НЕ синхронізуються із хмарними службами та доступні лише на вашому пристрої.</string>
     <string name="preferences_list_add_offline_button">Додати календар</string>
     <string name="preferences_list_add_offline_name">Назва</string>
     <string name="preferences_list_add_offline_cancel">Скасувати</string>
     <string name="preferences_calendar_color_warning_title">Увага</string>
-    <string name="preferences_calendar_color_warning_message">Зміна кольору може бути скасовано при повторній синхронізації календаря.
+    <string name="preferences_calendar_color_warning_message">Зміну кольору може бути скасовано за повторної синхронізації календаря.
 \n
-\nТаку поведінко можна вимкнути в додатку DAVx⁵: \"Керування кольорами\".</string>
+\nТаку поведінку можна вимкнути в застосунку DAVx⁵: «Керування кольорами».</string>
     <string name="preferences_calendar_color_warning_button">Я розумію</string>
     <string name="preferences_calendar_delete_message">Ви дійсно бажаєте видалити календар\?</string>
     <string name="preferences_calendar_delete_delete">Видалити календар</string>
     <string name="preferences_calendar_delete_cancel">Скасувати</string>
     <string name="preferences_menu_about">Про Etar</string>
     <string name="offline_account_name">Автономний календар</string>
-    <string name="app_copyright">© 2015-<xliff:g>%s</xliff:g> Проєкт Etar. Частково © 2005-<xliff:g>%s</xliff:g> The Android Open Source Project.</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Проєкт Etar. Частково © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="authors">Автори</string>
     <string name="changelog">Перелік змін</string>
     <string name="license">Ліцензія</string>
@@ -353,6 +344,24 @@
     <string name="preferences_calendar_no_display_name">Неназваний календар</string>
     <string name="preferences_calendar_account_local">Автономний календар</string>
     <string name="preferences_calendar_configure_account">Налаштування календаря в %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d подій</string>
+    <string name="preferences_calendar_number_of_events">%1$d подій</string>
     <string name="preferences_calendar_info_category">Про календар</string>
+    <string name="three_days">3 дні</string>
+    <string name="preferences_list_add_remote_etesync">Додати календар EteSync</string>
+    <string name="preferences_list_add_remote">Додати календар CalDAV</string>
+    <string name="seven_days">7 днів</string>
+    <string name="six_days">6 днів</string>
+    <string name="five_days">5 днів</string>
+    <string name="four_days">4 дні</string>
+    <string name="two_days">2 дні</string>
+    <string name="preferences_pure_black_night_mode">Чистий чорний нічний режим</string>
+    <string name="preferences_system_theme">Системна</string>
+    <string name="no_reminder_label">Немає</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 тиждень</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> тижня</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> тижнів</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> тижнів</item>
+    </plurals>
+    <string name="foreground_notification_title">Планування нових нагадувань…</string>
 </resources>

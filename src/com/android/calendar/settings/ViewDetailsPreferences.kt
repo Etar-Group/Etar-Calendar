@@ -22,11 +22,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.preference.*
+import androidx.preference.ListPreference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.PreferenceScreen
 import com.android.calendar.Utils
 import com.android.calendar.Utils.SHARED_PREFS_NAME
-import java.util.*
 import ws.xsoh.etar.R
+import java.util.Arrays
 
 
 class ViewDetailsPreferences : PreferenceFragmentCompat() {

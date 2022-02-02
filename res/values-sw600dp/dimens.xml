@@ -16,7 +16,7 @@
 -->
 <resources>
 
-    <dimen name="event_info_text_size">18dip</dimen>
+    <dimen name="event_info_text_size">18sp</dimen>
     <dimen name="event_info_desc_margin_left">16dip</dimen>
     <dimen name="event_info_desc_margin_right">16dip</dimen>
     <dimen name="event_info_padding">14dip</dimen>

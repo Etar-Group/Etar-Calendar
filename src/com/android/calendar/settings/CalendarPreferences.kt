@@ -21,13 +21,18 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AuthenticatorDescription
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.TypedValue
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.preference.*
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
 import com.android.calendar.persistence.CalendarRepository
 import ws.xsoh.etar.R
@@ -41,14 +46,14 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     private var numberOfEvents: Long = -1
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        calendarId = arguments!!.getLong(ARG_CALENDAR_ID)
-        calendarRepository = CalendarRepository(activity!!.application)
+        calendarId = requireArguments().getLong(ARG_CALENDAR_ID)
+        calendarRepository = CalendarRepository(requireActivity().application)
         account = calendarRepository.queryAccount(calendarId)!!
         numberOfEvents = calendarRepository.queryNumberOfEvents(calendarId)!!
 
         // use custom data store to save/retrieve calendar preferences in Android's calendar database
         val preferenceManager = preferenceManager
-        preferenceManager.preferenceDataStore = CalendarDataStore(activity!!, calendarId)
+        preferenceManager.preferenceDataStore = CalendarDataStore(requireActivity(), calendarId)
 
         populatePreferences()
     }
@@ -157,20 +162,20 @@ class CalendarPreferences : PreferenceFragmentCompat() {
 
     private fun getThemeDrawable(attr: Int): Drawable {
         val typedValue = TypedValue()
-        context!!.theme.resolveAttribute(attr, typedValue, true)
+        requireContext().theme.resolveAttribute(attr, typedValue, true)
         val imageResId = typedValue.resourceId
-        return ContextCompat.getDrawable(context!!, imageResId)
+        return ContextCompat.getDrawable(requireContext(), imageResId)
                 ?: throw IllegalArgumentException("Cannot load drawable $imageResId")
     }
 
     private fun getColorIcon(color: Int): Drawable {
-        val icon: Drawable = ContextCompat.getDrawable(context!!, R.drawable.circle)!!
+        val icon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.circle)!!
         icon.mutate().setColorFilter(color, Mode.SRC_IN)
         return icon
     }
 
     private fun displayCalendarColorPicker() {
-        if (fragmentManager!!.findFragmentByTag(COLOR_PICKER_DIALOG_TAG) != null) {
+        if (parentFragmentManager.findFragmentByTag(COLOR_PICKER_DIALOG_TAG) != null) {
             return
         }
 
@@ -182,7 +187,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
                         colorPref.icon = getColorIcon(color)
                     }
                 })
-        calendarDialogPicker.show(fragmentManager!!, COLOR_PICKER_DIALOG_TAG)
+        calendarDialogPicker.show(parentFragmentManager, COLOR_PICKER_DIALOG_TAG)
     }
 
     data class AuthenticatorInfo(val label: String?,
@@ -192,13 +197,22 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     private fun getAuthenticatorInfo(account: Account): AuthenticatorInfo? {
         val description = getAuthenticatorDescription(account) ?: return null
 
-        val pm = activity?.packageManager
-        val label = pm?.getResourcesForApplication(description.packageName)?.getString(
+        return try {
+            val pm = activity?.packageManager
+            val label = pm?.getResourcesForApplication(description.packageName)?.getString(
                 description.labelId)
-        val icon = pm?.getDrawable(description.packageName, description.iconId, null)
-        val intent = pm?.getLaunchIntentForPackage(description.packageName)
+            val icon = pm?.getDrawable(description.packageName, description.iconId, null)
+            val intent = pm?.getLaunchIntentForPackage(description.packageName)
 
-        return AuthenticatorInfo(label, icon, intent)
+            AuthenticatorInfo(label, icon, intent)
+
+        } catch (e: PackageManager.NameNotFoundException) {
+            val errorDialog = AlertDialog.Builder(requireActivity())
+                .setMessage("$e")
+                .create()
+            errorDialog.show()
+            return null
+        }
     }
 
     private fun getAuthenticatorDescription(account: Account): AuthenticatorDescription? {
@@ -213,7 +227,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     }
 
     private fun deleteCalendar() {
-        val warningDialog = AlertDialog.Builder(activity!!)
+        val warningDialog = AlertDialog.Builder(requireActivity())
                 .setMessage(R.string.preferences_calendar_delete_message)
                 .setPositiveButton(R.string.preferences_calendar_delete_delete) { _, _ ->
                     calendarRepository.deleteLocalCalendar(account.name, calendarId)

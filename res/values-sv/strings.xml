@@ -14,11 +14,7 @@
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <string name="what_label" msgid="1933578391985810049">"Vad"</string>
-    <string name="where_label" msgid="3472482206065595118">"Var"</string>
     <string name="when_label" msgid="894636567327261599">"När"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Tidszon"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Gäster"</string>
     <string name="today" msgid="8577375020252453006">"Idag"</string>
     <string name="tomorrow" msgid="614434811813859237">"Imorgon"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Idag kl. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
@@ -26,11 +22,10 @@
     <string name="date_time_fmt" msgid="1642972650061946484">
         <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
-    <string name="repeats_label" msgid="7414023871434593196">"Upprepning"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Ingen titel)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 minut"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuter"</item>
+        <item quantity="one">1 minut</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minuter</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one" msgid="9191090668359663663">"1 min"</item>
@@ -78,11 +73,8 @@
     <string name="alert_title" msgid="7869592820853066853">"Kalenderaviseringar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visa händelse"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Inbjudan till möte"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Till"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Från"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Hela dagen"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
-    <string name="description_label" msgid="7193475046717505855">"Beskrivning"</string>
     <string name="presence_label" msgid="6169724148441175862">"Visa mig som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Sekretess"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Lägg till påminnelse"</string>
@@ -302,4 +294,52 @@
     <string name="maximum_number_of_lines">Max antal rader i händelse</string>
     <string name="foreground_notification_channel_name">Varningssynkronisering</string>
     <string name="foreground_notification_channel_description">Förgrundsmeddelande krävs för intern varningssynkronisering. Vänligen stäng av ljudet</string>
+    <string name="preferences_system_theme">Systemets standard</string>
+    <string name="no_reminder_label">Inga</string>
+    <string name="offline_account_name">Ej uppkopplad kalender</string>
+    <string name="preferences_menu_about">Om Etar</string>
+    <string name="preferences_list_add_offline_cancel">Avbryt</string>
+    <string name="preferences_list_add_offline_name">Namn</string>
+    <string name="preferences_list_add_offline_button">Lägg till kalender</string>
+    <string name="preferences_list_add_offline_message">Kalendrar som inte är uppkopplade är INTE synkroniserade till en molntjänst och är endast tillgänglig i din telefon.</string>
+    <string name="preferences_list_add_offline_error_empty">Ange ett kalendernamn!</string>
+    <string name="preferences_list_add_offline_title">Lägg till icke uppkopplad kalender</string>
+    <string name="preferences_list_add_offline">Lägg till en icke uppkopplad kalender</string>
+    <string name="preferences_list_add_remote">Lägg till CalDAV-kalender</string>
+    <string name="preferences_list_general">Generella inställningar</string>
+    <string name="preferences_list_calendar_summary_invisible">Händelser visas inte</string>
+    <string name="preferences_list_calendar_summary_sync_off">Inte synkroniserad</string>
+    <string name="preferences_calendar_delete_cancel">Avbryt</string>
+    <string name="preferences_calendar_delete_delete">Ta bort kalender</string>
+    <string name="preferences_calendar_delete_message">Vill du verkligen ta bort den här kalendern\?</string>
+    <string name="preferences_calendar_color_warning_button">Jag förstår</string>
+    <string name="preferences_calendar_color_warning_title">Varning</string>
+    <string name="preferences_calendar_synchronize">Synkronisera den här kalendern</string>
+    <string name="preferences_calendar_visible">Visa händelser</string>
+    <string name="preferences_calendar_color">Färg</string>
+    <string name="preferences_calendar_info_category">Kalenderinformation</string>
+    <string name="preferences_calendar_display_name">Byt namn</string>
+    <string name="preferences_calendar_delete">Ta bort kalender</string>
+    <string name="preferences_calendar_number_of_events">%1$d-händelser</string>
+    <string name="preferences_calendar_configure_account">Konfigurera kalender i %1$s</string>
+    <string name="preferences_calendar_account">%1$s-konto</string>
+    <string name="preferences_calendar_no_display_name">Kalender utan namn</string>
+    <string name="cal_import_error_time_zone_msg">Kunde inte förstå den angivna tidszonen: %s</string>
+    <string name="seven_days">7 dagar</string>
+    <string name="six_days">6 dagar</string>
+    <string name="five_days">5 dagar</string>
+    <string name="four_days">4 dagar</string>
+    <string name="three_days">3 dagar</string>
+    <string name="two_days">2 dagar</string>
+    <string name="source_code">Källa</string>
+    <string name="license">Licens</string>
+    <string name="changelog">Ändringslogg</string>
+    <string name="authors">Författare</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g>Etar-projektet. Portioner © 2005-<xliff:g>%1$s</xliff:g>Android\'s öppna källkodprojekt.</string>
+    <string name="preferences_pure_black_night_mode">Rent svart natt-läge</string>
+    <string name="foreground_notification_title">Schemalägger nya påminnelser…</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 vecka</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> veckor</item>
+    </plurals>
 </resources>

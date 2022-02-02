@@ -7,7 +7,9 @@
     android:orientation="vertical" >
 
     <!-- Include our custom Toolbar -->
-    <include layout="@layout/app_bar" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_bar" />
 
     <FrameLayout
         android:id="@+id/body_frame"

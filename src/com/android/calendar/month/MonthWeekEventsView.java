@@ -16,12 +16,6 @@
 
 package com.android.calendar.month;
 
-import com.android.calendar.DynamicTheme;
-import com.android.calendar.Event;
-import com.android.calendar.LunarUtils;
-import com.android.calendar.Utils;
-import com.android.calendar.settings.ViewDetailsPreferences;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -49,6 +43,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
+
+import androidx.core.content.ContextCompat;
+
+import com.android.calendar.DynamicTheme;
+import com.android.calendar.Event;
+import com.android.calendar.LunarUtils;
+import com.android.calendar.Utils;
+import com.android.calendar.settings.ViewDetailsPreferences;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -105,6 +107,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int mStrokeWidthAdj;
     private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
+    private final Context mContext;
     private final TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
     protected Time mToday = new Time();
     protected boolean mHasToday = false;
@@ -164,6 +167,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
      */
     public MonthWeekEventsView(Context context) {
         super(context);
+        this.mContext = context;
     }
 
     // Sets the list of events for this week. Takes a sorted list of arrays
@@ -560,7 +564,14 @@ public class MonthWeekEventsView extends SimpleWeekView {
             canvas.drawRect(r, p);
         }
         if (mHasToday) {
-            p.setColor(mMonthBGTodayColor);
+            int selectedColor = ContextCompat.getColor(mContext, DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(mContext)));
+
+            if (Utils.getSharedPreference(mContext, "pref_theme", "light").equals("light")) {
+                p.setColor(selectedColor);
+                p.setAlpha(72);
+            } else {
+                p.setColor(mMonthBGTodayColor);
+            }
             r.left = computeDayLeftPosition(mTodayIndex);
             r.right = computeDayLeftPosition(mTodayIndex + 1);
             canvas.drawRect(r, p);

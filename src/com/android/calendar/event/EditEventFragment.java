@@ -17,7 +17,6 @@
 package com.android.calendar.event;
 
 import android.Manifest;
-import androidx.appcompat.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -43,9 +42,6 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -57,7 +53,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
@@ -323,11 +325,9 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
         mView = new EditEventView(mActivity, view, mOnDone);
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(mActivity,
-                Manifest.permission.READ_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!Utils.isCalendarPermissionGranted(mActivity, true)) {
             //If permission is not granted
-            Toast.makeText(mActivity, R.string.calendar_permission_not_granted, Toast.LENGTH_LONG).show();
+            ((TextView)view.findViewById(R.id.loading_message)).setText(R.string.calendar_permission_not_granted);
         } else {
             startQuery();
         }
@@ -631,7 +631,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     public void onColorSelected(int color) {
         if (!mModel.isEventColorInitialized() || mModel.getEventColor() != color) {
             mModel.setEventColor(color);
-            mView.updateHeadlineColor(mModel, color);
+            mView.updateHeadlineColor(color);
         }
     }
 
