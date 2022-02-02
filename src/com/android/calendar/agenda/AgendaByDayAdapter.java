@@ -248,6 +248,11 @@ public class AgendaByDayAdapter extends BaseAdapter {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
             AgendaAdapter.ViewHolder holder = ((AgendaAdapter.ViewHolder) itemView.getTag());
             TextView title = holder.title;
+
+            if(getItemViewType(position-1)==TYPE_MEETING){
+                holder.seperator.setVisibility(View.INVISIBLE);
+            }
+
             // The holder in the view stores information from the cursor, but the cursor has no
             // notion of multi-day event and the start time of each instance of a multi-day event
             // is the same.  RowInfo has the correct info , so take it from there.

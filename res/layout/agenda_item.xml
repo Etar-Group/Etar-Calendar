@@ -23,6 +23,7 @@
     android:columnCount="3"
     android:rowCount="2">
     <View
+        android:id="@+id/seperator"
         android:layout_height="1px"
         android:background="@color/agenda_list_separator_color"
         android:layout_column="0"
