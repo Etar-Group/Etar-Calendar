@@ -220,4 +220,42 @@
     <string name="event_info_title_invite">Invito al renkontiĝo</string>
     <string name="change_response_title">Ŝanĝi respondon</string>
     <string name="no_reminder_label">Nenio</string>
+    <string name="email_picker_label">Retmesaĝi per</string>
+    <string name="quick_response_settings_summary">Redakti defaŭltajn respondojn de retmesaĝaj respondadoj al gastoj</string>
+    <string name="quick_response_email_failed">Malsukcesis trovi retmesaĝan programon</string>
+    <string name="dismiss_all_label">Fermi ĉiujn</string>
+    <plurals name="endByCount">
+        <item quantity="one">; 1 fojon</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> fojojn</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one">Ĉiutage</item>
+        <item quantity="other">Ĉiujn <xliff:g id="number">%d</xliff:g> tagojn</item>
+    </plurals>
+    <string name="default_start_title">Defaŭlta vido</string>
+    <string name="display_options">Montradaj opcioj</string>
+    <string name="preferences_week_start_day_dialog">Semajno komenciĝas je</string>
+    <string name="preferences_week_start_day_title">Semajno komenciĝas je</string>
+    <string name="preferences_clear_search_history_summary">Forigi ĉiujn serĉojn kiuj vi faris</string>
+    <string name="search_history_cleared">Serĉ-historio viŝigita.</string>
+    <string name="preferences_alerts_vibrateWhen_title">Vibri</string>
+    <string name="preferences_home_tz_title">Hejma temp-zono</string>
+    <string name="preferences_show_week_num_title">Montri semajn-numeron</string>
+    <string name="preferences_build_version">Versio</string>
+    <string name="preferences_issues">Raporti problemojn</string>
+    <string name="show_newer_events">Tuŝi por montri okazaĵojn poste
+\n<xliff:g id="newest_search_range">%1$s
+\n</xliff:g></string>
+    <string name="email_guests_label">Retmesaĝi gastojn</string>
+    <string name="email_organizer_label">Retmesaĝi organizanton</string>
+    <string name="show_older_events">Tuŝi por montri okazaĵojn antaŭe
+\n<xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="custom" product="default">Propre (ne povas adapti telefone)</string>
+    <plurals name="weekly">
+        <item quantity="one">Ĉiusemajne je <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Ĉiujn <xliff:g id="number">%1$d</xliff:g> semajnojn je <xliff:g id="days_of_week">%2$s</xliff:g></item>
+    </plurals>
+    <string name="preferences_hide_declined_title">Kaŝi malakceptitajn okazaĵojn</string>
+    <string name="preferences_clear_search_history_title">Viŝigi serĉ-historion</string>
+    <string name="preferences_use_home_tz_title">Uzi hejman temp-zonon</string>
 </resources>
