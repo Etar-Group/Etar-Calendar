@@ -27,7 +27,7 @@
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> min.</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> min</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one" msgid="4793697728599296830">"1 uur"</item>
@@ -41,7 +41,7 @@
         <item quantity="other" msgid="8085184869561028365">"week <xliff:g id="COUNT">%d</xliff:g>"</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Vernieuwen"</string>
-    <string name="show_day_view" msgid="5782512782605466016">Dagweergave</string>
+    <string name="show_day_view" msgid="5782512782605466016">Dag tonen</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
     <string name="day_view" msgid="4467754504843584437">"Dag"</string>
     <string name="week_view" msgid="6775043022159508060">"Week"</string>
@@ -61,59 +61,59 @@
     <string name="hint_description" msgid="1910143586169033232">Omschrijving</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gasten"</string>
     <string name="creating_event" msgid="7516249252554059980">De afspraak is aangemaakt.</string>
-    <string name="saving_event" msgid="7694181017411177226">De afspraak is opgeslagen.</string>
-    <string name="empty_event" msgid="9018699257414338634">Je kunt geen blanco afspraak maken.</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">De uitnodigingen worden verzonden.</string>
-    <string name="saving_event_with_guest" msgid="9184584438475689577">De updates worden verzonden.</string>
+    <string name="saving_event" msgid="7694181017411177226">Afspraak is opgeslagen.</string>
+    <string name="empty_event" msgid="9018699257414338634">Lege afspraak niet aangemaakt.</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">Uitnodigingen worden verzonden.</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">Updates zullen worden gestuurd.</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">Opslaan</string>
-    <string name="alert_title" msgid="7869592820853066853">Agendaherinneringen</string>
+    <string name="alert_title" msgid="7869592820853066853">Agenda meldingen</string>
     <string name="event_info_title" msgid="56024222340421620">Afspraak bekijken</string>
-    <string name="event_info_title_invite" msgid="9160326363769403865">Vergaderingsuitnodiging</string>
-    <string name="edit_event_all_day_label" msgid="6200181113992136073">Gehele dag</string>
-    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Agenda"</string>
-    <string name="presence_label" msgid="6169724148441175862">Toon mij als</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">Uitnodiging voor vergadering</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">De hele dag</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">Agenda</string>
+    <string name="presence_label" msgid="6169724148441175862">Laat me zien als</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Voordat je een afspraak kunt toevoegen, moet je minimaal één agenda-account aan je apparaat toevoegen en de agenda zichtbaar maken. Druk op ‘Account toevoegen’ om een account toe te voegen (als je net een account hebt toegevoegd, wacht dan tot het synchroniseren is voltooid en probeer het opnieuw), of druk op ‘Annuleren’ en zorg er voor dat er minimaal één agenda zichtbaar is.</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Voor het toevoegen van een afspraak moet er minimaal één kalender-account op het toestel staan en een agenda zichtbaar zijn. Druk op ‘Account toevoegen’ om een account toe te voegen (als net een account is toegevoegd, wacht dan tot het synchroniseren is voltooid en probeer het opnieuw), of druk op ‘Annuleren’ en zorg er voor dat er minimaal één agenda zichtbaar is.</string>
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Kies een afspraakkleur</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">Afspraakkleur</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">Standaard agendakleur gebruiken</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">Als standaard agendakleur instellen</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">Agendakleur</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">Kleurkiezer</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Aanwezig?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Misschien"</string>
     <string name="response_no" msgid="561911691884148136">"Nee"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">Gasten op de hoogte brengen</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">Organisator op de hoogte brengen</string>
-    <string name="email_picker_label" msgid="4808253965057791781">E-mail versturen met</string>
-    <string name="event_not_found" msgid="8356864185947582727">Afspraak is niet gevonden.</string>
+    <string name="email_guests_label" msgid="8772030932155305903">Gasten e-mailen</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">Organisator e-mailen</string>
+    <string name="email_picker_label" msgid="4808253965057791781">E-mail met</string>
+    <string name="event_not_found" msgid="8356864185947582727">Afspraak niet gevonden.</string>
     <string name="map_label" msgid="8795383535586556038">"Kaart"</string>
     <string name="call_label" msgid="2960328220008869083">"Bellen"</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"Snelle reacties"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">Standaardreacties bij het op de hoogte brengen van gasten bewerken</string>
-    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Snelle reactie"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Snelle reactie kiezen"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">Er is geen e-mailapp aangetroffen</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">Snelle antwoorden</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Standaardantwoorden bewerken bij het e-mailen van gasten</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">Snel antwoord</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">Snel antwoord kiezen</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">Geen e-mailprogramma gevonden</string>
     <string-array name="quick_response_defaults">
         <item msgid="1524421198348168403">"Ik ben een paar minuten te laat."</item>
         <item msgid="6215158751728689832">"Ik ben er over ongeveer 10 minuten."</item>
         <item msgid="4485794001743679338">"Begin maar vast zonder mij."</item>
         <item msgid="8036557974294987511">"Ik red het helaas niet. Laten we een nieuwe afspraak maken."</item>
     </string-array>
-    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Eigen reactie opstellen…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">Eigen antwoord schrijven…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringen"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"vandaag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Vandaag, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="agenda_yesterday" msgid="4170964206728599693">Gisteren, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Morgen, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Bezig met laden…</string>
-    <string name="show_older_events" msgid="5140647493681439926">Druk om afspraken vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> te bekijken</string>
-    <string name="show_newer_events" msgid="2604638815440163080">Druk om afspraken ná <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> te bekijken</string>
+    <string name="show_older_events" msgid="5140647493681439926">Klik om afspraken vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> te bekijken</string>
+    <string name="show_newer_events" msgid="2604638815440163080">Klik om afspraken ná <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> te bekijken</string>
     <string name="search_title" msgid="8898015280250716254">Agenda\'s doorzoeken</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Bewerken"</string>
@@ -121,7 +121,7 @@
     <string name="save_label" msgid="2133599104834432589">"Gereed"</string>
     <string name="discard_label" msgid="2394623883289782541">"Annuleren"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">Alles verwerpen</string>
-    <string name="snooze_label" msgid="1515893621063224666">Uitstellen</string>
+    <string name="snooze_label" msgid="1515893621063224666">Pauzeren</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Eenmalige afspraak"</string>
     <string name="endByDate" msgid="7654221304929538201">"; tot <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
@@ -140,35 +140,35 @@
     <string name="monthly" msgid="4587116285383048586">"Maandelijks"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Jaarlijks"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"Aangepast (kan niet op de telefoon worden aangepast)"</string>
-    <string name="modify_event" msgid="5982876409997142690">Afspraak aanpassen</string>
-    <string name="modify_all" msgid="4421657265864209041">Reeks aanpassen</string>
-    <string name="modify_all_following" msgid="3017428541066390380">Deze en toekomstige afspraken aanpassen</string>
+    <string name="modify_event" msgid="5982876409997142690">Alleen deze afspraak wijzigen</string>
+    <string name="modify_all" msgid="4421657265864209041">Alle gebeurtenissen in de reeks wijzigen</string>
+    <string name="modify_all_following" msgid="3017428541066390380">Wijzig deze en alle toekomstige afspraken</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Nieuwe afspraak"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Nieuwe afspraak"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">Afspraak verwijderen\?</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">Deze afspraak verwijderen\?</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206"><xliff:g id="EVENTTITLE">%s</xliff:g> verwijderen\?</string>
-    <string name="change_response_title" msgid="7704714776070974984">Reactie aanpassen</string>
+    <string name="change_response_title" msgid="7704714776070974984">Antwoord aanpassen</string>
     <string name="preferences_title" msgid="8045855493262131773">"Instellingen"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">Agendaweergave-instelling</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">Instelling voor agendaweergave</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Meldingen en herinneringen"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">Geweigerde afspraken verbergen</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week begint op"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Week begint op"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Zoekgeschiedenis wissen"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">Wis alle uitgevoerde zoekopdrachten</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">De zoekgeschiedenis is gewist.</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">Alle door u uitgevoerde zoekopdrachten wissen</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">Zoekgeschiedenis is gewist.</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Meldingen"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Trillen"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Geluid"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-upmelding"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Herinneringstijd"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Herinneringstijd"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">Pop-up melding</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">Standaard herinneringstijd</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Standaard herinneringstijd</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Eigen tijdzone gebruiken"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Toon agenda\'s en afspraaktijden op reis in tijdzone van thuis</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Eigen tijdzone"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Thuistijdzone gebruiken</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Geeft onderweg agenda\'s en afspraaktijden weer in tijdzone van thuis</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">Tijdzone thuis</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">Weeknummer tonen</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">Bouwversie</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">Build-versie</string>
     <plurals name="month_more_events">
         <item quantity="one" msgid="8971334808414201327">"+1"</item>
         <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -177,22 +177,22 @@
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimenteel"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Herinneringen overslaan"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Herinneringen overslaan"</string>
-    <string name="copy_db" msgid="437691290566699292">Databank versturen</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">Bezig met zoeken naar<xliff:g id="DOMAIN">%s</xliff:g>…</string>
-    <string name="accessibility_remove_attendee" msgid="7082751172654698863">Gast verwijderen</string>
+    <string name="copy_db" msgid="437691290566699292">Database verzenden</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Zoekt <xliff:g id="domain">%s</xliff:g>…</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">Deelnemer verwijderen</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">Begindatum</string>
-    <string name="accessibility_pick_start_time" msgid="4913428100936555149">Begintijd</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">Aanvangstijd</string>
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Einddatum"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Eindtijd"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Tijdzone"</string>
     <string name="accessibility_pick_recurrence" msgid="1834311617874828931">Afspraak herhalen</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Herinnering toevoegen"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Herinnering verwijderen"</string>
-    <string name="accessibility_add_attendee" msgid="5654014177472600916">Gast toevoegen</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">Deelnemer toevoegen</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">Dagvullende afspraak</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Herinneringstijd"</string>
-    <string name="accessibility_reminder_type" msgid="5339120699701437227">Soort herinnering</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Toon mij als</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">Herinneringstype</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Laat me zien als</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacy"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nieuwe afspraak"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Afspraak <xliff:g id="ITEM_INDEX">%1$s</xliff:g> van <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
@@ -204,26 +204,26 @@
         <item quantity="one" msgid="431585781647034528">"+1 afspraak"</item>
         <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> afspraken"</item>
     </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Geselecteerde afspraak"</string>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Gekozen afspraak</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Elke <xliff:g id="COUNT">%d</xliff:g> dag"</item>
-        <item quantity="other" msgid="707566499994398250">"Elke <xliff:g id="COUNT">%d</xliff:g> dagen"</item>
+        <item quantity="one">Elke <xliff:g id="COUNT">%d</xliff:g> dag</item>
+        <item quantity="other">Om de <xliff:g id="COUNT">%d</xliff:g> dagen</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Elke <xliff:g id="COUNT">%d</xliff:g> week"</item>
-        <item quantity="other" msgid="7094801039989237061">"Elke <xliff:g id="COUNT">%d</xliff:g> weken"</item>
+        <item quantity="one">Elke <xliff:g id="COUNT">%d</xliff:g> week</item>
+        <item quantity="other">Om de <xliff:g id="COUNT">%d</xliff:g> weken</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Elke <xliff:g id="COUNT">%d</xliff:g> maand"</item>
-        <item quantity="other" msgid="5419723710346646523">"Elke <xliff:g id="COUNT">%d</xliff:g> maanden"</item>
+        <item quantity="one">Elke <xliff:g id="COUNT">%d</xliff:g> maand</item>
+        <item quantity="other">Om de <xliff:g id="COUNT">%d</xliff:g> maanden</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Elk <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
-        <item quantity="other" msgid="5678653649746562060">"Elke <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
+        <item quantity="one">Elk <xliff:g id="COUNT">%d</xliff:g> jaar</item>
+        <item quantity="other">Om de <xliff:g id="COUNT">%d</xliff:g> jaar</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"elke maand op dezelfde dag"</string>
-    <string name="recurrence_end_continously" msgid="6898950241634912991">Permanent</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">Tot een bepaalde datum</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">Voor altijd</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">Tot een datum</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Tot <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Voor een aantal afspraken</string>
     <plurals name="recurrence_end_count">
@@ -234,16 +234,16 @@
     <string name="visibility_default">Standaard</string>
     <string name="visibility_private">Privé</string>
     <string name="visibility_public">Openbaar</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">Vragen om uitstelduur</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">Vraag om de uitstelduur bij uitstellen van herinneringen</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_off">Altijd standaardduur gebruiken</string>
-    <string name="snooze_delay_dialog_title">Uitstelduur instellen</string>
-    <string name="preferences_default_snooze_delay_title">Standaard uitstelduur</string>
-    <string name="preferences_default_snooze_delay_dialog">Standaard uitstelduur</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Herinnering bij pauzeer-uitstel vragen</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Vraag om pauzeer-tijd bij het pauzeren van herinneringen</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Altijd standaard pauzeer-vertraging gebruiken</string>
+    <string name="snooze_delay_dialog_title">Pauzeer-vertraging instellen</string>
+    <string name="preferences_default_snooze_delay_title">Standaard pauzevertragingstijd</string>
+    <string name="preferences_default_snooze_delay_dialog">Standaard pauzevertraging</string>
     <string name="goto_date">Ga naar…</string>
-    <string name="rsvp_accepted">Met ‘ja’ beantwoord.</string>
-    <string name="rsvp_tentative">Met ‘misschien’ beantwoord.</string>
-    <string name="rsvp_declined">Met ‘nee’ beantwoord.</string>
+    <string name="rsvp_accepted">Antwoordde ja.</string>
+    <string name="rsvp_tentative">Gereageerd misschien.</string>
+    <string name="rsvp_declined">Antwoordde nee.</string>
     <string name="preferences_theme">Thema</string>
     <string name="preferences_light_theme">Licht</string>
     <string name="preferences_dark_theme">Donker</string>
@@ -252,10 +252,10 @@
     <string name="preferences_color_pick">Primaire kleur</string>
     <string name="preferences_days_per_week_title">dagen per week</string>
     <string name="preferences_days_per_week_dialog">dagen per week</string>
-    <string name="preferences_default_event_duration_title">Standaardduur van afspraak</string>
-    <string name="preferences_issues">Problemen melden</string>
-    <string name="user_rejected_calendar_write_permission">Etar heeft lees- en schrijfrechten nodig om goed te kunnen werken. Probeer het nog een keer.</string>
-    <string name="calendar_permission_not_granted">De vereiste rechten zijn niet toegekend - ken ze toe via de systeeminstellingen</string>
+    <string name="preferences_default_event_duration_title">Standaard afspraakduur</string>
+    <string name="preferences_issues">Problemen</string>
+    <string name="user_rejected_calendar_write_permission">Etar vereist lees- en schrijfrechten voor de agenda om correct te werken. Probeer het opnieuw.</string>
+    <string name="calendar_permission_not_granted">Vereiste machtigingen zijn geweigerd, schakel ze in via de app Instellingen om afspraken te bewerken</string>
     <string name="visibility_confidential">Vertrouwelijk</string>
     <string name="zero_minutes">0 minuten</string>
     <string name="fifteen_minutes">15 minuten</string>
@@ -264,58 +264,58 @@
     <string name="one_and_a_half_hours">1,5 uur</string>
     <string name="two_hours">2 uur</string>
     <string name="share_label">Delen</string>
-    <string name="no_map">Er is geen kaartenapp geïnstalleerd</string>
-    <string name="default_start_title">Standaardoverzicht</string>
-    <string name="default_start_last">Vorig overzicht</string>
-    <string name="error_generating_ics">Er zijn problemen opgetreden tijdens het delen van de afspraak</string>
+    <string name="no_map">Er is geen kaarten-app geïnstalleerd</string>
+    <string name="default_start_title">Standaardweergave</string>
+    <string name="default_start_last">Eerder gebruikte weergave</string>
+    <string name="error_generating_ics">Problemen opgetreden tijdens het delen van afspraak</string>
     <string name="cal_share_intent_title">Afspraak versturen naar:</string>
-    <string name="cal_export_event_sdcard_title">Exporteren naar sd-kaart</string>
-    <string name="cal_export_succ_msg">De afspraak is geëxporteerd: %1$s</string>
+    <string name="cal_export_event_sdcard_title">Exporteren naar SD-kaart</string>
+    <string name="cal_export_succ_msg">Gebeurtenis geslaagd geëxporteerd: %1$s</string>
     <string name="cal_import_menu_title">Afspraak importeren</string>
     <string name="cal_nothing_to_import">Niets te importeren</string>
-    <string name="cal_import_error_msg">Het importeren is mislukt</string>
-    <string name="cal_import_error_date_msg">De opgegeven datum wordt niet begrepen: %s</string>
-    <string name="cal_pick_ics">Kies het te importeren bestand</string>
+    <string name="cal_import_error_msg">Importeren in agenda is mislukt</string>
+    <string name="cal_import_error_date_msg">Opgegeven datum niet begrepen: %s</string>
+    <string name="cal_pick_ics">Bestand kiezen om te importeren</string>
     <string name="view_settings">Instellingen tonen</string>
     <string name="preferences_month_view_portrait">Maandoverzicht (staand)</string>
     <string name="preferences_month_view_landscape">Maandoverzicht (liggend)</string>
     <string name="display_options">Weergave-opties</string>
-    <string name="display_time">Tijdweergave</string>
-    <string name="display_location">Locatieweergave</string>
-    <string name="show_time_no">Geen tijd tonen</string>
-    <string name="show_time_start">Alleen begintijd</string>
+    <string name="display_time">Tijd weergeven</string>
+    <string name="display_location">Locatie weergeven</string>
+    <string name="show_time_no">Geen tijd weergeven</string>
+    <string name="show_time_start">Alleen aanvangstijd</string>
     <string name="show_time_start_end">Begin- en eindtijd</string>
     <string name="show_time_start_end_below">Begin- en eindtijd onder de afspraak</string>
     <string name="maximum_number_of_lines">Max. aantal regels in afspraak</string>
     <string name="foreground_notification_channel_name">Achtergrondtaken</string>
-    <string name="foreground_notification_channel_description">Meldingen zijn nodig voor interne synchronisatie. Je kunt dit kanaal veilig verbergen.</string>
+    <string name="foreground_notification_channel_description">Meldingen vereist voor interne synchronisatie. Dit kanaal veilig kan verborgen worden.</string>
     <string name="preferences_calendar_account">%1$s-account</string>
-    <string name="changelog">Wijzigingslog</string>
-    <string name="offline_account_name">Offline-agenda</string>
+    <string name="changelog">Wijzigingen</string>
+    <string name="offline_account_name">Offline agenda</string>
     <string name="preferences_menu_about">Over Etar</string>
     <string name="preferences_list_add_remote_etesync">EteSync-agenda toevoegen</string>
     <string name="preferences_list_add_remote">CalDAV-agenda toevoegen</string>
-    <string name="preferences_list_calendar_summary_invisible">Afspraken worden niet getoond</string>
-    <string name="preferences_list_calendar_summary_sync_off">Niet-gesynchroniseerd</string>
+    <string name="preferences_list_calendar_summary_invisible">Afspraken worden niet weergegeven</string>
+    <string name="preferences_list_calendar_summary_sync_off">Niet gesynchroniseerd</string>
     <string name="preferences_calendar_delete_cancel">Annuleren</string>
     <string name="preferences_calendar_delete_delete">Agenda verwijderen</string>
-    <string name="preferences_calendar_delete_message">Weet je zeker dat je deze agenda wilt verwijderen\?</string>
+    <string name="preferences_calendar_delete_message">Deze agenda echt verwijderen\?</string>
     <string name="preferences_calendar_color_warning_button">Ik begrijp het</string>
-    <string name="preferences_calendar_color_warning_message">Het veranderen van de kleur kan worden teruggedraaid als de agenda weer gesynchroniseerd wordt.
+    <string name="preferences_calendar_color_warning_message">Het veranderen van de kleur kan worden teruggedraaid als de agenda opnieuw gesynchroniseerd wordt.
 \n
 \nIn DAVx⁵ kan ‘Agendakleuren beheren’ worden uitgeschakeld om dit te voorkomen.</string>
     <string name="preferences_calendar_color_warning_title">Waarschuwing</string>
-    <string name="preferences_calendar_synchronize">Agenda synchroniseren</string>
-    <string name="preferences_calendar_visible">Afspraken bekijken</string>
+    <string name="preferences_calendar_synchronize">Deze agenda synchroniseren</string>
+    <string name="preferences_calendar_visible">Afspraken weergeven</string>
     <string name="preferences_calendar_color">Kleur</string>
     <string name="preferences_calendar_info_category">Agenda-informatie</string>
     <string name="preferences_calendar_display_name">Naam wijzigen</string>
     <string name="preferences_calendar_delete">Agenda verwijderen</string>
     <string name="preferences_calendar_number_of_events">%1$d afspraken</string>
-    <string name="preferences_calendar_configure_account">Agenda instellen in %1$s</string>
-    <string name="preferences_calendar_account_local">Offline-agenda</string>
+    <string name="preferences_calendar_configure_account">Agenda configureren in %1$s</string>
+    <string name="preferences_calendar_account_local">Offline agenda</string>
     <string name="preferences_calendar_no_display_name">Naamloze agenda</string>
-    <string name="cal_import_error_time_zone_msg">De opgegeven tijdzone wordt niet begrepen: %s</string>
+    <string name="cal_import_error_time_zone_msg">Opgegeven tijdzone is niet begrepen: %s</string>
     <string name="seven_days">7 dagen</string>
     <string name="six_days">6 dagen</string>
     <string name="five_days">5 dagen</string>
@@ -324,22 +324,22 @@
     <string name="two_days">2 dagen</string>
     <string name="source_code">Broncode</string>
     <string name="license">Licentie</string>
-    <string name="authors">Makers</string>
-    <string name="preferences_pure_black_night_mode">Zuiver zwarte nachtmodus</string>
+    <string name="authors">Auteurs</string>
+    <string name="preferences_pure_black_night_mode">Nachtmodus zuiver zwart</string>
     <string name="preferences_system_theme">Systeemthema</string>
     <string name="preferences_list_add_offline_cancel">Annuleren</string>
     <string name="preferences_list_add_offline_name">Naam</string>
     <string name="preferences_list_add_offline_button">Agenda toevoegen</string>
-    <string name="preferences_list_add_offline_message">Offline-agenda\'s worden NIET gesynchroniseerd met een clouddienst en zijn alleen beschikbaar op je telefoon.</string>
+    <string name="preferences_list_add_offline_message">Offline agenda\'s worden NIET gesynchroniseerd met een cloud-dienst en zijn alleen beschikbaar op het telefoontoestel.</string>
     <string name="preferences_list_add_offline_error_empty">Voer een agendanaam in!</string>
-    <string name="preferences_list_add_offline_title">Offline-agenda toevoegen</string>
-    <string name="preferences_list_add_offline">Offline-agenda toevoegen</string>
+    <string name="preferences_list_add_offline_title">Offline agenda toevoegen</string>
+    <string name="preferences_list_add_offline">Offline agenda toevoegen</string>
     <string name="preferences_list_general">Algemene instellingen</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Het Etar-project. Delen van het © 2005-<xliff:g>%1$s</xliff:g> Het Android Open Source-project.</string>
     <string name="no_reminder_label">Geen</string>
     <plurals name="Nweeks">
         <item quantity="one">1 week</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; weken</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> weken</item>
     </plurals>
-    <string name="foreground_notification_title">Bezig met inplannen van nieuwe herinneringen…</string>
+    <string name="foreground_notification_title">Nieuwe herinneringen plannen…</string>
 </resources>
