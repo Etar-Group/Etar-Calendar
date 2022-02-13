@@ -35,6 +35,9 @@ import com.android.calendar.AllInOneActivity;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
+import com.android.calendar.event.EditEventActivity;
+
+import java.util.Calendar;
 
 import ws.xsoh.etar.R;
 
@@ -233,6 +236,20 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(
                     context, 0 /* no requestCode */, launchCalendarIntent, 0 /* no flags */);
             views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
+
+            // Open Add event option when user clicks on the add button on widget
+            Calendar calendar = Calendar.getInstance();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setClass(context, EditEventActivity.class);
+            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, calendar.getTimeInMillis());
+            calendar.add(Calendar.HOUR, 1);
+            intent.putExtra(EXTRA_EVENT_END_TIME, calendar.getTimeInMillis());
+            intent.putExtra(EXTRA_EVENT_ALL_DAY, false);
+            intent.putExtra(CalendarContract.Events.CALENDAR_ID, -1);
+
+            final PendingIntent addEventPendingIntent = PendingIntent.getActivity(
+                    context, 0 /* no requestCode */, intent, 0 /* no flags */);
+            views.setOnClickPendingIntent(R.id.iv_add, addEventPendingIntent);
 
             // Each list item will call setOnClickExtra() to let the list know
             // which item
