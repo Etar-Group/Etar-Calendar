@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -57,6 +58,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
     // TODO Move these to Calendar.java
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
+    private static final int PI_FLAG_IMMUTABLE = Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
 
     /**
      * Build {@link ComponentName} describing this specific
@@ -248,7 +250,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             intent.putExtra(CalendarContract.Events.CALENDAR_ID, -1);
 
             final PendingIntent addEventPendingIntent = PendingIntent.getActivity(
-                    context, 0 /* no requestCode */, intent, 0 /* no flags */);
+                    context, 0 /* no requestCode */, intent, PI_FLAG_IMMUTABLE);
             views.setOnClickPendingIntent(R.id.iv_add, addEventPendingIntent);
 
             // Each list item will call setOnClickExtra() to let the list know
