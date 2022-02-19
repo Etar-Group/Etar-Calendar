@@ -1,5 +1,5 @@
 - Widget uitgeschakeld, alternatieve Kalender Widget: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
-- Ondersteuning voor aangepaste afspraakkleuren.
+- Ondersteuning voor aangepaste gebeurteniskleuren.
 - Importeren van ics-bestanden verbeterd
 - Grijs thema toegevoegd
 - Ondersteuning voor zichtbaarheid Vertrouwelijk.

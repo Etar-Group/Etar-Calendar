@@ -1,5 +1,5 @@
 - Lokale kalenders maken.
-- Link voor nieuwe inzendingen.
+- Link voor nieuwe gebeurtenis.
 - Nieuwe instellingenweergave.
 - Nieuwe tijd selectie dialogen.
 - Licentie wijziging naar GPLv3.
