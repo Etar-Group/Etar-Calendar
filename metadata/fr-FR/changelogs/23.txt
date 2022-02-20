@@ -1,0 +1,2 @@
+– Correction de bogue pour les options d’affichage.
+– Nouvelles traductions.

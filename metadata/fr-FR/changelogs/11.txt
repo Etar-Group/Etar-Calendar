@@ -1,0 +1,3 @@
+– Ajout d’une option pour choisir les journées par semaine.
+– Ajout d’une option pour la vue par défaut à afficher au démarrage.
+– Corrections de bogues.

@@ -1,0 +1,4 @@
+– Récupération de la base de données des fuseaux horaires.
+– Icône de l’application en SVG.
+– Reprise et réactivation du widget.
+– Nouvelles traductions.
