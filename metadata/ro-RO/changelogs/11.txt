@@ -1,0 +1,3 @@
+- Adăugați o opțiune pentru a alege zilele pe săptămână.
+- Adăugați o opțiune pentru ca vizualizarea implicită să fie afișată la pornire.
+- Corectarea erorilor.

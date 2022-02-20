@@ -1,0 +1,2 @@
+- Fixarea notificărilor pe Android 12
+- Adăugați DecSync și Birthday Adapter la aplicațiile "cunoscute" și nu se mai blochează

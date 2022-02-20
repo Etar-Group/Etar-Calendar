@@ -1,0 +1,7 @@
+- Am renunțat la widget, folosesc deocamdată Calendar Widget: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+- Suport pentru evenimente cu culori personalizate.
+- Suport mai bun pentru fișierele ics.
+- Adăugare temă gri.
+- Suport pentru vizibilitate confidențială.
+- Suportă noile canale de notificare Android.
+- O mulțime de remedieri de erori.
