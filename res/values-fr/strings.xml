@@ -125,7 +125,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Répéter"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">Évènement ponctuel</string>
-    <string name="endByDate" msgid="7654221304929538201">; jusqu\'à <xliff:g id="date">%s</xliff:g></string>
+    <string name="endByDate" msgid="7654221304929538201">; jusqu’à <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; une seule fois</item>
         <item quantity="other">; <xliff:g id="number">%d</xliff:g> fois</item>
@@ -289,7 +289,7 @@
     <string name="show_time_start_end_below">Heure de début et de fin au-dessous de l’évènement</string>
     <string name="maximum_number_of_lines">Nombre maximum de lignes par évènement</string>
     <string name="foreground_notification_channel_name">Tâches en arrière-plan</string>
-    <string name="foreground_notification_channel_description">La synchronisation interne nécessite les notifications. Vous pouvez cacher cette chaîne sans risque.</string>
+    <string name="foreground_notification_channel_description">La synchronisation interne nécessite les notifications. Vous pouvez masquer ce canal en toute sécurité.</string>
     <string name="cal_import_error_time_zone_msg">Impossible de comprendre le fuseau horaire donné : %s</string>
     <string name="preferences_calendar_account">Compte %1$s</string>
     <string name="preferences_calendar_delete">Suprrimer le calendrier</string>
