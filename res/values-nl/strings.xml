@@ -30,8 +30,8 @@
         <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> min</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 uur"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> uur"</item>
+        <item quantity="one">1 uur</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> uren</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
@@ -40,7 +40,7 @@
     <plurals name="weekN">
         <item quantity="other" msgid="8085184869561028365">"week <xliff:g id="COUNT">%d</xliff:g>"</item>
     </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Vernieuwen"</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">Bijwerken</string>
     <string name="show_day_view" msgid="5782512782605466016">Dag tonen</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
     <string name="day_view" msgid="4467754504843584437">"Dag"</string>
@@ -67,7 +67,7 @@
     <string name="saving_event_with_guest" msgid="9184584438475689577">Updates worden gestuurd.</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">Opslaan</string>
     <string name="alert_title" msgid="7869592820853066853">Agenda meldingen</string>
-    <string name="event_info_title" msgid="56024222340421620">Gebeurtenis bekijken</string>
+    <string name="event_info_title" msgid="56024222340421620">Gebeurtenis tonen</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">Uitnodiging voor vergadering</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">Hele dag</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">Agenda</string>
@@ -75,13 +75,13 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Om een gebeurtenis toe te kunnen voegen moet er minstens één kalender-account bestaan met een zichtbare agenda. Druk als dat nodig is op ‘Account toevoegen’. Wacht tot het synchroniseren is voltooid als dat net is gedaan, en probeer het opnieuw. Of druk op ‘Annuleren’ en zorg dat er minimaal één agenda zichtbaar is.</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Om een gebeurtenis toe te voegen moet eerst een kalender-account met een zichtbare agenda worden toegevoegd. (Druk zonodig op ‘Account toevoegen’ en wacht tot het synchroniseren is voltooid en probeer het opnieuw.) Of druk op ‘Annuleren’ en zorg dat er minimaal één agenda zichtbaar is.</string>
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Kies een gebeurteniskleur</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">Gebeurteniskleur</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">Standaard agendakleur</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">Standaard agendakleur terugzetten</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">Agendakleur</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">Kleurkiezer</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Aanwezig?"</string>
@@ -149,7 +149,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206"><xliff:g id="EVENTTITLE">%s</xliff:g> verwijderen\?</string>
     <string name="change_response_title" msgid="7704714776070974984">Antwoord wijzigen</string>
     <string name="preferences_title" msgid="8045855493262131773">"Instellingen"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">Instelling voor agendaweergave</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">Agendaweergave instellingen</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Meldingen en herinneringen"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">Geweigerde gebeurtenissen verbergen</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week begint op"</string>
@@ -173,7 +173,7 @@
         <item quantity="one" msgid="8971334808414201327">"+1"</item>
         <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
     </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">Geen naderende agenda gebeurtenissen</string>
+    <string name="gadget_no_events" msgid="5209110911088302855">Geen naderende gebeurtenissen</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimenteel"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Herinneringen overslaan"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Herinneringen overslaan"</string>
@@ -254,8 +254,8 @@
     <string name="preferences_days_per_week_dialog">Dagen per week</string>
     <string name="preferences_default_event_duration_title">Standaard duur gebeurtenis</string>
     <string name="preferences_issues">Problemen</string>
-    <string name="user_rejected_calendar_write_permission">Toegangsrechten tot de agenda zijn vereist voor correcte werking. Probeer opnieuw.</string>
-    <string name="calendar_permission_not_granted">Toegangsrechten zijn geweigerd, het is vereist ze in te schakelen in de app-instellingen om gebeurtenissen te bewerken</string>
+    <string name="user_rejected_calendar_write_permission">App-recht Agenda-toegang is vereist. Probeer opnieuw.</string>
+    <string name="calendar_permission_not_granted">Vereiste App-rechten om gebeurtenissen te bewerken zijn niet toegekend. Verleen ze in de App-instellingen</string>
     <string name="visibility_confidential">Vertrouwelijk</string>
     <string name="zero_minutes">0 minuten</string>
     <string name="fifteen_minutes">15 minuten</string>
@@ -273,7 +273,7 @@
     <string name="cal_export_succ_msg">Gebeurtenis is geëxporteerd: %1$s</string>
     <string name="cal_import_menu_title">Gebeurtenis importeren</string>
     <string name="cal_nothing_to_import">Niets te importeren</string>
-    <string name="cal_import_error_msg">Importeren in agenda niet gelukt</string>
+    <string name="cal_import_error_msg">Agenda-import niet gelukt</string>
     <string name="cal_import_error_date_msg">Opgegeven datum niet begrepen: %s</string>
     <string name="cal_pick_ics">Bestand kiezen om te importeren</string>
     <string name="view_settings">Instellingen tonen</string>
@@ -288,10 +288,10 @@
     <string name="show_time_start_end_below">Begin- en eindtijd onder de gebeurtenis</string>
     <string name="maximum_number_of_lines">Max. aantal regels per gebeurtenis</string>
     <string name="foreground_notification_channel_name">Achtergrondtaken</string>
-    <string name="foreground_notification_channel_description">Meldingen nodig voor interne synchronisatie. Dit kanaal veilig kan verborgen worden.</string>
+    <string name="foreground_notification_channel_description">Meldingen vereist voor interne sync. Dit kanaal veilig kan verborgen worden.</string>
     <string name="preferences_calendar_account">%1$s-account</string>
     <string name="changelog">Wijzigingen</string>
-    <string name="offline_account_name">Offline agenda</string>
+    <string name="offline_account_name">Offline-agenda</string>
     <string name="preferences_menu_about">Over Etar</string>
     <string name="preferences_list_add_remote_etesync">EteSync-agenda toevoegen</string>
     <string name="preferences_list_add_remote">CalDAV-agenda toevoegen</string>
@@ -301,9 +301,9 @@
     <string name="preferences_calendar_delete_delete">Agenda verwijderen</string>
     <string name="preferences_calendar_delete_message">Agenda inderdaad verwijderen\?</string>
     <string name="preferences_calendar_color_warning_button">Ik begrijp het</string>
-    <string name="preferences_calendar_color_warning_message">Als de agenda wordt gesynchroniseerd kan een gewijzigde agendakleur teruggezet worden.
+    <string name="preferences_calendar_color_warning_message">Aanpassing van de agendakleur kan ongedaan gemaakt worden door synchroniseren.
 \n
-\nIn DAVx⁵ kan ‘Agendakleuren beheren’ worden uitgeschakeld om dit te voorkomen.</string>
+\nOm dit te voorkomen kan in DAVx⁵ ‘Agendakleuren beheren’ uitgezet worden.</string>
     <string name="preferences_calendar_color_warning_title">Waarschuwing</string>
     <string name="preferences_calendar_synchronize">Agenda synchroniseren</string>
     <string name="preferences_calendar_visible">Gebeurtenissen tonen</string>
@@ -313,7 +313,7 @@
     <string name="preferences_calendar_delete">Agenda verwijderen</string>
     <string name="preferences_calendar_number_of_events">%1$d gebeurtenissen</string>
     <string name="preferences_calendar_configure_account">Agenda configureren in %1$s</string>
-    <string name="preferences_calendar_account_local">Offline agenda</string>
+    <string name="preferences_calendar_account_local">Offline-agenda</string>
     <string name="preferences_calendar_no_display_name">Naamloze agenda</string>
     <string name="cal_import_error_time_zone_msg">Opgegeven tijdzone is niet begrepen: %s</string>
     <string name="seven_days">7 dagen</string>
@@ -330,10 +330,10 @@
     <string name="preferences_list_add_offline_cancel">Annuleren</string>
     <string name="preferences_list_add_offline_name">Naam</string>
     <string name="preferences_list_add_offline_button">Agenda toevoegen</string>
-    <string name="preferences_list_add_offline_message">Offline agenda\'s worden NIET gesynchroniseerd met een cloud-dienst en zijn alleen op het toestel beschikbaar.</string>
-    <string name="preferences_list_add_offline_error_empty">Voer een agendanaam in!</string>
-    <string name="preferences_list_add_offline_title">Offline agenda toevoegen</string>
-    <string name="preferences_list_add_offline">Offline agenda toevoegen</string>
+    <string name="preferences_list_add_offline_message">Offline-agenda\'s worden NIET gesynchroniseerd naar een cloud-dienst en zijn alleen beschikbaar op het toestel.</string>
+    <string name="preferences_list_add_offline_error_empty">Agendanaam invoeren!</string>
+    <string name="preferences_list_add_offline_title">Offline-agenda toevoegen</string>
+    <string name="preferences_list_add_offline">Offline-agenda toevoegen</string>
     <string name="preferences_list_general">Algemene instellingen</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Het Etar-project. Delen van het © 2005-<xliff:g>%1$s</xliff:g> Het Android Open Source-project.</string>
     <string name="no_reminder_label">Geen</string>
