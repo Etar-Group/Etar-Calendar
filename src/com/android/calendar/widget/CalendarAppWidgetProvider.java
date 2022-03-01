@@ -240,12 +240,8 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
 
             // Open Add event option when user clicks on the add button on widget
-            Calendar calendar = Calendar.getInstance();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setClass(context, EditEventActivity.class);
-            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, calendar.getTimeInMillis());
-            calendar.add(Calendar.HOUR, 1);
-            intent.putExtra(EXTRA_EVENT_END_TIME, calendar.getTimeInMillis());
             intent.putExtra(EXTRA_EVENT_ALL_DAY, false);
             intent.putExtra(CalendarContract.Events.CALENDAR_ID, -1);
 
