@@ -24,7 +24,7 @@
     android:orientation="vertical">
 
     <!-- Header -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,10 +41,21 @@
             android:shadowRadius="3"
             android:textColor="@color/appwidget_week" />
         <TextView
+            android:layout_below="@+id/day_of_week"
             android:id="@+id/date"
             style="@style/WidgetDateStyle"
             android:textColor="@color/appwidget_month" />
-    </LinearLayout>
+
+        <ImageView
+            android:paddingStart="8dip"
+            android:paddingEnd="8dip"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_event"/>
+    </RelativeLayout>
 
     <!-- Event list -->
     <ListView
