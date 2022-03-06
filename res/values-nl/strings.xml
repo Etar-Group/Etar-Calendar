@@ -315,7 +315,7 @@
     <string name="preferences_calendar_configure_account">Agenda configureren in %1$s</string>
     <string name="preferences_calendar_account_local">Offline-agenda</string>
     <string name="preferences_calendar_no_display_name">Naamloze agenda</string>
-    <string name="cal_import_error_time_zone_msg">Opgegeven tijdzone is niet begrepen: %s</string>
+    <string name="cal_import_error_time_zone_msg">Tijdzone wordt niet herkend: %s</string>
     <string name="seven_days">7 dagen</string>
     <string name="six_days">6 dagen</string>
     <string name="five_days">5 dagen</string>
