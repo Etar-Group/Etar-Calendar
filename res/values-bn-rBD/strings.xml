@@ -147,4 +147,5 @@
     <string name="preferences_title">সেটিংস</string>
     <string name="yearly_plain">বার্ষিক</string>
     <string name="monthly">মাসিক</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

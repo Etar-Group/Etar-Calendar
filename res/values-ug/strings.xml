@@ -243,4 +243,5 @@
     <string name="preferences_default_snooze_delay_title">كۆڭۈلدىكى ئەسكەرتىشنى ۋاقىتلىق توختىتىش ۋاقتىنىڭ ئۇزۇنلۇقى</string>
     <string name="preferences_default_snooze_delay_dialog">كۆڭۈلدىكى ئەسكەرتىشنى ۋاقىتلىق توختىتىش ۋاقتى</string>
     <string name="no_reminder_label">يوق</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

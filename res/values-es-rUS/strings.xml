@@ -260,4 +260,5 @@
     <string name="display_time">Mostrar horario</string>
     <string name="display_location">Mostrar ubicación</string>
     <string name="no_reminder_label">Ninguno</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

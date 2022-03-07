@@ -338,4 +338,5 @@
     <string name="preferences_system_theme">System default</string>
     <string name="preferences_pure_black_night_mode">Pure black night mode</string>
     <string name="no_reminder_label">None</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

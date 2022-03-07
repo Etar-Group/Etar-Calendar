@@ -292,4 +292,5 @@
     <string name="one_and_a_half_hours">1.5 гадзіны</string>
     <string name="two_hours">2 гадзіны</string>
     <string name="no_reminder_label">Няма</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

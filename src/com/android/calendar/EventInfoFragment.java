@@ -1966,7 +1966,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             // Insert any minute values that aren't represented in the minutes list.
             for (ReminderEntry re : reminders) {
                 EventViewUtils.addMinutesToList(
-                        mActivity, mReminderMinuteValues, mReminderMinuteLabels, re.getMinutes());
+                        mActivity, mReminderMinuteValues, mReminderMinuteLabels, Math.abs(re.getMinutes()));
             }
             // Create a UI element for each reminder.  We display all of the reminders we get
             // from the provider, even if the count exceeds the calendar maximum.  (Also, for
