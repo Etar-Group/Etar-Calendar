@@ -290,4 +290,5 @@
     <string name="show_time_start_end_below">Počiatočný a koncový čas pod udalosťou</string>
     <string name="maximum_number_of_lines">Maximálny počet riadkov v udalosti</string>
     <string name="no_reminder_label">Žiadne</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

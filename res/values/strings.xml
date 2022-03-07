@@ -795,5 +795,6 @@
     <string name="preferences_menu_about">About Etar</string>
 
     <string name="offline_account_name">Offline Calendar</string>
+    <string name="after_start_of_event">after start of event</string>
 
 </resources>

@@ -29,6 +29,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="fill"
+        android:text="@string/after_start_of_event"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reminder_minutes_value"
+        android:id="@+id/reminder_minutes_sign" />
+
     <Spinner
         android:id="@+id/reminder_method_value"
         android:layout_width="0dp"

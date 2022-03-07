@@ -360,4 +360,5 @@
     <string name="maximum_number_of_lines">Uchafswm o linellau ar gyfer digwyddiad</string>
     <string name="foreground_notification_channel_name">Cydamseriad Hysbysiadau</string>
     <string name="foreground_notification_channel_description">Hysbysiad blaendir angenrheidiol er cydamseru hysbysiadau mewnol. I\'w ddistewi.</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

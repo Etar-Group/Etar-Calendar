@@ -159,4 +159,5 @@
     <string name="hide_controls">Бүйірлік тақтаны жасыру</string>
     <string name="event_view">Оқиғаны қарау</string>
     <string name="show_day_view">Күнді көрсету</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

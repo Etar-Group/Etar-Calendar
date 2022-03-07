@@ -331,4 +331,5 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> tuần</item>
     </plurals>
     <string name="foreground_notification_title">Đang lên lịch những lời nhắc mới…</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

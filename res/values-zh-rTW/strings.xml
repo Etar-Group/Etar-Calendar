@@ -243,4 +243,5 @@
     <string name="preferences_default_snooze_delay_title">預設重響延遲時間</string>
     <string name="preferences_default_snooze_delay_dialog">預設重響延遲</string>
     <string name="no_reminder_label">無</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

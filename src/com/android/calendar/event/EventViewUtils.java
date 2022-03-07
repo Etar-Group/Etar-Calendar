@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -147,9 +148,11 @@ public class EventViewUtils {
             ConstraintLayout layout = reminderItems.get(index);
             Spinner minuteSpinner = (Spinner) layout.findViewById(R.id.reminder_minutes_value);
             Spinner methodSpinner = (Spinner) layout.findViewById(R.id.reminder_method_value);
+            CheckBox minuteSign = (CheckBox) layout.findViewById(R.id.reminder_minutes_sign);
+            int sign = minuteSign.isChecked() ? -1:1;
             int minutes = reminderMinuteValues.get(minuteSpinner.getSelectedItemPosition());
             int method = reminderMethodValues.get(methodSpinner.getSelectedItemPosition());
-            reminders.add(ReminderEntry.valueOf(minutes, method));
+            reminders.add(ReminderEntry.valueOf(sign*minutes, method));
         }
         return reminders;
     }
@@ -274,7 +277,7 @@ public class EventViewUtils {
         Spinner spinner = (Spinner) reminderItem.findViewById(R.id.reminder_minutes_value);
         setReminderSpinnerLabels(activity, spinner, minuteLabels);
 
-        int index = findMinutesInReminderList(minuteValues, newReminder.getMinutes());
+        int index = findMinutesInReminderList(minuteValues, Math.abs(newReminder.getMinutes()));
         spinner.setSelection(index);
 
         if (onItemSelected != null) {
@@ -282,6 +285,8 @@ public class EventViewUtils {
             spinner.setOnItemSelectedListener(onItemSelected);
         }
 
+        CheckBox checkBox = (CheckBox) reminderItem.findViewById(R.id.reminder_minutes_sign);
+        checkBox.setChecked(newReminder.getMinutes()<0);
         /*
          * Configure the alert-method spinner.  Methods not supported by the current Calendar
          * will not be shown.
