@@ -242,4 +242,7 @@
     <string name="visibility_private">Imfihlo</string>
     <string name="visibility_public">Okusesidlangalaleni</string>
     <string name="no_reminder_label">Lutho</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

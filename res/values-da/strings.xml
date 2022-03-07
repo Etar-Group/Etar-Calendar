@@ -319,4 +319,7 @@
     <string name="preferences_calendar_number_of_events">%1d begivenheder</string>
     <string name="preferences_calendar_info_category">Kalendar information</string>
     <string name="no_reminder_label">Ingen</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

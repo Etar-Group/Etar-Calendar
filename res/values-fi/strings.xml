@@ -331,4 +331,7 @@
     <string name="foreground_notification_channel_description">Sisäisen hälytyksen synkronointiin tarvitaan tulosilmoitus.</string>
     <string name="foreground_notification_channel_name">Hälytyksen synkronointi</string>
     <string name="no_reminder_label">Ei mitään</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

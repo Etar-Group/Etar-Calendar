@@ -321,6 +321,9 @@
     <string name="preferences_system_theme">Sistemaren lehenetsia</string>
     <string name="no_reminder_label">Bat ere ez</string>
     <string name="foreground_notification_title">Gogorarazle berriak planifikatzen…</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
     <plurals name="Nweeks">
         <item quantity="one">Aste 1</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> aste</item>

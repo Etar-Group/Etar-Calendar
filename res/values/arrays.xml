@@ -83,6 +83,7 @@
         <item>10080</item> <!-- 1 week -->
         <item>20160</item> <!-- 2 weeks -->
         <item>40320</item> <!-- 4 weeks -->
+        <item>1000000</item> <!-- Manual -->
     </integer-array>
 
     <string-array name="preferences_default_reminder_values" translatable="false">
@@ -105,6 +106,7 @@
         <item>"10080"</item>
         <item>"20160"</item>
         <item>"40320"</item>
+        <item>"1000000"</item>
     </string-array>
 
     <string-array name="preferences_default_snooze_delay_values" translatable="false">

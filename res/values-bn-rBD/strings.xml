@@ -147,4 +147,7 @@
     <string name="preferences_title">সেটিংস</string>
     <string name="yearly_plain">বার্ষিক</string>
     <string name="monthly">মাসিক</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

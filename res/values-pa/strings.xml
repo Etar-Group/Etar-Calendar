@@ -71,4 +71,7 @@
     <string name="saving_event_with_guest">ਨਵੀਂ ਜਾਣਕਾਰੀ ਭੇਜੀ ਜਾਵੇਗੀ।</string>
     <string name="creating_event_with_guest">ਸੱਦੇ ਭੇਜੇ ਜਾਣਗੇ।</string>
     <string name="empty_event">ਵਰਤਾਰਾ ਖਾਲੀ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

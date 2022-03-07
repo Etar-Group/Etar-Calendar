@@ -319,4 +319,7 @@
     <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="tomorrow_at_time_fmt">A-màireach aig <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="today_at_time_fmt">An-diugh aig <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

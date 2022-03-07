@@ -288,4 +288,7 @@
     <string name="event_info_title">Pokoż zdarzynie</string>
     <string name="edit_event_label">Informacyje</string>
     <string name="email_guests_label">Napisz do gości</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

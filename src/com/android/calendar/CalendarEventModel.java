@@ -833,7 +833,7 @@ public class CalendarEventModel implements Serializable {
      * Instances of the class are immutable.
      */
     public static class ReminderEntry implements Comparable<ReminderEntry>, Serializable {
-        private final int mMinutes;
+        private int mMinutes;
         private final int mMethod;
 
         /**
@@ -919,6 +919,10 @@ public class CalendarEventModel implements Serializable {
         /** Returns the minutes. */
         public int getMinutes() {
             return mMinutes;
+        }
+
+        public void setMinutes(int minutes){
+            mMinutes=minutes;
         }
 
         /** Returns the alert method. */

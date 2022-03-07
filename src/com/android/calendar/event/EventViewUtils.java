@@ -49,6 +49,10 @@ public class EventViewUtils {
         Resources resources = context.getResources();
         int value, resId;
 
+        if (minutes == 1000000) { //Set manual reminder
+            return resources.getString(R.string.manual_reminder_label);
+        }
+
         if (minutes % 60 != 0 || minutes == 0) {
             value = minutes;
             if (abbrev) {

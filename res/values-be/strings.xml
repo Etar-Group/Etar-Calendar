@@ -292,4 +292,7 @@
     <string name="one_and_a_half_hours">1.5 гадзіны</string>
     <string name="two_hours">2 гадзіны</string>
     <string name="no_reminder_label">Няма</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

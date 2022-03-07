@@ -795,5 +795,8 @@
     <string name="preferences_menu_about">About Etar</string>
 
     <string name="offline_account_name">Offline Calendar</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 
 </resources>

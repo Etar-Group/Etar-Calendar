@@ -88,6 +88,8 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -96,6 +98,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -393,6 +396,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private RadioGroup mResponseRadioGroup;
     private int mDefaultReminderMinutes;
     private boolean mUserModifiedReminders = false;
+    private int mManualReminder = 0;
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
      * with any additional values that were already associated with the event.
@@ -553,6 +557,30 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mReminderChangeListener = new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position==mReminderMinuteValues.size()-1){
+                    LayoutInflater factory = LayoutInflater.from(mContext);
+                    final View manualReminderView = factory.inflate(R.layout.manual_reminder, null);
+
+                    final EditText input1 = (EditText) manualReminderView.findViewById(R.id.EditMinutes);
+                    input1.setText(Integer.toString(mManualReminder));
+                    final CheckBox checkAfterStart = (CheckBox) manualReminderView.findViewById(R.id.CheckAfterStart);
+
+                    final AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                    alert.setTitle(getString(R.string.reminders_label)).setMessage(getString(R.string.time_in_minutes)).setView(manualReminderView).setPositiveButton(getString(R.string.create_event_dialog_save),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+
+                                    mManualReminder = Integer.parseInt(input1.getText().toString());
+                                    if (checkAfterStart.isChecked()) mManualReminder=mManualReminder*(-1);
+                                    saveReminders();
+                                    getActivity().onBackPressed();
+                                }
+                            });
+                    alert.show();
+                }
+
                 Integer prevValue = (Integer) parent.getTag();
                 if (prevValue == null || prevValue != position) {
                     parent.setTag(position);
@@ -2167,6 +2195,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Read reminders from UI
         mReminders = EventViewUtils.reminderItemsToReminders(mReminderViews,
                 mReminderMinuteValues, mReminderMethodValues);
+
+            for (ReminderEntry reminderEntry : mReminders) {
+                if (reminderEntry.getMinutes() == 1000000) {
+                    reminderEntry.setMinutes(mManualReminder);
+                }
+            }
+
         mOriginalReminders.addAll(mUnsupportedReminders);
         Collections.sort(mOriginalReminders);
         mReminders.addAll(mUnsupportedReminders);

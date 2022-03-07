@@ -243,4 +243,7 @@
     <string name="preferences_default_snooze_delay_title">Standaard sluimer vertragings tyd</string>
     <string name="preferences_default_snooze_delay_dialog">Standaard sluimer vertraging</string>
     <string name="no_reminder_label">Geen</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>

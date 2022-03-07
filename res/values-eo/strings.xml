@@ -220,4 +220,7 @@
     <string name="event_info_title_invite">Invito al renkontiĝo</string>
     <string name="change_response_title">Ŝanĝi respondon</string>
     <string name="no_reminder_label">Nenio</string>
+    <string name="manual_reminder_label">Manual</string>
+    <string name="time_in_minutes">Time in minutes</string>
+    <string name="after_begin_of_event">after begin of event</string>
 </resources>
