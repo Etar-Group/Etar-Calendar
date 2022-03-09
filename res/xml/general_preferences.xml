@@ -33,6 +33,10 @@
             app:entries="@array/pref_color_entries"
             app:entryValues="@array/pref_color_values"
             app:defaultValue="teal" />
+        <SwitchPreference
+            app:key="pref_real_event_colors"
+            app:defaultValue="false"
+            app:title="@string/preferences_real_event_colors" />
         <ListPreference
             app:key="preferences_default_start"
             app:defaultValue="-2"

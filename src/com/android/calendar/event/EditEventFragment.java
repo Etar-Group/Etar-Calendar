@@ -676,8 +676,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         return;
                     }
                     mOriginalModel = new CalendarEventModel();
-                    EditEventHelper.setModelFromCursor(mOriginalModel, cursor);
-                    EditEventHelper.setModelFromCursor(mModel, cursor);
+                    EditEventHelper.setModelFromCursor(mOriginalModel, cursor, activity);
+                    EditEventHelper.setModelFromCursor(mModel, cursor, activity);
                     cursor.close();
 
                     mOriginalModel.mUri = mUri.toString();
@@ -829,8 +829,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                                     mCalendarId);
                         } else {
                             // Populate model for an existing event
-                            EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
-                            EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor);
+                            EditEventHelper.setModelFromCalendarCursor(mModel, cursor, activity);
+                            EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor, activity);
                         }
                     } finally {
                         cursor.close();
@@ -843,7 +843,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         do {
                             String colorKey = cursor.getString(EditEventHelper.COLORS_INDEX_COLOR_KEY);
                             int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
-                            int displayColor = Utils.getDisplayColorFromColor(rawColor);
+                            int displayColor = Utils.getDisplayColorFromColor(activity, rawColor);
                             String accountName = cursor
                                     .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_NAME);
                             String accountType = cursor
