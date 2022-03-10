@@ -90,7 +90,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -474,6 +476,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     public void setupNavDrawer() {
         mNavigationView.setNavigationItemSelectedListener(this);
         showActionBar();
+        setNavDrawerDate();
+    }
+
+    private void setNavDrawerDate(){
+        View headerLayout = mNavigationView.getHeaderView(0);
+
+        TextView date = headerLayout.findViewById(R.id.textview_date);
+        TextView weekdate = headerLayout.findViewById(R.id.textview_weekday);
+
+        Date now = Calendar.getInstance().getTime();
+
+        date.setText(SimpleDateFormat.getDateInstance().format(now));
+        String written_weekofday = new SimpleDateFormat("EEEE").format(now);
+        weekdate.setText(String.format("%s %s", getString(R.string.navigation_drawer_it_is_weekday), written_weekofday));
     }
 
     public void setupFloatingActionButton() {
@@ -599,6 +615,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         invalidateOptionsMenu();
 
         mCalIntentReceiver = Utils.setTimeChangesReceiver(this, mTimeChangesUpdater);
+        setNavDrawerDate();
     }
 
 
