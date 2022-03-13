@@ -256,4 +256,5 @@
     <string name="display_time">Прикажи Време</string>
     <string name="display_location">Прикажи Локацију</string>
     <string name="no_reminder_label">Ништа</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

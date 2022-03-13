@@ -343,4 +343,5 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <string name="foreground_notification_title">Planificando nuevos recordatorios…</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

@@ -339,6 +339,7 @@
     <string name="preferences_pure_black_night_mode">Modalità notte nera pura</string>
     <string name="no_reminder_label">Nessuno</string>
     <string name="foreground_notification_title">Pianificazione nuovi promemoria…</string>
+    <string name="after_start_of_event">after start of event</string>
     <plurals name="Nweeks">
         <item quantity="one">1 settimana</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> settimane</item>

@@ -342,4 +342,6 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> weken</item>
     </plurals>
     <string name="foreground_notification_title">Nieuwe herinneringen plannen…</string>
+    <string name="foreground_notification_title">Bezig met inplannen van nieuwe herinneringen…</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

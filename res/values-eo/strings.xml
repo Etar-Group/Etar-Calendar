@@ -258,4 +258,5 @@
     <string name="preferences_hide_declined_title">Kaŝi malakceptitajn okazaĵojn</string>
     <string name="preferences_clear_search_history_title">Viŝigi serĉ-historion</string>
     <string name="preferences_use_home_tz_title">Uzi hejman temp-zonon</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

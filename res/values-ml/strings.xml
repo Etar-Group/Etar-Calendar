@@ -60,4 +60,5 @@
     <string name="app_label">കലണ്ടർ</string>
     <string name="empty_event">ശൂന്യമായ ഇവന്റ് സൃഷ്ടിച്ചിട്ടില്ല.</string>
     <string name="select_synced_calendars_button">സമന്വയിപ്പിക്കാനുള്ള കലണ്ടറുകൾ</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

@@ -318,4 +318,5 @@
     <string name="today">Hoxe</string>
     <string name="when_label">Cando</string>
     <string name="app_label">Calendario</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

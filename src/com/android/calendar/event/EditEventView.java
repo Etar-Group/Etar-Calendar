@@ -1467,7 +1467,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         long calendarId = c.getLong(idColumn);
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         int color = c.getInt(colorColumn);
-        int displayColor = Utils.getDisplayColorFromColor(color);
+        int displayColor = Utils.getDisplayColorFromColor(mActivity, color);
 
         // Prevents resetting of data (reminders, etc.) on orientation change.
         if (calendarId == mModel.mCalendarId && mModel.isCalendarColorInitialized() &&
@@ -1597,8 +1597,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             int nameColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
             int ownerColumn = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
             if (colorBar != null) {
-                colorBar.setBackgroundColor(Utils.getDisplayColorFromColor(cursor
-                        .getInt(colorColumn)));
+                colorBar.setBackgroundColor(Utils.getDisplayColorFromColor(context,
+                        cursor.getInt(colorColumn)));
             }
 
             TextView name = (TextView) view.findViewById(R.id.calendar_name);

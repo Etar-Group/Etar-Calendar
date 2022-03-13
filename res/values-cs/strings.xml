@@ -243,4 +243,5 @@
     <string name="preferences_default_snooze_delay_title">Výchozí délka odložení</string>
     <string name="preferences_default_snooze_delay_dialog">Výchozí délka odložení</string>
     <string name="no_reminder_label">Žádný</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

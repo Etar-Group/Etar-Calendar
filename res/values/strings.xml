@@ -471,6 +471,8 @@
     <string name="preferences_color_purple" translatable="false">Purple</string>
     <string name="preferences_color_pick">Primary color</string>
 
+    <string name="preferences_real_event_colors">Use real event colors</string>
+
     <string name="preferences_pure_black_night_mode">Pure black night mode</string>
 
     <!-- This is the title of a section in the Settings screen for settings
@@ -795,5 +797,6 @@
     <string name="preferences_menu_about">About Etar</string>
 
     <string name="offline_account_name">Offline Calendar</string>
+    <string name="after_start_of_event">after start of event</string>
 
 </resources>

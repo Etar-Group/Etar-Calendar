@@ -1594,7 +1594,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
             if (!isAttendeeStatusInvited() && mEvent.drawAsAllday()){
                 // Text color needs to contrast with solid background.
-                paint = mSolidBackgroundEventPaint;
+                // Make a copy of mSolidBackgroundEventPaint to apply the adaptive text color
+                TextPaint mEventTextPaint = new TextPaint(mSolidBackgroundEventPaint);
+                mEventTextPaint.setColor(Utils.getAdaptiveTextColor(mContext, mEventTextPaint.getColor(), mEvent.color));
+                paint = mEventTextPaint;
             } else if (isDeclined()) {
                 // Use "declined event" color.
                 paint = mDeclinedEventPaint;

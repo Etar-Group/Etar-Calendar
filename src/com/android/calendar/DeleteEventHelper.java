@@ -180,7 +180,7 @@ public class DeleteEventHelper {
                 }
                 cursor.moveToFirst();
                 CalendarEventModel mModel = new CalendarEventModel();
-                EditEventHelper.setModelFromCursor(mModel, cursor);
+                EditEventHelper.setModelFromCursor(mModel, cursor, mContext);
                 cursor.close();
                 DeleteEventHelper.this.delete(mStartMillis, mEndMillis, mModel, mWhichDelete);
             }

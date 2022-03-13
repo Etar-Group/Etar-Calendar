@@ -291,7 +291,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 } else {
                     views = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
                 }
-                int displayColor = Utils.getDisplayColorFromColor(eventInfo.color);
+                int displayColor = Utils.getDisplayColorFromColor(mContext, eventInfo.color);
+                int adaptiveTextColor = Utils.getAdaptiveTextColor(mContext, mStandardColor, displayColor);
+                int adaptiveAllDayTextColor = Utils.getAdaptiveTextColor(mContext, mAllDayColor, displayColor);
 
                 final long now = System.currentTimeMillis();
                 if (!eventInfo.allDay && eventInfo.start <= now && now <= eventInfo.end) {
@@ -319,7 +321,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     } else {
                         views.setInt(R.id.agenda_item_color, "setImageResource",
                                 R.drawable.widget_chip_responded_bg);
-                        views.setInt(R.id.title, "setTextColor", mAllDayColor);
+                        views.setInt(R.id.title, "setTextColor", adaptiveAllDayTextColor);
                     }
                     if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
                         // 40% opacity
@@ -348,9 +350,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     } else {
                         views.setInt(R.id.agenda_item_color, "setImageResource",
                                 R.drawable.widget_chip_responded_bg);
-                        views.setInt(R.id.title, "setTextColor", mStandardColor);
-                        views.setInt(R.id.when, "setTextColor", mStandardColor);
-                        views.setInt(R.id.where, "setTextColor", mStandardColor);
+                        views.setInt(R.id.title, "setTextColor", adaptiveTextColor);
+                        views.setInt(R.id.when, "setTextColor", adaptiveTextColor);
+                        views.setInt(R.id.where, "setTextColor", adaptiveTextColor);
                     }
                     views.setInt(R.id.agenda_item_color, "setColorFilter", displayColor);
                 }

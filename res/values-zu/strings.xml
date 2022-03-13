@@ -242,4 +242,5 @@
     <string name="visibility_private">Imfihlo</string>
     <string name="visibility_public">Okusesidlangalaleni</string>
     <string name="no_reminder_label">Lutho</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

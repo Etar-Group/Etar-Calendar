@@ -237,4 +237,5 @@
     <string name="visibility_private">Faragha</string>
     <string name="visibility_public">Umma</string>
     <string name="no_reminder_label">Hamna</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>

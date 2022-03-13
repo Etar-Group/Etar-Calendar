@@ -338,4 +338,5 @@
     <string name="foreground_notification_channel_description">Előtérbeli értesítés szükséges a belső riasztásszinkronizálásához.</string>
     <string name="foreground_notification_channel_name">Riasztások szinkronizálása</string>
     <string name="no_reminder_label">Semelyik</string>
+    <string name="after_start_of_event">after start of event</string>
 </resources>
