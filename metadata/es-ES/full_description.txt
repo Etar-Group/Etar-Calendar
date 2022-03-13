@@ -8,4 +8,3 @@ Características:
 
 Errores y feedback: https://github.com/Etar-Group/Etar-Calendar/issues
 Código fuente: https://github.com/Etar-Group/Etar-Calendar
-

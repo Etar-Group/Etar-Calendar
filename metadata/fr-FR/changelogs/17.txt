@@ -1,0 +1,4 @@
+– Amélioration de la vue du mois.
+– La permission de lire les contacts est à nouveau optionnel.
+– Boîtes de textes plus sophistiqués lors de la création des évènements.
+– Corrections de bogues mineurs.

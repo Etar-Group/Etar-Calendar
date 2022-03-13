@@ -1,0 +1,4 @@
+- Tijdzones zijn weer selecteerbaar
+- SVG-app-pictogram
+- Herziening en reactivering van de widget
+- Nieuwe vertalingen

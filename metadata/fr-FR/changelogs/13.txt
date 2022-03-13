@@ -1,0 +1,4 @@
+– Prise en charge du partage des calendriers via iCalendar (.ics) et l’importation et l’exportation depuis et vers une carte SD.
+– Retrait des permissions inutilisées.
+– Correction des paramètres sonores sur Android 6.
+– Nombreuses corrections de bogues.

@@ -1,0 +1,7 @@
+- Hafta görünümünde etkinlik adlarının yazı tipi boyutu küçültüldü
+- Son arama önerileri etkinleştirildi
+- SD karta aktarma düzeltildi
+- İptal edilen etkinliklerin başlığının üzerini çiz
+- Android 10'da sistem teması ayarını kullan
+- Yeni çeviriler
+- Hata düzeltmeleri

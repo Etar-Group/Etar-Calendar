@@ -1,0 +1,7 @@
+– Ajout d’un calendrier hors-ligne.
+– Ajout d’un raccourci pour un nouvel évènement.
+– Nouveau design des préférences.
+– Nouveau sélecteur de dates.
+– Bascule la licence à GPLv3.
+– Corrections de bogues.
+– Nouvelles traductions.

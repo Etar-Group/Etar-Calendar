@@ -1,0 +1,4 @@
+- Refaceți aspectul evenimentului de editare
+- Eliminarea suportului pentru Android 4.4
+- Corecții generale de erori
+- Traduceri noi

@@ -1,0 +1,4 @@
+- Vizualizare lunară îmbunătățită.
+- Permisiunea de a citi contactele este din nou opțională.
+- Casete de text mai elegante în timpul creării unui eveniment.
+- Corecții minore de erori.

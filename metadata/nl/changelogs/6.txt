@@ -1,0 +1,3 @@
+- Verwijdering van de recht tot internet-toegang met behoud van dezelfde functionaliteit.
+- Toevoegen van 'Ga naar...'.
+- Opgelost: Agenda widget wordt niet dagelijks bijgewerkt.

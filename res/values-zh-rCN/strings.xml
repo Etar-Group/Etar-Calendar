@@ -26,8 +26,7 @@
         <item quantity="other"/>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one"><xliff:g id="count">%d</xliff:g> 分钟</item>
-        <item quantity="other"/>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 分钟</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> 小时</item>

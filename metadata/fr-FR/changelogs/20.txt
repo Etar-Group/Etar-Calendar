@@ -1,0 +1,5 @@
+– Notifications supplémentaires requises pour l’alerte de synchronisation interne. Veuillez mettre en sourdine.
+– Plus de permissions requises supprimées.
+– Icône de notification colorée.
+– Corrections de bogues.
+– Nouvelles traductions.

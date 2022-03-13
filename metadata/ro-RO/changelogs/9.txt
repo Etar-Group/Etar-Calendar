@@ -1,0 +1,3 @@
+- Unele modificări mai bune ale interfeței de utilizare.
+- Actualizarea traducerii în suedeză.
+- Corecții de erori.

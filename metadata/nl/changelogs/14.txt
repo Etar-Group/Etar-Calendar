@@ -1,0 +1,6 @@
+- Rechten vragen in runtime vanaf Android 6.
+- Crash bij het starten opgelost.
+- Weergeven van de hele dag mogelijk.
+- Voor nieuwe gebeurtenis wordt de secondeinstelling op nul gezet.
+- Kleine veranderingen aan de lay-out.
+- Bug fixes.

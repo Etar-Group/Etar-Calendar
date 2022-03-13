@@ -1,0 +1,4 @@
+- ics aracılığıyla takvim paylaşımı ve SD karttan içe/dışa aktarma özelliği desteği.
+- Kullanılmayan izinler kaldırıldı.
+- Android 6'da ses ayarı düzeltildi.
+- Çok sayıda hata düzeltmesi.

@@ -38,7 +38,8 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dage"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"uge <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">Uge <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Opdater"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Vis dag"</string>
@@ -269,7 +270,7 @@
     <string name="default_start_last">Tidligere brugt visning</string>
     <string name="cal_share_intent_title">Send begivenhed til:</string>
     <string name="cal_export_event_sdcard_title">Eksportere til SD kort</string>
-    <string name="cal_export_succ_msg">Begivenhed eksporteret: %1s</string>
+    <string name="cal_export_succ_msg">Begivenhed eksportéret: %1$s</string>
     <string name="cal_import_menu_title">Importere begivenhed</string>
     <string name="cal_nothing_to_import">Intet at importere</string>
     <string name="cal_import_error_msg">Importering til kalender mislykkedes</string>
@@ -316,8 +317,20 @@
     <string name="preferences_calendar_no_display_name">Unavngivet kalender</string>
     <string name="preferences_calendar_account_local">Offline kalender</string>
     <string name="preferences_calendar_configure_account">Indstille kalender i %1$s</string>
-    <string name="preferences_calendar_number_of_events">%1d begivenheder</string>
+    <string name="preferences_calendar_number_of_events">%1$d begivenheder</string>
     <string name="preferences_calendar_info_category">Kalendar information</string>
     <string name="no_reminder_label">Ingen</string>
+    <string name="three_days">3 dage</string>
+    <string name="seven_days">7 dage</string>
+    <string name="two_days">2 dage</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 uge</item>
+        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; uger</item>
+    </plurals>
+    <string name="four_days">4 dage</string>
+    <string name="six_days">6 dage</string>
+    <string name="foreground_notification_title">Planlægger nye påmindelser…</string>
+    <string name="five_days">5 dage</string>
+    <string name="preferences_system_theme">Systemstandard</string>
     <string name="after_start_of_event">after start of event</string>
 </resources>

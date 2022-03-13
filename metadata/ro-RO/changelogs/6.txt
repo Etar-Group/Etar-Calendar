@@ -1,0 +1,3 @@
+- Eliminarea permisiunii de acces la internet, păstrând în același timp aceeași funcționalitate.
+- Adăugați "Go To...".
+- Fix: Widgetul Agenda nu se actualizează zilnic.

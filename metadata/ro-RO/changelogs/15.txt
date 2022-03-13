@@ -1,0 +1,5 @@
+- Cereți permisiuni în timpul execuției pe Android 6 și mai sus.
+- Sprijină afișarea lunară/festivalului atunci când Limba este chineză.
+- Actualizarea traducerilor.
+- Corecții minore de Layout.
+- O mulțime de corecturi de erori.

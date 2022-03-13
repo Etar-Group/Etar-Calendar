@@ -1,11 +1,12 @@
 Caracteristici:
-- Vedere lunară.
-- Vedere săptămânală, zilnică sau agendă.
-- Folosește sincronizarea din Android. Este compatibil cu Google Calendar, Exchange, etc.
-- Design material.
-- Temă luminoasă și întunecată.
-- Gratuit, open source și fără reclame.
-- Suportă partajarea calendarului prin ics și importarea/exportarea pe sdcard.
+- Vizualizare lunară.
+- Vizualizarea săptămânii, a zilei și a agendei.
+- Utilizează sincronizarea calendarului Android. Funcționează cu Google Calendar, Exchange, etc.
+- Material Design.
+- Temă întunecată și ușoară.
+- Gratuit, open source și absolut fără reclame.
+- Suportă partajarea calendarelor prin ICS și posibilitatea de a importa/exporta de pe cardul SD.
+- UI multilingvă.
 
-Probleme & Feedback: https://github.com/Etar-Group/Etar-Calendar/issues
-Codul sursă: https://github.com/Etar-Group/Etar-Calendar
+Bug-uri și feedback: https://github.com/Etar-Group/Etar-Calendar/issues
+Cod sursă: https://github.com/Etar-Group/Etar-Calendar

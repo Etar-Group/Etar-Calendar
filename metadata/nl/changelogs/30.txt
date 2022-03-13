@@ -1,0 +1,2 @@
+- Bugfix voor meldingen op Android 12
+- DecSync en Birthday Adapter toegevoegd als "bekende" apps, geen crashes

@@ -1,0 +1,2 @@
+- Corectare de erori pentru afișarea opțiunilor.
+- Traduceri noi.

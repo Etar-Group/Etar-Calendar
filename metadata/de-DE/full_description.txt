@@ -1,9 +1,12 @@
-Besonderheiten:
+Merkmale:
 - Monatsansicht
-- Wochen, Tag und Agendaansicht.
-- Benutzt Android Calendar sync. Arbeitet mit Google-Kalender, Exchange usw. zusammen.
-- Material design.
+- Wochen-, Tages- und Agenda-Ansicht.
+- Verwendet Android-Kalender-Synchronisation. Arbeitet mit Google-Kalender, Exchange usw. zusammen.
+- Material Design.
+- Dunkles und helles Design.
 - Frei, quelloffen und ohne Werbung.
+- Unterstützt die Freigabe von Kalendern über ICS und die Möglichkeit, von der SD-Karte zu importieren/exportieren.
+- Mehrsprachige Benutzeroberfläche.
 
 Bugs, Fehler & Feedback: https://github.com/Etar-Group/Etar-Calendar/issues
 Quellcode: https://github.com/Etar-Group/Etar-Calendar

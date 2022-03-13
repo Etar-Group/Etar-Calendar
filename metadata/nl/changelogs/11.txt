@@ -1,0 +1,3 @@
+- Optie toegevoegd om dagen per week te selecteren.
+- Optie toegevoegd voor standaardweergave bij starten.
+- Bug fixes.
