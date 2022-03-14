@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">"Wanneer"</string>
     <string name="today" msgid="8577375020252453006">"Vandaag"</string>
     <string name="tomorrow" msgid="614434811813859237">"Morgen"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Vandaag om <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Morgen om <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Vandaag om <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Morgen om <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">(naamloos)</string>
     <plurals name="Nminutes">
@@ -56,26 +56,26 @@
     <string name="hide_controls" msgid="830320505938520882">"Bediening verbergen"</string>
     <string name="show_controls" msgid="715520586028062621">Bediening tonen</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">Te synchroniseren agenda\'s</string>
-    <string name="hint_what" msgid="709155115005044531">Gebeurtenisnaam</string>
+    <string name="hint_what" msgid="709155115005044531">Naam gebeurtenis</string>
     <string name="hint_where" msgid="4972598001033801974">"Locatie"</string>
     <string name="hint_description" msgid="1910143586169033232">Beschrijving</string>
     <string name="hint_attendees" msgid="1650488163176888480">Genodigden</string>
     <string name="creating_event" msgid="7516249252554059980">Gebeurtenis gemaakt.</string>
     <string name="saving_event" msgid="7694181017411177226">Gebeurtenis bewaard.</string>
     <string name="empty_event" msgid="9018699257414338634">Lege gebeurtenis niet gemaakt.</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">Uitnodigingen worden verzonden.</string>
-    <string name="saving_event_with_guest" msgid="9184584438475689577">Updates worden gestuurd.</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">Uitnodiging wordt verstuurd.</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">Update wordt verstuurd.</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">Opslaan</string>
     <string name="alert_title" msgid="7869592820853066853">Agenda meldingen</string>
-    <string name="event_info_title" msgid="56024222340421620">Gebeurtenis tonen</string>
-    <string name="event_info_title_invite" msgid="9160326363769403865">Uitnodiging voor vergadering</string>
+    <string name="event_info_title" msgid="56024222340421620">Details gebeurtenis</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">Details uitnodiging</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">Hele dag</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">Agenda</string>
     <string name="presence_label" msgid="6169724148441175862">Mijn status</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Om een gebeurtenis toe te voegen moet eerst een kalender-account met een zichtbare agenda worden toegevoegd. (Druk zonodig op ‘Account toevoegen’ en wacht tot het synchroniseren is voltooid en probeer het opnieuw.) Of druk op ‘Annuleren’ en zorg dat er minimaal één agenda zichtbaar is.</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Een gebeurtenis toevoegen kan alleen als minimaal één agenda zichtbaar is. Voeg eventueel via instellingen een agenda toe en wacht tot het synchroniseren is voltooid en probeer opnieuw.</string>
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
@@ -108,12 +108,12 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">Schrijf een antwoord…</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringen"</string>
-    <string name="agenda_today" msgid="5965841338467422191">Vandaag, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_today" msgid="5965841338467422191">Vandaag, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_yesterday" msgid="4170964206728599693">Gisteren, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Morgen, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Aan het laden…</string>
-    <string name="show_older_events" msgid="5140647493681439926">Klik voor gebeurtenissen vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g></string>
-    <string name="show_newer_events" msgid="2604638815440163080">Klik voor gebeurtenissen na <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g></string>
+    <string name="show_older_events" msgid="5140647493681439926">Klik voor gebeurtenissen eerder dan <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Klik voor gebeurtenissen na <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">Agenda\'s doorzoeken</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Bewerken"</string>
@@ -139,7 +139,7 @@
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Maandelijks"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Jaarlijks"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">Aangepast (kan niet op het toestel gedaan worden)</string>
+    <string name="custom" product="default" msgid="4137468716966004993">Aangepast (kan niet op de telefoon gewijzigd worden)</string>
     <string name="modify_event" msgid="5982876409997142690">Alleen deze gebeurtenis wijzigen</string>
     <string name="modify_all" msgid="4421657265864209041">Alle gebeurtenissen in de reeks wijzigen</string>
     <string name="modify_all_following" msgid="3017428541066390380">Deze en alle toekomstige gebeurtenissen wijzigen</string>
@@ -149,7 +149,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206"><xliff:g id="EVENTTITLE">%s</xliff:g> verwijderen\?</string>
     <string name="change_response_title" msgid="7704714776070974984">Antwoord wijzigen</string>
     <string name="preferences_title" msgid="8045855493262131773">"Instellingen"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">Agendaweergave instellingen</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">Agendaweergave</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Meldingen en herinneringen"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">Geweigerde gebeurtenissen verbergen</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week begint op"</string>
@@ -164,8 +164,8 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">Standaard herinneringstijd</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Standaard herinneringstijd</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Thuis-tijdzone gebruiken</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Agenda\'s en gebeurtenissen onderweg in thuis-tijdzone weergeven</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Tijdzone thuis</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Agenda\'s en gebeurtenissen onderweg in thuis-tijdzone tonen</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">Thuis-tijdzone</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">Weeknummer tonen</string>
     <string name="preferences_build_version" msgid="8242471883413502068">Build-versie</string>
@@ -192,7 +192,7 @@
     <string name="accessibility_all_day" msgid="4146955438811915282">Dagvullende gebeurtenis</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Herinneringstijd"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">Herinneringstype</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Laat me zien als</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Mijn status</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacy"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">+ Nieuwe gebeurtenis</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">Gebeurtenis <xliff:g id="ITEM_INDEX">%1$s</xliff:g> van <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
@@ -222,10 +222,10 @@
         <item quantity="other">Om de <xliff:g id="COUNT">%d</xliff:g> jaar</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"elke maand op dezelfde dag"</string>
-    <string name="recurrence_end_continously" msgid="6898950241634912991">Voor altijd</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">Blijvend</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">Tot een datum</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Tot <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">Voor een aantal gebeurtenissen</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">Herhalende gebeurtenis</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> gebeurtenis</item>
         <item quantity="other">Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> gebeurtenissen</item>
@@ -234,15 +234,15 @@
     <string name="visibility_default">Standaard</string>
     <string name="visibility_private">Privé</string>
     <string name="visibility_public">Openbaar</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">Bij sluimer-pauze herinnering vragen</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">Duur van sluimer-pauze vragen voor herinneringen</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Sluimer-pauze herinnering</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Duur van sluimer-pauze vragen</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Altijd standaard sluimer-pauze gebruiken</string>
     <string name="snooze_delay_dialog_title">Duur sluimer-pauze instellen</string>
     <string name="preferences_default_snooze_delay_title">Standaard sluimer-pauze duur</string>
     <string name="preferences_default_snooze_delay_dialog">Standaard sluimer-pauze duur</string>
     <string name="goto_date">Ga naar…</string>
     <string name="rsvp_accepted">Antwoord is Ja.</string>
-    <string name="rsvp_tentative">Antwoord is Wellicht.</string>
+    <string name="rsvp_tentative">Antwoord is Misschien.</string>
     <string name="rsvp_declined">Antwoord is Nee.</string>
     <string name="preferences_theme">Thema</string>
     <string name="preferences_light_theme">Licht</string>
@@ -252,10 +252,10 @@
     <string name="preferences_color_pick">Primaire kleur</string>
     <string name="preferences_days_per_week_title">Dagen per week</string>
     <string name="preferences_days_per_week_dialog">Dagen per week</string>
-    <string name="preferences_default_event_duration_title">Standaard duur gebeurtenis</string>
+    <string name="preferences_default_event_duration_title">Standaardduur gebeurtenis</string>
     <string name="preferences_issues">Problemen</string>
-    <string name="user_rejected_calendar_write_permission">App-recht Agenda-toegang is vereist. Probeer opnieuw.</string>
-    <string name="calendar_permission_not_granted">Vereiste App-rechten om gebeurtenissen te bewerken zijn niet toegekend. Verleen ze in de App-instellingen</string>
+    <string name="user_rejected_calendar_write_permission">Recht voor toegang tot agenda is vereist. Probeer opnieuw.</string>
+    <string name="calendar_permission_not_granted">Recht om de agenda te bewerken is niet toegekend aan Etar. Verleen het in de Android-instellingen</string>
     <string name="visibility_confidential">Vertrouwelijk</string>
     <string name="zero_minutes">0 minuten</string>
     <string name="fifteen_minutes">15 minuten</string>
@@ -267,15 +267,15 @@
     <string name="no_map">Geen kaarten-app</string>
     <string name="default_start_title">Standaardweergave</string>
     <string name="default_start_last">Eerder gebruikte weergave</string>
-    <string name="error_generating_ics">Problemen bij het delen van gebeurtenis</string>
-    <string name="cal_share_intent_title">Gebeurtenis sturen naar:</string>
+    <string name="error_generating_ics">Het delen van de gebeurtenis is mislukt</string>
+    <string name="cal_share_intent_title">Gebeurtenis delen met:</string>
     <string name="cal_export_event_sdcard_title">Naar SD-kaart exporteren</string>
     <string name="cal_export_succ_msg">Gebeurtenis is geëxporteerd: %1$s</string>
     <string name="cal_import_menu_title">Gebeurtenis importeren</string>
     <string name="cal_nothing_to_import">Niets te importeren</string>
     <string name="cal_import_error_msg">Agenda-import niet gelukt</string>
-    <string name="cal_import_error_date_msg">Opgegeven datum niet begrepen: %s</string>
-    <string name="cal_pick_ics">Bestand kiezen om te importeren</string>
+    <string name="cal_import_error_date_msg">De opgegeven datum is niet begrepen: %s</string>
+    <string name="cal_pick_ics">Kies ICS-bestand voor import</string>
     <string name="view_settings">Instellingen tonen</string>
     <string name="preferences_month_view_portrait">Maandoverzicht (staand)</string>
     <string name="preferences_month_view_landscape">Maandoverzicht (liggend)</string>
@@ -285,8 +285,8 @@
     <string name="show_time_no">Geen tijd tonen</string>
     <string name="show_time_start">Alleen begintijd</string>
     <string name="show_time_start_end">Begin- en eindtijd</string>
-    <string name="show_time_start_end_below">Begin- en eindtijd onder de gebeurtenis</string>
-    <string name="maximum_number_of_lines">Max. aantal regels per gebeurtenis</string>
+    <string name="show_time_start_end_below">Begin- en eindtijd onder de gebeurtenis tonen</string>
+    <string name="maximum_number_of_lines">Regels per gebeurtenis beperken</string>
     <string name="foreground_notification_channel_name">Achtergrondtaken</string>
     <string name="foreground_notification_channel_description">Meldingen vereist voor interne sync. Dit kanaal veilig kan verborgen worden.</string>
     <string name="preferences_calendar_account">%1$s-account</string>
@@ -305,7 +305,7 @@
 \n
 \nOm dit te voorkomen kan in DAVx⁵ ‘Agendakleuren beheren’ uitgezet worden.</string>
     <string name="preferences_calendar_color_warning_title">Waarschuwing</string>
-    <string name="preferences_calendar_synchronize">Agenda synchroniseren</string>
+    <string name="preferences_calendar_synchronize">Deze agenda synchroniseren</string>
     <string name="preferences_calendar_visible">Gebeurtenissen tonen</string>
     <string name="preferences_calendar_color">Kleur</string>
     <string name="preferences_calendar_info_category">Agenda-informatie</string>
@@ -315,7 +315,7 @@
     <string name="preferences_calendar_configure_account">Agenda configureren in %1$s</string>
     <string name="preferences_calendar_account_local">Offline-agenda</string>
     <string name="preferences_calendar_no_display_name">Naamloze agenda</string>
-    <string name="cal_import_error_time_zone_msg">Tijdzone wordt niet herkend: %s</string>
+    <string name="cal_import_error_time_zone_msg">Deze tijdzone is niet herkend: %s</string>
     <string name="seven_days">7 dagen</string>
     <string name="six_days">6 dagen</string>
     <string name="five_days">5 dagen</string>
@@ -331,7 +331,7 @@
     <string name="preferences_list_add_offline_name">Naam</string>
     <string name="preferences_list_add_offline_button">Agenda toevoegen</string>
     <string name="preferences_list_add_offline_message">Offline-agenda\'s worden NIET gesynchroniseerd naar een cloud-dienst en zijn alleen beschikbaar op het toestel.</string>
-    <string name="preferences_list_add_offline_error_empty">Agendanaam invoeren!</string>
+    <string name="preferences_list_add_offline_error_empty">Agendanaam opgeven!</string>
     <string name="preferences_list_add_offline_title">Offline-agenda toevoegen</string>
     <string name="preferences_list_add_offline">Offline-agenda toevoegen</string>
     <string name="preferences_list_general">Algemene instellingen</string>
@@ -341,6 +341,7 @@
         <item quantity="one">1 week</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> weken</item>
     </plurals>
-    <string name="foreground_notification_title">Bezig met inplannen van nieuwe herinneringen…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="foreground_notification_title">Maakt nieuwe herinneringen…</string>
+    <string name="after_start_of_event">na aanvang van gebeurtenis</string>
+    <string name="preferences_real_event_colors">Echte kleuren gebruiken voor gebeurtenissen</string>
 </resources>
