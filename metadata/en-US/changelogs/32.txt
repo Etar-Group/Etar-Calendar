@@ -1,0 +1,7 @@
+- Create and show reminders after start of event using a checkbox
+- Repair reminder with negative values
+- Fix invalid times due to timezone changes
+- Option to add a new event from the widget screen
+- Rework theme colors
+- Bugfixes
+- New translations
