@@ -337,5 +337,5 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> 周</item>
     </plurals>
     <string name="foreground_notification_title">安排新提醒中…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">在事件开始后</string>
 </resources>
