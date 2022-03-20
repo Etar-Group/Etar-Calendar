@@ -1,0 +1,12 @@
+Funkcje:
+- Widok miesiąca.
+- Widok tygodnia, dnia i terminarza.
+- Wykorzystuje synchronizację kalendarza systemu Android. Współpracuje z Kalendarzem Google, Exchange itp.
+- Wygląd Material Design.
+- Ciemny i jasny motyw.
+- Darmowy, o otwartym kodzie źródłowym i absolutnie bez reklam.
+- Obsługa udostępniania kalendarzy za pośrednictwem ICS i możliwość importowania / eksportowania z karty SD.
+- Wielojęzyczny interfejs użytkownika.
+
+Błędy i opinie: https://github.com/Etar-Group/Etar-Calendar/issues
+Kod źródłowy: https://github.com/Etar-Group/Etar-Calendar

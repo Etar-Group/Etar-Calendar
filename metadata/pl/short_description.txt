@@ -1,1 +1,1 @@
-Pochodna podstawowego kalendarza Android ze stylem Material Design
+Etar jest otwartoźródłowym kalendarzem z wyglądem Material Design, dla każdego!
