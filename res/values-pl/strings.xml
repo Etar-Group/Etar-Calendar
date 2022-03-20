@@ -373,5 +373,6 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> tygodni</item>
     </plurals>
     <string name="foreground_notification_title">Planowanie nowych przypomnień…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">po rozpoczęciu wydarzenia</string>
+    <string name="preferences_real_event_colors">Używaj prawdziwych kolorów wydarzenia</string>
 </resources>
