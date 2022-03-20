@@ -1,0 +1,7 @@
+- Creați și afișați memento-uri după începerea unui eveniment folosind o casetă de verificare
+- Reparați memento-ul cu valori negative
+- Reparați orele invalide din cauza schimbărilor de fus orar
+- Opțiunea de a adăuga un nou eveniment din ecranul widget-ului
+- Refaceți culorile temei
+- Corecții de erori
+- Traduceri noi
