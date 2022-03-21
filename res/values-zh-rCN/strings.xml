@@ -338,4 +338,5 @@
     </plurals>
     <string name="foreground_notification_title">安排新提醒中…</string>
     <string name="after_start_of_event">在事件开始后</string>
+    <string name="preferences_real_event_colors">使用真实事件颜色</string>
 </resources>
