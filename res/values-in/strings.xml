@@ -326,5 +326,6 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minggu</item>
     </plurals>
     <string name="foreground_notification_title">Menjadwalkan pengingat baru…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">setelah acara dimulai</string>
+    <string name="preferences_real_event_colors">Gunakan warna acara asli</string>
 </resources>
