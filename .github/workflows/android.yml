@@ -18,7 +18,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - name: Restore Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
