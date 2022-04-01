@@ -1,0 +1,7 @@
+- Opprett og vis påminnelser etter start av arrangementet ved å bruke en avmerkingsboks
+- Reparasjonspåminnelse med negative verdier
+- Rett opp ugyldige tider på grunn av tidssoneendringer
+- Mulighet for å legge til en ny hendelse fra widgetskjermen
+- Omarbeid temafarger
+- Feilrettinger
+- Nye oversettelser

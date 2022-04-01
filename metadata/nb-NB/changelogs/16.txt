@@ -1,0 +1,7 @@
+- Droppet sidebar bruk kalender sidebar fra nå: https://f-droid.org/en/packages/com.plusonelabs.calendar/index.html
+- Støtte for tilpasset farge eventer.
+- Bedre støtte for ics filer.
+- Legg til grå tema.
+- Støtte synlighet konfidensielt.
+- Støtte for nye android melding kananaler.
+- Flere feilfikser.

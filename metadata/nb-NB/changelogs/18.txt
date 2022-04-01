@@ -1,0 +1,3 @@
+- Feil i måndlig visning fikset.
+- Fikset mørk tema på bordene.
+-Nye oversettelser.

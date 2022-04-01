@@ -1,0 +1,3 @@
+- Noen bedre UI endringer.
+-Oppdatere svensk oversetting.
+- Feilfiks.

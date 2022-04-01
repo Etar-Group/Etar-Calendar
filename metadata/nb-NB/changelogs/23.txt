@@ -1,0 +1,2 @@
+- Feilfiks for valgfritt skjerm.
+- Nye oversettelser.
