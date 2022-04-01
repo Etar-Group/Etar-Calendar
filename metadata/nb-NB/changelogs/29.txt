@@ -1,0 +1,5 @@
+- Støtte for Android 12
+- Støtte for materielle og dine designvalg
+- Fjern tilkobling for android tjeneste for database backup (ødlagt i flest android versjoner)
+- Generelle feil-fikser
+- Nye oversettinger

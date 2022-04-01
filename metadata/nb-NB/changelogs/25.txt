@@ -1,0 +1,4 @@
+- Gjenopprett tidssonedatabase
+- SVG-appikon
+- Omarbeid og reaktivere sidebar
+- Nye oversettelser

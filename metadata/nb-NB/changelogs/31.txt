@@ -1,0 +1,2 @@
+- Fiks krasj og varsler på Android 12
+- Fiks MIME type av delt handling

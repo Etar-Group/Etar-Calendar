@@ -1,0 +1,5 @@
+- Forespør tilgang ved start på Android 6 upwards.
+- Støtte visning på lunar/festival når språk er kinesisk.
+- Oppdatert oversettelser.
+- Mindre grafiske-feilfikser.
+- En del feilfikser.

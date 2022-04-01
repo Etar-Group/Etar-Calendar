@@ -1,0 +1,4 @@
+- Forbedret månedsvisning.
+- Tilgang til å lese kontakter er valgfritt igjen.
+- Mer avanserte tekstbokser under oppretting av arrangementer.
+- Mindre feilfikser.

@@ -1,0 +1,7 @@
+- Legg til frakoblet kalender.
+- Legg til snarvei for ny begivenhet.
+- Ny preferansedesign.
+- Ny datovelger.
+- Bytt lisens til GPLv3.
+- Feilrettinger.
+- Nye oversettelser.

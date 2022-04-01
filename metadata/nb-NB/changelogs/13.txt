@@ -1,0 +1,4 @@
+- Støtte for deling av kalender via ics og  mulighet for import/eksport fra SD minnekort.
+- Fjern ubrukt tilganger.
+- Løs lydproblemer på Android 6
+- Flere feilfikser.
