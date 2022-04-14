@@ -339,9 +339,10 @@
     <string name="preferences_list_add_remote">Afegeix un calendari CalDAV</string>
     <string name="no_reminder_label">Cap</string>
     <string name="foreground_notification_title">Planificant nous recordatoris…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">després de l\'inici de l\'esdeveniment</string>
     <plurals name="Nweeks">
         <item quantity="one">1 setmana</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> setmanes</item>
     </plurals>
+    <string name="preferences_real_event_colors">Fes servir colors d\'esdeveniments reals</string>
 </resources>
