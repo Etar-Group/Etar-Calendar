@@ -256,6 +256,16 @@ class MainListPreferences : PreferenceFragmentCompat() {
         addGeneralPreferences(screen)
 
         preferenceScreen = screen
+
+        val factory = MainListViewModelFactory(requireActivity().application)
+        mainListViewModel = ViewModelProvider(this, factory).get(MainListViewModel::class.java)
+
+        // Add an observer on the LiveData returned by getCalendarsOrderedByAccount.
+        // The onChanged() method fires when the observed data changes and the activity is
+        // in the foreground.
+        mainListViewModel.getCalendarsOrderedByAccount().observe(viewLifecycleOwner, Observer<List<Calendar>> { calendars ->
+            updateCalendarPreferences(preferenceScreen, calendars)
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
