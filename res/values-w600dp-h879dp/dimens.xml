@@ -32,7 +32,6 @@
     <dimen name="hours_left_margin">4dip</dimen>
     <dimen name="hours_right_margin">4dip</dimen>
     <!-- size of day header in day and week views  -->
-    <dimen name="day_header_height">24sp</dimen>
     <dimen name="widget_day_num_size">42sp</dimen>
     <dimen name="widget_day_num_top_padding">-8dip</dimen>
     <dimen name="new_event_hint_text_size">14sp</dimen>
