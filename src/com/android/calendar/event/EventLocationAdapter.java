@@ -439,9 +439,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
                         resultList.add(recentLocation);
                     }
                 }
-            } catch (ExecutionException e) {
-                Log.e(TAG, "Failed waiting for locations query results.", e);
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 Log.e(TAG, "Failed waiting for locations query results.", e);
             }
 
@@ -453,11 +451,10 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
             // Log the processing duration.
             if (Log.isLoggable(TAG, Log.DEBUG)) {
                 long duration = System.currentTimeMillis() - startTime;
-                StringBuilder msg = new StringBuilder();
-                msg.append("Autocomplete of ").append(constraint);
-                msg.append(": location query match took ").append(duration).append("ms ");
-                msg.append("(").append(resultList.size()).append(" results)");
-                Log.d(TAG, msg.toString());
+                String msg = "Autocomplete of " + constraint +
+                        ": location query match took " + duration + "ms " +
+                        "(" + resultList.size() + " results)";
+                Log.d(TAG, msg);
             }
 
             final FilterResults filterResults = new FilterResults();
