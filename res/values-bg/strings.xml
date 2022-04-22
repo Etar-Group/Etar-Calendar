@@ -24,25 +24,26 @@
     </string>
     <string name="no_title_label" msgid="302177118061368042">"(Без заглавие)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 минута"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> минути"</item>
+        <item quantity="one">1 минута</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> минути</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 мин"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> мин"</item>
+        <item quantity="one">1 мин.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> мин.</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 час"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> часа"</item>
+        <item quantity="one">1 час</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> часа</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 ден"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> дни"</item>
+        <item quantity="one">1 ден</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> дена</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"СЕДМИЦА <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">Седмица <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other"></item>
     </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Опресняване"</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">Опресняване</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показване на деня"</string>
     <string name="agenda_view" msgid="5566084759423843245">"График"</string>
     <string name="day_view" msgid="4467754504843584437">"Ден"</string>
@@ -50,8 +51,8 @@
     <string name="month_view" msgid="7287101431749285412">"Месец"</string>
     <string name="event_view" msgid="7621353079385122317">"Преглед на събитие"</string>
     <string name="event_create" msgid="6941040556709110617">"Ново събитие"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Редактиране на събитие"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Изтриване на събитие"</string>
+    <string name="event_edit" msgid="4006961928830064662">Промяна на събитие</string>
+    <string name="event_delete" msgid="2386667193277770442">Премахване на събитие</string>
     <string name="goto_today" msgid="9162136434410891230">"Днес"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
     <string name="search" msgid="550656004486017426">"Търсене"</string>
@@ -238,4 +239,10 @@
     <string name="visibility_public">Обществено</string>
     <string name="no_reminder_label">Няма</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="share_label">Споделяне</string>
+    <string name="goto_date">Към…</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 седмица</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> седмици</item>
+    </plurals>
 </resources>
