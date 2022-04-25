@@ -83,7 +83,7 @@
     <string name="choose_event_color_label" msgid="2192923501857428854">"Choose event colour"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">Event colour</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Set to default calendar colour"</string>
-    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Calendar Colour"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">Calendar colour</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Colour picker"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Attending?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Yes"</string>
@@ -140,7 +140,7 @@
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Monthly"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Yearly"</string>
-    <string name="custom" msgid="4137468716966004993" product="default">"Customise (can\'t customise on phone)"</string>
+    <string name="custom" msgid="4137468716966004993" product="default">Custom (can\'t customise on phone)</string>
     <string name="modify_event" msgid="5982876409997142690">"Change only this event"</string>
     <string name="modify_all" msgid="4421657265864209041">Change all events in the series</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Change this and all future events"</string>
@@ -156,7 +156,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week starts on"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Week starts on"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Clear search history"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Remove all the searches that you\'ve performed"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">Remove all the searches you\'ve performed</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Search history cleared."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifications"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrate"</string>
@@ -235,7 +235,7 @@
     <string name="visibility_default">Default</string>
     <string name="visibility_private">Private</string>
     <string name="visibility_public">Public</string>
-    <string name="share_label">Partilhar</string>
+    <string name="share_label">Share</string>
     <string name="preferences_list_add_remote">Add CalDAV calendar</string>
     <string name="preferences_list_add_remote_etesync">Add EteSync calendar</string>
     <string name="preferences_list_add_offline">Add offline calendar</string>
@@ -254,13 +254,13 @@
     <string name="preferences_calendar_delete_delete">Delete calendar</string>
     <string name="preferences_calendar_delete_message">Do you really want to delete this calendar\?</string>
     <string name="preferences_calendar_color_warning_button">I understand</string>
-    <string name="preferences_calendar_color_warning_message">Changing the color may be reverted when the calendar is synchronized again.
+    <string name="preferences_calendar_color_warning_message">Changing the colour may be reverted when the calendar is synchronized again.
 \n
-\nIn DAVx⁵ \'Manage calendar colors\' can be disabled to prevent this.</string>
+\nIn DAVx⁵ \'Manage calendar colours\' can be disabled to prevent this.</string>
     <string name="preferences_calendar_color_warning_title">Warning</string>
     <string name="preferences_calendar_synchronize">Synchronize this calendar</string>
     <string name="preferences_calendar_visible">Display events</string>
-    <string name="preferences_calendar_color">Color</string>
+    <string name="preferences_calendar_color">Colour</string>
     <string name="preferences_calendar_info_category">Calendar information</string>
     <string name="preferences_calendar_display_name">Change name</string>
     <string name="preferences_calendar_delete">Delete calendar</string>
@@ -313,8 +313,8 @@
     <string name="display_time">Display time</string>
     <string name="display_options">Display options</string>
     <string name="default_start_title">Default view</string>
-    <string name="preferences_color_pick">Primary color</string>
-    <string name="preferences_color">Primary color</string>
+    <string name="preferences_color_pick">Primary colour</string>
+    <string name="preferences_color">Primary colour</string>
     <string name="preferences_black_theme">Black</string>
     <string name="preferences_dark_theme">Dark</string>
     <string name="preferences_light_theme">Light</string>
@@ -322,8 +322,8 @@
     <string name="preferences_month_view_landscape">Month view layout (Landscape)</string>
     <string name="preferences_month_view_portrait">Month view layout (Portrait)</string>
     <string name="no_map">There is no maps app installed</string>
-    <string name="foreground_notification_channel_description">Foreground notification required for internal alert sync.</string>
-    <string name="foreground_notification_channel_name">Alert sync</string>
+    <string name="foreground_notification_channel_description">Notifications required for internal sync. You can safely hide this channel.</string>
+    <string name="foreground_notification_channel_name">Background tasks</string>
     <string name="rsvp_declined">Responded no.</string>
     <string name="rsvp_tentative">Responded maybe.</string>
     <string name="rsvp_accepted">Responded yes.</string>
@@ -339,4 +339,10 @@
     <string name="preferences_pure_black_night_mode">Pure black night mode</string>
     <string name="no_reminder_label">None</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="preferences_real_event_colors">Use real event colours</string>
+    <string name="foreground_notification_title">Scheduling new reminders…</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 week</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> weeks</item>
+    </plurals>
 </resources>
