@@ -128,7 +128,7 @@
     <string name="endByDate" msgid="7654221304929538201">; jusqu’à <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; une seule fois</item>
-        <item quantity="other">; <xliff:g id="number">%d</xliff:g> fois</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> plusieurs fois</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one" msgid="5169052946627480942">"Quotidien"</item>
@@ -339,9 +339,10 @@
     <string name="preferences_pure_black_night_mode">Mode pure nuit noire</string>
     <string name="no_reminder_label">Aucun</string>
     <plurals name="Nweeks">
-        <item quantity="one">1 sem.</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> sem.</item>
+        <item quantity="one">1 semaine</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semaines</item>
     </plurals>
     <string name="foreground_notification_title">Enregistrement des nouveaux rappels…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">après démarrage évènement</string>
+    <string name="preferences_real_event_colors">Utiliser couleurs évènements</string>
 </resources>
