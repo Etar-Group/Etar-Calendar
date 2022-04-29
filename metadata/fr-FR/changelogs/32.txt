@@ -1,0 +1,7 @@
+- Créer et voir rappels après démarrage évènement depuis validation
+- Réparer rappels avec valeurs négatives
+- Fixer erreur horaire suite à modification fuseau
+- Option pour ajouter nouvel évènement depuis l'écran des widgets
+- Retravailler thèmes de couleurs
+- Réparation de bug
+- Nouvelles traductions
