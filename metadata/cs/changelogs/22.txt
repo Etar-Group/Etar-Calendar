@@ -1,0 +1,7 @@
+- Přidán offline kalendář.
+- Přidána zkratka pro novou událost.
+- Nový vzhled předvoleb.
+- Nový výběr data a času.
+- Přepnutí licence na GPLv3.
+- Opravy chyb.
+- Nové překlady.

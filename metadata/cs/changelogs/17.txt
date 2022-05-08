@@ -1,0 +1,4 @@
+- Vylepšení zobrazení měsíce.
+- Oprávnění pro čtení kontaktů je opět volitelné.
+- Efektnější textová pole během vytváření událostí.
+- Menší opravy chyb.

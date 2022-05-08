@@ -1,0 +1,5 @@
+- Pro Android 6 novější žádat o oprávnění za běhu.
+- Podpora zobrazení lunar/festival pokud je jazyk Čínština.
+- Aktualizace překladů.
+- Menší opravy vzhledu.
+- Mnoho oprav chyb.

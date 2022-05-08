@@ -1,0 +1,3 @@
+- Přidána volba pro výběr počtu dnů v týdnu.
+- Přidána volba pro nastavení výchozího způsobu zobrazení při spuštění.
+- Opravy chyb.
