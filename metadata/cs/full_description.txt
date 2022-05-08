@@ -1,0 +1,12 @@
+Možnosti:
+- Zobrazení měsíce.
+- Zobrazení týdne, dne a formou agendy.
+- Používá synchronizaci kalendářů Androidu. Funguje s Google Kalendářem, MS Exchange, atp.
+- Se vzhledem ve stylu material.
+- Tmavý a světlý motiv.
+- Svobodný, open source a zcela bez reklam.
+- Podporuje sdílení kalendářů pomocí ISC a umožňuje importovat/exportovat z SD karty.
+- Vícejazyčné uživatelské prostředí.
+
+Chyby a zpětná vazba: https://github.com/Etar-Group/Etar-Calendar/issues
+Zdrojový kód: https://github.com/Etar-Group/Etar-Calendar

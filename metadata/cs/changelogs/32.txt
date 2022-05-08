@@ -1,0 +1,7 @@
+- Vytvoření a zobrazení připomenutí po zahájení události pomocí přepínače
+- Opravit připomenutí se zápornými hodnotami
+- Opravit chybné časy v důsledku změny časového pásma
+- Volba pro přidání nové události z obrazovky widgetu
+- Přepracovány barvy motivu
+- Opravy chyb
+- Nové překlady

@@ -1,0 +1,5 @@
+- Podpora Android 12
+- Podpora vzhledu Material You
+- Odstraněno napojení na službu Android pro zálohování databáze (rozbité ve většině verzí Android)
+- Opravy chyb
+- Nové překlady

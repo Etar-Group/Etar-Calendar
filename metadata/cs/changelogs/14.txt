@@ -1,0 +1,6 @@
+- Pro Android 6 novější žádat o oprávnění za běhu.
+- Oprava havárie při spuštění.
+- Umožnit uživatel zhustit zobrazení, aby mohl být viditelný celý den.
+- Při vytváření nové události nastavit sekundy na nulu.
+- Menší opravy vzhledu.
+- Mnoho oprav chyb.

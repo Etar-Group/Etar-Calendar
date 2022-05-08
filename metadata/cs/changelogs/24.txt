@@ -1,0 +1,7 @@
+- Zmenšena velikost písma názvů událostí v zobrazení týdne
+- Aktivováno našeptávání předchozích vyhledávání
+- Oprava exportování na SD kartu
+- Přeškrtnutí titulku zrušených událostí
+- Využití nastavení motivu podle systému na Android 10
+- Nové překlady
+- Opravy chyb
