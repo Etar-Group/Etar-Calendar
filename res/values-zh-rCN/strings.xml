@@ -197,8 +197,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> 个事件</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">+<xliff:g id="count">%d</xliff:g> 事件</item>
-        <item quantity="other"/>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> 个事件</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"所选活动"</string>
     <plurals name="recurrence_interval_daily">
