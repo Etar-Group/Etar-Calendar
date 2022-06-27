@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2010 The Android Open Source Project
+     Copyright (C) 2022 The Calyx Institute
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -23,6 +24,13 @@
         android:icon="@drawable/today_icon"
         android:orderInCategory="1"
         android:title="@string/goto_today"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_info"
+        android:alphabeticShortcut="i"
+        android:icon="@drawable/ic_info_outline"
+        android:orderInCategory="1"
+        android:title="@string/menu_info"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_goto"
