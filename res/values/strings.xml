@@ -141,8 +141,9 @@
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
-    <!-- This is a label on a menu item. Pressing this menu item allows the
-         user to select the calendars to display [CHAR LIMIT=20] -->
+    <!-- This is a label on a menu item. Pressing this menu item shows users
+         a warning -->
+    <string name="menu_info">Info</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to select the calendars to display [CHAR LIMIT=20] -->
     <string name="search">"Search"</string>

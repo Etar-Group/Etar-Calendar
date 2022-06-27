@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
+ * Copyright (C) 2022 The Calyx Institute
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +34,7 @@ import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -46,9 +48,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Events;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -402,6 +406,21 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         }
     }
 
+    private void checkAndRequestDisablingDoze() {
+        if (!dozeDisabled()) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+            startActivity(intent);
+        }
+    }
+
+    private Boolean dozeDisabled() {
+        String packageName = getApplicationContext().getPackageName();
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
+        return pm.isIgnoringBatteryOptimizations(packageName);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {
@@ -412,6 +431,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // permission was granted, yay!
+
+                    // Check and ask to disable battery optimizations
+                    checkAndRequestDisablingDoze();
 
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.user_rejected_calendar_write_permission, Toast.LENGTH_LONG).show();
@@ -838,6 +860,14 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
         Utils.setTodayIcon(icon, this, mTimeZone);
 
+        // Handle warning for disabling battery optimizations
+        if (dozeDisabled()) {
+            MenuItem menuInfoItem = menu.findItem(R.id.action_info);
+            if (menuInfoItem != null) {
+                menuInfoItem.setVisible(false);
+            }
+        }
+
         return true;
     }
 
@@ -918,6 +948,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             Intent intent = new Intent(this, SettingsActivity.class);
             intent.putExtra(SettingsActivityKt.EXTRA_SHOW_FRAGMENT, ViewDetailsPreferences.class.getName());
             startActivity(intent);
+        } else if (itemId == R.id.action_info) {
+            checkAndRequestDisablingDoze();
         } else {
                 return mExtensions.handleItemSelected(item, this);
         }
@@ -1237,14 +1269,14 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     && event.viewType != ViewType.EDIT) {
                 // Clear the flag is change to a different view type
                 mBackToPreviousView = false;
-            }       
-                
-            // Check toMillis method for the value -1 and if yes add one hour. 
-            // This prevents the date "1970" from being displayed on the day of the daylight saving time changeover when you tap on the hour that is skipped.    
+            }
+
+            // Check toMillis method for the value -1 and if yes add one hour.
+            // This prevents the date "1970" from being displayed on the day of the daylight saving time changeover when you tap on the hour that is skipped.
             if (event.startTime.toMillis() == -1) {
                 event.startTime.set(0, 0, 1, event.startTime.getDay(), event.startTime.getMonth(), event.startTime.getYear());
             }
-                
+
             setMainPane(
                     null, R.id.main_pane, event.viewType, event.startTime.toMillis(), false);
             if (mSearchView != null) {

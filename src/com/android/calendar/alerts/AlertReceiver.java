@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (C) 2022 The Calyx Institute
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -122,20 +123,24 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     public static void beginStartingService(Context context, Intent intent) {
         synchronized (mStartingServiceSync) {
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
             if (mStartingService == null) {
-                PowerManager pm =
-                    (PowerManager)context.getSystemService(Context.POWER_SERVICE);
                 mStartingService = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                         "Etar:StartingAlertService");
                 mStartingService.setReferenceCounted(false);
             }
             mStartingService.acquire();
-            if (Utils.isOreoOrLater()) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
 
+            if (pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
+                if (Utils.isOreoOrLater()) {
+                    context.startForegroundService(intent);
+                } else {
+                    context.startService(intent);
+                }
+            } else {
+                Log.d(TAG, "Battery optimizations are not disabled");
+            }
         }
     }
 
