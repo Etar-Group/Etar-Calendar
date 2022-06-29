@@ -371,4 +371,5 @@
     <string name="foreground_notification_title">Планирование новых напоминаний…</string>
     <string name="after_start_of_event">после начала события</string>
     <string name="preferences_real_event_colors">Использовать реальные цвета событий</string>
+    <string name="menu_info">Информация</string>
 </resources>
