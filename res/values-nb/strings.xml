@@ -220,8 +220,8 @@
         <item quantity="other">Hver <xliff:g id="count">%d</xliff:g>. dag</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">Hver <xliff:g id="count">%d</xliff:g> uke</item>
-        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> uke</item>
+        <item quantity="one">Hver uke</item>
+        <item quantity="other">Hver <xliff:g id="count">%d</xliff:g>. uke</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">Hver måned <xliff:g id="count">%d</xliff:g> måned</item>
