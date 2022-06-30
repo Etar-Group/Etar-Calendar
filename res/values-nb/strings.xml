@@ -345,4 +345,5 @@
         <item quantity="one">1 uke</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> uker</item>
     </plurals>
+    <string name="menu_info">Info</string>
 </resources>
