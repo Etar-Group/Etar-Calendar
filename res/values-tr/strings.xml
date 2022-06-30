@@ -345,4 +345,5 @@
     <string name="foreground_notification_title">Yeni hatırlatıcılar planlanıyor…</string>
     <string name="after_start_of_event">etkinlik başladıktan sonra</string>
     <string name="preferences_real_event_colors">Gerçek etkinlik renklerini kullan</string>
+    <string name="menu_info">Bilgi</string>
 </resources>
