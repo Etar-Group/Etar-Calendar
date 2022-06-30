@@ -228,8 +228,8 @@
         <item quantity="other">Hver <xliff:g id="count">%d</xliff:g> måned</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Hvert <xliff:g id="count">%d</xliff:g> år</item>
-        <item quantity="other">Hvert <xliff:g id="count">%d</xliff:g> år</item>
+        <item quantity="one">Hvert år</item>
+        <item quantity="other">Hvert <xliff:g id="count">%d</xliff:g>. år</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"på samme dag hver måned"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"For alltid"</string>
