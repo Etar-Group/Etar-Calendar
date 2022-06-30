@@ -345,4 +345,5 @@
     <string name="foreground_notification_title">Neue Erinnerungen planen…</string>
     <string name="after_start_of_event">after start of event</string>
     <string name="preferences_real_event_colors">Echte Terminfarben verwenden</string>
+    <string name="menu_info">Info</string>
 </resources>
