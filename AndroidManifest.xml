@@ -108,8 +108,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/event" />
             </intent-filter>
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.android.calendar.AllInOneActivity" />
         </activity>
 
         <activity android:name="com.android.calendar.event.EditEventActivity"
