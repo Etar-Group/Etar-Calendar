@@ -43,8 +43,8 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one"><xliff:g id="count">%d</xliff:g>. týden</item>
-        <item quantity="few"></item>
-        <item quantity="other"></item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g>. týden</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>. týden</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Aktualizovat"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Zobrazit den"</string>
@@ -362,4 +362,5 @@
         <item quantity="few"><xliff:g id="count">%d</xliff:g> týdny</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> týdnů</item>
     </plurals>
+    <string name="menu_info">Informace</string>
 </resources>
