@@ -109,6 +109,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.colorChip = (ColorChipView)view.findViewById(R.id.agenda_item_color);
         }
 
+        holder.seperator = view.findViewById(R.id.seperator);
+
         holder.startTimeMilli = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         // Fade text if event was declined and set the color chip mode (response
         boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
@@ -235,6 +237,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         LinearLayout textContainer;
         long instanceId;
         ColorChipView colorChip;
+        View seperator;
         long startTimeMilli;
         boolean allDay;
         boolean grayed;

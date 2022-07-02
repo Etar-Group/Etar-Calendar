@@ -248,6 +248,11 @@ public class AgendaByDayAdapter extends BaseAdapter {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
             AgendaAdapter.ViewHolder holder = ((AgendaAdapter.ViewHolder) itemView.getTag());
             TextView title = holder.title;
+
+            if(getItemViewType(position-1)==TYPE_MEETING){
+                holder.seperator.setVisibility(View.INVISIBLE);
+            }
+
             // The holder in the view stores information from the cursor, but the cursor has no
             // notion of multi-day event and the start time of each instance of a multi-day event
             // is the same.  RowInfo has the correct info , so take it from there.
@@ -259,17 +264,26 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 title.setText(title.getText());
             }
 
-            // if event in the past or started already, un-bold the title and set the background
-            if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
+            // if event in the past, un-bold the title and set the background
+            if ((!allDay && row.mEventEndTimeMilli <= System.currentTimeMillis()) ||
                     (allDay && row.mDay <= mTodayJulianDay)) {
                 itemView.setBackgroundResource(DynamicTheme.getDrawableId(mContext, "agenda_item_bg_secondary"));
                 title.setTypeface(Typeface.DEFAULT);
+                title.setTextColor(DynamicTheme.getColor(mContext,"agenda_item_past_color"));
+                holder.when.setTextColor(DynamicTheme.getColor(mContext,"agenda_item_past_color"));
+                holder.where.setTextColor(DynamicTheme.getColor(mContext,"agenda_item_past_color"));
                 holder.grayed = true;
-            } else {
+            } else if (!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis() && System.currentTimeMillis() <= row.mEventEndTimeMilli){
                 itemView.setBackgroundResource(DynamicTheme.getDrawableId(mContext, "agenda_item_bg_primary"));
                 title.setTypeface(Typeface.DEFAULT_BOLD);
                 holder.grayed = false;
+            } else {
+                itemView.setBackgroundResource(DynamicTheme.getDrawableId(mContext, "agenda_item_bg_primary"));
+                title.setTypeface(Typeface.DEFAULT);
+                holder.grayed = false;
             }
+
+
             holder.julianDay = row.mDay;
             return itemView;
         } else {

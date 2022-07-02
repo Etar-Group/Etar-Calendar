@@ -35,6 +35,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
         android:layout_height="wrap_content"
         android:minHeight="48dip">
         <TextView
@@ -43,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="4dip"
             android:layout_marginBottom="-8dip"
+            android:gravity="end"
             android:singleLine="true"
             android:textSize="12sp"
             android:textColor="?attr/agenda_day_item_text_color" />
@@ -51,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:singleLine="true"
+            android:gravity="end"
             android:textSize="24sp"
             android:textColor="?attr/agenda_day_item_text_color" />
     </LinearLayout>

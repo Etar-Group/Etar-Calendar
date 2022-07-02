@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -47,6 +48,13 @@ public class ColorChipView extends View {
     private int mDrawStyle = DRAW_FULL;
     private float mDefStrokeWidth;
     private Paint mPaint;
+
+
+    private static int CHIP_RECT_ROUNDING = 25;
+    private static int CHIP_MARGIN = 10;
+    private static float CHIP_SHADOW_INTENSITY = 0.0f;
+    private static float CHIP_SHADOW_X = 1.0f;
+    private static float CHIP_SHADOW_Y = 2.0f;
 
     public ColorChipView(Context context) {
         super(context);
@@ -97,7 +105,9 @@ public class ColorChipView extends View {
             case DRAW_FADED:
             case DRAW_FULL:
                 mPaint.setStrokeWidth(mDefStrokeWidth);
-                c.drawRect(0, 0, right, bottom, mPaint);
+                mPaint.setShadowLayer(CHIP_SHADOW_INTENSITY, CHIP_SHADOW_X, CHIP_SHADOW_Y, 0xFF000000);
+                c.drawRoundRect(new RectF(CHIP_MARGIN, CHIP_MARGIN, right-CHIP_MARGIN, bottom-CHIP_MARGIN), CHIP_RECT_ROUNDING, CHIP_RECT_ROUNDING, mPaint);
+                mPaint.setShadowLayer(0, 0, 0, 0x00000000);
                 break;
             case DRAW_BORDER:
                 if (mBorderWidth <= 0) {
