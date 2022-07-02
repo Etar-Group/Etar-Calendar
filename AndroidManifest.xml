@@ -310,6 +310,14 @@
             android:permission="android.permission.BIND_REMOTEVIEWS">
         </service>
 
+        <receiver android:name="com.android.calendar.widget.CalendarMonthAppWidget" android:label="@string/gadget_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.android.calendar.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/appwidget_month_info" />
+        </receiver>
+
         <service android:name="com.android.calendar.AsyncQueryServiceHelper" />
 
     </application>
