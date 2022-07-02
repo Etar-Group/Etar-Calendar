@@ -34,6 +34,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -421,14 +422,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // smallest height to draw an event with
     private static float MIN_EVENT_HEIGHT = 24.0F; // in pixels
     private static int CALENDAR_COLOR_SQUARE_SIZE = 10;
+    private static int EVENT_RECT_ROUNDING = 10;
+    private static float EVENT_RECT_SHADOW_INTENSITY = 0.0f;
+    private static float EVENT_RECT_SHADOW_X = 1.0f;
+    private static float EVENT_RECT_SHADOW_Y = 2.0f;
     private static int EVENT_RECT_TOP_MARGIN = 1;
-    private static int EVENT_RECT_BOTTOM_MARGIN = 0;
+    private static int EVENT_RECT_BOTTOM_MARGIN = 1;
     private static int EVENT_RECT_LEFT_MARGIN = 1;
-    private static int EVENT_RECT_RIGHT_MARGIN = 0;
+    private static int EVENT_RECT_RIGHT_MARGIN = 1;
     private static int EVENT_RECT_STROKE_WIDTH = 2;
-    private static int EVENT_TEXT_TOP_MARGIN = 2;
+    private static int EVENT_TEXT_TOP_MARGIN = 4;
     private static int EVENT_TEXT_BOTTOM_MARGIN = 2;
-    private static int EVENT_TEXT_LEFT_MARGIN = 6;
+    private static int EVENT_TEXT_LEFT_MARGIN = 80;
     private static int EVENT_TEXT_RIGHT_MARGIN = 6;
     private static int ALL_DAY_EVENT_RECT_BOTTOM_MARGIN = 1;
     private static int EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
@@ -2481,10 +2486,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             // Draw the highlight on the grid
             p.setColor(mCalendarGridAreaSelected);
-            r.top += HOUR_GAP;
-            r.right -= DAY_GAP;
-            p.setAntiAlias(false);
-            canvas.drawRect(r, p);
+            r.top += HOUR_GAP+EVENT_RECT_TOP_MARGIN;
+            r.right -= DAY_GAP+EVENT_RECT_RIGHT_MARGIN;
+            r.left += EVENT_RECT_LEFT_MARGIN;
+            r.bottom -= EVENT_RECT_BOTTOM_MARGIN;
+            p.setAntiAlias(true);
+            //canvas.drawRect(r, p);
+            canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, p);
 
             // Draw a "new event hint" on top of the highlight
             // For the week view, show a "+", for day view, show "+ New event"
@@ -2505,8 +2513,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 p.setStyle(Paint.Style.FILL);
                 p.setTextSize(NEW_EVENT_HINT_FONT_SIZE);
                 p.setTextAlign(Paint.Align.LEFT);
+                //p.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 p.setAntiAlias(true);
-                p.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 canvas.drawText(mNewEventHintString, r.left + EVENT_TEXT_LEFT_MARGIN,
                         r.top + Math.abs(p.getFontMetrics().ascent) + EVENT_TEXT_TOP_MARGIN , p);
             }
@@ -2839,8 +2847,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (event.title != null) {
                 // MAX - 1 since we add a space
                 bob.append(drawTextSanitizer(event.title.toString(), MAX_EVENT_TEXT_LEN - 1));
-                bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0,
-                            bob.length(), 0);
+                //bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0,
+                //            bob.length(), 0);
                 bob.append(' ');
             }
             if (event.location != null) {
@@ -3466,7 +3474,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         r.top = Math.max((int) event.top + EVENT_RECT_TOP_MARGIN, visibleTop);
         r.bottom = Math.min((int) event.bottom - EVENT_RECT_BOTTOM_MARGIN, visibleBot);
         r.left = (int) event.left + EVENT_RECT_LEFT_MARGIN;
-        r.right = (int) event.right;
+        r.right = (int) event.right - EVENT_RECT_RIGHT_MARGIN;
 
         int color;
         if (event == mClickedEvent) {
@@ -3493,7 +3501,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 break;
         }
 
-        p.setAntiAlias(false);
+        p.setAntiAlias(true);
 
         int floorHalfStroke = (int) Math.floor(EVENT_RECT_STROKE_WIDTH / 2.0f);
         int ceilHalfStroke = (int) Math.ceil(EVENT_RECT_STROKE_WIDTH / 2.0f);
@@ -3506,7 +3514,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setColor(color);
         int alpha = p.getAlpha();
         p.setAlpha(mEventsAlpha);
-        canvas.drawRect(r, p);
+
+        p.setShadowLayer(EVENT_RECT_SHADOW_INTENSITY, EVENT_RECT_SHADOW_X, EVENT_RECT_SHADOW_Y, 0xFF000000);
+        canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, p);
+        p.setShadowLayer(0, 0, 0, 0x00000000);
         p.setAlpha(alpha);
         p.setStyle(Style.FILL);
 
@@ -3528,7 +3539,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             if (paintIt) {
                 p.setColor(color);
-                canvas.drawRect(r, p);
+                canvas.drawRoundRect(new RectF(r), EVENT_RECT_ROUNDING, EVENT_RECT_ROUNDING, p);
             }
             p.setAntiAlias(true);
         }
