@@ -56,4 +56,8 @@
     <dimen name="recurrence_picker_width">300dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Size of event info dialog box -->
+    <dimen name="event_info_dialog_width">500dip</dimen>
+    <dimen name="event_info_dialog_height">600dip</dimen>
 </resources>
