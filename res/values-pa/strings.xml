@@ -61,8 +61,8 @@
     <string name="edit_event_all_day_label">ਸਾਰਾ ਦਿਨ</string>
     <string name="event_info_title_invite">ਸਭਾ ਦਾ ਸੱਦਾ</string>
     <string name="event_info_title">ਵਰਤਾਰਾ ਵੇਖੋ</string>
-    <string name="foreground_notification_channel_description">ਅੰਦਰੂਨੀ ਸੁਚੇਤਨਾ ਸਮਕਾਲੀਕਰਨ ਲਈ ਮੂਹਰਲੀ ਸੂਚਨਾ ਲੋੜੀਂਦੀ ਹੈ।</string>
-    <string name="foreground_notification_channel_name">ਸੁਚੇਤਨਾ ਦਾ ਸਮਕਾਲੀਕਰਨ</string>
+    <string name="foreground_notification_channel_description">ਅੰਦਰੂਨੀ ਸਮਕਾਲੀਕਰਨ ਲਈ ਸੂਚਨਾਵਾਂ ਦੀ ਲੋੜ ਹੈ। ਤੁਸੀਂ ਬਿਨਾਂ ਫ਼ਿਕਰ ਕੀਤੇ ਇਹ ਚੈਨਲ ਲੁਕਾ ਸਕਦੇ ਹੋ।</string>
+    <string name="foreground_notification_channel_name">ਮਗਰ ਹੋਣ ਵਾਲੇ ਕਾਰਜ</string>
     <string name="alert_title">ਜੰਤਰੀ ਦੀਆਂ ਸੂਚਨਾਵਾਂ</string>
     <string name="create_event_dialog_save">ਸੰਭਾਲੋ</string>
     <string name="rsvp_declined">ਨਾ ਵਜੋਂ ਜਵਾਬ ਦਿੱਤਾ।</string>
@@ -72,4 +72,11 @@
     <string name="creating_event_with_guest">ਸੱਦੇ ਭੇਜੇ ਜਾਣਗੇ।</string>
     <string name="empty_event">ਵਰਤਾਰਾ ਖਾਲੀ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="no_reminder_label">ਕੁਝ ਨਹੀਂ</string>
+    <string name="foreground_notification_title">ਨਵੀਆਂ ਯਾਦ-ਸੂਚਨਾਵਾਂ ਦਾ ਸਮਾਂ ਤੈਅ ਹੋ ਰਿਹਾ…</string>
+    <string name="menu_info">ਜਾਣਕਾਰੀ</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 ਹਫ਼ਤਾ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> \u0020ਹਫ਼ਤੇ</item>
+    </plurals>
 </resources>
