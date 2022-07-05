@@ -237,6 +237,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         String action = intent.getAction();
         if (DEBUG)
             Log.d(TAG, "New intent received " + intent.toString());
@@ -424,6 +425,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_CALENDAR: {
                 // If request is cancelled, the result arrays are empty.

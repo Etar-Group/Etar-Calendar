@@ -287,6 +287,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         // From the Android Dev Guide: "It's important to note that when
         // onNewIntent(Intent) is called, the Activity has not been restarted,
         // so the getIntent() method will still return the Intent that was first
