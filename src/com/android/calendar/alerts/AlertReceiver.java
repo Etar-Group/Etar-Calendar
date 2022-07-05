@@ -775,7 +775,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 URLSpan[] urlSpans = getURLSpans(context, eventId);
                 Intent geoIntent = createMapActivityIntent(context, urlSpans);
                 if (geoIntent != null) {
-                    // Location was successfully found, so dismiss the shade and start maps.
+                    // Location was successfully found, so start maps.
                     try {
                         context.startActivity(geoIntent);
                     } catch (ActivityNotFoundException exception) {
@@ -783,7 +783,6 @@ public class AlertReceiver extends BroadcastReceiver {
                                 context.getString(R.string.no_map),
                                 Toast.LENGTH_SHORT).show();
                     }
-                    closeNotificationShade(context);
                 } else {
                     // No location was found, so update all notifications.
                     // Our alert service does not currently allow us to specify only one
@@ -800,9 +799,8 @@ public class AlertReceiver extends BroadcastReceiver {
                 URLSpan[] urlSpans = getURLSpans(context, eventId);
                 Intent callIntent = createCallActivityIntent(context, urlSpans);
                 if (callIntent != null) {
-                    // Call location was successfully found, so dismiss the shade and start dialer.
+                    // Call location was successfully found, so start dialer.
                     context.startActivity(callIntent);
-                    closeNotificationShade(context);
                 } else {
                     // No call location was found, so update all notifications.
                     // Our alert service does not currently allow us to specify only one
@@ -811,9 +809,6 @@ public class AlertReceiver extends BroadcastReceiver {
                 }
             }
         } else if (MAIL_ACTION.equals(intent.getAction())) {
-            closeNotificationShade(context);
-
-            // Now start the email intent.
             final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
             if (eventId != -1) {
                 Intent i = new Intent(context, QuickResponseActivity.class);
@@ -834,10 +829,5 @@ public class AlertReceiver extends BroadcastReceiver {
             }
             beginStartingService(context, i);
         }
-    }
-
-    private void closeNotificationShade(Context context) {
-        Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-        context.sendBroadcast(closeNotificationShadeIntent);
     }
 }
