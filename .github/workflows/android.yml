@@ -33,7 +33,9 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Build with Gradle
-        run: ./gradlew build
+        run: |
+          ./gradlew aarGen
+          ./gradlew :app:assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
