@@ -3,8 +3,14 @@ plugins {
     id 'com.android.library' version '7.2.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.0' apply false
     id 'org.ec4j.editorconfig' version "0.0.3" apply false
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.5" apply true
 }
 
+// External project configuration start
+
+// Configure and automatically generate AAR of the below mentioned external
+// projects using a custom task  in order to let Android Studio work properly.
+// MUST BE RUN MANUALLY ON CLI COMPILATION
 def external_projects = [
         project(':external:calendar'),
         project(':external:chips'),
@@ -17,6 +23,24 @@ configure(external_projects) {
         from '../configuration/common.gradle'
     }
 }
+
+task aarGen {
+    description "Generates AAR from the external projects for Etar-Calendar"
+    def aarTasks = [
+            ':external:calendar:copyAAR',
+            ':external:chips:copyAAR',
+            ':external:colorpicker:copyAAR',
+            ':external:timezonepicker:copyAAR'
+    ]
+    dependsOn aarTasks
+}
+
+idea.project.settings {
+    taskTriggers {
+        afterSync tasks.getByName('aarGen')
+    }
+}
+// External project configuration end
 
 task clean(type: Delete) {
     delete rootProject.buildDir

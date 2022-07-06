@@ -90,15 +90,9 @@ android {
 
 dependencies {
 
-    // External
-    implementation project(':external:calendar')
-    implementation project(':external:colorpicker')
-    implementation project(':external:timezonepicker')
-    implementation project(':external:chips')
-
     // Core
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
