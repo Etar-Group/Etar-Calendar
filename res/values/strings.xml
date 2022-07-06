@@ -800,4 +800,6 @@
     <string name="offline_account_name">Offline Calendar</string>
     <string name="after_start_of_event">after start of event</string>
 
+    <string name="pref_theme_default" translatable="false">light</string>
+
 </resources>
