@@ -1,6 +1,9 @@
 name: Android CI with Gradle
 
 on:
+  push:
+    branches:
+      - '*'
   pull_request:
     branches: [ master ]
 
