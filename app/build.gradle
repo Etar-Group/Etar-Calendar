@@ -1,3 +1,10 @@
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.ec4j.editorconfig'
+}
+
 editorconfig {
     excludes = ['external/**', 'metadata/**', '**/*.webp']
 }
