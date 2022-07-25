@@ -40,7 +40,7 @@ jobs:
           ./gradlew aarGen
           ./gradlew :app:assembleDebug
       - name: Upload APK
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Etar_apk
           path: app/build/outputs/apk/debug/app-debug.apk
