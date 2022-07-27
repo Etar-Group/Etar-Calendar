@@ -89,11 +89,12 @@ import com.android.calendar.settings.SettingsActivity;
 import com.android.calendar.settings.SettingsActivityKt;
 import com.android.calendar.settings.ViewDetailsPreferences;
 import com.android.calendarcommon2.Time;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -113,6 +114,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private static final String BUNDLE_KEY_RESTORE_VIEW = "key_restore_view";
     private static final int HANDLER_KEY = 0;
     private static final int PERMISSIONS_REQUEST_WRITE_CALENDAR = 0;
+    private static final int PERMISSIONS_REQUEST_POST_NOTIFICATIONS = 1;
 
     // Indices of buttons for the drop down menu (tabs replacement)
     // Must match the strings in the array buttons_list in arrays.xml and the
@@ -398,10 +400,24 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)) {
 
-            // No explanation needed, we can request the permission.
+            ArrayList<String> permissionsList = new ArrayList<>(Arrays.asList(
+                    Manifest.permission.WRITE_CALENDAR,
+                    Manifest.permission.READ_CALENDAR,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            );
 
+            // Permission for calendar notifications
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                    (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.POST_NOTIFICATIONS)
+                            != PackageManager.PERMISSION_GRANTED)) {
+                permissionsList.add(Manifest.permission.POST_NOTIFICATIONS);
+            }
+
+            // No explanation needed, we can request the permission.
+            String[] permissionsArray = new String[permissionsList.size()];
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    permissionsList.toArray(permissionsArray),
                     PERMISSIONS_REQUEST_WRITE_CALENDAR);
         }
     }

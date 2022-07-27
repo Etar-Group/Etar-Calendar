@@ -17,11 +17,12 @@
 package com.android.calendar.alerts;
 
 import android.app.NotificationChannel;
+import android.content.Context;
 
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
 
 public abstract class NotificationMgr {
-    public abstract void notify(int id, NotificationWrapper notification);
+    public abstract void notify(Context context, int id, NotificationWrapper notification);
     public abstract void cancel(int id);
     public abstract void createNotificationChannel(NotificationChannel channel);
 
