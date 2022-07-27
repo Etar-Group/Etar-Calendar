@@ -47,6 +47,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.calendar.Utils;
@@ -298,7 +299,7 @@ public class AlertService extends Service {
           }
 
             // Post the new notification for the group.
-            nm.notify(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
+            nm.notify(context, AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
         } else {
             nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
             if (DEBUG) {
@@ -719,7 +720,7 @@ public class AlertService extends Service {
                 true); /* Show the LED for these non-expired events */
 
         // Post the notification.
-        notificationMgr.notify(notificationId, notification);
+        notificationMgr.notify(context, notificationId, notification);
 
         if (DEBUG) {
             Log.d(TAG, "Posting individual alarm notification, eventId:" + info.eventId
@@ -1026,8 +1027,12 @@ public class AlertService extends Service {
         }
 
         @Override
-        public void notify(int id, NotificationWrapper nw) {
-            mNm.notify(id, nw.mNotification);
+        public void notify(Context context, int id, NotificationWrapper nw) {
+            if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
+                mNm.notify(id, nw.mNotification);
+            } else {
+                Log.d(TAG, "Notifications are disabled!");
+            }
         }
     }
 
