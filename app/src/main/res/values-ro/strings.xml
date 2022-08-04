@@ -362,4 +362,5 @@
     <string name="source_code">Sursă</string>
     <string name="after_start_of_event">după începerea evenimentului</string>
     <string name="preferences_real_event_colors">Utilizați culorile reale ale evenimentului</string>
+    <string name="menu_info">Informații</string>
 </resources>
