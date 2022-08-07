@@ -296,7 +296,7 @@
     <string name="view_settings">Pogledaj postavke</string>
     <string name="preferences_month_view_portrait">Prikaz mjeseca (okomito)</string>
     <string name="preferences_month_view_landscape">Prikaz mjeseca (vodoravno)</string>
-    <string name="display_options">Detalji</string>
+    <string name="display_options">Prikaži opcije</string>
     <string name="display_time">Prikaži vrijeme</string>
     <string name="display_location">Prikaži lokaciju</string>
     <string name="show_time_no">Ne prikazuj vrijeme</string>
@@ -331,7 +331,7 @@
     <string name="preferences_calendar_delete_message">Zaista želiš izbrisati ovaj kalendar\?</string>
     <string name="preferences_calendar_delete_delete">Izbriši kalendar</string>
     <string name="preferences_calendar_delete_cancel">Odustani</string>
-    <string name="preferences_menu_about">Informacije</string>
+    <string name="preferences_menu_about">O programu Etar</string>
     <string name="offline_account_name">Lokalni kalendar</string>
     <string name="app_copyright">© 2015. – <xliff:g>%1$s</xliff:g>. The Etar Project. Dijelovi © 2005. – <xliff:g>%1$s</xliff:g>. The Android Open Source Project.</string>
     <string name="authors">Autori</string>
@@ -360,5 +360,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> tjedana</item>
     </plurals>
     <string name="foreground_notification_title">Planiranje novih podsjetnika …</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">nakon početka događaja</string>
+    <string name="preferences_real_event_colors">Koristi boje stvarnog događaja</string>
+    <string name="menu_info">Informacije</string>
 </resources>
