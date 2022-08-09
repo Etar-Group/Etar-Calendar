@@ -1,0 +1,11 @@
+Ezaugarriak:
+- Hilabete, aste, egun eta agenda ikuspegiak.
+- Android egutegi sinkronizazioa. Google Calendar, Exchange, etab.
+- Material Design.
+- Gai ilun eta argiak.
+- Doakoa, kode irekikoa eta iragarkirik gabe.
+- Egutegiak ICS partekatzea onartu eta SD txartel batetik inportatzea/esportatzea ahalbidetzen du.
+- Erabiltzaile interfazea hainbat hizkuntzatan.
+
+Bugs eta iradokizunak: https://github.com/Etar-Group/Etar-Calendar/issues
+Iturburu kodea: https://github.com/Etar-Group/Etar-Calendar
