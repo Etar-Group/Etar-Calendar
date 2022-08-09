@@ -321,9 +321,11 @@
     <string name="preferences_system_theme">Sistemaren lehenetsia</string>
     <string name="no_reminder_label">Bat ere ez</string>
     <string name="foreground_notification_title">Gogorarazle berriak planifikatzen…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">gertaera hasi ostean</string>
     <plurals name="Nweeks">
         <item quantity="one">Aste 1</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> aste</item>
     </plurals>
+    <string name="preferences_real_event_colors">Erabili gertaera kolore errealak</string>
+    <string name="menu_info">Informazioa</string>
 </resources>
