@@ -1,0 +1,4 @@
+- Soporte para compartir calendarios a través de ics y la capacidad de importar/exportar desde sdcard.
+- Eliminar permisos no utilizados.
+- Arreglar la configuración de sonido en Android 6.
+- Muchas correcciones de errores.

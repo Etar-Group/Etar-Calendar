@@ -1,0 +1,2 @@
+- Corrección de errores de notificación.
+- Nuevas traducciones.

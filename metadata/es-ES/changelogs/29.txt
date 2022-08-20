@@ -1,0 +1,5 @@
+- Compatible con Android 12
+- Material de apoyo que diseñas
+- Eliminar la conexión al servicio de Android para la copia de seguridad de la base de datos (roto en la mayoría de las versiones de Android)
+- Corrección de errores generales
+- Nuevas traducciones

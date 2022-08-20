@@ -1,0 +1,4 @@
+- Diseño de evento de edición de reelaboración
+- Caída de soporte para Android 4.4
+- Corrección de errores generales
+- Nuevas traducciones

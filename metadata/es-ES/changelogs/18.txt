@@ -1,0 +1,3 @@
+- Errores en la vista mensual corregidos.
+- Se corrigió el tema oscuro en las tabletas.
+- Nuevas traducciones.

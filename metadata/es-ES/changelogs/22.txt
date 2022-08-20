@@ -1,0 +1,7 @@
+- Agregar calendario fuera de línea.
+- Agregar acceso directo para un nuevo evento.
+- Nuevo diseño de preferencias.
+- Nuevo selector de fecha y hora.
+- Cambiar la licencia a GPLv3.
+- Corrección de errores.
+- Nuevas traducciones.

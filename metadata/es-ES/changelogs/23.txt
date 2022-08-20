@@ -1,0 +1,2 @@
+- Corrección de errores para la visualización de opciones.
+- Nuevas traducciones.

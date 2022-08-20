@@ -1,0 +1,6 @@
+- Solicitar permisos en tiempo de ejecución en Android 6 en adelante.
+- Solucionar bloqueo al inicio.
+- Permitir al usuario apretar la pantalla para que se vea todo el día.
+- Establecer segundos a cero al crear un nuevo evento.
+- Correcciones menores de diseño.
+- Muchas correcciones de errores.
