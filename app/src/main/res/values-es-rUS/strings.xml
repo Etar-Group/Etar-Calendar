@@ -28,8 +28,8 @@
         <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutos"</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 min."</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> mins"</item>
+        <item quantity="one">1 min</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one" msgid="4793697728599296830">"1 hora"</item>
@@ -157,7 +157,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Primer día de la semana"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Primer día de la semana"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Eliminar historial de búsqueda"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Elimina todas las búsquedas que realizaste."</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">Elimina todas las búsquedas que realizaste</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Se eliminó el historial de búsqueda."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificaciones"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
@@ -176,7 +176,7 @@
         <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"No hay próximos eventos en el calendario"</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimental"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">Modo experimental</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Omitir recordatorios"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Omitir recordatorios"</string>
     <string name="copy_db" msgid="437691290566699292">"Enviar base de datos"</string>
@@ -261,4 +261,67 @@
     <string name="display_location">Mostrar ubicación</string>
     <string name="no_reminder_label">Ninguno</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="preferences_pure_black_night_mode">Modo noche negro puro</string>
+    <string name="three_days">3 días</string>
+    <string name="foreground_notification_channel_description">Se requieren notificaciones para la sincronización interna. Puede ocultar este canal de forma segura.</string>
+    <string name="five_days">5 días</string>
+    <string name="preferences_calendar_display_name">Cambiar nombre</string>
+    <string name="four_days">4 días</string>
+    <string name="error_generating_ics">Problemas encontrados al compartir evento</string>
+    <string name="visibility_confidential">Confidencial</string>
+    <string name="foreground_notification_title">Programación de nuevos recordatorios…</string>
+    <string name="foreground_notification_channel_name">Tarea en segundo plano</string>
+    <string name="preferences_real_event_colors">Usar colores de eventos reales</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Solicitar retraso de repetición de recordatorio</string>
+    <string name="snooze_delay_dialog_title">Establecer retraso de repetición</string>
+    <string name="preferences_default_snooze_delay_title">Tiempo de retraso de repetición predeterminado</string>
+    <string name="preferences_default_snooze_delay_dialog">Retraso de repetición predeterminado</string>
+    <string name="authors">Autores</string>
+    <string name="changelog">registro de cambios</string>
+    <string name="license">Licencia</string>
+    <string name="calendar_permission_not_granted">Se denegaron los permisos requeridos, habilítelos desde la aplicación Configuración para editar eventos</string>
+    <string name="two_days">2 días</string>
+    <string name="seven_days">7 días</string>
+    <string name="fifteen_minutes">15 minutos</string>
+    <string name="thirty_minutes">30 minutos</string>
+    <string name="one_hour">1 hora</string>
+    <string name="one_and_a_half_hours">1.5 horas</string>
+    <string name="two_hours">2 horas</string>
+    <string name="cal_share_intent_title">Enviar evento a:</string>
+    <string name="cal_export_succ_msg">Evento exportado con éxito: %1$s</string>
+    <string name="cal_import_menu_title">Importar evento</string>
+    <string name="cal_nothing_to_import">nada que importar</string>
+    <string name="cal_import_error_msg">No se pudo importar al calendario</string>
+    <string name="cal_import_error_time_zone_msg">No se puede entender la zona horaria dada: %s</string>
+    <string name="cal_import_error_date_msg">No se puede entender la fecha dada: %s</string>
+    <string name="cal_pick_ics">Elija el archivo para importar</string>
+    <string name="show_time_no">no mostrar el tiempo</string>
+    <string name="show_time_start">Solo hora de inicio</string>
+    <string name="show_time_start_end">Hora de inicio y finalización</string>
+    <string name="preferences_calendar_account">%1$s cuenta</string>
+    <string name="preferences_calendar_account_local">Calendario fuera de línea</string>
+    <string name="preferences_calendar_number_of_events">%1$d eventos</string>
+    <string name="preferences_calendar_delete">Eliminar calendario</string>
+    <string name="preferences_calendar_info_category">Información del calendario</string>
+    <string name="preferences_calendar_color">color</string>
+    <string name="preferences_calendar_synchronize">Sincronizar este calendario</string>
+    <string name="preferences_calendar_color_warning_title">Advertencia</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> El Proyecto Étar. Porciones © 2005-<xliff:g>%1$s</xliff:g> El proyecto de código abierto de Android.</string>
+    <string name="preferences_calendar_color_warning_message">El cambio de color puede revertirse cuando el calendario se sincroniza nuevamente.
+\n
+\nEn DAVx⁵ \'Administrar colores de calendario\' se puede deshabilitar para evitar esto.</string>
+    <string name="preferences_calendar_visible">Mostrar eventos</string>
+    <string name="preferences_calendar_configure_account">Configurar calendario en %1$s</string>
+    <string name="show_time_start_end_below">Hora de inicio y finalización debajo del evento</string>
+    <string name="preferences_calendar_no_display_name">Calendario sin nombre</string>
+    <string name="cal_export_event_sdcard_title">Exportar a tarjeta SD</string>
+    <string name="zero_minutes">0 minutos</string>
+    <string name="six_days">6 días</string>
+    <string name="user_rejected_calendar_write_permission">Etar requiere permisos de lectura y escritura de calendario para funcionar correctamente. Inténtalo de nuevo.</string>
+    <string name="source_code">Fuente</string>
+    <string name="preferences_issues">Reporte de errores</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Utilice siempre el retardo de repetición predeterminado</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Solicite un retraso en la repetición cada vez que posponga recordatorios</string>
+    <string name="maximum_number_of_lines">Número máximo de líneas en evento</string>
+    <string name="preferences_system_theme">Sistema por defecto</string>
 </resources>
