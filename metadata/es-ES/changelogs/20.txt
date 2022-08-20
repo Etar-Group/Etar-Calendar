@@ -1,0 +1,5 @@
+- Se requieren notificaciones adicionales para la sincronización de alertas internas. Por favor silencie.
+- Ya no se requieren permisos eliminados.
+- Icono de notificación de color.
+- Corrección de errores.
+- Nuevas traducciones.

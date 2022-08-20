@@ -1,0 +1,7 @@
+- Reducir el tamaño de fuente de los nombres de eventos en la vista de semana
+- Activar sugerencias de búsqueda recientes
+- Corrección de la exportación a la tarjeta SD
+- Tachar el título de los eventos cancelados
+- Utilice la configuración del tema del sistema en Android 10
+- Nuevas traducciones
+- Corrección de errores

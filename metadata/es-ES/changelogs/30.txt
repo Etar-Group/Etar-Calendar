@@ -1,0 +1,2 @@
+- Reparar notificaciones en Android 12
+- Agregue DecSync y Birthday Adapter a aplicaciones "conocidas" y no se bloquee

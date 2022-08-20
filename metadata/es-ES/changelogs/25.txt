@@ -1,0 +1,4 @@
+- Recuperar base de datos de zona horaria
+- icono de la aplicación SVG
+- Reelaborar y reactivar el widget.
+- Nuevas traducciones
