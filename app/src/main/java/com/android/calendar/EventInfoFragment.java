@@ -922,7 +922,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             return false;
         }
         mEventCursor.moveToFirst();
-        mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
+        mEventId = mEventCursor.getLong(EVENT_INDEX_ID);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         mIsRepeating = !TextUtils.isEmpty(rRule);
         // mHasAlarm will be true if it was saved in the event already, or if
