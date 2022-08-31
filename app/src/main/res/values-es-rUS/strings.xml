@@ -19,9 +19,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Mañana"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Hoy a la hora <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Mañana a la hora <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Sin título)"</string>
     <plurals name="Nminutes">
         <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
@@ -40,7 +38,9 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> días"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"semana <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">semanas <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar día"</string>
@@ -81,7 +81,7 @@
     <string name="add_account" msgid="1669072099756774952">"Agregar cuenta"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendario:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
-    <string name="choose_event_color_label" msgid="2192923501857428854">"Elige un color para el evento."</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">Elige un color para el evento</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Color del evento"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Establecer el color predeterminado del calendario"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Color del calendario"</string>
@@ -114,8 +114,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">"ayer, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"mañana, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Cargando…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Tocar para ver los eventos antes del <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>."</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Tocar para ver los eventos después del <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>."</string>
+    <string name="show_older_events" msgid="5140647493681439926">Tocar para ver los eventos antes del <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Tocar para ver los eventos después del <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">"Buscar en mis calendarios"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detalles"</string>
     <string name="edit_label" msgid="8934331258435656534">"Editar"</string>
@@ -260,7 +260,7 @@
     <string name="display_time">Mostrar horario</string>
     <string name="display_location">Mostrar ubicación</string>
     <string name="no_reminder_label">Ninguno</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">después del inicio del evento</string>
     <string name="preferences_pure_black_night_mode">Modo noche negro puro</string>
     <string name="three_days">3 días</string>
     <string name="foreground_notification_channel_description">Se requieren notificaciones para la sincronización interna. Puede ocultar este canal de forma segura.</string>
@@ -322,6 +322,30 @@
     <string name="preferences_issues">Reporte de errores</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Utilice siempre el retardo de repetición predeterminado</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Solicite un retraso en la repetición cada vez que posponga recordatorios</string>
-    <string name="maximum_number_of_lines">Número máximo de líneas en evento</string>
+    <string name="maximum_number_of_lines">Máxima cantidad de líneas en el evento</string>
     <string name="preferences_system_theme">Sistema por defecto</string>
+    <string name="offline_account_name">Calendario sin conexión</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 weeks</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g>1 semana</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="menu_info">Información</string>
+    <string name="preferences_calendar_delete_delete">Eliminar calendario</string>
+    <string name="preferences_list_calendar_summary_sync_off">No sincronizado</string>
+    <string name="preferences_list_calendar_summary_invisible">No se muestran los eventos</string>
+    <string name="preferences_list_add_remote">Agregar calendario CalDAV</string>
+    <string name="preferences_list_add_offline_error_empty">Introduzca un nombre de calendario!</string>
+    <string name="preferences_list_add_offline_button">Agregar calendario</string>
+    <string name="preferences_list_add_offline_name">Nombre</string>
+    <string name="preferences_list_add_offline_cancel">Cancelar</string>
+    <string name="preferences_menu_about">Acerca de Etar</string>
+    <string name="preferences_list_add_offline_message">Los calendarios sin conexión NO están sincronizados con un servicio en la nube y solo están disponibles en su teléfono.</string>
+    <string name="preferences_list_add_offline_title">Añadir calendario sin conexión</string>
+    <string name="preferences_list_add_offline">Añadir calendario sin conexión</string>
+    <string name="preferences_list_add_remote_etesync">Añadir calendario EteSync</string>
+    <string name="preferences_list_general">Configuración general</string>
+    <string name="preferences_calendar_delete_cancel">Cancelar</string>
+    <string name="preferences_calendar_color_warning_button">entiendo</string>
+    <string name="preferences_calendar_delete_message">¿Realmente quieres eliminar este calendario\?</string>
 </resources>
