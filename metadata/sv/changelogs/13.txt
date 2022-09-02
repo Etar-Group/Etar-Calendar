@@ -1,0 +1,4 @@
+- Stödjer delning av kalendrar via ics och förmågan att importera/exportera från SD-kort.
+- Ta bort oanvända rättigheter.
+- Fixa ljudinställning i Android 6.
+- Flera buggfixar.
