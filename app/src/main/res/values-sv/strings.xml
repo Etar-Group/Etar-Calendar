@@ -19,9 +19,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Imorgon"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Idag kl. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Imorgon kl. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Ingen titel)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minut</item>
@@ -40,9 +38,8 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagar"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Etikett för att visa veckan på året för alla veckovärden [Teckengräns = 16]</item>
-        <item quantity="other">vecka <xliff:g id="count">%d</xliff:g>
-        </item>
+        <item quantity="one">Vecka <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Veckor <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Uppdatera"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Visa dag"</string>
@@ -205,9 +202,8 @@
         <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> händelser"</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">Detta är etiketten för 1 händelse.</item>
-        <item quantity="other">
-            <xliff:g id="count">%d</xliff:g> händelser till</item>
+        <item quantity="one">+1 händelse</item>
+        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; händelser</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Markerad händelse"</string>
     <plurals name="recurrence_interval_daily">
@@ -293,7 +289,7 @@
     <string name="show_time_start_end_below">Start- och sluttid nedanför händelsen</string>
     <string name="maximum_number_of_lines">Max antal rader i händelse</string>
     <string name="foreground_notification_channel_name">Varningssynkronisering</string>
-    <string name="foreground_notification_channel_description">Förgrundsmeddelande krävs för intern varningssynkronisering. Vänligen stäng av ljudet</string>
+    <string name="foreground_notification_channel_description">Aviseringar krävs för intern synk. Du kan säkert gömma den här kanalen.</string>
     <string name="preferences_system_theme">Systemets standard</string>
     <string name="no_reminder_label">Inga</string>
     <string name="offline_account_name">Ej uppkopplad kalender</string>
@@ -343,4 +339,11 @@
         <item quantity="one">1 vecka</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> veckor</item>
     </plurals>
+    <string name="menu_info">Info</string>
+    <string name="preferences_real_event_colors">Använd riktiga händelsefärger</string>
+    <string name="preferences_calendar_color_warning_message">Ändringen av färgen kan återställas när kalendern är synkroniserad igen.
+\n
+\nI DAVx⁵ kan \"Hantera kalenderfärger\" inaktiveras för att förhindra detta.</string>
+    <string name="preferences_calendar_account_local">Ej uppkopplad kalender</string>
+    <string name="preferences_list_add_remote_etesync">Lägg till EteSync-kalender</string>
 </resources>
