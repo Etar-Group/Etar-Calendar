@@ -1,0 +1,3 @@
+- Ta bort internetbehörighet med samma funktionalitet.
+- Lägg till "Gå till...".
+- Fixa: Agenda-widgeten uppdateras inte dagligen.
