@@ -11,7 +11,7 @@
 [submodule "external/calendar"]
 	path = external/calendar
 	url = https://github.com/Etar-Group/android_frameworks_opt_calendar.git
-	branch = master
+	branch = rebase
 	ignore = untracked
 [submodule "external/ex"]
 	path = external/ex
