@@ -147,6 +147,10 @@ public class Time {
     }
 
     public void set(Time other) {
+        if (this == other) {
+            // no-op when being called on itself, see Etar-Group/Etar-Calendar#1151
+            return;
+        }
         clearCalendar();
         mCalendar.setTimeZone(other.getTimeZone());
         mCalendar.setTimeInMillis(other.mCalendar.getTimeInMillis());
