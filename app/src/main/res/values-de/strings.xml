@@ -346,4 +346,5 @@
     <string name="after_start_of_event">Nach Beginn</string>
     <string name="preferences_real_event_colors">Echte Terminfarben verwenden</string>
     <string name="menu_info">Info</string>
+    <string name="duplicate_label">Duplizieren</string>
 </resources>

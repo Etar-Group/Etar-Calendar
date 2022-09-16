@@ -91,6 +91,7 @@ public class CalendarEventModel implements Serializable {
     public boolean mAllDay = false;
     public boolean mHasAlarm = false;
     public int mAvailability = Events.AVAILABILITY_BUSY;
+    public boolean mAvailabilityExplicitlySet = false;
     // PROVIDER_NOTES How does an event not have attendee data? The owner is added
     // as an attendee by default.
     public boolean mHasAttendeeData = true;
@@ -168,6 +169,7 @@ public class CalendarEventModel implements Serializable {
         int availability = intent.getIntExtra(Events.AVAILABILITY, -1);
         if (availability != -1) {
             mAvailability = availability;
+            mAvailabilityExplicitlySet = true;
         }
 
         int accessLevel = intent.getIntExtra(Events.ACCESS_LEVEL, -1);

@@ -99,8 +99,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import ws.xsoh.etar.R;
 
@@ -703,6 +705,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 R.layout.simple_spinner_item, mAccessLabels);
         mAccessAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAccessLevelSpinner.setAdapter(mAccessAdapter);
+        mAccessLevelSpinner.setSelection(mModel.mAccessLevel);
     }
 
     private void prepareAvailability() {
@@ -723,6 +726,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 R.layout.simple_spinner_item, mAvailabilityLabels);
         mAvailabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAvailabilitySpinner.setAdapter(mAvailabilityAdapter);
+
+        int availIndex = mAvailabilityValues.indexOf(mModel.mAvailability);
+        if (availIndex != -1) {
+            mAvailabilitySpinner.setSelection(availIndex);
+        }
+        mAvailabilityExplicitlySet = mModel.mAvailabilityExplicitlySet;
     }
 
     /**
@@ -919,12 +928,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (model.mDescription != null) {
             mDescriptionTextView.setTextKeepState(model.mDescription);
         }
-
-        int availIndex = mAvailabilityValues.indexOf(model.mAvailability);
-        if (availIndex != -1) {
-            mAvailabilitySpinner.setSelection(availIndex);
-        }
-        mAccessLevelSpinner.setSelection(model.mAccessLevel);
 
         View responseLabel = mView.findViewById(R.id.response_label);
         if (canRespond) {
@@ -1462,6 +1465,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
+        fillModelFromUI();
+
         // Do nothing if the selection didn't change so that reminders will not get lost
         int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
         long calendarId = c.getLong(idColumn);
@@ -1495,21 +1500,53 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int allowedAvailabilityColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_AVAILABILITY);
         mModel.mCalendarAllowedAvailability = c.getString(allowedAvailabilityColumn);
 
-        // Discard the current reminders and replace them with the model's default reminder set.
-        // We could attempt to save & restore the reminders that have been added, but that's
-        // probably more trouble than it's worth.
-        mModel.mReminders.clear();
-        mModel.mReminders.addAll(mModel.mDefaultReminders);
-        mModel.mHasAlarm = mModel.mReminders.size() != 0;
+        removeInvalidReminders();
+        resetAvailabilityIfInvalid();
 
         // Update the UI elements.
         mReminderItems.clear();
         LinearLayout reminderLayout =
             (LinearLayout) mScrollView.findViewById(R.id.reminder_items_container);
         reminderLayout.removeAllViews();
+
         prepareReminders();
         prepareAvailability();
         prepareAccess();
+    }
+
+    /**
+     * Removes reminders from {@link #mModel} that have a reminder method that does not
+     * match any of {@link CalendarEventModel#mCalendarAllowedReminders}.
+     *
+     * Updates {@link CalendarEventModel#mHasAlarm} of {@link #mModel} accordingly.
+     */
+    private void removeInvalidReminders() {
+        final List<Integer> allowedReminderMethods =
+                Arrays.stream(mModel.mCalendarAllowedReminders.split(","))
+                        .map(Integer::valueOf)
+                        .collect(Collectors.toList());
+
+        mModel.mReminders = mModel.mReminders.stream()
+                .filter(reminder -> allowedReminderMethods.contains(reminder.getMethod()))
+                .limit(mModel.mCalendarMaxReminders)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        mModel.mHasAlarm = mModel.mReminders.size() != 0;
+    }
+
+    /**
+     * Resets {@link CalendarEventModel#mAvailability} of {@link #mModel} to {@link Events#AVAILABILITY_BUSY}
+     * if the current availability does not match any of {@link CalendarEventModel#mCalendarAllowedAvailability}.
+     */
+    private void resetAvailabilityIfInvalid() {
+        final List<Integer> allowedAvailabilities =
+                Arrays.stream(mModel.mCalendarAllowedAvailability.split(","))
+                        .map(Integer::valueOf)
+                        .collect(Collectors.toList());
+
+        if (!allowedAvailabilities.contains(mModel.mAvailability)) {
+            mModel.mAvailability = Events.AVAILABILITY_BUSY;
+        }
     }
 
     /**

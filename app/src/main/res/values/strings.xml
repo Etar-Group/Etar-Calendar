@@ -350,7 +350,8 @@
     <string name="edit_label">"Edit"</string>
     <!-- The button label for deleting an event -->
     <string name="delete_label">"Delete"</string>
-    <!-- A menu item for deleting an event -->
+    <!-- This is a menu button label for duplicating an event -->
+    <string name="duplicate_label">Duplicate</string>
 
     <!-- The button label for saving an event -->
     <string name="save_label">Done</string>
