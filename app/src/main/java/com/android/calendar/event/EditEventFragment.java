@@ -225,7 +225,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEvent.id);
             } else {
                 // New event. All day?
-                mModel.mAllDay = mEvent.extraLong == CalendarController.EXTRA_CREATE_ALL_DAY;
+                if (mEvent.extraLong == CalendarController.EXTRA_CREATE_ALL_DAY) {
+                    mModel.mAllDay = true;
+                    mModel.mTimezone = Time.TIMEZONE_UTC; // timezone is UTC for all-day events
+                }
             }
             if (mEvent.startTime != null) {
                 mBegin = mEvent.startTime.toMillis();
