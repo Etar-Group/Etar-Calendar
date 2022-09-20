@@ -23,18 +23,21 @@
     <string name="no_title_label" msgid="302177118061368042">"(Без назви)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 хвилина</item>
-        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> хвилини</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> хвилини</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> хвилин</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> хвилин</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 хв.</item>
-        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> хв.</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> хв.</item>
+        <item quantity="one">1 хвилина</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> хвилини</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> хвилин</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> хвилин</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 година</item>
-        <item quantity="few"><xliff:g id="COUNT">%d</xliff:g> години</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> години</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> годин</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> годин</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 день</item>
@@ -139,8 +142,9 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">Щодня</item>
-        <item quantity="few">Кожні <xliff:g id="number">%d</xliff:g> дні</item>
-        <item quantity="many">Кожні <xliff:g id="number">%d</xliff:g> днів</item>
+        <item quantity="few">Що <xliff:g id="number">%d</xliff:g> дні</item>
+        <item quantity="many">Що <xliff:g id="number">%d</xliff:g> днів</item>
+        <item quantity="other">Що <xliff:g id="number">%d</xliff:g> днів</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">У будні (пн.-пт.)</string>
     <plurals name="weekly">
