@@ -54,6 +54,13 @@ an event to which calendar it should be added.
 - READ_CALENDAR & WRITE_CALENDAR  
 ->read and create calendar events
 
+### Known issues with the ICS import feature
+
+Etar can import ICS files, for instance, received in invitation emails.
+The import feature is unstable and has a list of known bugs.
+Refer to https://github.com/Etar-Group/Etar-Calendar/pull/653 as a reference to those bugs.
+Use it with caution, especially, if your calendar provider automatically sends out invitation emails.
+
 ## Contribute
 ### Translations
 Interested in helping to translate Etar? Contribute here: https://hosted.weblate.org/projects/etar-calendar/strings/
