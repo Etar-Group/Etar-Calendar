@@ -39,6 +39,7 @@
         <item name="iconSettingsGeneral">@android:color/black</item>
         <item name="iconAddCalendar">@android:color/black</item>
         <item name="iconCalendarAccount">@android:color/black</item>
+        <item name="divider_select_calendars">@color/divider_select_calendars</item>
     </style>
 
     <style name="CalendarAppThemeDark" parent="Theme.AppCompat.NoActionBar">
@@ -80,6 +81,7 @@
         <item name="iconSettingsGeneral">@android:color/white</item>
         <item name="iconAddCalendar">@android:color/white</item>
         <item name="iconCalendarAccount">@android:color/white</item>
+        <item name="divider_select_calendars">@color/divider_select_calendars_dark</item>
     </style>
 
     <style name="CalendarAppThemeBlack" parent="Theme.AppCompat.NoActionBar">
@@ -121,6 +123,7 @@
         <item name="iconSettingsGeneral">@android:color/white</item>
         <item name="iconAddCalendar">@android:color/white</item>
         <item name="iconCalendarAccount">@android:color/white</item>
+        <item name="divider_select_calendars">@color/divider_select_calendars_black</item>
     </style>
 
 

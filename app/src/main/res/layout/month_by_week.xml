@@ -15,20 +15,29 @@
 ** limitations under the License.
 */
 -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="3dp"
+    android:outlineSpotShadowColor="@color/month_day_names_color" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
     android:id="@+id/month"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@drawable/minical_bg_shadow_holo_light">
+    android:layout_height="match_parent" >
 
     <TextView android:id="@+id/month_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dip"
-        style="@style/MonthView_MiniMonthLabel" />
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <include android:id="@+id/day_names" layout="@layout/mini_month_header" />
 
@@ -40,7 +49,7 @@
     <com.android.calendar.month.MonthListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:drawSelectorOnTop="false" />
+        android:layout_height="match_parent" />
 
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

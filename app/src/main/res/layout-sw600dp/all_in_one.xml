@@ -93,7 +93,6 @@
             android:id="@+id/calendar_list"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/mini_month"
-            android:layout_marginTop="16dip"
             android:layout_height="@dimen/calendar_controls_height"
             android:layout_width="0dip" />
     </RelativeLayout>
