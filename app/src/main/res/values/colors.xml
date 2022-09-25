@@ -196,6 +196,9 @@
     <color name="recurrence_picker_background">#fff2f2f2</color>
     <color name="recurrence_bubble_text_normal">#ff737373</color>
 
+    <!-- Tablet specific colors -->
+    <color name="divider_select_calendars">#DEDEDE</color>
+
     <!--
         Black (AMOLED) Color Theme
     -->
@@ -299,6 +302,9 @@
     <color name="chips_dropdown_text_default_black">#9e9e9e</color>
     <color name="chips_dropdown_text_highlighted_black">@android:color/holo_blue_light</color>
 
+    <!-- Tablet specific colors -->
+    <color name="divider_select_calendars_black">#5C5C5C</color>
+
     <!--
         Dark Color Theme
     -->
@@ -400,6 +406,9 @@
     <!-- Overwrite external chips colors -->
     <color name="chips_dropdown_text_default_dark">#9e9e9e</color>
     <color name="chips_dropdown_text_highlighted_dark">@android:color/holo_blue_light</color>
+
+    <!-- Tablet specific colors -->
+    <color name="divider_select_calendars_dark">#5C5C5C</color>
 
     <!-- default calendar/event color palette -->
     <array name="defaultCalendarColors">

@@ -216,15 +216,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         // Tablet layout
         view.findViewById(R.id.color).setEnabled(selected && hasMoreColors(position));
-        view.setBackgroundDrawable(getBackground(position, selected));
         ViewGroup.LayoutParams newParams = view.getLayoutParams();
-        if (position == mData.length - 1) {
-            newParams.height = BOTTOM_ITEM_HEIGHT;
-        } else {
-            newParams.height = NORMAL_ITEM_HEIGHT;
-        }
+        newParams.height = NORMAL_ITEM_HEIGHT;
         view.setLayoutParams(newParams);
-        CheckBox visibleCheckBox = (CheckBox) view.findViewById(R.id.visible_check_box);
+        CheckBox visibleCheckBox = view.findViewById(R.id.visible_check_box);
         if (visibleCheckBox != null) {
             visibleCheckBox.setChecked(selected);
         }
@@ -234,20 +229,6 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
     private boolean hasMoreColors(int position) {
         return mCache.hasColors(mData[position].accountName, mData[position].accountType);
-    }
-
-    /**
-     * @param position position of the calendar item
-     * @param selected whether it is selected or not
-     * @return the drawable to use for this view
-     */
-    protected Drawable getBackground(int position, boolean selected) {
-        int bg;
-        bg = selected ? IS_SELECTED : 0;
-        bg |= (position == 0 && mOrientation == Configuration.ORIENTATION_LANDSCAPE) ? IS_TOP : 0;
-        bg |= position == mData.length - 1 ? IS_BOTTOM : 0;
-        bg |= (position > 0 && mData[position - 1].selected) ? IS_BELOW_SELECTED : 0;
-        return mRes.getDrawable(TabletCalendarItemBackgrounds.getBackgrounds()[bg]);
     }
 
     @Override
@@ -260,8 +241,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         if (position >= mRowCount) {
             return null;
         }
-        CalendarRow item = mData[position];
-        return item;
+        return mData[position];
     }
 
     @Override
@@ -289,56 +269,6 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     @Override
     public void onCalendarColorsLoaded() {
         notifyDataSetChanged();
-    }
-
-    private static class TabletCalendarItemBackgrounds {
-        static private int[] mBackgrounds = null;
-
-        /**
-         * Sets up the background drawables for the calendars list
-         *
-         * @param res The context's resources
-         */
-        static int[] getBackgrounds() {
-            // Not thread safe. Ok if called only from main thread
-            if (mBackgrounds != null) {
-                return mBackgrounds;
-            }
-
-            mBackgrounds = new int[16];
-
-            mBackgrounds[0] = R.drawable.calname_unselected;
-
-            mBackgrounds[IS_SELECTED] = R.drawable.calname_select_underunselected;
-
-            mBackgrounds[IS_SELECTED | IS_BOTTOM] =
-                    R.drawable.calname_bottom_select_underunselected;
-
-            mBackgrounds[IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED] =
-                    R.drawable.calname_bottom_select_underselect;
-            mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[
-                    IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED];
-            mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM] = mBackgrounds[IS_SELECTED | IS_BOTTOM
-                    | IS_BELOW_SELECTED];
-
-            mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED] = R.drawable.calname_select_underselect;
-            mBackgrounds[IS_SELECTED | IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_SELECTED
-                    | IS_BELOW_SELECTED];
-            mBackgrounds[IS_SELECTED | IS_TOP] = mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED];
-
-            mBackgrounds[IS_BOTTOM] = R.drawable.calname_bottom_unselected;
-
-            mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] =
-                    R.drawable.calname_bottom_unselected_underselect;
-            mBackgrounds[IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[IS_BOTTOM
-                    | IS_BELOW_SELECTED];
-            mBackgrounds[IS_TOP | IS_BOTTOM] = mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED];
-
-            mBackgrounds[IS_BELOW_SELECTED] = R.drawable.calname_unselected_underselect;
-            mBackgrounds[IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_BELOW_SELECTED];
-            mBackgrounds[IS_TOP] = mBackgrounds[IS_BELOW_SELECTED];
-            return mBackgrounds;
-        }
     }
 
     private class CalendarRow {
