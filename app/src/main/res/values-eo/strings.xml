@@ -239,7 +239,7 @@
     <string name="preferences_clear_search_history_summary">Forigi ĉiujn serĉojn kiuj vi faris</string>
     <string name="search_history_cleared">Serĉ-historio viŝigita.</string>
     <string name="preferences_alerts_vibrateWhen_title">Vibri</string>
-    <string name="preferences_home_tz_title">Hejma temp-zono</string>
+    <string name="preferences_home_tz_title">Hejma horzono</string>
     <string name="preferences_show_week_num_title">Montri semajn-numeron</string>
     <string name="preferences_build_version">Versio</string>
     <string name="preferences_issues">Raporti problemojn</string>
@@ -259,4 +259,17 @@
     <string name="preferences_clear_search_history_title">Viŝigi serĉ-historion</string>
     <string name="preferences_use_home_tz_title">Uzi hejman temp-zonon</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="accessibility_pick_end_time">Fina tempo</string>
+    <string name="menu_info">Informoj</string>
+    <string name="preferences_default_reminder_default">10</string>
+    <string name="accessibility_pick_start_date">Komenca dato</string>
+    <string name="recurrence_end_continously">Ĉiam</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Projekto Etar. Partoj © 2005-<xliff:g>%1$s</xliff:g> Malfermitkoda Projekto Android.</string>
+    <string name="display_time">Montri tempon</string>
+    <string name="display_location">Montri lokon</string>
+    <string name="preferences_experimental_category">Eksperimentaĵoj</string>
+    <string name="accessibility_pick_end_date">Fina dato</string>
+    <string name="accessibility_pick_time_zone">Horzono</string>
+    <string name="accessibility_pick_start_time">Komenca tempo</string>
+    <string name="acessibility_recurrence_choose_end_date_description">ŝanĝi finan daton</string>
 </resources>
