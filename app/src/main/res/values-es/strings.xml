@@ -111,7 +111,7 @@
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Recordatorios"</string>
     <string name="agenda_today" msgid="5965841338467422191">Hoy, <xliff:g id="DATE">%1$s</xliff:g></string>
     <string name="agenda_yesterday" msgid="4170964206728599693">Ayer, <xliff:g id="DATE">%1$s</xliff:g></string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">Mañana (<xliff:g id="DATE">%1$s</xliff:g>)</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Mañana, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Cargando…</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tocar para ver eventos anteriores al <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tocar para ver eventos posteriores al <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -175,7 +175,7 @@
         <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">No hay eventos futuros en el calendario</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimental"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">En produción</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Omitir recordatorios"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Omitir recordatorios"</string>
     <string name="copy_db" msgid="437691290566699292">"Enviar base de datos"</string>
@@ -242,7 +242,7 @@
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_pick_ics">Elige un archivo para importar</string>
     <string name="cal_share_intent_title">Envía evento a:</string>
-    <string name="calendar_permission_not_granted">Se denegaron los permisos necesarios, habilítelos desde la configuración para editar eventos</string>
+    <string name="calendar_permission_not_granted">Los permisos requeridos fueron denegados, habilítelos desde la aplicación de configuración para editar los eventos</string>
     <string name="default_start_last">Vista previamente utilizada</string>
     <string name="default_start_title">Vista de</string>
     <string name="goto_date">Ir a…</string>
@@ -314,9 +314,9 @@
     <string name="preferences_calendar_delete_cancel">Cancelar</string>
     <string name="preferences_menu_about">Acerca de Etar</string>
     <string name="offline_account_name">Calendario fuera de línea</string>
-    <string name="preferences_calendar_color_warning_message">El cambio de color se puede revertir cuando se sincronice el calendario de nuevo.
+    <string name="preferences_calendar_color_warning_message">El cambio de color puede ser revertido cuando el calendario se sincroniza de nuevo.
 \n
-\nEn la opción de DAVx⁵ \'Gestionar colores de calendario\' se puede desactivar para prevenir esto.</string>
+\nEn DAVx⁵ \'Gestionar los colores del calendario\' se puede desactivar para evitar esto.</string>
     <string name="authors">Autores</string>
     <string name="changelog">Registro de cambios</string>
     <string name="license">Licencia</string>
@@ -343,7 +343,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <string name="foreground_notification_title">Planificando nuevos recordatorios…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">después de iniciar el evento</string>
     <string name="preferences_real_event_colors">Usar colores de eventos reales</string>
     <string name="menu_info">Información</string>
 </resources>
