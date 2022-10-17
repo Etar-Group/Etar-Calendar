@@ -1471,23 +1471,25 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
         long calendarId = c.getLong(idColumn);
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
-        int color = c.getInt(colorColumn);
-        int displayColor = Utils.getDisplayColorFromColor(mActivity, color);
+        int calendarColor = c.getInt(colorColumn);
+        int displayCalendarColor = Utils.getDisplayColorFromColor(mActivity, calendarColor);
 
         // Prevents resetting of data (reminders, etc.) on orientation change.
         if (calendarId == mModel.mCalendarId && mModel.isCalendarColorInitialized() &&
-                displayColor == mModel.getCalendarColor()) {
+                displayCalendarColor == mModel.getCalendarColor()) {
             return;
         }
 
-        setSpinnerBackgroundColor(displayColor);
-
         mModel.mCalendarId = calendarId;
-        mModel.setCalendarColor(displayColor);
+        mModel.setCalendarColor(displayCalendarColor);
         mModel.mCalendarAccountName = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_NAME);
         mModel.mCalendarAccountType = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_TYPE);
-        mModel.setEventColor(mModel.getCalendarColor());
-
+        // TODO: try to find a similar color within the new event colors before falling back to the calendar color
+        mModel.setEventColor(Arrays.stream(mModel.getCalendarEventColors())
+                .filter(color -> color == mModel.getEventColor())
+                .findFirst()
+                .orElse(mModel.getCalendarColor()));
+        setSpinnerBackgroundColor(mModel.getEventColor());
         setColorPickerButtonStates(mModel.getCalendarEventColors());
 
         // Update the max/allowed reminders with the new calendar properties.
