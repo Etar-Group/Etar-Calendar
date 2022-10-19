@@ -182,6 +182,11 @@ public class CalendarEventModel implements Serializable {
             mRrule = rrule;
         }
 
+        String timezone = intent.getStringExtra(Events.EVENT_TIMEZONE);
+        if (timezone != null) {
+            mTimezone = timezone;
+        }
+
         String emails = intent.getStringExtra(Intent.EXTRA_EMAIL);
         if (!TextUtils.isEmpty(emails)) {
             String[] emailArray = emails.split("[ ,;]");
