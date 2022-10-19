@@ -292,8 +292,8 @@
     <string name="show_day_view">Amosar día</string>
     <string name="calendar_refresh">Refrescar</string>
     <plurals name="weekN">
-        <item quantity="one">Semana <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="other"/>
+        <item quantity="one">Semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Semanas <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 día</item>
@@ -318,5 +318,13 @@
     <string name="today">Hoxe</string>
     <string name="when_label">Cando</string>
     <string name="app_label">Calendario</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">despois do inicio do evento</string>
+    <string name="preferences_real_event_colors">Usa cores de eventos reais</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 semana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
+    </plurals>
+    <string name="no_reminder_label">Ningún</string>
+    <string name="menu_info">Información</string>
+    <string name="foreground_notification_title">Programando novos recordatorios…</string>
 </resources>
