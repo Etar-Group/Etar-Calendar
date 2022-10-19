@@ -1268,6 +1268,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void duplicateEvent() {
+        // save current state before duplicating
+        saveEvent();
+
         final Intent intent = new Intent(mContext, EditEventActivity.class);
         intent.setType("vnd.android.cursor.item/event");
         intent.putExtra(CalendarContract.Events.TITLE, mEventCursor.getString(EVENT_INDEX_TITLE));
@@ -1278,15 +1281,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         intent.putExtra(CalendarContract.Events.ACCESS_LEVEL, mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL));
         intent.putExtra(CalendarContract.Events.AVAILABILITY, mEventCursor.getInt(EVENT_INDEX_AVAILABILITY));
         intent.putExtra(CalendarContract.Events.ALL_DAY, mEventCursor.getInt(EVENT_INDEX_ALL_DAY) == 1);
-        intent.putExtra(CalendarContract.Events.DURATION, mEventCursor.getString(EVENT_INDEX_DURATION));
         intent.putExtra(CalendarContract.Events.EVENT_TIMEZONE, mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE));
         intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, mStartMillis);
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, mEndMillis);
-        intent.putExtra(EditEventActivity.EXTRA_EVENT_REMINDERS, mOriginalReminders);
-
-        final int displayColor = Utils.getDisplayColorFromColor(mContext, mEventCursor.isNull(EVENT_INDEX_EVENT_COLOR)
-                ? mEventCursor.getInt(EVENT_INDEX_CALENDAR_COLOR) : mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
-        intent.putExtra(EditEventActivity.EXTRA_EVENT_COLOR, displayColor);
+        intent.putExtra(EditEventActivity.EXTRA_EVENT_REMINDERS, mReminders);
+        intent.putExtra(EditEventActivity.EXTRA_EVENT_COLOR, mCurrentColor);
 
         final String allAttendees = Stream.of(mAcceptedAttendees, mDeclinedAttendees, mTentativeAttendees, mNoResponseAttendees)
                 .flatMap(Collection::stream)
@@ -1331,13 +1330,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onStop() {
         Activity act = getActivity();
         if (!mEventDeletionStarted && act != null && !act.isChangingConfigurations()) {
-
-            boolean responseSaved = saveResponse();
-            boolean eventColorSaved = saveEventColor();
-            if (saveReminders() || responseSaved || eventColorSaved) {
-                Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
-                Utils.sendUpdateWidgetIntent(mContext);
-            }
+            saveEvent();
         }
         super.onStop();
     }
@@ -1354,6 +1347,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mAttendeesCursor.close();
         }
         super.onDestroy();
+    }
+
+    private void saveEvent() {
+        boolean responseSaved = saveResponse();
+        boolean eventColorSaved = saveEventColor();
+        if (saveReminders() || responseSaved || eventColorSaved) {
+            Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
+            Utils.sendUpdateWidgetIntent(mContext);
+        }
     }
 
     /**
