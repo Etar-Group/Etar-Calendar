@@ -174,7 +174,7 @@
         <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>개"</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">예정된 캘린더 일정이 없습니다</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"베타"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">실험용</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"알림 건너뛰기"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"알림 건너뛰기"</string>
     <string name="copy_db" msgid="437691290566699292">"데이터베이스 보내기"</string>
