@@ -226,6 +226,8 @@
     <skip/>
     <!-- Check box label that specifies if this is an all-day event -->
     <string name="edit_event_all_day_label">All day</string>
+    <!-- Spinner that shows the possible event status -->
+    <string name="edit_event_status_label">Status</string>
     <!-- Label for choosing one of the calendars -->
     <string name="edit_event_calendar_label">Calendar</string>
     <!-- Menu item to show all choices [CHAR LIMIT=22]-->
@@ -624,6 +626,8 @@
     <!-- Mark this event as an "all day event" [CHAR LIMIT = NONE]-->
     <string name="accessibility_all_day">All day event</string>
     <!-- Refresh the data in the calendar [CHAR LIMIT = NONE]-->
+    <!-- Set an event status (tentative, confirmed, or cancelled) -->
+    <string name="accessibility_event_status">Event status</string>
 
     <!-- Choose the type of repetition for the event (daily, weekly, etc.[CHAR LIMIT = NONE]-->
     <!-- Set the time for the reminder[CHAR LIMIT = NONE]-->
@@ -722,6 +726,11 @@
 
     <string name="user_rejected_calendar_write_permission">Etar requires calendar read and write permissions to work properly. Please try again.</string>
     <string name="calendar_permission_not_granted">Required permissions were denied, enable them from Settings app to edit events</string>
+
+    <!-- Strings describing an event status -->
+    <string name="event_status_tentative">Tentative</string>
+    <string name="event_status_confirmed">Confirmed</string>
+    <string name="event_status_cancelled">Cancelled</string>
 
     <!-- Strings to describe visibility array -->
     <string name="visibility_default">Default</string>

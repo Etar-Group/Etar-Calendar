@@ -321,11 +321,11 @@ public class EditEventHelper {
         ArrayList<ReminderEntry> reminders = model.mReminders;
         int len = reminders.size();
         values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
+        values.put(Events.STATUS, model.mEventStatus);
 
         if (uri == null) {
             // Add hasAttendeeData for a new event
             values.put(Events.HAS_ATTENDEE_DATA, 1);
-            values.put(Events.STATUS, Events.STATUS_CONFIRMED);
             eventIdIndex = ops.size();
             ContentProviderOperation.Builder b = ContentProviderOperation.newInsert(
                     Events.CONTENT_URI).withValues(values);
@@ -1284,8 +1284,7 @@ public class EditEventHelper {
         values.put(Events.AVAILABILITY, model.mAvailability);
         values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
 
-        int accessLevel = model.mAccessLevel;
-        values.put(Events.ACCESS_LEVEL, accessLevel);
+        values.put(Events.ACCESS_LEVEL, model.mAccessLevel);
         values.put(Events.STATUS, model.mEventStatus);
         if (model.isEventColorInitialized()) {
             if (model.getEventColor() == model.getCalendarColor()) {
