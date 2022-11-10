@@ -49,7 +49,7 @@
         <item quantity="one">שבוע <xliff:g id="count">%d</xliff:g></item>
         <item quantity="two">שבוע <xliff:g id="count">%d</xliff:g></item>
         <item quantity="many">שבוע <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">שבוע <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">רענן</string>
     <string name="show_day_view" msgid="5782512782605466016">הצג יום</string>
@@ -380,4 +380,5 @@
     <string name="after_start_of_event">לאחר התחלת אירוע</string>
     <string name="preferences_real_event_colors">להשתמש בצבעי האירוע האמתיים</string>
     <string name="menu_info">פרטים</string>
+    <string name="duplicate_label">שכפול</string>
 </resources>
