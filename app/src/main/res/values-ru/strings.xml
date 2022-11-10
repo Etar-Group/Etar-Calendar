@@ -46,9 +46,10 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> дней</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one"><xliff:g id="count">%d</xliff:g> неделя</item>
-        <item quantity="few"><xliff:g id="count">%d</xliff:g> неделя</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> неделя</item>
+        <item quantity="one"></item>
+        <item quantity="few">Неделя <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">Неделя <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Неделя <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Обновить"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показать день"</string>
@@ -141,9 +142,9 @@
     </plurals>
     <plurals name="daily">
         <item quantity="one">Ежедневно</item>
-        <item quantity="few">Раз в <xliff:g id="NUMBER">%d</xliff:g> дня</item>
-        <item quantity="many">Раз в <xliff:g id="NUMBER">%d</xliff:g> дней</item>
-        <item quantity="other">Раз в <xliff:g id="NUMBER">%d</xliff:g> дней</item>
+        <item quantity="few">Раз в <xliff:g id="number">%d</xliff:g> дня</item>
+        <item quantity="many">Раз в <xliff:g id="number">%d</xliff:g> дней</item>
+        <item quantity="other">Раз в <xliff:g id="number">%d</xliff:g> дней</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Каждый будний день (пн–пт)"</string>
     <plurals name="weekly">
@@ -372,4 +373,5 @@
     <string name="after_start_of_event">после начала события</string>
     <string name="preferences_real_event_colors">Использовать реальные цвета событий</string>
     <string name="menu_info">Информация</string>
+    <string name="duplicate_label">Дублировать</string>
 </resources>
