@@ -363,4 +363,5 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> týdnů</item>
     </plurals>
     <string name="menu_info">Informace</string>
+    <string name="duplicate_label">Duplikovat</string>
 </resources>
