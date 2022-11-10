@@ -45,10 +45,10 @@
         <item quantity="many"><xliff:g id="count">%d</xliff:g> днів</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one"><xliff:g id="count">%d</xliff:g> тиждень</item>
-        <item quantity="few"><xliff:g id="count">%d</xliff:g> тижні</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> тижнів</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> тижнів</item>
+        <item quantity="one">Тиждень <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="few">Тиждень <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">Тиждень <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Тиждень <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Оновити"</string>
     <string name="show_day_view" msgid="5782512782605466016">Показати день</string>
@@ -371,4 +371,5 @@
     <string name="after_start_of_event">після початку події</string>
     <string name="preferences_real_event_colors">Використовувати реальні кольори подій</string>
     <string name="menu_info">Інформація</string>
+    <string name="duplicate_label">Дублікат</string>
 </resources>
