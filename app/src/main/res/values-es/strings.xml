@@ -22,23 +22,28 @@
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Sin título)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minutos"</item>
+        <item quantity="one">1 minuto</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> minutos</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> mins</item>
         <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 hora"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> horas"</item>
+        <item quantity="one">1 hora</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> horas</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 día"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> días"</item>
+        <item quantity="one">1 día</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> días</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> días</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">Semanas <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">Semanas <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
@@ -126,17 +131,20 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="endByDate" msgid="7654221304929538201">"; hasta <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; una vez"</item>
-        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> veces"</item>
+        <item quantity="one">; por una vez</item>
+        <item quantity="many">; para <xliff:g id="number">%d</xliff:g> veces</item>
+        <item quantity="other">; para <xliff:g id="number">%d</xliff:g> veces</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Diariamente"</item>
-        <item quantity="other" msgid="5455230727715859264">"Cada <xliff:g id="NUMBER">%d</xliff:g> días"</item>
+        <item quantity="one">Diariamente</item>
+        <item quantity="many">Cada <xliff:g id="number">%d</xliff:g> días</item>
+        <item quantity="other">Cada <xliff:g id="NUMBER">%d</xliff:g> días</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Cada día laborable (lunes-viernes)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Semanalmente el <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Cada <xliff:g id="NUMBER">%1$d</xliff:g> semanas el <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Semanalmente en <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="many">Cada <xliff:g id="number">%1$d</xliff:g> semana en <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Cada <xliff:g id="number">%1$d</xliff:g> semana en <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Mensualmente"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Anualmente"</string>
@@ -171,8 +179,9 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número de semana"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versión de la compilación"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="many">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="NUMBER">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">No hay eventos futuros en el calendario</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">En produción</string>
@@ -199,16 +208,19 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">Evento <xliff:g id="item_index">%1$s</xliff:g> de <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 evento</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> eventos</item>
         <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> eventos</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 evento</item>
+        <item quantity="many">+<xliff:g id="count">%d</xliff:g> eventos</item>
         <item quantity="other">+<xliff:g id="COUNT">%d</xliff:g> eventos</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento seleccionado"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Cada <xliff:g id="COUNT">%d</xliff:g> día"</item>
-        <item quantity="other" msgid="707566499994398250">"Cada <xliff:g id="COUNT">%d</xliff:g> días"</item>
+        <item quantity="one">Cada <xliff:g id="COUNT">%d</xliff:g> día</item>
+        <item quantity="many">Cada <xliff:g id="count">%d</xliff:g> días</item>
+        <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> días</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one" msgid="4948681635464488351">"Cada <xliff:g id="COUNT">%d</xliff:g> semana"</item>
@@ -340,10 +352,12 @@
     <string name="no_reminder_label">Ninguno</string>
     <plurals name="Nweeks">
         <item quantity="one">1 semana</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> semanas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <string name="foreground_notification_title">Planificando nuevos recordatorios…</string>
     <string name="after_start_of_event">después de iniciar el evento</string>
     <string name="preferences_real_event_colors">Usar colores de eventos reales</string>
     <string name="menu_info">Información</string>
+    <string name="duplicate_label">Duplicado</string>
 </resources>
