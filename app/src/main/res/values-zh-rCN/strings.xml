@@ -22,23 +22,19 @@
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"（无标题）"</string>
     <plurals name="Nminutes">
-        <item quantity="one"><xliff:g id="count">%d</xliff:g> 分钟</item>
-        <item quantity="other"/>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 分钟</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="other"><xliff:g id="count">%d</xliff:g> 分钟</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one"><xliff:g id="count">%d</xliff:g> 小时</item>
-        <item quantity="other"/>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 小时</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one"><xliff:g id="count">%d</xliff:g> 天</item>
-        <item quantity="other"/>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 天</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">第 <xliff:g id="count">%d</xliff:g>= 周</item>
-        <item quantity="other"/>
+        <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"刷新"</string>
     <string name="show_day_view" msgid="5782512782605466016">"显示日期"</string>
@@ -125,11 +121,10 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="endByDate" msgid="7654221304929538201">"；直到<xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item quantity="other">; 重复<xliff:g id="number">%d</xliff:g>次</item>
+        <item quantity="other">; 重复 <xliff:g id="number">%d</xliff:g> 次</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one">每 <xliff:g id="number">%d</xliff:g> 天</item>
-        <item quantity="other"/>
+        <item quantity="other">每 <xliff:g id="number">%d</xliff:g> 天</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
     <plurals name="weekly">
@@ -201,20 +196,16 @@
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"所选活动"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">每 <xliff:g id="count">%d</xliff:g> 天</item>
-        <item quantity="other"/>
+        <item quantity="other">每 <xliff:g id="count">%d</xliff:g> 天</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">每 <xliff:g id="count">%d</xliff:g> 周</item>
-        <item quantity="other"/>
+        <item quantity="other">每 <xliff:g id="count">%d</xliff:g> 周</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">每 <xliff:g id="count">%d</xliff:g> 月</item>
-        <item quantity="other"/>
+        <item quantity="other">每 <xliff:g id="count">%d</xliff:g> 月</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">每 <xliff:g id="count">%d</xliff:g> 年</item>
-        <item quantity="other"/>
+        <item quantity="other">每 <xliff:g id="count">%d</xliff:g> 年</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"在每个月的同一天"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"无限重复"</string>
@@ -339,4 +330,5 @@
     <string name="after_start_of_event">在事件开始后</string>
     <string name="preferences_real_event_colors">使用真实事件颜色</string>
     <string name="menu_info">信息</string>
+    <string name="duplicate_label">复制</string>
 </resources>
