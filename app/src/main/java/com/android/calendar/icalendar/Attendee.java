@@ -16,8 +16,6 @@
 
 package com.android.calendar.icalendar;
 
-import com.android.calendar.Llog;
-
 import java.util.HashMap;
 import java.util.ListIterator;
 
