@@ -27,9 +27,9 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 min</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> mins</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> mins</item>
+        <item quantity="one">1 minuto</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> minutos</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 hora</item>
@@ -42,9 +42,9 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> días</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Semana <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="many">Semanas <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">Semanas <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one"></item>
+        <item quantity="many">Week <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar día"</string>
@@ -223,16 +223,19 @@
         <item quantity="other">Cada <xliff:g id="count">%d</xliff:g> días</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Cada <xliff:g id="COUNT">%d</xliff:g> semana"</item>
-        <item quantity="other" msgid="7094801039989237061">"Cada <xliff:g id="COUNT">%d</xliff:g> semanas"</item>
+        <item quantity="one">Cada <xliff:g id="COUNT">%d</xliff:g> semana</item>
+        <item quantity="many">Cada <xliff:g id="COUNT">%d</xliff:g> semanas</item>
+        <item quantity="other">Cada <xliff:g id="COUNT">%d</xliff:g> semanas</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Cada <xliff:g id="COUNT">%d</xliff:g> mes"</item>
-        <item quantity="other" msgid="5419723710346646523">"Cada <xliff:g id="COUNT">%d</xliff:g> meses"</item>
+        <item quantity="one">Cada <xliff:g id="COUNT">%d</xliff:g> mes</item>
+        <item quantity="many">Cada <xliff:g id="COUNT">%d</xliff:g> meses</item>
+        <item quantity="other">Cada <xliff:g id="COUNT">%d</xliff:g> meses</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Cada <xliff:g id="COUNT">%d</xliff:g> año"</item>
-        <item quantity="other" msgid="5678653649746562060">"Cada <xliff:g id="COUNT">%d</xliff:g> años"</item>
+        <item quantity="one">Cada <xliff:g id="COUNT">%d</xliff:g> año</item>
+        <item quantity="many">Cada <xliff:g id="COUNT">%d</xliff:g> años</item>
+        <item quantity="other">Cada <xliff:g id="COUNT">%d</xliff:g> años</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mismo día de cada mes"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Siempre"</string>
@@ -240,8 +243,9 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Hasta el <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Para un número de eventos"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"Para <xliff:g id="EVENT_COUNT">%d</xliff:g> evento"</item>
-        <item quantity="other" msgid="8779598489398048259">"Para <xliff:g id="EVENT_COUNT">%d</xliff:g> eventos"</item>
+        <item quantity="one">Para <xliff:g id="EVENT_COUNT">%d</xliff:g> evento</item>
+        <item quantity="many">Para <xliff:g id="EVENT_COUNT">%d</xliff:g> eventos</item>
+        <item quantity="other">Para <xliff:g id="EVENT_COUNT">%d</xliff:g> eventos</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"cambiar fecha de finalización"</string>
     <string name="no_map">No hay app de mapas instalado</string>
