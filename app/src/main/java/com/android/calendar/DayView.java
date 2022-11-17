@@ -2019,18 +2019,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mPrevSelectedEvent = null;
         mSelectedEvents.clear();
 
-        // The start date is the beginning of the week at 12am
-        Time weekStart = new Time(Utils.getTimeZone(mContext, mTZUpdater));
-        weekStart.set(mBaseDate);
-        // Avoid zero when Sunday is selected as the start day of the week.
-        if (mFirstDayOfWeek == 0) {
-            mFirstDayOfWeek = 7;
-        }
-        weekStart.setWeekDay(mFirstDayOfWeek);
-        weekStart.setHour(0);
-        weekStart.setMinute(0);
-        weekStart.setSecond(0);
-        long millis = weekStart.normalize();
+        // The start time is the beginning of the day at 12am
+        Time dayStart = new Time(Utils.getTimeZone(mContext, mTZUpdater));
+        dayStart.set(mBaseDate);
+        dayStart.setHour(0);
+        dayStart.setMinute(0);
+        dayStart.setSecond(0);
+        long millis = dayStart.normalize();
 
         // Avoid reloading events unnecessarily.
         if (millis == mLastReloadMillis) {
