@@ -292,7 +292,7 @@
     <string name="show_day_view">Amosar día</string>
     <string name="calendar_refresh">Refrescar</string>
     <plurals name="weekN">
-        <item quantity="one">Week <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one"></item>
         <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <plurals name="Ndays">
