@@ -346,4 +346,5 @@
     <string name="after_start_of_event">after start of event</string>
     <string name="preferences_real_event_colors">Usar cores de eventos reais</string>
     <string name="menu_info">Info</string>
+    <string name="duplicate_label">Duplicar</string>
 </resources>
