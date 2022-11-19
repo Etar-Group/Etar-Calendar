@@ -42,9 +42,9 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> de zile</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Săptămâna <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="few">Săptămâni <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="other">De săptămâni <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="one">Week <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="few">Weeks <xliff:g id="COUNT">%d</xliff:g></item>
+        <item quantity="other">Weeks <xliff:g id="COUNT">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualizaţi"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Afişaţi ziua"</string>
@@ -363,4 +363,5 @@
     <string name="after_start_of_event">după începerea evenimentului</string>
     <string name="preferences_real_event_colors">Utilizați culorile reale ale evenimentului</string>
     <string name="menu_info">Informații</string>
+    <string name="duplicate_label">Duplicat</string>
 </resources>
