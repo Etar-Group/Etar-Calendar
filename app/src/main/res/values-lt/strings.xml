@@ -43,8 +43,8 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> savaitė</item>
-        <item quantity="few"><xliff:g id="count">%d</xliff:g> savaitės</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> savaičių</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> savaitė</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> savaitė</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atnaujinti"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Rodyti dieną"</string>
@@ -363,4 +363,5 @@
     <string name="after_start_of_event">po įvykio pradžios</string>
     <string name="menu_info">Informacija</string>
     <string name="preferences_real_event_colors">Naudoti tikras įvykio spalvas</string>
+    <string name="duplicate_label">Dubliuoti</string>
 </resources>
