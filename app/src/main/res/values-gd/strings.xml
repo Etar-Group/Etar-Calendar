@@ -319,5 +319,21 @@
     <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="tomorrow_at_time_fmt">A-màireach aig <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="today_at_time_fmt">An-diugh aig <xliff:g id="time_interval">%s</xliff:g></string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">às dèidh tòiseachadh an tachartais</string>
+    <plurals name="weekN">
+        <item quantity="one">Seachdain <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="two">Seachdain <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="few">Seachdain <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Seachdain <xliff:g id="count">%d</xliff:g></item>
+    </plurals>
+    <string name="foreground_notification_channel_name">Saothraichean sa chùlaibh</string>
+    <string name="foreground_notification_title">A’ cur nan cuimhneachan ùra air an sgeideal…</string>
+    <string name="menu_info">Fiosrachadh</string>
+    <plurals name="Nweeks">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> seachdain</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> sheachdain</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> seachdainean</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> seachdain</item>
+    </plurals>
+    <string name="no_reminder_label">Chan eil gin</string>
 </resources>
