@@ -26,6 +26,8 @@ import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
 import android.text.util.Rfc822Token;
 
+import androidx.annotation.Nullable;
+
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventColorCache;
 import com.android.calendar.settings.GeneralPreferences;
@@ -770,6 +772,7 @@ public class CalendarEventModel implements Serializable {
         mEventColorInitialized = true;
     }
 
+    @Nullable
     public int[] getCalendarEventColors() {
         if (mEventColorCache != null) {
             return mEventColorCache.getColorArray(mCalendarAccountName, mCalendarAccountType);

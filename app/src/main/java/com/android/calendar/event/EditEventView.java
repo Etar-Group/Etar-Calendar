@@ -1485,10 +1485,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mCalendarAccountName = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_NAME);
         mModel.mCalendarAccountType = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_TYPE);
         // TODO: try to find a similar color within the new event colors before falling back to the calendar color
-        mModel.setEventColor(Arrays.stream(mModel.getCalendarEventColors())
-                .filter(color -> color == mModel.getEventColor())
-                .findFirst()
-                .orElse(mModel.getCalendarColor()));
+        if (mModel.getCalendarEventColors() != null) {
+            mModel.setEventColor(Arrays.stream(mModel.getCalendarEventColors())
+                    .filter(color -> color == mModel.getEventColor())
+                    .findFirst()
+                    .orElse(mModel.getCalendarColor()));
+        } else {
+            mModel.setEventColor(mModel.getCalendarColor());
+        }
         setSpinnerBackgroundColor(mModel.getEventColor());
         setColorPickerButtonStates(mModel.getCalendarEventColors());
 
