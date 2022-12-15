@@ -47,6 +47,8 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
@@ -197,8 +199,16 @@ public class AlertReceiver extends BroadcastReceiver {
         return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
     }
 
+    // if default snooze minute < 0, means the snooze option is disable
+    // in this case return null as intent
+    @Nullable
     private static PendingIntent createSnoozeIntent(Context context, long eventId,
             long startMillis, long endMillis, int notificationId) {
+
+        if (Utils.getDefaultSnoozeDelayMs(context) < 0L) {
+            return null;
+        }
+
         Intent intent = new Intent();
         intent.putExtra(AlertUtils.EVENT_ID_KEY, eventId);
         intent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);

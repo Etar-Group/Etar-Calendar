@@ -41,6 +41,7 @@
 
     <!-- Reminder format strings -->
     <string name="no_reminder_label">None</string>
+    <string name="no_snooze_label">None</string>
     <plurals name="Nminutes">
         <!-- This is the label for a 1-minute reminder. -->
         <item quantity="one">1 minute</item>
