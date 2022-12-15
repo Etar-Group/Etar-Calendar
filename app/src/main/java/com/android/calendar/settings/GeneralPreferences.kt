@@ -74,6 +74,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private lateinit var homeTzPref: Preference
     private lateinit var popupPref: SwitchPreference
     private lateinit var snoozeDelayPref: ListPreference
+    private lateinit var useDefaultCustomSnoozeDelayPref: Preference
     private lateinit var defaultReminderPref: ListPreference
     private lateinit var copyDbPref: Preference
     private lateinit var skipRemindersPref: ListPreference
@@ -119,6 +120,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         homeTzPref = preferenceScreen.findPreference(KEY_HOME_TZ)!!
         popupPref = preferenceScreen.findPreference(KEY_ALERTS_POPUP)!!
         snoozeDelayPref = preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY)!!
+        useDefaultCustomSnoozeDelayPref = preferenceScreen.findPreference(KEY_USE_CUSTOM_SNOOZE_DELAY)!!
         defaultReminderPref = preferenceScreen.findPreference(KEY_DEFAULT_REMINDER)!!
         copyDbPref = preferenceScreen.findPreference(KEY_OTHER_COPY_DB)!!
         skipRemindersPref = preferenceScreen.findPreference(KEY_OTHER_REMINDERS_RESPONDED)!!
@@ -156,6 +158,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         buildSnoozeDelayEntries()
         buildDefaultReminderPrefEntries()
+        handleUseCustomSnoozeDelayVisibility()
         defaultEventDurationPref.summary = defaultEventDurationPref.entry
         themePref.summary = themePref.entry
         weekStartPref.summary = weekStartPref.entry
@@ -186,6 +189,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         tzpd?.setOnTimeZoneSetListener(this)
 
         initializeColorMap()
+    }
+
+    private fun handleUseCustomSnoozeDelayVisibility() {
+        useDefaultCustomSnoozeDelayPref.isEnabled = Integer.parseInt(snoozeDelayPref.value) >= 0
     }
 
     private fun showColorPickerDialog() {
@@ -355,6 +362,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             snoozeDelayPref -> {
                 snoozeDelayPref.value = newValue as String
                 snoozeDelayPref.summary = snoozeDelayPref.entry
+                handleUseCustomSnoozeDelayVisibility()
             }
             defaultStartPref -> {
                 val i = defaultStartPref.findIndexOfValue(newValue as String)

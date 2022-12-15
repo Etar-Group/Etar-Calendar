@@ -112,6 +112,7 @@
     </string-array>
 
     <string-array name="preferences_default_snooze_delay_values" translatable="false">
+        <item>"-1"</item>
         <item>"5"</item>
         <item>"10"</item>
         <item>"15"</item>
