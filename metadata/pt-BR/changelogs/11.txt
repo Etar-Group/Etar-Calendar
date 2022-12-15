@@ -1,0 +1,3 @@
+- Adicionar opção para escolher dias por semana.
+- Adicionar opção para a visão padrão para mostrar ao abrir.
+- Correções de bugs.
