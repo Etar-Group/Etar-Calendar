@@ -147,7 +147,7 @@ public class EventInfoActivity extends AppCompatActivity {
         if (mInfoFragment == null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            mInfoFragment = new EventInfoFragment(this, mEventId, mStartMillis, mEndMillis,
+            mInfoFragment = new EventInfoFragment(this, intent.getData(), mStartMillis, mEndMillis,
                     attendeeResponse, isDialog, (isDialog ?
                             EventInfoFragment.DIALOG_WINDOW_STYLE :
                                 EventInfoFragment.FULL_WINDOW_STYLE),

@@ -49,6 +49,7 @@ public class VCalendar {
     // Stores attributes and their corresponding values belonging to the Calendar object
     public HashMap<String, String> mProperties;
     public LinkedList<VEvent> mEvents;      // Events that belong to this Calendar object
+    public LinkedList<VTodo> mTodos;      // Todos that belong to this Calendar object
 
     /**
      * Constructor
@@ -56,6 +57,7 @@ public class VCalendar {
     public VCalendar() {
         mProperties = new HashMap<String, String>();
         mEvents = new LinkedList<VEvent>();
+        mTodos = new LinkedList<VTodo>();
     }
 
     /**
@@ -82,12 +84,22 @@ public class VCalendar {
         if (event != null) mEvents.add(event);
     }
 
+    public void addTodo(VTodo todo) {
+        if (todo != null) {
+            mTodos.add(todo);
+        }
+    }
+
     /**
      *
      * @return
      */
     public LinkedList<VEvent> getAllEvents() {
         return mEvents;
+    }
+
+    public LinkedList<VTodo> getAllTodos() {
+        return mTodos;
     }
 
     /**
@@ -111,6 +123,10 @@ public class VCalendar {
             output.append(event.getICalFormattedString());
         }
 
+        for (VTodo todo : mTodos) {
+            output.append(todo.getICalFormattedString());
+        }
+
         output.append("END:VCALENDAR\n");
 
         return output.toString();
@@ -129,6 +145,11 @@ public class VCalendar {
                 VEvent event = new VEvent();
                 event.populateFromEntries(iter);
                 mEvents.add(event);
+            } else if (line.contains("BEGIN:VTODO")) {
+                iter.previous();
+                VTodo todo = new VTodo();
+                todo.populateFromEntries(iter);
+                mTodos.add(todo);
             } else if (line.contains("END:VCALENDAR")) {
                 break;
             }

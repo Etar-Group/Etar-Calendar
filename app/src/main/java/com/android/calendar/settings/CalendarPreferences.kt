@@ -35,25 +35,28 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
 import com.android.calendar.persistence.CalendarRepository
+import com.android.calendar.persistence.tasks.DmfsOpenTasksContract
 import ws.xsoh.etar.R
 
 
 class CalendarPreferences : PreferenceFragmentCompat() {
 
     private var calendarId: Long = -1
+    private var isTask: Boolean = false;
     private lateinit var calendarRepository: CalendarRepository
     private lateinit var account: Account
     private var numberOfEvents: Long = -1
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         calendarId = requireArguments().getLong(ARG_CALENDAR_ID)
+        isTask = requireArguments().getBoolean(ARG_IS_TASKS)
         calendarRepository = CalendarRepository(requireActivity().application)
-        account = calendarRepository.queryAccount(calendarId)!!
-        numberOfEvents = calendarRepository.queryNumberOfEvents(calendarId)!!
+        account = calendarRepository.queryAccount(calendarId, isTask)!!
+        numberOfEvents = calendarRepository.queryNumberOfEvents(calendarId, isTask)!!
 
         // use custom data store to save/retrieve calendar preferences in Android's calendar database
         val preferenceManager = preferenceManager
-        preferenceManager.preferenceDataStore = CalendarDataStore(requireActivity(), calendarId)
+        preferenceManager.preferenceDataStore = CalendarDataStore(requireActivity(), calendarId, isTask)
 
         populatePreferences()
     }
@@ -69,6 +72,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         val screen = preferenceManager.createPreferenceScreen(context)
 
         val isLocalAccount = account.type == CalendarContract.ACCOUNT_TYPE_LOCAL
+            || account.type == DmfsOpenTasksContract.ACCOUNT_TYPE_LOCAL
         val currentColor = preferenceManager.preferenceDataStore!!.getInt(COLOR_KEY, -1)
         val authenticatorInfo = getAuthenticatorInfo(account)
 
@@ -85,25 +89,35 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             title = getString(R.string.preferences_calendar_color)
             icon = getColorIcon(currentColor)
         }
-        colorPreference.setOnPreferenceClickListener {
-            displayCalendarColorPicker()
-            true
+        // disable  it cause we need a sync adapter to update tasks db
+        if (!isTask) {
+            colorPreference.setOnPreferenceClickListener {
+                displayCalendarColorPicker()
+                true
+            }
         }
         val displayNamePreference = EditTextPreference(context).apply {
             key = DISPLAY_NAME_KEY
             title = getString(R.string.preferences_calendar_display_name)
             dialogTitle = getString(R.string.preferences_calendar_display_name)
         }
-        displayNamePreference.setOnPreferenceChangeListener { _, newValue ->
-            activity?.title = newValue as String
-            true
+        // disable  it cause we need a sync adapter to update tasks db
+        if (!isTask) {
+            displayNamePreference.setOnPreferenceChangeListener { _, newValue ->
+                activity?.title = newValue as String
+                true
+            }
         }
+
         val deletePreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_delete)
         }
-        deletePreference.setOnPreferenceClickListener {
-            deleteCalendar()
-            true
+        // disable  it cause we need a sync adapter to update tasks db
+        if (!isTask) {
+            deletePreference.setOnPreferenceClickListener {
+                deleteCalendar()
+                true
+            }
         }
         val configurePreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_configure_account, authenticatorInfo?.label)
@@ -139,7 +153,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
         screen.addPreference(visiblePreference)
         screen.addPreference(colorPreference)
-        if (isLocalAccount) {
+        if (isLocalAccount && !isTask) {
             screen.addPreference(displayNamePreference)
             screen.addPreference(deletePreference)
         }
@@ -244,7 +258,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         const val COLOR_PICKER_DIALOG_TAG = "CalendarColorPickerDialog"
 
         const val ARG_CALENDAR_ID = "calendarId"
-
+        const val ARG_IS_TASKS = "isTasks"
         const val SYNCHRONIZE_KEY = "synchronize"
         const val VISIBLE_KEY = "visible"
         const val COLOR_KEY = "color"

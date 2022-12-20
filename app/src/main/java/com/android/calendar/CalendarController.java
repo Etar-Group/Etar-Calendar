@@ -40,6 +40,7 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.android.calendar.event.EditEventActivity;
+import com.android.calendar.persistence.tasks.DmfsOpenTasksContract;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivity;
 import com.android.calendarcommon2.Time;
@@ -426,6 +427,10 @@ public class CalendarController {
                 launchViewEvent(event.id, event.startTime.toMillis(), endTime,
                         event.getResponse());
                 return;
+            } else if (event.eventType == EventType.VIEW_TASK) {
+                launchViewTask(event.id, event.startTime.toMillis(), endTime,
+                        event.getResponse());
+                return;
             } else if (event.eventType == EventType.EDIT_EVENT) {
                 launchEditEvent(event.id, event.startTime.toMillis(), endTime, true);
                 return;
@@ -589,6 +594,18 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
+    public void launchViewTask(long eventId, long startMillis, long endMillis, int response) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri eventUri = ContentUris.withAppendedId(DmfsOpenTasksContract.Tasks.PROVIDER_URI, eventId);
+        intent.setData(eventUri);
+        intent.setClass(mContext, AllInOneActivity.class);
+        intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
+        intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
+        intent.putExtra(ATTENDEE_STATUS, response);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mContext.startActivity(intent);
+    }
+
     private void launchEditEvent(long eventId, long startMillis, long endMillis, boolean edit) {
         Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
         Intent intent = new Intent(Intent.ACTION_EDIT, uri);
@@ -661,6 +678,8 @@ public class CalendarController {
             tmp = "View details";
         } else if ((eventInfo.eventType & EventType.EDIT_EVENT) != 0) {
             tmp = "Edit event";
+        } else if ((eventInfo.eventType & EventType.VIEW_TASK) != 0) {
+            tmp = "View task";
         } else if ((eventInfo.eventType & EventType.DELETE_EVENT) != 0) {
             tmp = "Delete event";
         } else if ((eventInfo.eventType & EventType.LAUNCH_SETTINGS) != 0) {
@@ -722,6 +741,8 @@ public class CalendarController {
 
         // date range has changed, update the title
         final long UPDATE_TITLE = 1L << 10;
+
+        final long VIEW_TASK = 1L << 11;
     }
 
     /**
@@ -833,7 +854,7 @@ public class CalendarController {
         }
 
         public int getResponse() {
-            if (eventType != EventType.VIEW_EVENT) {
+            if (eventType != EventType.VIEW_EVENT && eventType != EventType.VIEW_TASK) {
                 Log.wtf(TAG, "illegal call to getResponse , wrong event type " + eventType);
                 return Attendees.ATTENDEE_STATUS_NONE;
             }

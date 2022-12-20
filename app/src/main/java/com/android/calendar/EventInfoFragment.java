@@ -118,6 +118,8 @@ import com.android.calendar.icalendar.IcalendarUtils;
 import com.android.calendar.icalendar.Organizer;
 import com.android.calendar.icalendar.VCalendar;
 import com.android.calendar.icalendar.VEvent;
+import com.android.calendar.icalendar.VTodo;
+import com.android.calendar.persistence.tasks.DmfsOpenTasksContract;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
@@ -190,13 +192,26 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             Calendars.ACCOUNT_NAME, // 4
             Calendars.ACCOUNT_TYPE  // 5
     };
+
+    static final String[] TASK_LIST_PROJECTION = new String[]{
+            DmfsOpenTasksContract.TaskLists.COLUMN_ID,           // 0
+            DmfsOpenTasksContract.TaskLists.COLUMN_NAME,  // 1
+            DmfsOpenTasksContract.TaskLists.COLUMN_LIST_OWNER, // 2
+            "0 AS canOrganizerRespond", // 3
+            DmfsOpenTasksContract.TaskLists.COLUMN_ACCOUNT_NAME, // 4
+            DmfsOpenTasksContract.TaskLists.COLUMN_ACCOUNT_TYPE  // 5
+    };
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
     static final int CALENDARS_INDEX_ACCOUNT_NAME = 4;
     static final int CALENDARS_INDEX_ACCOUNT_TYPE = 5;
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
+
+    static final String TASK_LIST_WHERE = DmfsOpenTasksContract.TaskLists.COLUMN_ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
+
+    static final String TASK_LIST_DUPLICATE_NAME_WHERE =  DmfsOpenTasksContract.TaskLists.COLUMN_NAME + "=?";
     static final String CALENDARS_VISIBLE_WHERE = Calendars.VISIBLE + "=?";
     static final String[] COLORS_PROJECTION = new String[]{
             Colors._ID, // 0
@@ -217,10 +232,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int TOKEN_QUERY_VISIBLE_CALENDARS = 1 << 5;
     private static final int TOKEN_QUERY_COLORS = 1 << 6;
     private static final int TOKEN_QUERY_EXTENDED = 1 << 7;
+    private static final int TOKEN_QUERY_TASK = 3; // 1
+    private static final int TOKEN_QUERY_TASK_LIST = 7; // 2
+    private static final int TOKEN_QUERY_VISIBLE_TASK_LIST = 11 ; // 32
+    private static final int TOKEN_QUERY_DUPLICATE_TASK_LIST = 100; // 8
     private static final int TOKEN_QUERY_ALL = TOKEN_QUERY_DUPLICATE_CALENDARS
             | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT
             | TOKEN_QUERY_REMINDERS | TOKEN_QUERY_VISIBLE_CALENDARS | TOKEN_QUERY_COLORS
-            | TOKEN_QUERY_EXTENDED;
+            | TOKEN_QUERY_TASK | TOKEN_QUERY_VISIBLE_TASK_LIST | TOKEN_QUERY_DUPLICATE_TASK_LIST |TOKEN_QUERY_TASK_LIST;
 
     public static final File EXPORT_SDCARD_DIRECTORY = new File(
             Environment.getExternalStorageDirectory(), "CalendarEvents");
@@ -258,6 +277,36 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.AVAILABILITY,         // 24
         Events.ACCESS_LEVEL          // 25
     };
+
+    private static final String[] TASK_PROJECTION = new String[] {
+            DmfsOpenTasksContract.Tasks.COLUMN_ID,                  // 0  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_TITLE,               // 1  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_RRULE,               // 2  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_IS_ALLDAY,           // 3  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_LIST_ID,             // 4  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_DTSTART,             // 5  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_SYNC_ID,             // 6  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_TZ,                  // 7  do not remove; used in DeleteEventHelper
+            DmfsOpenTasksContract.Tasks.COLUMN_DESCRIPTION,         // 8
+            DmfsOpenTasksContract.Tasks.COLUMN_LOCATION,            // 9
+            DmfsOpenTasksContract.Tasks.COLUMN_LIST_ACCESS_LEVEL,   // 10
+            DmfsOpenTasksContract.Tasks.COLUMN_LIST_COLOR,          // 11
+            DmfsOpenTasksContract.Tasks.COLUMN_COLOR,               // 12
+            DmfsOpenTasksContract.Tasks.COLUMN_STATUS,              // 13
+            "0 AS hasAttendeeData",                                 // 14
+            DmfsOpenTasksContract.Tasks.COLUMN_ORGANIZER,           // 15
+            DmfsOpenTasksContract.Tasks.COLUMN_HAS_ALLARMS,         // 16
+            "10 AS maxReminders",                                   // 17
+            "0 AS allowedReminders",                                // 18
+            "null AS customAppPackage",                             // 19
+            "null AS customAppUri",                                 // 20
+            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,            // 21
+            DmfsOpenTasksContract.Tasks.COLUMN_DURATION,            // 22
+            DmfsOpenTasksContract.Tasks.COLUMN_ORIGINAL_INSTANCE_SYNC_ID,   // 23 do not remove; used in DeleteEventHelper
+            "0 AS availability",                                    // 24
+            "0 AS accessLevel",                                     // 25
+            DmfsOpenTasksContract.Tasks.COLUMN_ACCOUNT_NAME,        // 26
+    };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
     private static final int EVENT_INDEX_RRULE = 2;
@@ -283,6 +332,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_DURATION = 22;
     private static final int EVENT_INDEX_AVAILABILITY = 24;
     private static final int EVENT_INDEX_ACCESS_LEVEL = 25;
+
+    private static final int PROJECTION_SELF_ATTENDEE_STATUS_INDEX = 26;
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
         Attendees.ATTENDEE_NAME,            // 1
@@ -344,6 +395,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private View mView;
     private Uri mUri;
     private long mEventId;
+    boolean mIsTask = false;
     private Cursor mEventCursor;
     private Cursor mAttendeesCursor;
     private Cursor mCalendarsCursor;
@@ -488,6 +540,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         mUri = uri;
+        if (mUri.getPathSegments().contains("tasks")) {
+            mIsTask = true;
+        }
         mStartMillis = startMillis;
         mEndMillis = endMillis;
         mAttendeeResponseFromIntent = attendeeResponse;
@@ -497,6 +552,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // This may be used to explicitly show certain reminders already known
         // about, such as during configuration changes.
         mReminders = reminders;
+
+        if (mEventId == 0) {
+            mEventId = Long.parseLong(mUri.getLastPathSegment());
+        }
     }
 
     // This is currently required by the fragment manager.
@@ -866,8 +925,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mLoadingMsgView.postDelayed(mLoadingMsgAlphaUpdater, LOADING_MSG_DELAY);
 
         // start loading the data
-
-        mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
+        int tokenQueryEvent = TOKEN_QUERY_EVENT;
+        String[] projetion = EVENT_PROJECTION;
+        if (mIsTask) {
+            tokenQueryEvent = TOKEN_QUERY_TASK;
+            projetion = TASK_PROJECTION;
+        }
+        mHandler.startQuery(tokenQueryEvent, null, mUri, projetion,
                 null, null, null);
 
         View b = mView.findViewById(R.id.delete);
@@ -914,15 +978,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // Create a listener for the add reminder button
-        View reminderAddButton = mView.findViewById(R.id.reminder_add);
-        View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addReminder();
-                mUserModifiedReminders = true;
-            }
-        };
-        reminderAddButton.setOnClickListener(addReminderOnClickListener);
+        if (!mIsTask) {
+            View reminderAddButton = mView.findViewById(R.id.reminder_add);
+            View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addReminder();
+                    mUserModifiedReminders = true;
+                }
+            };
+            reminderAddButton.setOnClickListener(addReminderOnClickListener);
+        } else {
+            Button reminderAddButton = (Button) mView.findViewById(R.id.reminder_add);
+            reminderAddButton.setText(R.string.event_info_reminders_cannot_add_label);
+            reminderAddButton.setEnabled(false);
+        }
 
         // Set reminders variables
 
@@ -1830,7 +1900,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
-    private void updateCalendar(View view) {
+    private void updateCalendar(View view, boolean isTaskList) {
 
         mCalendarOwnerAccount = "";
         if (mCalendarsCursor != null && mEventCursor != null) {
@@ -1841,10 +1911,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mSyncAccountName = mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_NAME);
 
             // start visible calendars query
-            mHandler.startQuery(TOKEN_QUERY_VISIBLE_CALENDARS, null, Calendars.CONTENT_URI,
-                    CALENDARS_PROJECTION, CALENDARS_VISIBLE_WHERE, new String[] {"1"}, null);
+            if (isTaskList) {
+                mHandler.startQuery(TOKEN_QUERY_VISIBLE_TASK_LIST, null, DmfsOpenTasksContract.TaskLists.PROVIDER_URI,
+                        TASK_LIST_PROJECTION, CALENDARS_VISIBLE_WHERE, new String[]{"1"}, null);
+            } else {
+                mHandler.startQuery(TOKEN_QUERY_VISIBLE_CALENDARS, null, Calendars.CONTENT_URI,
+                        CALENDARS_PROJECTION, CALENDARS_VISIBLE_WHERE, new String[]{"1"}, null);
+            }
 
             mEventOrganizerEmail = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
+            if (mEventOrganizerEmail == null) {
+                mEventOrganizerEmail = mEventCursor.getString(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
+            }
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(mEventOrganizerEmail);
 
             if (!TextUtils.isEmpty(mEventOrganizerEmail) &&
@@ -2443,9 +2521,76 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     startQuery(TOKEN_QUERY_CALENDARS, null, uri, CALENDARS_PROJECTION,
                             CALENDARS_WHERE, args, null);
                     break;
+                case TOKEN_QUERY_TASK:
+                    mEventCursor = Utils.matrixCursorFromCursor(cursor);
+                    if (!initEventCursor()) {
+                        displayEventNotFound();
+                        return;
+                    }
+                    if (!mCalendarColorInitialized) {
+                        mCalendarColor = Utils.getDisplayColorFromColor(activity,
+                                mEventCursor.getInt(EVENT_INDEX_CALENDAR_COLOR));
+                        mCalendarColorInitialized = true;
+                    }
+
+                    if (!mOriginalColorInitialized) {
+                        mOriginalColor = mEventCursor.isNull(EVENT_INDEX_EVENT_COLOR)
+                                ? mCalendarColor : Utils.getDisplayColorFromColor(activity,
+                                mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
+                        mOriginalColorInitialized = true;
+                    }
+
+                    if (!mCurrentColorInitialized) {
+                        mCurrentColor = mOriginalColor;
+                        mCurrentColorInitialized = true;
+                    }
+
+                    updateEvent(mView);
+                    prepareReminders();
+
+                    uri = DmfsOpenTasksContract.TaskLists.PROVIDER_URI;
+                    args = new String[]{
+                            Long.toString(mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID))};
+                    startQuery(TOKEN_QUERY_TASK_LIST, null, uri, TASK_LIST_PROJECTION,
+                            TASK_LIST_WHERE, args, null);
+
+                    break;
                 case TOKEN_QUERY_CALENDARS:
                     mCalendarsCursor = Utils.matrixCursorFromCursor(cursor);
-                    updateCalendar(mView);
+                    updateCalendar(mView, false);
+                    // FRAG_TODO fragments shouldn't set the title anymore
+                    updateTitle();
+
+                    args = new String[]{
+                            mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_NAME),
+                            mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE)};
+                    uri = Colors.CONTENT_URI;
+                    startQuery(TOKEN_QUERY_COLORS, null, uri, COLORS_PROJECTION, COLORS_WHERE, args,
+                            null);
+
+                    if (!mIsBusyFreeCalendar) {
+                        args = new String[]{Long.toString(mEventId)};
+
+                        // start attendees query
+                        uri = Attendees.CONTENT_URI;
+                        startQuery(TOKEN_QUERY_ATTENDEES, null, uri, ATTENDEES_PROJECTION,
+                                ATTENDEES_WHERE, args, ATTENDEES_SORT_ORDER);
+                    } else {
+                        sendAccessibilityEventIfQueryDone(TOKEN_QUERY_ATTENDEES);
+                    }
+                    if (mHasAlarm) {
+                        // start reminders query
+                        args = new String[]{Long.toString(mEventId)};
+                        uri = Reminders.CONTENT_URI;
+                        startQuery(TOKEN_QUERY_REMINDERS, null, uri,
+                                REMINDERS_PROJECTION, REMINDERS_WHERE, args, null);
+                    } else {
+                        sendAccessibilityEventIfQueryDone(TOKEN_QUERY_REMINDERS);
+                    }
+                    break;
+                case TOKEN_QUERY_TASK_LIST:
+                    mCalendarsCursor = Utils.matrixCursorFromCursor(cursor);
+                    updateCalendar(mView, true);
                     // FRAG_TODO fragments shouldn't set the title anymore
                     updateTitle();
 
@@ -2543,6 +2688,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         mCurrentQuery |= TOKEN_QUERY_DUPLICATE_CALENDARS;
                     }
                     break;
+                case TOKEN_QUERY_VISIBLE_TASK_LIST:
+                    if (cursor.getCount() > 1) {
+                        // Start duplicate calendars query to detect whether to add the calendar
+                        // email to the calendar owner display.
+                        String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                        mHandler.startQuery(TOKEN_QUERY_DUPLICATE_TASK_LIST, null,
+                                DmfsOpenTasksContract.TaskLists.PROVIDER_URI, TASK_LIST_PROJECTION,
+                                TASK_LIST_DUPLICATE_NAME_WHERE, new String[]{displayName}, null);
+                    } else {
+                        // Don't need to display the calendar owner when there is only a single
+                        // calendar.  Skip the duplicate calendars query.
+                        setVisibilityCommon(mView, R.id.calendar_container, View.GONE);
+                        mCurrentQuery |= TOKEN_QUERY_DUPLICATE_TASK_LIST;
+                    }
+                    break;
                 case TOKEN_QUERY_DUPLICATE_CALENDARS:
                     SpannableStringBuilder sb = new SpannableStringBuilder();
 
@@ -2560,6 +2720,24 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
                     setVisibilityCommon(mView, R.id.calendar_container, View.VISIBLE);
                     mCalendarName.setText(sb);
+                    break;
+                case TOKEN_QUERY_DUPLICATE_TASK_LIST:
+                    sb = new SpannableStringBuilder();
+
+                    // Calendar display name
+                    calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                    sb.append(calendarName);
+
+                    // Show email account if display name is not unique and
+                    // display name != email
+                    email = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+                    if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email) &&
+                            Utils.isValidEmail(email)) {
+                        sb.append(" (").append(email).append(")");
+                    }
+
+                    setVisibilityCommon(mView, R.id.calendar_container, View.VISIBLE);
+                    setTextCommon(mView, R.id.calendar_name, sb);
                     break;
             }
             cursor.close();

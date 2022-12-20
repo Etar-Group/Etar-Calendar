@@ -322,6 +322,8 @@
     <!-- Reminders label [CHAR LIMIT=15]-->
     <string name="event_info_reminders_label">Reminders</string>
 
+    <string name="event_info_reminders_cannot_add_label">Reminders are not available for task</string>
+
     <!-- Agenda View strings -->
     <skip/>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->

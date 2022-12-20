@@ -83,6 +83,7 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.alerts.AlertService;
 import com.android.calendar.month.MonthByWeekFragment;
+import com.android.calendar.persistence.tasks.DmfsOpenTasksContract;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivity;
@@ -208,6 +209,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private MenuItem mSearchMenu;
     private MenuItem mControlsMenu;
     private MenuItem mViewSettings;
+    private MenuItem mViewAgendaEvents;
+    private MenuItem mViewAgendaTasks;
     private Menu mOptionsMenu;
     private QueryHandler mHandler;
     private final Runnable mHomeTimeUpdater = new Runnable() {
@@ -398,13 +401,19 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)) {
+                != PackageManager.PERMISSION_GRANTED) ||
+                ContextCompat.checkSelfPermission(this, DmfsOpenTasksContract.TASK_READ_PERMISSION)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, DmfsOpenTasksContract.TASK_WRITE_PERMISSION)
+                != PackageManager.PERMISSION_GRANTED) {
 
             ArrayList<String> permissionsList = new ArrayList<>(Arrays.asList(
                     Manifest.permission.WRITE_CALENDAR,
                     Manifest.permission.READ_CALENDAR,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            );
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    DmfsOpenTasksContract.TASK_READ_PERMISSION,
+                    DmfsOpenTasksContract.TASK_WRITE_PERMISSION
+            ));
 
             // Permission for calendar notifications
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
@@ -824,6 +833,31 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         }
     }
 
+    protected void updateViewAgentaSwitchVisibility() {
+        if (ContextCompat.checkSelfPermission(this, DmfsOpenTasksContract.TASK_READ_PERMISSION)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (mViewAgendaTasks != null) {
+                mViewAgendaTasks.setVisible(false);
+                mViewAgendaTasks.setEnabled(false);
+            }
+            if (mViewAgendaEvents != null) {
+                mViewAgendaEvents.setVisible(false);
+                mViewAgendaEvents.setEnabled(false);
+            }
+            return;
+        }
+
+        boolean viewAgendaSwitchVisible = mController.getViewType() == ViewType.AGENDA;
+        if (mViewAgendaTasks != null) {
+            mViewAgendaTasks.setVisible(viewAgendaSwitchVisible);
+            mViewAgendaTasks.setEnabled(viewAgendaSwitchVisible);
+        }
+        if (mViewAgendaEvents != null) {
+            mViewAgendaEvents.setVisible(viewAgendaSwitchVisible && !mViewAgendaTasks.isVisible());
+            mViewAgendaEvents.setEnabled(viewAgendaSwitchVisible);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -868,6 +902,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mViewSettings = menu.findItem(R.id.action_view_settings);
         updateViewSettingsVisiblility();
 
+        mViewAgendaEvents = menu.findItem(R.id.action_view_agenda_events);
+        mViewAgendaTasks = menu.findItem(R.id.action_view_agenda_tasks);
+        updateViewAgentaSwitchVisibility();
 
         MenuItem menuItem = menu.findItem(R.id.action_today);
 
@@ -966,8 +1003,28 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             startActivity(intent);
         } else if (itemId == R.id.action_info) {
             checkAndRequestDisablingDoze();
+        } else if (itemId == R.id.action_view_agenda_tasks || itemId == R.id.action_view_agenda_events) {
+            FragmentManager manager = getFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            long millis = Utils.timeFromIntentInMillis(getIntent());
+            AgendaFragment frag = new AgendaFragment(millis, false);
+
+            if (itemId == R.id.action_view_agenda_tasks) {
+                frag.isTask = true;
+                mOptionsMenu.findItem(R.id.action_view_agenda_events).setVisible(true);
+            } else if (itemId == R.id.action_view_agenda_events) {
+                frag.isTask = false;
+                mOptionsMenu.findItem(R.id.action_view_agenda_tasks).setVisible(true);
+            }
+            item.setVisible(false);
+
+            transaction.replace(R.id.main_pane, frag);
+            mController.registerEventHandler(R.id.main_pane, (EventHandler) frag);
+            transaction.commit();
+
+            return false;
         } else {
-                return mExtensions.handleItemSelected(item, this);
+            return mExtensions.handleItemSelected(item, this);
         }
 
         return true;
@@ -1272,7 +1329,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.VIEW_EVENT | EventType.UPDATE_TITLE;
+        return EventType.GO_TO | EventType.VIEW_EVENT | EventType.UPDATE_TITLE | EventType.VIEW_TASK;
     }
 
     @Override
@@ -1384,6 +1441,73 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     intent.setClass(this, EventInfoActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT |
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.putExtra(EXTRA_EVENT_BEGIN_TIME, event.startTime.toMillis());
+                    intent.putExtra(EXTRA_EVENT_END_TIME, event.endTime.toMillis());
+                    intent.putExtra(ATTENDEE_STATUS, response);
+                    startActivity(intent);
+                } else {
+                    // start event info as a dialog
+                    EventInfoFragment fragment = new EventInfoFragment(this,
+                            event.id, event.startTime.toMillis(),
+                            event.endTime.toMillis(), response, true,
+                            EventInfoFragment.DIALOG_WINDOW_STYLE,
+                            null /* No reminders to explicitly pass in. */);
+                    fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    // if we have an old popup replace it
+                    Fragment fOld = fm.findFragmentByTag(EVENT_INFO_FRAGMENT_TAG);
+                    if (fOld != null && fOld.isAdded()) {
+                        ft.remove(fOld);
+                    }
+                    ft.add(fragment, EVENT_INFO_FRAGMENT_TAG);
+                    ft.commit();
+                }
+            }
+            displayTime = event.startTime.toMillis();
+        } else if (event.eventType == EventType.VIEW_TASK) {
+
+            // If in Agenda view and "show_event_details_with_agenda" is "true",
+            // do not create the event info fragment here, it will be created by the Agenda
+            // fragment
+
+            if (mCurrentView == ViewType.AGENDA && mShowEventDetailsWithAgenda) {
+                if (event.startTime != null && event.endTime != null) {
+                    // Event is all day , adjust the goto time to local time
+                    if (event.isAllDay()) {
+                        Utils.convertAlldayUtcToLocal(event.startTime, event.startTime.toMillis(), mTimeZone);
+                        Utils.convertAlldayUtcToLocal(event.endTime, event.endTime.toMillis(), mTimeZone);
+                    }
+                    mController.sendEvent(this, EventType.GO_TO,
+                            event.startTime, event.endTime, event.selectedTime,
+                            event.id, ViewType.AGENDA,
+                            CalendarController.EXTRA_GOTO_TIME, null, null);
+                } else if (event.selectedTime != null) {
+                    mController.sendEvent(this, EventType.GO_TO,
+                            event.selectedTime, event.selectedTime, event.id,
+                            ViewType.AGENDA);
+                }
+            } else {
+                // TODO Fix the temp hack below: && mCurrentView !=
+                // ViewType.AGENDA
+                if (event.selectedTime != null && mCurrentView != ViewType.AGENDA) {
+                    mController.sendEvent(this, EventType.GO_TO,
+                            event.selectedTime, event.selectedTime, -1,
+                            ViewType.CURRENT);
+                }
+                int response = event.getResponse();
+                if ((mCurrentView == ViewType.AGENDA &&
+                            mShowEventInfoFullScreenAgenda) || ((mCurrentView
+                                    == ViewType.DAY || (mCurrentView ==
+                                        ViewType.WEEK) || mCurrentView ==
+                                    ViewType.MONTH) &&
+                                mShowEventInfoFullScreen)) {
+                    // start event info as activity
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri eventUri = ContentUris.withAppendedId(DmfsOpenTasksContract.Tasks.PROVIDER_URI, event.id);
+                    intent.setData(eventUri);
+                    intent.setClass(this, EventInfoActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.putExtra(EXTRA_EVENT_BEGIN_TIME, event.startTime.toMillis());
                     intent.putExtra(EXTRA_EVENT_END_TIME, event.endTime.toMillis());
                     intent.putExtra(ATTENDEE_STATUS, response);
