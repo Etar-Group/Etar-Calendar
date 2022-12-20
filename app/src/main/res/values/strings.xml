@@ -156,7 +156,8 @@
     <!-- This is a label on a menu item. Pressing this menu item shows the
          View settings menu [CHAR LIMIT=20] -->
     <string name="view_settings">"View settings"</string>
-
+    <string name="view_agenda_tasks">"View Tasks"</string>
+    <string name="view_agenda_events">"View Events"</string>
 
     <!-- Month view -->
     <skip/>

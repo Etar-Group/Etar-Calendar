@@ -33,6 +33,7 @@ import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
 import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -299,10 +300,25 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
         LinkedList<MultipleDayInfo> multipleDayList = new LinkedList<MultipleDayInfo>();
         for (int position = 0; cursor.moveToNext(); position++) {
-            int startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
+            int startDay;
+            int endDay;
+            long startTime;
+            long endTime;
+            if (dayAdapterInfo.isTask) {
+                long endMills = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+                startDay = Time.getJulianDay(endMills, new Time().getGmtOffset());
+                endDay = Time.getJulianDay(endMills, new Time().getGmtOffset());
+                endTime = endMills;
+                Calendar instance = Calendar.getInstance();
+                instance.add(Calendar.MINUTE, -30);
+                startTime = instance.getTimeInMillis();
+            } else {
+                startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
+                endDay = cursor.getInt(AgendaWindowAdapter.INDEX_END_DAY);
+                startTime = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
+                endTime = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+            }
             long id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
-            long startTime =  cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
-            long endTime =  cursor.getLong(AgendaWindowAdapter.INDEX_END);
             long instanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
             boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
             if (allDay) {
@@ -364,10 +380,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 }
                 prevStartDay = startDay;
             }
-
-            // If this event spans multiple days, then add it to the multipleDay
-            // list.
-            int endDay = cursor.getInt(AgendaWindowAdapter.INDEX_END_DAY);
 
             // Skip over the days outside of the adapter's range
             endDay = Math.min(endDay, dayAdapterInfo.end);

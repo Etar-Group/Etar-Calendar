@@ -43,8 +43,10 @@ import android.widget.TextView;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.Event;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
+import com.android.calendar.persistence.tasks.DmfsOpenTasksContract;
 import com.android.calendarcommon2.Time;
 
 import java.util.Date;
@@ -119,6 +121,27 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.OWNER_ACCOUNT, // 15
             Instances.CAN_ORGANIZER_RESPOND, // 16
             Instances.EVENT_TIMEZONE, // 17
+    };
+
+    public static final String[] TASK_PROJECTION = new String[]{
+            DmfsOpenTasksContract.Tasks.COLUMN_ID,     // 0
+            DmfsOpenTasksContract.Tasks.COLUMN_TITLE,    // 1
+            DmfsOpenTasksContract.Tasks.COLUMN_LOCATION,   // 2
+            DmfsOpenTasksContract.Tasks.COLUMN_IS_ALLDAY,           // 3
+            DmfsOpenTasksContract.Tasks.COLUMN_HAS_ALLARMS,           // 4
+            DmfsOpenTasksContract.Tasks.COLUMN_LIST_COLOR,   // 5
+            DmfsOpenTasksContract.Tasks.COLUMN_RRULE,     // 6
+            DmfsOpenTasksContract.Tasks.COLUMN_START_DATE,           // 7
+            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,   // 8
+            DmfsOpenTasksContract.Tasks.COLUMN_ID,     // 9
+            DmfsOpenTasksContract.Tasks.COLUMN_START_DATE,   // 10
+            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,     // 11
+            DmfsOpenTasksContract.Tasks.COLUMN_STATUS,  // 12
+            "0>0",        // 13
+            DmfsOpenTasksContract.Tasks.COLUMN_ACCOUNT_NAME,        // 14
+            DmfsOpenTasksContract.Tasks.COLUMN_ACCOUNT_NAME,       // 15
+            "0>0", // 16
+            DmfsOpenTasksContract.Tasks.COLUMN_TZ,    // 17
     };
     // Listview may have a bug where the index/position is not consistent when there's a header.
     // position == positionInListView - OFF_BY_ONE_BUG
@@ -210,6 +233,8 @@ public class AgendaWindowAdapter extends BaseAdapter
     private String mSearchQuery;
     private long mSelectedInstanceId = -1;
     private AgendaAdapter.ViewHolder mSelectedVH = null;
+
+    public boolean isTask = false;
 
     public AgendaWindowAdapter(Context context,
             AgendaListView agendaListView, boolean showEventOnStart) {
@@ -505,6 +530,7 @@ public class AgendaWindowAdapter extends BaseAdapter
 
         if (cursorPosition < info.cursor.getCount()) {
             AgendaItem item = buildAgendaItemFromCursor(info.cursor, cursorPosition, isDayHeader);
+            item.isTask = info.isTask;
             if (!returnEventStartDay && !isDayHeader) {
                 item.startDay = info.dayAdapter.findJulianDayFromPosition(positionInAdapter -
                         info.offset);
@@ -567,8 +593,12 @@ public class AgendaWindowAdapter extends BaseAdapter
         if (DEBUGLOG) {
             Log.d(TAG, "Sent (AgendaWindowAdapter): VIEW EVENT: " + new Date(startTime));
         }
+        long eventType = EventType.VIEW_EVENT;
+        if (item.isTask) {
+            eventType = EventType.VIEW_TASK;
+        }
         CalendarController.getInstance(mContext)
-        .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
+        .sendEventRelatedEventWithExtra(this, eventType,
                 item.id, startTime, endTime, 0,
                0, CalendarController.EventInfo.buildViewExtraLong(
                            Attendees.ATTENDEE_STATUS_NONE,
@@ -710,6 +740,19 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
     }
 
+    private String buildQuerySelectionForTasks(QuerySpec queryData) {
+        long startMills = Event.getMillsFromJulian(queryData.start, true);
+        long endMills = Event.getMillsFromJulian(queryData.end, false);
+
+        return DmfsOpenTasksContract.Tasks.COLUMN_STATUS + Event.NOT_EQUALS +
+                DmfsOpenTasksContract.Tasks.STATUS_COMPLETED + Event.AND_BRACKET +
+                DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE + Event.LTE + endMills +
+                Event.CLOSING_BRACKET + Event.AND_BRACKET + DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE +
+                Event.GTE + startMills + Event.CLOSING_BRACKET + Event.AND_BRACKET +
+                DmfsOpenTasksContract.Tasks.COLUMN_VISIBLE + " = 1" + Event.CLOSING_BRACKET +
+                Event.AND_BRACKET + DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE + " != 0" + Event.CLOSING_BRACKET;
+    }
+
     private Uri buildQueryUri(int start, int end, String searchQuery) {
         Uri rootUri = searchQuery == null ?
                 Instances.CONTENT_BY_DAY_URI :
@@ -824,11 +867,19 @@ public class AgendaWindowAdapter extends BaseAdapter
         mQueryHandler.cancelOperation(0);
         if (BASICLOG) queryData.queryStartMillis = System.nanoTime();
 
-        Uri queryUri = buildQueryUri(
-                queryData.start, queryData.end, queryData.searchQuery);
-        mQueryHandler.startQuery(0, queryData, queryUri,
-                PROJECTION, buildQuerySelection(), null,
-                AGENDA_SORT_ORDER);
+        //query tasks
+        if (isTask) {
+            queryData.isTask = true;
+            mQueryHandler.startQuery(1, queryData, DmfsOpenTasksContract.Tasks.PROVIDER_URI,
+                    TASK_PROJECTION, buildQuerySelectionForTasks(queryData),
+                    null, "due ASC, title ASC");
+        } else {
+            Uri queryUri = buildQueryUri(
+                    queryData.start, queryData.end, queryData.searchQuery);
+            mQueryHandler.startQuery(0, queryData, queryUri,
+                    PROJECTION, buildQuerySelection(), null,
+                    AGENDA_SORT_ORDER);
+        }
     }
 
     private String formatDateString(int julianDay) {
@@ -969,6 +1020,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         int queryType;
         long id;
 
+        boolean isTask = false;
+
         public QuerySpec(int queryType) {
             this.queryType = queryType;
             id = -1;
@@ -1031,6 +1084,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         long id;
         int startDay;
         boolean allDay;
+
+        boolean isTask;
     }
 
     static class DayAdapterInfo {
@@ -1040,6 +1095,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         int end; // end day of the cursor's coverage
         int offset; // offset in position in the list view
         int size; // dayAdapter.getCount()
+
+        boolean isTask = false;
 
         public DayAdapterInfo(Context context) {
             dayAdapter = new AgendaByDayAdapter(context);
@@ -1191,6 +1248,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                     if (tempCursor != null) {
                         AgendaItem item = buildAgendaItemFromCursor(tempCursor, tempCursorPosition,
                                 false);
+                        item.isTask = data.isTask;
                         long selectedTime = findStartTimeFromPosition(newPosition);
                         if (DEBUGLOG) {
                             Log.d(TAG, "onQueryComplete: Sending View Event...");
@@ -1358,6 +1416,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                 }
 
                 // Setup adapter info
+                info.isTask = data.isTask;
                 info.start = data.start;
                 info.end = data.end;
                 info.cursor = cursor;

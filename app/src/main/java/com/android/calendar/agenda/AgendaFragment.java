@@ -82,6 +82,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private long mLastHandledEventId = -1;
     private Time mLastHandledEventTime = null;
 
+    public boolean isTask = false;
+
     public AgendaFragment() {
         this(0, false);
     }
@@ -165,10 +167,12 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             lv.setAdapter(a);
             if (a instanceof HeaderViewListAdapter) {
                 mAdapter = (AgendaWindowAdapter) ((HeaderViewListAdapter)a).getWrappedAdapter();
+                mAdapter.isTask = isTask;
                 lv.setIndexer(mAdapter);
                 lv.setHeaderHeightListener(mAdapter);
             } else if (a instanceof AgendaWindowAdapter) {
                 mAdapter = (AgendaWindowAdapter)a;
+                mAdapter.isTask = isTask;
                 lv.setIndexer(mAdapter);
                 lv.setHeaderHeightListener(mAdapter);
             } else {
@@ -213,6 +217,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 getActivity());
         boolean hideDeclined = prefs.getBoolean(
                 GeneralPreferences.KEY_HIDE_DECLINED, false);
+        AgendaWindowAdapter.AgendaItem item = mAgendaListView.getFirstVisibleAgendaItem();
+        if (item!=null && item.isTask) {
+            Time t = new Time(mTimeZone);
+            t.set(item.end);
+            mController.setTime(item.end);
+            mTime.set(t.toMillis());
+        }
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
         if (mLastHandledEventId != -1) {
@@ -456,6 +467,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Time t = new Time(mTimeZone);
             t.setJulianDay(mJulianDayOnTop);
             mController.setTime(t.toMillis());
+            mTime.set(t.toMillis());
             // Cannot sent a message that eventually may change the layout of the views
             // so instead post a runnable that will run when the layout is done
             if (!mIsTabletConfig) {

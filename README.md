@@ -18,7 +18,7 @@ this app would be just a dream. So thanks to them!
 ## Features
 - Month view.
 - Week, day & agenda view.
-- view task on day, week and month view
+- view task on day, week, month and agenda view
 - Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
 - Material designed.
 - Support offline calendar.

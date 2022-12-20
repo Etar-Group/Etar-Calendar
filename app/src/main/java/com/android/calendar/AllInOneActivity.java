@@ -1396,6 +1396,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 }
             }
             updateViewSettingsVisiblility();
+            updateViewAgentaSwitchVisibility();
             displayTime = event.selectedTime != null ? event.selectedTime.toMillis()
                     : event.startTime.toMillis();
             if (!mIsTabletConfig) {

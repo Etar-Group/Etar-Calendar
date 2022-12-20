@@ -37,6 +37,8 @@ import com.android.calendar.agenda.AgendaWindowAdapter.AgendaItem;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
 import com.android.calendarcommon2.Time;
 
+import java.util.Calendar;
+
 import ws.xsoh.etar.R;
 
 public class AgendaListView extends ListView implements OnItemClickListener {
@@ -182,6 +184,12 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                     !mShowEventDetailsWithAgenda)) {
                 long startTime = item.begin;
                 long endTime = item.end;
+                if (startTime==0) {
+                    Calendar instance = Calendar.getInstance();
+                    instance.setTimeInMillis(endTime);
+                    instance.add(Calendar.MINUTE, -30);
+                    startTime = instance.getTimeInMillis();
+                }
                 // Holder in view holds the start of the specific part of a multi-day event ,
                 // use it for the goto
                 long holderStartTime;
@@ -197,7 +205,11 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 }
                 mTime.set(startTime);
                 CalendarController controller = CalendarController.getInstance(mContext);
-                controller.sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT, item.id,
+                long eventType = EventType.VIEW_EVENT;
+                if (item.isTask) {
+                    eventType = EventType.VIEW_TASK;
+                }
+                controller.sendEventRelatedEventWithExtra(this, eventType, item.id,
                         startTime, endTime, 0, 0, CalendarController.EventInfo.buildViewExtraLong(
                                 Attendees.ATTENDEE_STATUS_NONE, item.allDay), holderStartTime);
             }
