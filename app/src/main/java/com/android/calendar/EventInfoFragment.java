@@ -1230,56 +1230,106 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         calendar.addProperty(VCalendar.CALSCALE, "GREGORIAN");
         calendar.addProperty(VCalendar.METHOD, "REQUEST");
 
-        VEvent event = new VEvent();
-        mEventCursor.moveToFirst();
-        // Add event start and end datetime
-        if (!mAllDay) {
-            String eventTimeZone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
-            event.addEventStart(mStartMillis, eventTimeZone);
-            event.addEventEnd(mEndMillis, eventTimeZone);
+        String filePrefix;
+        if (mIsTask) {
+            VTodo vtodo = new VTodo();
+            mEventCursor.moveToFirst();
+            // Add event start and end datetime
+            if (!mAllDay) {
+                String eventTimeZone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
+                vtodo.addTodoStart(mStartMillis, eventTimeZone);
+                vtodo.addTodoEnd(mEndMillis, eventTimeZone);
+            } else {
+                // All-day events' start and end time are stored as UTC.
+                // Treat the event start and end time as being in the local time zone and convert them
+                // to the corresponding UTC datetime. If the UTC time is used as is, the ical recipients
+                // will report the wrong start and end time (+/- 1 day) for the event as they will
+                // convert the UTC time to their respective local time-zones
+                String localTimeZone = Utils.getTimeZone(mActivity, mTZUpdater);
+                long eventStart = IcalendarUtils.convertTimeToUtc(mStartMillis, localTimeZone);
+                long eventEnd = IcalendarUtils.convertTimeToUtc(mEndMillis, localTimeZone);
+                vtodo.addTodoStart(eventStart, "UTC");
+                vtodo.addTodoEnd(eventEnd, "UTC");
+            }
+
+            vtodo.addProperty(VEvent.LOCATION, mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION));
+            vtodo.addProperty(VEvent.DESCRIPTION, mEventCursor.getString(EVENT_INDEX_DESCRIPTION));
+            vtodo.addProperty(VEvent.SUMMARY, mEventCursor.getString(EVENT_INDEX_TITLE));
+            vtodo.addOrganizer(new Organizer(mEventOrganizerDisplayName, mEventOrganizerEmail));
+
+            // Add Attendees to event
+            for (Attendee attendee : mAcceptedAttendees) {
+                IcalendarUtils.addAttendeeToTodo(attendee, vtodo);
+            }
+
+            for (Attendee attendee : mDeclinedAttendees) {
+                IcalendarUtils.addAttendeeToTodo(attendee, vtodo);
+            }
+
+            for (Attendee attendee : mTentativeAttendees) {
+                IcalendarUtils.addAttendeeToTodo(attendee, vtodo);
+            }
+
+            for (Attendee attendee : mNoResponseAttendees) {
+                IcalendarUtils.addAttendeeToTodo(attendee, vtodo);
+            }
+
+            // Compose all of the ICalendar objects
+            calendar.addTodo(vtodo);
+
+            filePrefix = vtodo.getProperty(VTodo.SUMMARY);
         } else {
-            // All-day events' start and end time are stored as UTC.
-            // Treat the event start and end time as being in the local time zone and convert them
-            // to the corresponding UTC datetime. If the UTC time is used as is, the ical recipients
-            // will report the wrong start and end time (+/- 1 day) for the event as they will
-            // convert the UTC time to their respective local time-zones
-            String localTimeZone = Utils.getTimeZone(mActivity, mTZUpdater);
-            long eventStart = IcalendarUtils.convertTimeToUtc(mStartMillis, localTimeZone);
-            long eventEnd = IcalendarUtils.convertTimeToUtc(mEndMillis, localTimeZone);
-            event.addEventStart(eventStart, "UTC");
-            event.addEventEnd(eventEnd, "UTC");
+            VEvent event = new VEvent();
+            mEventCursor.moveToFirst();
+            // Add event start and end datetime
+            if (!mAllDay) {
+                String eventTimeZone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
+                event.addEventStart(mStartMillis, eventTimeZone);
+                event.addEventEnd(mEndMillis, eventTimeZone);
+            } else {
+                // All-day events' start and end time are stored as UTC.
+                // Treat the event start and end time as being in the local time zone and convert them
+                // to the corresponding UTC datetime. If the UTC time is used as is, the ical recipients
+                // will report the wrong start and end time (+/- 1 day) for the event as they will
+                // convert the UTC time to their respective local time-zones
+                String localTimeZone = Utils.getTimeZone(mActivity, mTZUpdater);
+                long eventStart = IcalendarUtils.convertTimeToUtc(mStartMillis, localTimeZone);
+                long eventEnd = IcalendarUtils.convertTimeToUtc(mEndMillis, localTimeZone);
+                event.addEventStart(eventStart, "UTC");
+                event.addEventEnd(eventEnd, "UTC");
+            }
+
+            event.addProperty(VEvent.LOCATION, mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION));
+            event.addProperty(VEvent.DESCRIPTION, mEventCursor.getString(EVENT_INDEX_DESCRIPTION));
+            event.addProperty(VEvent.SUMMARY, mEventCursor.getString(EVENT_INDEX_TITLE));
+            event.addOrganizer(new Organizer(mEventOrganizerDisplayName, mEventOrganizerEmail));
+
+            // Add Attendees to event
+            for (Attendee attendee : mAcceptedAttendees) {
+                IcalendarUtils.addAttendeeToEvent(attendee, event);
+            }
+
+            for (Attendee attendee : mDeclinedAttendees) {
+                IcalendarUtils.addAttendeeToEvent(attendee, event);
+            }
+
+            for (Attendee attendee : mTentativeAttendees) {
+                IcalendarUtils.addAttendeeToEvent(attendee, event);
+            }
+
+            for (Attendee attendee : mNoResponseAttendees) {
+                IcalendarUtils.addAttendeeToEvent(attendee, event);
+            }
+
+            // Compose all of the ICalendar objects
+            calendar.addEvent(event);
+            filePrefix = event.getProperty(VEvent.SUMMARY);
         }
-
-        event.addProperty(VEvent.LOCATION, mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION));
-        event.addProperty(VEvent.DESCRIPTION, mEventCursor.getString(EVENT_INDEX_DESCRIPTION));
-        event.addProperty(VEvent.SUMMARY, mEventCursor.getString(EVENT_INDEX_TITLE));
-        event.addOrganizer(new Organizer(mEventOrganizerDisplayName, mEventOrganizerEmail));
-
-        // Add Attendees to event
-        for (Attendee attendee : mAcceptedAttendees) {
-            IcalendarUtils.addAttendeeToEvent(attendee, event);
-        }
-
-        for (Attendee attendee : mDeclinedAttendees) {
-            IcalendarUtils.addAttendeeToEvent(attendee, event);
-        }
-
-        for (Attendee attendee : mTentativeAttendees) {
-            IcalendarUtils.addAttendeeToEvent(attendee, event);
-        }
-
-        for (Attendee attendee : mNoResponseAttendees) {
-            IcalendarUtils.addAttendeeToEvent(attendee, event);
-        }
-
-        // Compose all of the ICalendar objects
-        calendar.addEvent(event);
 
         // Create and share ics file
         boolean isShareSuccessful = false;
         try {
             // Event title serves as the file name prefix
-            String filePrefix = event.getProperty(VEvent.SUMMARY);
             if (filePrefix == null || filePrefix.length() < 3) {
                 // Default to a generic filename if event title doesn't qualify
                 // Prefix length constraint is imposed by File#createTempFile
