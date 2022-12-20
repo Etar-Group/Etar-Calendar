@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -40,8 +41,11 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import androidx.core.content.ContextCompat;
 import com.android.calendar.DynamicTheme;
+import com.android.calendar.Event;
 import com.android.calendar.Utils;
+import com.android.calendar.persistence.tasks.DmfsOpenTasksContract;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
@@ -69,6 +73,19 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.END_DAY,
         Instances.DISPLAY_COLOR,
         Instances.SELF_ATTENDEE_STATUS,
+    };
+
+    static final String[] TASK_PROJECTION = new String[]{
+            DmfsOpenTasksContract.Tasks.COLUMN_IS_ALLDAY,
+            DmfsOpenTasksContract.Tasks.COLUMN_START_DATE,
+            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,
+            DmfsOpenTasksContract.Tasks.COLUMN_TITLE,
+            DmfsOpenTasksContract.Tasks.COLUMN_LOCATION,
+            DmfsOpenTasksContract.Tasks.COLUMN_ID,
+            DmfsOpenTasksContract.Tasks.COLUMN_START_DATE,
+            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,
+            DmfsOpenTasksContract.Tasks.COLUMN_LIST_COLOR,
+            "1 as selfAttendeeStatus",
     };
     static final int INDEX_ALL_DAY = 0;
     static final int INDEX_BEGIN = 1;
@@ -173,7 +190,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         protected static CalendarAppWidgetModel buildAppWidgetModel(
                 Context context, Cursor cursor, String timeZone) {
             CalendarAppWidgetModel model = new CalendarAppWidgetModel(context, timeZone);
-            model.buildFromCursor(cursor, timeZone);
+            model.buildFromCursor(cursor, timeZone, false);
             return model;
         }
 
@@ -511,6 +528,20 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
                 try {
                     mModel = buildAppWidgetModel(mContext, matrixCursor, tz);
+                    long begin = now - DateUtils.DAY_IN_MILLIS;
+                    long end = now + SEARCH_DURATION + DateUtils.DAY_IN_MILLIS;
+
+                    int mFirstLoadedJulianDay = Time.getJulianDay(begin, new Time().getGmtOffset());
+                    int mLastLoadedJulianDay = Time.getJulianDay(end, new Time().getGmtOffset());
+
+                    if (ContextCompat.checkSelfPermission(mContext, DmfsOpenTasksContract.TASK_READ_PERMISSION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        Cursor cTasks = Event.instancesQueryForTasks(mContext.getContentResolver(), TASK_PROJECTION, mFirstLoadedJulianDay, mLastLoadedJulianDay);
+                        MatrixCursor matrixCursorTasks = Utils.matrixCursorFromCursor(cTasks);
+                        mModel.buildFromCursor(matrixCursorTasks, tz, true);
+                    }
+
+                    mModel.populateBuckets(tz);
                 } finally {
                     if (matrixCursor != null) {
                         matrixCursor.close();

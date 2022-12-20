@@ -22,7 +22,7 @@ this app would be just a dream. So thanks to them!
 - Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
 - Material designed.
 - Support offline calendar.
-- Agenda widget.
+- Agenda and task widget.
 - Multilingual UI.
 
 ## How to use Etar
