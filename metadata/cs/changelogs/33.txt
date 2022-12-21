@@ -1,0 +1,8 @@
+- Přidána možnost duplikovat události
+- Zobrazování pracovních dnů na tabletu
+- Oprava havárie při otevírání události s velmi vysokým ID
+- Přepracován mini kalendář v zobrazení tabletu
+- Přidána podpora motivů ikon aplikací na Android 13
+- Zobrazování vícedenních událostí se správným počátkem a koncem
+- Opravy chyb
+- Nové překlady
