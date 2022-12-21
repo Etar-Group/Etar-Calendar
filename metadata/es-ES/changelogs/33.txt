@@ -1,0 +1,8 @@
+- Añadir la opción de duplicar eventos
+- Mostrar los días de la semana en la tableta
+- Corregir fallo al abrir un evento con un ID muy grande
+- Modificación del mini calendario en la vista de tableta
+- Añadir soporte para iconos temáticos en Android 13
+- Mostrar eventos de varios días con los puntos de inicio y fin correctos
+- Corrección de errores
+- Nuevas traducciones
