@@ -1,0 +1,8 @@
+- Etkinlikleri çoğaltma seçeneği eklendi
+- Tablette hafta içi günleri göster
+- Çok büyük kimliğe sahip bir etkinlik açılırken oluşan çökme düzeltildi
+- Tablet görünümünde küçük takvim yeniden düzenlendi
+- Android 13'te temalı uygulama simgeleri için destek eklendi
+- Çok günlü etkinlikleri doğru başlangıç ve bitiş noktalarıyla göster
+- Hata düzeltmeleri
+- Yeni çeviriler
