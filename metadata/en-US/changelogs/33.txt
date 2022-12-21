@@ -1,0 +1,8 @@
+- Add option to duplicate events
+- Show weekdays on tablet
+- Fix crash when opening an event with very large ID
+- Rework mini calendar in the tablet view
+- Add support for Themed App Icons in Android 13
+- Show multiday events with correct start and end points
+- Bugfixes
+- New translations
