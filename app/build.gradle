@@ -110,3 +110,5 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
 }
+
+preBuild.dependsOn (":aarGen")
