@@ -16,7 +16,7 @@ android {
         minSdk 21
         targetSdk 33
         versionCode 33
-        versionName "1.0.31"
+        versionName "1.0.33"
         applicationId "ws.xsoh.etar"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
