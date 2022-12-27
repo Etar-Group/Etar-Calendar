@@ -345,4 +345,6 @@
     <string name="foreground_notification_title">Enregistrement des nouveaux rappels…</string>
     <string name="after_start_of_event">après démarrage évènement</string>
     <string name="preferences_real_event_colors">Utiliser couleurs évènements</string>
+    <string name="menu_info">Information</string>
+    <string name="duplicate_label">Dupliquer</string>
 </resources>
