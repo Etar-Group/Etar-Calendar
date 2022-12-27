@@ -2943,18 +2943,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (startDay > lastDay || endDay < firstDay) {
                 continue;
             }
-            int leftoffset;
-            int rightoffset;
+            int leftoffset = 0;
+            int rightoffset = 0;
             if (startDay < firstDay) {
                 startDay = firstDay;
-                leftoffset = 0;
-            } else {
+            } else if (!event.allDay) {
+                // Only offset the drawing if it is not an all-day event (which
+                // does not have a time at all).
                 leftoffset = (event.startTime * cellWidth) / MINUTES_PER_DAY;
             }
             if (endDay > lastDay) {
                 endDay = lastDay;
-                rightoffset = 0;
-            } else {
+            } else if (!event.allDay) {
+                // Only offset the drawing it is not an all-day event (which
+                // does not have a time at all).
                 rightoffset =
                     ((MINUTES_PER_DAY - event.endTime) * cellWidth) / MINUTES_PER_DAY;
             }
