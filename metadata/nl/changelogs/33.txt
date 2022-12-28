@@ -1,0 +1,8 @@
+- Optie om evenementen te dupliceren
+- Toon weekdagen op tablet
+- Fix crash bij het openen van een gebeurtenis met zeer grote ID
+- Herwerken minikalender in de tabletweergave
+- Ondersteuning toevoegen voor themapictogrammen in Android 13
+- Laat meerdaagse gebeurtenissen zien met juiste begin- en eindpunten
+- Bugfixes
+- Nieuwe vertalingen
