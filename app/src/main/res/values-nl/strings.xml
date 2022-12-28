@@ -38,7 +38,8 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagen"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"week <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">week <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">Bijwerken</string>
     <string name="show_day_view" msgid="5782512782605466016">Dag tonen</string>
@@ -344,4 +345,6 @@
     <string name="foreground_notification_title">Maakt nieuwe herinneringen…</string>
     <string name="after_start_of_event">na aanvang van gebeurtenis</string>
     <string name="preferences_real_event_colors">Echte kleuren gebruiken voor gebeurtenissen</string>
+    <string name="menu_info">Info</string>
+    <string name="duplicate_label">Dupliceren</string>
 </resources>
