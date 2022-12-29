@@ -1,6 +1,6 @@
 Karakteristike:
 - Prikaz mjeseca.
-- Prikaz tjedna, dana i rasporeda.
+- Prikaz tjedna, dana i agende.
 - Koristi Androidovu sinkronizaciju kalendara. Radi s Google Calendar, Exchange, itd.
 - Material dizajn.
 - Tamna i svijetla tema.
