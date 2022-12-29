@@ -1465,9 +1465,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
-        fillModelFromUI();
-
-        // Do nothing if the selection didn't change so that reminders will not get lost
         int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
         long calendarId = c.getLong(idColumn);
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
@@ -1479,6 +1476,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 displayCalendarColor == mModel.getCalendarColor()) {
             return;
         }
+
+        // ensure model is up to date so that reminders don't get lost on calendar change
+        fillModelFromUI();
 
         mModel.mCalendarId = calendarId;
         mModel.setCalendarColor(displayCalendarColor);
@@ -1506,9 +1506,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int allowedAvailabilityColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_AVAILABILITY);
         mModel.mCalendarAllowedAvailability = c.getString(allowedAvailabilityColumn);
 
-        removeInvalidReminders();
-        resetAvailabilityIfInvalid();
-
         // Update the UI elements.
         mReminderItems.clear();
         LinearLayout reminderLayout =
@@ -1518,41 +1515,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         prepareReminders();
         prepareAvailability();
         prepareAccess();
-    }
-
-    /**
-     * Removes reminders from {@link #mModel} that have a reminder method that does not
-     * match any of {@link CalendarEventModel#mCalendarAllowedReminders}.
-     *
-     * Updates {@link CalendarEventModel#mHasAlarm} of {@link #mModel} accordingly.
-     */
-    private void removeInvalidReminders() {
-        final List<Integer> allowedReminderMethods =
-                Arrays.stream(mModel.mCalendarAllowedReminders.split(","))
-                        .map(Integer::valueOf)
-                        .collect(Collectors.toList());
-
-        mModel.mReminders = mModel.mReminders.stream()
-                .filter(reminder -> allowedReminderMethods.contains(reminder.getMethod()))
-                .limit(mModel.mCalendarMaxReminders)
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        mModel.mHasAlarm = mModel.mReminders.size() != 0;
-    }
-
-    /**
-     * Resets {@link CalendarEventModel#mAvailability} of {@link #mModel} to {@link Events#AVAILABILITY_BUSY}
-     * if the current availability does not match any of {@link CalendarEventModel#mCalendarAllowedAvailability}.
-     */
-    private void resetAvailabilityIfInvalid() {
-        final List<Integer> allowedAvailabilities =
-                Arrays.stream(mModel.mCalendarAllowedAvailability.split(","))
-                        .map(Integer::valueOf)
-                        .collect(Collectors.toList());
-
-        if (!allowedAvailabilities.contains(mModel.mAvailability)) {
-            mModel.mAvailability = Events.AVAILABILITY_BUSY;
-        }
     }
 
     /**
