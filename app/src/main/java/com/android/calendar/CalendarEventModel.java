@@ -772,6 +772,11 @@ public class CalendarEventModel implements Serializable {
         mEventColorInitialized = true;
     }
 
+    public void removeEventColor() {
+        mEventColorInitialized = false;
+        mEventColor = -1;
+    }
+
     @Nullable
     public int[] getCalendarEventColors() {
         if (mEventColorCache != null) {
