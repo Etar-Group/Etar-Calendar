@@ -1484,16 +1484,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.setCalendarColor(displayCalendarColor);
         mModel.mCalendarAccountName = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_NAME);
         mModel.mCalendarAccountType = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_TYPE);
-        // TODO: try to find a similar color within the new event colors before falling back to the calendar color
-        if (mModel.getCalendarEventColors() != null) {
-            mModel.setEventColor(Arrays.stream(mModel.getCalendarEventColors())
+
+        // try to find the event color in the new calendar, remove it otherwise
+        if (mModel.isEventColorInitialized() && mModel.getCalendarEventColors() != null) {
+            Arrays.stream(mModel.getCalendarEventColors())
                     .filter(color -> color == mModel.getEventColor())
                     .findFirst()
-                    .orElse(mModel.getCalendarColor()));
+                    .ifPresentOrElse(mModel::setEventColor, mModel::removeEventColor);
         } else {
-            mModel.setEventColor(mModel.getCalendarColor());
+            mModel.removeEventColor();
         }
-        setSpinnerBackgroundColor(mModel.getEventColor());
+        setSpinnerBackgroundColor(mModel.isEventColorInitialized()
+                ? mModel.getEventColor() : mModel.getCalendarColor());
         setColorPickerButtonStates(mModel.getCalendarEventColors());
 
         // Update the max/allowed reminders with the new calendar properties.
