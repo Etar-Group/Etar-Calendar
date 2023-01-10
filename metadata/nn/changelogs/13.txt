@@ -1,0 +1,4 @@
+– Stør kalenderdeling gjennom ics og gjerlegskapen til å føra inn/ut ifrå ytre gøyme.
+– Tok bort unytta løyve.
+– Sette i stand ljodinnstilling i Android 6.
+– Mykje avlusing.
