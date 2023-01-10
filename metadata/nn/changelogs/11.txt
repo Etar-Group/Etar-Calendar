@@ -1,0 +1,3 @@
+– Lagt til eit val for å velja dagar i veka.
+– Lagt til eit val for hovudvisinga å verta vist ved byrjing.
+– Avlusingar.
