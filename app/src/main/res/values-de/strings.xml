@@ -305,13 +305,13 @@
     <string name="preferences_list_add_offline">Offline-Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_title">Offline-Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_error_empty">Geben Sie einen Kalendernamen ein!</string>
-    <string name="preferences_list_add_offline_message">Offline-Kalender sind NICHT mit einem Cloud-Service synchronisiert und nur auf Ihrem Telefon verfügbar.</string>
+    <string name="preferences_list_add_offline_message">Offline-Kalender sind NICHT mit einem Cloud-Service synchronisiert und nur auf deinem Telefon verfügbar.</string>
     <string name="preferences_list_add_offline_button">Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_name">Name</string>
     <string name="preferences_list_add_offline_cancel">Abbrechen</string>
     <string name="preferences_calendar_color_warning_title">Warnung</string>
     <string name="preferences_calendar_color_warning_button">Ich verstehe</string>
-    <string name="preferences_calendar_delete_message">Wollen Sie diesen Kalender wirklich löschen\?</string>
+    <string name="preferences_calendar_delete_message">Willst du diesen Kalender wirklich löschen\?</string>
     <string name="preferences_calendar_delete_delete">Kalender löschen</string>
     <string name="preferences_calendar_delete_cancel">Abbrechen</string>
     <string name="preferences_menu_about">Über Etar</string>
