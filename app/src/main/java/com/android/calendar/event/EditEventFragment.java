@@ -559,19 +559,37 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         return mModel.isEmpty();
     }
 
-    @Override
-    public void onPause() {
-        Activity act = getActivity();
-        if (mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
-                && mView.prepareForSave()) {
-            mOnDone.setDoneCode(Utils.DONE_SAVE);
-            mOnDone.run();
+    public void onBackPressed() {
+        if (canSave()) {
+            showDiscardConfirmAlert();
+            return;
         }
-        if (act !=null && (Build.VERSION.SDK_INT < 23 ||
-                    ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
-                        Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED))
-            act.finish();
-        super.onPause();
+
+        Utils.returnToCalendarHome(getActivity());
+    }
+
+    private boolean canSave() {
+        Activity act = getActivity();
+        return mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
+               && mView.prepareForSave();
+    }
+
+    private void showDiscardConfirmAlert() {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.discard_event_changes)
+                .setCancelable(true)
+                .setPositiveButton(R.string.discard, ((dialog, which) -> {
+                    revertEventChanges();
+                    Utils.returnToCalendarHome(getActivity());
+                    dialog.cancel();
+                }))
+                .setNegativeButton(R.string.cancel, ((dialog, which) -> dialog.cancel()))
+                .show();
+    }
+
+    private void revertEventChanges() {
+            mOnDone.setDoneCode(Utils.DONE_REVERT);
+            mOnDone.run();
     }
 
     @Override
