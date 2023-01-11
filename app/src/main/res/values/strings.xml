@@ -812,4 +812,7 @@
     <!-- Name of notification channel group -->
     <string name="calendars">Calendars</string>
 
+    <string name="discard_event_changes">Do you want to discard changes?</string>
+    <string name="discard">Discard</string>
+    <string name="cancel">Cancel</string>
 </resources>
