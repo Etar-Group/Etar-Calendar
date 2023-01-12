@@ -162,7 +162,7 @@
     </plurals>
     <string name="day_view">Dag</string>
     <plurals name="weekN">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">Veke <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="show_day_view">Vis dag</string>
@@ -287,4 +287,14 @@
     <string name="preferences_calendar_visible">Vis hende</string>
     <string name="preferences_list_calendar_summary_sync_off">Ikkje synkronisert</string>
     <string name="preferences_list_add_remote_etesync">Legg til ein EteSync-kalender</string>
+    <string name="foreground_notification_channel_description">Krev varsel for å gjera indre synkroniseringar. Du kan trygt skjula denne sambandslina.</string>
+    <string name="snooze_label">Vent litt</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Spør om kvar lenge du vil vente med påminningar når du set dei på vent</string>
+    <string name="accessibility_remove_attendee">Tak bort deltakar</string>
+    <string name="accessibility_add_attendee">Legg til deltakar</string>
+    <string name="preferences_default_snooze_delay_dialog">Forvald ventetid</string>
+    <string name="preferences_default_snooze_delay_title">Forvald ventetid</string>
+    <string name="snooze_delay_dialog_title">Vel ventetid</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Nytta forvald ventetid kvar gong</string>
+    <string name="dismiss_all_label">Skjul alle</string>
 </resources>
