@@ -41,6 +41,7 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.EventRecurrence;
@@ -157,6 +158,8 @@ public class EditEventHelper {
 
     private final AsyncQueryService mService;
 
+    private final DeleteEventHelper deleteEventHelper;
+
     // This allows us to flag the event if something is wrong with it, right now
     // if an uri is provided for an event that doesn't exist in the db.
     protected boolean mEventOk = true;
@@ -266,11 +269,7 @@ public class EditEventHelper {
 
     public EditEventHelper(Context context) {
         mService = ((AbstractCalendarActivity)context).getAsyncQueryService();
-    }
-
-    public EditEventHelper(Context context, CalendarEventModel model) {
-        this(context);
-        // TODO: Remove unnecessary constructor.
+        deleteEventHelper = new DeleteEventHelper(context, null, false, false);
     }
 
     /**
@@ -307,13 +306,26 @@ public class EditEventHelper {
             Log.e(TAG, "Attempted to save invalid model.");
             return false;
         }
-        if (originalModel != null && !isSameEvent(model, originalModel)) {
+        if (originalModel != null && originalModel.mId != model.mId) {
             Log.e(TAG, "Attempted to update existing event but models didn't refer to the same "
                     + "event.");
             return false;
         }
         if (originalModel != null && model.isUnchanged(originalModel)) {
             return false;
+        }
+
+        // check if the event calendar changed
+        if (originalModel != null && originalModel.mCalendarId != model.mCalendarId) {
+            // delete event from original calendar and recreate in new calendar with new id
+            deleteEventHelper.delete(model.mStart, model.mEnd, model.mId, modifyWhich);
+
+            model.mId = -1;
+            model.mUri = null;
+            model.mSyncId = null;
+            model.mOriginalSyncId = null;
+            model.mSyncAccountName = null;
+            model.mSyncAccountType = null;
         }
 
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
@@ -447,7 +459,7 @@ public class EditEventHelper {
         if (newEvent) {
             saveRemindersWithBackRef(ops, eventIdIndex, reminders, originalReminders,
                     forceSaveReminders);
-        } else if (uri != null) {
+        } else {
             long eventId = ContentUris.parseId(uri);
             saveReminders(ops, eventId, reminders, originalReminders, forceSaveReminders);
         }
@@ -503,9 +515,7 @@ public class EditEventHelper {
                 }
                 ops.add(b.build());
             }
-        } else if (hasAttendeeData &&
-                model.mSelfAttendeeStatus != originalModel.mSelfAttendeeStatus &&
-                model.mOwnerAttendeeId != -1) {
+        } else if (hasAttendeeData && model.mSelfAttendeeStatus != originalModel.mSelfAttendeeStatus) {
             if (DEBUG) {
                 Log.d(TAG, "Setting attendee status to " + model.mSelfAttendeeStatus);
             }
@@ -518,9 +528,7 @@ public class EditEventHelper {
             ops.add(b.build());
         }
 
-        // TODO: is this the right test? this currently checks if this is
-        // a new event or an existing event. or is this a paranoia check?
-        if (hasAttendeeData && (newEvent || uri != null)) {
+        if (hasAttendeeData) {
             String attendees = model.getAttendeesString();
             String originalAttendeesString;
             if (originalModel != null) {
@@ -545,7 +553,6 @@ public class EditEventHelper {
                 // new events (being inserted into the Events table) won't
                 // have any existing attendees.
                 if (!newEvent) {
-                    removedAttendees.clear();
                     HashMap<String, Attendee> originalAttendees = originalModel.mAttendeesList;
                     for (String originalEmail : originalAttendees.keySet()) {
                         if (newAttendees.containsKey(originalEmail)) {
@@ -603,7 +610,6 @@ public class EditEventHelper {
                 }
             }
         }
-
 
         mService.startBatch(mService.getNextToken(), null, android.provider.CalendarContract.AUTHORITY, ops,
                 Utils.UNDO_DELAY);
@@ -824,30 +830,6 @@ public class EditEventHelper {
         ops.add(b.build());
 
         return newRrule;
-    }
-
-    /**
-     * Compares two models to ensure that they refer to the same event. This is
-     * a safety check to make sure an updated event model refers to the same
-     * event as the original model. If the original model is null then this is a
-     * new event or we're forcing an overwrite so we return true in that case.
-     * The important identifiers are the Calendar Id and the Event Id.
-     *
-     * @return
-     */
-    public static boolean isSameEvent(CalendarEventModel model, CalendarEventModel originalModel) {
-        if (originalModel == null) {
-            return true;
-        }
-
-        if (model.mCalendarId != originalModel.mCalendarId) {
-            return false;
-        }
-        if (model.mId != originalModel.mId) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -1137,8 +1119,6 @@ public class EditEventHelper {
         } else {
             model.mEnd = cursor.getLong(EVENT_INDEX_DTEND);
         }
-
-        model.mModelUpdatedWithEventCursor = true;
     }
 
     /**
@@ -1157,12 +1137,6 @@ public class EditEventHelper {
         }
 
         if (model.mCalendarId == -1) {
-            return false;
-        }
-
-        if (!model.mModelUpdatedWithEventCursor) {
-            Log.wtf(TAG,
-                    "Can't update model with a Calendar cursor until it has seen an Event cursor.");
             return false;
         }
 

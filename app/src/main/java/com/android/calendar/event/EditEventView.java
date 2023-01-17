@@ -135,8 +135,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Button mStartTimeButton;
     Button mEndTimeButton;
     Button mTimezoneButton;
-    View mColorPickerNewEvent;
-    View mColorPickerExistingEvent;
+    View mColorPicker;
     View mTimezoneRow;
     TextView mStartTimeHome;
     TextView mStartDateHome;
@@ -156,9 +155,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mWhenView;
     TextView mTimezoneTextView;
     MultiAutoCompleteTextView mAttendeesList;
-    View mCalendarSelectorGroup;
     View mCalendarSelectorGroupBackground;
-    View mCalendarStaticGroup;
     View mLocationGroup;
     View mDescriptionGroup;
     View mUrlGroup;
@@ -260,9 +257,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mRruleButton = (Button) view.findViewById(R.id.rrule);
         mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
         mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
-        mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
         mCalendarSelectorGroupBackground = view.findViewById(R.id.calendar_selector_group_background);
-        mCalendarStaticGroup = view.findViewById(R.id.calendar_group);
         mRemindersGroup = view.findViewById(R.id.reminder_items_container);
         mResponseGroup = view.findViewById(R.id.response_group);
         mOrganizerGroup = view.findViewById(R.id.organizer_row);
@@ -274,8 +269,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
         mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
 
-        mColorPickerNewEvent = view.findViewById(R.id.change_color_new_event);
-        mColorPickerExistingEvent = view.findViewById(R.id.change_color_new_event);
+        mColorPicker = view.findViewById(R.id.change_color);
 
         mTitleTextView.setTag(mTitleTextView.getBackground());
         mLocationTextView.setTag(mLocationTextView.getBackground());
@@ -637,22 +631,19 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEmailValidator.setRemoveInvalid(false);
         }
 
-        // If this was a new event we need to fill in the Calendar information
-        if (mModel.mUri == null) {
-            mModel.mCalendarId = mCalendarsSpinner.getSelectedItemId();
-            int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
-            if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
-                String calendarOwner = mCalendarsCursor.getString(
-                        EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
-                String calendarName = mCalendarsCursor.getString(
-                        EditEventHelper.CALENDARS_INDEX_DISPLAY_NAME);
-                String defaultCalendar = calendarOwner + "/" + calendarName;
-                Utils.setSharedPreference(
-                        mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
-                mModel.mOwnerAccount = calendarOwner;
-                mModel.mOrganizer = calendarOwner;
-                mModel.mCalendarId = mCalendarsCursor.getLong(EditEventHelper.CALENDARS_INDEX_ID);
-            }
+        mModel.mCalendarId = mCalendarsSpinner.getSelectedItemId();
+        int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
+        if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
+            String calendarOwner = mCalendarsCursor.getString(
+                    EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
+            String calendarName = mCalendarsCursor.getString(
+                    EditEventHelper.CALENDARS_INDEX_DISPLAY_NAME);
+            String defaultCalendar = calendarOwner + "/" + calendarName;
+            Utils.setSharedPreference(
+                    mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
+            mModel.mOwnerAccount = calendarOwner;
+            mModel.mOrganizer = calendarOwner;
+            mModel.mCalendarId = mCalendarsCursor.getLong(EditEventHelper.CALENDARS_INDEX_ID);
         }
 
         if (mModel.mAllDay) {
@@ -1000,21 +991,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mResponseGroup.setVisibility(View.GONE);
         }
 
-        if (model.mUri != null) {
-            // This is an existing event so hide the calendar spinner
-            // since we can't change the calendar.
-            View calendarGroup = mView.findViewById(R.id.calendar_selector_group);
-            calendarGroup.setVisibility(View.VISIBLE);
-            TextView tv = (TextView) mView.findViewById(R.id.calendar_textview);
-            tv.setText(model.mCalendarDisplayName);
-            tv = (TextView) mView.findViewById(R.id.calendar_textview_secondary);
-            if (tv != null) {
-                tv.setText(model.mOwnerAccount);
-            }
-        } else {
-            View calendarGroup = mView.findViewById(R.id.calendar_group);
-            calendarGroup.setVisibility(View.GONE);
-        }
         if (model.isEventColorInitialized()) {
             updateHeadlineColor(model.getEventColor());
         }
@@ -1119,9 +1095,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     /**
-     * Configures the Calendars spinner.  This is only done for new events, because only new
-     * events allow you to select a calendar while editing an event.
-     * <p>
+     * Configures the Calendars spinner.
+     *
      * We tuck a reference to a Cursor with calendar database data into the spinner, so that
      * we can easily extract calendar-specific values when the value changes (the spinner's
      * onItemSelected callback is configured).
@@ -1175,7 +1150,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             } else if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "SetCalendarsCursor:Save failed and unable to exit view");
             }
-            return;
         }
     }
 
@@ -1208,8 +1182,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 v.setEnabled(false);
                 v.setBackgroundDrawable(null);
             }
-            mCalendarSelectorGroup.setVisibility(View.GONE);
-            mCalendarStaticGroup.setVisibility(View.VISIBLE);
             mRruleButton.setEnabled(false);
             if (EditEventHelper.canAddReminders(mModel)) {
                 mRemindersGroup.setVisibility(View.VISIBLE);
@@ -1239,13 +1211,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     v.setPadding(mOriginalPadding[0], mOriginalPadding[1], mOriginalPadding[2],
                             mOriginalPadding[3]);
                 }
-            }
-            if (mModel.mUri == null) {
-                mCalendarSelectorGroup.setVisibility(View.VISIBLE);
-                mCalendarStaticGroup.setVisibility(View.GONE);
-            } else {
-                mCalendarSelectorGroup.setVisibility(View.GONE);
-                mCalendarStaticGroup.setVisibility(View.VISIBLE);
             }
             if (mModel.mOriginalSyncId == null) {
                 mRruleButton.setEnabled(true);
@@ -1511,18 +1476,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     public void setColorPickerButtonStates(boolean showColorPalette) {
-        if (showColorPalette) {
-            mColorPickerNewEvent.setVisibility(View.VISIBLE);
-            mColorPickerExistingEvent.setVisibility(View.VISIBLE);
-        } else {
-            mColorPickerNewEvent.setVisibility(View.INVISIBLE);
-            mColorPickerExistingEvent.setVisibility(View.GONE);
-        }
+        mColorPicker.setVisibility(showColorPalette ? View.VISIBLE : View.GONE);
     }
 
     public boolean isColorPaletteVisible() {
-        return mColorPickerNewEvent.getVisibility() == View.VISIBLE ||
-                mColorPickerExistingEvent.getVisibility() == View.VISIBLE;
+        return mColorPicker.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -1536,25 +1494,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
-        int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
-        long calendarId = c.getLong(idColumn);
-        int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
-        int calendarColor = c.getInt(colorColumn);
-        int displayCalendarColor = Utils.getDisplayColorFromColor(mActivity, calendarColor);
-
-        // Prevents resetting of data (reminders, etc.) on orientation change.
-        if (calendarId == mModel.mCalendarId && mModel.isCalendarColorInitialized() &&
-                displayCalendarColor == mModel.getCalendarColor()) {
-            return;
-        }
-
+        mModel.mCalendarId = c.getLong(EditEventHelper.CALENDARS_INDEX_ID);
+        EditEventHelper.setModelFromCalendarCursor(mModel, c, mActivity);
         // ensure model is up to date so that reminders don't get lost on calendar change
         fillModelFromUI();
-
-        mModel.mCalendarId = calendarId;
-        mModel.setCalendarColor(displayCalendarColor);
-        mModel.mCalendarAccountName = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_NAME);
-        mModel.mCalendarAccountType = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_TYPE);
 
         // try to find the event color in the new calendar, remove it otherwise
         if (mModel.isEventColorInitialized() && mModel.getCalendarEventColors() != null) {
@@ -1568,16 +1511,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         setSpinnerBackgroundColor(mModel.isEventColorInitialized()
                 ? mModel.getEventColor() : mModel.getCalendarColor());
         setColorPickerButtonStates(mModel.getCalendarEventColors());
-
-        // Update the max/allowed reminders with the new calendar properties.
-        int maxRemindersColumn = c.getColumnIndexOrThrow(Calendars.MAX_REMINDERS);
-        mModel.mCalendarMaxReminders = c.getInt(maxRemindersColumn);
-        int allowedRemindersColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_REMINDERS);
-        mModel.mCalendarAllowedReminders = c.getString(allowedRemindersColumn);
-        int allowedAttendeeTypesColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_ATTENDEE_TYPES);
-        mModel.mCalendarAllowedAttendeeTypes = c.getString(allowedAttendeeTypesColumn);
-        int allowedAvailabilityColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_AVAILABILITY);
-        mModel.mCalendarAllowedAvailability = c.getString(allowedAvailabilityColumn);
 
         // Update the UI elements.
         mReminderItems.clear();
