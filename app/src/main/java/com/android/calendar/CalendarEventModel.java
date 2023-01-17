@@ -111,9 +111,6 @@ public class CalendarEventModel implements Serializable {
     public boolean mOrganizerCanRespond = false;
     public int mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
     public int mEventStatus = Events.STATUS_CONFIRMED;
-    // The model can't be updated with a calendar cursor until it has been
-    // updated with an event cursor.
-    public boolean mModelUpdatedWithEventCursor;
     public int mAccessLevel = 0;
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mDefaultReminders;
@@ -291,7 +288,6 @@ public class CalendarEventModel implements Serializable {
         mEventStatus = Events.STATUS_CONFIRMED;
         mOrganizerCanRespond = false;
         mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
-        mModelUpdatedWithEventCursor = false;
         mCalendarAllowedReminders = null;
         mCalendarAllowedAttendeeTypes = null;
         mCalendarAllowedAvailability = null;
@@ -350,7 +346,6 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + (mGuestsCanModify ? 1231 : 1237);
         result = prime * result + (mGuestsCanSeeGuests ? 1231 : 1237);
         result = prime * result + (mOrganizerCanRespond ? 1231 : 1237);
-        result = prime * result + (mModelUpdatedWithEventCursor ? 1231 : 1237);
         result = prime * result + mCalendarAccessLevel;
         result = prime * result + (mHasAlarm ? 1231 : 1237);
         result = prime * result + (mHasAttendeeData ? 1231 : 1237);
@@ -613,9 +608,6 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
         if (mCalendarAccessLevel != originalModel.mCalendarAccessLevel) {
-            return false;
-        }
-        if (mModelUpdatedWithEventCursor != originalModel.mModelUpdatedWithEventCursor) {
             return false;
         }
         if (mHasAlarm != originalModel.mHasAlarm) {
