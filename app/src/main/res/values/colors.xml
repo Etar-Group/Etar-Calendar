@@ -155,7 +155,7 @@
     <color name="event_info_headline_color">#FFFFFFFF</color>
     <color name="event_info_headline_transparent_color">#B3FFFFFF</color>
     <color name="event_info_headline_link_color">#FFFFFFFF</color>
-    <color name="event_info_organizer_color">#FF666666</color>
+    <color name="event_info_organizer_color">#99000000</color>
     <color name="event_info_description_color">#FF666666</color>
     <color name="event_info_body_color">#FF666666</color>
     <color name="event_info_label_color">#FF999999</color>
@@ -283,7 +283,7 @@
     <color name="event_info_headline_color_black">#FFFFFFFF</color>
     <color name="event_info_headline_transparent_color_black">#B3FFFFFF</color>
     <color name="event_info_headline_link_color_black">#FFFFFFFF</color>
-    <color name="event_info_organizer_color_black">#757575</color>
+    <color name="event_info_organizer_color_black">#DEFFFFFF</color>
     <color name="event_info_description_color_black">#bdbdbd</color>
     <color name="event_info_body_color_black">#bdbdbd</color>
     <color name="event_info_label_color_black">#ffffff</color>
@@ -388,7 +388,7 @@
     <color name="event_info_headline_color_dark">#FFFFFFFF</color>
     <color name="event_info_headline_transparent_color_dark">#B3FFFFFF</color>
     <color name="event_info_headline_link_color_dark">#FFFFFFFF</color>
-    <color name="event_info_organizer_color_dark">#757575</color>
+    <color name="event_info_organizer_color_dark">#DEFFFFFF</color>
     <color name="event_info_description_color_dark">#bdbdbd</color>
     <color name="event_info_body_color_dark">#bdbdbd</color>
     <color name="event_info_label_color_dark">#ffffff</color>
