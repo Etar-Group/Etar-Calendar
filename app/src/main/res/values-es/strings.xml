@@ -42,7 +42,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> días</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Week <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one"></item>
         <item quantity="many">Week <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
