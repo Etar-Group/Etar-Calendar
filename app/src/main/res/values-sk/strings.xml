@@ -40,7 +40,9 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> d."</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"týždeň <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g>. týždeň</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g>. týždeň</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>. týždeň</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Obnoviť"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Zobraziť deň"</string>
@@ -291,4 +293,62 @@
     <string name="maximum_number_of_lines">Maximálny počet riadkov v udalosti</string>
     <string name="no_reminder_label">Žiadne</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="preferences_real_event_colors">Použiť skutočné farby udalostí</string>
+    <string name="authors">Autori</string>
+    <string name="three_days">3 dni</string>
+    <string name="preferences_calendar_configure_account">Nastaviť kalendár v %1$s</string>
+    <string name="foreground_notification_channel_name">Úlohy na pozadí</string>
+    <string name="six_days">6 dní</string>
+    <string name="preferences_list_add_offline_name">Názov</string>
+    <string name="preferences_list_add_offline_button">Pridať kalendár</string>
+    <string name="preferences_calendar_delete_cancel">Zrušiť</string>
+    <string name="menu_info">Informácie</string>
+    <string name="foreground_notification_title">Plánovanie nových pripomienok…</string>
+    <string name="foreground_notification_channel_description">Oznámenia vyžadované pre internú synchronizáciu. Tento kanál môžete pokojne skryť.</string>
+    <string name="two_days">2 dni</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 týždeň</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> týždne</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> týždňov</item>
+    </plurals>
+    <string name="duplicate_label">Duplikovať</string>
+    <string name="preferences_system_theme">Predvolené systémom</string>
+    <string name="preferences_pure_black_night_mode">Čisto čierny nočný režim</string>
+    <string name="changelog">Zoznam zmien</string>
+    <string name="license">Licencia</string>
+    <string name="four_days">4 dni</string>
+    <string name="seven_days">7 dní</string>
+    <string name="cal_import_error_time_zone_msg">Nie je možné pochopiť dané časové pásmo: %s</string>
+    <string name="preferences_calendar_no_display_name">Nepomenovaný kalendár</string>
+    <string name="preferences_calendar_account">Účet %1$s</string>
+    <string name="preferences_calendar_display_name">Zmeniť názov</string>
+    <string name="preferences_calendar_info_category">Informácie o kalendári</string>
+    <string name="preferences_calendar_color">Farba</string>
+    <string name="preferences_calendar_synchronize">Synchronizovat tento kalendár</string>
+    <string name="preferences_calendar_color_warning_title">Výstraha</string>
+    <string name="preferences_calendar_color_warning_message">Zmena farby sa môže vrátiť pri opätovnej synchronizácii kalendára.
+\n
+\nV DAVx⁵ „Správa farby kalendárov“ možno toto správanie zakázať.</string>
+    <string name="preferences_calendar_color_warning_button">Rozumiem</string>
+    <string name="preferences_list_add_offline_message">Offline kalendáre NIE SÚ synchronizované a sú dostupné len vo vašom telefóne.</string>
+    <string name="preferences_list_add_offline_cancel">Zrušiť</string>
+    <string name="preferences_menu_about">O Etare</string>
+    <string name="preferences_calendar_delete_delete">Odstrániť kalendár</string>
+    <string name="preferences_list_calendar_summary_invisible">Udalosti sa nezobrazujú</string>
+    <string name="preferences_list_general">Všeobecné nastavenia</string>
+    <string name="preferences_list_add_remote">Pridať kalendár CalDAV</string>
+    <string name="preferences_list_add_remote_etesync">Pridať kalendár EteSync</string>
+    <string name="preferences_list_add_offline">Pridať offline kalendár</string>
+    <string name="preferences_list_add_offline_title">Pridať offline kalendár</string>
+    <string name="preferences_list_add_offline_error_empty">Zadajte názov kalendára!</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Časti © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="preferences_calendar_visible">Zobrazovať udalosti</string>
+    <string name="source_code">Zdroj</string>
+    <string name="five_days">5 dní</string>
+    <string name="preferences_list_calendar_summary_sync_off">Nesynchronizované</string>
+    <string name="preferences_calendar_account_local">Offline kalendár</string>
+    <string name="preferences_calendar_number_of_events">Udalostí: %1$d</string>
+    <string name="preferences_calendar_delete_message">Naozaj chcete odstrániť tento kalendár\?</string>
+    <string name="offline_account_name">Offline kalendár</string>
+    <string name="preferences_calendar_delete">Odstrániť kalendár</string>
 </resources>
