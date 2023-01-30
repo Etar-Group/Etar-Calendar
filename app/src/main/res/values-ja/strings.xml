@@ -17,25 +17,21 @@
     <string name="when_label" msgid="894636567327261599">"日時"</string>
     <string name="today" msgid="8577375020252453006">"今日"</string>
     <string name="tomorrow" msgid="614434811813859237">"明日"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"今日の<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"明日の<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">今日の <xliff:g id="TIME_INTERVAL">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">明日の <xliff:g id="TIME_INTERVAL">%s</xliff:g></string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>、<xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"（タイトルなし）"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1分"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g>分"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 分</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1分"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g>分"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 分</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1時間"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g>時間"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 時間</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1日"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g>日"</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 日</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="other" msgid="8085184869561028365">"第<xliff:g id="COUNT">%d</xliff:g>週"</item>
@@ -255,4 +251,7 @@
     <string name="share_label">共有する</string>
     <string name="no_reminder_label">なし</string>
     <string name="after_start_of_event">after start of event</string>
+    <plurals name="Nweeks">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 週</item>
+    </plurals>
 </resources>
