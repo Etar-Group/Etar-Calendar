@@ -34,7 +34,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> 日</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"第<xliff:g id="COUNT">%d</xliff:g>週"</item>
+        <item quantity="other">第 <xliff:g id="count">%d</xliff:g> 週</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"更新"</string>
     <string name="show_day_view" msgid="5782512782605466016">"日付を表示"</string>
@@ -244,12 +244,13 @@
     <string name="no_map">マップアプリがインストールされていません</string>
     <string name="rsvp_declined">拒否しました。</string>
     <string name="rsvp_accepted">承諾しました。</string>
-    <string name="view_settings">設定を表示</string>
+    <string name="view_settings">表示設定</string>
     <string name="goto_date">移動…</string>
-    <string name="share_label">共有する</string>
+    <string name="share_label">共有</string>
     <string name="no_reminder_label">なし</string>
     <string name="after_start_of_event">after start of event</string>
     <plurals name="Nweeks">
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> 週</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> 週間</item>
     </plurals>
+    <string name="menu_info">情報</string>
 </resources>
