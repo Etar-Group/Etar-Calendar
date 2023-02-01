@@ -52,7 +52,7 @@
     <string name="hide_controls" msgid="830320505938520882">"コントロールを非表示"</string>
     <string name="show_controls" msgid="715520586028062621">"コントロールを表示"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"同期するカレンダー"</string>
-    <string name="hint_what" msgid="709155115005044531">"タイトル"</string>
+    <string name="hint_what" msgid="709155115005044531">イベント名</string>
     <string name="hint_where" msgid="4972598001033801974">"場所"</string>
     <string name="hint_description" msgid="1910143586169033232">"説明"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"ゲスト"</string>
@@ -64,12 +64,12 @@
     <string name="create_event_dialog_save" msgid="1080859798521717414">"保存"</string>
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"予定を表示"</string>
-    <string name="event_info_title_invite" msgid="9160326363769403865">"会議への招待状"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">イベントへの招待</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"終日"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"カレンダー"</string>
     <string name="presence_label" msgid="6169724148441175862">"外部向け表示"</string>
     <string name="privacy_label" msgid="9215031965259597335">"公開設定"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"通知を追加"</string>
+    <string name="reminders_label" msgid="7292389181815525676">リマインダーを追加</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"カレンダーがありません"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"予定を追加するには、端末に少なくとも1つのカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。アカウントを追加するには[アカウントを追加]をタップします（アカウントを追加したばかりの場合は、同期の完了を待って再試行してください）。または[キャンセル]をタップして、カレンダーが表示できるかどうかを確認してください。"</string>
     <string name="add_account" msgid="1669072099756774952">"アカウントを追加"</string>
@@ -244,7 +244,7 @@
     <string name="preferences_month_view_landscape">月表示レイアウト（横）</string>
     <string name="preferences_month_view_portrait">月表示レイアウト（ポートレート）</string>
     <string name="no_map">マップアプリがインストールされていません</string>
-    <string name="rsvp_declined">拒否しました。</string>
+    <string name="rsvp_declined">辞退しました。</string>
     <string name="rsvp_accepted">承諾しました。</string>
     <string name="view_settings">表示設定</string>
     <string name="goto_date">移動…</string>
@@ -255,4 +255,8 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> 週間</item>
     </plurals>
     <string name="menu_info">情報</string>
+    <string name="foreground_notification_channel_description">内蔵の同期に必要な通知です。このチャンネルは非表示にしても問題ありません。</string>
+    <string name="rsvp_tentative">未定にしました。</string>
+    <string name="foreground_notification_title">新しいリマインダーを作成中…</string>
+    <string name="foreground_notification_channel_name">バックグラウンドタスク</string>
 </resources>
