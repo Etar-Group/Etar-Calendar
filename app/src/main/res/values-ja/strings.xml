@@ -71,52 +71,52 @@
     <string name="privacy_label" msgid="9215031965259597335">"公開設定"</string>
     <string name="reminders_label" msgid="7292389181815525676">リマインダーを追加</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"カレンダーがありません"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"予定を追加するには、端末に少なくとも1つのカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。アカウントを追加するには[アカウントを追加]をタップします（アカウントを追加したばかりの場合は、同期の完了を待って再試行してください）。または[キャンセル]をタップして、カレンダーが表示できるかどうかを確認してください。"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">予定を追加するには、端末に少なくとも 1 つのカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。[アカウントを追加] をタップして追加してください。（アカウントを追加したばかりの場合は、同期の完了を待って再試行してください。または [キャンセル] をタップして、カレンダーが表示できるかどうかを確認してください。</string>
     <string name="add_account" msgid="1669072099756774952">"アカウントを追加"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"カレンダー:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"主催者:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"予定の色を選択"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"予定の色"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"デフォルトのカレンダーの色に設定"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">カレンダーのデフォルトの色に設定</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"カレンダーの色"</string>
-    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"カラーピッカー"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">色を選択</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"参加しますか？"</string>
-    <string name="response_yes" msgid="2027484304899988350">"はい"</string>
+    <string name="response_yes" msgid="2027484304899988350">承諾</string>
     <string name="response_maybe" msgid="7791500973627841695">"未定"</string>
-    <string name="response_no" msgid="561911691884148136">"いいえ"</string>
+    <string name="response_no" msgid="561911691884148136">辞退</string>
     <string name="email_guests_label" msgid="8772030932155305903">"ゲストにメールを送信"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"主催者にメールを送信"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"メールに次を含める:"</string>
-    <string name="event_not_found" msgid="8356864185947582727">"イベントが見つかりません。"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">メールを送信:</string>
+    <string name="event_not_found" msgid="8356864185947582727">予定が見つかりません。</string>
     <string name="map_label" msgid="8795383535586556038">"地図"</string>
     <string name="call_label" msgid="2960328220008869083">"発信"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"クイック返信"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ゲストへメールを送るときのデフォルトの返事を編集"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">ゲストへのデフォルトの返事を編集</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"クイック返信"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"クイック返信の選択"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"メールプログラムが見つかりません"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">クイック返信を選択</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">メールプログラムが見つかりませんでした</string>
     <string-array name="quick_response_defaults">
         <item msgid="1524421198348168403">"数分遅れています。"</item>
         <item msgid="6215158751728689832">"10分ほどで着きます。"</item>
         <item msgid="4485794001743679338">"先に始めていてください。"</item>
         <item msgid="8036557974294987511">"申し訳ありませんが、行けません。日程を変更する必要があります。"</item>
     </string-array>
-    <string name="quick_response_custom_msg" msgid="8792374208224108798">"カスタム返信を作成…"</string>
-    <string name="event_info_organizer" msgid="9138683335394832629">"主催:"</string>
-    <string name="event_info_reminders_label" msgid="8913097552956388972">"通知"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">オリジナルの返信…</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">主催者:</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">リマインダー</string>
     <string name="agenda_today" msgid="5965841338467422191">"今日: <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"昨日: <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"明日: <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"読み込み中..."</string>
-    <string name="show_older_events" msgid="5140647493681439926">"タップして<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>より前の予定を表示"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"タップして<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>より後の予定を表示"</string>
+    <string name="show_older_events" msgid="5140647493681439926">タップして <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> より前の予定を表示</string>
+    <string name="show_newer_events" msgid="2604638815440163080">タップして <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> より後の予定を表示</string>
     <string name="search_title" msgid="8898015280250716254">"マイカレンダーを検索"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"詳細"</string>
     <string name="edit_label" msgid="8934331258435656534">"編集"</string>
     <string name="delete_label" msgid="874742811918030739">"削除"</string>
     <string name="save_label" msgid="2133599104834432589">"完了"</string>
     <string name="discard_label" msgid="2394623883289782541">"キャンセル"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">"通知を消去"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">すべて無視</string>
     <string name="snooze_label" msgid="1515893621063224666">"スヌーズ"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"繰り返しなし"</string>
     <string name="endByDate" msgid="7654221304929538201">"（<xliff:g id="DATE">%s</xliff:g>まで）"</string>
@@ -146,7 +146,7 @@
     <string name="change_response_title" msgid="7704714776070974984">"出欠状況を変更"</string>
     <string name="preferences_title" msgid="8045855493262131773">"設定"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"カレンダーの表示設定"</string>
-    <string name="preferences_reminder_title" msgid="5199606534191180129">"通知とリマインダ"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">通知とリマインダー</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"辞退した予定を非表示"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"週の開始日"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"週の開始日"</string>
@@ -157,8 +157,8 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"バイブレーション"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"音声"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"ポップアップ通知"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"デフォルトの通知時間"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"リマインダ通知"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">デフォルトのリマインダー時間</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">デフォルトのリマインダー時間</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"自宅タイムゾーン"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示する"</string>
@@ -171,8 +171,8 @@
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"近日中の予定はありません"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"試験運用版"</string>
-    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"通知をスキップ"</string>
-    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"通知をスキップ"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">リマインダーをスキップ</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">リマインダーをスキップ</string>
     <string name="copy_db" msgid="437691290566699292">"データベースを送信"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g>を検索中..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"参加者を削除"</string>
@@ -182,12 +182,12 @@
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"終了時間"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"タイムゾーン"</string>
     <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"定期的な予定を作成する"</string>
-    <string name="accessibility_add_reminder" msgid="2267950744060950152">"通知を追加"</string>
-    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"通知を削除"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">リマインダーを追加</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">リマインダーを削除</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"参加者を追加"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"終日"</string>
-    <string name="accessibility_reminder_time" msgid="3594100545814579575">"通知の時間"</string>
-    <string name="accessibility_reminder_type" msgid="5339120699701437227">"通知のタイプ"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">リマインダーの時間</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">リマインダーのタイプ</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"外部向け表示"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"公開設定"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"新しい予定を追加"</string>
@@ -230,8 +230,8 @@
     <string name="visibility_default">デフォルト</string>
     <string name="visibility_private">限定公開</string>
     <string name="visibility_public">一般公開</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">スヌーズ遅延を尋ねる</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">リマインダーをスヌーズする場合、その都度スヌーズ遅延時間を尋ねる</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">スヌーズ時間を尋ねる</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">リマインダーをスヌーズする場合、その都度スヌーズ遅延時間を尋ねます</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">リマインダーをスヌーズする場合、デフォルトのスヌーズ遅延を使用する</string>
     <string name="snooze_delay_dialog_title">スヌーズ遅延を設定</string>
     <string name="preferences_default_snooze_delay_title">デフォルトのスヌーズ遅延時間</string>
@@ -243,7 +243,7 @@
     <string name="preferences_theme">テーマ</string>
     <string name="preferences_month_view_landscape">月表示レイアウト（横）</string>
     <string name="preferences_month_view_portrait">月表示レイアウト（ポートレート）</string>
-    <string name="no_map">マップアプリがインストールされていません</string>
+    <string name="no_map">地図アプリがインストールされていません</string>
     <string name="rsvp_declined">辞退しました。</string>
     <string name="rsvp_accepted">承諾しました。</string>
     <string name="view_settings">表示設定</string>
@@ -259,4 +259,5 @@
     <string name="rsvp_tentative">未定にしました。</string>
     <string name="foreground_notification_title">新しいリマインダーを作成中…</string>
     <string name="foreground_notification_channel_name">バックグラウンドタスク</string>
+    <string name="duplicate_label">複製</string>
 </resources>
