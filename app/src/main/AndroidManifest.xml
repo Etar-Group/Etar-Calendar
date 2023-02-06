@@ -41,6 +41,7 @@
         <package android:name="com.google.android.gm" />
         <package android:name="org.birthdayadapter" />
         <package android:name="org.decsync.cc" />
+        <package android:name="de.gmx.mobile.android.mail" />
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
