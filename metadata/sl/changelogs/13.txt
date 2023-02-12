@@ -1,0 +1,4 @@
+- Dodana podpora za souporabo koledarjev prek ics in možnost uvoza/izvoza iz kartice SD.
+- Možnost odstranitve neuporabljenih dovoljenj.
+- Popravek nastavitev zvoka v operacijskem sistemu Android 6.
+- Veliko ostalih popravkov.
