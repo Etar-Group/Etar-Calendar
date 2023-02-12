@@ -117,30 +117,27 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">すべて無視</string>
     <string name="snooze_label" msgid="1515893621063224666">"スヌーズ"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"繰り返しなし"</string>
-    <string name="endByDate" msgid="7654221304929538201">"（<xliff:g id="DATE">%s</xliff:g>まで）"</string>
+    <string name="endByDate" msgid="7654221304929538201">（<xliff:g id="date">%s</xliff:g> まで）</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"（1回）"</item>
-        <item quantity="other" msgid="4855496837834652446">"（<xliff:g id="NUMBER">%d</xliff:g>回）"</item>
+        <item quantity="other">（<xliff:g id="NUMBER">%d</xliff:g> 回）</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"毎日"</item>
-        <item quantity="other" msgid="5455230727715859264">"<xliff:g id="NUMBER">%d</xliff:g>日ごと"</item>
+        <item quantity="other"><xliff:g id="number">%d</xliff:g> 日ごと</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"平日（月～金）"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"毎週<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g>週間ごとの<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g> 週間ごとの <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g></item>
     </plurals>
-    <string name="monthly" msgid="4587116285383048586">"月次"</string>
+    <string name="monthly" msgid="4587116285383048586">毎月</string>
     <string name="yearly_plain" msgid="3652692085322162449">"毎年"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">"カスタム（端末ではカスタマイズ不可）"</string>
-    <string name="modify_event" msgid="5982876409997142690">"この予定のみを変更する"</string>
-    <string name="modify_all" msgid="4421657265864209041">"一連の定期的な予定すべてを変更する"</string>
-    <string name="modify_all_following" msgid="3017428541066390380">"これ以降の予定すべてを変更する"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">カスタム（スマートフォンではカスタマイズ不可）</string>
+    <string name="modify_event" msgid="5982876409997142690">この予定のみを変更</string>
+    <string name="modify_all" msgid="4421657265864209041">繰り返しの予定すべてを変更</string>
+    <string name="modify_all_following" msgid="3017428541066390380">これ以降の予定すべてを変更</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"新しい予定"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"新しい予定"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"この予定を削除しますか？"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g>を削除しますか？"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206"><xliff:g id="EVENTTITLE">%s</xliff:g> を削除しますか？</string>
     <string name="change_response_title" msgid="7704714776070974984">"出欠状況を変更"</string>
     <string name="preferences_title" msgid="8045855493262131773">"設定"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"カレンダーの表示設定"</string>
@@ -153,26 +150,26 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"検索履歴を消去しました。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"バイブレーション"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"音声"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">通知音</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"ポップアップ通知"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">デフォルトのリマインダー時間</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">デフォルトのリマインダー時間</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"自宅タイムゾーン"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">自宅のタイムゾーンを使用</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示する"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"自宅タイムゾーン"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"第何週かを表示"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"ビルドバージョン"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">自宅のタイムゾーン</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">週番号を表示</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">ビルド バージョン</string>
     <plurals name="month_more_events">
         <item quantity="one" msgid="8971334808414201327">"+1"</item>
         <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"近日中の予定はありません"</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"試験運用版"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">試験運用</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">リマインダーをスキップ</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">リマインダーをスキップ</string>
     <string name="copy_db" msgid="437691290566699292">"データベースを送信"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g>を検索中..."</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687"><xliff:g id="domain">%s</xliff:g> を検索中…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"参加者を削除"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"開始日"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"開始時間"</string>
@@ -228,19 +225,19 @@
     <string name="visibility_default">デフォルト</string>
     <string name="visibility_private">限定公開</string>
     <string name="visibility_public">一般公開</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">スヌーズ時間を尋ねる</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">リマインダーをスヌーズする場合、その都度スヌーズ遅延時間を尋ねます</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_off">リマインダーをスヌーズする場合、デフォルトのスヌーズ遅延を使用する</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">スヌーズ時間を確認</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">リマインダーをスヌーズする場合、その都度スヌーズ遅延時間を確認します</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">リマインダーをスヌーズする場合、デフォルトのスヌーズ遅延を使用します</string>
     <string name="snooze_delay_dialog_title">スヌーズ遅延を設定</string>
     <string name="preferences_default_snooze_delay_title">デフォルトのスヌーズ遅延時間</string>
     <string name="preferences_default_snooze_delay_dialog">デフォルトのスヌーズ遅延</string>
     <string name="preferences_black_theme">ブラック</string>
-    <string name="preferences_dark_theme">ダークテーマ</string>
-    <string name="preferences_light_theme">ライトテーマ</string>
+    <string name="preferences_dark_theme">ダーク</string>
+    <string name="preferences_light_theme">ライト</string>
     <string name="preferences_system_theme">システムのデフォルト</string>
     <string name="preferences_theme">テーマ</string>
-    <string name="preferences_month_view_landscape">月表示レイアウト（横）</string>
-    <string name="preferences_month_view_portrait">月表示レイアウト（ポートレート）</string>
+    <string name="preferences_month_view_landscape">月表示レイアウト（横画面）</string>
+    <string name="preferences_month_view_portrait">月表示レイアウト（縦画面）</string>
     <string name="no_map">地図アプリがインストールされていません</string>
     <string name="rsvp_declined">辞退しました。</string>
     <string name="rsvp_accepted">承諾しました。</string>
@@ -257,11 +254,23 @@
     <string name="rsvp_tentative">未定にしました。</string>
     <string name="foreground_notification_title">新しいリマインダーを作成中…</string>
     <string name="foreground_notification_channel_name">バックグラウンドタスク</string>
-<<<<<<< HEAD
-</resources>
-||||||| parent of f09c9e0d3 (Translated using Weblate (Japanese))
-</resources>
-=======
     <string name="duplicate_label">複製</string>
+    <string name="preferences_days_per_week_dialog">1 週間の日数</string>
+    <string name="default_start_last">最後に使用した表示</string>
+    <string name="preferences_days_per_week_title">1 週間の日数</string>
+    <string name="preferences_default_event_duration_title">デフォルトのイベント期間</string>
+    <string name="preferences_color">メインの色</string>
+    <string name="preferences_real_event_colors">実際のイベントの色で表示</string>
+    <string name="preferences_pure_black_night_mode">ピュアブラックのナイトモード</string>
+    <string name="default_start_title">起動時の表示</string>
+    <string name="display_options">表示設定</string>
+    <string name="display_time">時間表示</string>
+    <string name="display_location">場所表示</string>
+    <string name="maximum_number_of_lines">イベントの最大行数</string>
+    <string name="authors">著作</string>
+    <string name="changelog">更新履歴</string>
+    <string name="license">ライセンス</string>
+    <string name="preferences_issues">問題を報告</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="source_code">ソースコード</string>
 </resources>
->>>>>>> f09c9e0d3 (Translated using Weblate (Japanese))
