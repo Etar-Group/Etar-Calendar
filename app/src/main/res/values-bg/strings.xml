@@ -41,7 +41,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Седмица <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">Опресняване</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показване на деня"</string>
@@ -243,4 +243,56 @@
         <item quantity="one">1 седмица</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> седмици</item>
     </plurals>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Винаги използвайте забавяне на отлагането по подразбиране</string>
+    <string name="snooze_delay_dialog_title">Задайте закъснение на дрямката</string>
+    <string name="view_settings">Преглед на настройките</string>
+    <string name="rsvp_accepted">Отговарям с да.</string>
+    <string name="rsvp_tentative">Може би отговорих.</string>
+    <string name="rsvp_declined">Не отговорих.</string>
+    <string name="foreground_notification_channel_name">Фонови задачи</string>
+    <string name="no_map">Няма инсталирано приложение за карти</string>
+    <string name="preferences_pure_black_night_mode">Чисто черен нощен режим</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Поискайте закъснение при отлагане на напомняне</string>
+    <string name="menu_info">Информация</string>
+    <string name="foreground_notification_title">Насрочват се нови напомняния…</string>
+    <string name="preferences_days_per_week_dialog">Дни в седмицата</string>
+    <string name="source_code">Източник</string>
+    <string name="preferences_issues">Докладвайте проблеми</string>
+    <string name="calendar_permission_not_granted">Необходимите разрешения бяха отказани, активирайте ги от Настройките, за да редактирате събитията</string>
+    <string name="three_days">3 дни</string>
+    <string name="preferences_month_view_landscape">Оформление на месечен изглед (пейзаж)</string>
+    <string name="preferences_system_theme">Система по подразбиране</string>
+    <string name="preferences_light_theme">Светла</string>
+    <string name="preferences_dark_theme">Тъмна</string>
+    <string name="preferences_black_theme">Черна</string>
+    <string name="preferences_color">Основен цвят</string>
+    <string name="default_start_title">Изглед по подразбиране</string>
+    <string name="display_location">Местоположение на дисплея</string>
+    <string name="maximum_number_of_lines">Максимален брой редове в събитието</string>
+    <string name="default_start_last">Използван преди това изглед</string>
+    <string name="preferences_default_event_duration_title">Продължителност на събитието по подразбиране</string>
+    <string name="preferences_default_snooze_delay_title">Време за забавяне на дрямката по подразбиране</string>
+    <string name="preferences_default_snooze_delay_dialog">Забавяне на дрямката по подразбиране</string>
+    <string name="authors">Автори</string>
+    <string name="changelog">Дневник на промените</string>
+    <string name="license">Лиценз</string>
+    <string name="visibility_confidential">Поверително</string>
+    <string name="two_days">2 дни</string>
+    <string name="four_days">4 дни</string>
+    <string name="five_days">5 дни</string>
+    <string name="six_days">6 дни</string>
+    <string name="zero_minutes">0 минути</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="seven_days">7 дни</string>
+    <string name="user_rejected_calendar_write_permission">Etar изисква разрешения за четене и запис на календара, за да работи правилно. Моля, опитайте отново.</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Поискайте забавяне на отлагането при всяко отлагане на напомняния</string>
+    <string name="display_time">Време на показване</string>
+    <string name="preferences_color_pick">Основен цвят</string>
+    <string name="preferences_theme">Тема</string>
+    <string name="preferences_real_event_colors">Използвайте реални цветове на събитието</string>
+    <string name="display_options">Опции на дисплея</string>
+    <string name="foreground_notification_channel_description">Необходими са известия за вътрешна синхронизация. Можете безопасно да скриете този канал.</string>
+    <string name="duplicate_label">Дубликат</string>
+    <string name="preferences_month_view_portrait">Оформление на месечен изглед (портрет)</string>
+    <string name="preferences_days_per_week_title">Дни в седмицата</string>
 </resources>
