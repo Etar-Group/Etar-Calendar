@@ -344,4 +344,5 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> weeks</item>
     </plurals>
     <string name="menu_info">Info</string>
+    <string name="duplicate_label">Duplicate</string>
 </resources>
