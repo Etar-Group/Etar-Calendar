@@ -30,6 +30,8 @@ import androidx.annotation.Nullable;
 
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventColorCache;
+import com.android.calendar.event.ExtendedProperty;
+import com.android.calendar.icalendar.VEvent;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.common.Rfc822Validator;
 
@@ -169,7 +171,7 @@ public class CalendarEventModel implements Serializable {
             mDescription = description;
         }
 
-        String url = intent.getStringExtra(Event.URL_TAG);
+        String url = intent.getStringExtra(ExtendedProperty.URL);
         if (url != null) {
             mUrl = url;
         }
@@ -232,6 +234,10 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
+        if (mUrl != null && mUrl.trim().length() > 0) {
+            return false;
+        }
+
         return true;
     }
 
@@ -254,6 +260,7 @@ public class CalendarEventModel implements Serializable {
         mTitle = null;
         mLocation = null;
         mDescription = null;
+        mUrl = null;
         mRrule = null;
         mOrganizer = null;
         mOrganizerDisplayName = null;
@@ -337,6 +344,7 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + ((mAttendeesList == null) ? 0 : getAttendeesString().hashCode());
         result = prime * result + (int) (mCalendarId ^ (mCalendarId >>> 32));
         result = prime * result + ((mDescription == null) ? 0 : mDescription.hashCode());
+        result = prime * result + ((mUrl == null) ? 0 : mUrl.hashCode());
         result = prime * result + ((mDuration == null) ? 0 : mDuration.hashCode());
         result = prime * result + (int) (mEnd ^ (mEnd >>> 32));
         result = prime * result + (mGuestsCanInviteOthers ? 1231 : 1237);
@@ -416,6 +424,14 @@ public class CalendarEventModel implements Serializable {
                 return false;
             }
         } else if (!mDescription.equals(other.mDescription)) {
+            return false;
+        }
+
+        if (mUrl == null) {
+            if (other.mUrl != null) {
+                return false;
+            }
+        } else if (!mUrl.equals(other.mUrl)) {
             return false;
         }
 
@@ -505,6 +521,14 @@ public class CalendarEventModel implements Serializable {
                 return false;
             }
         } else if (!mDescription.equals(originalModel.mDescription)) {
+            return false;
+        }
+
+        if (TextUtils.isEmpty(mUrl)) {
+            if (!TextUtils.isEmpty(originalModel.mUrl)) {
+                return false;
+            }
+        } else if (!mUrl.equals(originalModel.mUrl)) {
             return false;
         }
 

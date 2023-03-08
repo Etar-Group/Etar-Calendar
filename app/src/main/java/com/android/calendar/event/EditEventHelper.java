@@ -23,11 +23,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
+import android.provider.CalendarContract.ExtendedProperties;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.util.Rfc822Token;
@@ -130,6 +132,9 @@ public class EditEventHelper {
     public static final int REMINDERS_INDEX_MINUTES = 1;
     public static final int REMINDERS_INDEX_METHOD = 2;
     public static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=?";
+
+    public static final int EXTENDED_INDEX_NAME = 2;
+    public static final int EXTENDED_INDEX_VALUE = 3;
 
     // Visible for testing
     static final String ATTENDEES_DELETE_PREFIX = Attendees.EVENT_ID + "=? AND "
@@ -236,6 +241,14 @@ public class EditEventHelper {
     static final int ATTENDEES_INDEX_RELATIONSHIP = 3;
     static final int ATTENDEES_INDEX_STATUS = 4;
     static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=? AND attendeeEmail IS NOT NULL";
+
+    static final String[] EXTENDED_PROJECTION = new String[] {
+            CalendarContract.ExtendedProperties._ID,                 // 0
+            CalendarContract.ExtendedProperties.EVENT_ID,            // 1
+            CalendarContract.ExtendedProperties.NAME,                // 2
+            CalendarContract.ExtendedProperties.VALUE                // 3
+    };
+    static final String EXTENDED_WHERE = CalendarContract.ExtendedProperties.EVENT_ID + "=?";
 
     public static class AttendeeItem {
         public boolean mRemoved;
@@ -440,6 +453,32 @@ public class EditEventHelper {
         }
 
         ContentProviderOperation.Builder b;
+
+        if (model.mUrl != null && !model.mUrl.isBlank()) {
+            Uri extendedPropUri = ExtendedProperties.CONTENT_URI;
+            extendedPropUri = extendedPropUri.buildUpon()
+                    .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
+                    .appendQueryParameter(Calendars.ACCOUNT_NAME, model.mCalendarAccountName)
+                    .appendQueryParameter(Calendars.ACCOUNT_TYPE, model.mCalendarAccountType)
+                    .build();
+            values.clear();
+            values.put(ExtendedProperties.NAME, ExtendedProperty.URL_NAME);
+            values.put(ExtendedProperties.VALUE, model.mUrl);
+
+            if (newEvent) {
+                Log.d(TAG, "Adding extended url (" + model.mUrl + ") with id back reference");
+                b = ContentProviderOperation.newInsert(extendedPropUri)
+                        .withValues(values);
+                b.withValueBackReference(ExtendedProperties.EVENT_ID, eventIdIndex);
+            } else {
+                Log.d(TAG, "Adding extended url (" + model.mUrl + ") with id: " + model.mId);
+                values.put(ExtendedProperties.EVENT_ID, model.mId);
+                b = ContentProviderOperation.newInsert(extendedPropUri)
+                        .withValues(values);
+            }
+            ops.add(b.build());
+        }
+
         boolean hasAttendeeData = model.mHasAttendeeData;
 
         if (hasAttendeeData && model.mOwnerAttendeeId == -1) {
@@ -1276,6 +1315,12 @@ public class EditEventHelper {
         } else {
             values.put(Events.DESCRIPTION, (String) null);
         }
+        // TODO
+        // if (model.mUrl != null) {
+        //     values.put(Event.URL_TAG, model.mUrl.trim());
+        // } else {
+        //     values.put(Event.URL_TAG, (String) null);
+        // }
         if (model.mLocation != null) {
             values.put(Events.EVENT_LOCATION, model.mLocation.trim());
         } else {

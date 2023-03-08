@@ -47,8 +47,6 @@ public class Event implements Cloneable {
     private static final String TAG = "CalEvent";
     private static final boolean PROFILE = false;
 
-    public static final String URL_TAG = "url";
-
     /**
      * The sort order is:
      * 1) events with an earlier start (begin for normal events, startday for allday)

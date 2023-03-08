@@ -16,6 +16,9 @@
 
 package com.android.calendar.event;
 
+import static com.android.calendar.event.EditEventHelper.EXTENDED_INDEX_NAME;
+import static com.android.calendar.event.EditEventHelper.EXTENDED_INDEX_VALUE;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,6 +40,7 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
@@ -69,6 +73,7 @@ import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
+import com.android.calendar.EventInfoFragment;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.Time;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
@@ -102,9 +107,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private static final int TOKEN_REMINDERS = 1 << 2;
     private static final int TOKEN_CALENDARS = 1 << 3;
     private static final int TOKEN_COLORS = 1 << 4;
+    private static final int TOKEN_EXTENDED = 1 << 5;
 
     private static final int TOKEN_ALL = TOKEN_EVENT | TOKEN_ATTENDEES | TOKEN_REMINDERS
-            | TOKEN_CALENDARS | TOKEN_COLORS;
+            | TOKEN_CALENDARS | TOKEN_COLORS | TOKEN_EXTENDED;
     private static final int TOKEN_UNITIALIZED = 1 << 31;
     private final EventInfo mEvent;
     private final Done mOnDone = new Done();
@@ -743,6 +749,11 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             EditEventHelper.COLORS_PROJECTION,
                             Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
 
+                    // TOKEN_EXTENDED
+                    // mHandler.startQuery(TOKEN_EXTENDED, null, CalendarContract.ExtendedProperties.CONTENT_URI,
+                    //         EditEventHelper.EXTENDED_PROJECTION,
+                    //         EditEventHelper.EXTENDED_WHERE, new String[]{ Long.toString(eventId) }, null);
+
                     setModelIfDone(TOKEN_EVENT);
                     break;
                 case TOKEN_ATTENDEES:
@@ -871,6 +882,18 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     }
 
                     setModelIfDone(TOKEN_COLORS);
+                    break;
+                case TOKEN_EXTENDED:
+                    while(cursor.moveToFirst()) {
+                        String name = cursor.getString(EXTENDED_INDEX_NAME);
+                        String value = cursor.getString(EXTENDED_INDEX_VALUE);
+                        switch (name) {
+                            case ExtendedProperty.URL_NAME_PRIV:
+                                mModel.mUrl = value;
+                                mOriginalModel.mUrl = value;
+                                break;
+                        }
+                    }
                     break;
                 default:
                     cursor.close();
