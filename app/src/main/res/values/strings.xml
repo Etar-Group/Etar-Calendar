@@ -175,6 +175,8 @@
     <string name="hint_where">"Location"</string>
     <!-- Default value of Description field (as a hint to the user) [CHAR LIMIT=15]-->
     <string name="hint_description">"Description"</string>
+    <!-- Default value of Url field (as a hint to the user) [CHAR LIMIT=15]-->
+    <string name="hint_url">"URL"</string>
     <!-- Default value of Attendees/Guests field (as a hint to the user) [CHAR LIMIT=10] -->
     <string name="hint_attendees">"Guests"</string>
     <!-- Toast message displayed when a new event is created -->
