@@ -169,7 +169,7 @@ public class CalendarEventModel implements Serializable {
             mDescription = description;
         }
 
-        String url = intent.getStringExtra(Events.DESCRIPTION);
+        String url = intent.getStringExtra(Event.URL_TAG);
         if (url != null) {
             mUrl = url;
         }
