@@ -71,6 +71,7 @@ public class CalendarEventModel implements Serializable {
     public String mTitle = null;
     public String mLocation = null;
     public String mDescription = null;
+    public String mUrl = null;
     public String mRrule = null;
     public String mOrganizer = null;
     public String mOrganizerDisplayName = null;
@@ -166,6 +167,11 @@ public class CalendarEventModel implements Serializable {
         String description = intent.getStringExtra(Events.DESCRIPTION);
         if (description != null) {
             mDescription = description;
+        }
+
+        String url = intent.getStringExtra(Events.DESCRIPTION);
+        if (url != null) {
+            mUrl = url;
         }
 
         int availability = intent.getIntExtra(Events.AVAILABILITY, -1);
