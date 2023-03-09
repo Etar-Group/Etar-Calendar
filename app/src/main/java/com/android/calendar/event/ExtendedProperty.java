@@ -1,5 +1,6 @@
 package com.android.calendar.event;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.CalendarContract;
@@ -11,7 +12,7 @@ public class ExtendedProperty {
      * The name to be used with the extended property.
      * @see <a href="https://developer.android.com/reference/kotlin/android/provider/CalendarContract.ExtendedProperties">CalendarContact.ExtendedProperties</a>
      */
-    public static final String URL_NAME = "vnd.android.cursor.item/vnd.ical4android.url";
+    public static final String URL_NAME = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.ical4android.url";
 
     public static final String URL_NAME_PRIV = "private:" + URL_NAME;
 
