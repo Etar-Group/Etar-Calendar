@@ -243,12 +243,13 @@ public class EditEventHelper {
     static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=? AND attendeeEmail IS NOT NULL";
 
     static final String[] EXTENDED_PROJECTION = new String[] {
-            CalendarContract.ExtendedProperties._ID,                 // 0
-            CalendarContract.ExtendedProperties.EVENT_ID,            // 1
-            CalendarContract.ExtendedProperties.NAME,                // 2
-            CalendarContract.ExtendedProperties.VALUE                // 3
+            ExtendedProperties._ID,                 // 0
+            ExtendedProperties.EVENT_ID,            // 1
+            ExtendedProperties.NAME,                // 2
+            ExtendedProperties.VALUE                // 3
     };
-    static final String EXTENDED_WHERE = CalendarContract.ExtendedProperties.EVENT_ID + "=?";
+    static final String EXTENDED_WHERE_EVENT = ExtendedProperties.EVENT_ID + "=?";
+    static final String EXTENDED_WHERE_EVENT_NAME = ExtendedProperties.EVENT_ID + "=? AND " + ExtendedProperties.NAME + "=?";
 
     public static class AttendeeItem {
         public boolean mRemoved;
@@ -455,12 +456,7 @@ public class EditEventHelper {
         ContentProviderOperation.Builder b;
 
         if (model.mUrl != null && !model.mUrl.isBlank()) {
-            Uri extendedPropUri = ExtendedProperties.CONTENT_URI;
-            extendedPropUri = extendedPropUri.buildUpon()
-                    .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
-                    .appendQueryParameter(Calendars.ACCOUNT_NAME, model.mCalendarAccountName)
-                    .appendQueryParameter(Calendars.ACCOUNT_TYPE, model.mCalendarAccountType)
-                    .build();
+            Uri extendedPropUri = ExtendedProperty.contentUri(model.mCalendarAccountName, model.mCalendarAccountType);
             values.clear();
             values.put(ExtendedProperties.NAME, ExtendedProperty.URL_NAME);
             values.put(ExtendedProperties.VALUE, model.mUrl);
@@ -471,8 +467,13 @@ public class EditEventHelper {
                         .withValues(values);
                 b.withValueBackReference(ExtendedProperties.EVENT_ID, eventIdIndex);
             } else {
-                Log.d(TAG, "Adding extended url (" + model.mUrl + ") with id: " + model.mId);
+                Log.d(TAG, "Updating extended url (" + model.mUrl + ") to id: " + model.mId);
                 values.put(ExtendedProperties.EVENT_ID, model.mId);
+                // First delete the URL extended properties associated with the event
+                b = ContentProviderOperation.newDelete(extendedPropUri)
+                        .withSelection(EXTENDED_WHERE_EVENT_NAME, new String[] { Long.toString(model.mId), ExtendedProperty.URL_NAME });
+                ops.add(b.build());
+                // And then, insert the new url
                 b = ContentProviderOperation.newInsert(extendedPropUri)
                         .withValues(values);
             }

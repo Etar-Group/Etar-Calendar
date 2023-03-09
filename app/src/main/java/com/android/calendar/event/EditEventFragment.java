@@ -40,7 +40,6 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
@@ -73,7 +72,6 @@ import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
-import com.android.calendar.EventInfoFragment;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.Time;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
@@ -750,9 +748,16 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
 
                     // TOKEN_EXTENDED
-                    // mHandler.startQuery(TOKEN_EXTENDED, null, CalendarContract.ExtendedProperties.CONTENT_URI,
-                    //         EditEventHelper.EXTENDED_PROJECTION,
-                    //         EditEventHelper.EXTENDED_WHERE, new String[]{ Long.toString(eventId) }, null);
+                    Uri extendedPropUri = ExtendedProperty.contentUri(
+                            mModel.mCalendarAccountName,
+                            mModel.mCalendarAccountType
+                    );
+                    selArgs = new String[]{
+                            Long.toString(eventId)
+                    };
+                    mHandler.startQuery(TOKEN_EXTENDED, null, extendedPropUri,
+                            EditEventHelper.EXTENDED_PROJECTION,
+                            EditEventHelper.EXTENDED_WHERE_EVENT, selArgs, null);
 
                     setModelIfDone(TOKEN_EVENT);
                     break;
@@ -884,16 +889,27 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     setModelIfDone(TOKEN_COLORS);
                     break;
                 case TOKEN_EXTENDED:
-                    while(cursor.moveToFirst()) {
+                    while(cursor.moveToNext()) {
                         String name = cursor.getString(EXTENDED_INDEX_NAME);
                         String value = cursor.getString(EXTENDED_INDEX_VALUE);
+                        Log.d(TAG, "Got extended property: " + name + "::" + value);
                         switch (name) {
+                            case ExtendedProperty.URL_NAME:
                             case ExtendedProperty.URL_NAME_PRIV:
                                 mModel.mUrl = value;
                                 mOriginalModel.mUrl = value;
+                                if (value != null) {
+                                    mView.mUrlTextView.setTextKeepState(mModel.mUrl);
+                                }
                                 break;
                         }
                     }
+
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+
+                    setModelIfDone(TOKEN_EXTENDED);
                     break;
                 default:
                     cursor.close();

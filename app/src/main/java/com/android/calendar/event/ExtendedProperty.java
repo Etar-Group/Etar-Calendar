@@ -1,5 +1,11 @@
 package com.android.calendar.event;
 
+import android.content.ContentUris;
+import android.net.Uri;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.ExtendedProperties;
+import android.provider.CalendarContract.Calendars;
+
 public class ExtendedProperty {
     /**
      * The name to be used with the extended property.
@@ -14,4 +20,20 @@ public class ExtendedProperty {
      * `CalendarContract.Events.TITLE` for the URL field.
      */
     public static final String URL = "url";
+
+    /**
+     * Gets the Content URI for Extended Properties after adding the account name and type, and
+     * setting the `CalendarContract.CALLER_IS_SYNCADAPTER` parameter to `true`.
+     * @param accountName The name of the account owner of the extended property.
+     * @param accountType The type of the account owner of the extended property.
+     */
+    public static Uri contentUri(String accountName, String accountType) {
+        Uri extendedPropUri = ExtendedProperties.CONTENT_URI;
+        extendedPropUri = extendedPropUri.buildUpon()
+                .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
+                .appendQueryParameter(Calendars.ACCOUNT_NAME, accountName)
+                .appendQueryParameter(Calendars.ACCOUNT_TYPE, accountType)
+                .build();
+        return extendedPropUri;
+    }
 }
