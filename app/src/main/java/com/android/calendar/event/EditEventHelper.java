@@ -462,12 +462,10 @@ public class EditEventHelper {
             values.put(ExtendedProperties.VALUE, model.mUrl);
 
             if (newEvent) {
-                Log.d(TAG, "Adding extended url (" + model.mUrl + ") with id back reference");
                 b = ContentProviderOperation.newInsert(extendedPropUri)
                         .withValues(values);
                 b.withValueBackReference(ExtendedProperties.EVENT_ID, eventIdIndex);
             } else {
-                Log.d(TAG, "Updating extended url (" + model.mUrl + ") to id: " + model.mId);
                 values.put(ExtendedProperties.EVENT_ID, model.mId);
                 // First delete the URL extended properties associated with the event
                 b = ContentProviderOperation.newDelete(extendedPropUri)

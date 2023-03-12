@@ -892,7 +892,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     while(cursor.moveToNext()) {
                         String name = cursor.getString(EXTENDED_INDEX_NAME);
                         String value = cursor.getString(EXTENDED_INDEX_VALUE);
-                        Log.d(TAG, "Got extended property: " + name + "::" + value);
                         switch (name) {
                             case ExtendedProperty.URL_NAME:
                             case ExtendedProperty.URL_NAME_PRIV:
