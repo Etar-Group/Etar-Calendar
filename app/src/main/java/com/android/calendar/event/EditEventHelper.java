@@ -1314,11 +1314,6 @@ public class EditEventHelper {
         } else {
             values.put(Events.DESCRIPTION, (String) null);
         }
-        if (model.mUrl != null) {
-            values.put(ExtendedProperty.URL, model.mUrl.trim());
-        } else {
-            values.put(ExtendedProperty.URL, (String) null);
-        }
         if (model.mLocation != null) {
             values.put(Events.EVENT_LOCATION, model.mLocation.trim());
         } else {
