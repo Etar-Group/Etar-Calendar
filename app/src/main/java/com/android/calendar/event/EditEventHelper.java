@@ -1314,12 +1314,11 @@ public class EditEventHelper {
         } else {
             values.put(Events.DESCRIPTION, (String) null);
         }
-        // TODO
-        // if (model.mUrl != null) {
-        //     values.put(Event.URL_TAG, model.mUrl.trim());
-        // } else {
-        //     values.put(Event.URL_TAG, (String) null);
-        // }
+        if (model.mUrl != null) {
+            values.put(ExtendedProperty.URL, model.mUrl.trim());
+        } else {
+            values.put(ExtendedProperty.URL, (String) null);
+        }
         if (model.mLocation != null) {
             values.put(Events.EVENT_LOCATION, model.mLocation.trim());
         } else {
