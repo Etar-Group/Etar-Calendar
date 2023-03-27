@@ -1,0 +1,7 @@
+- Reduser skriftstørrelsen på hendelsesnavn i ukevisning
+- Aktiver nylige søkeforslag
+- Fiks eksport til SD-kort
+- Stryk gjennom tittelen på avlyste arrangementer
+- Benytt deg av systemtemainnstillingen på Android 10
+- Nye oversettelser
+- Feilrettinger

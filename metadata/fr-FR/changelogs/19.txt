@@ -1,0 +1,2 @@
+– Correction de bogue des notifications.
+– Nouvelles traductions.

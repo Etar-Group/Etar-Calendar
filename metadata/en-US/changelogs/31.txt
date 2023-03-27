@@ -1,0 +1,2 @@
+- Fix crash and notifications on Android 12
+- Fix MIME type of shared event

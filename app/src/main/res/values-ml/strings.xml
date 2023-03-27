@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="saving_event">ഇവന്റ് സംരക്ഷിച്ചു.</string>
+    <string name="creating_event">ഇവന്റ് സൃഷ്ടിച്ചു.</string>
+    <string name="hint_attendees">അതിഥികൾ</string>
+    <string name="hint_description">വിവരണം</string>
+    <string name="hint_where">സ്ഥലം</string>
+    <string name="hint_what">ഇവന്റിന്റെ പേര്</string>
+    <string name="view_settings">ക്രമീകരണങ്ങൾ കാണുക</string>
+    <string name="show_controls">നിയന്ത്രണങ്ങൾ കാണിക്കുക</string>
+    <string name="hide_controls">നിയന്ത്രണങ്ങൾ മറയ്ക്കുക</string>
+    <string name="search">തിരയുക</string>
+    <string name="menu_preferences">ക്രമീകരണങ്ങൾ</string>
+    <string name="goto_date">പോകുക…</string>
+    <string name="goto_today">ഇന്ന്</string>
+    <string name="share_label">പങ്കിടുക</string>
+    <string name="event_delete">ഇവന്റ് ഇല്ലാതാക്കുക</string>
+    <string name="event_edit">ഇവന്റ് തിരുത്തുക</string>
+    <string name="event_create">പുതിയ ഇവന്റ്</string>
+    <string name="event_view">ഇവന്റ് കാണുക</string>
+    <string name="month_view">മാസം</string>
+    <string name="week_view">ആഴ്ച</string>
+    <string name="day_view">ദിവസം</string>
+    <string name="agenda_view">അജണ്ട</string>
+    <string name="show_day_view">ദിവസങ്ങൾ കാണിക്കുക</string>
+    <string name="calendar_refresh">പുതുക്കുക</string>
+    <plurals name="weekN">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> ആം ആഴ്ച</item>
+        <item quantity="other"/>
+    </plurals>
+    <plurals name="Nweeks">
+        <item quantity="one">1 ആഴ്ച</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ആഴ്ചകൾ</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 ദിവസം</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ദിവസങ്ങൾ</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 മണിക്കൂർ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> മണിക്കൂറുകൾ</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 മിനിറ്റ്</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> മിനിറ്റുകൾ</item>
+    </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">1 മിനിറ്റ്</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> മിനിറ്റുകൾ</item>
+    </plurals>
+    <string name="no_reminder_label">ഒന്നുമില്ല</string>
+    <string name="no_title_label">(തലക്കെട്ട് ഇല്ല)</string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>,
+\n <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt">നാളെ <xliff:g id="time_interval">%s</xliff:g> ന്</string>
+    <string name="today_at_time_fmt">ഇന്ന് <xliff:g id="time_interval">%s</xliff:g> ന്</string>
+    <string name="tomorrow">നാളെ</string>
+    <string name="today">ഇന്ന്</string>
+    <string name="when_label">സമയം</string>
+    <string name="app_label">കലണ്ടർ</string>
+    <string name="empty_event">ശൂന്യമായ ഇവന്റ് സൃഷ്ടിച്ചിട്ടില്ല.</string>
+    <string name="select_synced_calendars_button">സമന്വയിപ്പിക്കാനുള്ള കലണ്ടറുകൾ</string>
+    <string name="after_start_of_event">after start of event</string>
+</resources>

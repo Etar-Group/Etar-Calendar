@@ -1,0 +1,7 @@
+– Abandon du widget, utilisation pour le moment du widget d’Agenda : https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+– Prise en charge des couleurs personnalisées des évènements.
+– Meilleure prise en charge des fichiers iCalendar (.ics).
+– Ajout du thème gris.
+– Prise en charge de la visibilité confidentielle.
+– Prise en charge des nouveaux canaux de notification Android.
+– Nombreuses corrections de bogues.

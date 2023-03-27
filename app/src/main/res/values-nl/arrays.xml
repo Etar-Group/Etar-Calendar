@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Melding"</item>
+    <item msgid="1751151680520784746">"E-mail"</item>
+    <item msgid="2658001219380695677">"Sms"</item>
+    <item msgid="7926918288165444873">"Alarm"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Standaardlandinstelling"</item>
+    <item msgid="134027225275475280">"Zaterdag"</item>
+    <item msgid="95029346069903091">"Zondag"</item>
+    <item msgid="5840983116375063739">"Maandag"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Bezet"</item>
+    <item msgid="6228387173725732140">"Beschikbaar"</item>
+    <item msgid="2064426942462573474">"Voorlopig"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"Geen reactie"</item>
+    <item msgid="3724434080904437698">"Ja"</item>
+    <item msgid="8854145743148992583">"Misschien"</item>
+    <item msgid="6174292185978948873">"Nee"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Alleen deze afspraak"</item>
+    <item msgid="1536401639805370405">"Deze en toekomstige afspraken"</item>
+    <item msgid="7833229563617435430">"Alle afspraken"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"Alleen deze afspraak"</item>
+    <item msgid="140670561403965380">"Alle gebeurtenissen in de reeks"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"Dag"</item>
+    <item msgid="6248480754959562740">"Week"</item>
+    <item msgid="4298472806133153766">"Maand"</item>
+    <item msgid="5033084974413793845">"Agenda"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Alleen indien geweigerd"</item>
+    <item msgid="6367412240524984286">"Indien geweigerd of niet gereageerd"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"DAGELIJKS HERHALEN"</item>
+    <item msgid="6300824484048337842">"WEKELIJKS HERHALEN"</item>
+    <item msgid="189361731610816256">"MAANDELIJKS HERHALEN"</item>
+    <item msgid="8714177874112569158">"JAARLIJKS HERHALEN"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"op elke eerste zondag"</item>
+    <item msgid="2557379346106451363">"op elke tweede zondag"</item>
+    <item msgid="7622144489915654132">"op elke derde zondag"</item>
+    <item msgid="527152448137686021">"op elke vierde zondag"</item>
+    <item msgid="5057483608824759350">"op elke laatste zondag"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"op elke eerste maandag"</item>
+    <item msgid="4484275849072423978">"op elke tweede maandag"</item>
+    <item msgid="8956169860824371383">"op elke derde maandag"</item>
+    <item msgid="6924403357659569326">"op elke vierde maandag"</item>
+    <item msgid="1379608815263472161">"op elke laatste maandag"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"op elke eerste dinsdag"</item>
+    <item msgid="9063613547307760928">"op elke tweede dinsdag"</item>
+    <item msgid="6688603328729208168">"op elke derde dinsdag"</item>
+    <item msgid="6695206006961533357">"op elke vierde dinsdag"</item>
+    <item msgid="8619069174889809914">"op elke laatste dinsdag"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"op elke eerste woensdag"</item>
+    <item msgid="5059722045367799217">"op elke tweede woensdag"</item>
+    <item msgid="7986246648229272275">"op elke derde woensdag"</item>
+    <item msgid="9068566169348980801">"op elke vierde woensdag"</item>
+    <item msgid="7976866743069062134">"op elke laatste woensdag"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"op elke eerste donderdag"</item>
+    <item msgid="4857419136007543270">"op elke tweede donderdag"</item>
+    <item msgid="222044587450564839">"op elke derde donderdag"</item>
+    <item msgid="6197927556533030945">"op elke vierde donderdag"</item>
+    <item msgid="1023326923033436905">"op elke laatste donderdag"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"op elke eerste vrijdag"</item>
+    <item msgid="1935608297230506940">"op elke tweede vrijdag"</item>
+    <item msgid="4061877662049317599">"op elke derde vrijdag"</item>
+    <item msgid="6856646749131820614">"op elke vierde vrijdag"</item>
+    <item msgid="6533513913914859794">"op elke laatste vrijdag"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"op elke eerste zaterdag"</item>
+    <item msgid="9130198690512925355">"op elke tweede zaterdag"</item>
+    <item msgid="4525736070844032405">"op elke derde zaterdag"</item>
+    <item msgid="422053689531707709">"op elke vierde zaterdag"</item>
+    <item msgid="5499975799312474425">"op elke laatste zaterdag"</item>
+  </string-array>
+</resources>

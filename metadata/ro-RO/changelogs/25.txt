@@ -1,0 +1,4 @@
+- Recuperarea bazei de date cu fus orar
+- Pictograma SVG a aplicației
+- Refaceți și reactivați widget-ul
+- Traduceri noi

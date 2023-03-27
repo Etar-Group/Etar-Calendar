@@ -1,0 +1,6 @@
+– Demande de permissions à l’exécution à partir d’Android 6.
+– Correction du plantage au démarrage.
+– Permission à l’utilisateur de condenser l’affichage afin de rendre la journée entière visible.
+– Définition des secondes à zéro lors de la création d’un nouvel évènement.
+– Corrections mineures de la mise en page.
+– Nombreuses corrections de bogues.

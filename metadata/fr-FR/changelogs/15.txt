@@ -1,0 +1,5 @@
+– Demande de permissions à l’exécution à partir d’Android 6.
+– Prise en charge de l’affichage lunaire et festival lorsque la langue est le chinois.
+– Mise à jour des traductions.
+– Corrections mineurs de la mise en page.
+– Nombreuses corrections de bogues.

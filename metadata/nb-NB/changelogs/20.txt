@@ -1,0 +1,5 @@
+- Ekstra varsler kreves for intern varslingssynkronisering. Vennligst mute.
+- Ikke lenger nødvendige tillatelser fjernet.
+- Farget varslingsikon.
+- Feilrettinger.
+- Nye oversettelser.

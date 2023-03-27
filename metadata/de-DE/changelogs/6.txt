@@ -1,0 +1,3 @@
+- Entfernen der Internetberechtigung unter Beibehaltung der gleichen Funktionalität.
+- Hinzufügen von 'Gehe zu...'.
+- Behoben: Agenda-Widget wird nicht täglich aktualisiert.

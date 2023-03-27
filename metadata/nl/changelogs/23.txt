@@ -1,0 +1,2 @@
+- Bugfix voor weergave van opties.
+- Nieuwe vertalingen.

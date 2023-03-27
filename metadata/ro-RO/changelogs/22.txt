@@ -1,0 +1,7 @@
+- Adăugați calendarul offline.
+- Adăugați o comandă rapidă pentru un nou eveniment.
+- Noul design al preferințelor.
+- Noul selector de date.
+- Schimbarea licenței la GPLv3.
+- Corecții de erori.
+- Traduceri noi.

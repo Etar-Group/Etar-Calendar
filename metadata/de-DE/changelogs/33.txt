@@ -1,0 +1,8 @@
+- Option zum Duplizieren von Terminen hinzugefügt
+- Wochentage auf dem Tablet anzeigen
+- Behebung eines Absturzes beim Öffnen eines Ereignisses mit sehr großer ID
+- Überarbeitung des Mini-Kalenders in der Tablet-Ansicht
+- Unterstützung für themenbezogene App-Symbole in Android 13
+- Zeige mehrtägige Ereignisse mit korrekten Start- und Endpunkten
+- Bugfixes
+- Neue Übersetzungen

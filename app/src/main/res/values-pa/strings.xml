@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="saving_event">ਵਰਤਾਰਾ ਸੰਭਾਲਿਆ।</string>
+    <string name="creating_event">ਵਰਤਾਰਾ ਬਣਿਆ।</string>
+    <string name="hint_attendees">ਪ੍ਰਾਹੁਣੇ</string>
+    <string name="hint_description">ਵਰਣਨ</string>
+    <string name="hint_where">ਟਿਕਾਣਾ</string>
+    <string name="hint_what">ਵਰਤਾਰੇ ਦਾ ਨਾਂ</string>
+    <string name="select_synced_calendars_button">ਜੰਤਰੀਆਂ ਜਿਨ੍ਹਾਂ ਦਾ ਸਮਕਾਲੀਕਰਨ ਕਰਨਾ ਹੈ</string>
+    <string name="view_settings">ਸੈਟਿੰਗਾਂ ਵੇਖੋ</string>
+    <string name="show_controls">ਕੰਟਰੋਲ ਵਿਖਾਓ</string>
+    <string name="hide_controls">ਕੰਟਰੋਲ ਲੁਕਾਓ</string>
+    <string name="search">ਖੋਜੋ</string>
+    <string name="menu_preferences">ਸੈਟਿੰਗਾਂ</string>
+    <string name="goto_date">ਏਥੇ ਜਾਓ…</string>
+    <string name="goto_today">ਅੱਜ</string>
+    <string name="share_label">ਸਾਂਝਾ ਕਰੋ</string>
+    <string name="event_delete">ਵਰਤਾਰਾ ਮਿਟਾਓ</string>
+    <string name="event_edit">ਵਰਤਾਰੇ ਦਾ ਸੰਪਾਦਨ ਕਰੋ</string>
+    <string name="event_create">ਨਵਾਂ ਵਰਤਾਰਾ</string>
+    <string name="event_view">ਵਰਤਾਰਾ ਵੇਖੋ</string>
+    <string name="month_view">ਮਹੀਨਾ</string>
+    <string name="week_view">ਹਫ਼ਤਾ</string>
+    <string name="day_view">ਦਿਨ</string>
+    <string name="agenda_view">ਕਾਰਜ</string>
+    <string name="show_day_view">ਦਿਨ ਵਿਖਾਓ</string>
+    <string name="calendar_refresh">ਤਾਜ਼ਾ ਕਰੋ</string>
+    <plurals name="weekN">
+        <item quantity="one">ਹਫ਼ਤਾ <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other"/>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 ਦਿਨ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਦਿਨ</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 ਘੰਟਾ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਘੰਟੇ</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 ਮਿੰਟ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਮਿੰਟ</item>
+    </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">1 ਮਿੰਟ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> ਮਿੰਟ</item>
+    </plurals>
+    <string name="no_title_label">ਕੋਈ ਸਿਰਲੇਖ ਨਹੀਂ</string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt">ਕੱਲ੍ਹ <xliff:g id="time_interval">%s</xliff:g> ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt">ਅੱਜ <xliff:g id="time_interval">%s</xliff:g> ਵਜੇ<xliff:g id="time_interval">%s</xliff:g>"</string>
+    <string name="tomorrow">ਕੱਲ੍ਹ</string>
+    <string name="today">ਅੱਜ</string>
+    <string name="when_label">ਕਦੋਂ</string>
+    <string name="app_label">ਜੰਤਰੀ</string>
+    <string name="no_syncable_calendars">ਕੋਈ ਜੰਤਰੀ ਨਹੀਂ</string>
+    <string name="reminders_label">ਯਾਦ-ਸੂਚਨਾ ਜੋੜੋ</string>
+    <string name="privacy_label">ਪਰਦੇਦਾਰੀ</string>
+    <string name="presence_label">ਮੈਨੂੰ ਇੰਝ ਵਿਖਾਓ</string>
+    <string name="edit_event_calendar_label">ਜੰਤਰੀ</string>
+    <string name="edit_event_all_day_label">ਸਾਰਾ ਦਿਨ</string>
+    <string name="event_info_title_invite">ਸਭਾ ਦਾ ਸੱਦਾ</string>
+    <string name="event_info_title">ਵਰਤਾਰਾ ਵੇਖੋ</string>
+    <string name="foreground_notification_channel_description">ਅੰਦਰੂਨੀ ਸਮਕਾਲੀਕਰਨ ਲਈ ਸੂਚਨਾਵਾਂ ਦੀ ਲੋੜ ਹੈ। ਤੁਸੀਂ ਬਿਨਾਂ ਫ਼ਿਕਰ ਕੀਤੇ ਇਹ ਚੈਨਲ ਲੁਕਾ ਸਕਦੇ ਹੋ।</string>
+    <string name="foreground_notification_channel_name">ਮਗਰ ਹੋਣ ਵਾਲੇ ਕਾਰਜ</string>
+    <string name="alert_title">ਜੰਤਰੀ ਦੀਆਂ ਸੂਚਨਾਵਾਂ</string>
+    <string name="create_event_dialog_save">ਸੰਭਾਲੋ</string>
+    <string name="rsvp_declined">ਨਾ ਵਜੋਂ ਜਵਾਬ ਦਿੱਤਾ।</string>
+    <string name="rsvp_tentative">ਸ਼ਾਇਦ ਵਜੋਂ ਜਵਾਬ ਦਿੱਤਾ।</string>
+    <string name="rsvp_accepted">ਹਾਂ ਵਜੋਂ ਜਵਾਬ ਦਿੱਤਾ।</string>
+    <string name="saving_event_with_guest">ਨਵੀਂ ਜਾਣਕਾਰੀ ਭੇਜੀ ਜਾਵੇਗੀ।</string>
+    <string name="creating_event_with_guest">ਸੱਦੇ ਭੇਜੇ ਜਾਣਗੇ।</string>
+    <string name="empty_event">ਵਰਤਾਰਾ ਖਾਲੀ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।</string>
+    <string name="after_start_of_event">after start of event</string>
+    <string name="no_reminder_label">ਕੁਝ ਨਹੀਂ</string>
+    <string name="foreground_notification_title">ਨਵੀਆਂ ਯਾਦ-ਸੂਚਨਾਵਾਂ ਦਾ ਸਮਾਂ ਤੈਅ ਹੋ ਰਿਹਾ…</string>
+    <string name="menu_info">ਜਾਣਕਾਰੀ</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 ਹਫ਼ਤਾ</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> \u0020ਹਫ਼ਤੇ</item>
+    </plurals>
+</resources>

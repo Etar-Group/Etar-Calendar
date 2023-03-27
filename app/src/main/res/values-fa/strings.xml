@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"تقویم"</string>
+    <string name="when_label" msgid="894636567327261599">"زمان"</string>
+    <string name="today" msgid="8577375020252453006">"امروز"</string>
+    <string name="tomorrow" msgid="614434811813859237">"فردا"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"امروز در <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"فردا در <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
+    <string name="no_title_label" msgid="302177118061368042">"(بدون عنوان)"</string>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"۱ دقیقه"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> دقیقه"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"۱ دقیقه"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> دقیقه"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"۱ ساعت"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ساعت"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"۱ روز"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> روز"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"هفته <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"تازه کردن"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"نمایش روز"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"دستور جلسه"</string>
+    <string name="day_view" msgid="4467754504843584437">"روز"</string>
+    <string name="week_view" msgid="6775043022159508060">"هفته"</string>
+    <string name="month_view" msgid="7287101431749285412">"ماه"</string>
+    <string name="event_view" msgid="7621353079385122317">"مشاهده رویداد"</string>
+    <string name="event_create" msgid="6941040556709110617">"رویداد جدید"</string>
+    <string name="event_edit" msgid="4006961928830064662">"ویرایش رویداد"</string>
+    <string name="event_delete" msgid="2386667193277770442">"حذف رویداد"</string>
+    <string name="goto_today" msgid="9162136434410891230">"امروز"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"تنظیمات"</string>
+    <string name="search" msgid="550656004486017426">"جستجو"</string>
+    <string name="hide_controls" msgid="830320505938520882">"مخفی کردن کنترل ها"</string>
+    <string name="show_controls" msgid="715520586028062621">"نمایش کنترل ها"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"تقویم‌ها برای همگام‌سازی"</string>
+    <string name="hint_what" msgid="709155115005044531">"نام رویداد"</string>
+    <string name="hint_where" msgid="4972598001033801974">"مکان"</string>
+    <string name="hint_description" msgid="1910143586169033232">"توضیح"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"مهمان ها"</string>
+    <string name="creating_event" msgid="7516249252554059980">"رویداد ایجاد شد."</string>
+    <string name="saving_event" msgid="7694181017411177226">"رویداد ذخیره شد."</string>
+    <string name="empty_event" msgid="9018699257414338634">"رویداد خالی ایجاد نمی‌شود."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"دعوت نامه‎ها ارسال خواهند شد."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"به‌روزرسانی‎ها ارسال خواهند شد."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"ذخیره"</string>
+    <string name="alert_title" msgid="7869592820853066853">"اعلان‌های تقویم"</string>
+    <string name="event_info_title" msgid="56024222340421620">"مشاهده رویداد"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"دعوت نامه جلسه"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"همه روز"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"تقویم"</string>
+    <string name="presence_label" msgid="6169724148441175862">"نمایش من به‌عنوان"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"رازداری"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"افزودن یادآور"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"تقویمی موجود نیست"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"قبل از اینکه بتوانید یک رویداد اضافه کنید، باید حداقل یک حساب تقویم به دستگاه خود اضافه کرده و تقویمی را قابل مشاهده کنید. برای افزودن یک حساب، \"افزودن حساب\" را لمس کنید (اگر بتازگی حسابی اضافه کرده‌اید، منتظر بمانید تا همگامسازی آن تمام شود و سپس دوباره امتحان کنید). همچنین می‌توانید \"لغو\" را لمس کرده و اطمینان حاصل کنید که حداقل یک تقویم قابل مشاهده است."</string>
+    <string name="add_account" msgid="1669072099756774952">"افزودن حساب"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"تقویم:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"سازمان دهنده:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"انتخاب رنگ رویداد"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"رنگ رویداد"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"تنظیم روی رنگ تقویم پیش‌فرض"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"رنگ تقویم"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"انتخابگر رنگ"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"حاضر می‌شوید؟"</string>
+    <string name="response_yes" msgid="2027484304899988350">"بله"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"شاید"</string>
+    <string name="response_no" msgid="561911691884148136">"خیر"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"ارسال ایمیل به مهمانان"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"سازمان‌دهنده ایمیل"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"ایمیل با"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"رویداد یافت نشد."</string>
+    <string name="map_label" msgid="8795383535586556038">"نقشه"</string>
+    <string name="call_label" msgid="2960328220008869083">"تماس"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"پاسخ‌های سریع"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ویرایش پاسخ‌های پیش‌فرض هنگام ارسال ایمیل به مهمان‌ها"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"پاسخ سریع"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"انتخاب پاسخ سریع"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"برنامه ایمیل یافت نشد"</string>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"با تأخیر چند دقیقه‌ای اجرا می‌شود."</item>
+        <item msgid="6215158751728689832">"۱۰ دقیقه دیگر آنجا خواهم بود."</item>
+        <item msgid="4485794001743679338">"دست به کار شوید و بدون من شروع کنید."</item>
+        <item msgid="8036557974294987511">"با عرض پوزش، نمی‌توانم این را ایجاد کنم. باید دوباره برنامه‌ریزی کنیم."</item>
+    </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"نوشتن ..."</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"سازمان دهنده:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"یادآورها"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"امروز، <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"دیروز، <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"فردا، <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"در حال بارگیری…"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"برای مشاهده رویدادهای قبل از <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> لمس کنید"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"جهت مشاهده رویدادهای پس از <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> لمس کنید"</string>
+    <string name="search_title" msgid="8898015280250716254">"جستجوی تقویم‌های من"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"جزئیات"</string>
+    <string name="edit_label" msgid="8934331258435656534">"ویرایش"</string>
+    <string name="delete_label" msgid="874742811918030739">"حذف"</string>
+    <string name="save_label" msgid="2133599104834432589">"انجام شد"</string>
+    <string name="discard_label" msgid="2394623883289782541">"لغو"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"رد کردن همه"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"تعویق"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"رویداد یک بار"</string>
+    <string name="endByDate" msgid="7654221304929538201">"؛ تا <xliff:g id="DATE">%s</xliff:g>"</string>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"؛ برای یکبار"</item>
+        <item quantity="other" msgid="4855496837834652446">"؛ برای <xliff:g id="NUMBER">%d</xliff:g> بار"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"روزانه"</item>
+        <item quantity="other" msgid="5455230727715859264">"هر <xliff:g id="NUMBER">%d</xliff:g> روز"</item>
+    </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"هر روز هفته (دوشنبه-جمعه)"</string>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"هفتگی در روزهای <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"هر <xliff:g id="NUMBER">%1$d</xliff:g> در روزهای <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
+    <string name="monthly" msgid="4587116285383048586">"ماهانه"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"سالانه"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"سفارشی (سفارشی کردن در تلفن امکان‌پذیر نیست)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"فقط این رویداد تغییر داده شود"</string>
+    <string name="modify_all" msgid="4421657265864209041">"همه رویدادهای موجود در مجموعه‌ها تغییر داده شود"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"این رویداد و همه رویدادهای آینده تغییر داده شود"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"رویداد جدید"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"رویداد جدید"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"این رویداد حذف شود؟"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g> حذف شود؟"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"تغییر پاسخ"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"تنظیمات"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"تنظیم نمای تقویم"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"اعلان‌ها و یادآورها"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"پنهان کردن رویدادهای رد شده"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"شروع هفته در"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"شروع هفته در"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"پاک کردن سابقه جستجو"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"تمام جستجوهایی را که انجام داده‌اید، حذف کنید"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"سابقه جستجو پاک شد."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"اعلان‌ها"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"لرزش"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"صدا"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"اعلان بازشو"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"زمان یادآور پیش‌فرض"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"زمان یادآور پیش‌فرض"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"استفاده از منطقهٔ زمانی مبدأ"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"تقویم‌ها و زمان رویداد را حتی هنگام مسافرت به منطقهٔ زمانی مبدأ شما نمایش می‌دهد"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"منطقهٔ زمانی مبدأ"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"شماره هفته نمایش"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"نسخه ساخت"</string>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"رویداد تقویمی برای روزهای آینده وجود ندارد"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"آزمایشی"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ردکردن یادآورها"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ردکردن یادآورها"</string>
+    <string name="copy_db" msgid="437691290566699292">"ارسال پایگاه داده"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"در حال جستجو <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"حذف شرکت کنندگان"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"تاریخ شروع"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"زمان شروع"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"تاریخ پایان"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"ساعت پایان"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"منطقهٔ زمانی"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"تکرار رویداد"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"افزودن یادآور"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"حذف یادآور"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"اضافه کردن شرکت کنندگان"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"رویداد کل روز"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"زمان یادآور"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"نوع یادآور"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"نمایش من به صورت"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"حریم خصوصی"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ رویداد جدید"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"رویداد <xliff:g id="ITEM_INDEX">%1$s</xliff:g> از <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 رویداد"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> رویداد"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"1+ کردن رویداد"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> رویداد"</item>
+    </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"رویداد انتخاب شده"</string>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"هر <xliff:g id="COUNT">%d</xliff:g> روز"</item>
+        <item quantity="other" msgid="707566499994398250">"هر <xliff:g id="COUNT">%d</xliff:g> روز"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"هر <xliff:g id="COUNT">%d</xliff:g> هفته"</item>
+        <item quantity="other" msgid="7094801039989237061">"هر <xliff:g id="COUNT">%d</xliff:g> هفته"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"هر <xliff:g id="COUNT">%d</xliff:g> ماه"</item>
+        <item quantity="other" msgid="5419723710346646523">"هر <xliff:g id="COUNT">%d</xliff:g> ماه"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"هر <xliff:g id="COUNT">%d</xliff:g> سال"</item>
+        <item quantity="other" msgid="5678653649746562060">"هر <xliff:g id="COUNT">%d</xliff:g> سال"</item>
+    </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"در یک روز معین از هر ماه"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"همیشه"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"تا یک تاریخ معین"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"تا <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"برای تعدادی از رویدادها"</string>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"برای <xliff:g id="EVENT_COUNT">%d</xliff:g> رویداد"</item>
+        <item quantity="other" msgid="8779598489398048259">"برای <xliff:g id="EVENT_COUNT">%d</xliff:g> رویداد"</item>
+    </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"تغییر تاریخ پایان"</string>
+    <string name="visibility_default">پیش‌فرض</string>
+    <string name="visibility_private">خصوصی</string>
+    <string name="visibility_public">عمومی</string>
+    <string name="no_reminder_label">هیچکدام</string>
+    <string name="after_start_of_event">after start of event</string>
+</resources>

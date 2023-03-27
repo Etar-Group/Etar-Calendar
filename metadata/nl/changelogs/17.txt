@@ -1,0 +1,4 @@
+- Verbeterde maandweergave.
+- Toestemming om contacten te lezen is weer optioneel.
+- Mooiere invoervelden bij het maken van gebeurtenissen.
+- Bug fixes.

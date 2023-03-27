@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2010 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <declare-styleable name="CustomWidget">
+        <attr name="light_dark" format="color"/>
+        <attr name="settings_titleText" format="reference|color" />
+        <attr name="month_header_bgcolor" format="color"/>
+        <attr name="agenda_general_bgcolor" format="color"/>
+        <attr name="edit_event_bgcolor" format="color"/>
+        <attr name="agenda_day_item_text_color" format="color"/>
+        <attr name="editEvent_small_color" format="color"/>
+        <attr name="recurrence_picker_bgcolor_up" format="color"/>
+        <attr name="recurrence_picker_bgcolor" format="color"/>
+        <attr name="done_text_recurrence" format="reference|color"/>
+        <attr name="spinner_privacy_presence_bgcolor" format="color"/>
+        <attr name="event_info_bgcolor" format="color"/>
+        <attr name="event_info_scrollview_bgcolor" format="color"/>
+        <attr name="event_info_organizer_color" format="color"/>
+        <attr name="event_info_description_color" format="color"/>
+        <attr name="event_info_body_color" format="color"/>
+        <attr name="event_info_label_color" format="color"/>
+        <attr name="create_event_date_color" format="color"/>
+        <attr name="calendar_owner_text_color" format="color"/>
+        <attr name="calendar_date_banner_bgcolor" format="color"/>
+        <attr name="app_bar_color" format="color"/>
+        <attr name="minus_button" format="reference"/>
+        <attr name="ic_menu_email" format="reference"/>
+        <attr name="calendar_future_bg_color" format="color"/>
+        <attr name="month_other_bgcolor" format="color"/>
+        <attr name="settings_calendar_offline" format="reference"/>
+        <attr name="iconAboutAuthors" format="reference"/>
+        <attr name="iconAboutLicense" format="reference"/>
+        <attr name="iconSettingsAbout" format="reference" />
+        <attr name="iconSettingsGeneral" format="reference" />
+        <attr name="iconAddCalendar" format="reference" />
+        <attr name="iconCalendarAccount" format="reference" />
+        <attr name="divider_select_calendars" format="color"/>
+    </declare-styleable>
+</resources>

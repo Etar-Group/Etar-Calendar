@@ -1,1 +1,1 @@
-Derivativo do calendário básico do Android em Material Design
+Etar é um calendário open-source em Material Design, para todos!

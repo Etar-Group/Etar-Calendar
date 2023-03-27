@@ -1,0 +1,7 @@
+- Anlegen und anzeigen neuer Erinnerungen nach dem Start Termin mit einer Checkbox
+- Erinnerungen mit negativen Werten repariert
+- Ungültige Zeiten bei Änderung der Zeitzone korrigiert
+- Neuer Termin über das Widget anlegen
+- Themefarben überarbeitet
+- Bugfixes
+- Neue Übersetzungen

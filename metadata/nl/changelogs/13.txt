@@ -1,0 +1,4 @@
+- Ondersteuning voor het delen van kalenders via ics en im-/exporteren van/naar SD-kaart.
+- Rechten die niet nodig zijn verwijderd.
+- Bug fixes voor geluidsinstellingen in Android 6.
+- Bug fixes.

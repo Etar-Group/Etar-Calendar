@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- Include our custom Toolbar -->
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_bar" />
+
+    <FrameLayout
+        android:id="@+id/body_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

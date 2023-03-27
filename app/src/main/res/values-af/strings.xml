@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
+    <string name="when_label" msgid="894636567327261599">"Wanneer"</string>
+    <string name="today" msgid="8577375020252453006">"Vandag"</string>
+    <string name="tomorrow" msgid="614434811813859237">"Môre"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"Vandag om <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Môre om <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
+    <string name="no_title_label" msgid="302177118061368042">"(Titelloos)"</string>
+    <plurals name="Nminutes">
+        <item quantity="one" msgid="4871052965772159239">"1 minuut"</item>
+        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minute"</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one" msgid="4793697728599296830">"1 uur"</item>
+        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> uur"</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
+        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dae"</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="other" msgid="8085184869561028365">"week <xliff:g id="COUNT">%d</xliff:g>"</item>
+    </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Herlaai"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Wys dag"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
+    <string name="day_view" msgid="4467754504843584437">"Dag"</string>
+    <string name="week_view" msgid="6775043022159508060">"Week"</string>
+    <string name="month_view" msgid="7287101431749285412">"Maand"</string>
+    <string name="event_view" msgid="7621353079385122317">"Bekyk gebeurtenis"</string>
+    <string name="event_create" msgid="6941040556709110617">"Nuwe gebeurtenis"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Redigeer gebeurtenis"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Vee gebeurtenis uit"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Vandag"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Instellings"</string>
+    <string name="search" msgid="550656004486017426">"Soek"</string>
+    <string name="hide_controls" msgid="830320505938520882">"Versteek kontroles"</string>
+    <string name="show_controls" msgid="715520586028062621">"Wys kontroles"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalenders om te sinkroniseer"</string>
+    <string name="hint_what" msgid="709155115005044531">"Geleentheidnaam"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Ligging"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Beskrywing"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Gaste"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Gebeurtenis geskep."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Gebeurtenis gestoor."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Leë gebeurtenis nie geskep nie."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Uitnodigings sal gestuur word."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"Opdaterings sal gestuur word."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Stoor"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Kalender-kennisgewings"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Bekyk gebeurtenis"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Uitnodiging"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Heeldag"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Wys my as"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Privaatheid"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Voeg herinnering by"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen kalenders nie"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Voordat jy \'n gebeurtenis kan byvoeg, moet jy minstens een Kalender-rekening by jou toestel voeg en \'n kalender sigbaar maak. Raak Voeg Rekekning By om \'n rekening by te voeg (as jy sopas \'n rekening bygevoeg het, wag tot dit klaar gesinkroniseer het en probeer weer). Of raak Kanselleer en maak seker dat ten minste een kalender sigbaar is."</string>
+    <string name="add_account" msgid="1669072099756774952">"Voeg rekening by"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiseerder:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Kies geleentheidkleur"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Geleentheidkleur"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Stel na verstek kalenderkleur"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Kalenderkleur"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Kleurkieser"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Gaan jy bywoon?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"Miskien"</string>
+    <string name="response_no" msgid="561911691884148136">"Nee"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Stuur e-pos aan gaste"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"E-posorganiseerder"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"E-pos met"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Gebeurtenis nie opgespoor nie."</string>
+    <string name="map_label" msgid="8795383535586556038">"Kaart"</string>
+    <string name="call_label" msgid="2960328220008869083">"Bel"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Kitsantwoorde"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Redigeer verstek antwoorde wanneer jy aan gaste e-pos stuur"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Kitsantwoord"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Kies vinnige reaksie"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Kon nie \'n e-posprogram vind nie"</string>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Is net \'n paar minute laat."</item>
+        <item msgid="6215158751728689832">"Ek is oor ongeveer 10 minute daar."</item>
+        <item msgid="4485794001743679338">"Begin solank sonder my."</item>
+        <item msgid="8036557974294987511">"Jammer, ek kan nie meer kom nie. Ons sal moet herskeduleer."</item>
+    </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skryf jou eie"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Organiseerder:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringe"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"vandag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"gister, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"môre, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Laai tans…"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Raak om gebeurtenisse te sien vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Raak om gebeurtenisse te sien ná <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="search_title" msgid="8898015280250716254">"Deursoek my kalenders"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
+    <string name="edit_label" msgid="8934331258435656534">"Redigeer"</string>
+    <string name="delete_label" msgid="874742811918030739">"Vee uit"</string>
+    <string name="save_label" msgid="2133599104834432589">"Klaar"</string>
+    <string name="discard_label" msgid="2394623883289782541">"Kanselleer"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Maak almal toe"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"Sluimer"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Eenmalige gebeurtenis"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; tot <xliff:g id="DATE">%s</xliff:g>"</string>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"; vir een keer"</item>
+        <item quantity="other" msgid="4855496837834652446">"; vir <xliff:g id="NUMBER">%d</xliff:g> kere"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Daagliks"</item>
+        <item quantity="other" msgid="5455230727715859264">"Elke <xliff:g id="NUMBER">%d</xliff:g> dae"</item>
+    </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"Elke weeksdag (Ma-Vr)"</string>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Weekliks op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"Elke <xliff:g id="NUMBER">%1$d</xliff:g> weke op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
+    <string name="monthly" msgid="4587116285383048586">"Maandeliks"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Jaarliks"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Gepasmaak (kan nie op foon pasmaak nie)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Verander slegs hierdie gebeurtenis"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Verander alle gebeure in die reeks"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Verander hierdie en alle toekomstige gebeure"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Nuwe gebeurtenis"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Nuwe gebeurtenis"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Vee hierdie gebeurtenis uit?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Vee <xliff:g id="EVENTTITLE">%s</xliff:g> uit?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Verander antwoord"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Instellings"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Instelling vir Kalender-aansig"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Kennisgewings en onthounotas"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Versteek afgewysde gebeurtenisse"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week begin op"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Week begin op"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Vee soekgeskiedenis uit"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Verwyder al die soektogte wat jy uitgevoer het"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Soekgeskiedenis uitgevee."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Kennisgewings"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibreer"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Klank"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Opspringerkennisgewing"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Verstek herinneringstyd"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Verstek herinneringstyd"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Gebruik tuistydsone"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Wys kalenders en gebeurtenisse in jou tuistydsone wanneer jy reis"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Tuistydsone"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Wys weeknommer"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Bouweergawe"</string>
+    <plurals name="month_more_events">
+        <item quantity="one" msgid="8971334808414201327">"+1"</item>
+        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+    </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"Geen komende kalendergebeurtenisse nie"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimenteel"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Slaan herinneringe oor"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Slaan onthounotas oor"</string>
+    <string name="copy_db" msgid="437691290566699292">"Stuur databasis"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"Deursoek tans <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Verwyder deelnemer"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Begindatum"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Begintyd"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Einddatum"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Eindigtyd"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Tydsone"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Herhaal geleentheid"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Voeg herinnering by"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Verwyder herinnering"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Voeg deelnemer by"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Heeldag-gebeurtenis"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Herinneringstyd"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Herinneringstipe"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Wys my as"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privaatheid"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nuwe gebeurtenis"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Gebeurtenis <xliff:g id="ITEM_INDEX">%1$s</xliff:g> van <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <plurals name="Nevents">
+        <item quantity="one" msgid="5230907142214104485">"1 gebeurtenis"</item>
+        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> gebeurtenisse"</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one" msgid="431585781647034528">"+1 gebeurtenis"</item>
+        <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> gebeurtenisse"</item>
+    </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Geselekteerde gebeurtenis"</string>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one" msgid="1205422710088692631">"Elke <xliff:g id="COUNT">%d</xliff:g> dag"</item>
+        <item quantity="other" msgid="707566499994398250">"Elke <xliff:g id="COUNT">%d</xliff:g> dae"</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"Elke <xliff:g id="COUNT">%d</xliff:g> week"</item>
+        <item quantity="other" msgid="7094801039989237061">"Elke <xliff:g id="COUNT">%d</xliff:g> weke"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"Elke <xliff:g id="COUNT">%d</xliff:g> maand"</item>
+        <item quantity="other" msgid="5419723710346646523">"Elke <xliff:g id="COUNT">%d</xliff:g> maande"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"Elke <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
+        <item quantity="other" msgid="5678653649746562060">"Elke <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
+    </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"op dieselfde dag elke maand"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Vir altyd"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Tot \'n datum"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Tot <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Vir \'n aantal geleenthede"</string>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"Vir <xliff:g id="EVENT_COUNT">%d</xliff:g> geleentheid"</item>
+        <item quantity="other" msgid="8779598489398048259">"Vir <xliff:g id="EVENT_COUNT">%d</xliff:g> geleenthede"</item>
+    </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"verander einddatum"</string>
+    <string name="visibility_default">Verstek</string>
+    <string name="visibility_private">Privaat</string>
+    <string name="visibility_public">Publiek</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Vra vir herinnering vir sluimer herinnerings</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Vra vir sluimer vertraging wanneer sluimer vra vir herinnering</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Gebruik altyd standaard sluimer vertraging</string>
+    <string name="snooze_delay_dialog_title">Stel sluimer vertraging</string>
+    <string name="preferences_default_snooze_delay_title">Standaard sluimer vertragings tyd</string>
+    <string name="preferences_default_snooze_delay_dialog">Standaard sluimer vertraging</string>
+    <string name="no_reminder_label">Geen</string>
+    <string name="after_start_of_event">after start of event</string>
+</resources>

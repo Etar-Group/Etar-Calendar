@@ -1,0 +1,2 @@
+- Seçenekler ekranı için hata düzeltmesi.
+- Yeni çeviriler.

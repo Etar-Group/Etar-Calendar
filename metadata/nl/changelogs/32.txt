@@ -1,0 +1,7 @@
+- Maak en toon herinneringen na het begin van het evenement met behulp van een selectievakje
+- Reparatie herinnering met negatieve waarden
+- Corrigeer ongeldige tijden als gevolg van tijdzonewijzigingen
+- Optie om een nieuwe gebeurtenis toe te voegen vanuit het widgetscherm
+- Thema kleuren opnieuw bewerkt
+- Bugfixes
+- Nieuwe vertalingen

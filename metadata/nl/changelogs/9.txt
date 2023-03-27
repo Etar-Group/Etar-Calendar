@@ -1,0 +1,3 @@
+- Enkele UI verbeteringen.
+- Zweedse vertaling bijgewerkt.
+- Bug fixes.

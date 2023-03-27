@@ -1,0 +1,7 @@
+- Reducerea dimensiunii fontului pentru numele evenimentelor în vizualizarea săptămânală
+- Activați sugestiile de căutare recentă
+- Corectarea exportului pe cardul SD
+- Tăiați titlul evenimentelor anulate
+- Utilizați setarea temei de sistem pe android 10
+- Traduceri noi
+- Corecții de erori

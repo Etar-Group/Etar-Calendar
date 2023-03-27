@@ -20,8 +20,9 @@ this app would be just a dream. So thanks to them!
 - Week, day & agenda view.
 - Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
 - Material designed.
-- Support offline calendar
-- -Agenda widget.- (disabled until #373 and #374 are fixed. Use [Calendar Widget](https://f-droid.org/de/packages/com.plusonelabs.calendar/) as an alternative.)
+- Support offline calendar.
+- Agenda widget.
+- Multilingual UI.
 
 ## How to use Etar
 Store your calendar on the phone only:
@@ -53,6 +54,13 @@ an event to which calendar it should be added.
 - READ_CALENDAR & WRITE_CALENDAR  
 ->read and create calendar events
 
+### Known issues with the ICS import feature
+
+Etar can import ICS files, for instance, received in invitation emails.
+The import feature is unstable and has a list of known bugs.
+Refer to https://github.com/Etar-Group/Etar-Calendar/pull/653 as a reference to those bugs.
+Use it with caution, especially, if your calendar provider automatically sends out invitation emails.
+
 ## Contribute
 ### Translations
 Interested in helping to translate Etar? Contribute here: https://hosted.weblate.org/projects/etar-calendar/strings/
@@ -66,7 +74,7 @@ Install and extract Android SDK command line tools.
 tools/bin/sdkmanager platform-tools
 export ANDROID_HOME=/path/to/android-sdk/
 git submodule update --init
-gradle build
+gradle :app:assembleDebug
 ```
 ## License
 

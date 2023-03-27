@@ -1,0 +1,2 @@
+- Oprava oznamování na Android 12
+- Přidat DecSync a Birthday Adapter do „známých“ aplikací a nehavarovat

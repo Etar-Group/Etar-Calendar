@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Thông báo"</item>
+    <item msgid="1751151680520784746">"Email"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"Báo thức"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Ngôn ngữ mặc định"</item>
+    <item msgid="134027225275475280">"Thứ Bảy"</item>
+    <item msgid="95029346069903091">"Chủ nhật"</item>
+    <item msgid="5840983116375063739">"Thứ Hai"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Bận"</item>
+    <item msgid="6228387173725732140">"Sẵn có"</item>
+    <item msgid="2064426942462573474">"Thử nghiệm"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"Không có phản hồi"</item>
+    <item msgid="3724434080904437698">"Có"</item>
+    <item msgid="8854145743148992583">"Có thể"</item>
+    <item msgid="6174292185978948873">"Không"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Chỉ sự kiện này"</item>
+    <item msgid="1536401639805370405">"Sự kiện này và các sự kiện trong tương lai"</item>
+    <item msgid="7833229563617435430">"Tất cả sự kiện"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"Chỉ sự kiện này"</item>
+    <item msgid="140670561403965380">"Tất cả sự kiện trong hàng loạt sự kiện"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"Ngày"</item>
+    <item msgid="6248480754959562740">"Tuần"</item>
+    <item msgid="4298472806133153766">"Tháng"</item>
+    <item msgid="5033084974413793845">"Lịch biểu"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Chỉ khi bị từ chối"</item>
+    <item msgid="6367412240524984286">"Nếu bị từ chối hoặc không phản hổi"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"LẶP LẠI HÀNG NGÀY"</item>
+    <item msgid="6300824484048337842">"LẶP LẠI HÀNG TUẦN"</item>
+    <item msgid="189361731610816256">"LẶP LẠI HÀNG THÁNG"</item>
+    <item msgid="8714177874112569158">"LẶP LẠI HÀNG NĂM"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"vào mọi Chủ Nhật đầu tiên"</item>
+    <item msgid="2557379346106451363">"vào mọi Chủ Nhật thứ hai"</item>
+    <item msgid="7622144489915654132">"vào mọi Chủ Nhật thứ ba"</item>
+    <item msgid="527152448137686021">"vào mọi Chủ Nhật thứ tư"</item>
+    <item msgid="5057483608824759350">"vào mọi Chủ Nhật cuối cùng"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"vào mọi Thứ Hai đầu tiên"</item>
+    <item msgid="4484275849072423978">"vào mọi Thứ Hai thứ hai"</item>
+    <item msgid="8956169860824371383">"vào mọi Thứ Hai thứ ba"</item>
+    <item msgid="6924403357659569326">"vào mọi Thứ Hai thứ tư"</item>
+    <item msgid="1379608815263472161">"vào mọi Thứ Hai cuối cùng"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"vào mọi Thứ Ba đầu tiên"</item>
+    <item msgid="9063613547307760928">"vào mọi Thứ Ba thứ hai"</item>
+    <item msgid="6688603328729208168">"vào mọi Thứ Ba thứ ba"</item>
+    <item msgid="6695206006961533357">"vào mọi Thứ Ba thứ tư"</item>
+    <item msgid="8619069174889809914">"vào mọi Thứ Ba cuối cùng"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"vào mọi Thứ Tư đầu tiên"</item>
+    <item msgid="5059722045367799217">"vào mọi Thứ Tư thứ hai"</item>
+    <item msgid="7986246648229272275">"vào mọi Thứ Tư thứ ba"</item>
+    <item msgid="9068566169348980801">"vào mọi Thứ Tư thứ tư"</item>
+    <item msgid="7976866743069062134">"vào mọi Thứ Tư cuối cùng"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"vào mọi Thứ Năm đầu tiên"</item>
+    <item msgid="4857419136007543270">"vào mọi Thứ Năm thứ hai"</item>
+    <item msgid="222044587450564839">"vào mọi Thứ Năm thứ ba"</item>
+    <item msgid="6197927556533030945">"vào mọi Thứ Năm thứ tư"</item>
+    <item msgid="1023326923033436905">"vào mọi Thứ Năm cuối cùng"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"vào mọi Thứ Sáu đầu tiên"</item>
+    <item msgid="1935608297230506940">"vào mọi Thứ Sáu thứ hai"</item>
+    <item msgid="4061877662049317599">"vào mọi Thứ Sáu thứ ba"</item>
+    <item msgid="6856646749131820614">"vào mọi Thứ Sáu thứ tư"</item>
+    <item msgid="6533513913914859794">"vào mọi Thứ Sáu cuối cùng"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"vào mọi Thứ Bảy đầu tiên"</item>
+    <item msgid="9130198690512925355">"vào mọi Thứ Bảy thứ hai"</item>
+    <item msgid="4525736070844032405">"vào mọi Thứ Bảy thứ ba"</item>
+    <item msgid="422053689531707709">"vào mọi Thứ Bảy thứ tư"</item>
+    <item msgid="5499975799312474425">"vào mọi Thứ Bảy cuối cùng"</item>
+  </string-array>
+</resources>

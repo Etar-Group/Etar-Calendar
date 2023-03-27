@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"通知"</item>
+    <item msgid="1751151680520784746">"メール"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"アラーム"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"ユーザーの言語/地域でのデフォルト設定"</item>
+    <item msgid="134027225275475280">"土曜日"</item>
+    <item msgid="95029346069903091">"日曜日"</item>
+    <item msgid="5840983116375063739">"月曜日"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"予定あり"</item>
+    <item msgid="6228387173725732140">"予定なし"</item>
+    <item msgid="2064426942462573474">"仮承諾"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"応答がありません"</item>
+    <item msgid="3724434080904437698">"はい"</item>
+    <item msgid="8854145743148992583">"未定"</item>
+    <item msgid="6174292185978948873">"いいえ"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"この日の予定のみ"</item>
+    <item msgid="1536401639805370405">"これ以降の予定"</item>
+    <item msgid="7833229563617435430">"すべての予定"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"この予定のみ"</item>
+    <item msgid="140670561403965380">"繰り返す予定すべて"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"日"</item>
+    <item msgid="6248480754959562740">"週"</item>
+    <item msgid="4298472806133153766">"月"</item>
+    <item msgid="5033084974413793845">"予定リスト"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"辞退した場合のみ"</item>
+    <item msgid="6367412240524984286">"辞退したか応答がなかった場合"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"繰り返し: 毎日"</item>
+    <item msgid="6300824484048337842">"繰り返し: 毎週"</item>
+    <item msgid="189361731610816256">"繰り返し: 毎月"</item>
+    <item msgid="8714177874112569158">"繰り返し: 毎年"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"毎月第1日曜日"</item>
+    <item msgid="2557379346106451363">"毎月第2日曜日"</item>
+    <item msgid="7622144489915654132">"毎月第3日曜日"</item>
+    <item msgid="527152448137686021">"毎月第4日曜日"</item>
+    <item msgid="5057483608824759350">"毎月最終日曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"毎月第1月曜日"</item>
+    <item msgid="4484275849072423978">"毎月第2月曜日"</item>
+    <item msgid="8956169860824371383">"毎月第3月曜日"</item>
+    <item msgid="6924403357659569326">"毎月第4月曜日"</item>
+    <item msgid="1379608815263472161">"毎月最終月曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"毎月第1火曜日"</item>
+    <item msgid="9063613547307760928">"毎月第2火曜日"</item>
+    <item msgid="6688603328729208168">"毎月第3火曜日"</item>
+    <item msgid="6695206006961533357">"毎月第4火曜日"</item>
+    <item msgid="8619069174889809914">"毎月最終火曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"毎月第1水曜日"</item>
+    <item msgid="5059722045367799217">"毎月第2水曜日"</item>
+    <item msgid="7986246648229272275">"毎月第3水曜日"</item>
+    <item msgid="9068566169348980801">"毎月第4水曜日"</item>
+    <item msgid="7976866743069062134">"毎月最終水曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"毎月第1木曜日"</item>
+    <item msgid="4857419136007543270">"毎月第2木曜日"</item>
+    <item msgid="222044587450564839">"毎月第3木曜日"</item>
+    <item msgid="6197927556533030945">"毎月第4木曜日"</item>
+    <item msgid="1023326923033436905">"毎月最終木曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"毎月第1金曜日"</item>
+    <item msgid="1935608297230506940">"毎月第2金曜日"</item>
+    <item msgid="4061877662049317599">"毎月第3金曜日"</item>
+    <item msgid="6856646749131820614">"毎月第4金曜日"</item>
+    <item msgid="6533513913914859794">"毎月最終金曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"毎月第1土曜日"</item>
+    <item msgid="9130198690512925355">"毎月第2土曜日"</item>
+    <item msgid="4525736070844032405">"毎月第3土曜日"</item>
+    <item msgid="422053689531707709">"毎月第4土曜日"</item>
+    <item msgid="5499975799312474425">"毎月最終土曜日"</item>
+  </string-array>
+</resources>

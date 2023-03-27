@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Kalenteri"</string>
+    <string name="when_label" msgid="894636567327261599">"Milloin"</string>
+    <string name="today" msgid="8577375020252453006">"Tänään"</string>
+    <string name="tomorrow" msgid="614434811813859237">"Huomenna"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">"Tänään klo <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Huomenna klo <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="no_title_label" msgid="302177118061368042">"(Ei otsikkoa)"</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minuutti</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minuuttia</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 min</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 tunti</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> tuntia</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 päivä</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> päivää</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="one">Viikko <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Päivitä"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Näytä päivä"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Tapahtumat"</string>
+    <string name="day_view" msgid="4467754504843584437">"Päivä"</string>
+    <string name="week_view" msgid="6775043022159508060">"Viikko"</string>
+    <string name="month_view" msgid="7287101431749285412">"Kuukausi"</string>
+    <string name="event_view" msgid="7621353079385122317">"Näytä tapahtuma"</string>
+    <string name="event_create" msgid="6941040556709110617">"Uusi tapahtuma"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Muokkaa tapahtumaa"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Poista tapahtuma"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Tämä päivä"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Asetukset"</string>
+    <string name="search" msgid="550656004486017426">"Haku"</string>
+    <string name="hide_controls" msgid="830320505938520882">"Piilota toiminnot"</string>
+    <string name="show_controls" msgid="715520586028062621">"Näytä toiminnot"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Synkronoitavat kalenterit"</string>
+    <string name="hint_what" msgid="709155115005044531">"Tapahtuman nimi"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Sijainti"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Kuvaus"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Vieraat"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Tapahtuma luotu."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Tapahtuma tallennettu."</string>
+    <string name="empty_event" msgid="9018699257414338634">Tyhjää tapahtumaa ei luotu.</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Kutsut lähetetään."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"Päivitykset lähetetään."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Tallenna"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Kalenteri-ilmoitukset"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Näytä tapahtuma"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Kokouskutsu"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Koko päivä"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalenteri"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Näytä että olen"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Tietosuoja"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Lisää muistutus"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Ei kalentereita"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Ennen kuin voit lisätä tapahtuman, sinun on lisättävä laitteeseen vähintään yksi kalenteritili ja otettava kalenteri näkyviin. Lisää tili koskettamalla Lisää tili (jos olet jo lisännyt tilin, odota synkronoinnin valmistumista ja yritä uudelleen). Tai kosketa Peruuta ja varmista, että vähintään yksi kalenteri on näkyvissä."</string>
+    <string name="add_account" msgid="1669072099756774952">"Lisää tili"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalenteri:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Järjestäjä:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Valitse tapahtuman väri"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Tapahtuman väri"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Käytä kalenterin oletusväriä"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Kalenterin väri"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Värin valinta"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Osallistutko?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"Kyllä"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"Ehkä"</string>
+    <string name="response_no" msgid="561911691884148136">"Ei"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Lähetä sähköposti osallistujille"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Sähköposti järjestäjälle"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"Sähköposti ja"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Tapahtumaa ei löydy."</string>
+    <string name="map_label" msgid="8795383535586556038">"Kartta"</string>
+    <string name="call_label" msgid="2960328220008869083">"Soita"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Pikavastaukset"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Muokkaa vakiovastauksia vieraille</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Pikavastaus"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Valitse pikavastaus"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Sähköpostiohjelmia ei löytynyt"</string>
+    <string-array name="quick_response_defaults">
+        <item msgid="1524421198348168403">"Myöhästyn muutaman minuutin."</item>
+        <item msgid="6215158751728689832">"Olen paikalla noin 10 minuutin kuluttua."</item>
+        <item msgid="4485794001743679338">"Voitte aloittaa ilman minua."</item>
+        <item msgid="8036557974294987511">"En pääse paikalle. Sovitaanko uusi aika?"</item>
+    </string-array>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Kirjoita oma…"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Järjestäjä:"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Muistutukset"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Tänään, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Eilen, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Huomenna, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="loading" msgid="3772533493214331230">"Ladataan…"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Näytä aikaa <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> edeltävät tapahtumat koskettamalla"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Näytä ajan <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> jälkeiset tapahtumat koskettamalla"</string>
+    <string name="search_title" msgid="8898015280250716254">"Haku omista kalentereista"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Tiedot"</string>
+    <string name="edit_label" msgid="8934331258435656534">"Muokkaa"</string>
+    <string name="delete_label" msgid="874742811918030739">"Poista"</string>
+    <string name="save_label" msgid="2133599104834432589">"Valmis"</string>
+    <string name="discard_label" msgid="2394623883289782541">"Peruuta"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Ohita kaikki"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"Torkku"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Yksittäinen tapahtuma"</string>
+    <string name="endByDate" msgid="7654221304929538201">"<xliff:g id="DATE">%s</xliff:g> saakka"</string>
+    <plurals name="endByCount">
+        <item quantity="one" msgid="3727754565990691816">"yhden kerran"</item>
+        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> kertaa"</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="one" msgid="5169052946627480942">"Päivittäin"</item>
+        <item quantity="other" msgid="5455230727715859264">"Joka <xliff:g id="NUMBER">%d</xliff:g>. päivä"</item>
+    </plurals>
+    <string name="every_weekday" msgid="5896574838353902978">"Joka arkipäivä (ma–pe)"</string>
+    <plurals name="weekly">
+        <item quantity="one" msgid="5463021019301453273">"Viikoittain joka <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g> viikon välein joka <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    </plurals>
+    <string name="monthly" msgid="4587116285383048586">"Kuukausittain"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Vuosittain"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Muokattu (ei voi muokata puhelimessa)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Muuta vain tämä tapahtuma"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Muuta tapahtuman kaikki toistokerrat"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Muuta tämä ja kaikki tulevat tapahtumat"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Uusi tapahtuma"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Uusi tapahtuma"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Poistetaanko tämä tapahtuma?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Poistetaanko <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Muuta vastausta"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Asetukset"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Kalenterinäkymän asetus"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Ilmoitukset ja muistutukset"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Piilota hylätyt tapahtumat"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Viikko alkaa päivänä"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Viikko alkaa päivänä"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Tyhjennä hakuhistoria"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Poista kaikki tekemäsi haut"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Hakuhistoria tyhjennetty."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Ilmoitukset"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Värinä"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Ääni"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Ponnahdusikkunailmoitus"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Muistutuksen oletusaika"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Muistutuksen oletusaika"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Käytä kotiaikavyöhykettä"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Näyttää kalenterit ja tapahtumien ajat oman aikavyöhykkeesi ajassa matkustaessasi"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Kotiaikavyöhyke"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Näytä viikon numero"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Ohjelmistoversio"</string>
+    <plurals name="month_more_events">
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+    </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"Ei tulevia kalenteritapahtumia"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Kokeellinen"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Ohita muistutukset"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Ohita muistutukset"</string>
+    <string name="copy_db" msgid="437691290566699292">"Lähetä tietokanta"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"Haetaan <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Poista osallistuja"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Aloituspäivä"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Aloitusaika"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Lopetuspäivä"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Lopetusaika"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Aikavyöhyke"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Toista tapahtuma"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Lisää muistutus"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Poista muistutus"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Lisää osallistuja"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Koko päivän tapahtuma"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Muistutuksen aika"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Muistutuksen tyyppi"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Näytä että olen"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Yksityisyys"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Uusi tapahtuma"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Tapahtuma <xliff:g id="ITEM_INDEX">%1$s</xliff:g> / <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <plurals name="Nevents">
+        <item quantity="one">1 tapahtuma</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> tapahtumaa</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one">+ 1 tapahtuma</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> tapahtumaa</item>
+    </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valittu tapahtuma"</string>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one"><xliff:g id="COUNT">%d</xliff:g> päivän välein</item>
+        <item quantity="other">Joka <xliff:g id="count">%d</xliff:g> päivää</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> viikon välein"</item>
+        <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g> viikon välein"</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> kuukauden välein"</item>
+        <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g> kuukauden välein"</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> vuoden välein"</item>
+        <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g> vuoden välein"</item>
+    </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"samana päiv. joka kk"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Ikuisesti"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Tiettyyn päivään saakka"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"<xliff:g id="DATE">%s</xliff:g> saakka"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Useita kertoja"</string>
+    <plurals name="recurrence_end_count">
+        <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> tapahtuman ajan"</item>
+        <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> tapahtuman ajan"</item>
+    </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"muuta lopetuspäivää"</string>
+    <string name="visibility_default">Oletus</string>
+    <string name="visibility_private">Yksityinen</string>
+    <string name="visibility_public">Julkinen</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Kysy muistutuksen torkkuajasta</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Kysy torkun ajasta kun muistutusta siirretään myöhemmäksi</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Käytä aina oletusaikaa</string>
+    <string name="snooze_delay_dialog_title">Aseta torkkuaika</string>
+    <string name="preferences_default_snooze_delay_title">Oletustorkkuaika</string>
+    <string name="preferences_default_snooze_delay_dialog">Torkun oletusaika</string>
+    <string name="goto_date">Valitse päivä…</string>
+    <string name="rsvp_accepted">Vastattu kyllä.</string>
+    <string name="rsvp_tentative">Vastattu ehkä.</string>
+    <string name="rsvp_declined">Vastattu ei.</string>
+    <string name="preferences_theme">Teema</string>
+    <string name="preferences_light_theme">Vaalea</string>
+    <string name="preferences_dark_theme">Tumma</string>
+    <string name="preferences_black_theme">Musta</string>
+    <string name="preferences_color">Pääväri</string>
+    <string name="preferences_color_pick">Pääväri</string>
+    <string name="preferences_days_per_week_title">Päiviä viikossa</string>
+    <string name="preferences_days_per_week_dialog">Päiviä viikossa</string>
+    <string name="preferences_default_event_duration_title">Tapahtuman oletuskesto</string>
+    <string name="preferences_issues">Ilmoita ongelmista</string>
+    <string name="user_rejected_calendar_write_permission">Etar tarvitsee kalenterin luku- ja kirjoutusoikeuksia toimiakseen oikein. Yritä uudelleen.</string>
+    <string name="calendar_permission_not_granted">Vaaditut käyttöoikeudet evättiin. Ota ne käyttöön Asetukset-sovelluksessa muokkaamaan tapahtumia</string>
+    <string name="visibility_confidential">Luottamuksellinen</string>
+    <string name="zero_minutes">0 minuuttia</string>
+    <string name="fifteen_minutes">15 minuuttia</string>
+    <string name="thirty_minutes">30 minuuttia</string>
+    <string name="one_hour">1 tunti</string>
+    <string name="one_and_a_half_hours">1.5 tuntia</string>
+    <string name="two_hours">2 tuntia</string>
+    <string name="share_label">Jaa</string>
+    <string name="no_map">Karttasovellusta ei ole asennettu</string>
+    <string name="default_start_title">Oletusnäkymä</string>
+    <string name="default_start_last">Aiemmin käytetty näkymä</string>
+    <string name="error_generating_ics">Ongelmia tapahtuman jakamisessa</string>
+    <string name="cal_share_intent_title">Lähetä tapahtuma:</string>
+    <string name="cal_export_event_sdcard_title">Vie SD-kortille</string>
+    <string name="cal_export_succ_msg">Tapahtuma vietiin onnistuneesti: %1$s</string>
+    <string name="cal_import_menu_title">Tuo tapahtuma</string>
+    <string name="cal_nothing_to_import">Ei mitään tuotavaa</string>
+    <string name="cal_import_error_msg">Tuonti kalenteriin epäonnistui</string>
+    <string name="cal_import_error_date_msg">Päivämäärää ei ymmärretty: %s</string>
+    <string name="cal_pick_ics">Valitse tuotava tiedosto</string>
+    <string name="view_settings">Näytä asetukset</string>
+    <string name="preferences_month_view_portrait">Kuukausinäkymän asettelu (pysty)</string>
+    <string name="preferences_month_view_landscape">Kuukausinäkymän asettelu (vaaka)</string>
+    <string name="display_options">Näkymän yksityiskohdat</string>
+    <string name="display_time">Näytä aika</string>
+    <string name="display_location">Näytä sijainti</string>
+    <string name="show_time_no">Älä näytä aikaa</string>
+    <string name="show_time_start">Vain aloitusaika</string>
+    <string name="show_time_start_end">Aloitus- ja päättymisaika</string>
+    <string name="show_time_start_end_below">Aloitus- ja päättymisaika tapahtuman alapuolella</string>
+    <string name="maximum_number_of_lines">Suurin sallittu rivimäärä tapahtumalle</string>
+    <string name="preferences_list_add_offline_message">Ei-verkossa-kalentereita EI synkronoida pilvipalveluun, ja ne ovat käytettävissä vain puhelimessasi.</string>
+    <string name="preferences_list_add_offline_title">Lisää ei-verkossa-kalenteri</string>
+    <string name="preferences_list_add_offline">Lisää ei-verkossa-kalenteri</string>
+    <string name="preferences_menu_about">Tietoja Etarista</string>
+    <string name="preferences_list_add_offline_cancel">Peruuta</string>
+    <string name="preferences_list_add_offline_name">Nimi</string>
+    <string name="preferences_list_add_offline_button">Lisää kalenteri</string>
+    <string name="preferences_list_add_offline_error_empty">Anna kalenterin nimi!</string>
+    <string name="preferences_list_general">Yleiset asetukset</string>
+    <string name="preferences_list_calendar_summary_invisible">Tapahtumia ei näytetä</string>
+    <string name="preferences_list_calendar_summary_sync_off">Ei synkronoitu</string>
+    <string name="preferences_calendar_delete_cancel">Peruuta</string>
+    <string name="preferences_calendar_delete_delete">Poista kalenteri</string>
+    <string name="preferences_calendar_delete_message">Haluatko todella poistaa tämän kalenterin\?</string>
+    <string name="preferences_calendar_color_warning_button">Ymmärrän</string>
+    <string name="preferences_calendar_color_warning_title">Varoitus</string>
+    <string name="preferences_calendar_synchronize">Synkronoi tämä kalenteri</string>
+    <string name="preferences_calendar_visible">Näytä tapahtumat</string>
+    <string name="preferences_calendar_color">Väri</string>
+    <string name="preferences_calendar_info_category">Kalenterin tiedot</string>
+    <string name="preferences_calendar_display_name">Muuta nimeä</string>
+    <string name="preferences_calendar_delete">Poista kalenteri</string>
+    <string name="preferences_calendar_number_of_events">%1$d tapahtumaa</string>
+    <string name="preferences_calendar_account_local">Ei-verkossa-kalenteri</string>
+    <string name="preferences_calendar_account">%1$s tili</string>
+    <string name="preferences_calendar_no_display_name">Nimeämätön kalenteri</string>
+    <string name="cal_import_error_time_zone_msg">Annettua aikavyöhykettä ei voi ymmärtää: %s</string>
+    <string name="seven_days">7 päivää</string>
+    <string name="six_days">6 päivää</string>
+    <string name="five_days">5 päivää</string>
+    <string name="four_days">4 päivää</string>
+    <string name="three_days">3 päivää</string>
+    <string name="two_days">2 päivää</string>
+    <string name="offline_account_name">Ei-verkossa-kalenteri</string>
+    <string name="source_code">Lähdekoodi</string>
+    <string name="license">Lisenssi</string>
+    <string name="changelog">Muutosloki</string>
+    <string name="authors">Tekijät</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="preferences_system_theme">Järjestelmän oletusasetus</string>
+    <string name="foreground_notification_channel_description">Sisäisen hälytyksen synkronointiin tarvitaan tulosilmoitus.</string>
+    <string name="foreground_notification_channel_name">Hälytyksen synkronointi</string>
+    <string name="no_reminder_label">Ei mitään</string>
+    <string name="after_start_of_event">after start of event</string>
+</resources>

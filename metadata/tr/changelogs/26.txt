@@ -1,0 +1,4 @@
+- Etkinlik düzenleme görünümü yenilendi
+- Android 4.4 desteği kaldırıldı
+- Genel hata düzeltmeleri
+- Yeni çeviriler

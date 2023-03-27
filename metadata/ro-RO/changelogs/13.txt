@@ -1,0 +1,4 @@
+- Suport pentru partajarea calendarelor prin intermediul ics și posibilitatea de a importa/exporta de pe sdcard.
+- Eliminarea permisiunilor neutilizate.
+- Corectarea setării sunetului pe Android 6.
+- O mulțime de remedieri de erori.

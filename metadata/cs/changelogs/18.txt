@@ -1,0 +1,3 @@
+- Opravy chyb v zobrazení měsíce.
+- Oprava tmavého motivu v tabulkách.
+- Nové překlady.

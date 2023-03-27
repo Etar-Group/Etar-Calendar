@@ -1,0 +1,6 @@
+- Pedir permissões em runtime no Android 6 em diante.
+- Corrgir crash ao iniciar.
+- Permitir usuário espremer display para que o dia inteiro fique visível.
+- Definir segundos para zero ao criar novo evento.
+- Correções menores de layout.
+- Várias correções de bugs.

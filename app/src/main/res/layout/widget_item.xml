@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="32sp">
+
+    <FrameLayout
+        android:id="@+id/widget_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+            android:id="@+id/agenda_item_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:scaleType="fitXY" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="4dip"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                style="?android:attr/textAppearanceMediumInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="2"
+                android:paddingStart="8dip"
+                android:paddingEnd="8dip"
+                android:textColor="@color/appwidget_title"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/when"
+                style="?android:attr/textAppearanceSmallInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:paddingStart="8dip"
+                android:paddingEnd="8dip"
+                android:textColor="@color/appwidget_when"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/where"
+                style="?android:attr/textAppearanceSmallInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:paddingStart="8dip"
+                android:paddingEnd="8dip"
+                android:paddingBottom="2dip"
+                android:textColor="@color/appwidget_where"
+                android:textSize="12sp" />
+        </LinearLayout>
+</FrameLayout>

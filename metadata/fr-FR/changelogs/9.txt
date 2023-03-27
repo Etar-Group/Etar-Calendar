@@ -1,0 +1,3 @@
+– De meilleures modifications de l’interface utilisateur.
+– Mise à jour de la traduction suédoise.
+– Corrections de bogues.

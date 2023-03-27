@@ -1,0 +1,5 @@
+- Notificări suplimentare necesare pentru sincronizarea alertelor interne. Vă rugăm să puneți în surdină.
+- Permisiuni care nu mai sunt necesare, eliminate.
+- Pictogramă de notificare colorată.
+- Corecții de erori.
+- Traduceri noi.

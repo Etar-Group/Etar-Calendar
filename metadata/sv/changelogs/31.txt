@@ -1,0 +1,2 @@
+- Fixa krasch och aviseringar i Android 12
+- Fixa MIME-typ för den delade händelsen

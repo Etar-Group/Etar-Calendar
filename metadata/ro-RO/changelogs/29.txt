@@ -1,0 +1,5 @@
+- Suport Android 12
+- Suportă Material You Design
+- Îndepărtați conexiunea la serviciul Android pentru salvarea bazei de date (ruptă în majoritatea versiunilor Android)
+- Corecții generale de erori
+- Traduceri noi

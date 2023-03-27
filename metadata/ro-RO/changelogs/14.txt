@@ -1,0 +1,6 @@
+- Cereți permisiuni în timpul execuției pe Android 6 și mai sus.
+- Corectarea blocării la pornire.
+- Permiteți utilizatorului să comprime ecranul astfel încât să fie vizibilă întreaga zi.
+- Setați secundele la zero la crearea unui nou eveniment.
+- Corecții minore de layout.
+- O mulțime de corecturi de erori.

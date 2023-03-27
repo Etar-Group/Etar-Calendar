@@ -1,0 +1,2 @@
+- Bugfix für Abstürze und Benachrichtigungen auf Android 12
+- Bugfix für MIME-Type beim Teilen von Kalendereinträgen

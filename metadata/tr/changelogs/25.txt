@@ -1,0 +1,4 @@
+- Saat dilimi veri tabanı kurtarıldı
+- SVG uygulaması simgesi
+- Widget yenilendi ve yeniden etkinleştirildi
+- Yeni çeviriler

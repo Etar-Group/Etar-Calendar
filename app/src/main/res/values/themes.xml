@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="CalendarAppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="light_dark">@color/bg_black</item>
+        <item name="settings_titleText">?android:attr/textAppearanceLargeInverse</item>
+        <item name="month_header_bgcolor">@color/month_other_bgcolor</item>
+        <item name="agenda_general_bgcolor">@color/agenda_general_background_color</item>
+        <item name="agenda_day_item_text_color">@color/agenda_day_item_text_color</item>
+        <item name="edit_event_bgcolor">@color/edit_event_color</item>
+        <item name="editEvent_small_color">@color/edit_event_small</item>
+        <item name="recurrence_picker_bgcolor_up">@android:color/white</item>
+        <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background</item>
+        <item name="done_text_recurrence">@color/recurrence_done_text_color</item>
+        <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground</item>
+        <item name="event_info_bgcolor">@color/background_color</item>
+        <item name="event_info_scrollview_bgcolor">@android:color/white</item>
+        <item name="event_info_organizer_color">@color/event_info_organizer_color</item>
+        <item name="event_info_description_color">@color/event_info_description_color</item>
+        <item name="event_info_body_color">@color/event_info_body_color</item>
+        <item name="event_info_label_color">@color/event_info_label_color</item>
+        <item name="android:itemBackground">@android:color/white</item>
+        <item name="create_event_date_color">@color/create_event_date_color</item>
+        <item name="calendar_owner_text_color">@color/calendar_owner_text_color</item>
+        <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background</item>
+        <item name="app_bar_color">@color/app_bar</item>
+        <item name="autoCompleteTextViewStyle">@style/actionbar_cursor</item>
+        <item name="minus_button">@drawable/ic_menu_remove_field_holo_light</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_light</item>
+        <item name="calendar_future_bg_color">@color/calendar_future_bg_color</item>
+        <item name="month_other_bgcolor">@color/month_other_bgcolor</item>
+        <item name="settings_calendar_offline">@drawable/ic_sync_off_light</item>
+        <item name="iconAboutAuthors">@android:color/black</item>
+        <item name="iconAboutLicense">@android:color/black</item>
+        <item name="iconSettingsAbout">@android:color/black</item>
+        <item name="iconSettingsGeneral">@android:color/black</item>
+        <item name="iconAddCalendar">@android:color/black</item>
+        <item name="iconCalendarAccount">@android:color/black</item>
+        <item name="divider_select_calendars">@color/divider_select_calendars</item>
+    </style>
+
+    <style name="CalendarAppThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="light_dark">@android:color/white</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="settings_titleText">?android:attr/textAppearanceLarge</item>
+        <item name="month_header_bgcolor">@color/month_bgcolor_dark</item>
+        <item name="agenda_general_bgcolor">@color/agenda_general_background_color_dark</item>
+        <item name="agenda_day_item_text_color">@color/agenda_day_item_text_color_dark</item>
+        <item name="edit_event_bgcolor">@color/edit_event_color_dark</item>
+        <item name="editEvent_small_color">@color/edit_event_small_dark</item>
+        <item name="android:itemBackground">@color/bg_dark</item>
+        <item name="recurrence_picker_bgcolor_up">@color/recurrence_picker_background_up_dark</item>
+        <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background_dark</item>
+        <item name="done_text_recurrence">@color/recurrence_done_text_color_black</item>
+        <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground_dark</item>
+        <item name="event_info_bgcolor">@color/bg_dark</item>
+        <item name="event_info_scrollview_bgcolor">@color/bg_dark</item>
+        <item name="event_info_organizer_color">@color/event_info_organizer_color_dark</item>
+        <item name="event_info_description_color">@color/event_info_description_color_dark</item>
+        <item name="event_info_body_color">@color/event_info_body_color_dark</item>
+        <item name="event_info_label_color">@color/event_info_label_color_dark</item>
+        <item name="create_event_date_color">@color/create_event_date_color_dark</item>
+        <item name="calendar_owner_text_color">@color/calendar_owner_text_color_dark</item>
+        <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_dark</item>
+        <item name="app_bar_color">@color/app_bar_dark</item>
+        <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_dark</item>
+        <item name="calendar_future_bg_color">@color/calendar_future_bg_color_dark</item>
+        <item name="month_other_bgcolor">@color/month_other_bgcolor_dark</item>
+        <item name="settings_calendar_offline">@drawable/ic_sync_off_dark</item>
+        <item name="iconAboutAuthors">@android:color/white</item>
+        <item name="iconAboutLicense">@android:color/white</item>
+        <item name="iconSettingsAbout">@android:color/white</item>
+        <item name="iconSettingsGeneral">@android:color/white</item>
+        <item name="iconAddCalendar">@android:color/white</item>
+        <item name="iconCalendarAccount">@android:color/white</item>
+        <item name="divider_select_calendars">@color/divider_select_calendars_dark</item>
+    </style>
+
+    <style name="CalendarAppThemeBlack" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="light_dark">@android:color/white</item>
+        <item name="android:windowBackground">@color/bg_black</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="settings_titleText">?android:attr/textAppearanceLarge</item>
+        <item name="month_header_bgcolor">@color/month_bgcolor_black</item>
+        <item name="agenda_general_bgcolor">@color/agenda_general_background_color_black</item>
+        <item name="agenda_day_item_text_color">@color/agenda_day_item_text_color_black</item>
+        <item name="edit_event_bgcolor">@color/edit_event_color_black</item>
+        <item name="editEvent_small_color">@color/edit_event_small_black</item>
+        <item name="android:itemBackground">@color/bg_black</item>
+        <item name="recurrence_picker_bgcolor_up">@color/recurrence_picker_background_up_black</item>
+        <item name="recurrence_picker_bgcolor">@color/recurrence_picker_background_black</item>
+        <item name="done_text_recurrence">@color/recurrence_done_text_color_black</item>
+        <item name="spinner_privacy_presence_bgcolor">@color/spinner_privacy_popupBackground_black</item>
+        <item name="event_info_bgcolor">@color/bg_black</item>
+        <item name="event_info_scrollview_bgcolor">@color/bg_black</item>
+        <item name="event_info_organizer_color">@color/event_info_organizer_color_black</item>
+        <item name="event_info_description_color">@color/event_info_description_color_black</item>
+        <item name="event_info_body_color">@color/event_info_body_color_black</item>
+        <item name="event_info_label_color">@color/event_info_label_color_black</item>
+        <item name="create_event_date_color">@color/create_event_date_color_black</item>
+        <item name="calendar_owner_text_color">@color/calendar_owner_text_color_black</item>
+        <item name="calendar_date_banner_bgcolor">@color/calendar_date_banner_background_black</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+        <item name="minus_button">@drawable/ic_menu_remove_field_holo_light_dark</item>
+        <item name="ic_menu_email">@drawable/ic_menu_email_holo_dark</item>
+        <item name="calendar_future_bg_color">@color/calendar_future_bg_color_black</item>
+        <item name="month_other_bgcolor">@color/month_other_bgcolor_black</item>
+        <item name="settings_calendar_offline">@drawable/ic_sync_off_dark</item>
+        <item name="iconAboutAuthors">@android:color/white</item>
+        <item name="iconAboutLicense">@android:color/white</item>
+        <item name="iconSettingsAbout">@android:color/white</item>
+        <item name="iconSettingsGeneral">@android:color/white</item>
+        <item name="iconAddCalendar">@android:color/white</item>
+        <item name="iconCalendarAccount">@android:color/white</item>
+        <item name="divider_select_calendars">@color/divider_select_calendars_black</item>
+    </style>
+
+
+    <!--All color + theme (light/dark/black) combinations-->
+    <style name="CalendarAppThemeLightTeal" parent="CalendarAppThemeLight">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="app_bar_color">@color/app_bar</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+    <style name="CalendarAppThemeDarkTeal" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="app_bar_color">@color/app_bar</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+    <style name="CalendarAppThemeBlackTeal" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+
+    <style name="CalendarAppThemeLightOrange" parent="CalendarAppThemeLight">
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
+        <item name="colorAccent">@color/colorOrangeAccent</item>
+        <item name="app_bar_color">@color/colorOrangePrimary</item>
+        <item name="android:statusBarColor">@color/colorOrangePrimary</item>
+    </style>
+    <style name="CalendarAppThemeDarkOrange" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
+        <item name="colorAccent">@color/colorOrangeAccent</item>
+        <item name="app_bar_color">@color/colorOrangePrimary</item>
+        <item name="android:statusBarColor">@color/colorOrangePrimary</item>
+    </style>
+    <style name="CalendarAppThemeBlackOrange" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorOrangeAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+
+    <style name="CalendarAppThemeLightBlue" parent="CalendarAppThemeLight">
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
+        <item name="colorAccent">@color/colorBlueAccent</item>
+        <item name="app_bar_color">@color/colorBluePrimary</item>
+        <item name="android:statusBarColor">@color/colorBluePrimary</item>
+    </style>
+    <style name="CalendarAppThemeDarkBlue" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
+        <item name="colorAccent">@color/colorBlueAccent</item>
+        <item name="app_bar_color">@color/colorBluePrimary</item>
+        <item name="android:statusBarColor">@color/colorBluePrimary</item>
+    </style>
+    <style name="CalendarAppThemeBlackBlue" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorBlueAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+
+    <style name="CalendarAppThemeLightGreen" parent="CalendarAppThemeLight">
+        <item name="colorPrimary">@color/colorGreenPrimary</item>
+        <item name="colorPrimaryDark">@color/colorGreenPrimaryDark</item>
+        <item name="colorAccent">@color/colorGreenAccent</item>
+        <item name="app_bar_color">@color/colorGreenPrimary</item>
+        <item name="android:statusBarColor">@color/colorGreenPrimary</item>
+    </style>
+    <style name="CalendarAppThemeDarkGreen" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorGreenPrimary</item>
+        <item name="colorPrimaryDark">@color/colorGreenPrimaryDark</item>
+        <item name="colorAccent">@color/colorGreenAccent</item>
+        <item name="app_bar_color">@color/colorGreenPrimary</item>
+        <item name="android:statusBarColor">@color/colorGreenPrimary</item>
+    </style>
+    <style name="CalendarAppThemeBlackGreen" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorGreenPrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorGreenAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+
+    <style name="CalendarAppThemeLightRed" parent="CalendarAppThemeLight">
+        <item name="colorPrimary">@color/colorRedPrimary</item>
+        <item name="colorPrimaryDark">@color/colorRedPrimaryDark</item>
+        <item name="colorAccent">@color/colorRedAccent</item>
+        <item name="app_bar_color">@color/colorRedPrimary</item>
+        <item name="android:statusBarColor">@color/colorRedPrimary</item>
+    </style>
+    <style name="CalendarAppThemeDarkRed" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorRedPrimary</item>
+        <item name="colorPrimaryDark">@color/colorRedPrimaryDark</item>
+        <item name="colorAccent">@color/colorRedAccent</item>
+        <item name="app_bar_color">@color/colorRedPrimary</item>
+        <item name="android:statusBarColor">@color/colorRedPrimary</item>
+    </style>
+    <style name="CalendarAppThemeBlackRed" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorRedPrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorRedAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+
+    <style name="CalendarAppThemeLightPurple" parent="CalendarAppThemeLight">
+        <item name="colorPrimary">@color/colorPurplePrimary</item>
+        <item name="colorPrimaryDark">@color/colorPurplePrimaryDark</item>
+        <item name="colorAccent">@color/colorPurpleAccent</item>
+        <item name="app_bar_color">@color/colorPurplePrimary</item>
+        <item name="android:statusBarColor">@color/colorPurplePrimary</item>
+    </style>
+    <style name="CalendarAppThemeDarkPurple" parent="CalendarAppThemeDark">
+        <item name="colorPrimary">@color/colorPurplePrimary</item>
+        <item name="colorPrimaryDark">@color/colorPurplePrimaryDark</item>
+        <item name="colorAccent">@color/colorPurpleAccent</item>
+        <item name="app_bar_color">@color/colorPurplePrimary</item>
+        <item name="android:statusBarColor">@color/colorPurplePrimary</item>
+    </style>
+    <style name="CalendarAppThemeBlackPurple" parent="CalendarAppThemeBlack">
+        <item name="colorPrimary">@color/colorPurplePrimary</item>
+        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorAccent">@color/colorPurpleAccent</item>
+        <item name="app_bar_color">@color/app_bar_black</item>
+    </style>
+
+
+</resources>

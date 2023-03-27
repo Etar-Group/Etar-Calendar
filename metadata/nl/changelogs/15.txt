@@ -1,0 +1,5 @@
+- Runtime rechten van Android 6.
+- Ondersteuning voor Chinese feestdagen.
+- Vertalingen bijgewerkt.
+- Kleine veranderingen aan de lay-out.
+- Bug fixes.

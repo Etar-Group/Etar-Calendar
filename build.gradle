@@ -1,238 +1,47 @@
-buildscript {
-    ext.kotlin_version = '1.3.72'
-    repositories {
-        google()
-        jcenter()
-    }
+plugins {
+    id 'com.android.application' version '7.2.1' apply false
+    id 'com.android.library' version '7.2.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.0' apply false
+    id 'org.ec4j.editorconfig' version "0.0.3" apply false
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.5" apply true
+}
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+// External project configuration start
+
+// Configure and automatically generate AAR of the below mentioned external
+// projects using a custom task  in order to let Android Studio work properly.
+// MUST BE RUN MANUALLY ON CLI COMPILATION
+def external_projects = [
+        project(':external:calendar'),
+        project(':external:chips'),
+        project(':external:colorpicker'),
+        project(':external:timezonepicker')
+]
+
+configure(external_projects) {
+    apply {
+        from '../configuration/common.gradle'
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
+task aarGen {
+    description "Generates AAR from the external projects for Etar-Calendar"
+    def aarTasks = [
+            ':external:calendar:copyAAR',
+            ':external:chips:copyAAR',
+            ':external:colorpicker:copyAAR',
+            ':external:timezonepicker:copyAAR'
+    ]
+    dependsOn aarTasks
 }
 
-project(':external:calendar') {
-    apply plugin: 'com.android.library'
-
-    android {
-        compileSdkVersion 29
-        buildToolsVersion '29.0.2'
-
-        defaultConfig {
-            minSdkVersion 19
-            targetSdkVersion 29
-        }
-
-        sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
-            }
-
-        }
-
-        lintOptions {
-            abortOnError false
-        }
+idea.project.settings {
+    taskTriggers {
+        afterSync tasks.getByName('aarGen')
     }
 }
+// External project configuration end
 
-project(':external:colorpicker') {
-    apply plugin: 'com.android.library'
-
-    android {
-        compileSdkVersion 29
-        buildToolsVersion '29.0.2'
-
-        defaultConfig {
-            minSdkVersion 19
-            targetSdkVersion 29
-        }
-
-        sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
-            }
-        }
-
-        lintOptions {
-            abortOnError false
-        }
-    }
-}
-
-project(':external:timezonepicker') {
-    apply plugin: 'com.android.library'
-
-    dependencies {
-        implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    }
-
-    android {
-        compileSdkVersion 29
-        buildToolsVersion '29.0.2'
-
-        defaultConfig {
-            minSdkVersion 19
-            targetSdkVersion 29
-        }
-
-        sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-            }
-        }
-
-        lintOptions {
-            abortOnError false
-        }
-    }
-}
-
-project(':external:chips') {
-    apply plugin: 'com.android.library'
-
-    android {
-        compileSdkVersion 29
-        buildToolsVersion '29.0.2'
-
-        defaultConfig {
-            minSdkVersion 19
-            targetSdkVersion 29
-        }
-
-        sourceSets {
-                main {
-                    manifest.srcFile 'AndroidManifest.xml'
-                    java.srcDirs = ['src']
-                    resources.srcDirs = ['src']
-                    aidl.srcDirs = ['src']
-                    renderscript.srcDirs = ['src']
-                    res.srcDirs = ['res']
-                    assets.srcDirs = ['assets']
-            }
-        }
-
-
-        lintOptions {
-            abortOnError false
-        }
-    }
-}
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
-
-    implementation 'androidx.preference:preference:1.1.1'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.0.0'
-
-    implementation project(':external:calendar')
-    implementation project(':external:colorpicker')
-    implementation project(':external:timezonepicker')
-    implementation project(':external:chips')
-}
-
-android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.2'
-
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 24
-        versionName "1.0.22"
-        applicationId "ws.xsoh.etar"
-    }
-
-    useLibrary 'org.apache.http.legacy'
-
-    sourceSets {
-            main {
-                manifest.srcFile 'AndroidManifest.xml'
-                java.srcDirs = ['src', 'external/ex/common/java'] // NOTE: this includes external/ex/common/java!
-                resources.srcDirs = ['src']
-                aidl.srcDirs = ['src']
-                renderscript.srcDirs = ['src']
-                res.srcDirs = ['res']
-                assets.srcDirs = ['assets']
-        }
-    }
-
-    buildTypes {
-        release {
-            // TODO: could be enabled for ProGuard minimization
-            minifyEnabled false
-        }
-
-        debug {
-            minifyEnabled false
-
-            applicationIdSuffix ".debug"
-        }
-    }
-
-    /*
-     * To sign release build, create file gradle.properties in ~/.gradle/ with this content:
-     *
-     * signingStoreLocation=/home/key.store
-     * signingStorePassword=xxx
-     * signingKeyAlias=alias
-     * signingKeyPassword=xxx
-     */
-    if (project.hasProperty('signingStoreLocation') &&
-            project.hasProperty('signingStorePassword') &&
-            project.hasProperty('signingKeyAlias') &&
-            project.hasProperty('signingKeyPassword')) {
-        println "Found sign properties in gradle.properties! Signing build…"
-        
-        signingConfigs {
-            release {
-                storeFile file(signingStoreLocation)
-                storePassword signingStorePassword
-                keyAlias signingKeyAlias
-                keyPassword signingKeyPassword
-            }
-        }
-
-        buildTypes.release.signingConfig = signingConfigs.release
-    } else {
-        buildTypes.release.signingConfig = null
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

@@ -1,0 +1,7 @@
+- Widget kaldırıldı, şimdilik Takvim Widget'ı kullanılıyor: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+- Özel renk etkinlikleri için destek.
+- ics dosyaları için daha iyi destek.
+- Gri tema eklendi.
+- Görünürlük gizliliği için destek.
+- Yeni Android bildirim kanalları için destek.
+- Çok sayıda hata düzeltmesi.

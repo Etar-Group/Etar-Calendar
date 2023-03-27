@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Meddelande"</item>
+    <item msgid="1751151680520784746">"E-post"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"Larm"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Standardinställning för språkkod"</item>
+    <item msgid="134027225275475280">"lördag"</item>
+    <item msgid="95029346069903091">"söndag"</item>
+    <item msgid="5840983116375063739">"måndag"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Upptagen"</item>
+    <item msgid="6228387173725732140">"Tillgänglig"</item>
+    <item msgid="2064426942462573474">"Preliminärt"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"Inget svar"</item>
+    <item msgid="3724434080904437698">"Ja"</item>
+    <item msgid="8854145743148992583">"Kanske"</item>
+    <item msgid="6174292185978948873">"Nej"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Bara den här händelsen"</item>
+    <item msgid="1536401639805370405">"Den här och framtida händelser"</item>
+    <item msgid="7833229563617435430">"Alla händelser"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"Bara den här händelsen"</item>
+    <item msgid="140670561403965380">"Alla händelser i serien"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"Dag"</item>
+    <item msgid="6248480754959562740">"Vecka"</item>
+    <item msgid="4298472806133153766">"Månad"</item>
+    <item msgid="5033084974413793845">"Program"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Endast vid minskade"</item>
+    <item msgid="6367412240524984286">"Om minskat eller inte svarat"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"UPPREPA VARJE DAG"</item>
+    <item msgid="6300824484048337842">"UPPREPA VARJE VECKA"</item>
+    <item msgid="189361731610816256">"UPPREPA VARJE MÅNAD"</item>
+    <item msgid="8714177874112569158">"UPPREPA VARJE ÅR"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"den första söndagen i månaden"</item>
+    <item msgid="2557379346106451363">"den andra söndagen i månaden"</item>
+    <item msgid="7622144489915654132">"den tredje söndagen i månaden"</item>
+    <item msgid="527152448137686021">"den fjärde söndagen i månaden"</item>
+    <item msgid="5057483608824759350">"den sista söndagen i månaden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"den första måndagen i månaden"</item>
+    <item msgid="4484275849072423978">"den andra måndagen i månaden"</item>
+    <item msgid="8956169860824371383">"den tredje måndagen i månaden"</item>
+    <item msgid="6924403357659569326">"den fjärde måndagen i månaden"</item>
+    <item msgid="1379608815263472161">"den sista måndagen i månaden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"den första tisdagen i månaden"</item>
+    <item msgid="9063613547307760928">"den andra tisdagen i månaden"</item>
+    <item msgid="6688603328729208168">"den tredje tisdagen i månaden"</item>
+    <item msgid="6695206006961533357">"den fjärde tisdagen i månaden"</item>
+    <item msgid="8619069174889809914">"den sista tisdagen i månaden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"den första onsdagen i månaden"</item>
+    <item msgid="5059722045367799217">"den andra onsdagen i månaden"</item>
+    <item msgid="7986246648229272275">"den tredje onsdagen i månaden"</item>
+    <item msgid="9068566169348980801">"den fjärde onsdagen i månaden"</item>
+    <item msgid="7976866743069062134">"den sista onsdagen i månaden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"den första torsdagen i månaden"</item>
+    <item msgid="4857419136007543270">"den andra torsdagen i månaden"</item>
+    <item msgid="222044587450564839">"den tredje torsdagen i månaden"</item>
+    <item msgid="6197927556533030945">"den fjärde torsdagen i månaden"</item>
+    <item msgid="1023326923033436905">"den sista torsdagen i månaden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"den första fredagen i månaden"</item>
+    <item msgid="1935608297230506940">"den andra fredagen i månaden"</item>
+    <item msgid="4061877662049317599">"den tredje fredagen i månaden"</item>
+    <item msgid="6856646749131820614">"den fjärde fredagen i månaden"</item>
+    <item msgid="6533513913914859794">"den sista fredagen i månaden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"den första lördagen i månaden"</item>
+    <item msgid="9130198690512925355">"den andra lördagen i månaden"</item>
+    <item msgid="4525736070844032405">"den tredje lördagen i månaden"</item>
+    <item msgid="422053689531707709">"den fjärde lördagen i månaden"</item>
+    <item msgid="5499975799312474425">"den sista lördagen i månaden"</item>
+  </string-array>
+</resources>

@@ -1,0 +1,7 @@
+- Zahozen widget, použijte Calendar Widget https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+- Podpora pro vlastní barvy událostí.
+- Vylepšena podpora pro ics soubory.
+- Přidán šedý motiv.
+- Podpora viditelnosti typu důvěrná.
+- Podpora nové kanálu oznamování Androidu.
+- Mnoho oprav chyb.

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="cal_pick_ics">Импорттау үшін файлды таңдау</string>
+    <string name="preferences_calendar_delete">Күнтізбені жою</string>
+    <string name="preferences_calendar_color">Түс</string>
+    <string name="preferences_calendar_delete_message">Бұл күнтізбені шынымен жойғыңыз келе ме\?</string>
+    <string name="preferences_calendar_delete_cancel">Болдырмау</string>
+    <string name="preferences_calendar_delete_delete">Күнтізбені жою</string>
+    <string name="preferences_list_add_offline_cancel">Болдырмау</string>
+    <string name="preferences_menu_about">Etar туралы</string>
+    <string name="discard_label">Болдырмау</string>
+    <string name="delete_label">Жою</string>
+    <string name="edit_label">Өңдеу</string>
+    <string name="search_title">Күнтізбелерімнен іздеу</string>
+    <string name="loading">Жүктелуде…</string>
+    <string name="event_info_organizer">Ұйымдастырушы:</string>
+    <string name="map_label">Карта</string>
+    <string name="event_not_found">Оқиға табылмады.</string>
+    <string name="response_no">Жоқ</string>
+    <string name="response_yes">Иә</string>
+    <string name="calendar_color_picker_dialog_title">Күнтізбенің түсі</string>
+    <string name="event_color_picker_dialog_title">Оқиғаның түсі</string>
+    <string name="view_event_organizer_label">Ұйымдастырушы:</string>
+    <string name="view_event_calendar_label">Күнтізбе:</string>
+    <string name="no_syncable_calendars">Күнтізбе жоқ</string>
+    <string name="privacy_label">Құпиялылық</string>
+    <string name="edit_event_calendar_label">Күнтізбе</string>
+    <string name="edit_event_all_day_label">Күні бойы</string>
+    <string name="create_event_dialog_save">Сақтау</string>
+    <string name="saving_event">Оқиға сақталды.</string>
+    <string name="hint_description">Сипаттама</string>
+    <string name="hint_what">Оқиға атауы</string>
+    <string name="search">Іздеу</string>
+    <string name="menu_preferences">Баптаулар</string>
+    <string name="goto_today">Бүгін</string>
+    <string name="share_label">Бөлісу</string>
+    <string name="event_delete">Оқиғаны жою</string>
+    <string name="event_edit">Оқиғаны өңдеу</string>
+    <string name="event_create">Жаңа оқиға</string>
+    <string name="month_view">Ай</string>
+    <string name="week_view">Апта</string>
+    <string name="day_view">Күн</string>
+    <string name="agenda_view">Күн тәртібі</string>
+    <string name="calendar_refresh">Жаңарту</string>
+    <plurals name="weekN">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> апта</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> апта</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 күн</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> күн</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 сағат</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> сағат</item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one">1 мин</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> мин</item>
+    </plurals>
+    <plurals name="Nminutes">
+        <item quantity="one">1 минут</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> минут</item>
+    </plurals>
+    <string name="no_title_label">(Тақырыпсыз)</string>
+    <string name="tomorrow">Ертең</string>
+    <string name="today">Бүгін</string>
+    <string name="when_label">Қашан</string>
+    <string name="app_label">Күнтізбе</string>
+    <string name="license">Лицензия</string>
+    <string name="authors">Авторлар</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Etar жобасы. Ішінара © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="preferences_show_week_num_title">Апта нөмірін көрсету</string>
+    <string name="preferences_home_tz_title">Үй уақыт белдеуі</string>
+    <string name="preferences_default_reminder_default">10</string>
+    <string name="preferences_list_add_remote_etesync">EteSync күнтізбесін қосу</string>
+    <string name="preferences_list_add_remote">CalDAV күнтізбесін қосу</string>
+    <string name="show_time_no">Уақытты көрсетпеу</string>
+    <string name="cal_import_menu_title">Оқиғаны импорттау</string>
+    <string name="two_hours">2 сағат</string>
+    <string name="one_and_a_half_hours">1.5 сағат</string>
+    <string name="one_hour">1 сағат</string>
+    <string name="thirty_minutes">30 минут</string>
+    <string name="fifteen_minutes">15 минут</string>
+    <string name="zero_minutes">0 минут</string>
+    <string name="seven_days">7 күн</string>
+    <string name="six_days">6 күн</string>
+    <string name="five_days">5 күн</string>
+    <string name="four_days">4 күн</string>
+    <string name="three_days">3 күн</string>
+    <string name="two_days">2 күн</string>
+    <string name="acessibility_recurrence_choose_end_date_description">аяқталу күнін өзгерту</string>
+    <string name="template_announce_item_index">Оқиға: <xliff:g id="item_index">%1$s</xliff:g> / <xliff:g id="item_count">%2$s</xliff:g>.</string>
+    <string name="accessibility_pick_recurrence">Оқиғаны қайталау</string>
+    <string name="preferences_issues">Мәселе туралы хабарлау</string>
+    <string name="endByDate">; <xliff:g id="date">%s</xliff:g> дейін</string>
+    <plurals name="daily">
+        <item quantity="one">Күн сайын</item>
+        <item quantity="other">Әр <xliff:g id="number">%d</xliff:g> күн сайын</item>
+    </plurals>
+    <string name="monthly">Ай сайын</string>
+    <string name="yearly_plain">Жыл сайын</string>
+    <string name="new_event_dialog_label">Жаңа оқиға</string>
+    <string name="new_event_dialog_option">Жаңа оқиға</string>
+    <string name="preferences_title">Баптаулар</string>
+    <string name="preferences_black_theme">Қара</string>
+    <string name="preferences_color_pick">Негізгі түс</string>
+    <string name="display_location">Орынды көрсету</string>
+    <string name="display_time">Уақытты көрсету</string>
+    <string name="preferences_alerts_title">Хабарландырулар</string>
+    <string name="search_history_cleared">Іздеу тарихы жойылды.</string>
+    <string name="preferences_default_event_duration_title">Оқиғаның әдепкі ұзақтығы</string>
+    <string name="preferences_days_per_week_dialog">Аптадағы күндер саны</string>
+    <string name="preferences_days_per_week_title">Аптадағы күндер саны</string>
+    <string name="preferences_clear_search_history_title">Іздеу тарихын өшіру</string>
+    <string name="preferences_alerts_ringtone_title">Дыбыс</string>
+    <string name="changelog">Өзгерістер</string>
+    <string name="copy_db">Дерекқорды жіберу</string>
+    <string name="accessibility_pick_time_zone">Уақыт белдеуі</string>
+    <string name="accessibility_pick_end_time">Аяқталу уақыты</string>
+    <string name="accessibility_pick_start_time">Басталу уақыты</string>
+    <string name="accessibility_pick_end_date">Аяқталу күні</string>
+    <string name="accessibility_pick_start_date">Басталу күні</string>
+    <string name="accessibility_reminder_privacy">Құпиялылық</string>
+    <plurals name="Nevents">
+        <item quantity="one">1 оқиға</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> оқиға</item>
+    </plurals>
+    <string name="acessibility_selected_marker_description">Таңдалған оқиға</string>
+    <string name="recurrence_end_date_label">Белгілі бір күнге дейін</string>
+    <string name="recurrence_end_continously">Шексіз</string>
+    <string name="recurrence_end_date"><xliff:g id="date">%s</xliff:g> дейін</string>
+    <string name="empty_event">Бос оқиға жасауға болмайды.</string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt">Ертең сағат <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="today_at_time_fmt">Бүгін сағат <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="maximum_number_of_lines">Оқиғадағы жолдардың ең көп саны</string>
+    <string name="rsvp_declined">«Жоқ» деп жауап берілді.</string>
+    <string name="rsvp_accepted">«Иә» деп жауап берілді.</string>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> күн сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> күн сайын</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> жыл сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> жыл сайын</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> ай сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> ай сайын</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> апта сайын</item>
+        <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> апта сайын</item>
+    </plurals>
+    <string name="goto_date">Көшу…</string>
+    <string name="view_settings">Баптауларға өту</string>
+    <string name="show_controls">Бүйірлік тақтаны көрсету</string>
+    <string name="hide_controls">Бүйірлік тақтаны жасыру</string>
+    <string name="event_view">Оқиғаны қарау</string>
+    <string name="show_day_view">Күнді көрсету</string>
+    <string name="after_start_of_event">after start of event</string>
+</resources>

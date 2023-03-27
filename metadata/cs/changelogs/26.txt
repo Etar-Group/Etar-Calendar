@@ -1,0 +1,4 @@
+- Přepracován vzhled editace události
+- Zahozena podpora pro Android 4.4
+- Opravy chyb
+- Nové překlady

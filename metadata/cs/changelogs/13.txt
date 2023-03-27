@@ -1,0 +1,4 @@
+- Podpora sdílení kalendářů pomocí ics a možnosti importovat/exportovat z SD karty.
+- Odstranění nepoužívaných oprávnění.
+- Opraveno nastavení zvuku na Android 6.
+- Mnoho oprav chyb.

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="pref_theme_entries" translatable="false" tools:ignore="InconsistentArrays">
+        <item>@string/preferences_light_theme</item>
+        <item>@string/preferences_dark_theme</item>
+        <item>@string/preferences_black_theme</item>
+    </string-array>
+
+    <string-array name="pref_theme_values" translatable="false" tools:ignore="InconsistentArrays">
+        <item>light</item>
+        <item>dark</item>
+        <item>black</item>
+    </string-array>
+
+    <!--Entries for the primary color-->
+    <string-array name="pref_color_entries" translatable="false">
+        <item>@string/preferences_color_teal</item>
+        <item>@string/preferences_color_blue</item>
+        <item>@string/preferences_color_orange</item>
+        <item>@string/preferences_color_green</item>
+        <item>@string/preferences_color_red</item>
+        <item>@string/preferences_color_purple</item>
+    </string-array>
+
+    <string-array name="pref_color_values" translatable="false">
+        <item>teal</item>
+        <item>blue</item>
+        <item>orange</item>
+        <item>green</item>
+        <item>red</item>
+        <item>purple</item>
+    </string-array>
+
+    <!-- Choices for the "Reminder method" spinner.
+         These must be kept in sync with the reminder_methods_values array.
+         [CHAR LIMIT=10]
+    -->
+    <string-array name="reminder_methods_labels">
+        <item>Notification</item>
+        <item>Email</item>
+        <item>SMS</item>
+        <item>Alarm</item>
+    </string-array>
+
+    <!-- This maps reminder_methods_labels to internal constants. -->
+    <integer-array name="reminder_methods_values" translatable="false">
+        <item>1</item>  <!-- METHOD_ALERT -->
+        <item>2</item>  <!-- METHOD_EMAIL -->
+        <item>3</item>  <!-- METHOD_SMS -->
+        <item>4</item>  <!-- METHOD_ALARM -->
+    </integer-array>
+
+    <integer-array name="reminder_minutes_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>360</item>
+        <item>540</item>
+        <item>720</item> <!-- 12 hours -->
+        <item>1440</item> <!-- 24 hours -->
+        <item>2880</item> <!-- 2 days -->
+        <item>10080</item> <!-- 1 week -->
+        <item>20160</item> <!-- 2 weeks -->
+        <item>40320</item> <!-- 4 weeks -->
+    </integer-array>
+
+    <string-array name="preferences_default_reminder_values" translatable="false">
+        <item>"-1"</item>
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"20"</item>
+        <item>"25"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+        <item>"120"</item>
+        <item>"180"</item>
+        <item>"360"</item>
+        <item>"540"</item>
+        <item>"720"</item>
+        <item>"1440"</item>
+        <item>"2880"</item>
+        <item>"10080"</item>
+        <item>"20160"</item>
+        <item>"40320"</item>
+    </string-array>
+
+    <string-array name="preferences_default_snooze_delay_values" translatable="false">
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"20"</item>
+        <item>"25"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+        <item>"120"</item>
+        <item>"180"</item>
+        <item>"720"</item>
+    </string-array>
+
+    <!-- Labels for the default startup page preference. -->
+    <string-array name="default_start_entries" translatable="false">
+        <item>@string/default_start_last</item>
+        <item>@string/day_view</item>
+        <item>@string/week_view</item>
+        <item>@string/month_view</item>
+        <item>@string/agenda_view</item>
+    </string-array>
+
+    <!-- Values for the default startup page preference. See CalendarController.ViewType.  -->
+    <string-array name="default_start_values" translatable="false">
+        <item>-2</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="preferences_week_start_day_labels">
+        <item>Locale default</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+    </string-array>
+
+    <string-array name="preferences_week_start_day_values" translatable="false">
+        <item>"-1"</item>
+        <item>"7"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+    </string-array>
+
+    <string-array name="preferences_days_per_week_labels" translatable="false">
+        <item>@string/two_days</item>
+        <item>@string/three_days</item>
+        <item>@string/four_days</item>
+        <item>@string/five_days</item>
+        <item>@string/six_days</item>
+        <item>@string/seven_days</item>
+    </string-array>
+
+    <string-array name="preferences_days_per_week_values" translatable="false">
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+    </string-array>
+
+    <string-array name="preferences_default_duration_labels" translatable="false">
+        <item>@string/zero_minutes</item>
+        <item>@string/fifteen_minutes</item>
+        <item>@string/thirty_minutes</item>
+        <item>@string/one_hour</item>
+        <item>@string/one_and_a_half_hours</item>
+        <item>@string/two_hours</item>
+    </string-array>
+
+    <string-array name="preferences_default_duration_values" translatable="false">
+        <item>0</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </string-array>
+
+    <string-array name="availability">
+        <item>Busy</item>
+        <item>Available</item>
+        <item>Tentative</item>
+    </string-array>
+
+    <!-- This maps reminder_methods_labels to internal constants. -->
+    <integer-array name="availability_values" translatable="false">
+        <item>0</item>  <!-- Busy -->
+        <item>1</item>  <!-- Available -->
+        <item>2</item>  <!-- Tentative -->
+    </integer-array>
+
+    <string-array name="visibility" translatable="false">
+        <item>@string/visibility_default</item>
+        <item>@string/visibility_confidential</item>
+        <item>@string/visibility_private</item>
+        <item>@string/visibility_public</item>
+    </string-array>
+
+    <!-- Invitation responses -->
+    <string-array name="response_labels1">
+        <item>No response</item>
+        <item>Yes</item>
+        <item>Maybe</item>
+        <item>No</item>
+    </string-array>
+
+    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <!-- This is a list of choices displayed when the user deletes an event.
+         It only is shown when deleting a recurring event.
+    -->
+    <skip/>
+    <string-array name="delete_repeating_labels">
+        <item>Only this event</item>
+        <item>This and future events</item>
+        <item>All events</item>
+    </string-array>
+
+    <!-- DO NOT TRANSLATE These values need to correspond to the indices
+         defined in DeleteEventHelper.java-->
+    <integer-array name="delete_repeating_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
+    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <!-- This is the same array as above (the "delete_repeating_labels" array,
+         except that the first element "Only this event" is removed.  This
+         array exists to work-around a bug in the CalendarProvider and sync
+         code where you can't delete one instance of a repeating event that
+         was created on the phone until that event has been synced to the server.
+     -->
+    <skip/>
+
+    <!-- The corresponding array indices are defined in EventInfoActivity.java -->
+    <skip/>
+    <!-- The list of choices displayed in a dialog box when the user wants to
+    respond to an invitation that repeats. -->
+    <string-array name="change_response_labels">
+        <!-- The choice for responding to only one instance of a repeating event -->
+        <item>Only this event</item>
+        <!-- The choice for responding to all instances of a repeating event -->
+        <item>All events in the series</item>
+    </string-array>
+
+    <!-- Strings for buttons in drop down menu -->
+    <string-array name="buttons_list">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Agenda</item>
+    </string-array>
+
+    <!-- Experimental options for skipping reminders. [CHAR LIMIT = 37] -->
+    <string-array name="preferences_skip_reminders_labels">
+        <!-- Default choice -->
+        <item>Only if declined</item>
+        <!-- Second option, for skipping reminders to events not yet responded to. -->
+        <item>If declined or not responded</item>
+    </string-array>
+
+    <string-array name="preferences_skip_reminders_values" translatable="false">
+        <item>declined</item>
+        <item>not_responded</item>
+    </string-array>
+
+    <!-- Recurrence picker: How events are to be repeated.  [CHAR LIMIT = 20] -->
+    <string-array name="recurrence_freq">
+        <item >REPEAT DAILY</item>
+        <item >REPEAT WEEKLY</item>
+        <item >REPEAT MONTHLY</item>
+        <item >REPEAT YEARLY</item>
+    </string-array>
+
+    <!-- The following sets of strings describe a monthly recurring event, which will repeat
+         on the Nth WEEKDAY of every month. For example, the 3rd Monday of every month, or
+         the last Sunday. These are set up like this to resolve any gender-matching issues
+         that were present in some languages.
+     -->
+    <!-- Repeat a monthly event on the same nth day of every Sunday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_sun">
+        <item >on every first Sunday</item>
+        <item >on every second Sunday</item>
+        <item >on every third Sunday</item>
+        <item >on every fourth Sunday</item>
+        <item >on every last Sunday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Monday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_mon">
+        <item >on every first Monday</item>
+        <item >on every second Monday</item>
+        <item >on every third Monday</item>
+        <item >on every fourth Monday</item>
+        <item >on every last Monday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Tuesday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_tues">
+        <item >on every first Tuesday</item>
+        <item >on every second Tuesday</item>
+        <item >on every third Tuesday</item>
+        <item >on every fourth Tuesday</item>
+        <item >on every last Tuesday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Wednesday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_wed">
+        <item >on every first Wednesday</item>
+        <item >on every second Wednesday</item>
+        <item >on every third Wednesday</item>
+        <item >on every fourth Wednesday</item>
+        <item >on every last Wednesday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Thursday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_thurs">
+        <item >on every first Thursday</item>
+        <item >on every second Thursday</item>
+        <item >on every third Thursday</item>
+        <item >on every fourth Thursday</item>
+        <item >on every last Thursday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Friday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_fri">
+        <item >on every first Friday</item>
+        <item >on every second Friday</item>
+        <item >on every third Friday</item>
+        <item >on every fourth Friday</item>
+        <item >on every last Friday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Saturday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_sat">
+        <item >on every first Saturday</item>
+        <item >on every second Saturday</item>
+        <item >on every third Saturday</item>
+        <item >on every fourth Saturday</item>
+        <item >on every last Saturday</item>
+    </string-array>
+
+    <string-array name="show_time" translatable="false">
+        <item>@string/show_time_no</item>
+        <item>@string/show_time_start</item>
+        <item>@string/show_time_start_end</item>
+        <!--<item>Start time and duration</item>-->
+        <item>@string/show_time_start_end_below</item>
+    </string-array>
+    <string-array name="show_time_values" translatable="false">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <!--<item>"3"</item>-->
+        <item>"4"</item>
+    </string-array>
+    <string-array name="number_of_lines" translatable="false">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+    </string-array>
+</resources>

@@ -1,0 +1,12 @@
+Features:
+- Maandoverzicht.
+- Week, dag en agendalijst overzicht.
+- Gebruikt Androidkalendersynchronisatie. Werkt met Google Calendar, Exchange, etc.
+- Material Design.
+- Donker en licht thema.
+- Gratis, open-source en absoluut geen advertenties.
+- Ondersteunt kalenders delen via ICS en kan im-/exporteren van/naar SD-kaart.
+- Meertalige gebruikersinterface.
+
+Bugs en feedback: https://github.com/Etar-Group/Etar-Calendar/issues
+Broncode: https://github.com/Etar-Group/Etar-Calendar

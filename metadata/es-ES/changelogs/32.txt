@@ -1,0 +1,7 @@
+- Cree y muestre recordatorios después del inicio del evento usando una casilla de verificación
+- Recordatorio de reparación con valores negativos
+- Corregir tiempos inválidos debido a cambios de zona horaria
+- Opción para agregar un nuevo evento desde la pantalla del widget
+- Reelaborar los colores del tema.
+- Corrección de errores
+- Nuevas traducciones

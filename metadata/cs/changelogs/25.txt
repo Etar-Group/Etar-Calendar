@@ -1,0 +1,4 @@
+- Obnovení databáze časových pásem
+- Ikona aplikace v SVG
+- Přepracován a znovu aktivován widget
+- Nové překlady

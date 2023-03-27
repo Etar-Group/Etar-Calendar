@@ -1,0 +1,8 @@
+- Adăugați opțiunea de a duplica evenimentele
+- Afișarea zilelor săptămânii pe tabletă
+- Corectarea blocării la deschiderea unui eveniment cu ID foarte mare
+- Refaceți mini-calendarul în vizualizarea pe tabletă
+- Adăugați suport pentru pictograme de aplicații tematice în Android 13
+- Afișarea evenimentelor de mai multe zile cu puncte de început și sfârșit corecte
+- Corecții de erori
+- Traduceri noi

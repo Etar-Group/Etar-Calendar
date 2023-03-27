@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2008 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="@string/preferences_general_title">
+        <ListPreference
+            app:key="pref_theme"
+            app:title="@string/preferences_theme"
+            app:entries="@array/pref_theme_entries"
+            app:entryValues="@array/pref_theme_values"
+            app:defaultValue="@string/pref_theme_default" />
+        <SwitchPreference
+            app:key="pref_pure_black_night_mode"
+            app:defaultValue="false"
+            app:title="@string/preferences_pure_black_night_mode" />
+        <Preference
+            app:key="pref_color"
+            app:title="@string/preferences_color"
+            app:entries="@array/pref_color_entries"
+            app:entryValues="@array/pref_color_values"
+            app:defaultValue="teal" />
+        <SwitchPreference
+            app:key="pref_real_event_colors"
+            app:defaultValue="false"
+            app:title="@string/preferences_real_event_colors" />
+        <ListPreference
+            app:key="preferences_default_start"
+            app:defaultValue="-2"
+            app:title="@string/default_start_title"
+            app:entries="@array/default_start_entries"
+            app:entryValues="@array/default_start_values" />
+        <Preference
+            app:key="pref_view_details"
+            app:title="@string/display_options"
+            app:fragment="com.android.calendar.settings.ViewDetailsPreferences" />
+        <SwitchPreference
+            app:key="preferences_hide_declined"
+            app:defaultValue="false"
+            app:title="@string/preferences_hide_declined_title" />
+        <SwitchPreference
+            app:key="preferences_show_week_num"
+            app:defaultValue="false"
+            app:title="@string/preferences_show_week_num_title" />
+        <ListPreference
+            app:key="preferences_week_start_day"
+            app:defaultValue="@string/preferences_week_start_day_default"
+            app:title="@string/preferences_week_start_day_title"
+            app:entries="@array/preferences_week_start_day_labels"
+            app:entryValues="@array/preferences_week_start_day_values"
+            app:dialogTitle="@string/preferences_week_start_day_dialog" />
+        <ListPreference
+            app:key="preferences_days_per_week"
+            app:defaultValue="@string/preferences_days_per_week_default"
+            app:title="@string/preferences_days_per_week_title"
+            app:entries="@array/preferences_days_per_week_labels"
+            app:entryValues="@array/preferences_days_per_week_values"
+            app:dialogTitle="@string/preferences_days_per_week_dialog" />
+        <ListPreference
+            app:key="preferences_default_event_duration"
+            app:defaultValue="60"
+            app:title="@string/preferences_default_event_duration_title"
+            app:entries="@array/preferences_default_duration_labels"
+            app:entryValues="@array/preferences_default_duration_values" />
+        <CheckBoxPreference
+            app:key="preferences_home_tz_enabled"
+            app:defaultValue="false"
+            app:title="@string/preferences_use_home_tz_title"
+            app:summary="@string/preferences_use_home_tz_descrip" />
+        <Preference
+            app:key="preferences_home_tz"
+            app:dependency="preferences_home_tz_enabled"
+            app:defaultValue="@string/preferences_home_tz_default"
+            app:title="@string/preferences_home_tz_title" />
+        <Preference
+            app:key="preferences_clear_search_history"
+            app:title="@string/preferences_clear_search_history_title"
+            app:summary="@string/preferences_clear_search_history_summary" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="preferences_alerts_category"
+        app:title="@string/preferences_reminder_title">
+        <Preference
+            app:key="preferences_notification"
+            app:title="@string/preferences_alerts_title" />
+
+        <SwitchPreference
+            app:key="preferences_alerts_popup"
+            app:defaultValue="false"
+            app:title="@string/preferences_alerts_popup_title" />
+
+        <SwitchPreference
+            app:key="preferences_custom_snooze_delay"
+            app:defaultValue="false"
+            app:title="@string/preferences_alerts_custom_snooze_delay_title"
+            app:summaryOn="@string/preferences_alerts_custom_snooze_delay_summary_on"
+            app:summaryOff="@string/preferences_alerts_custom_snooze_delay_summary_off" />
+
+        <ListPreference
+            app:key="preferences_default_snooze_delay"
+            app:defaultValue="@string/preferences_default_snooze_delay_default"
+            app:entryValues="@array/preferences_default_snooze_delay_values"
+            app:title="@string/preferences_default_snooze_delay_title"
+            app:dialogTitle="@string/preferences_default_snooze_delay_dialog" />
+
+        <ListPreference
+            app:key="preferences_default_reminder"
+            app:defaultValue="@string/preferences_default_reminder_default"
+            app:title="@string/preferences_default_reminder_title"
+            app:entryValues="@array/preferences_default_reminder_values"
+            app:dialogTitle="@string/preferences_default_reminder_dialog" />
+
+        <Preference
+            app:key="preferences_quick_responses"
+            app:fragment="com.android.calendar.settings.QuickResponsePreferences"
+            app:title="@string/quick_response_settings"
+            app:summary="@string/quick_response_settings_summary" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="preferences_experimental_category"
+        app:title="@string/preferences_experimental_category">
+        <Preference
+            app:key="preferences_copy_db"
+            app:title="@string/copy_db"
+            app:isPreferenceVisible="false" />
+
+        <ListPreference
+            app:key="preferences_reminders_responded"
+            app:title="@string/preferences_reminders_responded_label"
+            app:entries="@array/preferences_skip_reminders_labels"
+            app:entryValues="@array/preferences_skip_reminders_values"
+            app:dialogTitle="@string/preferences_reminders_responded_dialog" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

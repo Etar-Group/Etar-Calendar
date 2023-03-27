@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Оповещение"</item>
+    <item msgid="1751151680520784746">"Эл. почта"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"Сигнал"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Региональные настройки по умолчанию"</item>
+    <item msgid="134027225275475280">"суббота"</item>
+    <item msgid="95029346069903091">"воскресенье"</item>
+    <item msgid="5840983116375063739">"понедельник"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Занят"</item>
+    <item msgid="6228387173725732140">"Доступен"</item>
+    <item msgid="2064426942462573474">"Может быть"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"Не ответили"</item>
+    <item msgid="3724434080904437698">"Да"</item>
+    <item msgid="8854145743148992583">"Может быть"</item>
+    <item msgid="6174292185978948873">"Нет"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Только это мероприятие"</item>
+    <item msgid="1536401639805370405">"Это и будущие мероприятия"</item>
+    <item msgid="7833229563617435430">"Все мероприятия"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"Только это мероприятие"</item>
+    <item msgid="140670561403965380">"Все мероприятия в серии"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"День"</item>
+    <item msgid="6248480754959562740">"Неделя"</item>
+    <item msgid="4298472806133153766">"Месяц"</item>
+    <item msgid="5033084974413793845">"Повестка дня"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Только если отклонено"</item>
+    <item msgid="6367412240524984286">"Если отклонено или нет ответа"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"ЕЖЕДНЕВНО"</item>
+    <item msgid="6300824484048337842">"ЕЖЕНЕДЕЛЬНО"</item>
+    <item msgid="189361731610816256">"ЕЖЕМЕСЯЧНО"</item>
+    <item msgid="8714177874112569158">"ЕЖЕГОДНО"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"первое воскресенье месяца"</item>
+    <item msgid="2557379346106451363">"второе воскресенье месяца"</item>
+    <item msgid="7622144489915654132">"третье воскресенье месяца"</item>
+    <item msgid="527152448137686021">"четвертое воскресенье месяца"</item>
+    <item msgid="5057483608824759350">"последнее воскресенье месяца"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"первый понедельник месяца"</item>
+    <item msgid="4484275849072423978">"второй понедельник месяца"</item>
+    <item msgid="8956169860824371383">"третий понедельник месяца"</item>
+    <item msgid="6924403357659569326">"четвертый понедельник месяца"</item>
+    <item msgid="1379608815263472161">"последний понедельник месяца"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"первый вторник месяца"</item>
+    <item msgid="9063613547307760928">"второй вторник месяца"</item>
+    <item msgid="6688603328729208168">"третий вторник месяца"</item>
+    <item msgid="6695206006961533357">"четвертый вторник месяца"</item>
+    <item msgid="8619069174889809914">"последний вторник месяца"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"первая среда месяца"</item>
+    <item msgid="5059722045367799217">"вторая среда месяца"</item>
+    <item msgid="7986246648229272275">"третья среда месяца"</item>
+    <item msgid="9068566169348980801">"четвертая среда месяца"</item>
+    <item msgid="7976866743069062134">"последняя среда месяца"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"первый четверг месяца"</item>
+    <item msgid="4857419136007543270">"второй четверг месяца"</item>
+    <item msgid="222044587450564839">"третий четверг месяца"</item>
+    <item msgid="6197927556533030945">"четвертый четверг месяца"</item>
+    <item msgid="1023326923033436905">"последний четверг месяца"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"первая пятница месяца"</item>
+    <item msgid="1935608297230506940">"вторая пятница месяца"</item>
+    <item msgid="4061877662049317599">"третья пятница месяца"</item>
+    <item msgid="6856646749131820614">"четвертая пятница месяца"</item>
+    <item msgid="6533513913914859794">"последняя пятница месяца"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"первая суббота месяца"</item>
+    <item msgid="9130198690512925355">"вторая суббота месяца"</item>
+    <item msgid="4525736070844032405">"третья суббота месяца"</item>
+    <item msgid="422053689531707709">"четвертая суббота месяца"</item>
+    <item msgid="5499975799312474425">"последняя суббота месяца"</item>
+  </string-array>
+</resources>

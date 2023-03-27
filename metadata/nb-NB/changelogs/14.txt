@@ -1,0 +1,6 @@
+-Forespør tilganger ved kjøring på android 6 upwards.  
+-Fiks feil ved  oppstart.
+- Godta bruker til  å vise  hele dagen synlig.
+- Sett sekunder til null  ved oppretting av hendelse.
+- Mindre  utsende-fiks.
+- En del feilfikser.

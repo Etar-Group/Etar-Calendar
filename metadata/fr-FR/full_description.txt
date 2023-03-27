@@ -1,9 +1,12 @@
-Caractéristiques:
-- Vue par mois.
-- Vue par semaine, jour et agenda.
-- Utilise la synchronisation d\'Android Agenda. Fonctionne avec Google Agenda, Exchange, etc.
-- Material design.
-- Gratuit, open source et sans publicité.
+Fonctionnalités :
+– Affichage par mois.
+– Affichages par semaine, par jour et agenda.
+– Utilise la synchronisation Android du calendrier. Fonctionne avec Google Calendar, Exchange, etc.
+– Material Design.
+– Thèmes sombre et clair.
+– Gratuit, libre et sans aucune publicité.
+– Prend en charge le partage des calendriers via iCalendar (.ics) et l’importation et l’exportation vers une carte SD.
+– Interface utilisateur multilingue.
 
-Aide et commentaires : https://github.com/Etar-Group/Etar-Calendar/issues
-Code source : https://github.com/Etar-Group/Etar-Calendar
+Signalement de bogues et commentaires : https://github.com/Etar-Group/Etar-Calendar/issues
+Code source : https://github.com/Etar-Group/Etar-Calendar

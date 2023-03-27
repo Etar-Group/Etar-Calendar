@@ -1,0 +1,2 @@
+- Android 12'de bildirimler düzeltildi
+- "Bilinen" uygulamalara DecSync ve Birthday Adapter eklendi ve çökme düzeltildi

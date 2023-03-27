@@ -1,0 +1,5 @@
+- Extra oznamování vyžadované pro interní synchronizaci upozornění. Můžete jej ztišit.
+- Odstraněna již nevyžadovaná oprávnění.
+- Barevná ikona oznamování.
+- Opravy chyb.
+- Nové překlady.

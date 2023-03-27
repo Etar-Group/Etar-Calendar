@@ -1,0 +1,7 @@
+- Bir onay kutusu kullanarak etkinlik başladıktan sonra hatırlatıcılar oluşturun ve gösterin
+- Negatif değerlerle hatırlatıcı düzeltildi
+- Saat dilimi değişiklikleri nedeniyle geçersiz zamanlar düzeltildi
+- Widget ekranından yeni bir etkinlik ekleme seçeneği
+- Tema renkleri yenilendi
+- Hata düzeltmeleri
+- Yeni çeviriler

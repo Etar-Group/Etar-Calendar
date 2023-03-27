@@ -1,0 +1,3 @@
+- Odstranění oprávnění přístupu na Internet při zachování stejné funkcionality.
+- Přidáno „Přejít na…“.
+- Oprava: Widget Agenda se neaktualizuje denně.

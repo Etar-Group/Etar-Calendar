@@ -1,0 +1,2 @@
+- Solucionar fallas y notificaciones en Android 12
+- Arreglar el tipo MIME de evento compartido

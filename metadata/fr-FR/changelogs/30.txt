@@ -1,0 +1,2 @@
+– Correction des notifications sur Android 12.
+– Ajout de DecSync et de Birthday Adapter aux apps connues, sans plantage.

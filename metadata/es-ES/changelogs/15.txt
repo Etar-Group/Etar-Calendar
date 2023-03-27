@@ -1,0 +1,5 @@
+- Solicitar permisos en tiempo de ejecución en Android 6 en adelante.
+- Admite visualización lunar/festival cuando el idioma es chino.
+- Actualizar traducciones.
+- Correcciones menores de diseño.
+- Muchas correcciones de errores.

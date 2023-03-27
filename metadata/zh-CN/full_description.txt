@@ -10,4 +10,3 @@
 
 错误和反馈: https://github.com/Etar-Group/Etar-Calendar/issues
 源代码: https://github.com/Etar-Group/Etar-Calendar
-

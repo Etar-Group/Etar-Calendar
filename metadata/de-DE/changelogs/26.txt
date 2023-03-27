@@ -1,0 +1,4 @@
+- Layout für Terminplanung überarbeitet
+- Support für Android 4.4 eingestellt
+- Allgemeine Fehlerbehebungen
+- Neue Übersetzungen
