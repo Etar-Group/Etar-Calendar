@@ -46,7 +46,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> дней</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one"></item>
+        <item quantity="one">Неделя <xliff:g id="count">%d</xliff:g></item>
         <item quantity="few">Неделя <xliff:g id="count">%d</xliff:g></item>
         <item quantity="many">Неделя <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">Неделя <xliff:g id="count">%d</xliff:g></item>
@@ -372,4 +372,5 @@
     <string name="preferences_real_event_colors">Использовать реальные цвета событий</string>
     <string name="menu_info">Информация</string>
     <string name="duplicate_label">Дублировать</string>
+    <string name="hint_url">Ссылка</string>
 </resources>
