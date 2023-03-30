@@ -345,4 +345,5 @@
     <string name="preferences_real_event_colors">Gerçek etkinlik renklerini kullan</string>
     <string name="menu_info">Bilgi</string>
     <string name="duplicate_label">Kopyala</string>
+    <string name="hint_url">URL</string>
 </resources>
