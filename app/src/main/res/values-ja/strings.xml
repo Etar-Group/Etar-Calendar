@@ -218,8 +218,8 @@
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">終了日を変更</string>
     <string name="visibility_default">デフォルト</string>
-    <string name="visibility_private">限定公開</string>
-    <string name="visibility_public">一般公開</string>
+    <string name="visibility_private">非公開</string>
+    <string name="visibility_public">公開</string>
     <string name="preferences_alerts_custom_snooze_delay_title">スヌーズ時間を確認</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_on">リマインダーをスヌーズする場合、その都度スヌーズ遅延時間を確認します</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">リマインダーをスヌーズする場合、デフォルトのスヌーズ遅延を使用します</string>
@@ -329,4 +329,5 @@
     <string name="preferences_calendar_color_warning_message">カレンダーを再同期すると、色の変更が元に戻ることがあります。
 \n
 \nDAVx⁵ ではカレンダーの色の変更を無効にして、この問題の発生を防ぐことができます。</string>
+    <string name="visibility_confidential">機密</string>
 </resources>
