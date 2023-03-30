@@ -328,4 +328,6 @@
 \n
 \nDAVx⁵ ではカレンダーの色の変更を無効にして、この問題の発生を防ぐことができます。</string>
     <string name="visibility_confidential">機密</string>
+    <string name="preferences_calendar_configure_account">%1$s でカレンダーを設定</string>
+    <string name="hint_url">URL</string>
 </resources>
