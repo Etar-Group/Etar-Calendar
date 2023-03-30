@@ -154,6 +154,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     AutoCompleteTextView mLocationTextView;
     EventLocationAdapter mLocationAdapter;
     TextView mDescriptionTextView;
+    TextView mUrlTextView;
     TextView mWhenView;
     TextView mTimezoneTextView;
     MultiAutoCompleteTextView mAttendeesList;
@@ -162,6 +163,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mCalendarStaticGroup;
     View mLocationGroup;
     View mDescriptionGroup;
+    View mUrlGroup;
     View mRemindersGroup;
     View mResponseGroup;
     View mOrganizerGroup;
@@ -237,6 +239,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mTitleTextView = (TextView) view.findViewById(R.id.title);
         mLocationTextView = (AutoCompleteTextView) view.findViewById(R.id.location);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
+        mUrlTextView = (TextView) view.findViewById(R.id.url);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
         mEndDateButton = (Button) view.findViewById(R.id.end_date);
         mWhenView = (TextView) mView.findViewById(R.id.when);
@@ -268,6 +271,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAttendeesGroup = view.findViewById(R.id.add_attendees_group);
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
+        mUrlGroup = view.findViewById(R.id.url_row);
         mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
         mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
         mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
@@ -325,6 +329,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
 
         mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
+        mUrlTextView.setTag(mUrlTextView.getBackground());
         mAttendeesList.setTag(mAttendeesList.getBackground());
         mOriginalPadding[0] = mLocationTextView.getPaddingLeft();
         mOriginalPadding[1] = mLocationTextView.getPaddingTop();
@@ -333,6 +338,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEditViewList.add(mTitleTextView);
         mEditViewList.add(mLocationTextView);
         mEditViewList.add(mDescriptionTextView);
+        mEditViewList.add(mUrlTextView);
         mEditViewList.add(mAttendeesList);
 
         mViewOnlyList.add(view.findViewById(R.id.when_row));
@@ -611,11 +617,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mAllDay = mAllDayCheckBox.isChecked();
         mModel.mLocation = mLocationTextView.getText().toString();
         mModel.mDescription = mDescriptionTextView.getText().toString();
+        mModel.mUrl = mUrlTextView.getText().toString();
         if (TextUtils.isEmpty(mModel.mLocation)) {
             mModel.mLocation = null;
         }
         if (TextUtils.isEmpty(mModel.mDescription)) {
             mModel.mDescription = null;
+        }
+        if (TextUtils.isEmpty(mModel.mUrl)) {
+            mModel.mUrl = null;
         }
 
         int status = EventInfoFragment.getResponseFromButtonId(mResponseRadioGroup
@@ -928,6 +938,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (model.mDescription != null) {
             mDescriptionTextView.setTextKeepState(model.mDescription);
         }
+        if (model.mUrl != null) {
+            mUrlTextView.setTextKeepState(model.mUrl);
+        }
 
         View responseLabel = mView.findViewById(R.id.response_label);
         if (canRespond) {
@@ -1164,6 +1177,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (TextUtils.isEmpty(mDescriptionTextView.getText())) {
                 mDescriptionGroup.setVisibility(View.GONE);
             }
+            if (TextUtils.isEmpty(mUrlTextView.getText())) {
+                mUrlGroup.setVisibility(View.GONE);
+            }
         } else {
             for (View v : mViewOnlyList) {
                 v.setVisibility(View.GONE);
@@ -1196,6 +1212,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
+            mUrlGroup.setVisibility(View.VISIBLE);
         }
         setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
     }

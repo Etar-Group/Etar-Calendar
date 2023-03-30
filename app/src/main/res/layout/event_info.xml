@@ -148,6 +148,11 @@
                     android:id="@+id/description"
                     layout="@layout/expandable_textview" />
 
+                <!-- URL -->
+                <include
+                    android:id="@+id/url"
+                    layout="@layout/expandable_textview" />
+
             </LinearLayout>
 
             <!-- RESPONSE -->

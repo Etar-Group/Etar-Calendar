@@ -492,12 +492,44 @@
                 android:minHeight="48dip" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- URL -->
+        <ImageView
+            android:id="@+id/url_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="22dp"
+            android:src="@drawable/ic_outline_link"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/url_row" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/url_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/url_icon"
+            app:layout_constraintTop_toBottomOf="@+id/description_row">
+
+            <EditText
+                android:id="@+id/url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:hint="@string/hint_url"
+                android:imeOptions="actionDone"
+                android:inputType="textUri"
+                android:minHeight="48dip" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <View
             android:id="@+id/view3"
             style="@style/EditEventSeparator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_row" />
+            app:layout_constraintTop_toBottomOf="@+id/url_row" />
 
         <!-- REPEATS -->
         <ImageView
