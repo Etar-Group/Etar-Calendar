@@ -372,4 +372,5 @@
     <string name="preferences_real_event_colors">Використовувати реальні кольори подій</string>
     <string name="menu_info">Інформація</string>
     <string name="duplicate_label">Дублікат</string>
+    <string name="hint_url">URL-адреса</string>
 </resources>
