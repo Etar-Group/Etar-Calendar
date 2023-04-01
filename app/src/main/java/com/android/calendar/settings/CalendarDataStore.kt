@@ -90,18 +90,9 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long, isTask: Bo
     }
 
     override fun getBoolean(key: String?, defValue: Boolean): Boolean {
-        val databaseKey: String
-        val uri: Uri
-        val projection: kotlin.Array<String>
-        if (!isTask) {
-            databaseKey = mapPreferenceKeyToDatabaseKey(key)
-            uri = calendarUri
-            projection = PROJECTION
-        } else {
-            databaseKey = mapPreferenceKeyToDatabaseKeyForTaskList(key)
-            uri = taskListrUri
-            projection = TASKLIST_PROJECTION
-        }
+        val databaseKey: String = getValues(key)["databaseKey"] as String
+        val uri: Uri = getValues(key)["uri"] as Uri
+        val projection: Array<String> = getValues(key)["projection"] as Array<String>
 
         contentResolver.query(uri, projection, null, null, null)?.use {
             if (it.moveToFirst()) {
@@ -112,15 +103,8 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long, isTask: Bo
     }
 
     override fun putInt(key: String?, value: Int) {
-        val databaseKey: String
-        val uri: Uri;
-        if (!isTask) {
-            databaseKey = mapPreferenceKeyToDatabaseKey(key)
-            uri = calendarUri
-        } else {
-            databaseKey = mapPreferenceKeyToDatabaseKeyForTaskList(key)
-            uri = taskListrUri
-        }
+        val databaseKey: String = getValues(key)["databaseKey"] as String
+        val uri: Uri = getValues(key)["uri"] as Uri
 
         val values = ContentValues()
         values.put(databaseKey, value)
@@ -128,18 +112,9 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long, isTask: Bo
     }
 
     override fun getInt(key: String?, defValue: Int): Int {
-        val databaseKey: String
-        val uri: Uri
-        val projection: kotlin.Array<String>
-        if (!isTask) {
-            databaseKey = mapPreferenceKeyToDatabaseKey(key)
-            uri = calendarUri
-            projection = PROJECTION
-        } else {
-            databaseKey = mapPreferenceKeyToDatabaseKeyForTaskList(key)
-            uri = taskListrUri
-            projection = TASKLIST_PROJECTION
-        }
+        val databaseKey: String = getValues(key)["databaseKey"] as String
+        val uri: Uri = getValues(key)["uri"] as Uri
+        val projection: Array<String> = getValues(key)["projection"] as Array<String>
 
         contentResolver.query(uri, projection, null, null, null)?.use {
             if (it.moveToFirst()) {
@@ -150,15 +125,8 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long, isTask: Bo
     }
 
     override fun putString(key: String?, value: String?) {
-        val databaseKey: String
-        val uri: Uri;
-        if (!isTask) {
-            databaseKey = mapPreferenceKeyToDatabaseKey(key)
-            uri = calendarUri
-        } else {
-            databaseKey = mapPreferenceKeyToDatabaseKeyForTaskList(key)
-            uri = taskListrUri
-        }
+        val databaseKey: String = getValues(key)["databaseKey"] as String
+        val uri: Uri = getValues(key)["uri"] as Uri
 
         val values = ContentValues()
         values.put(databaseKey, value)
@@ -166,18 +134,9 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long, isTask: Bo
     }
 
     override fun getString(key: String?, defValue: String?): String? {
-        val databaseKey: String
-        val uri: Uri
-        val projection: kotlin.Array<String>
-        if (!isTask) {
-            databaseKey = mapPreferenceKeyToDatabaseKey(key)
-            uri = calendarUri
-            projection = PROJECTION
-        } else {
-            databaseKey = mapPreferenceKeyToDatabaseKeyForTaskList(key)
-            uri = taskListrUri
-            projection = TASKLIST_PROJECTION
-        }
+        val databaseKey: String = getValues(key)["databaseKey"] as String
+        val uri: Uri = getValues(key)["uri"] as Uri
+        val projection: Array<String> = getValues(key)["projection"] as Array<String>
 
         contentResolver.query(uri, projection, null, null, null)?.use {
             if (it.moveToFirst()) {
@@ -185,6 +144,19 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long, isTask: Bo
             }
         }
         return defValue
+    }
+    private  fun getValues(key: String?) : Map<String, Any> {
+        var returnMap = HashMap<String, Any>();
+        if (!isTask) {
+            returnMap.put("databaseKey",mapPreferenceKeyToDatabaseKey(key))
+            returnMap.put("uri", calendarUri)
+            returnMap.put("projection", PROJECTION)
+        } else {
+            returnMap.put("databaseKey",mapPreferenceKeyToDatabaseKeyForTaskList(key))
+            returnMap.put("uri", taskListrUri)
+            returnMap.put("projection", TASKLIST_PROJECTION)
+        }
+        return returnMap
     }
 
 }
