@@ -375,4 +375,5 @@
     <string name="preferences_real_event_colors">Używaj prawdziwych kolorów wydarzenia</string>
     <string name="menu_info">Informacje</string>
     <string name="duplicate_label">Duplikat</string>
+    <string name="hint_url">URL</string>
 </resources>
