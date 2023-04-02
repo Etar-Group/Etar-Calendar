@@ -36,11 +36,9 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <queries>
-        <package android:name="at.bitfire.davdroid" />
-        <package android:name="com.etesync.syncadapter" />
-        <package android:name="com.google.android.gm" />
-        <package android:name="org.birthdayadapter" />
-        <package android:name="org.decsync.cc" />
+        <intent>
+            <action android:name="android.content.SyncAdapter" />
+        </intent>
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
