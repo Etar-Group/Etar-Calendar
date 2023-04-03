@@ -42,7 +42,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> giorni</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one"></item>
+        <item quantity="one">Settimana <xliff:g id="count">%d</xliff:g></item>
         <item quantity="many">Settimana <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">Settimana <xliff:g id="count">%d</xliff:g></item>
     </plurals>
@@ -364,4 +364,5 @@
     <string name="duplicate_label">Sdoppia</string>
     <string name="preferences_real_event_colors">Usa colori di eventi reali</string>
     <string name="menu_info">Informazioni</string>
+    <string name="hint_url">URL</string>
 </resources>
