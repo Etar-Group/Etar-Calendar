@@ -331,4 +331,5 @@
     <string name="preferences_real_event_colors">使用真实事件颜色</string>
     <string name="menu_info">信息</string>
     <string name="duplicate_label">复制</string>
+    <string name="hint_url">URL</string>
 </resources>
