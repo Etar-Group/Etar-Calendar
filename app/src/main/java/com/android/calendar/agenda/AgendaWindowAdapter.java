@@ -95,6 +95,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     public static final int INDEX_OWNER_ACCOUNT = 15;
     public static final int INDEX_CAN_ORGANIZER_RESPOND= 16;
     public static final int INDEX_TIME_ZONE = 17;
+    public static final int INDEX_TYPE = 18;
     static final boolean BASICLOG = false;
     static final boolean DEBUGLOG = false;
     private static final String TAG = "AgendaWindowAdapter";
@@ -121,6 +122,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.OWNER_ACCOUNT, // 15
             Instances.CAN_ORGANIZER_RESPOND, // 16
             Instances.EVENT_TIMEZONE, // 17
+            "'event' as type"
     };
 
     public static final String[] TASK_PROJECTION = new String[]{
@@ -142,6 +144,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             DmfsOpenTasksContract.Tasks.COLUMN_ACCOUNT_NAME,       // 15
             "0>0", // 16
             DmfsOpenTasksContract.Tasks.COLUMN_TZ,    // 17
+            "'task' as type" // task
     };
     // Listview may have a bug where the index/position is not consistent when there's a header.
     // position == positionInListView - OFF_BY_ONE_BUG

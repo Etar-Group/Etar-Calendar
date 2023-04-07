@@ -179,7 +179,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         // When
         long begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         long end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
-        if (begin == 0) {
+        String type = cursor.getString(AgendaWindowAdapter.INDEX_TYPE);
+        if (type.equals("task")) {
             Calendar instance = Calendar.getInstance();
             instance.setTimeInMillis(end);
             instance.add(Calendar.MINUTE, -30);
