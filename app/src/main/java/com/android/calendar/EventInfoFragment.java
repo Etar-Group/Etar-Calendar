@@ -554,7 +554,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mReminders = reminders;
 
         // when event is a task we haven't an eventId. we get it from URI
-        if (mEventId == 0) {
+        if (mIsTask) {
             mEventId = Long.parseLong(mUri.getLastPathSegment());
         }
     }
