@@ -540,7 +540,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         mUri = uri;
-        if (mUri.getPathSegments().contains("tasks")) {
+        if (mUri.getAuthority().equals(DmfsOpenTasksContract.AUTHORITY)) {
             mIsTask = true;
         }
         mStartMillis = startMillis;
