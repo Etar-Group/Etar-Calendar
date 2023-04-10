@@ -13,10 +13,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/event_info_bgcolor">
     <RelativeLayout
         android:id="@+id/event_info_loading_msg"
@@ -106,7 +106,8 @@
                             android:padding="8dip"
                             android:scaleType="centerInside"
                             android:src="@drawable/ic_colorpicker"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            app:tint="@color/titleTextColor" />
                         <ImageButton
                             android:id="@+id/edit"
                             style="?android:attr/buttonBarButtonStyle"
@@ -408,7 +409,8 @@
                     android:id="@+id/reminder_items_container"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginStart="4dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:layout_weight="1"
                     android:orientation="vertical" />
                 <Button
@@ -416,13 +418,10 @@
                     style="@style/TextAppearance.EditEvent_LabelSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="-6dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="0dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:contentDescription="@string/accessibility_add_reminder"
-                    android:gravity="center_vertical|start"
-                    android:minHeight="38dip"
+                    android:gravity="center_vertical"
+                    android:minHeight="20dip"
                     android:text="@string/reminders_label"
                     android:textAllCaps="false"
                     android:textColor="#FF777777"
