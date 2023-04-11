@@ -185,7 +185,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 long startTime = item.begin;
                 long endTime = item.end;
                 // task has startTime = 0. so we recalculate as -30 muntes from end time for reference
-                if (startTime==0) {
+                if (item.isTask) {
                     Calendar instance = Calendar.getInstance();
                     instance.setTimeInMillis(endTime);
                     instance.add(Calendar.MINUTE, -30);
