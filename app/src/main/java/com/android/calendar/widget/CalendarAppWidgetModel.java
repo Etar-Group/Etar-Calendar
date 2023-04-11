@@ -84,7 +84,7 @@ class CalendarAppWidgetModel {
             final boolean allDay = cursor.getInt(CalendarAppWidgetService.INDEX_ALL_DAY) != 0;
             long start = cursor.getLong(CalendarAppWidgetService.INDEX_BEGIN);
             long end = cursor.getLong(CalendarAppWidgetService.INDEX_END);
-            if (start == 0) {
+            if (isTask) {
                 Calendar instance = Calendar.getInstance();
                 instance.setTimeInMillis(end);
                 instance.add(Calendar.MINUTE, -30);
