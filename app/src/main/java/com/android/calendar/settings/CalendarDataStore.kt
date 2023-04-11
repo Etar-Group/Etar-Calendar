@@ -145,7 +145,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long, isTask: Bo
         }
         return defValue
     }
-    
+
     private  fun getValues(key: String?) : Map<String, Any> {
         var returnMap = HashMap<String, Any>();
         if (!isTask) {
