@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_reminder_type"
         android:entries="@array/reminder_methods_labels"
-        android:gravity="top|end"
+        android:gravity="top|start"
         app:layout_constraintEnd_toStartOf="@+id/reminder_remove"
         app:layout_constraintStart_toEndOf="@+id/reminder_minutes_value"
         app:layout_constraintTop_toTopOf="@+id/reminder_minutes_value" />
