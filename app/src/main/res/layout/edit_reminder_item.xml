@@ -42,7 +42,7 @@
 
     <Spinner
         android:id="@+id/reminder_method_value"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_reminder_type"
         android:entries="@array/reminder_methods_labels"
