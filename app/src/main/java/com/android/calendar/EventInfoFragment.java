@@ -1648,7 +1648,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private void updateExtended() {
         // Url
-        if (mEventUrl != null && !mEventUrl.isBlank() && mUrl != null) {
+        if (mEventUrl != null && !mEventUrl.isBlank()) {
             mUrl.setText(mEventUrl);
         }
     }
