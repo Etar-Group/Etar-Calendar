@@ -347,4 +347,5 @@
     <string name="preferences_real_event_colors">Echte kleuren gebruiken voor gebeurtenissen</string>
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Dupliceren</string>
+    <string name="hint_url">URL</string>
 </resources>
