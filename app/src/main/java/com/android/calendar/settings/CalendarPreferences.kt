@@ -20,9 +20,11 @@ package com.android.calendar.settings
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AuthenticatorDescription
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.TypedValue
@@ -34,6 +36,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
+import com.android.calendar.ical4android.IcalImporter
 import com.android.calendar.persistence.CalendarRepository
 import ws.xsoh.etar.R
 
@@ -109,11 +112,17 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             title = getString(R.string.preferences_calendar_configure_account, authenticatorInfo?.label)
             intent = authenticatorInfo?.intent
         }
+        val importPreference = Preference(context).apply {
+            title = getString(R.string.preferences_calendar_import)
+        }
+        importPreference.setOnPreferenceClickListener {
+            openIcsFile()
+            true
+        }
 
         val infoCategory = PreferenceCategory(context).apply {
             title = getString(R.string.preferences_calendar_info_category)
         }
-
         val numberOfEventsPreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_number_of_events, numberOfEvents)
             isSelectable = false
@@ -143,12 +152,12 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             screen.addPreference(displayNamePreference)
             screen.addPreference(deletePreference)
         }
+        screen.addPreference(importPreference)
         if (authenticatorInfo?.intent != null && !isLocalAccount) {
             screen.addPreference(configurePreference)
         }
 
         screen.addPreference(infoCategory)
-
         infoCategory.addPreference(numberOfEventsPreference)
         if (isLocalAccount) {
             infoCategory.addPreference(localAccountPreference)
@@ -158,6 +167,35 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
 
         preferenceScreen = screen
+    }
+
+    private fun openIcsFile() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "text/calendar"
+
+            // undocumented extra to show internal storage
+            putExtra("android.content.extra.SHOW_ADVANCED", true)
+        }
+
+        startActivityForResult(intent, PICK_CALENDAR_FILE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PICK_CALENDAR_FILE && resultCode == Activity.RESULT_OK) {
+            data?.data?.also { uri ->
+                importIcs(uri)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun importIcs(uri: Uri) {
+        context!!.contentResolver.openInputStream(uri)?.use { inputStream ->
+            val icalImporter = IcalImporter(requireActivity())
+            icalImporter.import(inputStream, account, calendarId)
+        }
     }
 
     private fun getThemeDrawable(attr: Int): Drawable {
@@ -242,6 +280,8 @@ class CalendarPreferences : PreferenceFragmentCompat() {
 
     companion object {
         const val COLOR_PICKER_DIALOG_TAG = "CalendarColorPickerDialog"
+
+        const val PICK_CALENDAR_FILE = 2
 
         const val ARG_CALENDAR_ID = "calendarId"
 
