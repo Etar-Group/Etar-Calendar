@@ -44,4 +44,5 @@ idea.project.settings {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+    delete 'app/libs'
 }
