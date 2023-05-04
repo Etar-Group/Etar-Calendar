@@ -53,7 +53,6 @@
     <string name="tomorrow">भोलि</string>
     <string name="calendar_color_picker_dialog_title">पात्रोको रङ्ग</string>
     <string name="hint_description">विवरण</string>
-    <string name="add_account">खाता थप्नुहोस्</string>
     <string name="choose_event_color_label">घटनाको लागि रङ्ग छान्नुहोस्</string>
     <string name="tomorrow_at_time_fmt">भोलि <xliff:g id="time_interval">%s</xliff:g></string>
     <plurals name="Ndays">
