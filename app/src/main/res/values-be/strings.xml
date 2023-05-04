@@ -94,8 +94,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Прыватнасць"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Дадаць напамін"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Няма календароў"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Перш чым дадаваць мерапрыемствы, трэба дадаць хаця б адзін улiковы запiс Calendar на прыладу і зрабіць каляндар бачным. Нацiснiце \"Дадаць улiковы запiс\" (калi вы толькi што дадалi яго, пачакайце, пакуль скончыцца сiнхранiзацыя i паўтарыце спробу). Цi выберыце \"Адмянiць\", каб упэўнiцца, што як мiнiмум адзiн каляндар бачны."</string>
-    <string name="add_account" msgid="1669072099756774952">"Дадаць уліковы запіс"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Каляндар:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Арганізатар:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Выберыце колер мерапрыемства"</string>

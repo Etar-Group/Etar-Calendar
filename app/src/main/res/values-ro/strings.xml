@@ -81,8 +81,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidenţialitate"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Adăugaţi memento"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Niciun calendar"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Înainte de a putea adăuga un eveniment, trebuie să adăugaţi cel puţin un cont Calendar pe dispozitiv şi să faceţi un calendar vizibil. Atingeţi „Adăugaţi un cont” pentru a adăuga un cont (dacă tocmai aţi adăugat un cont, aşteptaţi să se termine sincronizarea şi încercaţi din nou). Sau atingeţi „Anulaţi” şi asiguraţi-vă că cel puţin un calendar este vizibil."</string>
-    <string name="add_account" msgid="1669072099756774952">"Adăugaţi un cont"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Alegeți o culoare pentru eveniment"</string>

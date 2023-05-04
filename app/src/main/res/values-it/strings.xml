@@ -85,8 +85,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Aggiungi promemoria"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nessun calendario"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Prima di poter aggiungere un evento, devi aggiungere almeno un account Calendar al dispositivo e impostare un calendario come visibile. Tocca Aggiungi account per aggiungere un account (se hai appena aggiunto un account, attendi che venga completata la sincronizzazione e riprova). In alternativa, tocca Annulla e assicurati che sia visibile almeno un calendario."</string>
-    <string name="add_account" msgid="1669072099756774952">"Aggiungi account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendario:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Agenda:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Scegli colore evento"</string>
