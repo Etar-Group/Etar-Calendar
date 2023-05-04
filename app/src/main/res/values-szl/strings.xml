@@ -261,11 +261,9 @@
     </string>
     <string name="fifteen_minutes">15 minut</string>
     <string name="accessibility_add_attendee">Przidej uczestnika</string>
-    <string name="add_account">Przidej kōnto</string>
     <string name="custom" product="default">Niysztandardowo (niy idzie przipasować na telefōnie)</string>
     <string name="app_label">Kalyndorz</string>
     <string name="select_synced_calendars_button">Kalyndorze do synchrōnizacyje</string>
-    <string name="no_calendars_found">Przed stworzyniym zdarzynio musisz przidać do masziny kōnto z Kalyndorzym i nasztelować ôbrany kalyndorz za widzialny. Ôbier „Przidej kōnto” (jeźli to prawie było zrobiōno, to na kōniec synchrōnizacyje i sprōbuj zaś). Możesz tyż tyknōńć Pociep i dać pozōr, żeby aby jedyn kalyndorz bōł widzialny.</string>
     <string name="hint_what">Miano zdarzynio</string>
     <string name="today">Dzisiej</string>
     <string name="accessibility_all_day">Zdarzynie całodniowe</string>

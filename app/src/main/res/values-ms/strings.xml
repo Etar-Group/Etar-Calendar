@@ -77,8 +77,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privasi"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Tambah peringatan"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Tiada kalendar"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Sebelum anda dapat menambahkan sesuatu acara, anda mesti menambahkan sekurang-kurangnya satu akaun Kalendar pada peranti anda dan menjadikan kalendar dapat dilihat. Sentuh Tambah Akaun untuk menambahkan akaun (jika anda baru sahaja menambahkan akaun, tunggu sehingga ia selesai menyegerak dan cuba lagi). Jika tidak, sentuh Batal dan pastikan sekurang-kurangnya satu kalendar kelihatan."</string>
-    <string name="add_account" msgid="1669072099756774952">"Tambah akaun"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Penganjur:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Pilih warna acara"</string>

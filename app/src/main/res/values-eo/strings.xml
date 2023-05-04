@@ -22,7 +22,6 @@
     <string name="calendar_color_picker_dialog_title">Kalendara koloro</string>
     <string name="event_color_picker_dialog_title">Okazaĵa koloro</string>
     <string name="view_event_calendar_label">Kalendaro:</string>
-    <string name="add_account">Aldoni konton</string>
     <string name="no_syncable_calendars">Ne estas kalendaroj</string>
     <string name="reminders_label">Aldoni memorigilon</string>
     <string name="privacy_label">Privateco</string>

@@ -26,7 +26,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
@@ -44,6 +43,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.settings.SettingsActivity;
 import com.android.calendarcommon2.Time;
 
 import java.text.ParseException;
@@ -237,18 +237,10 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.no_syncable_calendars).setIconAttribute(
                     android.R.attr.alertDialogIcon).setMessage(R.string.no_calendars_found)
-                    .setPositiveButton(R.string.add_account, new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (activity != null) {
-                                Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
-                                final String[] array = {"com.android.calendar"};
-                                nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
-                                nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                        Intent.FLAG_ACTIVITY_NEW_TASK);
-                                activity.startActivity(nextIntent);
-                            }
+                    .setPositiveButton(R.string.add_calendar, (dialog, which) -> {
+                        if (activity != null) {
+                            Intent nextIntent = new Intent(activity, SettingsActivity.class);
+                            activity.startActivity(nextIntent);
                         }
                     })
                     .setNegativeButton(android.R.string.no, null);

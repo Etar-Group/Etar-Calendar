@@ -86,8 +86,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Конфиденциальность"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Добавить напоминание"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Добавить событие можно только в видимый календарь, связанный с аккаунтом Google. Нажмите \"Добавить аккаунт\" или, если аккаунт уже добавлен, дождитесь окончания синхронизации и повторите попытку. Либо нажмите \"Отмена\" и сделайте видимым хотя бы один календарь.</string>
-    <string name="add_account" msgid="1669072099756774952">"Добавить аккаунт"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календарь:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Организатор:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Выбрать цвет события</string>

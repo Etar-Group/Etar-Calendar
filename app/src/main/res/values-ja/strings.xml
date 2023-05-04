@@ -75,8 +75,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"公開設定"</string>
     <string name="reminders_label" msgid="7292389181815525676">"通知を追加"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"カレンダーがありません"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"予定を追加するには、端末に少なくとも1つのカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。アカウントを追加するには[アカウントを追加]をタップします（アカウントを追加したばかりの場合は、同期の完了を待って再試行してください）。または[キャンセル]をタップして、カレンダーが表示できるかどうかを確認してください。"</string>
-    <string name="add_account" msgid="1669072099756774952">"アカウントを追加"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"カレンダー:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"主催者:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"予定の色を選択"</string>
