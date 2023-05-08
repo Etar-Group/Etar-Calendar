@@ -42,7 +42,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
-    
+
+    <Button
+        android:id="@+id/prevmonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;"
+        android:textSize="25sp"
+        android:onClick="goToPrevMonth"
+        />
+
+    <Button
+        android:id="@+id/nextmonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="-53dp"
+        android:text="&gt;"
+        android:textSize="25sp"
+        android:onClick="goToNextMonth"
+        />
     
     <com.android.calendar.month.MonthListView
         android:id="@android:id/list"
