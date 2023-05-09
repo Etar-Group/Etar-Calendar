@@ -22,8 +22,6 @@ import static com.android.calendar.event.EditEventHelper.EXTENDED_INDEX_VALUE;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -62,6 +60,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
@@ -162,7 +162,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mColorPickerDialog.setCalendarColor(mModel.getCalendarColor());
                 mColorPickerDialog.setColors(colors, mModel.getEventColor());
             }
-            final FragmentManager fragmentManager = getFragmentManager();
+            final FragmentManager fragmentManager = getParentFragmentManager();
             fragmentManager.executePendingTransactions();
             if (!mColorPickerDialog.isAdded()) {
                 mColorPickerDialog.show(fragmentManager, COLOR_PICKER_DIALOG_TAG);
@@ -212,7 +212,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mColorPickerDialog = (EventColorPickerDialog) getActivity().getFragmentManager()
+        mColorPickerDialog = (EventColorPickerDialog) getActivity().getSupportFragmentManager()
                 .findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
         if (mColorPickerDialog != null) {
             mColorPickerDialog.setOnColorSelectedListener(this);

@@ -17,7 +17,6 @@
 package com.android.calendar.selectcalendars;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -29,6 +28,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
@@ -133,7 +134,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mAdapter = new SelectCalendarsSimpleAdapter(mContext, mCalendarItemLayout, null,
-                getFragmentManager());
+                getParentFragmentManager());
         mList.setAdapter(mAdapter);
         mList.setOnItemClickListener(this);
     }
