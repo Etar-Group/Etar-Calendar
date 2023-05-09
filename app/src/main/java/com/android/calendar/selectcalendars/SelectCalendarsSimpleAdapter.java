@@ -16,7 +16,6 @@
 
 package com.android.calendar.selectcalendars;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -33,6 +32,8 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.android.calendar.CalendarColorPickerDialog;
 import com.android.calendar.DynamicTheme;

@@ -20,7 +20,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +28,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
@@ -77,7 +77,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.include.toolbar);
 
-        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.body_frame);
+        mEditFragment = (EditEventFragment) getSupportFragmentManager().findFragmentById(R.id.body_frame);
 
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
 
@@ -109,7 +109,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
             mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
 
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.body_frame, mEditFragment);
             ft.show(mEditFragment);
             ft.commit();

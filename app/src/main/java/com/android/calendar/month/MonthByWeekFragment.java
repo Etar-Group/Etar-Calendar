@@ -17,11 +17,7 @@
 package com.android.calendar.month;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.LoaderManager;
 import android.content.ContentUris;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.StateListDrawable;
@@ -42,6 +38,12 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
@@ -144,7 +146,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
         @Override
         public void handleMessage(Message msg) {
-            final FragmentManager manager = getFragmentManager();
+            final FragmentManager manager = getParentFragmentManager();
             if (manager != null) {
                 Time day = (Time) msg.obj;
                 mEventDialog = new CreateEventDialogFragment(day);
@@ -382,7 +384,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         synchronized (mUpdateLoader) {
             if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "Found " + data.getCount() + " cursor entries for uri " + mEventUri);
@@ -406,7 +408,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
     }
 
     @Override
