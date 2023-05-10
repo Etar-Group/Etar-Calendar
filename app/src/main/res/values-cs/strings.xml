@@ -363,4 +363,6 @@
     <string name="menu_info">Informace</string>
     <string name="duplicate_label">Duplikovat</string>
     <string name="hint_url">Adresa URL</string>
+    <string name="no_calendars_found">Před přidáním události je nutné přidat do zařízení alespoň jeden účet s kalendářem</string>
+    <string name="add_calendar">Přidat kalendář</string>
 </resources>
