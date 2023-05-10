@@ -371,4 +371,6 @@
     <string name="menu_info">Інформація</string>
     <string name="duplicate_label">Дублікат</string>
     <string name="hint_url">URL-адреса</string>
+    <string name="no_calendars_found">Перш ніж додати подію, створіть на своєму пристрої принаймні один календар</string>
+    <string name="add_calendar">Додати календар</string>
 </resources>
