@@ -373,4 +373,6 @@
     <string name="menu_info">Информация</string>
     <string name="duplicate_label">Дублировать</string>
     <string name="hint_url">Ссылка</string>
+    <string name="no_calendars_found">Прежде чем добавить событие, необходимо создать на устройстве хотя бы один календарь</string>
+    <string name="add_calendar">Добавить календарь</string>
 </resources>
