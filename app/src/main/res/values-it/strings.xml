@@ -363,4 +363,6 @@
     <string name="preferences_real_event_colors">Usa colori di eventi reali</string>
     <string name="menu_info">Informazioni</string>
     <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Prima di poter aggiungere un evento, devi aggiungere almeno un calendario al tuo dispositivo</string>
+    <string name="add_calendar">Aggiungi calendario</string>
 </resources>
