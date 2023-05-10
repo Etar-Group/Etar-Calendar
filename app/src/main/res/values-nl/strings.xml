@@ -346,4 +346,6 @@
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Dupliceren</string>
     <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Voor je een gebeurtenis kunt toevoegen, moet je minstens één agenda aan je toestel toevoegen</string>
+    <string name="add_calendar">Kalender toevoegen</string>
 </resources>
