@@ -380,4 +380,6 @@
     <string name="menu_info">פרטים</string>
     <string name="duplicate_label">שכפול</string>
     <string name="hint_url">כתובת</string>
+    <string name="add_calendar">הוספת לוח שנה</string>
+    <string name="no_calendars_found">לפני שיתאפשר לך להוסיף אירוע, יש להוסיף לפחות לוח שנה אחד למכשיר שלך</string>
 </resources>
