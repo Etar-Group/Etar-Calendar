@@ -330,4 +330,6 @@
     <string name="menu_info">信息</string>
     <string name="duplicate_label">复制</string>
     <string name="hint_url">URL</string>
+    <string name="no_calendars_found">你必须添加至少一个日历到设备才能添加活动</string>
+    <string name="add_calendar">添加日历</string>
 </resources>
