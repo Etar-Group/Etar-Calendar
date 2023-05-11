@@ -376,4 +376,6 @@
     <string name="menu_info">Informacje</string>
     <string name="duplicate_label">Duplikat</string>
     <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Zanim będzie można dodać wydarzenie, należy dodać do urządzenia co najmniej jeden kalendarz</string>
+    <string name="add_calendar">Dodaj kalendarz</string>
 </resources>
