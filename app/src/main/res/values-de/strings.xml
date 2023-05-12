@@ -346,6 +346,6 @@
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Duplizieren</string>
     <string name="hint_url">URL</string>
-    <string name="no_calendars_found">Bevor du ein Ereignis hinzuzufügen kannst, musst du mindestens einen Kalender auf deinem Gerät erstellen.</string>
+    <string name="no_calendars_found">Bevor du einen Termin hinzufügen kannst, musst du mindestens einen Kalender auf deinem Gerät hinzufügen</string>
     <string name="add_calendar">Kalender hinzufügen</string>
 </resources>
