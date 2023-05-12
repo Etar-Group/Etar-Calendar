@@ -40,6 +40,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
