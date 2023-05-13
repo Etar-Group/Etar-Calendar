@@ -346,4 +346,6 @@
     <string name="menu_info">Bilgi</string>
     <string name="duplicate_label">Kopyala</string>
     <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Etkinlik ekleyebilmeniz için aygıtınıza en az bir takvim eklemelisiniz</string>
+    <string name="add_calendar">Takvim ekle</string>
 </resources>
