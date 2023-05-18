@@ -43,8 +43,8 @@
     <string name="agenda_view">Күн тәртібі</string>
     <string name="calendar_refresh">Жаңарту</string>
     <plurals name="weekN">
-        <item quantity="one"><xliff:g id="count">%d</xliff:g> апта</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> апта</item>
+        <item quantity="one">1-апта</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>-апта</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 күн</item>
@@ -135,8 +135,8 @@
     <string name="tomorrow_at_time_fmt">Ертең сағат <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="today_at_time_fmt">Бүгін сағат <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="maximum_number_of_lines">Оқиғадағы жолдардың ең көп саны</string>
-    <string name="rsvp_declined">«Жоқ» деп жауап берілді.</string>
-    <string name="rsvp_accepted">«Иә» деп жауап берілді.</string>
+    <string name="rsvp_declined">«Жоқ» деп жауап берді.</string>
+    <string name="rsvp_accepted">«Иә» деп жауап берді.</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">Әр <xliff:g id="count">%d</xliff:g> күн сайын</item>
         <item quantity="other">Әр <xliff:g id="count">%d</xliff:g> күн сайын</item>
@@ -160,4 +160,19 @@
     <string name="event_view">Оқиғаны қарау</string>
     <string name="show_day_view">Күнді көрсету</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="menu_info">Ақпарат</string>
+    <string name="rsvp_tentative">«Мүмкін» деп жауап берді.</string>
+    <string name="response_maybe">Мүмкін</string>
+    <string name="call_label">Қоңырау шалу</string>
+    <string name="preferences_dark_theme">Қараңғы</string>
+    <string name="agenda_tomorrow">Ертең, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_today">Бүгін, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="view_event_response_label">Шақыруды қабылдайсыз ба\?</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 апта</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> апта</item>
+    </plurals>
+    <string name="agenda_yesterday">Кеше, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="hint_url">URL</string>
+    <string name="preferences_theme">Кейіп</string>
 </resources>
