@@ -328,4 +328,7 @@
     <string name="preferences_real_event_colors">Gunakan warna acara asli</string>
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Duplikat</string>
+    <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Sebelum Anda bisa menambahkan acara, Anda harus menambahkan setidaknya satu kalender ke perangkat Anda</string>
+    <string name="add_calendar">Tambah kalender</string>
 </resources>
