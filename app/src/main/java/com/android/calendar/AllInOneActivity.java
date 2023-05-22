@@ -420,6 +420,15 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     permissionsList.toArray(permissionsArray),
                     PERMISSIONS_REQUEST_WRITE_CALENDAR);
         }
+            
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+           if (!alarmManager.canScheduleExactAlarms()) {
+               Intent intent = new Intent();
+               intent.setAction(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+               startActivity(intent);
+           }
+       }  
     }
 
     private void checkAndRequestDisablingDoze() {
