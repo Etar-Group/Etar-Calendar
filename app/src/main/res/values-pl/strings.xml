@@ -46,9 +46,9 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">tydzień <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="few">tygodnie <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="many">tygodni <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">tygodni <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="few">tydzień <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">tydzień <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">tydzień <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Odśwież"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Pokaż dzień"</string>
@@ -85,8 +85,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Prywatność"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Dodaj przypomnienie"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Brak kalendarzy"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Przed utworzeniem wydarzenia musisz dodać do urządzenia konto z Kalendarzem i ustawić wybrany kalendarz jako widoczny. Wybierz „Dodaj konto” (jeśli właśnie to zrobiłeś, poczekaj na zakończenie synchronizacji i spróbuj ponownie). Możesz też dotknąć Anuluj i upewnić się, że co najmniej jeden kalendarz jest widoczny."</string>
-    <string name="add_account" msgid="1669072099756774952">"Dodaj konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendarz:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Wybierz kolor wydarzenia"</string>
@@ -377,4 +375,5 @@
     <string name="preferences_real_event_colors">Używaj prawdziwych kolorów wydarzenia</string>
     <string name="menu_info">Informacje</string>
     <string name="duplicate_label">Duplikat</string>
+    <string name="hint_url">URL</string>
 </resources>

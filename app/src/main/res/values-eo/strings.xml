@@ -22,7 +22,6 @@
     <string name="calendar_color_picker_dialog_title">Kalendara koloro</string>
     <string name="event_color_picker_dialog_title">Okazaĵa koloro</string>
     <string name="view_event_calendar_label">Kalendaro:</string>
-    <string name="add_account">Aldoni konton</string>
     <string name="no_syncable_calendars">Ne estas kalendaroj</string>
     <string name="reminders_label">Aldoni memorigilon</string>
     <string name="privacy_label">Privateco</string>
@@ -272,4 +271,28 @@
     <string name="accessibility_pick_time_zone">Horzono</string>
     <string name="accessibility_pick_start_time">Komenca tempo</string>
     <string name="acessibility_recurrence_choose_end_date_description">ŝanĝi finan daton</string>
+    <string name="preferences_default_reminder_title">Tempo defaŭlta de memorigilo</string>
+    <string name="foreground_notification_channel_description">Sciigoj nepraj por interna sinkronigo. Vi povas sekure kaŝi tiun ĉi kanalon.</string>
+    <string name="no_calendars_found">Antaŭ vi eblas aldoni okazaĵon, si devas aldoni malpleje unu konton kalendaran al sia aparato kaj vidigi kalendaron. Tuŝu Aldoni Konton por aldoni konton (se vi ĵus aldonis konton, atendu ĝin finote sinkroniĝi kaj provu ree). Aŭ tuŝu Forigi kaj certigu malpleje unu kalendaron esti videblan.</string>
+    <string name="foreground_notification_title">Horplanas memorigilojn novajn…</string>
+    <string name="modify_all_following">Ŝanĝi tiun ĉi kaj estontajn okazaĵojn</string>
+    <string name="default_start_last">Vido antaŭe uzita</string>
+    <string name="preferences_default_reminder_dialog">Tempo defaŭlta de memorigilo</string>
+    <string name="preferences_use_home_tz_descrip">Vidigas kalendarojn kaj tempojn de okazaĵoj en via hejma horzono kiam vojaĝi</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Ĉiam uzi malfruon defaŭltan de ripeto</string>
+    <string name="snooze_delay_dialog_title">Agordi malfruon de ripeto</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Demandi malfruon de ripeto kiam ripeti memorigojn</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Demandi malfruon de ripeto de memorigo</string>
+    <string name="preferences_default_snooze_delay_title">Daŭro defaŭlta de malfruo de ripeto</string>
+    <string name="preferences_default_snooze_delay_dialog">Malfruo defaŭlta de ripeto</string>
+    <string name="preferences_reminders_responded_label">Ignori memorigojn</string>
+    <string name="preferences_reminders_responded_dialog">Ignori memorigojn</string>
+    <string name="accessibility_remove_attendee">Forigi ĉeestanton</string>
+    <string name="accessibility_add_attendee">Aldoni ĉeestanton</string>
+    <string name="hint_url">URL</string>
+    <string name="duplicate_label">Duplikati</string>
+    <string name="modify_all">Ŝanĝi ĉiujn eventojn el la serio</string>
+    <string name="preferences_month_view_portrait">Aranĝo de monata vido (vertikala)</string>
+    <string name="preferences_month_view_landscape">Aranĝo de monata vido (horizontala)</string>
+    <string name="preferences_real_event_colors">Uzi kolorojn realajn por okazaĵoj</string>
 </resources>

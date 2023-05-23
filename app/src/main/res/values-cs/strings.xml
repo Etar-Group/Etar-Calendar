@@ -81,8 +81,6 @@
     <string name="privacy_label" msgid="9215031965259597335">Soukromí</string>
     <string name="reminders_label" msgid="7292389181815525676">"Přidat připomenutí"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Žádné kalendáře"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Před přidáním události je nutné přidat do zařízení alespoň jeden účet s kalendářem a zobrazit ho. Chcete-li přidat účet, klepněte na tlačítko Přidat účet (pokud jste účet právě přidali, počkejte na dokončení synchronizace a zkuste to znovu). Případně se dotkněte tlačítka Zrušit a zkontrolujte, zda je zobrazen alespoň jeden kalendář.</string>
-    <string name="add_account" msgid="1669072099756774952">"Přidat účet"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendář:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">Pořadatel:</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Vyberte barvu události</string>
@@ -364,4 +362,5 @@
     </plurals>
     <string name="menu_info">Informace</string>
     <string name="duplicate_label">Duplikovat</string>
+    <string name="hint_url">Adresa URL</string>
 </resources>

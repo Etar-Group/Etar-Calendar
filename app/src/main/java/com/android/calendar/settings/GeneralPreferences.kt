@@ -231,7 +231,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
     override fun onStart() {
         super.onStart()
-        preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         setPreferenceListeners(this)
     }
 
@@ -258,7 +258,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     override fun onStop() {
-        preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         super.onStop()
     }
 
@@ -403,7 +403,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         defaultReminderPref.entries = entries
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference!!.key) {
             KEY_COLOR_PREF -> {
                 showColorPickerDialog()

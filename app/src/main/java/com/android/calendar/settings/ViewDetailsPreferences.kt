@@ -77,7 +77,7 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
                 val newEntries = Arrays.copyOf(entries, entries.size - 1)
                 displayTime.entries = newEntries
             }
-            if (displayTime.entry == null || displayTime.entry.isEmpty()) {
+            if (displayTime.entry == null || displayTime.entry!!.isEmpty()) {
                 displayTime.value = getDefaultTimeToShow(activity).toString()
             }
         }
@@ -173,7 +173,7 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
             return Preferences(context!!)
         }
 
-        fun setDefaultValues(context: Context?) {
+        fun setDefaultValues(context: Context) {
             PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
                     R.xml.view_details_preferences, true)
         }

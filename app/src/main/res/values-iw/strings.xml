@@ -49,7 +49,7 @@
         <item quantity="one">שבוע <xliff:g id="count">%d</xliff:g></item>
         <item quantity="two">שבוע <xliff:g id="count">%d</xliff:g></item>
         <item quantity="many">שבוע <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">רענן</string>
     <string name="show_day_view" msgid="5782512782605466016">הצג יום</string>
@@ -86,8 +86,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"פרטיות"</string>
     <string name="reminders_label" msgid="7292389181815525676">הוספת תזכורת</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"אין לוחות שנה"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">לפני שיתאפשר לך להוסיף אירוע, עליך להוסיף חשבון לוח שנה אחד לפחות למכשיר שלך ושלוח השנה הזה יהיה גלוי. יש לגעת בהוספת חשבון כדי להוסיף חשבון (אם הרגע הוספת חשבון, יש להמתין לסיום סנכרונו ואז לנסות שוב. לחלופין, לגעת בביטול ולוודא שלפחות לוח שנה אחד זמין.</string>
-    <string name="add_account" msgid="1669072099756774952">הוספת חשבון</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">לוח שנה:</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">ארגון:</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">בחירת צבע אירוע</string>
@@ -381,4 +379,5 @@
     <string name="preferences_real_event_colors">להשתמש בצבעי האירוע האמתיים</string>
     <string name="menu_info">פרטים</string>
     <string name="duplicate_label">שכפול</string>
+    <string name="hint_url">כתובת</string>
 </resources>

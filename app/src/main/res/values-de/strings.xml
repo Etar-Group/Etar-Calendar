@@ -80,8 +80,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Datenschutz"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Erinnerung hinzufügen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Damit Sie einen Termin hinzufügen können, müssen Sie mindestens ein Kalender-Konto zu Ihrem Gerät hinzufügen und einen Kalender sichtbar machen. Tippen Sie zum Hinzufügen eines Kontos auf \"Konto hinzufügen\". Falls Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist, und versuchen Sie es dann erneut. Sie können auch auf \"Abbrechen\" tippen und sich vergewissern, dass mindestens ein Kalender sichtbar ist."</string>
-    <string name="add_account" msgid="1669072099756774952">"Konto hinzufügen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">Organisator:</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Terminfarbe auswählen"</string>
@@ -307,13 +305,13 @@
     <string name="preferences_list_add_offline">Offline-Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_title">Offline-Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_error_empty">Geben Sie einen Kalendernamen ein!</string>
-    <string name="preferences_list_add_offline_message">Offline-Kalender sind NICHT mit einem Cloud-Service synchronisiert und nur auf Ihrem Telefon verfügbar.</string>
+    <string name="preferences_list_add_offline_message">Offline-Kalender sind NICHT mit einem Cloud-Service synchronisiert und nur auf deinem Telefon verfügbar.</string>
     <string name="preferences_list_add_offline_button">Kalender hinzufügen</string>
     <string name="preferences_list_add_offline_name">Name</string>
     <string name="preferences_list_add_offline_cancel">Abbrechen</string>
     <string name="preferences_calendar_color_warning_title">Warnung</string>
     <string name="preferences_calendar_color_warning_button">Ich verstehe</string>
-    <string name="preferences_calendar_delete_message">Wollen Sie diesen Kalender wirklich löschen\?</string>
+    <string name="preferences_calendar_delete_message">Willst du diesen Kalender wirklich löschen\?</string>
     <string name="preferences_calendar_delete_delete">Kalender löschen</string>
     <string name="preferences_calendar_delete_cancel">Abbrechen</string>
     <string name="preferences_menu_about">Über Etar</string>
@@ -347,4 +345,5 @@
     <string name="preferences_real_event_colors">Echte Terminfarben verwenden</string>
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Duplizieren</string>
+    <string name="hint_url">URL</string>
 </resources>

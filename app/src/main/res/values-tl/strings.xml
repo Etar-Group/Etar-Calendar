@@ -77,8 +77,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Magdagdag ng paalala"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Walang mga kalendaryo"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Bago ka makapagdagdag ng isang kaganapan, dapat kang magdagdag ng hindi bababa sa isang Calendar account sa iyong device at gawing nakikita ang isang kalendaryo. Pindutin ang Magdagdag ng Account upang magdagdag ng isang account (kung kadaragdag mo lang ng isang account, hintayin itong matapos sa pag-sync at subukang muli). O pindutin ang Kanselahin at tiyaking nakikita ang hindi bababa sa isang kalendaryo."</string>
-    <string name="add_account" msgid="1669072099756774952">"Magdagdag ng account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendaryo:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizer:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Pumili ng kulay ng kaganapan"</string>

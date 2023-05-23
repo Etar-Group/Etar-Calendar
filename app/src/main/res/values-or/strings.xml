@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_preferences">ସେଟିଂ</string>
+    <string name="menu_info">ସୂଚନା</string>
+    <string name="hint_description">ଵର୍ଣ୍ଣନା</string>
+    <string name="search">ସନ୍ଧାନ</string>
+    <string name="today">ଆଜି</string>
+    <string name="tomorrow">ଆସନ୍ତାକାଲି</string>
+    <string name="goto_today">ଆଜି</string>
+</resources>

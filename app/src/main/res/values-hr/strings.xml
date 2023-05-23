@@ -81,8 +81,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privatnost"</string>
     <string name="reminders_label" msgid="7292389181815525676">Dodaj podsjetnik</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nema kalendara"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Prije nego što ćeš moći dodati događaj moraš dodati barem jedan račun za kalendar na svoj uređaj i kalendar učiniti vidljivim. Za dodavanje računa, dodirni „Dodaj račun” (ako si upravo dodao/la račun, pričekaj dovršavanje sinkronizacije i pokušaj ponovo) ili dodirni „Odustani” i provjeri, je li barem jedan kalendar vidljiv.</string>
-    <string name="add_account" msgid="1669072099756774952">Dodaj račun</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Odaberi boju za događaj</string>

@@ -75,7 +75,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
             val accountCategoryUniqueKey = "account_category_${calendar.accountName}_${calendar.accountType}"
             var accountCategory = screen.findPreference<PreferenceCategory>(accountCategoryUniqueKey)
             if (accountCategory == null) {
-                accountCategory = PreferenceCategory(context).apply {
+                accountCategory = PreferenceCategory(requireContext()).apply {
                     key = accountCategoryUniqueKey
                     title = calendar.accountName
                     icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_account_circle)
@@ -89,7 +89,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
             val calendarUniqueKey = "calendar_preference_${calendar.id}"
             var calendarPreference = screen.findPreference<Preference>(calendarUniqueKey)
             if (calendarPreference == null) {
-                calendarPreference = Preference(context)
+                calendarPreference = Preference(requireContext())
                 accountCategory.addPreference(calendarPreference)
             }
             calendarPreference.apply {
@@ -152,12 +152,12 @@ class MainListPreferences : PreferenceFragmentCompat() {
     }
 
     private fun addGeneralPreferences(screen: PreferenceScreen) {
-        val generalPreference = Preference(context).apply {
+        val generalPreference = Preference(requireContext()).apply {
             title = getString(R.string.preferences_list_general)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_settings)
             fragment = GeneralPreferences::class.java.name
         }
-        val addCaldavPreference = Preference(context).apply {
+        val addCaldavPreference = Preference(requireContext()).apply {
             title = getString(R.string.preferences_list_add_remote)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)
         }
@@ -165,7 +165,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
             launchDavX5Login()
             true
         }
-        val addEtesyncPreference = Preference(context).apply {
+        val addEtesyncPreference = Preference(requireContext()).apply {
             title = getString(R.string.preferences_list_add_remote_etesync)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)
         }
@@ -173,7 +173,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
             launchAddEtesync()
             true
         }
-        val addOfflinePreference = Preference(context).apply {
+        val addOfflinePreference = Preference(requireContext()).apply {
             title = getString(R.string.preferences_list_add_offline)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)
         }

@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.android.calendar.event.EditEventActivity;
+import com.android.calendar.event.ExtendedProperty;
 import com.android.calendar.icalendar.Attendee;
 import com.android.calendar.icalendar.IcalendarUtils;
 import com.android.calendar.icalendar.VCalendar;
@@ -157,6 +158,8 @@ public class ImportActivity extends Activity {
                 IcalendarUtils.uncleanseString(firstEvent.getProperty(VEvent.LOCATION)));
         calIntent.putExtra(CalendarContract.Events.DESCRIPTION,
                 IcalendarUtils.uncleanseString(firstEvent.getProperty(VEvent.DESCRIPTION)));
+        calIntent.putExtra(ExtendedProperty.URL,
+                IcalendarUtils.uncleanseString(firstEvent.getProperty(VEvent.URL)));
         calIntent.putExtra(CalendarContract.Events.ORGANIZER,
                 IcalendarUtils.uncleanseString(firstEvent.getProperty(VEvent.ORGANIZER)));
 

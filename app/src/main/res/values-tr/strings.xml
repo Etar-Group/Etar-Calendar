@@ -76,8 +76,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Gizlilik"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Hatırlatıcı ekle"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Takvim yok"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Bir etkinlik ekleyebilmek için öncelikle aygıtınıza en az bir Takvim hesabı eklemeli ve takvimi görünür yapmalısınız. Hesap eklemek için Hesap Ekle\'ye dokunun (hesabı yeni eklediyseniz, eşzamanlamayı bitirmesini bekleyin ve tekrar deneyin). Ya da İptal\'e dokunun ve en az bir takvimin görünür olduğundan emin olun.</string>
-    <string name="add_account" msgid="1669072099756774952">"Hesap ekle"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Takvim:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Düzenleyici:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Etkinlik rengi seçin"</string>
@@ -347,4 +345,5 @@
     <string name="preferences_real_event_colors">Gerçek etkinlik renklerini kullan</string>
     <string name="menu_info">Bilgi</string>
     <string name="duplicate_label">Kopyala</string>
+    <string name="hint_url">URL</string>
 </resources>
