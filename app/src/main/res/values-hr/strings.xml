@@ -362,4 +362,7 @@
     <string name="preferences_real_event_colors">Koristi boje stvarnog događaja</string>
     <string name="menu_info">Informacije</string>
     <string name="duplicate_label">Dupliciraj</string>
+    <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Prije dodavanje događaja moraš dodati barem jedan kalendar na svoj uređaj</string>
+    <string name="add_calendar">Dodaj kalendar</string>
 </resources>
