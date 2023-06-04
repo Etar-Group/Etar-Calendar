@@ -956,7 +956,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * @return selected time in UTC milliseconds since the epoch.
      */
     long getSelectedTimeInMillis() {
-        Time time = new Time();
+        Time time = new Time(Utils.getTimeZone(mContext, mTZUpdater));
         time.set(mBaseDate);
         time.setJulianDay(mSelectionDay);
         time.setHour(mSelectionHour);
