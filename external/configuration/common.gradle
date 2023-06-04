@@ -35,6 +35,7 @@ task cleanAndBuildAAR(type: GradleBuild) {
 
 task copyAAR(type: Copy) {
     dependsOn 'cleanAndBuildAAR'
+    dependsOn 'bundleReleaseAar'
     from 'build/outputs/aar/'
     into '../../app/libs/'
     include '*-release.aar'
