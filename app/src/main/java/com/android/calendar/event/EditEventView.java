@@ -845,20 +845,23 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         boolean canRespond = EditEventHelper.canRespond(model);
 
-        long begin = model.mStart;
-        long end = model.mEnd;
-        mTimezone = model.mTimezone; // this will be UTC for all day events
+        {
+            long begin = model.mStart;
+            long end = model.mEnd;
+            mTimezone = model.mTimezone; // this will be UTC for all day events
+            Log.d(TAG, "sM unconditionally set mTimezone to " + mTimezone);
 
-        // Set up the starting times
-        if (begin > 0) {
-            mStartTime.setTimezone(mTimezone);
-            mStartTime.set(begin);
-            mStartTime.normalize();
-        }
-        if (end > 0) {
-            mEndTime.setTimezone(mTimezone);
-            mEndTime.set(end);
-            mEndTime.normalize();
+            // Set up the starting times
+            if (begin > 0) {
+                mStartTime.setTimezone(mTimezone);
+                mStartTime.set(begin);
+                mStartTime.normalize();
+            }
+            if (end > 0) {
+                mEndTime.setTimezone(mTimezone);
+                mEndTime.set(end);
+                mEndTime.normalize();
+            }
         }
 
         mRrule = model.mRrule;
