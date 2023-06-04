@@ -659,19 +659,23 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         if (mModel.mAllDay) {
-            // Reset start and end time, increment the monthDay by 1, and set
+            // Reset start and end time without touching date;
+            // in model, increment the monthDay by 1, and set
             // the timezone to UTC, as required for all-day events.
-            mTimezone = Time.TIMEZONE_UTC;
             mStartTime.setHour(0);
             mStartTime.setMinute(0);
             mStartTime.setSecond(0);
-            mStartTime.setTimezone(mTimezone);
-            mModel.mStart = mStartTime.normalize();
+            mStartTime.normalize();
+            Time modelStartTime = new Time(Time.TIMEZONE_UTC);
+            modelStartTime.set(0, 0, 0, mStartTime.getDay(), mStartTime.getMonth(), mStartTime.getYear());
+            mModel.mStart = modelStartTime.normalize();
 
             mEndTime.setHour(0);
             mEndTime.setMinute(0);
             mEndTime.setSecond(0);
-            mEndTime.setTimezone(mTimezone);
+            mEndTime.normalize();
+            Time modelEndTime = new Time(Time.TIMEZONE_UTC);
+            modelEndTime.set(0, 0, 0, mEndTime.getDay(), mEndTime.getMonth(), mEndTime.getYear());
             // When a user see the event duration as "X - Y" (e.g. Oct. 28 - Oct. 29), end time
             // should be Y + 1 (Oct.30).
             final long normalizedEndTimeMillis =
@@ -679,16 +683,27 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (normalizedEndTimeMillis < mModel.mStart) {
                 // mEnd should be midnight of the next day of mStart.
                 mModel.mEnd = mModel.mStart + DateUtils.DAY_IN_MILLIS;
+                modelEndTime.set(mModel.mEnd);
+                mEndTime.set(0, 0, 0, modelEndTime.getDay(), modelEndTime.getMonth(), modelEndTime.getYear());
+                mEndTime.normalize();
             } else {
                 mModel.mEnd = normalizedEndTimeMillis;
             }
+
+            mModel.mTimezone = Time.TIMEZONE_UTC;
+
+            // refresh UI to new start & end times
+            setDate(mStartDateButton, mStartTime.toMillis());
+            setTime(mStartTimeButton, mStartTime.toMillis());
+            setDate(mEndDateButton, mEndTime.toMillis());
+            setTime(mEndTimeButton, mEndTime.toMillis());
         } else {
             mStartTime.setTimezone(mTimezone);
             mEndTime.setTimezone(mTimezone);
             mModel.mStart = mStartTime.toMillis();
             mModel.mEnd = mEndTime.toMillis();
+            mModel.mTimezone = mTimezone;
         }
-        mModel.mTimezone = mTimezone;
         mModel.mAccessLevel = mAccessLevelSpinner.getSelectedItemPosition();
         // TODO set correct availability value
         mModel.mAvailability = mAvailabilityValues.get(mAvailabilitySpinner
@@ -873,10 +888,37 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (model.mAllDay) {
             mAllDayCheckBox.setChecked(true);
             // put things back in local time for all day events
+            // and force time at midnight
+            // also be robust against model having non-normalised all day event
+            // (start or end not midnight UTC or timezone not UTC), and force that
             mTimezone = Utils.getTimeZone(mActivity, null);
-            mStartTime.setTimezone(mTimezone);
-            mEndTime.setTimezone(mTimezone);
-            mEndTime.normalize();
+            {
+                int year = mStartTime.getYear();
+                int month = mStartTime.getMonth();
+                int day = mStartTime.getDay();
+                mStartTime.setTimezone(Time.TIMEZONE_UTC);
+                mStartTime.set(0, 0, 0, day, month, year);
+                model.mStart = mStartTime.normalize();
+                mStartTime.setTimezone(mTimezone);
+                mStartTime.set(0, 0, 0, day, month, year);
+                mStartTime.normalize();
+            }
+            {
+                int year = mEndTime.getYear();
+                int month = mEndTime.getMonth();
+                int day = mEndTime.getDay();
+                mEndTime.setTimezone(Time.TIMEZONE_UTC);
+                mEndTime.set(0, 0, 0, day, month, year);
+                model.mEnd = mEndTime.normalize();
+                mEndTime.setTimezone(mTimezone);
+                mEndTime.set(0, 0, 0, day, month, year);
+                mEndTime.normalize();
+            }
+            // refresh UI to new start & end times
+            setDate(mStartDateButton, mStartTime.toMillis());
+            setTime(mStartTimeButton, mStartTime.toMillis());
+            setDate(mEndDateButton, mEndTime.toMillis());
+            setTime(mEndTimeButton, mEndTime.toMillis());
         } else {
             mAllDayCheckBox.setChecked(false);
         }
