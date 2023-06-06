@@ -330,4 +330,6 @@
     <string name="visibility_confidential">機密</string>
     <string name="preferences_calendar_configure_account">%1$s でカレンダーを設定</string>
     <string name="hint_url">URL</string>
+    <string name="no_calendars_found">予定を追加するには、端末に少なくとも 1 つのカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。</string>
+    <string name="add_calendar">カレンダーを追加</string>
 </resources>
