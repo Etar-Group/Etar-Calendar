@@ -346,4 +346,5 @@
     <string name="duplicate_label">Duplicado</string>
     <string name="preferences_real_event_colors">Usar cores de eventos reais</string>
     <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Antes de poder adicionar um evento, tem de adicionar pelo menos um calendário no seu dispositivo.</string>
 </resources>
