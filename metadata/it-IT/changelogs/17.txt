@@ -1,0 +1,4 @@
+- Migliorata la visualizzazione mese.
+- Il permesso per la lettura dei contatti è di nuovo opzionale.
+- Caselle di testo più belle durante la creazione di eventi.
+- Correzione di bug minori.

@@ -1,0 +1,6 @@
+- Richiesta dei permessi all'esecuzione da Android 6 in poi.
+- Correzione crash all'avvio.
+- Permetti all'utente di restringere lo schermo per mostrare l'intero giorno.
+- Imposta i secondi a zero quando si crea un nuovo evento.
+- Correzioni minori al layout.
+- Correzione di molti bug.

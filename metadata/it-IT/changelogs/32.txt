@@ -1,0 +1,7 @@
+- Crea e mostra promemoria dopo l'inizio di un evento usando una checkbox
+- Sistemati promemoria con valori negativi
+- Corretti orari invalidi a causa di cambi di fuso orario
+- Opzione per aggiungere un nuovo evento dalla schermata widget
+- Risistemati i colori dei temi
+- Correzione bug
+- Nuove traduzioni

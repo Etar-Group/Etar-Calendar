@@ -1,0 +1,5 @@
+- Supporto per Android 12.
+- Supporto per il Design Material You.
+- Rimossa la connessione al servizio Android per il backup del database (non funziona su molte versioni Android).
+- Correzione generale di errori.
+- Nuove traduzioni

@@ -1,0 +1,7 @@
+- Riduzione della dimensione del testo dei nomi degli eventi nella visualizzazione settimana.
+- Attiva i suggerimenti di ricerca recenti.
+- Correzione dell'esportazione su scheda SD.
+- Barra i titoli degli eventi cancellati.
+- Utilizza le impostazioni del tema di sistema su Android 10.
+- Nuove traduzioni.
+- Correzione di bug

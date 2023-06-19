@@ -1,0 +1,2 @@
+- Correzione di bug nelle notifiche.
+- Nuove traduzioni.

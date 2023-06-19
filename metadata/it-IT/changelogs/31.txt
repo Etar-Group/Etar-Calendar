@@ -1,0 +1,2 @@
+- Correzione crash e bug su Android 12.
+- Corretto il tipo MIME degli eventi condivisi
