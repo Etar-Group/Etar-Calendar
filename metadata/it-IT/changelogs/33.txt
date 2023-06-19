@@ -1,0 +1,8 @@
+- Aggiunta opzione per duplicare gli eventi
+- Mostra il giorno della settimana su tablet
+- Correzione crash quando si apre un evento con ID molto grande
+- Risistemato il mini calendario nella visualizzazione tablet
+- Aggiunto supporto per le Icone Themed App su Android 13.
+- Mostra gli eventi multigiorno con i punti di inizio e fine corretti
+- Correzione bug
+- Nuove traduzioni
