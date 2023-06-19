@@ -297,7 +297,7 @@
     <string name="cal_import_error_msg">Importazione del calendario non riuscita</string>
     <string name="cal_import_error_date_msg">Impossibile interpretare la data inserita: %s</string>
     <string name="cal_pick_ics">Scegli file da importare</string>
-    <string name="show_time_no">No</string>
+    <string name="show_time_no">Non mostrare l\'ora</string>
     <string name="show_time_start">Solo tempo di inizio</string>
     <string name="show_time_start_end">Ora di inizio e fine</string>
     <string name="show_time_start_end_below">Ora di inizio e fine sotto all\'evento</string>
