@@ -362,4 +362,7 @@
     <string name="preferences_real_event_colors">Utilizați culorile reale ale evenimentului</string>
     <string name="menu_info">Informații</string>
     <string name="duplicate_label">Duplicat</string>
+    <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Înainte de a putea adăuga un eveniment, trebuie să adăugați cel puțin un calendar pe dispozitivul dumneavoastră</string>
+    <string name="add_calendar">Adăugați un calendar</string>
 </resources>
