@@ -676,15 +676,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTime.normalize();
             Time modelEndTime = new Time(Time.TIMEZONE_UTC);
             modelEndTime.set(0, 0, 0, mEndTime.getDay(), mEndTime.getMonth(), mEndTime.getYear());
-            // When a user see the event duration as "X - Y" (e.g. Oct. 28 - Oct. 29), end time
-            // should be Y + 1 (Oct.30).
+            // When a user see the event duration as "X - Y" (e.g. Oct. 28 - Oct. 29), model's end time
+            // should be Y + 1 (Oct.30), but display end time should be Y (Oct. 29).
             final long normalizedEndTimeMillis =
-                    mEndTime.normalize() + DateUtils.DAY_IN_MILLIS;
+                    modelEndTime.normalize() + DateUtils.DAY_IN_MILLIS;
             if (normalizedEndTimeMillis < mModel.mStart) {
-                // mEnd should be midnight of the next day of mStart.
+                // mModel.mEnd should be midnight of the next day of mStart
+                // but mEndTime same day as mStart
                 mModel.mEnd = mModel.mStart + DateUtils.DAY_IN_MILLIS;
-                modelEndTime.set(mModel.mEnd);
-                mEndTime.set(0, 0, 0, modelEndTime.getDay(), modelEndTime.getMonth(), modelEndTime.getYear());
+                modelEndTime.set(mModel.mStart);
+                // cannot set to mModel.mStart because mEndTime is not necessarily in the same timezone,
+                // so midnight of same day is not same absolute time point in millis
+                mEndTime.set(0, 0, 0, modelStartTime.getDay(), modelStartTime.getMonth(), modelStartTime.getYear());
                 mEndTime.normalize();
             } else {
                 mModel.mEnd = normalizedEndTimeMillis;
