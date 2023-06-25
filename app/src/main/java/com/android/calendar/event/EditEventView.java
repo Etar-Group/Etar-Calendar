@@ -849,7 +849,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             long begin = model.mStart;
             long end = model.mEnd;
             mTimezone = model.mTimezone; // this will be UTC for all day events
-            Log.d(TAG, "sM unconditionally set mTimezone to " + mTimezone);
 
             // Set up the starting times
             if (begin > 0) {
