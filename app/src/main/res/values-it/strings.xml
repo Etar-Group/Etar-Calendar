@@ -126,7 +126,7 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Dettagli"</string>
     <string name="edit_label" msgid="8934331258435656534">"Modifica"</string>
     <string name="delete_label" msgid="874742811918030739">"Elimina"</string>
-    <string name="save_label" msgid="2133599104834432589">"Salva"</string>
+    <string name="save_label" msgid="2133599104834432589">Fatto</string>
     <string name="discard_label" msgid="2394623883289782541">"Annulla"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Ignora tutto"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Posticipa"</string>
