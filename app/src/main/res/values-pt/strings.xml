@@ -346,5 +346,6 @@
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Duplicado</string>
     <string name="hint_url">URL</string>
-    <string name="no_calendars_found">Antes de poder adicionar um evento, tem de adicionar pelo menos um calendário no seu dispositivo.</string>
+    <string name="no_calendars_found">Antes de poder adicionar um evento, tem de adicionar pelo menos um calendário no seu dispositivo</string>
+    <string name="add_calendar">Adicionar calendário</string>
 </resources>
