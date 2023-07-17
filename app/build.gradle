@@ -91,6 +91,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
 }
 
 dependencies {
