@@ -30,4 +30,5 @@ data class Calendar(val id: Long,
                     val visible: Boolean,
                     val syncEvents: Boolean,
                     val isPrimary: Boolean,
-                    val isLocal: Boolean)
+                    val isLocal: Boolean,
+                    val isTasks: Boolean)

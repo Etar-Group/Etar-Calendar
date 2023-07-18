@@ -64,4 +64,18 @@
         android:title="@string/view_settings"
         android:orderInCategory="8"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_view_agenda_tasks"
+        android:alphabeticShortcut="t"
+        android:title="@string/view_agenda_tasks"
+        android:orderInCategory="8"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_view_agenda_events"
+        android:alphabeticShortcut="e"
+        android:title="@string/view_agenda_events"
+        android:orderInCategory="9"
+        app:showAsAction="never" />
 </menu>

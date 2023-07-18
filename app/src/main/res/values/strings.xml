@@ -156,7 +156,8 @@
     <!-- This is a label on a menu item. Pressing this menu item shows the
          View settings menu [CHAR LIMIT=20] -->
     <string name="view_settings">"View settings"</string>
-
+    <string name="view_agenda_tasks">"View Tasks"</string>
+    <string name="view_agenda_events">"View Events"</string>
 
     <!-- Month view -->
     <skip/>
@@ -321,6 +322,8 @@
     <string name="event_info_organizer">Organizer:</string>
     <!-- Reminders label [CHAR LIMIT=15]-->
     <string name="event_info_reminders_label">Reminders</string>
+
+    <string name="event_info_reminders_cannot_add_label">Reminders are not available for task</string>
 
     <!-- Agenda View strings -->
     <skip/>

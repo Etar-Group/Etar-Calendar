@@ -36,6 +36,7 @@ import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.Time;
 
+import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -178,6 +179,13 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         // When
         long begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         long end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+        String type = cursor.getString(AgendaWindowAdapter.INDEX_TYPE);
+        if (type.equals("task")) {
+            Calendar instance = Calendar.getInstance();
+            instance.setTimeInMillis(end);
+            instance.add(Calendar.MINUTE, -30);
+            begin = instance.getTimeInMillis();
+        }
         String eventTz = cursor.getString(AgendaWindowAdapter.INDEX_TIME_ZONE);
         int flags = 0;
         String whenString;

@@ -276,6 +276,33 @@ public class IcalendarUtils {
         event.addAttendee(vAttendee);
     }
 
+    public static void addAttendeeToTodo(CalendarEventModel.Attendee attendee, VTodo vTodo) {
+        if (attendee == null || vTodo == null) return;
+        Attendee vAttendee = new Attendee();
+        vAttendee.addProperty(Attendee.CN, attendee.mName);
+
+        String participationStatus;
+        switch (attendee.mStatus) {
+            case CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED:
+                participationStatus = "ACCEPTED";
+                break;
+            case CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED:
+                participationStatus = "DECLINED";
+                break;
+            case CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE:
+                participationStatus = "TENTATIVE";
+                break;
+            case CalendarContract.Attendees.ATTENDEE_STATUS_NONE:
+            default:
+                participationStatus = "NEEDS-ACTION";
+                break;
+        }
+        vAttendee.addProperty(Attendee.PARTSTAT, participationStatus);
+        vAttendee.mEmail = attendee.mEmail;
+
+        vTodo.addAttendee(vAttendee);
+    }
+
     /**
      * Returns an iCalendar formatted UTC date-time
      * ex: 20141120T120000Z for noon on Nov 20, 2014
