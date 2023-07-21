@@ -349,4 +349,7 @@
     <string name="preferences_calendar_delete_message">Naozaj chcete odstrániť tento kalendár\?</string>
     <string name="offline_account_name">Offline kalendár</string>
     <string name="preferences_calendar_delete">Odstrániť kalendár</string>
+    <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Pred pridaním udalosti musíte do zariadenia pridať aspoň jeden kalendár</string>
+    <string name="add_calendar">Pridať kalendár</string>
 </resources>
