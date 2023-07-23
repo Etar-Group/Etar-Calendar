@@ -793,8 +793,9 @@ public class Utils {
         }
         recycle.setTimezone(Time.TIMEZONE_UTC);
         recycle.set(utcTime);
-        recycle.setTimezone(tz);
-        return recycle.normalize();
+        Time target = new Time(tz);
+        target.set(0, 0, 0, recycle.getDay(), recycle.getMonth(), recycle.getYear());
+        return target.normalize();
     }
 
     public static long convertAlldayLocalToUTC(Time recycle, long localTime, String tz) {
@@ -803,8 +804,9 @@ public class Utils {
         }
         recycle.setTimezone(tz);
         recycle.set(localTime);
-        recycle.setTimezone(Time.TIMEZONE_UTC);
-        return recycle.normalize();
+        Time target = new Time(Time.TIMEZONE_UTC);
+        target.set(0, 0, 0, recycle.getDay(), recycle.getMonth(), recycle.getYear());
+        return target.normalize();
     }
 
     /**
