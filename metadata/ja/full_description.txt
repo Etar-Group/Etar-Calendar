@@ -1,0 +1,12 @@
+機能:
+- 月表示
+- 週間、日、予定リスト表示
+- Android のカレンダー同期を使用。Google カレンダー、Exchange などが動作
+- マテリアルデザイン
+- ダークテーマ、ライトテーマ
+- 無料、オープンソース、本当に広告なし
+- ICS でのカレンダー共有に対応。SD カードからのインポート/エクスポートも可能
+- 多言語 UI
+
+バグ・フィードバック: https://github.com/Etar-Group/Etar-Calendar/issues
+ソースコード: https://github.com/Etar-Group/Etar-Calendar
