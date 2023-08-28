@@ -262,7 +262,7 @@
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Спрашивать период отсрочки напоминания</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Использовать значение по умолчанию</string>
     <string name="snooze_delay_dialog_title">Отложить на\u2026</string>
-    <string name="preferences_default_snooze_delay_title">Повтор по умолчанию</string>
+    <string name="preferences_default_snooze_delay_title">Время повтора по умолчанию</string>
     <string name="preferences_default_snooze_delay_dialog">Повтор по умолчанию</string>
     <string name="goto_date">Перейти…</string>
     <string name="rsvp_accepted">Получен ответ \"да\".</string>
