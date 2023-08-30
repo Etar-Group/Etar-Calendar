@@ -235,7 +235,7 @@
     <string name="rsvp_declined">辞退しました。</string>
     <string name="rsvp_accepted">承諾しました。</string>
     <string name="view_settings">表示設定</string>
-    <string name="goto_date">移動…</string>
+    <string name="goto_date">日付移動…</string>
     <string name="share_label">共有</string>
     <string name="no_reminder_label">なし</string>
     <string name="after_start_of_event">after start of event</string>
