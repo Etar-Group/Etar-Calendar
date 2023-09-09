@@ -321,7 +321,7 @@
     <string name="preferences_menu_about">Etar について</string>
     <string name="offline_account_name">オフラインのカレンダー</string>
     <string name="calendar_permission_not_granted">必要な権限が拒否されました。予定を編集するには、設定アプリから権限を許可してください</string>
-    <string name="preferences_calendar_account">%1$s 個のアカウント</string>
+    <string name="preferences_calendar_account">%1$s アカウント</string>
     <string name="preferences_calendar_synchronize">このカレンダーを同期</string>
     <string name="preferences_calendar_delete">カレンダーを削除</string>
     <string name="preferences_calendar_color_warning_message">カレンダーを再同期すると、色の変更が元に戻ることがあります。
