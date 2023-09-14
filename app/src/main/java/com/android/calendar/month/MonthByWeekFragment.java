@@ -137,8 +137,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         @Override
         public void run() {
             if (!mIsDetached) {
-                mLoader = (CursorLoader) getLoaderManager().initLoader(0, null,
-                        MonthByWeekFragment.this);
+                mLoader = (CursorLoader) LoaderManager.getInstance(MonthByWeekFragment.this)
+                        .initLoader(0, null, MonthByWeekFragment.this);
             }
         }
     };
@@ -312,10 +312,13 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
         // To get a smoother transition when showing this fragment, delay loading of events until
         // the fragment is expended fully and the calendar controls are gone.
-        if (mShowCalendarControls) {
-            mListView.postDelayed(mLoadingRunnable, mEventsLoadingDelay);
-        } else {
-            mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
+        if (!Utils.isCalendarPermissionGranted(mContext, true) && !mIsMiniMonth) {
+            if (mShowCalendarControls) {
+                mListView.postDelayed(mLoadingRunnable, mEventsLoadingDelay);
+            } else {
+                mLoader = (CursorLoader) LoaderManager.getInstance(MonthByWeekFragment.this)
+                        .initLoader(0, null, this);
+            }
         }
         mAdapter.setListView(mListView);
     }
@@ -335,11 +338,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     }
 
     // TODO
+    @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        if (mIsMiniMonth) {
-            return null;
-        }
         CursorLoader loader;
         synchronized (mUpdateLoader) {
             mFirstLoadedJulianDay =
@@ -348,11 +349,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             mEventUri = updateUri();
             String where = updateWhere();
 
-            if (!Utils.isCalendarPermissionGranted(mContext, true)) {
-                return null;
-            }
             loader = new CursorLoader(
-                    getActivity(), mEventUri, Event.EVENT_PROJECTION, where,
+                    requireActivity(), mEventUri, Event.EVENT_PROJECTION, where,
                     null /* WHERE_CALENDARS_SELECTED_ARGS */, INSTANCES_SORT_ORDER);
             loader.setUpdateThrottle(LOADER_THROTTLE_DELAY);
         }
