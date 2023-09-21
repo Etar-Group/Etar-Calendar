@@ -23,6 +23,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
@@ -420,6 +421,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     permissionsList.toArray(permissionsArray),
                     PERMISSIONS_REQUEST_WRITE_CALENDAR);
         }
+
     }
 
     private void checkAndRequestDisablingDoze() {
@@ -594,6 +596,15 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         // the rest of the handlers the controller dispatches to are.
         mController.registerFirstEventHandler(HANDLER_KEY, this);
         mOnSaveInstanceStateCalled = false;
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            if (!alarmManager.canScheduleExactAlarms()) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                startActivity(intent);
+            }
+        }
 
         if (!Utils.isCalendarPermissionGranted(this, true)) {
             //If permission is not granted then just return.
