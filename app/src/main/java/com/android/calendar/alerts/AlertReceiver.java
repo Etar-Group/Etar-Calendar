@@ -20,6 +20,7 @@ package com.android.calendar.alerts;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
@@ -684,6 +685,15 @@ public class AlertReceiver extends BroadcastReceiver {
                 geoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 // If this intent cannot be handled, do not create the map action
                 if (isResolveIntent(context, geoIntent)) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(context);
+                        geoIntent = createMapActivityIntent(context, urlSpans);
+                        if (geoIntent != null) {
+                            taskStackBuilder.addNextIntentWithParentStack(geoIntent);
+                            return taskStackBuilder.getPendingIntent(0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                        }
+                    }
                     Intent broadcastIntent = new Intent(MAP_ACTION);
                     broadcastIntent.setClass(context, AlertReceiver.class);
                     broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
