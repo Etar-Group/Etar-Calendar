@@ -312,7 +312,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
         // To get a smoother transition when showing this fragment, delay loading of events until
         // the fragment is expended fully and the calendar controls are gone.
-        if (!Utils.isCalendarPermissionGranted(mContext, true) && !mIsMiniMonth) {
+        if (Utils.isCalendarPermissionGranted(mContext, true) && !mIsMiniMonth) {
             if (mShowCalendarControls) {
                 mListView.postDelayed(mLoadingRunnable, mEventsLoadingDelay);
             } else {
