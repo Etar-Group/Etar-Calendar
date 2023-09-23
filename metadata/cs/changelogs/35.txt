@@ -1,0 +1,3 @@
+- Přidána položka url
+- Opravy chyb
+- Nové překlady
