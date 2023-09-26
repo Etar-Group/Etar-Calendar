@@ -16,7 +16,6 @@
 package com.android.calendar.event;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,6 +35,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.android.calendar.AsyncQueryService;
@@ -46,6 +46,7 @@ import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivity;
 import com.android.calendarcommon2.Time;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -135,7 +136,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
             mDate.setText(mDateString);
         }
 
-        mAlertDialog = new AlertDialog.Builder(activity)
+        mAlertDialog = new MaterialAlertDialogBuilder(activity)
             .setTitle(R.string.new_event_dialog_label)
             .setView(view)
             .setPositiveButton(R.string.create_event_dialog_save,
@@ -229,15 +230,16 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
 
     // Find the calendar position in the cursor that matches calendar in
     // preference
-    private void setDefaultCalendarView(Cursor cursor) {
+    private void setDefaultCalendarView(Context context, Cursor cursor) {
         if (cursor == null || cursor.getCount() == 0) {
             // Create an error message for the user that, when clicked,
             // will exit this activity without saving the event.
             final Activity activity = getActivity();
             dismiss();
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.no_syncable_calendars).setIconAttribute(
-                    android.R.attr.alertDialogIcon).setMessage(R.string.no_calendars_found)
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+            builder.setTitle(R.string.no_syncable_calendars)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
+                    .setMessage(R.string.no_calendars_found)
                     .setPositiveButton(R.string.add_calendar, (dialog, which) -> {
                         if (activity != null) {
                             Intent nextIntent = new Intent(activity, SettingsActivity.class);
@@ -322,7 +324,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
 
         @Override
         public void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            setDefaultCalendarView(cursor);
+            setDefaultCalendarView(requireContext(), cursor);
             if (cursor != null) {
                 cursor.close();
             }
