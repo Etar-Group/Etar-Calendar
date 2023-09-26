@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ws.xsoh.etar.R;
 
@@ -119,7 +120,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
             showPaletteView();
         }
 
-        mAlertDialog = new AlertDialog.Builder(activity)
+        mAlertDialog = new MaterialAlertDialogBuilder(activity)
             .setTitle(mTitleResId)
             .setView(view)
             .create();

@@ -27,6 +27,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.android.calendar.persistence.CalendarRepository
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import ws.xsoh.etar.R
 
@@ -55,7 +56,7 @@ class AddOfflineCalendarDialogFragment : DialogFragment() {
                 }
             })
 
-            val builder = AlertDialog.Builder(it).apply {
+            val builder = MaterialAlertDialogBuilder(it).apply {
                 setView(view)
                 setTitle(R.string.preferences_list_add_offline_title)
                 setMessage(R.string.preferences_list_add_offline_message)
