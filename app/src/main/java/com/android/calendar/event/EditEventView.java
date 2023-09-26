@@ -16,7 +16,6 @@
 
 package com.android.calendar.event;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.Service;
@@ -64,6 +63,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.TimePicker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -93,6 +93,7 @@ import com.android.timezonepicker.TimeZoneInfo;
 import com.android.timezonepicker.TimeZonePickerDialog;
 import com.android.timezonepicker.TimeZonePickerUtils;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -1140,11 +1141,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
             // Create an error message for the user that, when clicked,
             // will exit this activity without saving the event.
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            builder.setTitle(R.string.no_syncable_calendars).setIconAttribute(
-                    android.R.attr.alertDialogIcon).setMessage(R.string.no_calendars_found)
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mActivity);
+            builder.setTitle(R.string.no_syncable_calendars)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
+                    .setMessage(R.string.no_calendars_found)
                     .setPositiveButton(R.string.add_calendar, this)
-                    .setNegativeButton(android.R.string.no, this).setOnCancelListener(this);
+                    .setNegativeButton(android.R.string.no, this)
+                    .setOnCancelListener(this);
             mNoCalendarsDialog = builder.show();
             return;
         }

@@ -21,7 +21,6 @@ import static com.android.calendar.event.EditEventHelper.EXTENDED_INDEX_VALUE;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -57,6 +56,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -76,6 +76,7 @@ import com.android.calendar.Utils;
 import com.android.calendarcommon2.Time;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.colorpicker.HsvColorComparator;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -506,7 +507,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mModifyDialog.dismiss();
                 mModifyDialog = null;
             }
-            mModifyDialog = new AlertDialog.Builder(mActivity).setTitle(R.string.edit_event_label)
+            mModifyDialog = new MaterialAlertDialogBuilder(mActivity)
+                    .setTitle(R.string.edit_event_label)
                     .setItems(items, new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -575,7 +577,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     }
 
     private void showDiscardConfirmAlert() {
-        new AlertDialog.Builder(getActivity())
+        new MaterialAlertDialogBuilder(getActivity())
                 .setMessage(R.string.discard_event_changes)
                 .setCancelable(true)
                 .setPositiveButton(R.string.discard, ((dialog, which) -> {

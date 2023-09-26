@@ -1,7 +1,6 @@
 package com.android.calendar;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -20,6 +19,7 @@ import com.android.calendar.icalendar.Attendee;
 import com.android.calendar.icalendar.IcalendarUtils;
 import com.android.calendar.icalendar.VCalendar;
 import com.android.calendar.icalendar.VEvent;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -272,7 +272,7 @@ public class ImportActivity extends Activity {
                 return;
             }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mActivity);
             builder.setTitle(R.string.cal_pick_ics)
                     .setItems(files, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
