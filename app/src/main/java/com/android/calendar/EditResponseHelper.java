@@ -17,10 +17,13 @@
 package com.android.calendar;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.widget.Button;
+
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ws.xsoh.etar.R;
 
@@ -125,11 +128,13 @@ public class EditResponseHelper implements DialogInterface.OnClickListener, OnDi
         if (mDialogListener == null) {
             mDialogListener = this;
         }
-        AlertDialog dialog = new AlertDialog.Builder(mParent).setTitle(
-                R.string.change_response_title).setIconAttribute(android.R.attr.alertDialogIcon)
+        AlertDialog dialog = new MaterialAlertDialogBuilder(mParent)
+                .setTitle(R.string.change_response_title)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setSingleChoiceItems(R.array.change_response_labels, whichEvents, mListListener)
                 .setPositiveButton(android.R.string.ok, mDialogListener)
-                .setNegativeButton(android.R.string.cancel, null).show();
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
         // The caller may set a dismiss listener to hear back when the dialog is
         // finished. Use getWhichEvents() to see how the dialog was dismissed.
         dialog.setOnDismissListener(this);

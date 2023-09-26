@@ -1,6 +1,5 @@
 package com.android.calendar.chips;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ClipData;
@@ -8,6 +7,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ws.xsoh.etar.R;
 
@@ -35,7 +36,7 @@ public class CopyDialog extends DialogFragment implements DialogInterface.OnClic
         final Bundle args = getArguments();
         mText = args.getString(ARG_TEXT);
 
-        return new AlertDialog.Builder(getActivity())
+        return new MaterialAlertDialogBuilder(getActivity())
                 .setMessage(mText)
                 .setPositiveButton(R.string.chips_action_copy, this)
                 .setNegativeButton(R.string.chips_action_cancel, null)

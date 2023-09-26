@@ -19,7 +19,6 @@ package com.android.calendar.chips;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -91,6 +90,8 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.android.calendar.chips.DropdownChipLayouter.PermissionRequestDismissedListener;
 import com.android.calendar.chips.RecipientAlternatesAdapter.RecipientMatchCallback;
@@ -2014,7 +2015,7 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
 
     private void showWarningDialog(String warningText) {
         mCurrentWarningText = warningText;
-        new AlertDialog.Builder(RecipientEditTextView.this.getContext())
+        new MaterialAlertDialogBuilder(RecipientEditTextView.this.getContext())
                 .setTitle(mWarningTitle)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
