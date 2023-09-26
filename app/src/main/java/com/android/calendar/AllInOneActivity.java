@@ -26,7 +26,6 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
-import android.app.DatePickerDialog;
 import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -58,7 +57,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -89,6 +87,9 @@ import com.android.calendar.settings.SettingsActivity;
 import com.android.calendar.settings.SettingsActivityKt;
 import com.android.calendar.settings.ViewDetailsPreferences;
 import com.android.calendarcommon2.Time;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -96,6 +97,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -912,27 +914,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
             return true;
         } else if (itemId == R.id.action_goto) {
-            Time todayTime;
-            t = new Time(mTimeZone);
-            t.set(mController.getTime());
-            todayTime = new Time(mTimeZone);
-            todayTime.set(System.currentTimeMillis());
-            if (todayTime.getMonth() == t.getMonth()) {
-                t = todayTime;
-            }
 
-            DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+            MaterialPickerOnPositiveButtonClickListener<Long> materialPickerOnPositiveButtonClickListener = new MaterialPickerOnPositiveButtonClickListener<>() {
+                @Override
+                public void onPositiveButtonClick(Long selection) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(new Date(selection));
 
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Time selectedTime = new Time(mTimeZone);
                     selectedTime.set(System.currentTimeMillis());  // Needed for recalc function in DayView(time + gmtoff)
-                    selectedTime.setYear(year);
-                    selectedTime.setMonth(monthOfYear);
-                    selectedTime.setDay(dayOfMonth);
+                    selectedTime.setYear(calendar.get(Calendar.YEAR));
+                    selectedTime.setMonth(calendar.get(Calendar.MONTH));
+                    selectedTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
 
-                    Calendar c = Calendar.getInstance();
-                    c.set(year, monthOfYear, dayOfMonth);
-                    int weekday = c.get(Calendar.DAY_OF_WEEK);
+                    int weekday = calendar.get(Calendar.DAY_OF_WEEK);
                     if (weekday == 1) {
                         selectedTime.setWeekDay(7);
                     } else {
@@ -943,10 +938,19 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
                 }
             };
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, datePickerListener,
-                    t.getYear(), t.getMonth(), t.getDay());
-                    datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
-                    datePickerDialog.show();
+
+            CalendarConstraints calendarConstraints = new CalendarConstraints.Builder()
+                    .setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this))
+                    .build();
+
+            MaterialDatePicker<Long> datePickerDialog = MaterialDatePicker.Builder.datePicker()
+                    .setSelection(Calendar.getInstance().getTimeInMillis())
+                    .setCalendarConstraints(calendarConstraints)
+                    .setTitleText(R.string.goto_date)
+                    .build();
+
+            datePickerDialog.addOnPositiveButtonClickListener(materialPickerOnPositiveButtonClickListener);
+            datePickerDialog.show(getSupportFragmentManager(), "GoTo");
 
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
