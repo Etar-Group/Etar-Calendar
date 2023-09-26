@@ -17,7 +17,6 @@
 package com.android.calendar;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -32,10 +31,13 @@ import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.persistence.CalendarRepository;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.calendarcommon2.Time;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -267,7 +269,7 @@ public class DeleteEventHelper {
         String rRule = model.mRrule;
         String originalEvent = model.mOriginalSyncId;
         if (TextUtils.isEmpty(rRule)) {
-            AlertDialog dialog = new AlertDialog.Builder(mContext)
+            AlertDialog dialog = new MaterialAlertDialogBuilder(mContext)
                     .setMessage(R.string.delete_this_event_title)
                     .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setNegativeButton(android.R.string.cancel, null).create();
@@ -320,7 +322,7 @@ public class DeleteEventHelper {
             mWhichIndex = labelIndex;
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
                     android.R.layout.simple_list_item_single_choice, labelArray);
-            AlertDialog dialog = new AlertDialog.Builder(mContext)
+            AlertDialog dialog = new MaterialAlertDialogBuilder(mContext)
                     .setTitle(
                             mContext.getString(R.string.delete_recurring_event_title,model.mTitle))
                     .setIconAttribute(android.R.attr.alertDialogIcon)

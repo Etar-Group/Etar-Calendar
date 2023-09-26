@@ -26,7 +26,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.Settings
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -36,6 +35,7 @@ import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
 import com.android.calendar.alerts.channelId
 import com.android.calendar.persistence.CalendarRepository
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ws.xsoh.etar.R
 
 
@@ -211,7 +211,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             AuthenticatorInfo(label, icon, intent)
 
         } catch (e: PackageManager.NameNotFoundException) {
-            val errorDialog = AlertDialog.Builder(requireActivity())
+            val errorDialog = MaterialAlertDialogBuilder(requireActivity())
                 .setMessage("$e")
                 .create()
             errorDialog.show()
@@ -231,7 +231,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     }
 
     private fun deleteCalendar() {
-        val warningDialog = AlertDialog.Builder(requireActivity())
+        val warningDialog = MaterialAlertDialogBuilder(requireActivity())
                 .setMessage(R.string.preferences_calendar_delete_message)
                 .setPositiveButton(R.string.preferences_calendar_delete_delete) { _, _ ->
                     calendarRepository.deleteLocalCalendar(account.name, calendarId)
