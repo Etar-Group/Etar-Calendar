@@ -297,7 +297,7 @@
     <string name="preferences_calendar_no_display_name">名前のないカレンダー</string>
     <string name="preferences_calendar_account_local">オフラインのカレンダー</string>
     <string name="show_time_start_end_below">予定の下に開始時刻と終了時刻を表示</string>
-    <string name="preferences_calendar_number_of_events">%1$d 件の予定</string>
+    <string name="preferences_calendar_number_of_events">予定 %1$d 件</string>
     <string name="preferences_calendar_display_name">名前を変更</string>
     <string name="preferences_calendar_info_category">カレンダーの情報</string>
     <string name="preferences_calendar_visible">予定を表示</string>
