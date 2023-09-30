@@ -188,7 +188,7 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Lägg till påminnelse"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Ta bort påminnelse"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Lägg till deltagare"</string>
-    <string name="accessibility_all_day" msgid="4146955438811915282">"Hela dagen"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">Händelse för hela dagen</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Tid för påminnelse"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Påminnelsetyp"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Visa mig som"</string>
@@ -201,7 +201,7 @@
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 händelse</item>
-        <item quantity="other">+&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; händelser</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> händelser</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Markerad händelse"</string>
     <plurals name="recurrence_interval_daily">
@@ -217,8 +217,8 @@
         <item quantity="other" msgid="5419723710346646523">"Med <xliff:g id="COUNT">%d</xliff:g> månaders intervall"</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Singular form [teckengräns = 30]</item>
-        <item quantity="other">Med <xliff:g id="count">%d</xliff:g> års intervall</item>
+        <item quantity="one">Varje <xliff:g id="count">%d</xliff:g> år</item>
+        <item quantity="other">Varannat <xliff:g id="count">%d</xliff:g> år</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"samma dag varje månad"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"För alltid"</string>
@@ -237,8 +237,8 @@
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Fråga efter snoozelängd vid snooze av påminnelser</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Använd alltid standardsnoozelängd</string>
     <string name="snooze_delay_dialog_title">Välj snoozelängd</string>
-    <string name="preferences_default_snooze_delay_title">Standardsnoozelängd</string>
-    <string name="preferences_default_snooze_delay_dialog">Standardsnoozelängd</string>
+    <string name="preferences_default_snooze_delay_title">Standardfördröjningstid för snooze</string>
+    <string name="preferences_default_snooze_delay_dialog">Standard snooze-fördröjning</string>
     <string name="goto_date">Gå till…</string>
     <string name="rsvp_accepted">Svarade ja.</string>
     <string name="rsvp_tentative">Svarade kanske.</string>
@@ -269,7 +269,7 @@
     <string name="error_generating_ics">Fel uppstod när händelsen delades</string>
     <string name="cal_share_intent_title">Skicka händelse till:</string>
     <string name="cal_export_event_sdcard_title">Exportera till SD-kort</string>
-    <string name="cal_export_succ_msg">Händelse har framgångsrikt exporterats: %1s</string>
+    <string name="cal_export_succ_msg">Exporteringen av händelsen lyckades: %1$s</string>
     <string name="cal_import_menu_title">Importera händelse</string>
     <string name="cal_nothing_to_import">Ingenting att importera</string>
     <string name="cal_import_error_msg">Importering till kalendern misslyckades</string>
@@ -332,7 +332,7 @@
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g>Etar-projektet. Portioner © 2005-<xliff:g>%1$s</xliff:g>Android\'s öppna källkodprojekt.</string>
     <string name="preferences_pure_black_night_mode">Rent svart natt-läge</string>
     <string name="foreground_notification_title">Schemalägger nya påminnelser…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">efter händelsens start</string>
     <plurals name="Nweeks">
         <item quantity="one">1 vecka</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> veckor</item>
@@ -344,4 +344,8 @@
 \nI DAVx⁵ kan \"Hantera kalenderfärger\" inaktiveras för att förhindra detta.</string>
     <string name="preferences_calendar_account_local">Ej uppkopplad kalender</string>
     <string name="preferences_list_add_remote_etesync">Lägg till EteSync-kalender</string>
+    <string name="hint_url">URL</string>
+    <string name="duplicate_label">Fördubbla</string>
+    <string name="add_calendar">Lägg till kalender</string>
+    <string name="no_calendars_found">Du måste lägga till minst en kalender i din enhet innan du kan lägga till en händelse</string>
 </resources>
