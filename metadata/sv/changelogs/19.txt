@@ -1,0 +1,2 @@
+- Buggfix för aviseringar.
+- Nya översättningar.

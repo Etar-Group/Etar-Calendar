@@ -1,0 +1,4 @@
+- Förbättrad månadsvy.
+- Åt6komst för att läsa kontakter är valfritt igen.
+- Snyggare textlådor under skapandet av händelsen.
+- Mindre buggfixar.

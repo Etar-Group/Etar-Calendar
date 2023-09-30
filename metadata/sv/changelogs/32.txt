@@ -1,0 +1,7 @@
+- Skapa och visa påminnelser efter att händelsen har börjar med en kryssruta
+- Reparera påminnelsen med negativa värden
+- Lös ogiltiga klockslag till följd av byten av tidszoner
+- Alternativ att lägga till ny händelse från widget-rutan
+- Omarbeta tema-färger
+- Buggfixar
+- Nya översättningar
