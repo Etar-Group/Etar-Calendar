@@ -1,0 +1,5 @@
+- Extra aviseringar krävs för den interna varningssynk. Vänligen stäng av ljudet.
+- Åtkomster som inte längre behövs togs bort.
+- Färglagd aviseringsikon.
+- Buggfixar.
+- Nya översättningar.

@@ -1,0 +1,3 @@
+- Lägg till ett fält för URL
+- Buggfixar
+- Nya översättningar
