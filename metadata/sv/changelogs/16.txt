@@ -1,0 +1,7 @@
+- Släppte widgeten, använd Kalender-widgeten just nu: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+- Stöd för färganpassade händelser.
+- Bättre stöd för ics-filer.
+- Lägg till grått tema.
+- Stöd synlighet konfidentiellt.
+- Stöd nya aviseringskanaler för Android.
+- Massor av bugg-fixar.
