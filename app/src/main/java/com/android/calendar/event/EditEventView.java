@@ -885,6 +885,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 setAllDayViewsVisibility(isChecked);
+                if(!isChecked) {
+                    resetToDefaultDuration();
+                }
             }
         });
 
@@ -1431,6 +1434,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             TimeZone.setDefault(null);
         }
         view.setText(timeString);
+    }
+
+    protected void resetToDefaultDuration() {
+        mEndTime.setDay(mEndTime.getDay() - 1);
+        mEndTime.set(mStartTime.normalize() +
+                     Utils.getDefaultEventDurationInMillis(mActivity));
+        long endMillis = mEndTime.normalize();
+        setDate(mEndDateButton, endMillis);
+        setTime(mEndTimeButton, endMillis);
     }
 
     /**
