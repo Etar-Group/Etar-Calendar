@@ -424,12 +424,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void setTimezone(String timeZone) {
         mTimezone = timeZone;
-        mStartTime.setTimezone(mTimezone);
-        long timeMillis = mStartTime.normalize();
-        mEndTime.setTimezone(mTimezone);
+        Utils.changeTimezoneOnly(mStartTime, mTimezone);
+        Utils.changeTimezoneOnly(mEndTime, mTimezone);
+        long startMillis = mStartTime.normalize();
         mEndTime.normalize();
 
-        populateTimezone(timeMillis);
+        populateTimezone(startMillis);
     }
 
     private void populateTimezone(long eventStartTime) {
