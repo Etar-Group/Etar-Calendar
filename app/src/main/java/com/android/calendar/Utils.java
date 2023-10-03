@@ -2246,4 +2246,18 @@ public class Utils {
         }
     }
 
+    /**
+     * Change a Time object to be the same (year, month, day, hour, minute, second) tuple
+     * but in another timezone
+     *
+     * @param t The Time object to modify
+     * @param timezone the new timezone
+     */
+    public static void changeTimezoneOnly(Time t, String timezone) {
+        Time pivot = new Time(timezone);
+        pivot.set(t.getSecond(), t.getMinute(), t.getHour(),
+                  t.getDay(), t.getMonth(), t.getYear());
+        t.set(pivot);
+    }
+
 }
