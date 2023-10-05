@@ -34,8 +34,15 @@ import android.util.Log;
 
 import com.android.calendar.settings.GeneralPreferences;
 
+import org.dmfs.rfc5545.DateTime;
+import org.dmfs.rfc5545.iterable.RecurrenceSet;
+import org.dmfs.rfc5545.iterable.instanceiterable.RuleInstances;
+import org.dmfs.rfc5545.recur.RecurrenceRule;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -368,12 +375,78 @@ public class Event implements Cloneable {
         String rdate = cEvents.getString(PROJECTION_RDATE_INDEX);
         if (!TextUtils.isEmpty(rrule) || !TextUtils.isEmpty(rdate)) {
             e.isRepeating = true;
+
+            /** We need to double check a few RRULE conditions that the Android Calendar Provider
+             *  doesn't handle and shows duplicate events for, namely:
+             *
+             *      - BYSETPOS
+             *      - BYWEEKNO
+             *
+             * For these conditions, double check if this event really occurs on this day, if it
+             * doesn't, reset the endDay value to 0 so it is removed from the events list.
+             *
+             * It might make sense to check all rrule's, as there may be other broken sets, but
+             * the overhead is probably not worth it at this point.
+             **/
+            if (rrule.contains("BYSETPOS=") || rrule.contains("BYWEEKNO=")) {
+                e.endDay = checkRRuleEventDate(rrule, e.startMillis, e.endDay);
+            }
         } else {
             e.isRepeating = false;
         }
 
         e.selfAttendeeStatus = cEvents.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
         return e;
+    }
+
+    /** Android's RRULE code is broken in a way the creates additional events in certain
+     *  circumstances (though never doesn't create the actaul event) so let's use another RRULE
+     *  parser to validate if the event is real or not.
+     *
+     *  In this case we're using lib-recur from https://github.com/dmfs/lib-recur through maven.
+     *
+     **/
+    static int checkRRuleEventDate( String rrule, long startTime, int endDay) {
+        // Convert the startTime into some useable Day/Month/Year values.
+        Date date = new java.util.Date(startTime);
+
+        // We'll use SimpleDateFormat to get the D/M/Y but we also need to set the timezone.
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat();
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+
+        sdf.applyPattern("yyyy");
+        int startYear = Integer.parseInt(sdf.format(date));
+        sdf.applyPattern("MM");
+        int startMonth = Integer.parseInt(sdf.format(date)) - 1;
+        sdf.applyPattern("dd");
+        int startDay = Integer.parseInt(sdf.format(date));
+
+        // Parse the recurrence rule.
+        RecurrenceRule rule;
+        try {
+            rule = new RecurrenceRule(rrule);
+        } catch (Exception e) {
+            // On failure, assume we match and return.
+            return endDay;
+        }
+
+        // Use the Year/Month/Day startTime values to create a firstInstance.
+        DateTime firstInstance = new DateTime(startYear, startMonth, startDay);
+
+        // Create the recurrence set for the rule, we're only going to look at the first one
+        // as it should match the firstInstance if this is a valid event from Android.
+        for (DateTime instance:new RecurrenceSet(firstInstance, new RuleInstances(rule))) {
+            if (!instance.equals(firstInstance)) {
+                // If this isn't a valid event, return 0 so it gets removed from the event list.
+                return 0;
+            } else {
+                // If this is a valid event, return the endDay that we were passed in with.
+                return endDay;
+            }
+        }
+
+        // We should never get here, but add a return just in case.
+        return endDay;
     }
 
     /**
