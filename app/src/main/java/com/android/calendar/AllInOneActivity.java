@@ -1363,10 +1363,13 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 if (event.startTime != null && event.endTime != null) {
                     // Event is all day , adjust the goto time to local time
                     if (event.isAllDay()) {
-                        Utils.convertAlldayUtcToLocal(
-                                event.startTime, event.startTime.toMillis(), mTimeZone);
-                        Utils.convertAlldayUtcToLocal(
-                                event.endTime, event.endTime.toMillis(), mTimeZone);
+                        final Time t = new Time();
+                        event.startTime.set(
+                                Utils.convertAlldayUtcToLocal(
+                                        t, event.startTime.toMillis(), mTimeZone));
+                        event.endTime.set(
+                                Utils.convertAlldayUtcToLocal(
+                                        t, event.endTime.toMillis(), mTimeZone));
                     }
                     mController.sendEvent(this, EventType.GO_TO, event.startTime, event.endTime,
                             event.selectedTime, event.id, ViewType.AGENDA,
