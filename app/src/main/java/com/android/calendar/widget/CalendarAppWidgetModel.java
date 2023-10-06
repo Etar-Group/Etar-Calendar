@@ -50,7 +50,7 @@ class CalendarAppWidgetModel {
     public CalendarAppWidgetModel(Context context, String timeZone) {
         mNow = System.currentTimeMillis();
         Time time = new Time(timeZone);
-        time.set(System.currentTimeMillis()); // This is needed for gmtoff to be set
+        time.set(mNow); // This is needed for gmtoff to be set
         mTodayJulianDay = Time.getJulianDay(mNow, time.getGmtOffset());
         mMaxJulianDay = mTodayJulianDay + CalendarAppWidgetService.MAX_DAYS - 1;
         mEventInfos = new ArrayList<EventInfo>(50);
