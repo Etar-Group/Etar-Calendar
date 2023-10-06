@@ -204,15 +204,16 @@ class CalendarAppWidgetModel {
 
     private DayInfo populateDayInfo(int julianDay, Time recycle) {
         long millis = recycle.setJulianDay(julianDay);
-        int flags = DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_DATE;
+        int flags =
+            DateUtils.FORMAT_ABBREV_ALL |
+            DateUtils.FORMAT_SHOW_DATE |
+            DateUtils.FORMAT_SHOW_WEEKDAY;
 
         String label;
         if (julianDay == mTodayJulianDay + 1) {
-            flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
             label = mContext.getString(R.string.agenda_tomorrow,
                     Utils.formatDateRange(mContext, millis, millis, flags));
         } else {
-            flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
             label = Utils.formatDateRange(mContext, millis, millis, flags);
         }
         return new DayInfo(julianDay, label);
