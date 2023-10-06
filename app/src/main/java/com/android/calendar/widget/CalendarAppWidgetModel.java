@@ -60,13 +60,11 @@ class CalendarAppWidgetModel {
     }
 
     public void buildFromCursor(Cursor cursor, String timeZone) {
-        final Time recycle = new Time(timeZone);
         final ArrayList<LinkedList<RowInfo>> mBuckets =
                 new ArrayList<LinkedList<RowInfo>>(CalendarAppWidgetService.MAX_DAYS);
         for (int i = 0; i < CalendarAppWidgetService.MAX_DAYS; i++) {
             mBuckets.add(new LinkedList<RowInfo>());
         }
-        recycle.set(System.currentTimeMillis());
         mShowTZ = !TextUtils.equals(timeZone, Utils.getCurrentTimezone());
         if (mShowTZ) {
             mHomeTZName = TimeZone.getTimeZone(timeZone).getDisplayName(false, TimeZone.SHORT);
@@ -93,6 +91,7 @@ class CalendarAppWidgetModel {
 
             // Adjust all-day times into local timezone
             if (allDay) {
+                final Time recycle = new Time();
                 start = Utils.convertAlldayUtcToLocal(recycle, start, tz);
                 end = Utils.convertAlldayUtcToLocal(recycle, end, tz);
             }
@@ -131,6 +130,7 @@ class CalendarAppWidgetModel {
             if (!bucket.isEmpty()) {
                 // We don't show day header in today
                 if (day != mTodayJulianDay) {
+                    final Time recycle = new Time(timeZone);
                     final DayInfo dayInfo = populateDayInfo(day, recycle);
                     // Add the day header
                     final int dayIndex = mDayInfos.size();
