@@ -206,10 +206,24 @@ public class Utils {
     private static String sVersion = null;
 
     /**
+     * Returns whether the SDK is the Q release or later.
+     */
+    public static boolean isQOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
+    }
+
+    /**
      * Returns whether the SDK is the Oreo release or later.
      */
     public static boolean isOreoOrLater() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    }
+
+    /**
+     * Returns whether the SDK is the Marshmallow release or later.
+     */
+    public static boolean isMOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     /**

@@ -265,7 +265,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.android.calendar.alerts.AlertService" />
+        <service android:name="com.android.calendar.alerts.AlertService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <service android:name="com.android.calendar.alerts.DismissAlarmsService" />
 
