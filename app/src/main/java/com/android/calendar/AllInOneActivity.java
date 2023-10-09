@@ -23,7 +23,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import android.Manifest;
-import android.app.AlarmManager;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
@@ -597,9 +596,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.registerFirstEventHandler(HANDLER_KEY, this);
         mOnSaveInstanceStateCalled = false;
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            if (!alarmManager.canScheduleExactAlarms()) {
+            if (!Utils.canScheduleAlarms(this)) {
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                 startActivity(intent);

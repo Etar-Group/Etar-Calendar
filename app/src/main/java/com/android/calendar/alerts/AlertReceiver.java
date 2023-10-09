@@ -140,6 +140,9 @@ public class AlertReceiver extends BroadcastReceiver {
             if (Utils.isMOrLater()) {
                 if (pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
                     if (Utils.isOreoOrLater()) {
+                        if (Utils.isUpsideDownCakeOrLater() && !Utils.canScheduleAlarms(context)) {
+                            return;
+                        }
                         context.startForegroundService(intent);
                     } else {
                         context.startService(intent);

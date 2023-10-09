@@ -21,6 +21,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -54,6 +55,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
@@ -204,6 +206,19 @@ public class Utils {
     static boolean mMinutesLoaded = false;
     private static boolean mAllowWeekForDetailView = false;
     private static String sVersion = null;
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    public static boolean canScheduleAlarms(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        return alarmManager.canScheduleExactAlarms();
+    }
+
+    /**
+     * Returns whether the SDK is the UpsideDownCake release or later.
+     */
+    public static boolean isUpsideDownCakeOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
+    }
 
     /**
      * Returns whether the SDK is the Q release or later.
