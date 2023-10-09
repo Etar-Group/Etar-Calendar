@@ -17,7 +17,9 @@
 
 package com.android.calendar.alerts;
 
+import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC;
 import static com.android.calendar.alerts.AlertService.ALERT_CHANNEL_ID;
+import static com.android.calendar.alerts.AlertService.FOREGROUND_CHANNEL_ID;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -48,6 +50,9 @@ import android.text.style.TextAppearanceSpan;
 import android.text.style.URLSpan;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.ServiceCompat;
 
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
@@ -132,14 +137,18 @@ public class AlertReceiver extends BroadcastReceiver {
             }
             mStartingService.acquire();
 
-            if (pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
-                if (Utils.isOreoOrLater()) {
-                    context.startForegroundService(intent);
+            if (Utils.isMOrLater()) {
+                if (pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
+                    if (Utils.isOreoOrLater()) {
+                        context.startForegroundService(intent);
+                    } else {
+                        context.startService(intent);
+                    }
                 } else {
-                    context.startService(intent);
+                    Log.d(TAG, "Battery optimizations are not disabled");
                 }
             } else {
-                Log.d(TAG, "Battery optimizations are not disabled");
+                context.startService(intent);
             }
         }
     }
