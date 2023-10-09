@@ -1787,7 +1787,7 @@ public class Utils {
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
 
         CalendarBroadcastReceiver r = new CalendarBroadcastReceiver(callback);
-        c.registerReceiver(r, filter);
+        ContextCompat.registerReceiver(c, r, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
         return r;
     }
 
