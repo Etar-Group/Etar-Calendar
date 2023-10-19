@@ -26,7 +26,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.Settings
-import android.util.TypedValue
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.preference.EditTextPreference
@@ -127,7 +126,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
         val localAccountPreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_account_local)
-            icon = getThemeDrawable(R.attr.settings_calendar_offline)
             isSelectable = false
         }
         val localAccountInfoPreference = Preference(context).apply {
@@ -172,14 +170,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
 
         preferenceScreen = screen
-    }
-
-    private fun getThemeDrawable(attr: Int): Drawable {
-        val typedValue = TypedValue()
-        requireContext().theme.resolveAttribute(attr, typedValue, true)
-        val imageResId = typedValue.resourceId
-        return ContextCompat.getDrawable(requireContext(), imageResId)
-                ?: throw IllegalArgumentException("Cannot load drawable $imageResId")
     }
 
     private fun getColorIcon(color: Int): Drawable {
