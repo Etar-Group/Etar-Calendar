@@ -15,7 +15,6 @@
 -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="?attr/event_info_bgcolor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/event_info_padding">
@@ -61,8 +60,7 @@
         android:fadingEdge="none"
         android:animateLayoutChanges="true"
         android:layout_below="@+id/bar"
-        android:layout_height="match_parent"
-        android:background="?attr/event_info_scrollview_bgcolor">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +93,6 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:text="@string/view_event_calendar_label"
-                        android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
                         android:textSize="14sp"/>
                     <TextView
@@ -107,7 +104,6 @@
                         android:maxLines="1"
                         android:layout_marginStart="2dip"
                         android:textIsSelectable="true"
-                        android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -126,7 +122,6 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:text="@string/event_info_organizer"
-                        android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
                         android:textSize="14sp"/>
                     <TextView
@@ -138,7 +133,6 @@
                         android:maxLines="1"
                         android:layout_marginStart="2dip"
                         android:textIsSelectable="true"
-                        android:textColor="?attr/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -171,7 +165,6 @@
                     android:paddingRight="8dip"
                     android:layout_marginLeft="8dip"
                     android:layout_marginRight="8dip"
-                    android:textColor="?attr/event_info_label_color"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     style="?android:attr/listSeparatorTextViewStyle"
                     android:text="@string/view_event_response_label" />
@@ -192,7 +185,6 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         style="?android:attr/textAppearanceMedium"
-                        android:textColor="?attr/event_info_body_color"
                         android:text="@string/response_yes" />
                     <RadioButton
                         android:id="@+id/response_maybe"
@@ -202,7 +194,6 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         style="?android:attr/textAppearanceMedium"
-                        android:textColor="?attr/event_info_body_color"
                         android:text="@string/response_maybe" />
                     <RadioButton
                         android:id="@+id/response_no"
@@ -212,7 +203,6 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         style="?android:attr/textAppearanceMedium"
-                        android:textColor="?attr/event_info_body_color"
                         android:text="@string/response_no" />
                 </RadioGroup>
             </LinearLayout>
@@ -243,9 +233,8 @@
                     android:layout_marginBottom="0dip"
                     android:textAllCaps="false"
                     android:textSize="16sp"
-                    android:textColor="?attr/event_info_description_color"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableStart="?attr/ic_menu_email"
+                    android:drawableStart="@drawable/ic_email"
                     android:drawablePadding="8dp"
                     style="@style/TextAppearance.EditEvent_LabelSmall" />
             </LinearLayout>
@@ -275,7 +264,6 @@
                     android:layout_marginBottom="0dip"
                     android:textAllCaps="false"
                     android:textSize="16sp"
-                    android:textColor="?attr/event_info_description_color"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawablePadding="8dp"
                     style="@style/TextAppearance.EditEvent_LabelSmall" />
@@ -284,7 +272,6 @@
             <!-- GUEST LIST -->
             <com.android.calendar.event.AttendeesView
                 android:id="@+id/long_attendee_list"
-                android:textColor="?attr/event_info_body_color"
                 android:orientation="vertical"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -304,7 +291,6 @@
                 android:layout_marginBottom="0dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 style="?android:attr/listSeparatorTextViewStyle"
-                android:textColor="?attr/event_info_label_color"
                 android:text="@string/event_info_reminders_label" />
             <LinearLayout
                 android:id="@+id/reminder_items_container"
@@ -328,7 +314,6 @@
                 android:layout_marginBottom="0dip"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:textColor="?attr/event_info_description_color"
                 android:minHeight="20dip"
                 android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@string/accessibility_add_reminder"

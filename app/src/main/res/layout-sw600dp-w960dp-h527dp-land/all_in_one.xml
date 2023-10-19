@@ -28,8 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@id/mini_month_container"
-        android:paddingStart="20dip"
-        android:background="?attr/calendar_future_bg_color" >
+        android:paddingStart="20dip" >
         <TextView
             android:id="@+id/date_bar"
             android:layout_width="wrap_content"
