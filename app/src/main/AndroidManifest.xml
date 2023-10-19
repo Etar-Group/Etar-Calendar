@@ -61,13 +61,12 @@
         android:taskAffinity="ws.xsoh.etar.task"
         android:requiredAccountType="*"
         android:usesCleartextTraffic="false"
-        android:theme="@style/CalendarAppThemeLight">
+        android:theme="@style/Theme.Etar">
 
         <activity
             android:name="com.android.calendar.AllInOneActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/CalendarTheme.WithoutActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -111,8 +110,7 @@
         </activity>
 
         <activity android:name="com.android.calendar.event.EditEventActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Base.CalendarAppThemeWithActionBar">
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
 
         <activity-alias android:name="com.android.calendar.EditEventActivity"
@@ -179,7 +177,6 @@
             android:exported="true"
             android:label="@string/search_title"
             android:launchMode="singleTop"
-            android:theme="@style/CalendarTheme.WithActionBar"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
