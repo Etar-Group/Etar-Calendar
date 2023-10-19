@@ -44,14 +44,12 @@
             android:layout_marginTop="4dip"
             android:layout_marginBottom="-8dip"
             android:singleLine="true"
-            android:textSize="12sp"
-            android:textColor="?attr/agenda_day_item_text_color" />
+            android:textSize="12sp" />
         <TextView
             android:id="@+id/date"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:singleLine="true"
-            android:textSize="24sp"
-            android:textColor="?attr/agenda_day_item_text_color" />
+            android:textSize="24sp" />
     </LinearLayout>
 </LinearLayout>

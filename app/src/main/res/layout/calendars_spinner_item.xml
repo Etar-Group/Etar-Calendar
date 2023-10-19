@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:ellipsize="end"
-        android:textColor="?attr/light_dark"
         android:textSize="18sp" />
 
     <TextView
@@ -35,7 +34,6 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         style="?android:attr/spinnerItemStyle"
-        android:textColor="?attr/light_dark"
         android:textSize="14sp" />
 
 </LinearLayout>

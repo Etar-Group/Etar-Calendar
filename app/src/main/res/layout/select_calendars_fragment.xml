@@ -33,7 +33,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:cacheColorHint="#00000000"
-        android:divider="?attr/divider_select_calendars"
+        android:divider="@color/divider_select_calendars"
         android:dividerHeight="1dp"
         android:listSelector="@android:color/transparent" />
 

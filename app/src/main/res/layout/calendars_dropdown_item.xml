@@ -27,8 +27,7 @@
         android:layout_width="16dip"
         android:layout_height="16dip"
         android:layout_marginRight="4dip"
-        android:layout_marginTop="5dip"
-    />
+        android:layout_marginTop="5dip" />
 
     <TextView
         android:id="@+id/calendar_name"
@@ -38,9 +37,7 @@
         android:ellipsize="marquee"
         android:layout_toRightOf="@id/color"
         android:layout_alignParentTop="true"
-        android:layout_height="wrap_content"
-        android:textColor="?attr/light_dark"
-    />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/account_name"
@@ -50,8 +47,6 @@
         android:layout_alignLeft="@id/calendar_name"
         android:ellipsize="marquee"
         android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="?attr/calendar_owner_text_color"
-    />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
