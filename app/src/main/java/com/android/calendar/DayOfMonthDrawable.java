@@ -18,12 +18,15 @@ package com.android.calendar;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+
+import com.google.android.material.color.MaterialColors;
 
 import java.text.NumberFormat;
 
@@ -44,7 +47,7 @@ public class DayOfMonthDrawable extends Drawable {
         mTextSize = c.getResources().getDimension(R.dimen.today_icon_text_size);
         mPaint = new Paint();
         mPaint.setAlpha(255);
-        mPaint.setColor(c.getResources().getColor(R.color.titleTextColor));
+        mPaint.setColor(MaterialColors.getColor(c, R.attr.colorControlNormal, Color.BLACK));
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setTextSize(mTextSize);
         mPaint.setTextAlign(Paint.Align.CENTER);
