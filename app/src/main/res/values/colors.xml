@@ -21,6 +21,7 @@
 
     <color name="colorPrimary">#41c3b1</color>
     <color name="colorPrimaryDark">#388d7f</color>
+    <color name="colorSecondaryContainer">#90eee2</color>
     <color name="colorAccent">#1dc1ab</color>
     <color name="colorOrangePrimary">#f1922d</color>
     <color name="colorOrangePrimaryDark">#b36f28</color>
