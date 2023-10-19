@@ -177,7 +177,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/is_all_day"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
@@ -187,7 +187,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/is_all_day_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/is_all_day_label"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.4"
+            app:thumbTint="@color/preference_material_switch_color" />
 
         <!-- FROM - Read/write version which launches the date/time pickers -->
 
@@ -201,9 +202,10 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_start_date"
             android:gravity="start|center_vertical"
+            android:paddingHorizontal="0dp"
             android:textAlignment="textStart"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/start_time"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/is_all_day_label" />
 
         <Button
@@ -215,9 +217,10 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_end_date"
             android:gravity="start|center_vertical"
+            android:paddingHorizontal="0dp"
             android:textAlignment="textStart"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/end_time"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_date" />
 
         <Button
@@ -229,11 +232,11 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_start_time"
             android:gravity="end|center_vertical"
-            android:textAlignment="textEnd"
             android:minWidth="48dp"
-            app:layout_constraintStart_toEndOf="@+id/start_date"
+            android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@+id/start_date"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/start_date"
             app:layout_constraintTop_toTopOf="@+id/start_date" />
 
         <Button
@@ -241,17 +244,17 @@
             style="@style/TextAppearance.EditEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
             android:layout_marginTop="0dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="12dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_end_time"
             android:gravity="end|center_vertical"
-            android:textAlignment="textEnd"
             android:minWidth="48dp"
-            app:layout_constraintStart_toEndOf="@+id/end_date"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@+id/end_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/end_date"
             app:layout_constraintTop_toBottomOf="@+id/start_time" />
 
         <!-- TIME ZONE - Read/write version with button to launch picker -->
@@ -260,22 +263,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginBottom="22dp"
             android:src="@drawable/ic_outline_public"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/timezone_button" />
+            app:layout_constraintBottom_toBottomOf="@+id/view7"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/timezone_button"
             style="@style/TextAppearance.EditEvent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_time_zone"
             android:gravity="start"
             android:lineSpacingExtra="4dp"
+            android:paddingHorizontal="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timezone_icon"
             app:layout_constraintTop_toBottomOf="@+id/end_date" />
@@ -425,7 +429,8 @@
                 android:layout_marginTop="2dip"
                 android:hint="@string/hint_attendees"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress|textMultiLine|textCapWords" />
+                android:inputType="textEmailAddress|textMultiLine|textCapWords"
+                android:padding="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- WHERE -->
@@ -457,6 +462,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="textAutoCorrect|textCapSentences"
                 android:minHeight="48dip"
+                android:padding="15dp"
                 android:singleLine="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -581,21 +587,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:focusable="true"
             android:orientation="vertical"
             android:translationY="-6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/reminder_icon"
-            app:layout_constraintTop_toTopOf="@+id/reminder_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <Button
             android:id="@+id/reminder_add"
-            style="@style/TextAppearance.EditEvent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginTop="12dp"
             android:contentDescription="@string/accessibility_add_reminder"
             android:minHeight="20dip"
             android:text="@string/reminders_label"
