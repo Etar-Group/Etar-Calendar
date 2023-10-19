@@ -21,7 +21,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.android.calendar.DynamicTheme
 import ws.xsoh.etar.R
 import ws.xsoh.etar.databinding.SimpleFrameLayoutMaterialBinding
 
@@ -38,11 +37,8 @@ const val EXTRA_SHOW_FRAGMENT = "settingsShowFragment"
 class SettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
-    private val dynamicTheme = DynamicTheme()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dynamicTheme.onCreate(this)
 
         val fragment = if (intent.hasExtra(EXTRA_SHOW_FRAGMENT)) {
             supportFragmentManager.fragmentFactory.instantiate(
@@ -92,10 +88,5 @@ class SettingsActivity : AppCompatActivity(),
                 .addToBackStack(null)
                 .commit()
         return true
-    }
-
-    override fun onResume() {
-        super.onResume()
-        dynamicTheme.onResume(this)
     }
 }

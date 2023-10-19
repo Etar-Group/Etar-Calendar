@@ -160,7 +160,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private View mMiniMonth;
     private View mCalendarsList;
     private View mMiniMonthContainer;
-    private final DynamicTheme dynamicTheme = new DynamicTheme();
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 
         @Override
@@ -262,9 +261,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     protected void onCreate(Bundle icicle) {
-        setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         super.onCreate(icicle);
-        dynamicTheme.onCreate(this);
         mActivity = this;
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
@@ -504,7 +501,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             };
             mToolbar.setTitle(titleResource);
         }
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_navigator);
         setSupportActionBar(mToolbar);
 
         mToolbar.setNavigationOnClickListener(v -> AllInOneActivity.this.openDrawer());
@@ -587,7 +583,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     protected void onResume() {
         super.onResume();
-        dynamicTheme.onResume(this);
 
         // Check if the upgrade code has ever been run. If not, force a sync just this one time.
         Utils.trySyncAndDisableUpgradeReceiver(this);
