@@ -16,8 +16,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/event_info_bgcolor">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/event_info_loading_msg"
         android:layout_width="match_parent"
@@ -194,7 +193,6 @@
                         android:paddingStart="16dip"
                         android:maxLines="1"
                         android:text="@string/view_event_calendar_label"
-                        android:textColor="?attr/event_info_organizer_color"
                         android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/calendar_name"
@@ -206,7 +204,6 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="?attr/event_info_organizer_color"
                         android:textIsSelectable="true"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -226,7 +223,6 @@
                         android:paddingStart="16dip"
                         android:maxLines="1"
                         android:text="@string/event_info_organizer"
-                        android:textColor="?attr/event_info_organizer_color"
                         android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/organizer"
@@ -238,7 +234,6 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="?attr/event_info_organizer_color"
                         android:textIsSelectable="true"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -272,8 +267,7 @@
                     android:paddingStart="8dip"
                     android:paddingEnd="16dip"
                     android:text="@string/view_event_response_label"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?attr/event_info_label_color" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
                 <RadioGroup
                     android:id="@+id/response_value"
                     android:layout_width="match_parent"
@@ -290,8 +284,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:minWidth="96dip"
-                        android:text="@string/response_yes"
-                        android:textColor="?attr/event_info_body_color" />
+                        android:text="@string/response_yes" />
                     <RadioButton
                         android:id="@+id/response_maybe"
                         style="?android:attr/textAppearanceMedium"
@@ -300,8 +293,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:minWidth="96dip"
-                        android:text="@string/response_maybe"
-                        android:textColor="?attr/event_info_body_color" />
+                        android:text="@string/response_maybe" />
                     <RadioButton
                         android:id="@+id/response_no"
                         style="?android:attr/textAppearanceMedium"
@@ -310,8 +302,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:minWidth="96dip"
-                        android:text="@string/response_no"
-                        android:textColor="?attr/event_info_body_color" />
+                        android:text="@string/response_no" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -339,7 +330,7 @@
                     android:layout_marginEnd="0dp"
                     android:layout_marginTop="0dip"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableStart="?attr/ic_menu_email"
+                    android:drawableStart="@drawable/ic_email"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:paddingBottom="0dp"
@@ -388,7 +379,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:orientation="vertical"
-                android:textColor="?attr/event_info_body_color"
                 android:visibility="gone" />
 
             <!-- REMINDERS -->
@@ -408,8 +398,7 @@
                     android:paddingStart="8dip"
                     android:paddingEnd="16dip"
                     android:text="@string/event_info_reminders_label"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?attr/event_info_label_color" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
                 <LinearLayout
                     android:id="@+id/reminder_items_container"
                     android:layout_width="match_parent"
