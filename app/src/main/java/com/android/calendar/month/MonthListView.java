@@ -43,10 +43,12 @@ public class MonthListView extends ListView {
     private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 2000;
     private static int FLING_VELOCITY_DIVIDER = 500;
     private static int FLING_TIME = 1000;
+    private static int LEFT_RIGHT_DISTANCE = 150;
 
     // disposable variable used for time calculations
     protected Time mTempTime;
     private long mDownActionTime;
+    private float mLeftRightAction;
     private final Rect mFirstViewRect = new Rect();
 
     Context mListContext;
@@ -109,14 +111,27 @@ public class MonthListView extends ListView {
             case MotionEvent.ACTION_DOWN:
                 mTracker.clear();
                 mDownActionTime = SystemClock.uptimeMillis();
+                mLeftRightAction =  ev.getX();
                 break;
             // Accumulate velocity and do a custom fling when above threshold
+            // and look for left/right swipes as well.
             case MotionEvent.ACTION_UP:
+                // Check for the fling.
                 mTracker.addMovement(ev);
                 mTracker.computeCurrentVelocity(1000);    // in pixels per second
                 float vel =  mTracker.getYVelocity ();
                 if (Math.abs(vel) > MIN_VELOCITY_FOR_FLING) {
                     doFling(vel);
+                    return true;
+                }
+                // Check for the left/right swipe.
+                float leftRightSwipe = mLeftRightAction - ev.getX();
+                if( Math.abs(leftRightSwipe) > LEFT_RIGHT_DISTANCE ) {
+                    if( leftRightSwipe > 0 ) {
+                        doLeftRight(1);
+                    } else {
+                        doLeftRight(-1);
+                    }
                     return true;
                 }
                 break;
@@ -161,6 +176,46 @@ public class MonthListView extends ListView {
         // Get the day of the first day of the next/previous month
         // (according to scroll direction)
         mTempTime.setJulianDay(day);
+        mTempTime.setDay(1);
+        mTempTime.setMonth(mTempTime.getMonth() + monthsToJump);
+        long timeInMillis = mTempTime.normalize();
+        // Since each view is 7 days, round the target day up to make sure the
+        // scroll will be  at least one view.
+        int scrollToDay = Time.getJulianDay(timeInMillis, mTempTime.getGmtOffset())
+                + ((monthsToJump > 0) ? 6 : 0);
+
+        // Since all views have the same height, scroll by pixels instead of
+        // "to position".
+        // Compensate for the top view offset from the top.
+        View firstView = getChildAt(0);
+        int firstViewHeight = firstView.getHeight();
+        // Get visible part length
+        firstView.getLocalVisibleRect(mFirstViewRect);
+        int topViewVisiblePart = mFirstViewRect.bottom - mFirstViewRect.top;
+        int viewsToFling = (scrollToDay - day) / 7 - ((monthsToJump <= 0) ? 1 : 0);
+        int offset = (viewsToFling > 0) ? -(firstViewHeight - topViewVisiblePart
+                + SimpleDayPickerFragment.LIST_TOP_OFFSET) : (topViewVisiblePart
+                - SimpleDayPickerFragment.LIST_TOP_OFFSET);
+        // Fling
+        smoothScrollBy(viewsToFling * firstViewHeight + offset, FLING_TIME);
+    }
+
+    // Do a "snap to start of month" fling
+    // Left = +1
+    // Right = -1
+    private void doLeftRight(int monthsToJump) {
+
+        // Stop the list-view movement and take over
+        MotionEvent cancelEvent = MotionEvent.obtain(mDownActionTime,  SystemClock.uptimeMillis(),
+                MotionEvent.ACTION_CANCEL, 0, 0, 0);
+        onTouchEvent(cancelEvent);
+
+        // Get the day at the top right corner
+        int day = getUpperRightJulianDay();
+        // Get the day of the first day of the next/previous month
+        // (according to scroll direction) and make sure we're crossing
+        // the boundry.
+        mTempTime.setJulianDay(day + 6);
         mTempTime.setDay(1);
         mTempTime.setMonth(mTempTime.getMonth() + monthsToJump);
         long timeInMillis = mTempTime.normalize();
