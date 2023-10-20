@@ -400,7 +400,7 @@ public class Event implements Cloneable {
     }
 
     /** Android's RRULE code is broken in a way the creates additional events in certain
-     *  circumstances (though never doesn't create the actaul event) so let's use another RRULE
+     *  circumstances (though never doesn't create the actual event) so let's use another RRULE
      *  parser to validate if the event is real or not.
      *
      *  In this case we're using lib-recur from https://github.com/dmfs/lib-recur through maven.
