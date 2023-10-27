@@ -105,6 +105,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.material:material:1.8.0'
+    implementation project(path: ':external:calendar')
     testImplementation 'junit:junit:4.13.2'
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'

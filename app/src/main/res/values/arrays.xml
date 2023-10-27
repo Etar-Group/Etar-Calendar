@@ -80,8 +80,23 @@
         <item>360</item>
         <item>540</item>
         <item>720</item> <!-- 12 hours -->
+        <item>780</item> <!-- 13 hours -->
+        <item>840</item> <!-- 14 hours -->
+        <item>900</item> <!-- 15 hours -->
+        <item>960</item> <!-- 16 hours -->
+        <item>1020</item> <!-- 17 hours -->
+        <item>1080</item> <!-- 18 hours -->
+        <item>1140</item> <!-- 19 hours -->
+        <item>1200</item> <!-- 20 hours -->
+        <item>1260</item> <!-- 21 hours -->
+        <item>1320</item> <!-- 22 hours -->
+        <item>1380</item> <!-- 23 hours -->
         <item>1440</item> <!-- 24 hours -->
         <item>2880</item> <!-- 2 days -->
+        <item>4320</item> <!-- 3 days -->
+        <item>5760</item> <!-- 4 days -->
+        <item>7200</item> <!-- 5 days -->
+        <item>8640</item> <!-- 6 days -->
         <item>10080</item> <!-- 1 week -->
         <item>20160</item> <!-- 2 weeks -->
         <item>40320</item> <!-- 4 weeks -->
