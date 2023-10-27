@@ -88,7 +88,7 @@
     </integer-array>
 
     <string-array name="preferences_default_reminder_values" translatable="false">
-        <item>"-1"</item>
+        <item>"-2147483648"</item>
         <item>"0"</item>
         <item>"1"</item>
         <item>"5"</item>
