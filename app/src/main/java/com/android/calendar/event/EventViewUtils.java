@@ -50,7 +50,7 @@ public class EventViewUtils {
         Resources resources = context.getResources();
         int value, resId;
 
-        if (minutes < 0) {
+        if (minutes == Integer.MIN_VALUE) {
             value = 0;
             resId = R.string.no_reminder_label;
 
