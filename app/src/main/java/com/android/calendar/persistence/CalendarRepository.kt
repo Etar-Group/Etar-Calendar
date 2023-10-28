@@ -42,11 +42,7 @@ internal class CalendarRepository(val application: Application) {
 
     private var contentResolver = application.contentResolver
 
-    private var allCalendars: CalendarLiveData
-
-    init {
-        allCalendars = CalendarLiveData(application.applicationContext)
-    }
+    private var allCalendars: CalendarLiveData = CalendarLiveData(application.applicationContext)
 
     fun getCalendarsOrderedByAccount(): LiveData<List<Calendar>> {
         return allCalendars

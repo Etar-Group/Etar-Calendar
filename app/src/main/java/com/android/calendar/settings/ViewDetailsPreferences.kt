@@ -169,7 +169,7 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
             return if (Utils.getConfigBool(context, R.bool.show_time_in_month)) TimeVisibility.SHOW_TIME_RANGE_BELOW.value else TimeVisibility.SHOW_NONE.value
         }
 
-        fun getPreferences(context: Context?): Preferences? {
+        fun getPreferences(context: Context?): Preferences {
             return Preferences(context!!)
         }
 
