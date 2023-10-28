@@ -42,8 +42,6 @@ import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendarcommon2.Time;
 
-import java.util.Calendar;
-
 import ws.xsoh.etar.R;
 
 /**

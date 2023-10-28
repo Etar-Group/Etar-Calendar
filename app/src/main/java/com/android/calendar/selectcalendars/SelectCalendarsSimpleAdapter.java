@@ -17,11 +17,9 @@
 package com.android.calendar.selectcalendars;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Calendars;
 import android.view.LayoutInflater;
 import android.view.TouchDelegate;
