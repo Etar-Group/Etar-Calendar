@@ -405,7 +405,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        when (preference!!.key) {
+        when (preference.key) {
             KEY_COLOR_PREF -> {
                 showColorPickerDialog()
                 return true
