@@ -424,6 +424,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     private void checkAndRequestDisablingDoze() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
+
         if (!dozeDisabled()) {
             Intent intent = new Intent();
             intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
@@ -433,6 +435,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     private Boolean dozeDisabled() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+
         String packageName = getApplicationContext().getPackageName();
         PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
         return pm.isIgnoringBatteryOptimizations(packageName);
