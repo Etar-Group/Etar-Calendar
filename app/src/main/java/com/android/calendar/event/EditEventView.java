@@ -1197,6 +1197,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (TextUtils.isEmpty(mUrlTextView.getText())) {
                 mUrlGroup.setVisibility(View.GONE);
             }
+            mCalendarsSpinner.setEnabled(false);
         } else {
             for (View v : mViewOnlyList) {
                 v.setVisibility(View.GONE);
@@ -1223,6 +1224,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
             mUrlGroup.setVisibility(View.VISIBLE);
+            mCalendarsSpinner.setEnabled(mode == Utils.MODIFY_ALL);
         }
         setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
     }

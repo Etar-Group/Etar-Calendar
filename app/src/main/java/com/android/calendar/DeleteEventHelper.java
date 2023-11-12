@@ -99,7 +99,25 @@ public class DeleteEventHelper {
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
             deleteStarted();
-            deleteNormalEvent();
+            long id = mModel.mId; // mCursor.getInt(mEventIndexId);
+
+            // If this event is part of a local calendar, really remove it from the database
+            //
+            // "There are two versions of delete: as an app and as a sync adapter.
+            // An app delete will set the deleted column on an event and remove all instances of that event.
+            // A sync adapter delete will remove the event from the database and all associated data."
+            // from https://developer.android.com/reference/android/provider/CalendarContract.Events
+            boolean isLocal = mModel.mSyncAccountType.equals(CalendarContract.ACCOUNT_TYPE_LOCAL);
+            Uri deleteContentUri = isLocal ? CalendarRepository.asLocalCalendarSyncAdapter(mModel.mSyncAccountName, Events.CONTENT_URI) : Events.CONTENT_URI;
+
+            Uri uri = ContentUris.withAppendedId(deleteContentUri, id);
+            mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
+            if (mCallback != null) {
+                mCallback.run();
+            }
+            if (mExitWhenDone) {
+                mParent.finish();
+            }
         }
     };
     /**
@@ -146,7 +164,7 @@ public class DeleteEventHelper {
         }
     };
 
-    public DeleteEventHelper(Context context, Activity parentActivity, boolean exitWhenDone, boolean prompt) {
+    public DeleteEventHelper(Context context, Activity parentActivity, boolean exitWhenDone) {
         if (exitWhenDone && parentActivity == null) {
             throw new IllegalArgumentException("parentActivity is required to exit when done");
         }
@@ -164,18 +182,10 @@ public class DeleteEventHelper {
                 CalendarEventModel mModel = new CalendarEventModel();
                 EditEventHelper.setModelFromCursor(mModel, cursor, mContext);
                 cursor.close();
-                if (prompt) {
-                    delete(mStartMillis, mEndMillis, mModel, mWhichDelete);
-                } else {
-                    deleteUnprompted(mStartMillis, mEndMillis, mModel, mWhichDelete);
-                }
+                DeleteEventHelper.this.delete(mStartMillis, mEndMillis, mModel, mWhichDelete);
             }
         };
         mExitWhenDone = exitWhenDone;
-    }
-
-    public DeleteEventHelper(Context context, Activity parentActivity, boolean exitWhenDone) {
-        this(context, parentActivity, exitWhenDone, true);
     }
 
     public void setExitWhenDone(boolean exitWhenDone) {
@@ -326,47 +336,6 @@ public class DeleteEventHelper {
                 Button ok = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
                 ok.setEnabled(false);
             }
-        }
-    }
-
-    private void deleteUnprompted(long begin, long end, CalendarEventModel model, int which) {
-        mWhichDelete = which;
-        mStartMillis = begin;
-        mEndMillis = end;
-        mModel = model;
-        mSyncId = model.mSyncId;
-
-        if (TextUtils.isEmpty(model.mRrule)) {
-            String originalEvent = model.mOriginalSyncId;
-            if (originalEvent == null) {
-                deleteNormalEvent();
-            } else {
-                deleteExceptionEvent();
-            }
-        } else {
-            deleteRepeatingEvent(which);
-        }
-    }
-
-    private void deleteNormalEvent() {
-        long id = mModel.mId; // mCursor.getInt(mEventIndexId);
-
-        // If this event is part of a local calendar, really remove it from the database
-        //
-        // "There are two versions of delete: as an app and as a sync adapter.
-        // An app delete will set the deleted column on an event and remove all instances of that event.
-        // A sync adapter delete will remove the event from the database and all associated data."
-        // from https://developer.android.com/reference/android/provider/CalendarContract.Events
-        boolean isLocal = mModel.mSyncAccountType.equals(CalendarContract.ACCOUNT_TYPE_LOCAL);
-        Uri deleteContentUri = isLocal ? CalendarRepository.asLocalCalendarSyncAdapter(mModel.mSyncAccountName, Events.CONTENT_URI) : Events.CONTENT_URI;
-
-        Uri uri = ContentUris.withAppendedId(deleteContentUri, id);
-        mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
-        if (mCallback != null) {
-            mCallback.run();
-        }
-        if (mExitWhenDone) {
-            mParent.finish();
         }
     }
 

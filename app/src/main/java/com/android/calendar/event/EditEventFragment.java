@@ -688,7 +688,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             long eventId;
             switch (token) {
                 case TOKEN_EVENT:
-                    if (cursor.getCount() == 0) {
+                    if (!cursor.moveToFirst()) {
                         // The cursor is empty. This can happen if the event
                         // was deleted.
                         cursor.close();
