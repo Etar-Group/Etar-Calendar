@@ -49,5 +49,6 @@
         <attr name="iconAddCalendar" format="reference" />
         <attr name="iconCalendarAccount" format="reference" />
         <attr name="divider_select_calendars" format="color"/>
+        <attr name="calendarSpinnerDisabledTextColor" format="color" />
     </declare-styleable>
 </resources>
