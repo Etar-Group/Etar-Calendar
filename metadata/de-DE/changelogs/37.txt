@@ -1,0 +1,4 @@
+- Ab Android 13 lässt sich die App Sprache wählen
+- Monatsansicht: Geste Rechts/Links wischen hinzugefügt
+- Fehlerbehebungen
+- Neue Übersetzungen
