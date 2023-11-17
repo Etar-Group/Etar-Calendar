@@ -1,0 +1,4 @@
+- Uygulama başına dil desteği eklendi (android 13+)
+- Ay görünümüne sola/sağa kaydırma özelliği eklendi
+- Hata düzeltmeleri
+- Yeni çeviriler
