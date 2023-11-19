@@ -388,7 +388,7 @@ public class Event implements Cloneable {
              * It might make sense to check all rrule's, as there may be other broken sets, but
              * the overhead is probably not worth it at this point.
              **/
-            if (rrule.contains("BYSETPOS=") || rrule.contains("BYWEEKNO=")) {
+            if (rrule instanceof String && (rrule.contains("BYSETPOS=") || rrule.contains("BYWEEKNO="))) {
                 e.endDay = checkRRuleEventDate(rrule, e.startMillis, e.endDay);
             }
         } else {
