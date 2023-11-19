@@ -332,4 +332,8 @@
     <string name="after_start_of_event">after start of event</string>
     <string name="preferences_real_event_colors">Sử dụng màu sự kiện thật</string>
     <string name="menu_info">Thông tin</string>
+    <string name="hint_url">URL</string>
+    <string name="duplicate_label">Nhân đôi</string>
+    <string name="add_calendar">Thêm lịch</string>
+    <string name="no_calendars_found">Trước khi có thể thêm sự kiện, bạn phải thêm ít nhất một lịch vào thiết bị của mình</string>
 </resources>
