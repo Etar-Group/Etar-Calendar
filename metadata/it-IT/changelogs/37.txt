@@ -1,0 +1,4 @@
+- Aggiunto supporto alle lingue per-app (Android 13+)
+- Aggiunto swipe sinistra/destra per vista mensile
+- Correzione di errori
+- Nuove traduzioni
