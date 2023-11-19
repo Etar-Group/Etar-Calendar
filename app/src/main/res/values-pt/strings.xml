@@ -20,28 +20,33 @@
     <string name="today_at_time_fmt" msgid="1981279213130049736">Hoje, às <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Amanhã, às <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="no_title_label" msgid="302177118061368042">(sem título)</string>
+    <string name="no_title_label" msgid="302177118061368042">(Sem título)</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> minutos</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min.</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> min.</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 hora</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> horas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 dia</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> dias</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">Semana <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">Semana <xliff:g id="count">%d</xliff:g></item>
     </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Atualizar"</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">Recarregar</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar dia"</string>
     <string name="agenda_view" msgid="5566084759423843245">Agenda</string>
     <string name="day_view" msgid="4467754504843584437">"Dia"</string>
@@ -61,11 +66,11 @@
     <string name="hint_where" msgid="4972598001033801974">"Localização"</string>
     <string name="hint_description" msgid="1910143586169033232">"Descrição"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Convidados"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Evento criado."</string>
-    <string name="saving_event" msgid="7694181017411177226">Evento guardado.</string>
-    <string name="empty_event" msgid="9018699257414338634">"Evento vazio não criado."</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">"Os convites serão enviados."</string>
-    <string name="saving_event_with_guest" msgid="9184584438475689577">"As atualizações serão enviadas."</string>
+    <string name="creating_event" msgid="7516249252554059980">Evento criado</string>
+    <string name="saving_event" msgid="7694181017411177226">Evento guardado</string>
+    <string name="empty_event" msgid="9018699257414338634">Evento vazio não criado</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">Os convites serão enviados</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">As atualizações serão enviadas</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">Guardar</string>
     <string name="alert_title" msgid="7869592820853066853">Notificações do calendário</string>
     <string name="event_info_title" msgid="56024222340421620">Ver evento</string>
@@ -80,7 +85,7 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Escolher cor do evento"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Cor do evento"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">Definir como cor predefinida do calendário</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">Definir como cor padrão do calendário</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">Cor do calendário</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Seletor de cores"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">Vai estar presente\?</string>
@@ -90,14 +95,14 @@
     <string name="email_guests_label" msgid="8772030932155305903">Enviar e-mail aos convidados</string>
     <string name="email_organizer_label" msgid="7178059542798074813">Enviar e-mail ao organizador</string>
     <string name="email_picker_label" msgid="4808253965057791781">Enviar e-mail com</string>
-    <string name="event_not_found" msgid="8356864185947582727">"Evento não encontrado."</string>
+    <string name="event_not_found" msgid="8356864185947582727">Evento não encontrado</string>
     <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
     <string name="call_label" msgid="2960328220008869083">Ligar</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostas rápidas"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">Editar respostas predefinidas em e-mails para convidados</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Editar respostas padrão para os e-mails</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Resposta rápida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Escolher resposta rápida"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">Não foi encontrada nenhuma aplicação de e-mail</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">Não foi encontrada uma aplicação de e-mail</string>
     <string-array name="quick_response_defaults">
         <item msgid="1524421198348168403">"Chegarei c/ alguns mins. de atraso."</item>
         <item msgid="6215158751728689832">"Chegarei em cerca de 10 minutos."</item>
@@ -112,23 +117,25 @@
     <string name="agenda_tomorrow" msgid="3893625470780723605">Amanhã, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">A carregar…</string>
     <string name="show_older_events" msgid="5140647493681439926">Toque para ver os eventos antes de <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
-    <string name="show_newer_events" msgid="2604638815440163080">Toque para ver os eventos posteriores <xliff:g id="newest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Toque para ver os eventos posteriores a <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">Pesquisar os meus calendários</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detalhes"</string>
     <string name="edit_label" msgid="8934331258435656534">"Editar"</string>
     <string name="delete_label" msgid="874742811918030739">Eliminar</string>
     <string name="save_label" msgid="2133599104834432589">"Concluído"</string>
     <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">Cancelar tudo</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">Descartar tudo</string>
     <string name="snooze_label" msgid="1515893621063224666">Adiar</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="endByDate" msgid="7654221304929538201">; até <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; uma vez</item>
+        <item quantity="many">; <xliff:g id="number">%d</xliff:g> vezes</item>
         <item quantity="other">; <xliff:g id="number">%d</xliff:g> vezes</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one">Diariamente</item>
+        <item quantity="many">A cada <xliff:g id="number">%d</xliff:g> dias</item>
         <item quantity="other">A cada <xliff:g id="number">%d</xliff:g> dias</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">Todos os dias úteis (seg-sex)</string>
@@ -241,11 +248,11 @@
     <string name="preferences_default_snooze_delay_dialog">Atraso predefinido para adiar</string>
     <string name="share_label">Partilhar</string>
     <string name="goto_date">Ir para…</string>
-    <string name="view_settings">Definições de vista</string>
-    <string name="rsvp_accepted">Respondeu sim.</string>
-    <string name="rsvp_tentative">Respondeu talvez.</string>
-    <string name="rsvp_declined">Respondeu não.</string>
-    <string name="no_map">Não existe nenhuma app de mapas instalada</string>
+    <string name="view_settings">Definições de exibição</string>
+    <string name="rsvp_accepted">Respondeu sim</string>
+    <string name="rsvp_tentative">Respondeu talvez</string>
+    <string name="rsvp_declined">Respondeu não</string>
+    <string name="no_map">Não existe uma aplicação de mapas</string>
     <string name="preferences_month_view_portrait">Vista mensal (vertical)</string>
     <string name="preferences_month_view_landscape">Vista mensal (horizontal)</string>
     <string name="preferences_theme">Tema</string>
@@ -287,7 +294,7 @@
     <string name="show_time_start_end_below">Hora de início e de término para além do evento</string>
     <string name="maximum_number_of_lines">Número máximo de linhas no evento</string>
     <string name="foreground_notification_channel_name">Tarefas em segundo plano</string>
-    <string name="foreground_notification_channel_description">Notificações necessárias para a sincronização interna. Pode ocultar este canal com segurança.</string>
+    <string name="foreground_notification_channel_description">As notificações são necessárias para a sincronização interna. Pode ocultar este canal com segurança.</string>
     <string name="preferences_calendar_account">Conta %1$s</string>
     <string name="preferences_calendar_delete">Remover calendário</string>
     <string name="preferences_calendar_display_name">Alterar nome</string>
@@ -338,14 +345,15 @@
     <string name="no_reminder_label">Nenhum</string>
     <plurals name="Nweeks">
         <item quantity="one">1 semana</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> semanas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <string name="foreground_notification_title">A agendar novos lembretes…</string>
     <string name="after_start_of_event">after start of event</string>
     <string name="preferences_real_event_colors">Usar cores de eventos reais</string>
-    <string name="menu_info">Info</string>
-    <string name="duplicate_label">Duplicado</string>
+    <string name="menu_info">Informação</string>
+    <string name="duplicate_label">Duplicar</string>
     <string name="hint_url">URL</string>
-    <string name="no_calendars_found">Antes de poder adicionar um evento, tem de adicionar pelo menos um calendário no seu dispositivo</string>
+    <string name="no_calendars_found">Antes de poder adicionar um evento, tem de adicionar, pelo menos, um calendário no seu dispositivo</string>
     <string name="add_calendar">Adicionar calendário</string>
 </resources>
