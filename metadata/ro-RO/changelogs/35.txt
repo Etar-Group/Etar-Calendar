@@ -1,0 +1,3 @@
+- Adăugați câmpul url
+- Corecții de erori
+- Traduceri noi
