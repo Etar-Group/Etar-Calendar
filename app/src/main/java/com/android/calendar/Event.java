@@ -432,10 +432,19 @@ public class Event implements Cloneable {
 
         // Use the Year/Month/Day startTime values to create a firstInstance.
         DateTime firstInstance = new DateTime(startYear, startMonth, startDay);
+        RecurrenceSet newRecurrenceSet;
+
+        // Wrap the recurrent set creation in a try/catch to ensure we don't run into an invalid
+        // rule set that lib-recur can't parse.
+        try {
+            newRecurrenceSet = new RecurrenceSet(firstInstance, new RuleInstances(rule));
+        } catch (Exception e) {
+            return endDay;
+        }
 
         // Create the recurrence set for the rule, we're only going to look at the first one
         // as it should match the firstInstance if this is a valid event from Android.
-        for (DateTime instance:new RecurrenceSet(firstInstance, new RuleInstances(rule))) {
+        for (DateTime instance:newRecurrenceSet) {
             if (!instance.equals(firstInstance)) {
                 // If this isn't a valid event, return 0 so it gets removed from the event list.
                 return 0;
