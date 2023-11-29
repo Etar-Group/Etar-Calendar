@@ -1,0 +1,1 @@
+- Fixat krasch på återkommande händelser

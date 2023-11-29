@@ -1,0 +1,4 @@
+- Lägg till per app språkstöd (android 13+)
+- Lägg till vänster/höger svep till månadsvy
+-Buggfixar
+-Nya översättningar
