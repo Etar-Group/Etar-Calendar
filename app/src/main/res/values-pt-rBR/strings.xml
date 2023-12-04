@@ -325,4 +325,8 @@
     <string name="after_start_of_event">after start of event</string>
     <string name="duplicate_label">Duplicar</string>
     <string name="preferences_real_event_colors">Usar cores reais de evento</string>
+    <string name="hint_url">URL</string>
+    <string name="menu_info">Informação</string>
+    <string name="add_calendar">Adicionar calendário</string>
+    <string name="no_calendars_found">Antes que você possa adicionar um evento, você deve adicionar pelo menos um calendário no seu dispositivo.</string>
 </resources>
