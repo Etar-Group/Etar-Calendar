@@ -361,7 +361,7 @@
     <string name="no_reminder_label">Немає</string>
     <plurals name="Nweeks">
         <item quantity="one">1 тиждень</item>
-        <item quantity="few"><xliff:g id="count">%d</xliff:g> тижня</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> тижні</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> тижнів</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> тижнів</item>
     </plurals>
