@@ -363,4 +363,6 @@
     <string name="menu_info">Information</string>
     <string name="duplicate_label">Dupliquer</string>
     <string name="hint_url">URL</string>
+    <string name="add_calendar">Ajouter un agenda</string>
+    <string name="no_calendars_found">Avant d’ajouter un évènement, vous devez ajouter au moins un agenda à votre appareil</string>
 </resources>
