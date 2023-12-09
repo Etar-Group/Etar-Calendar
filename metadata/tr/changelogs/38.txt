@@ -1,0 +1,1 @@
+- Yinelenen etkinliklerde çökme düzeltildi
