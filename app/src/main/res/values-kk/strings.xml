@@ -71,7 +71,7 @@
     <string name="authors">Авторлар</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Etar жобасы. Ішінара © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="preferences_show_week_num_title">Апта нөмірін көрсету</string>
-    <string name="preferences_home_tz_title">Үй уақыт белдеуі</string>
+    <string name="preferences_home_tz_title">Үй уақыт белдеуім</string>
     <string name="preferences_default_reminder_default">10</string>
     <string name="preferences_list_add_remote_etesync">EteSync күнтізбесін қосу</string>
     <string name="preferences_list_add_remote">CalDAV күнтізбесін қосу</string>
@@ -175,4 +175,31 @@
     <string name="agenda_yesterday">Кеше, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="hint_url">URL</string>
     <string name="preferences_theme">Кейіп</string>
+    <string name="quick_response_settings_edit_title">Жылдам жауап</string>
+    <string name="preferences_use_home_tz_title">Үй уақыт белдеуі</string>
+    <string name="preferences_light_theme">Ақшыл</string>
+    <string name="preferences_color">Негізгі түс</string>
+    <string name="duplicate_label">Көшірмесін жасау</string>
+    <string name="creating_event">Оқиға жасалды.</string>
+    <string name="add_calendar">Күнтізбе қосу</string>
+    <string name="alert_title">Күнтізбе мәлімдемелері</string>
+    <string name="saving_event_with_guest">Жаңартулар жіберіледі.</string>
+    <string name="hint_attendees">Қонақтар</string>
+    <string name="dismiss_all_label">Бәрін жасыру</string>
+    <string name="choose_event_color_label">Оқиға түсін таңдау</string>
+    <string name="creating_event_with_guest">Шақырулар жіберіледі.</string>
+    <string name="hint_where">Орын</string>
+    <string name="does_not_repeat">Бір реттік оқиға</string>
+    <string name="preferences_general_title">Күнтізбе көрінісін баптау</string>
+    <string name="modify_event">Осы оқиғаны ғана өзгерту</string>
+    <string name="preferences_week_start_day_title">Апта басталатын күн</string>
+    <string name="foreground_notification_channel_name">Фондағы тапсырмалар</string>
+    <string name="quick_response_settings">Жылдам жауаптар</string>
+    <string name="preferences_alerts_vibrateWhen_title">Діріл</string>
+    <string name="save_label">Дайын</string>
+    <string name="quick_response_dialog_title">Жылдам жауап таңдаңыз</string>
+    <string name="preferences_system_theme">Жүйедегідей</string>
+    <string name="preferences_week_start_day_dialog">Апта басталатын күн</string>
+    <string name="event_info_title">Оқиғаны көру</string>
+    <string name="edit_event_label">Мәліметтер</string>
 </resources>
