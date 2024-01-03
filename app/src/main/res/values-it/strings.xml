@@ -241,9 +241,9 @@
         <item quantity="other">Ogni <xliff:g id="count">%d</xliff:g> mesi</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Ogni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; anno</item>
-        <item quantity="many">Ogni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; anni</item>
-        <item quantity="other">Ogni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; anni</item>
+        <item quantity="one">Ogni <xliff:g id="count">%d</xliff:g> anno</item>
+        <item quantity="many">Ogni <xliff:g id="count">%d</xliff:g> anni</item>
+        <item quantity="other">Ogni <xliff:g id="count">%d</xliff:g> anni</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"lo stesso giorno ogni mese"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Sempre"</string>
@@ -251,9 +251,9 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Fino al giorno: <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Per una serie di eventi"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">Per &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt; evento</item>
-        <item quantity="many">Per &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt; eventi</item>
-        <item quantity="other">Per &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt; eventi</item>
+        <item quantity="one">Per <xliff:g id="event_count">%d</xliff:g> evento</item>
+        <item quantity="many">Per <xliff:g id="event_count">%d</xliff:g> eventi</item>
+        <item quantity="other">Per <xliff:g id="event_count">%d</xliff:g> eventi</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifica data di fine"</string>
     <string name="user_rejected_calendar_write_permission">Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare. Riprova.</string>
