@@ -38,7 +38,7 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagen"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">week &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;</item>
+        <item quantity="one"></item>
         <item quantity="other">week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">Bijwerken</string>
