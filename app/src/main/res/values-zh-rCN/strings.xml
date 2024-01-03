@@ -34,7 +34,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> 天</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">第 <xliff:g id="count">%d</xliff:g> 周</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"刷新"</string>
     <string name="show_day_view" msgid="5782512782605466016">"显示日期"</string>
