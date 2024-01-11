@@ -17,8 +17,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 34
-        versionCode 38
-        versionName "1.0.38"
+        versionCode 39
+        versionName "1.0.39"
         applicationId "ws.xsoh.etar"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -109,10 +109,10 @@ dependencies {
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.11.0'
     testImplementation 'junit:junit:4.13.2'
 
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
     // Coroutines
     def coroutines_version = "1.7.3"
