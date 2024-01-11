@@ -1,1 +1,2 @@
-- Kleine Fehlerbehebungen
+- Korrektur eines Absturzes in der Monats- und Wochenansicht aufgrund einer ungültigen rrule
+- Fehlerbehebungen
