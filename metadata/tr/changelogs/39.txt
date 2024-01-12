@@ -1,0 +1,2 @@
+- Geçersiz kural nedeniyle ay ve hafta görünümündeki çökme düzeltildi
+- Hata düzeltmeleri
