@@ -1,0 +1,7 @@
+- Giảm kích thước phông chữ của tên sự kiện trong kiểu xem theo tuần
+- Kích hoạt đề xuất tìm kiếm gần đây
+- Sửa lỗi xuất sang thẻ SD
+- Gạch ngang tiêu đề của các sự kiện bị hủy
+- Tận dụng cài đặt chủ đề hệ thống trên android 10
+- Bản dịch mới
+- Sửa lỗi

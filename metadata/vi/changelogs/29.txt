@@ -1,0 +1,5 @@
+- Hỗ trợ Android 12
+- Hỗ trợ thiết kế Material You
+- Xóa kết nối với dịch vụ Android để sao lưu cơ sở dữ liệu (bị hỏng ở hầu hết các phiên bản Android)
+- Sửa lỗi chung
+- Bản dịch mới

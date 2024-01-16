@@ -1,0 +1,3 @@
+- Một số thay đổi giao diện người dùng tốt hơn.
+- Cập nhật bản dịch tiếng Thụy Điển.
+- Sửa lỗi.
