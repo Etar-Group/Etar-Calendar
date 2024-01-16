@@ -1,0 +1,2 @@
+- Sửa lỗi hiển thị các tùy chọn.
+- Bản dịch mới.

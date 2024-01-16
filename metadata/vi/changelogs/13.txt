@@ -1,0 +1,4 @@
+- Hỗ trợ chia sẻ lịch qua ics và khả năng nhập/xuất từ thẻ sd.
+- Loại bỏ các quyền không sử dụng.
+- Sửa lỗi cài đặt âm thanh trên Android 6.
+- Rất nhiều bản sửa lỗi.

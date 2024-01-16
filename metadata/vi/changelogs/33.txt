@@ -1,0 +1,8 @@
+- Thêm tùy chọn để nhân bản các sự kiện
+- Hiển thị các ngày trong tuần trên máy tính bảng
+- Khắc phục sự cố khi mở sự kiện có ID rất lớn
+- Làm lại lịch thu nhỏ trong chế độ xem máy tính bảng
+- Thêm hỗ trợ cho Biểu tượng ứng dụng theo chủ đề trong Android 13
+- Hiển thị các sự kiện nhiều ngày với điểm bắt đầu và điểm kết thúc chính xác
+- Sửa lỗi
+- Bản dịch mới

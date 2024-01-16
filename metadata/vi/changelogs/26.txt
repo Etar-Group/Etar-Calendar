@@ -1,0 +1,4 @@
+- Làm lại chỉnh sửa bố cục sự kiện
+- Bỏ hỗ trợ cho Android 4.4
+- Sửa lỗi chung
+- Bản dịch mới
