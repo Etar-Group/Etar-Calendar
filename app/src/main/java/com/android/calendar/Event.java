@@ -442,16 +442,22 @@ public class Event implements Cloneable {
             return endDay;
         }
 
-        // Create the recurrence set for the rule, we're only going to look at the first one
-        // as it should match the firstInstance if this is a valid event from Android.
-        for (DateTime instance:newRecurrenceSet) {
-            if (!instance.equals(firstInstance)) {
-                // If this isn't a valid event, return 0 so it gets removed from the event list.
-                return 0;
-            } else {
-                // If this is a valid event, return the endDay that we were passed in with.
-                return endDay;
+        // Wrap the for loop in a try/catch to ensure we don't run into an invalid
+        // rule set that lib-recur can't parse.
+        try {
+            // Create the recurrence set for the rule, we're only going to look at the first one
+            // as it should match the firstInstance if this is a valid event from Android.
+            for (DateTime instance:newRecurrenceSet) {
+                if (!instance.equals(firstInstance)) {
+                    // If this isn't a valid event, return 0 so it gets removed from the event list.
+                    return 0;
+                } else {
+                    // If this is a valid event, return the endDay that we were passed in with.
+                    return endDay;
+                }
             }
+        } catch (Exception e) {
+            return endDay;
         }
 
         // We should never get here, but add a return just in case.
