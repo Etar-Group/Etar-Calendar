@@ -1,0 +1,2 @@
+- Umarım, nihayet, geçersiz kural nedeniyle ay ve hafta görünümündeki bir çökme düzeltildi
+- Hata düzeltmeleri
