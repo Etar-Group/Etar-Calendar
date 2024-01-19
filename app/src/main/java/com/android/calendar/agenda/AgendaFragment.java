@@ -128,7 +128,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             if (prevTime != -1) {
                 mTime.set(prevTime);
                 if (DEBUG) {
-                    Log.d(TAG, "Restoring time to " + mTime.toString());
+                    Log.d(TAG, "Restoring time to " + mTime);
                 }
             }
         }

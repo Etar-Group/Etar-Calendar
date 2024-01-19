@@ -174,8 +174,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private Uri updateUri() {
         SimpleWeekView child = (SimpleWeekView) mListView.getChildAt(0);
         if (child != null) {
-            int julianDay = child.getFirstJulianDay();
-            mFirstLoadedJulianDay = julianDay;
+            mFirstLoadedJulianDay = child.getFirstJulianDay();
         }
         // -1 to ensure we get all day events from any time zone
         mTempTime.setJulianDay(mFirstLoadedJulianDay - 1);

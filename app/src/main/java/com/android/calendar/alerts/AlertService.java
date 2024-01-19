@@ -409,7 +409,7 @@ public class AlertService extends Service {
             ids.setLength(ids.length() - 1);
         }
         if (ids.length() > 0) {
-            Log.d(TAG, "Reached max postings, bumping event IDs {" + ids.toString()
+            Log.d(TAG, "Reached max postings, bumping event IDs {" + ids
                     + "} to digest.");
         }
     }

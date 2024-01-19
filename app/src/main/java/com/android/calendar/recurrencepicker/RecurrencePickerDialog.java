@@ -412,7 +412,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
         if (!canHandleRecurrenceRule(er)) {
             throw new IllegalStateException("UI generated recurrence that it can't handle. ER:"
-                    + er.toString() + " Model: " + model.toString());
+                    + er + " Model: " + model);
         }
     }
 

@@ -272,7 +272,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mModel.mCalendarAccessLevel = Calendars.CAL_ACCESS_NONE;
             mOutstandingQueries = TOKEN_ALL;
             if (DEBUG) {
-                Log.d(TAG, "startQuery: uri for event is " + mUri.toString());
+                Log.d(TAG, "startQuery: uri for event is " + mUri);
             }
             mHandler.startQuery(TOKEN_EVENT, null, mUri, EditEventHelper.EVENT_PROJECTION,
                     null /* selection */, null /* selection args */, null /* sort order */);

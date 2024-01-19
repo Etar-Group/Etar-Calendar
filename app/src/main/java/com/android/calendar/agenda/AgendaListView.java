@@ -281,7 +281,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             t.setSecond(second);
             if (DEBUG) {
                 t.normalize();
-                Log.d(TAG, "first position had time " + t.toString());
+                Log.d(TAG, "first position had time " + t);
             }
             return t.normalize();
         }

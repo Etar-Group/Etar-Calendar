@@ -774,7 +774,7 @@ public class AlertReceiver extends BroadcastReceiver {
             return;
 
         if (AlertService.DEBUG) {
-            Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
+            Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent);
         }
         if (MAP_ACTION.equals(intent.getAction())) {
             // Try starting the map action.

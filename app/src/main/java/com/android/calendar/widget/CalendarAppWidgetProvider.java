@@ -139,7 +139,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         // coming in without extras, which AppWidgetProvider then blocks.
         final String action = intent.getAction();
         if (LOGD)
-            Log.d(TAG, "AppWidgetProvider got the intent: " + intent.toString());
+            Log.d(TAG, "AppWidgetProvider got the intent: " + intent);
         if (Utils.getWidgetUpdateAction(context).equals(action)) {
             if (!isWidgetSupported(context)) {
                 return;

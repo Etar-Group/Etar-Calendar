@@ -199,7 +199,7 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                                         continue;
                                     }
                                 } catch (DateException e) {
-                                    if (debug) Log.d(TAG, "duration:" + e.toString());
+                                    if (debug) Log.d(TAG, "duration:" + e);
                                     continue;
                                 }
                             }
