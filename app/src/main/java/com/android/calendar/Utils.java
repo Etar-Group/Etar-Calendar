@@ -1182,7 +1182,7 @@ public class Utils {
                         segments.add(i + 1, rhs);
                         strands.get(rhs.color).count++;
                         if (DEBUG) {
-                            Log.d(TAG, "Added rhs, curr:" + currSegment.toString() + " i:"
+                            Log.d(TAG, "Added rhs, curr:" + currSegment + " i:"
                                     + segments.get(i).toString());
                         }
                     }
@@ -1201,7 +1201,7 @@ public class Utils {
                         segments.add(i++, lhs);
                         strands.get(lhs.color).count++;
                         if (DEBUG) {
-                            Log.d(TAG, "Added lhs, curr:" + currSegment.toString() + " i:"
+                            Log.d(TAG, "Added lhs, curr:" + currSegment + " i:"
                                     + segments.get(i).toString());
                         }
                     }
@@ -1346,7 +1346,7 @@ public class Utils {
     private static void addNewSegment(LinkedList<DNASegment> segments, Event event,
             HashMap<Integer, DNAStrand> strands, int firstJulianDay, int minStart, int minMinutes) {
         if (event.startDay > event.endDay) {
-            Log.wtf(TAG, "Event starts after it ends: " + event.toString());
+            Log.wtf(TAG, "Event starts after it ends: " + event);
         }
         // If this is a multiday event split it up by day
         if (event.startDay != event.endDay) {
@@ -1985,7 +1985,7 @@ public class Utils {
                     dialBuilder.append(ch);
                 }
             }
-            URLSpan span = new URLSpan("tel:" + dialBuilder.toString());
+            URLSpan span = new URLSpan("tel:" + dialBuilder);
 
             spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             phoneCount++;

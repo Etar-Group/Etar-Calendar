@@ -817,8 +817,8 @@ public class AgendaWindowAdapter extends BaseAdapter
             time.setJulianDay(queryData.start);
             Time time2 = new Time(mTimeZone);
             time2.setJulianDay(queryData.end);
-            Log.v(TAG, "startQuery: " + time.toString() + " to "
-                    + time2.toString() + " then go to " + queryData.goToTime);
+            Log.v(TAG, "startQuery: " + time + " to "
+                    + time2 + " then go to " + queryData.goToTime);
         }
 
         mQueryHandler.cancelOperation(0);
@@ -1053,10 +1053,10 @@ public class AgendaWindowAdapter extends BaseAdapter
             StringBuilder sb = new StringBuilder();
             time.setJulianDay(start);
             time.normalize();
-            sb.append("Start:").append(time.toString());
+            sb.append("Start:").append(time);
             time.setJulianDay(end);
             time.normalize();
-            sb.append(" End:").append(time.toString());
+            sb.append(" End:").append(time);
             sb.append(" Offset:").append(offset);
             sb.append(" Size:").append(size);
             return sb.toString();

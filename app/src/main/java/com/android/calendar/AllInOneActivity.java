@@ -241,7 +241,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     protected void onNewIntent(Intent intent) {
         String action = intent.getAction();
         if (DEBUG)
-            Log.d(TAG, "New intent received " + intent.toString());
+            Log.d(TAG, "New intent received " + intent);
         // Don't change the date if we're just returning to the app's home
         if (Intent.ACTION_VIEW.equals(action)
                 && !intent.getBooleanExtra(Utils.INTENT_KEY_HOME, false)) {
@@ -301,7 +301,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         if (DEBUG) {
             if (icicle != null && intent != null) {
-                Log.d(TAG, "both, icicle:" + icicle.toString() + "  intent:" + intent.toString());
+                Log.d(TAG, "both, icicle:" + icicle + "  intent:" + intent);
             } else {
                 Log.d(TAG, "not both, icicle:" + icicle + " intent:" + intent);
             }
