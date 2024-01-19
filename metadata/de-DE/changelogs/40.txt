@@ -1,0 +1,2 @@
+- Hoffentlich final den Absturz in der Monats- und Wochenansicht aufgrund einer ungültigen rrule behoben
+- Fehlerbehebungen
