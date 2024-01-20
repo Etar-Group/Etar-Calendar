@@ -1,0 +1,2 @@
+- Speriamo, finalmente, corretto un crash nella vista per mese e settimana a cusa di una regola non valida
+- Correzioni di errori
