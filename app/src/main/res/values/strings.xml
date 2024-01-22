@@ -807,4 +807,7 @@
     <string name="preferences_do_not_check_battery_optimization">Don\'t check battery optimization</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Use at your own risk! Notifications will no longer work, widget will no longer update and background services will crash. But you won\'t get asked again if you want to enable the background service.</string>
 
+    <!-- Name of notification channel group -->
+    <string name="calendars">Calendars</string>
+
 </resources>
