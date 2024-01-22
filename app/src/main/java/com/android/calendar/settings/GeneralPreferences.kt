@@ -64,6 +64,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private lateinit var colorPref: Preference
     private lateinit var realEventColors: SwitchPreference
     private lateinit var pureBlackNightModePref: SwitchPreference
+    private lateinit var neverEnableDozePref: SwitchPreference
     private lateinit var defaultStartPref: ListPreference
     private lateinit var hideDeclinedPref: SwitchPreference
     private lateinit var weekStartPref: ListPreference
@@ -108,6 +109,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         colorPref = preferenceScreen.findPreference(KEY_COLOR_PREF)!!
         realEventColors = preferenceScreen.findPreference(KEY_REAL_EVENT_COLORS)!!
         pureBlackNightModePref = preferenceScreen.findPreference(KEY_PURE_BLACK_NIGHT_MODE)!!
+        neverEnableDozePref = preferenceScreen.findPreference(KEY_NEVER_ENABLE_DOZE)!!
         defaultStartPref = preferenceScreen.findPreference(KEY_DEFAULT_START)!!
         hideDeclinedPref = preferenceScreen.findPreference(KEY_HIDE_DECLINED)!!
         weekStartPref = preferenceScreen.findPreference(KEY_WEEK_START_DAY)!!
@@ -242,6 +244,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         themePref.onPreferenceChangeListener = listener
         colorPref.onPreferenceChangeListener = listener
         pureBlackNightModePref.onPreferenceChangeListener = listener
+        neverEnableDozePref.onPreferenceChangeListener = listener
         defaultStartPref.onPreferenceChangeListener = listener
         hideDeclinedPref.onPreferenceChangeListener = listener
         weekStartPref.onPreferenceChangeListener = listener
@@ -513,6 +516,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         const val KEY_THEME_PREF = "pref_theme"
         const val KEY_COLOR_PREF = "pref_color"
         const val KEY_REAL_EVENT_COLORS = "pref_real_event_colors"
+        const val KEY_NEVER_ENABLE_DOZE = "pref_never_enable_doze"
         const val KEY_PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode"
         const val KEY_DEFAULT_START = "preferences_default_start"
         const val KEY_HIDE_DECLINED = "preferences_hide_declined"

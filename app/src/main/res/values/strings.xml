@@ -804,5 +804,6 @@
     <string name="after_start_of_event">after start of event</string>
 
     <string name="pref_theme_default" translatable="false">light</string>
+    <string name="preferences_never_enable_doze">Never enable doze</string>
 
 </resources>

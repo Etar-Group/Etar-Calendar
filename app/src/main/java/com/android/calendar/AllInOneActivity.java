@@ -425,8 +425,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     private void checkAndRequestDisablingDoze() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
-
-        if (!dozeDisabled()) {
+        boolean neverEnableDoze = Utils.getSharedPreference(getApplicationContext(), GeneralPreferences.KEY_NEVER_ENABLE_DOZE, false);
+        if (!dozeDisabled() && !neverEnableDoze) {
             Intent intent = new Intent();
             intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
             intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
