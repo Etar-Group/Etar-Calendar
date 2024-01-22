@@ -805,4 +805,7 @@
 
     <string name="pref_theme_default" translatable="false">light</string>
 
+    <!-- Name of notification channel group -->
+    <string name="calendars">Calendars</string>
+
 </resources>
