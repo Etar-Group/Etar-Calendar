@@ -890,7 +890,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         Utils.setTodayIcon(icon, this, mTimeZone);
 
         // Handle warning for disabling battery optimizations
-        if (dozeDisabled()) {
+        boolean doNotCheckBatteryOptimization = Utils.getSharedPreference(getApplicationContext(), GeneralPreferences.KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION, false);
+        if (dozeDisabled() || doNotCheckBatteryOptimization) {
             MenuItem menuInfoItem = menu.findItem(R.id.action_info);
             if (menuInfoItem != null) {
                 menuInfoItem.setVisible(false);
