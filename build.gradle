@@ -43,6 +43,6 @@ idea.project.settings {
 // External project configuration end
 
 tasks.register('clean', Delete) {
-    delete rootProject.layout.buildDirectory
+    delete rootProject.buildDir
     delete 'app/libs'
 }
