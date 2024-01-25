@@ -111,6 +111,7 @@
         </activity>
 
         <activity android:name="com.android.calendar.event.EditEventActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Base.CalendarAppThemeWithActionBar">
         </activity>
 
