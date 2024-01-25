@@ -25,6 +25,7 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
+import android.provider.Settings
 import android.util.TypedValue
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -34,6 +35,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
+import com.android.calendar.alerts.channelId
 import com.android.calendar.persistence.CalendarRepository
 import ws.xsoh.etar.R
 
@@ -133,11 +135,23 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             isSelectable = false
         }
 
-
         if (!isLocalAccount) {
             screen.addPreference(synchronizePreference)
         }
+
         screen.addPreference(visiblePreference)
+
+        if(Utils.isOreoOrLater()){
+            val notificationPreference = Preference(context).apply {
+                title = getString(R.string.preferences_manage_notifications)
+                intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
+                    putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                    putExtra(Settings.EXTRA_CHANNEL_ID, channelId(this@CalendarPreferences.calendarId))
+                }
+            }
+            screen.addPreference(notificationPreference)
+        }
+
         screen.addPreference(colorPreference)
         if (isLocalAccount) {
             screen.addPreference(displayNamePreference)
