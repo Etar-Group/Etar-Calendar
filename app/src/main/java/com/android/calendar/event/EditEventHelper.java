@@ -98,6 +98,7 @@ public class EditEventHelper {
             Events.EVENT_COLOR_KEY, // 24
             Events.ACCOUNT_NAME, // 25
             Events.ACCOUNT_TYPE, // 26
+            Events.EXDATE, // 27
             Events.ORIGINAL_INSTANCE_TIME // 28
     };
     protected static final int EVENT_INDEX_ID = 0;
@@ -127,7 +128,8 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_EVENT_COLOR_KEY = 24;
     protected static final int EVENT_INDEX_ACCOUNT_NAME = 25;
     protected static final int EVENT_INDEX_ACCOUNT_TYPE = 26;
-    protected static final int EVENT_INDEX_ORIGINAL_INSTANCE_TIME = 27;
+    protected static final int EVENT_INDEX_EXDATE = 27;
+    protected static final int EVENT_INDEX_ORIGINAL_INSTANCE_TIME = 28;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -1168,6 +1170,7 @@ public class EditEventHelper {
         }
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
+        model.exdate = cursor.getString(EVENT_INDEX_EXDATE);
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
         model.mSyncAccountName = cursor.getString(EVENT_INDEX_ACCOUNT_NAME);
         model.mSyncAccountType = cursor.getString(EVENT_INDEX_ACCOUNT_TYPE);
@@ -1357,6 +1360,7 @@ public class EditEventHelper {
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);
+        values.put(Events.EXDATE, model.exdate);
         values.put(Events.RRULE, rrule);
         if (!TextUtils.isEmpty(rrule)) {
             addRecurrenceRule(values, model);
