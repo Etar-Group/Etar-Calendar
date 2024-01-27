@@ -24,6 +24,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
@@ -215,6 +217,11 @@ public class EditEventHelper {
 
     static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.CALENDAR_ACCESS_LEVEL + ">="
             + Calendars.CAL_ACCESS_CONTRIBUTOR + " AND " + Calendars.VISIBLE + "=1";
+
+    static final String CALENDARS_WHERE_SYNCED_WRITEABLE_VISIBLE =
+            Calendars.CALENDAR_ACCESS_LEVEL + ">=" + Calendars.CAL_ACCESS_CONTRIBUTOR
+                    + " AND " + Calendars.VISIBLE + "=1"
+                    + " AND " + Calendars.ACCOUNT_TYPE + "!='" + CalendarContract.ACCOUNT_TYPE_LOCAL + "'";
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
 
@@ -654,6 +661,11 @@ public class EditEventHelper {
                     ContentUris.withAppendedId(Events.CONTENT_URI, model.mId)).build());
         }
 
+        // moving event exceptions is currently ony supported for api level 30 and above
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return ops;
+        }
+
         // retrieve events exceptions, create them in target calendar, delete them from source calendar
         try (Cursor cursor = mContextResolver.query(
                 Events.CONTENT_URI,
@@ -671,7 +683,7 @@ public class EditEventHelper {
 
                 ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI)
                         .withValues(values)
-                        // TODO: Call requires API level 30
+                        // note: this call requires API level 30
                         .withValueBackReference(Events.ORIGINAL_ID, eventIdIndex, Events._ID)
                         .build());
 
