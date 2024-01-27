@@ -74,6 +74,7 @@ public class CalendarEventModel implements Serializable {
     public String mDescription = null;
     public String mUrl = null;
     public String mRrule = null;
+    public String exdate = null;
     public String mOrganizer = null;
     public String mOrganizerDisplayName = null;
     /**

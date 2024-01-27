@@ -752,11 +752,31 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         setModelIfDone(TOKEN_REMINDERS);
                     }
 
+                    // disable non-synced calendars for recurring events
+                    // disable all calendars for recurring events and sdk<30
+                    final String selection;
+                    final String[] selectionArgs;
+                    if (!TextUtils.isEmpty(mModel.mRrule)
+                            && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                        // recurring event, api level < 30. disable changing calendars.
+                        selection = EditEventHelper.CALENDARS_WHERE;
+                        selectionArgs = new String[] { Long.toString(mModel.mCalendarId) };
+                    } else if (!TextUtils.isEmpty(mModel.mRrule)) {
+                        // recurring event, api level >= 30. enable changing calendars to synced calendars.
+                        selection = EditEventHelper.CALENDARS_WHERE_SYNCED_WRITEABLE_VISIBLE;
+                        selectionArgs = null;
+                    } else {
+                        // non recurring event. enable changing calendars to all calendars.
+                        selection = EditEventHelper.CALENDARS_WHERE_WRITEABLE_VISIBLE;
+                        selectionArgs = null;
+                    }
+
                     // TOKEN_CALENDARS
                     mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
                             EditEventHelper.CALENDARS_PROJECTION,
-                            EditEventHelper.CALENDARS_WHERE_WRITEABLE_VISIBLE,
-                            null /* selection args */, null /* sort order */);
+                            selection,
+                            selectionArgs,
+                            null /* sort order */);
 
                     // TOKEN_COLORS
                     mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
