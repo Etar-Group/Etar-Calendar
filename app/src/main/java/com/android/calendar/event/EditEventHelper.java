@@ -651,6 +651,8 @@ public class EditEventHelper {
             setModelFromCursor(model, cursor, mContext);
             final ContentValues values = getContentValuesFromModel(model);
             values.put(Events.CALENDAR_ID, newCalendarId);
+            values.remove(Events.ORGANIZER);
+
             syncId = model.mSyncId;
 
             // set eventIdIndex for back referencing when inserting exceptions
@@ -682,6 +684,7 @@ public class EditEventHelper {
                 final ContentValues values = getContentValuesFromModel(model);
                 values.put(Events.CALENDAR_ID, newCalendarId);
                 values.put(Events.ORIGINAL_INSTANCE_TIME, model.mOriginalTime);
+                values.remove(Events.ORGANIZER);
 
                 ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI)
                         .withValues(values)
