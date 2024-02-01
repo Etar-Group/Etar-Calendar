@@ -365,4 +365,8 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Prima di poter aggiungere un evento, devi aggiungere almeno un calendario al tuo dispositivo</string>
     <string name="add_calendar">Aggiungi calendario</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Usa a tuo rischio! Le notifiche non funzioneranno più, il widget non si aggiornerà e i servizi in secondo piano verranno terminati. Ma non ti verrà più chiesto se vuoi attivare il servizio in secondo piano.</string>
+    <string name="preferences_do_not_check_battery_optimization">Non controllare l\'ottimizzazione della batteria</string>
+    <string name="preferences_manage_notifications">Gestisci le notifiche</string>
+    <string name="calendars">Calendari</string>
 </resources>
