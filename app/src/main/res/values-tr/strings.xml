@@ -348,4 +348,8 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Etkinlik ekleyebilmeniz için aygıtınıza en az bir takvim eklemelisiniz</string>
     <string name="add_calendar">Takvim ekle</string>
+    <string name="preferences_manage_notifications">Bildirimleri yönet</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Kendi sorumluluğunuzda kullanın! Bildirimler artık çalışmayacak, widget güncellenmeyecek ve arka plan hizmetleri çökecektir. Ancak arka plan hizmetini etkinleştirmek isteyip istemediğiniz tekrar sorulmayacaktır.</string>
+    <string name="calendars">Takvimler</string>
+    <string name="preferences_do_not_check_battery_optimization">Pil iyileştirmesini denetleme</string>
 </resources>
