@@ -332,4 +332,8 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">你必须添加至少一个日历到设备才能添加活动</string>
     <string name="add_calendar">添加日历</string>
+    <string name="preferences_manage_notifications">管理通知</string>
+    <string name="calendars">日历</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">风险自负！通知将不再工作，小部件将不再更新，后台服务将崩溃。不过如果你想启用后台服务，程序将不再进行询问。</string>
+    <string name="preferences_do_not_check_battery_optimization">不检查电池优化</string>
 </resources>
