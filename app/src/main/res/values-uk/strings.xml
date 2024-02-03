@@ -373,4 +373,8 @@
     <string name="hint_url">URL-адреса</string>
     <string name="no_calendars_found">Перш ніж додати подію, створіть на своєму пристрої принаймні один календар</string>
     <string name="add_calendar">Додати календар</string>
+    <string name="preferences_manage_notifications">Керувати сповіщеннями</string>
+    <string name="preferences_do_not_check_battery_optimization">Не перевіряти оптимізацію акумулятора</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Використовуйте на свій страх і ризик! Сповіщення більше не працюватимуть, віджет більше не оновлюватиметься, а фонові служби не працюватимуть. Але ви надалі не отримуватимете запити на ввімкнення фонових служб.</string>
+    <string name="calendars">Календарі</string>
 </resources>
