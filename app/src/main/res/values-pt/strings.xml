@@ -364,4 +364,7 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Antes de criar um evento, tem de adicionar, pelo menos, um calendário no seu dispositivo</string>
     <string name="add_calendar">Adicionar calendário</string>
+    <string name="preferences_do_not_check_battery_optimization">Não verificar otimização de bateria</string>
+    <string name="preferences_manage_notifications">Gerir notificações</string>
+    <string name="calendars">Calendários</string>
 </resources>
