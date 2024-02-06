@@ -348,4 +348,7 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Bevor du einen Termin hinzufügen kannst, musst du mindestens einen Kalender auf deinem Gerät hinzufügen</string>
     <string name="add_calendar">Kalender hinzufügen</string>
+    <string name="preferences_manage_notifications">Benachrichtigungen verwalten</string>
+    <string name="preferences_do_not_check_battery_optimization">Akku-Optimierung nicht überprüfen</string>
+    <string name="calendars">Kalender</string>
 </resources>
