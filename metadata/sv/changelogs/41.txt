@@ -1,0 +1,1 @@
+- Fixa kompileringsfel för F-Droid
