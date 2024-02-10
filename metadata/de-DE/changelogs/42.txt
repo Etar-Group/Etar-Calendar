@@ -1,0 +1,3 @@
+- Dialog "Termin erstellen" nicht schließen, wenn das Telefon gedreht wird
+- Kalenderbenachrichtigungen pro Kalender
+- Einstellung hinzugefügt: Batterieoptimierung nicht prüfen
