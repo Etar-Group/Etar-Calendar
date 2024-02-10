@@ -218,7 +218,7 @@
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">Varje <xliff:g id="count">%d</xliff:g> år</item>
-        <item quantity="other">Varannat <xliff:g id="count">%d</xliff:g> år</item>
+        <item quantity="other">Vartannat <xliff:g id="count">%d</xliff:g> år</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"samma dag varje månad"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"För alltid"</string>
@@ -227,7 +227,7 @@
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Ett antal upprepningar"</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">För <xliff:g id="event_count">%d</xliff:g> händelse</item>
-        <item quantity="other">För <xliff:g id="event_count">%d</xliff:g> händelse</item>
+        <item quantity="other">För <xliff:g id="event_count">%d</xliff:g> händelser</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"ändra slutdatum"</string>
     <string name="visibility_default">Standardinställning</string>
@@ -332,7 +332,7 @@
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g>Etar-projektet. Portioner © 2005-<xliff:g>%1$s</xliff:g>Android\'s öppna källkodprojekt.</string>
     <string name="preferences_pure_black_night_mode">Rent svart natt-läge</string>
     <string name="foreground_notification_title">Schemalägger nya påminnelser…</string>
-    <string name="after_start_of_event">efter händelsens start</string>
+    <string name="after_start_of_event">efter att händelsen har startat</string>
     <plurals name="Nweeks">
         <item quantity="one">1 vecka</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> veckor</item>
@@ -348,4 +348,8 @@
     <string name="duplicate_label">Fördubbla</string>
     <string name="add_calendar">Lägg till kalender</string>
     <string name="no_calendars_found">Du måste lägga till minst en kalender i din enhet innan du kan lägga till en händelse</string>
+    <string name="preferences_manage_notifications">Hantera aviseringar</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Använd på egen risk! Aviseringar kommer inte längre fungera, widgeten kommer inte längre uppdatera och bakgrundstjänster kommer att krascha, men du kommer inte att bli tillfrågad igen om du vill aktivera bakgrundstjänsten.</string>
+    <string name="calendars">Kalendrar</string>
+    <string name="preferences_do_not_check_battery_optimization">Kontrollera inte optimering av batteriet</string>
 </resources>
