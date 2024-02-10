@@ -1,1 +1,1 @@
-Etar - Kalender byggd med öppen källkod
+Etar - OpenSource-kalender
