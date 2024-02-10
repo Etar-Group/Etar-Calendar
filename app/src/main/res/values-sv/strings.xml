@@ -269,7 +269,7 @@
     <string name="error_generating_ics">Fel uppstod när händelsen delades</string>
     <string name="cal_share_intent_title">Skicka händelse till:</string>
     <string name="cal_export_event_sdcard_title">Exportera till SD-kort</string>
-    <string name="cal_export_succ_msg">Exporteringen av händelsen lyckades: %1$s</string>
+    <string name="cal_export_succ_msg">Händelse har framgångsrikt exporterats: %1$s</string>
     <string name="cal_import_menu_title">Importera händelse</string>
     <string name="cal_nothing_to_import">Ingenting att importera</string>
     <string name="cal_import_error_msg">Importering till kalendern misslyckades</string>
