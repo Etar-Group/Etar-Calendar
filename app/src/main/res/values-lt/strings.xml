@@ -362,4 +362,9 @@
     <string name="menu_info">Informacija</string>
     <string name="preferences_real_event_colors">Naudoti tikras įvykio spalvas</string>
     <string name="duplicate_label">Dubliuoti</string>
+    <string name="preferences_manage_notifications">Tvarkyti pranešimus</string>
+    <string name="calendars">Kalendoriai</string>
+    <string name="hint_url">Nuoroda</string>
+    <string name="no_calendars_found">Prieš pridėdami įvykį, turite į įrenginį pridėti bent vieną kalendorių</string>
+    <string name="add_calendar">Pridėti kalendorių</string>
 </resources>
