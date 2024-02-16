@@ -803,6 +803,7 @@
     <string name="preferences_menu_about">About Etar</string>
 
     <string name="offline_account_name">Offline Calendar</string>
+    <string name="unsaved_event">Event not saved!</string>
     <string name="after_start_of_event">after start of event</string>
 
     <string name="pref_theme_default" translatable="false">light</string>
