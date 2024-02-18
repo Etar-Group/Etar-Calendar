@@ -525,7 +525,9 @@ public class EditEventHelper {
                 }
                 ops.add(b.build());
             }
-        } else if (hasAttendeeData && model.mSelfAttendeeStatus != originalModel.mSelfAttendeeStatus) {
+        } else if (hasAttendeeData &&
+                model.mSelfAttendeeStatus != originalModel.mSelfAttendeeStatus &&
+                model.mOwnerAttendeeId != -1) {
             if (DEBUG) {
                 Log.d(TAG, "Setting attendee status to " + model.mSelfAttendeeStatus);
             }
@@ -563,6 +565,7 @@ public class EditEventHelper {
                 // new events (being inserted into the Events table) won't
                 // have any existing attendees.
                 if (!newEvent) {
+                    removedAttendees.clear();
                     HashMap<String, Attendee> originalAttendees = originalModel.mAttendeesList;
                     for (String originalEmail : originalAttendees.keySet()) {
                         if (newAttendees.containsKey(originalEmail)) {
@@ -1173,7 +1176,7 @@ public class EditEventHelper {
         }
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
-        model.exdate = cursor.getString(EVENT_INDEX_EXDATE);
+        model.mExDate = cursor.getString(EVENT_INDEX_EXDATE);
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
         model.mSyncAccountName = cursor.getString(EVENT_INDEX_ACCOUNT_NAME);
         model.mSyncAccountType = cursor.getString(EVENT_INDEX_ACCOUNT_TYPE);
@@ -1363,7 +1366,7 @@ public class EditEventHelper {
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);
-        values.put(Events.EXDATE, model.exdate);
+        values.put(Events.EXDATE, model.mExDate);
         values.put(Events.RRULE, rrule);
         if (!TextUtils.isEmpty(rrule)) {
             addRecurrenceRule(values, model);
