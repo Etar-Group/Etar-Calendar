@@ -375,4 +375,8 @@
     <string name="hint_url">Ссылка</string>
     <string name="no_calendars_found">Прежде чем добавить событие, необходимо создать на устройстве хотя бы один календарь</string>
     <string name="add_calendar">Добавить календарь</string>
+    <string name="preferences_manage_notifications">Управление уведомлениями</string>
+    <string name="preferences_do_not_check_battery_optimization">Не проверять оптимизацию батареи</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Используйте на свой страх! Уведомления больше не будут работать, виджеты не будут обновляться и фоновые сервисы упадут. Но вас больше не спросят, хотите ли вы включить фоновый сервис.</string>
+    <string name="calendars">Календари</string>
 </resources>
