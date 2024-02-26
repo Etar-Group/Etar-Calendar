@@ -260,7 +260,7 @@
     <string name="display_time">時刻表示</string>
     <string name="display_location">場所表示</string>
     <string name="maximum_number_of_lines">予定の最大行数</string>
-    <string name="authors">著作</string>
+    <string name="authors">開発者</string>
     <string name="changelog">更新履歴</string>
     <string name="license">ライセンス</string>
     <string name="preferences_issues">問題を報告</string>
