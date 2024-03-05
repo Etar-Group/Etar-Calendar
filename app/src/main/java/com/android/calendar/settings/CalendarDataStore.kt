@@ -41,7 +41,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         )
     }
 
-    private fun mapPreferenceKeyToDatabaseKey(key: String?): String {
+    private fun mapPreferenceKeyToDatabaseKey(key: String): String {
         return when (key) {
             CalendarPreferences.SYNCHRONIZE_KEY -> CalendarContract.Calendars.SYNC_EVENTS
             CalendarPreferences.VISIBLE_KEY -> CalendarContract.Calendars.VISIBLE
@@ -51,7 +51,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         }
     }
 
-    override fun putBoolean(key: String?, value: Boolean) {
+    override fun putBoolean(key: String, value: Boolean) {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         val values = ContentValues()
@@ -59,7 +59,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         contentResolver.update(calendarUri, values, null, null)
     }
 
-    override fun getBoolean(key: String?, defValue: Boolean): Boolean {
+    override fun getBoolean(key: String, defValue: Boolean): Boolean {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
@@ -70,7 +70,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         return defValue
     }
 
-    override fun putInt(key: String?, value: Int) {
+    override fun putInt(key: String, value: Int) {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         val values = ContentValues()
@@ -78,7 +78,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         contentResolver.update(calendarUri, values, null, null)
     }
 
-    override fun getInt(key: String?, defValue: Int): Int {
+    override fun getInt(key: String, defValue: Int): Int {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
@@ -89,7 +89,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         return defValue
     }
 
-    override fun putString(key: String?, value: String?) {
+    override fun putString(key: String, value: String?) {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         val values = ContentValues()
@@ -97,7 +97,7 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         contentResolver.update(calendarUri, values, null, null)
     }
 
-    override fun getString(key: String?, defValue: String?): String? {
+    override fun getString(key: String, defValue: String?): String? {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
