@@ -1,0 +1,2 @@
+- Corectarea blocării pe vizualizarea lunii și a săptămânii din cauza unei reguli invalide
+- Corecții de erori
