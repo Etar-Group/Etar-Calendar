@@ -365,4 +365,8 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Înainte de a putea adăuga un eveniment, trebuie să adăugați cel puțin un calendar pe dispozitivul dumneavoastră</string>
     <string name="add_calendar">Adăugați un calendar</string>
+    <string name="preferences_manage_notifications">Gestionați notificările</string>
+    <string name="preferences_do_not_check_battery_optimization">Nu verificați optimizarea bateriei</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Utilizați pe propriul risc! Notificările nu vor mai funcționa, widget-urile nu se vor mai actualiza și serviciile din fundal se vor bloca. Dar nu veți mai fi întrebat din nou dacă doriți să activați serviciul de fundal.</string>
+    <string name="calendars">Calendare</string>
 </resources>
