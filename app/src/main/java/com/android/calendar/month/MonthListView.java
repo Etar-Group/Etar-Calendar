@@ -43,7 +43,7 @@ public class MonthListView extends ListView {
     private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 2000;
     private static int FLING_VELOCITY_DIVIDER = 500;
     private static int FLING_TIME = 1000;
-    private static int LEFT_RIGHT_DISTANCE = 150;
+    private static int LEFT_RIGHT_DISTANCE = 300;
 
     // disposable variable used for time calculations
     protected Time mTempTime;
