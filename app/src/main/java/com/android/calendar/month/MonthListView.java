@@ -44,11 +44,13 @@ public class MonthListView extends ListView {
     private static int FLING_VELOCITY_DIVIDER = 500;
     private static int FLING_TIME = 1000;
     private static int LEFT_RIGHT_DISTANCE = 150;
+    private static double LEFT_RIGHT_RATIO = 1.25;
 
     // disposable variable used for time calculations
     protected Time mTempTime;
     private long mDownActionTime;
-    private float mLeftRightAction;
+    private float mLeftRightActionLeft;
+    private float mLeftRightActionRight;
     private final Rect mFirstViewRect = new Rect();
 
     Context mListContext;
@@ -111,7 +113,8 @@ public class MonthListView extends ListView {
             case MotionEvent.ACTION_DOWN:
                 mTracker.clear();
                 mDownActionTime = SystemClock.uptimeMillis();
-                mLeftRightAction =  ev.getX();
+                mLeftRightActionLeft =  ev.getX();
+                mLeftRightActionRight = ev.getY();
                 break;
             // Accumulate velocity and do a custom fling when above threshold
             // and look for left/right swipes as well.
@@ -125,8 +128,9 @@ public class MonthListView extends ListView {
                     return true;
                 }
                 // Check for the left/right swipe.
-                float leftRightSwipe = mLeftRightAction - ev.getX();
-                if( Math.abs(leftRightSwipe) > LEFT_RIGHT_DISTANCE ) {
+                float leftRightSwipe = mLeftRightActionLeft - ev.getX();
+                float leftRightRatio = Math.abs(leftRightSwipe) / Math.abs(mLeftRightActionRight - ev.getY());
+                if( Math.abs(leftRightSwipe) > LEFT_RIGHT_DISTANCE && leftRightRatio > LEFT_RIGHT_RATIO ) {
                     if( leftRightSwipe > 0 ) {
                         doLeftRight(1);
                     } else {
