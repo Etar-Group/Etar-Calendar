@@ -2088,7 +2088,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // for simplicity).
 
         // TODO Switch to EditEventHelper.canRespond when this class uses CalendarEventModel.
-        if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
+        if (!mCanModifyCalendar || !mHasAttendeeData || (mIsOrganizer && mNumOfAttendees <= 1) ||
                 (mIsOrganizer && !mOwnerCanRespond)) {
             setVisibilityCommon(view, R.id.response_container, View.GONE);
             return;
