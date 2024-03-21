@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.android.colorpicker.ColorPickerPalette;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 /**
  * 1-to-1 Copy of ColorPickerDialog but using androidx classes
@@ -101,7 +102,7 @@ public class ColorPickerDialogX extends DialogFragment implements OnColorSelecte
             showPaletteView();
         }
 
-        mAlertDialog = new AlertDialog.Builder(activity)
+        mAlertDialog = new MaterialAlertDialogBuilder(activity)
             .setTitle(mTitleResId)
             .setView(view)
             .create();

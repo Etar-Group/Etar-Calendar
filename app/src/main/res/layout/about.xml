@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent">
@@ -112,8 +110,7 @@
                     android:src="@drawable/ic_info_outline"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    app:tint="?attr/iconSettingsAbout" />
+                    android:layout_gravity="center" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -134,41 +131,41 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_gravity="center_vertical">
+                android:gravity="center" >
                 <Button
                     android:id="@+id/source"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="center_vertical"
                     android:padding="8dp"
-                    android:background="?android:attr/selectableItemBackground"
                     android:text="@string/source_code"
                     android:textAllCaps="true" />
 
                 <Button
                     android:id="@+id/changelog"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="center_vertical"
                     android:padding="8dp"
-                    android:background="?android:attr/selectableItemBackground"
                     android:text="@string/changelog"
                     android:textAllCaps="true" />
 
                 <Button
                     android:id="@+id/issues"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="center_vertical"
                     android:padding="8dp"
-                    android:background="?android:attr/selectableItemBackground"
                     android:text="@string/preferences_issues"
                     android:textAllCaps="true" />
 
@@ -179,7 +176,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:text="@string/app_copyright"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>

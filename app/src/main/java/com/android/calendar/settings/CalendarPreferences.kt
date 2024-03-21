@@ -26,8 +26,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.Settings
-import android.util.TypedValue
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -37,6 +35,7 @@ import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
 import com.android.calendar.alerts.channelId
 import com.android.calendar.persistence.CalendarRepository
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ws.xsoh.etar.R
 
 
@@ -127,7 +126,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         }
         val localAccountPreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_account_local)
-            icon = getThemeDrawable(R.attr.settings_calendar_offline)
             isSelectable = false
         }
         val localAccountInfoPreference = Preference(context).apply {
@@ -174,14 +172,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         preferenceScreen = screen
     }
 
-    private fun getThemeDrawable(attr: Int): Drawable {
-        val typedValue = TypedValue()
-        requireContext().theme.resolveAttribute(attr, typedValue, true)
-        val imageResId = typedValue.resourceId
-        return ContextCompat.getDrawable(requireContext(), imageResId)
-                ?: throw IllegalArgumentException("Cannot load drawable $imageResId")
-    }
-
     private fun getColorIcon(color: Int): Drawable {
         val icon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.circle)!!
         icon.mutate().setColorFilter(color, Mode.SRC_IN)
@@ -221,7 +211,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             AuthenticatorInfo(label, icon, intent)
 
         } catch (e: PackageManager.NameNotFoundException) {
-            val errorDialog = AlertDialog.Builder(requireActivity())
+            val errorDialog = MaterialAlertDialogBuilder(requireActivity())
                 .setMessage("$e")
                 .create()
             errorDialog.show()
@@ -241,7 +231,7 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     }
 
     private fun deleteCalendar() {
-        val warningDialog = AlertDialog.Builder(requireActivity())
+        val warningDialog = MaterialAlertDialogBuilder(requireActivity())
                 .setMessage(R.string.preferences_calendar_delete_message)
                 .setPositiveButton(R.string.preferences_calendar_delete_delete) { _, _ ->
                     calendarRepository.deleteLocalCalendar(account.name, calendarId)
