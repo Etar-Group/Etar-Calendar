@@ -28,7 +28,7 @@
     <item
         android:id="@+id/action_info"
         android:alphabeticShortcut="i"
-        android:icon="@drawable/ic_info_outline"
+        android:icon="@drawable/ic_error_outline"
         android:orderInCategory="1"
         android:title="@string/menu_info"
         app:showAsAction="ifRoom" />
