@@ -109,6 +109,7 @@
     <color name="calendar_hidden">#ff808080</color>
     <color name="calendar_secondary_visible">#ff323232</color>
     <color name="calendar_secondary_hidden">#ff808080</color>
+    <color name="calendar_item_disabled">#61000000</color>
 
     <!-- Text color of the date in the Calendar widget -->
 
@@ -294,6 +295,7 @@
     <color name="calendar_hidden_black">#757575</color>
     <color name="calendar_secondary_visible_black">#ffffff</color>
     <color name="calendar_secondary_hidden_black">#757575</color>
+    <color name="calendar_item_disabled_black">#61ffffff</color>
 
     <!-- timezone_GMT_background_color -->
     <color name="calendar_date_banner_background_black">#212121</color>
@@ -399,6 +401,7 @@
     <color name="calendar_hidden_dark">#757575</color>
     <color name="calendar_secondary_visible_dark">#ffffff</color>
     <color name="calendar_secondary_hidden_dark">#757575</color>
+    <color name="calendar_item_disabled_dark">#61ffffff</color>
 
     <!-- timezone_GMT_background_color -->
     <color name="calendar_date_banner_background_dark">#212121</color>

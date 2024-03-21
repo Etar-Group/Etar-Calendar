@@ -308,7 +308,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         super.onAttach(activity);
         mActivity = (AppCompatActivity) activity;
 
-        mHelper = new EditEventHelper(activity, null);
+        mHelper = new EditEventHelper(activity);
         mHandler = new QueryHandler(activity.getContentResolver());
         mModel = new CalendarEventModel(activity, mIntent);
         mInputMethodManager = (InputMethodManager)
@@ -670,7 +670,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             long eventId;
             switch (token) {
                 case TOKEN_EVENT:
-                    if (cursor.getCount() == 0) {
+                    if (!cursor.moveToFirst()) {
                         // The cursor is empty. This can happen if the event
                         // was deleted.
                         cursor.close();
@@ -734,13 +734,29 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         setModelIfDone(TOKEN_REMINDERS);
                     }
 
+                    final String selection;
+                    final String[] selectionArgs;
+                    final boolean isRecurring = !TextUtils.isEmpty(mModel.mRrule);
+                    if (isRecurring && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                        // recurring event, api level < 30. disable changing calendars.
+                        selection = EditEventHelper.CALENDARS_WHERE;
+                        selectionArgs = new String[] { Long.toString(mModel.mCalendarId) };
+                    } else if (isRecurring) {
+                        // recurring event, api level >= 30. enable changing calendars to synced calendars.
+                        selection = EditEventHelper.CALENDARS_WHERE_SYNCED_WRITEABLE_VISIBLE;
+                        selectionArgs = null;
+                    } else {
+                        // non recurring event. enable changing calendars to all calendars.
+                        selection = EditEventHelper.CALENDARS_WHERE_WRITEABLE_VISIBLE;
+                        selectionArgs = null;
+                    }
+
                     // TOKEN_CALENDARS
-                    String[] selArgs = {
-                            Long.toString(mModel.mCalendarId)
-                    };
                     mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
-                            EditEventHelper.CALENDARS_PROJECTION, EditEventHelper.CALENDARS_WHERE,
-                            selArgs /* selection args */, null /* sort order */);
+                            EditEventHelper.CALENDARS_PROJECTION,
+                            selection,
+                            selectionArgs,
+                            null /* sort order */);
 
                     // TOKEN_COLORS
                     mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
@@ -752,9 +768,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             mModel.mCalendarAccountName,
                             mModel.mCalendarAccountType
                     );
-                    selArgs = new String[]{
-                            Long.toString(eventId)
-                    };
+                    String[] selArgs = new String[]{ Long.toString(eventId) };
                     mHandler.startQuery(TOKEN_EXTENDED, null, extendedPropUri,
                             EditEventHelper.EXTENDED_PROJECTION,
                             EditEventHelper.EXTENDED_WHERE_EVENT, selArgs, null);
@@ -762,7 +776,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     setModelIfDone(TOKEN_EVENT);
                     break;
                 case TOKEN_ATTENDEES:
-                    try {
+                    try (cursor) {
                         while (cursor.moveToNext()) {
                             String name = cursor.getString(EditEventHelper.ATTENDEES_INDEX_NAME);
                             String email = cursor.getString(EditEventHelper.ATTENDEES_INDEX_EMAIL);
@@ -806,14 +820,12 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             mModel.addAttendee(attendee);
                             mOriginalModel.addAttendee(attendee);
                         }
-                    } finally {
-                        cursor.close();
                     }
 
                     setModelIfDone(TOKEN_ATTENDEES);
                     break;
                 case TOKEN_REMINDERS:
-                    try {
+                    try (cursor) {
                         // Add all reminders to the models
                         while (cursor.moveToNext()) {
                             int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
@@ -826,55 +838,45 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         // Sort appropriately for display
                         Collections.sort(mModel.mReminders);
                         Collections.sort(mOriginalModel.mReminders);
-                    } finally {
-                        cursor.close();
                     }
 
                     setModelIfDone(TOKEN_REMINDERS);
                     break;
                 case TOKEN_CALENDARS:
-                    try {
-                        if (mModel.mId == -1) {
-                            // Populate Calendar spinner only if no event id is set.
-                            MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
-                            if (DEBUG) {
-                                Log.d(TAG, "onQueryComplete: setting cursor with "
-                                        + matrixCursor.getCount() + " calendars");
-                            }
-                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed(),
-                                    mCalendarId);
-                        } else {
+                    try (cursor) {
+                        MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
+                        if (DEBUG) {
+                            Log.d(TAG, "onQueryComplete: setting cursor with " + matrixCursor.getCount() + " calendars");
+                        }
+                        if (mModel.mId != -1) {
                             // Populate model for an existing event
                             EditEventHelper.setModelFromCalendarCursor(mModel, cursor, activity);
                             EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor, activity);
                         }
-                    } finally {
-                        cursor.close();
+                        mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed(), mModel.mCalendarId);
                     }
                     setModelIfDone(TOKEN_CALENDARS);
                     break;
                 case TOKEN_COLORS:
-                    if (cursor.moveToFirst()) {
-                        EventColorCache cache = new EventColorCache();
-                        do {
-                            String colorKey = cursor.getString(EditEventHelper.COLORS_INDEX_COLOR_KEY);
-                            int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
-                            int displayColor = Utils.getDisplayColorFromColor(activity, rawColor);
-                            String accountName = cursor
-                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_NAME);
-                            String accountType = cursor
-                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_TYPE);
-                            cache.insertColor(accountName, accountType,
-                                    displayColor, colorKey);
-                        } while (cursor.moveToNext());
-                        cache.sortPalettes(new HsvColorComparator());
+                    try (cursor) {
+                        if (cursor.moveToFirst()) {
+                            EventColorCache cache = new EventColorCache();
+                            do {
+                                String colorKey = cursor.getString(EditEventHelper.COLORS_INDEX_COLOR_KEY);
+                                int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
+                                int displayColor = Utils.getDisplayColorFromColor(activity, rawColor);
+                                String accountName = cursor
+                                        .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_NAME);
+                                String accountType = cursor
+                                        .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_TYPE);
+                                cache.insertColor(accountName, accountType,
+                                        displayColor, colorKey);
+                            } while (cursor.moveToNext());
+                            cache.sortPalettes(new HsvColorComparator());
 
-                        mModel.mEventColorCache = cache;
-                        mView.mColorPickerNewEvent.setOnClickListener(mOnColorPickerClicked);
-                        mView.mColorPickerExistingEvent.setOnClickListener(mOnColorPickerClicked);
-                    }
-                    if (cursor != null) {
-                        cursor.close();
+                            mModel.mEventColorCache = cache;
+                            mView.mColorPicker.setOnClickListener(mOnColorPickerClicked);
+                        }
                     }
 
                     // If the account name/type is null, the calendar event colors cannot be

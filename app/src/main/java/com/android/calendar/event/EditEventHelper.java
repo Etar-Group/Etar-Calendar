@@ -17,12 +17,15 @@
 package com.android.calendar.event;
 
 import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
@@ -54,6 +57,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 
 public class EditEventHelper {
@@ -93,7 +97,9 @@ public class EditEventHelper {
             Events.EVENT_COLOR, // 23
             Events.EVENT_COLOR_KEY, // 24
             Events.ACCOUNT_NAME, // 25
-            Events.ACCOUNT_TYPE // 26
+            Events.ACCOUNT_TYPE, // 26
+            Events.EXDATE, // 27
+            Events.ORIGINAL_INSTANCE_TIME // 28
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -122,6 +128,8 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_EVENT_COLOR_KEY = 24;
     protected static final int EVENT_INDEX_ACCOUNT_NAME = 25;
     protected static final int EVENT_INDEX_ACCOUNT_TYPE = 26;
+    protected static final int EVENT_INDEX_EXDATE = 27;
+    protected static final int EVENT_INDEX_ORIGINAL_INSTANCE_TIME = 28;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -156,6 +164,9 @@ public class EditEventHelper {
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
     private final AsyncQueryService mService;
+
+    private final ContentResolver mContextResolver;
+    private final Context mContext;
 
     // This allows us to flag the event if something is wrong with it, right now
     // if an uri is provided for an event that doesn't exist in the db.
@@ -208,6 +219,11 @@ public class EditEventHelper {
 
     static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.CALENDAR_ACCESS_LEVEL + ">="
             + Calendars.CAL_ACCESS_CONTRIBUTOR + " AND " + Calendars.VISIBLE + "=1";
+
+    static final String CALENDARS_WHERE_SYNCED_WRITEABLE_VISIBLE =
+            Calendars.CALENDAR_ACCESS_LEVEL + ">=" + Calendars.CAL_ACCESS_CONTRIBUTOR
+                    + " AND " + Calendars.VISIBLE + "=1"
+                    + " AND " + Calendars.ACCOUNT_TYPE + "!='" + CalendarContract.ACCOUNT_TYPE_LOCAL + "'";
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
 
@@ -266,11 +282,8 @@ public class EditEventHelper {
 
     public EditEventHelper(Context context) {
         mService = ((AbstractCalendarActivity)context).getAsyncQueryService();
-    }
-
-    public EditEventHelper(Context context, CalendarEventModel model) {
-        this(context);
-        // TODO: Remove unnecessary constructor.
+        mContextResolver = context.getContentResolver();
+        this.mContext = context;
     }
 
     /**
@@ -307,7 +320,7 @@ public class EditEventHelper {
             Log.e(TAG, "Attempted to save invalid model.");
             return false;
         }
-        if (originalModel != null && !isSameEvent(model, originalModel)) {
+        if (originalModel != null && originalModel.mId != model.mId) {
             Log.e(TAG, "Attempted to update existing event but models didn't refer to the same "
                     + "event.");
             return false;
@@ -345,6 +358,15 @@ public class EditEventHelper {
             ops.add(b.build());
             forceSaveReminders = true;
 
+        } else if (originalModel.mCalendarId != model.mCalendarId) {
+            // event calendar has changed
+            eventIdIndex = ops.size();
+
+            ops.addAll(moveEventToCalendar(
+                    String.valueOf(model.mId),
+                    String.valueOf(model.mCalendarId)));
+
+            forceSaveReminders = true;
         } else if (TextUtils.isEmpty(model.mRrule) && TextUtils.isEmpty(originalModel.mRrule)) {
             // Simple update to a non-recurring event
             checkTimeDependentFields(originalModel, model, values, modifyWhich);
@@ -447,7 +469,7 @@ public class EditEventHelper {
         if (newEvent) {
             saveRemindersWithBackRef(ops, eventIdIndex, reminders, originalReminders,
                     forceSaveReminders);
-        } else if (uri != null) {
+        } else {
             long eventId = ContentUris.parseId(uri);
             saveReminders(ops, eventId, reminders, originalReminders, forceSaveReminders);
         }
@@ -518,9 +540,7 @@ public class EditEventHelper {
             ops.add(b.build());
         }
 
-        // TODO: is this the right test? this currently checks if this is
-        // a new event or an existing event. or is this a paranoia check?
-        if (hasAttendeeData && (newEvent || uri != null)) {
+        if (hasAttendeeData) {
             String attendees = model.getAttendeesString();
             String originalAttendeesString;
             if (originalModel != null) {
@@ -604,11 +624,86 @@ public class EditEventHelper {
             }
         }
 
-
         mService.startBatch(mService.getNextToken(), null, android.provider.CalendarContract.AUTHORITY, ops,
                 Utils.UNDO_DELAY);
 
         return true;
+    }
+
+    private List<ContentProviderOperation> moveEventToCalendar(
+            final String eventId, final String newCalendarId) {
+
+        final List<ContentProviderOperation> ops = new ArrayList<>();
+        final String syncId;
+        int eventIdIndex;
+
+        // retrieve event, create it in target calendar, delete from source calendar
+        try (Cursor cursor = mContextResolver.query(
+                Events.CONTENT_URI,
+                EVENT_PROJECTION,
+                Events._ID + "= ?",
+                new String[]{String.valueOf(eventId)},
+                null
+        )) {
+            if (cursor == null || cursor.getCount() != 1 || !cursor.moveToFirst()) {
+                final String count = cursor == null ? "no cursor" : String.valueOf(cursor.getCount());
+                throw new IllegalStateException("expected exactly 1 event, but got " + count);
+            }
+
+            final CalendarEventModel model = new CalendarEventModel();
+            setModelFromCursor(model, cursor, mContext);
+            final ContentValues values = getContentValuesFromModel(model);
+            values.put(Events.CALENDAR_ID, newCalendarId);
+            values.remove(Events.ORGANIZER);
+
+            syncId = model.mSyncId;
+
+            // set eventIdIndex for back referencing when inserting exceptions
+            eventIdIndex = ops.size();
+            ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI)
+                    .withValues(values)
+                    .build());
+
+            ops.add(ContentProviderOperation.newDelete(
+                    ContentUris.withAppendedId(Events.CONTENT_URI, model.mId)).build());
+        }
+
+        // moving event exceptions is currently ony supported for api level 30 and above
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return ops;
+        }
+
+        // retrieve events exceptions, create them in target calendar, delete them from source calendar
+        try (Cursor cursor = mContextResolver.query(
+                Events.CONTENT_URI,
+                EVENT_PROJECTION,
+                Events.ORIGINAL_SYNC_ID + "= ? AND " + Events._SYNC_ID + " IS NULL",
+                new String[]{String.valueOf(syncId)},
+                null
+        )) {
+            while (cursor != null && cursor.moveToNext()) {
+                final CalendarEventModel model = new CalendarEventModel();
+                setModelFromCursor(model, cursor, mContext);
+                final ContentValues values = getContentValuesFromModel(model);
+                values.put(Events.CALENDAR_ID, newCalendarId);
+                values.put(Events.ORIGINAL_INSTANCE_TIME, model.mOriginalTime);
+                values.remove(Events.ORGANIZER);
+
+                ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI)
+                        .withValues(values)
+                        // note: this call requires API level 30
+                        .withValueBackReference(Events.ORIGINAL_ID, eventIdIndex, Events._ID)
+                        .build());
+
+                Uri.Builder b = Events.CONTENT_EXCEPTION_URI.buildUpon();
+                ContentUris.appendId(b, Long.parseLong(eventId));
+                ContentUris.appendId(b, model.mId);
+
+                ops.add(ContentProviderOperation.newDelete(b.build()).build());
+            }
+        }
+
+        return ops;
     }
 
     public static LinkedHashSet<Rfc822Token> getAddressesFromList(String list,
@@ -824,30 +919,6 @@ public class EditEventHelper {
         ops.add(b.build());
 
         return newRrule;
-    }
-
-    /**
-     * Compares two models to ensure that they refer to the same event. This is
-     * a safety check to make sure an updated event model refers to the same
-     * event as the original model. If the original model is null then this is a
-     * new event or we're forcing an overwrite so we return true in that case.
-     * The important identifiers are the Calendar Id and the Event Id.
-     *
-     * @return
-     */
-    public static boolean isSameEvent(CalendarEventModel model, CalendarEventModel originalModel) {
-        if (originalModel == null) {
-            return true;
-        }
-
-        if (model.mCalendarId != originalModel.mCalendarId) {
-            return false;
-        }
-        if (model.mId != originalModel.mId) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -1075,18 +1146,18 @@ public class EditEventHelper {
      * Uses an event cursor to fill in the given model This method assumes the
      * cursor used {@link #EVENT_PROJECTION} as it's query projection. It uses
      * the cursor to fill in the given model with all the information available.
+     * Only the row the cursor currently points to is used.
      *
      * @param model The model to fill in
      * @param cursor An event cursor that used {@link #EVENT_PROJECTION} for the query
      */
     public static void setModelFromCursor(CalendarEventModel model, Cursor cursor, Context context) {
-        if (model == null || cursor == null || cursor.getCount() != 1) {
+        if (model == null || cursor == null || cursor.getCount() < 1) {
             Log.wtf(TAG, "Attempted to build non-existent model or from an incorrect query.");
             return;
         }
 
         model.clear();
-        cursor.moveToFirst();
 
         model.mId = cursor.getInt(EVENT_INDEX_ID);
         model.mTitle = cursor.getString(EVENT_INDEX_TITLE);
@@ -1105,6 +1176,7 @@ public class EditEventHelper {
         }
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
+        model.mExDate = cursor.getString(EVENT_INDEX_EXDATE);
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
         model.mSyncAccountName = cursor.getString(EVENT_INDEX_ACCOUNT_NAME);
         model.mSyncAccountType = cursor.getString(EVENT_INDEX_ACCOUNT_TYPE);
@@ -1114,6 +1186,7 @@ public class EditEventHelper {
         model.mHasAttendeeData = cursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
         model.mOriginalSyncId = cursor.getString(EVENT_INDEX_ORIGINAL_SYNC_ID);
         model.mOriginalId = cursor.getLong(EVENT_INDEX_ORIGINAL_ID);
+        model.mOriginalTime = cursor.getLong(EVENT_INDEX_ORIGINAL_INSTANCE_TIME);
         model.mOrganizer = cursor.getString(EVENT_INDEX_ORGANIZER);
         model.mIsOrganizer = model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
         model.mGuestsCanModify = cursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0;
@@ -1137,8 +1210,6 @@ public class EditEventHelper {
         } else {
             model.mEnd = cursor.getLong(EVENT_INDEX_DTEND);
         }
-
-        model.mModelUpdatedWithEventCursor = true;
     }
 
     /**
@@ -1157,12 +1228,6 @@ public class EditEventHelper {
         }
 
         if (model.mCalendarId == -1) {
-            return false;
-        }
-
-        if (!model.mModelUpdatedWithEventCursor) {
-            Log.wtf(TAG,
-                    "Can't update model with a Calendar cursor until it has seen an Event cursor.");
             return false;
         }
 
@@ -1301,6 +1366,7 @@ public class EditEventHelper {
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);
+        values.put(Events.EXDATE, model.mExDate);
         values.put(Events.RRULE, rrule);
         if (!TextUtils.isEmpty(rrule)) {
             addRecurrenceRule(values, model);

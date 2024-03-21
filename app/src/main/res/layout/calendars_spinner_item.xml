@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,27 +14,28 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:orientation="vertical">
 
-    <TextView android:id="@+id/calendar_name"
-        style="?android:attr/spinnerItemStyle"
+    <TextView
+        android:id="@+id/calendar_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:duplicateParentState="true"
         android:ellipsize="end"
-        android:textColor="?attr/light_dark"
+        android:singleLine="true"
+        android:textColor="@color/calendar_spinner_item_colors"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:duplicateParentState="true"
         android:ellipsize="marquee"
         android:singleLine="true"
-        style="?android:attr/spinnerItemStyle"
-        android:textColor="?attr/light_dark"
+        android:textColor="@color/calendar_spinner_item_colors"
         android:textSize="14sp" />
 
 </LinearLayout>
