@@ -51,7 +51,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
@@ -92,6 +91,9 @@ import com.android.timezonepicker.TimeZoneInfo;
 import com.android.timezonepicker.TimeZonePickerDialog;
 import com.android.timezonepicker.TimeZonePickerUtils;
 
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -99,6 +101,8 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Locale;
@@ -407,8 +411,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         setTime(mStartTimeButton, startMillis);
         setTime(mEndTimeButton, endMillis);
 
-        mStartDateButton.setOnClickListener(new DateClickListener(mStartTime));
-        mEndDateButton.setOnClickListener(new DateClickListener(mEndTime));
+        mStartDateButton.setOnClickListener(this::showDatePickerDialog);
+        mEndDateButton.setOnClickListener(this::showDatePickerDialog);
 
         mStartTimeButton.setOnClickListener(this::showTimerPickerDialog);
         mEndTimeButton.setOnClickListener(this::showTimerPickerDialog);
@@ -1721,6 +1725,84 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         updateHomeTime();
     }
 
+    private void showDatePickerDialog(View view) {
+        MaterialPickerOnPositiveButtonClickListener<Long> materialPickerOnPositiveButtonClickListener = timePicked -> {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date(timePicked));
+            onDateSet(view, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        };
+
+        CalendarConstraints calendarConstraints = new CalendarConstraints.Builder()
+                .setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity))
+                .build();
+
+        MaterialDatePicker<Long> datePickerDialog = MaterialDatePicker.Builder.datePicker()
+                .setSelection(Calendar.getInstance().getTimeInMillis())
+                .setCalendarConstraints(calendarConstraints)
+                .setTitleText(R.string.goto_date)
+                .build();
+
+        datePickerDialog.addOnPositiveButtonClickListener(materialPickerOnPositiveButtonClickListener);
+        datePickerDialog.show(mActivity.getSupportFragmentManager(), "DatePicker");
+    }
+
+    public void onDateSet(View view, int year, int month, int monthDay) {
+        Log.d(TAG, "onDateSet: " + year + " " + month + " " + monthDay);
+        // Cache the member variables locally to avoid inner class overhead.
+        Time startTime = mStartTime;
+        Time endTime = mEndTime;
+
+        // Cache the start and end millis so that we limit the number
+        // of calls to normalize() and toMillis(), which are fairly
+        // expensive.
+        long startMillis;
+        long endMillis;
+        if (view == mStartDateButton) {
+            // The start date was changed.
+            int yearDuration = endTime.getYear() - startTime.getYear();
+            int monthDuration = endTime.getMonth() - startTime.getMonth();
+            int monthDayDuration = endTime.getDay() - startTime.getDay();
+
+            startTime.setYear(year);
+            startTime.setMonth(month);
+            startTime.setDay(monthDay);
+            startMillis = startTime.normalize();
+
+            // Also update the end date to keep the duration constant.
+            endTime.setYear(year + yearDuration);
+            endTime.setMonth(month + monthDuration);
+            endTime.setDay(monthDay + monthDayDuration);
+            endMillis = endTime.normalize();
+
+            // If the start date has changed then update the repeats.
+            populateRepeats();
+
+            // Update tz in case the start time switched from/to DLS
+            populateTimezone(startMillis);
+        } else {
+            // The end date was changed.
+            startMillis = startTime.toMillis();
+            endTime.setYear(year);
+            endTime.setMonth(month);
+            endTime.setDay(monthDay);
+            endMillis = endTime.normalize();
+
+            // Do not allow an event to have an end time before the start
+            // time.
+            if (endTime.compareTo(startTime) < 0) {
+                endTime.set(startTime);
+                endMillis = startMillis;
+            }
+            // Call populateTimezone if we support end time zone as well
+        }
+
+        setDate(mStartDateButton, startMillis);
+        setDate(mEndDateButton, endMillis);
+        setTime(mEndTimeButton, endMillis); // In case end time had to be
+        // reset
+        updateHomeTime();
+    }
+
     public static class CalendarsAdapter extends ResourceCursorAdapter {
         public CalendarsAdapter(Context context, int resourceId, Cursor c) {
             super(context, resourceId, c);
@@ -1749,101 +1831,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     accountName.setVisibility(TextView.VISIBLE);
                 }
             }
-        }
-    }
-
-    private class DateListener implements DatePickerDialog.OnDateSetListener {
-        View mView;
-
-        public DateListener(View view) {
-            mView = view;
-        }
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
-            Log.d(TAG, "onDateSet: " + year + " " + month + " " + monthDay);
-            // Cache the member variables locally to avoid inner class overhead.
-            Time startTime = mStartTime;
-            Time endTime = mEndTime;
-
-            // Cache the start and end millis so that we limit the number
-            // of calls to normalize() and toMillis(), which are fairly
-            // expensive.
-            long startMillis;
-            long endMillis;
-            if (mView == mStartDateButton) {
-                // The start date was changed.
-                int yearDuration = endTime.getYear() - startTime.getYear();
-                int monthDuration = endTime.getMonth() - startTime.getMonth();
-                int monthDayDuration = endTime.getDay() - startTime.getDay();
-
-                startTime.setYear(year);
-                startTime.setMonth(month);
-                startTime.setDay(monthDay);
-                startMillis = startTime.normalize();
-
-                // Also update the end date to keep the duration constant.
-                endTime.setYear(year + yearDuration);
-                endTime.setMonth(month + monthDuration);
-                endTime.setDay(monthDay + monthDayDuration);
-                endMillis = endTime.normalize();
-
-                // If the start date has changed then update the repeats.
-                populateRepeats();
-
-                // Update tz in case the start time switched from/to DLS
-                populateTimezone(startMillis);
-            } else {
-                // The end date was changed.
-                startMillis = startTime.toMillis();
-                endTime.setYear(year);
-                endTime.setMonth(month);
-                endTime.setDay(monthDay);
-                endMillis = endTime.normalize();
-
-                // Do not allow an event to have an end time before the start
-                // time.
-                if (endTime.compareTo(startTime) < 0) {
-                    endTime.set(startTime);
-                    endMillis = startMillis;
-                }
-                // Call populateTimezone if we support end time zone as well
-            }
-
-            setDate(mStartDateButton, startMillis);
-            setDate(mEndDateButton, endMillis);
-            setTime(mEndTimeButton, endMillis); // In case end time had to be
-            // reset
-            updateHomeTime();
-        }
-    }
-
-    private class DateClickListener implements View.OnClickListener {
-        private Time mTime;
-
-        public DateClickListener(Time time) {
-            mTime = time;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (!mView.hasWindowFocus()) {
-                // Don't do anything if the activity if paused. Since Activity doesn't
-                // have a built in way to do this, we would have to implement one ourselves and
-                // either cast our Activity to a specialized activity base class or implement some
-                // generic interface that tells us if an activity is paused. hasWindowFocus() is
-                // close enough if not quite perfect.
-                return;
-            }
-
-            final DateListener listener = new DateListener(v);
-            if (mDatePickerDialog != null) {
-                mDatePickerDialog.dismiss();
-            }
-            mDatePickerDialog = new DatePickerDialog(mActivity, listener, mTime.getYear(),
-                    mTime.getMonth(), mTime.getDay());
-                mDatePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
-                mDatePickerDialog.show();
         }
     }
 }
