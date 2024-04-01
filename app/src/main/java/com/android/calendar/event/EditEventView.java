@@ -61,7 +61,6 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,6 +94,8 @@ import com.android.timezonepicker.TimeZonePickerUtils;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -409,8 +410,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mStartDateButton.setOnClickListener(new DateClickListener(mStartTime));
         mEndDateButton.setOnClickListener(new DateClickListener(mEndTime));
 
-        mStartTimeButton.setOnClickListener(new TimeClickListener(mStartTime));
-        mEndTimeButton.setOnClickListener(new TimeClickListener(mEndTime));
+        mStartTimeButton.setOnClickListener(this::showTimerPickerDialog);
+        mEndTimeButton.setOnClickListener(this::showTimerPickerDialog);
     }
 
     // Implements OnTimeZoneSetListener
@@ -1658,6 +1659,68 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+    public void showTimerPickerDialog(View view) {
+        int timeFormat = DateFormat.is24HourFormat(mActivity) ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
+
+        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+                .setHour((view == mStartTimeButton) ? mStartTime.getHour() : mEndTime.getHour())
+                .setMinute((view == mStartTimeButton) ? mStartTime.getMinute() : mEndTime.getMinute())
+                .setTimeFormat(timeFormat)
+                .build();
+
+        materialTimePicker.addOnPositiveButtonClickListener((dialog) -> {
+            onTimeSet(view, materialTimePicker.getHour(), materialTimePicker.getMinute());
+        });
+        materialTimePicker.show(mActivity.getSupportFragmentManager(), "TimePicker");
+    }
+
+    public void onTimeSet(View view, int hourOfDay, int minute) {
+        // Cache the member variables locally to avoid inner class overhead.
+        Time startTime = mStartTime;
+        Time endTime = mEndTime;
+
+        // Cache the start and end millis so that we limit the number
+        // of calls to normalize() and toMillis(), which are fairly
+        // expensive.
+        long startMillis;
+        long endMillis;
+        if (view == mStartTimeButton) {
+            // The start time was changed.
+            int hourDuration = endTime.getHour() - startTime.getHour();
+            int minuteDuration = endTime.getMinute() - startTime.getMinute();
+
+            startTime.setHour(hourOfDay);
+            startTime.setMinute(minute);
+            startMillis = startTime.normalize();
+
+            // Also update the end time to keep the duration constant.
+            endTime.setHour(hourOfDay + hourDuration);
+            endTime.setMinute(minute + minuteDuration);
+
+            // Update tz in case the start time switched from/to DLS
+            populateTimezone(startMillis);
+        } else {
+            // The end time was changed.
+            startMillis = startTime.toMillis();
+            endTime.setHour(hourOfDay);
+            endTime.setMinute(minute);
+
+            // Move to the start time if the end time is before the start
+            // time.
+            if (endTime.compareTo(startTime) < 0) {
+                endTime.setDay(startTime.getDay() + 1);
+            }
+            // Call populateTimezone if we support end time zone as well
+        }
+
+        endMillis = endTime.normalize();
+
+        setDate(mEndDateButton, endMillis);
+        setTime(mStartTimeButton, startMillis);
+        setTime(mEndTimeButton, endMillis);
+        updateHomeTime();
+    }
+
     public static class CalendarsAdapter extends ResourceCursorAdapter {
         public CalendarsAdapter(Context context, int resourceId, Cursor c) {
             super(context, resourceId, c);
@@ -1686,96 +1749,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     accountName.setVisibility(TextView.VISIBLE);
                 }
             }
-        }
-    }
-
-    /* This class is used to update the time buttons. */
-    private class TimeListener implements TimePickerDialog.OnTimeSetListener {
-        private View mView;
-
-        public TimeListener(View view) {
-            mView = view;
-        }
-
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Cache the member variables locally to avoid inner class overhead.
-            Time startTime = mStartTime;
-            Time endTime = mEndTime;
-
-            // Cache the start and end millis so that we limit the number
-            // of calls to normalize() and toMillis(), which are fairly
-            // expensive.
-            long startMillis;
-            long endMillis;
-            if (mView == mStartTimeButton) {
-                // The start time was changed.
-                int hourDuration = endTime.getHour() - startTime.getHour();
-                int minuteDuration = endTime.getMinute() - startTime.getMinute();
-
-                startTime.setHour(hourOfDay);
-                startTime.setMinute(minute);
-                startMillis = startTime.normalize();
-
-                // Also update the end time to keep the duration constant.
-                endTime.setHour(hourOfDay + hourDuration);
-                endTime.setMinute(minute + minuteDuration);
-
-                // Update tz in case the start time switched from/to DLS
-                populateTimezone(startMillis);
-            } else {
-                // The end time was changed.
-                startMillis = startTime.toMillis();
-                endTime.setHour(hourOfDay);
-                endTime.setMinute(minute);
-
-                // Move to the start time if the end time is before the start
-                // time.
-                if (endTime.compareTo(startTime) < 0) {
-                    endTime.setDay(startTime.getDay() + 1);
-                }
-                // Call populateTimezone if we support end time zone as well
-            }
-
-            endMillis = endTime.normalize();
-
-            setDate(mEndDateButton, endMillis);
-            setTime(mStartTimeButton, startMillis);
-            setTime(mEndTimeButton, endMillis);
-            updateHomeTime();
-        }
-    }
-
-    private class TimeClickListener implements View.OnClickListener {
-        private Time mTime;
-
-        public TimeClickListener(Time time) {
-            mTime = time;
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            TimePickerDialog dialog;
-            if (v == mStartTimeButton) {
-                if (mStartTimePickerDialog != null) {
-                    mStartTimePickerDialog.dismiss();
-                }
-                mStartTimePickerDialog = new TimePickerDialog(mActivity, new TimeListener(v),
-                        mTime.getHour(), mTime.getMinute(), DateFormat.is24HourFormat(mActivity));
-                dialog = mStartTimePickerDialog;
-            } else {
-                if (mEndTimePickerDialog != null) {
-                    mEndTimePickerDialog.dismiss();
-                }
-                mEndTimePickerDialog = new TimePickerDialog(mActivity, new TimeListener(v),
-                        mTime.getHour(), mTime.getMinute(), DateFormat.is24HourFormat(mActivity));
-                dialog = mEndTimePickerDialog;
-
-            }
-
-            dialog.show();
-
         }
     }
 
