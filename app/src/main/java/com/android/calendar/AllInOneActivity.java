@@ -88,6 +88,7 @@ import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivity;
 import com.android.calendar.settings.SettingsActivityKt;
 import com.android.calendar.settings.ViewDetailsPreferences;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendarcommon2.Time;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -264,6 +265,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     protected void onCreate(Bundle icicle) {
+        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         super.onCreate(icicle);
         mActivity = this;
         // This needs to be created before setContentView

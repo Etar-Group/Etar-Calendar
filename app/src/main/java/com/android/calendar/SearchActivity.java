@@ -45,6 +45,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
@@ -95,6 +96,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
 
     @Override
     protected void onCreate(Bundle icicle) {
+        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         super.onCreate(icicle);
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
