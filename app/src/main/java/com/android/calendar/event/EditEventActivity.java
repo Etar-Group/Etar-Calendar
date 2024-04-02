@@ -36,6 +36,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     @Override
     protected void onCreate(Bundle icicle) {
+        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         super.onCreate(icicle);
 
         mEventInfo = getEventInfoFromIntent(icicle);

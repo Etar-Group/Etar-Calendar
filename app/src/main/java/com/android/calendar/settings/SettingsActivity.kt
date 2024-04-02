@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.android.calendar.theme.applyThemeAndPrimaryColor
 import ws.xsoh.etar.R
 import ws.xsoh.etar.databinding.SimpleFrameLayoutMaterialBinding
 
@@ -38,6 +39,7 @@ class SettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        applyThemeAndPrimaryColor()
         super.onCreate(savedInstanceState)
 
         val fragment = if (intent.hasExtra(EXTRA_SHOW_FRAGMENT)) {

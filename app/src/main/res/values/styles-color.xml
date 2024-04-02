@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="colorBackgroundBlack">
+        <item name="android:colorBackground">@color/bg_black</item>
+    </style>
+
+    <style name="colorAccentPrimaryDefault">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="colorAccentPrimaryTeal">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="colorAccentPrimaryBlue">
+        <item name="colorAccent">@color/colorBlueAccent</item>
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
+    </style>
+
+    <style name="colorAccentPrimaryOrange">
+        <item name="colorAccent">@color/colorOrangeAccent</item>
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
+    </style>
+
+    <style name="colorAccentPrimaryGreen">
+        <item name="colorAccent">@color/colorGreenAccent</item>
+        <item name="colorPrimary">@color/colorGreenPrimary</item>
+        <item name="colorPrimaryDark">@color/colorGreenPrimaryDark</item>
+    </style>
+
+    <style name="colorAccentPrimaryRed">
+        <item name="colorAccent">@color/colorRedAccent</item>
+        <item name="colorPrimary">@color/colorRedPrimary</item>
+        <item name="colorPrimaryDark">@color/colorRedPrimaryDark</item>
+    </style>
+
+    <style name="colorAccentPrimaryPurple">
+        <item name="colorAccent">@color/colorPurpleAccent</item>
+        <item name="colorPrimary">@color/colorPurplePrimary</item>
+        <item name="colorPrimaryDark">@color/colorPurplePrimaryDark</item>
+    </style>
+
+</resources>
