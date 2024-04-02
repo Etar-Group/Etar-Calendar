@@ -195,7 +195,6 @@
     <string name="reminders_label">Legg til påminning</string>
     <string name="preferences_reminder_title">Varsel og påminningar</string>
     <string name="no_calendars_found">Før du kan leggja til eit hende, må du leggja til minst ein kalenderkonto til eininga di og syrge for at ein kalender er synleg. Trykk på «legg til konto» for å leggja til ein konto (om du nyleg la til ein konto, vent til han er synkronisert og røyn att). Eller trykk «avbryt» og sjå til at minst ein kalender er synleg.</string>
-    <string name="add_account">Legg til ein konto</string>
     <string name="view_event_organizer_label">Tilskipar:</string>
     <string name="event_color_picker_dialog_title">Hendelet</string>
     <string name="event_color_set_to_default">Set som forvald kalenderlet</string>
