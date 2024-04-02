@@ -76,9 +76,7 @@ android {
 
     lint {
         lintConfig = file("lint.xml")
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
+        // TODO: Resolve lint errors due to 363aa9c237a33e9e1a40bdfd9039dcaaa855a5a0
         abortOnError false
     }
 
