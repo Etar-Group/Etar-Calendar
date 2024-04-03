@@ -274,7 +274,7 @@ public class AlertReceiver extends BroadcastReceiver {
         // Create the base notification.
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
-        notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
+        notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar_events);
         int color = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
         notificationBuilder.setColor(context.getResources().getColor(color));
         notificationBuilder.setContentIntent(clickIntent);
