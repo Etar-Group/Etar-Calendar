@@ -1,0 +1,4 @@
+- Etkinlik iptalinde onay iletişim kutusu eklendi
+- Erteleme yok seçeneği eklendi
+- Ay görünümünde sola/sağa kaydırma ve yukarı/aşağı kaydırma iyileştirildi
+- Küçük hata düzeltmeleri
