@@ -336,4 +336,8 @@
     <string name="preferences_manage_notifications">通知を管理</string>
     <string name="preferences_do_not_check_battery_optimization_summary">ご自身の責任で使用してください！ 通知がなくなり、ウィジェットも更新されなくなり、バックグラウンドサービスがクラッシュします。バックグラウンドサービスを有効にすれば問題ありません。</string>
     <string name="calendars">カレンダー</string>
+    <string name="discard_event_changes">本当に変更を破棄しますか？</string>
+    <string name="discard">破棄</string>
+    <string name="cancel">キャンセル</string>
+    <string name="no_snooze_label">なし</string>
 </resources>
