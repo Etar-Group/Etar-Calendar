@@ -379,4 +379,5 @@
     <string name="preferences_do_not_check_battery_optimization">Не проверять оптимизацию батареи</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Используйте на свой страх! Уведомления больше не будут работать, виджеты не будут обновляться и произойдёт сбой фоновых сервисов. Но вас больше не спросят, хотите ли вы включить фоновый сервис.</string>
     <string name="calendars">Календари</string>
+    <string name="no_snooze_label">Нет</string>
 </resources>
