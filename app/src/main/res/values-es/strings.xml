@@ -369,4 +369,8 @@
     <string name="preferences_do_not_check_battery_optimization">No comprobar la optimización de la batería</string>
     <string name="preferences_do_not_check_battery_optimization_summary">¡Use bajo su propio riesgo! Las notificaciones dejarán de funcionar, el widget dejará de actualizarse y los servicios en segundo plano se bloquearán. Pero no se le preguntará de nuevo si desea habilitar el servicio en segundo plano.</string>
     <string name="calendars">Calendarios</string>
+    <string name="no_snooze_label">Ninguno</string>
+    <string name="discard_event_changes">¿Desea descartar los cambios?</string>
+    <string name="discard">Descartar</string>
+    <string name="cancel">Cancelar</string>
 </resources>
