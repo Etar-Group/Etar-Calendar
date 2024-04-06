@@ -67,7 +67,7 @@
     <string name="creating_event_with_guest" msgid="5758688413124191931">Uitnodiging wordt verstuurd.</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">Update wordt verstuurd.</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">Opslaan</string>
-    <string name="alert_title" msgid="7869592820853066853">Agenda meldingen</string>
+    <string name="alert_title" msgid="7869592820853066853">Agendameldingen</string>
     <string name="event_info_title" msgid="56024222340421620">Details gebeurtenis</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">Details uitnodiging</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">Hele dag</string>
@@ -290,7 +290,7 @@
     <string name="foreground_notification_channel_description">Meldingen vereist voor interne sync. Dit kanaal veilig kan verborgen worden.</string>
     <string name="preferences_calendar_account">%1$s-account</string>
     <string name="changelog">Wijzigingen</string>
-    <string name="offline_account_name">Offline-agenda</string>
+    <string name="offline_account_name">Offline agenda</string>
     <string name="preferences_menu_about">Over Etar</string>
     <string name="preferences_list_add_remote_etesync">EteSync-agenda toevoegen</string>
     <string name="preferences_list_add_remote">CalDAV-agenda toevoegen</string>
@@ -312,7 +312,7 @@
     <string name="preferences_calendar_delete">Agenda verwijderen</string>
     <string name="preferences_calendar_number_of_events">%1$d gebeurtenissen</string>
     <string name="preferences_calendar_configure_account">Agenda configureren in %1$s</string>
-    <string name="preferences_calendar_account_local">Offline-agenda</string>
+    <string name="preferences_calendar_account_local">Offline agenda</string>
     <string name="preferences_calendar_no_display_name">Naamloze agenda</string>
     <string name="cal_import_error_time_zone_msg">Deze tijdzone is niet herkend: %s</string>
     <string name="seven_days">7 dagen</string>
@@ -329,10 +329,10 @@
     <string name="preferences_list_add_offline_cancel">Annuleren</string>
     <string name="preferences_list_add_offline_name">Naam</string>
     <string name="preferences_list_add_offline_button">Agenda toevoegen</string>
-    <string name="preferences_list_add_offline_message">Offline-agenda\'s worden NIET gesynchroniseerd naar een cloud-dienst en zijn alleen beschikbaar op het toestel.</string>
+    <string name="preferences_list_add_offline_message">Offline agenda\'s worden NIET gesynchroniseerd naar een cloud-dienst en zijn alleen beschikbaar op het toestel.</string>
     <string name="preferences_list_add_offline_error_empty">Agendanaam opgeven!</string>
-    <string name="preferences_list_add_offline_title">Offline-agenda toevoegen</string>
-    <string name="preferences_list_add_offline">Offline-agenda toevoegen</string>
+    <string name="preferences_list_add_offline_title">Offline agenda toevoegen</string>
+    <string name="preferences_list_add_offline">Offline agenda toevoegen</string>
     <string name="preferences_list_general">Algemene instellingen</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Het Etar-project. Delen van het © 2005-<xliff:g>%1$s</xliff:g> Het Android Open Source-project.</string>
     <string name="no_reminder_label">Geen</string>
@@ -347,5 +347,10 @@
     <string name="duplicate_label">Dupliceren</string>
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Voor je een gebeurtenis kunt toevoegen, moet je minstens één agenda aan je toestel toevoegen</string>
-    <string name="add_calendar">Kalender toevoegen</string>
+    <string name="add_calendar">Agenda toevoegen</string>
+    <string name="preferences_manage_notifications">Meldingen beheren</string>
+    <string name="preferences_do_not_check_battery_optimization">Batterijoptimalisatie niet controleren</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Gebruik op eigen risico! Meldingen zullen niet meer werken, de widget wordt niet meer bijgewerkt en achtergronddiensten kunnen vastlopen. Maar u wordt niet opnieuw gevraagd of u de achtergronddienst wilt inschakelen.</string>
+    <string name="calendars">Agenda\'s</string>
+    <string name="no_snooze_label">Geen</string>
 </resources>
