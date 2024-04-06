@@ -1,0 +1,4 @@
+- Añadir confirmación al descartar un evento
+- Añadir la opción de no repetir
+- Mejora del deslizamiento izquierda/derecha y arriba/abajo en la vista del mes
+- Pequeños errores corregidos
