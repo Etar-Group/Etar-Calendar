@@ -1,0 +1,3 @@
+- Pagina met bewerkingsgebeurtenissen niet sluiten wanneer de telefoon is gedraaid
+- Kalendermeldingen per kalender
+- Voorkeur toegevoegd: de optimalisatie van de batterij niet controleren
