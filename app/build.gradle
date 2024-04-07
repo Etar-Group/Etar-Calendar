@@ -119,7 +119,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     // https://mvnrepository.com/artifact/org.dmfs/lib-recur
-    implementation 'org.dmfs:lib-recur:0.16.0'
+    implementation 'org.dmfs:lib-recur:0.16.1'
 
 }
 
