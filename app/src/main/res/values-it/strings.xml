@@ -369,4 +369,8 @@
     <string name="preferences_do_not_check_battery_optimization">Non controllare l\'ottimizzazione della batteria</string>
     <string name="preferences_manage_notifications">Gestisci le notifiche</string>
     <string name="calendars">Calendari</string>
+    <string name="no_snooze_label">Nessuno</string>
+    <string name="discard_event_changes">Vuoi scartare le modifiche?</string>
+    <string name="discard">Scarta</string>
+    <string name="cancel">Annulla</string>
 </resources>
