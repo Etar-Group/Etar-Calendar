@@ -1,0 +1,4 @@
+- Aggiunta finestra di conferma su evento di scarto
+- Aggiunta opzione per nessun promemoria
+- Migliorati swipe sinistra/destra e su/giù nella vista mese
+- Piccole correzioni di errori
