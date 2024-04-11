@@ -960,7 +960,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * @return selected time in UTC milliseconds since the epoch.
      */
     long getSelectedTimeInMillis() {
-        Time time = new Time();
+        Time time = new Time(Utils.getTimeZone(mContext, mTZUpdater));
         time.set(mBaseDate);
         time.setJulianDay(mSelectionDay);
         time.setHour(mSelectionHour);
@@ -4374,7 +4374,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 return true;
 
             default:
-                if (DEBUG) Log.e(TAG, "Not MotionEvent " + ev.toString());
+                if (DEBUG) Log.e(TAG, "Not MotionEvent " + ev);
                 if (mGestureDetector.onTouchEvent(ev)) {
                     return true;
                 }

@@ -1,0 +1,2 @@
+- Với đầy hi vọng thì cuối cùng đã khắc phục được sự cố khi xem tháng và tuần do quy tắc không hợp lệ
+- Sửa lỗi

@@ -1,0 +1,1 @@
+- Remediați eroarea de compilare F-Droid

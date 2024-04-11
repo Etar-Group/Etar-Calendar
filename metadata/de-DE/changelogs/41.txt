@@ -1,0 +1,1 @@
+- Buildfehler bei F-Droid behoben

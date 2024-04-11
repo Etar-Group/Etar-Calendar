@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="event_delete">Slett hende</string>
+    <plurals name="Nhours">
+        <item quantity="one">1 time</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> timar</item>
+    </plurals>
+    <string name="tomorrow">I morgon</string>
+    <string name="no_reminder_label">Ingen</string>
+    <string name="week_view">Veke</string>
+    <string name="month_view">Månad</string>
+    <string name="goto_date">Gå til …</string>
+    <string name="menu_preferences">Innstillingar</string>
+    <string name="show_controls">Vis knappar</string>
+    <string name="no_syncable_calendars">Ingen kalendrar</string>
+    <string name="view_event_calendar_label">Kalender:</string>
+    <string name="choose_event_color_label">Vel leten til hendet</string>
+    <string name="calendar_color_picker_dialog_title">Kalenderlet</string>
+    <string name="calendar_square_color_picker_description">Letval</string>
+    <string name="response_maybe">Kan henda</string>
+    <string name="email_guests_label">Send e-brev til gjestar</string>
+    <string name="email_picker_label">Send e-brev til</string>
+    <string name="event_not_found">Fann ikkje hendet.</string>
+    <string name="map_label">Kart</string>
+    <string name="no_map">Ingen kartapp lagd inn</string>
+    <string name="call_label">Ring</string>
+    <string name="quick_response_settings">Snøggsvar</string>
+    <string name="quick_response_settings_summary">Brigd forvalde svar for e-brev til gjestar</string>
+    <string name="quick_response_email_failed">Fann ikkje nokon e-brev-app</string>
+    <string name="quick_response_custom_msg">Rit ditt eige …</string>
+    <string name="event_info_organizer">Tilskipar:</string>
+    <string name="event_info_reminders_label">Påminningar</string>
+    <string name="agenda_tomorrow">I morgon, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="loading">Hentar …</string>
+    <string name="search_title">Søk i mine kalendrar</string>
+    <string name="edit_event_label">Gjentakande hendeval</string>
+    <string name="delete_label">Slett</string>
+    <string name="duplicate_label">Mangfald (1)</string>
+    <string name="save_label">Gøym</string>
+    <string name="endByDate">; fram til <xliff:g id="date">%s</xliff:g></string>
+    <plurals name="daily">
+        <item quantity="one">Dagleg</item>
+        <item quantity="other">Kvar <xliff:g id="number">%d</xliff:g>. dag</item>
+    </plurals>
+    <string name="monthly">Månadleg</string>
+    <string name="yearly_plain">Årleg</string>
+    <string name="preferences_light_theme">Ljos</string>
+    <string name="preferences_real_event_colors">Nytta røynlege hendeletar</string>
+    <string name="preferences_pure_black_night_mode">Kolsvart nattmodus</string>
+    <string name="default_start_title">Vising ved byrjing</string>
+    <string name="display_options">Visingsval</string>
+    <string name="display_location">Vis stad</string>
+    <string name="maximum_number_of_lines">Grense for mengd liner i eit hende</string>
+    <string name="default_start_last">Førre nytta vising</string>
+    <string name="preferences_days_per_week_title">Dagar i veka</string>
+    <string name="preferences_days_per_week_dialog">Dagar i veka</string>
+    <string name="preferences_clear_search_history_title">Slett søk</string>
+    <string name="preferences_clear_search_history_summary">Tak bort alle søka du har gjord</string>
+    <string name="search_history_cleared">Søkehistorikk tømt.</string>
+    <string name="preferences_alerts_vibrateWhen_title">Risting</string>
+    <string name="preferences_alerts_ringtone_title">Ljod</string>
+    <string name="preferences_default_reminder_title">Forvald påminningstid</string>
+    <string name="preferences_default_reminder_default">10</string>
+    <string name="preferences_home_tz_title">Eiga tidssone</string>
+    <string name="license">Løyve</string>
+    <string name="source_code">Kjeldekode</string>
+    <string name="gadget_no_events">Ingen komande kalenderhende</string>
+    <string name="preferences_reminders_responded_label">Hopp over påminningar</string>
+    <string name="preferences_reminders_responded_dialog">Hopp over påminningar</string>
+    <string name="copy_db">Send databasen</string>
+    <string name="accessibility_pick_end_date">Endedato</string>
+    <string name="accessibility_pick_recurrence">Gjenta hende</string>
+    <string name="accessibility_add_reminder">Legg til påminning</string>
+    <string name="accessibility_reminder_showmeas">Vis meg som</string>
+    <string name="accessibility_reminder_privacy">Privat</string>
+    <string name="day_view_new_event_hint">+ Nytt hende</string>
+    <plurals name="Nevents">
+        <item quantity="one">1 hende</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hende</item>
+    </plurals>
+    <plurals name="N_remaining_events">
+        <item quantity="one">+1 hende</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> hende</item>
+    </plurals>
+    <string name="acessibility_selected_marker_description">Valt hende</string>
+    <string name="recurrence_end_date_label">Inntil ein viss dato</string>
+    <string name="acessibility_recurrence_choose_end_date_description">Brigd endedato</string>
+    <string name="calendar_permission_not_granted">Kravde tilgjenge vart ikkje gjeve. For å kunne brigde hende må du gå til innstillingappen og gje dei</string>
+    <string name="visibility_default">Vanleg</string>
+    <string name="visibility_confidential">Løynd</string>
+    <string name="visibility_private">Privat</string>
+    <string name="visibility_public">Open</string>
+    <string name="two_days">2 dagar</string>
+    <string name="three_days">3 dagar</string>
+    <string name="four_days">4 dagar</string>
+    <string name="five_days">5 dagar</string>
+    <string name="zero_minutes">0 minutt</string>
+    <string name="fifteen_minutes">15 minutt</string>
+    <string name="thirty_minutes">30 minutt</string>
+    <string name="one_hour">1 time</string>
+    <string name="cal_share_intent_title">Send hendet til:</string>
+    <string name="cal_export_event_sdcard_title">Før ut til ytre gøyme</string>
+    <string name="cal_export_succ_msg">Hendet ført ut: %1$s</string>
+    <string name="cal_import_menu_title">Før inn hende</string>
+    <string name="cal_nothing_to_import">Det er ingenting å føre inn</string>
+    <string name="cal_import_error_msg">Kunne ikkje føre inn til kalenderen</string>
+    <string name="cal_import_error_time_zone_msg">Tidssona du oppgav er uforståeleg: %s</string>
+    <string name="cal_import_error_date_msg">Skjøna ikkje gjeven dato: %s</string>
+    <string name="cal_pick_ics">Vel ei fil å føra inn</string>
+    <string name="show_time_no">Ikkje vis tid</string>
+    <string name="show_time_start">Berre byrjingstid</string>
+    <string name="show_time_start_end">Byrjing- og endetid</string>
+    <string name="show_time_start_end_below">Byrjing- og endetid under hendet</string>
+    <string name="preferences_calendar_no_display_name">Namnlaus kalender</string>
+    <string name="preferences_calendar_account">%1$s-konto</string>
+    <string name="preferences_calendar_configure_account">Set opp kalender i %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1$d hende</string>
+    <string name="preferences_calendar_delete">Slett kalender</string>
+    <string name="preferences_calendar_display_name">Byt namn</string>
+    <string name="preferences_calendar_info_category">Kalenderopplysingar</string>
+    <string name="preferences_calendar_color">Let</string>
+    <string name="preferences_calendar_synchronize">Synkroniser denne kalenderen</string>
+    <string name="preferences_calendar_color_warning_title">Åtvaring</string>
+    <string name="preferences_calendar_color_warning_message">Brigde av let kan verta gløymt når kalenderen vert synkronisert att.
+\n
+\nDu kan slå av «Handsam kalenderletar» i DAVx⁵ for å hindre dette ifrå å henda.</string>
+    <string name="preferences_calendar_color_warning_button">Eg skjønar</string>
+    <string name="preferences_calendar_delete_message">Vil du sanneleg slette denne kalenderen\?</string>
+    <string name="preferences_calendar_delete_delete">Slett kalender</string>
+    <string name="preferences_calendar_delete_cancel">Avbryt</string>
+    <string name="preferences_list_calendar_summary_invisible">Hende vert ikkje vist</string>
+    <string name="preferences_list_general">Hovudinnstillingar</string>
+    <string name="preferences_list_add_remote">Legg til ein CalDAV-kalender</string>
+    <string name="preferences_list_add_offline_error_empty">Rit inn eit kalendernamn.</string>
+    <string name="preferences_list_add_offline_button">Legg til kalender</string>
+    <string name="preferences_list_add_offline_name">Namn</string>
+    <string name="preferences_list_add_offline_cancel">Avbryt</string>
+    <string name="preferences_menu_about">Om Etar</string>
+    <string name="after_start_of_event">Etter hendebyrjing</string>
+    <string name="when_label">Når</string>
+    <string name="app_label">Kalender</string>
+    <string name="today">I dag</string>
+    <string name="today_at_time_fmt">I dag kl. <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt">I morgon kl. <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <plurals name="Nmins">
+        <item quantity="one">1 min</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
+    </plurals>
+    <string name="no_title_label">(Utan namn)</string>
+    <plurals name="Nminutes">
+        <item quantity="one">1 minutt</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutt</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 dag</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> dagar</item>
+    </plurals>
+    <plurals name="Nweeks">
+        <item quantity="one">1 veke</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> veker</item>
+    </plurals>
+    <string name="day_view">Dag</string>
+    <plurals name="weekN">
+        <item quantity="one"/>
+        <item quantity="other">Veke <xliff:g id="count">%d</xliff:g></item>
+    </plurals>
+    <string name="show_day_view">Vis dag</string>
+    <string name="event_view">Vis hende</string>
+    <string name="event_create">Nytt hende</string>
+    <string name="event_edit">Brigd hende</string>
+    <string name="share_label">Del</string>
+    <string name="goto_today">I dag</string>
+    <string name="search">Søk</string>
+    <string name="hide_controls">Skjul knappar</string>
+    <string name="view_settings">Vis innstillingar</string>
+    <string name="hint_what">Hendenamn</string>
+    <string name="rsvp_accepted">Svara «ja».</string>
+    <string name="hint_where">Stad</string>
+    <string name="hint_description">Utgreiing</string>
+    <string name="hint_attendees">Gjestar</string>
+    <string name="saving_event">Gøymde hendet.</string>
+    <string name="creating_event">Laga hendet.</string>
+    <string name="empty_event">Laga ikkje tomt hende.</string>
+    <string name="creating_event_with_guest">Innbydingar vert send.</string>
+    <string name="rsvp_tentative">Svara «kan henda».</string>
+    <string name="rsvp_declined">Svara «nei».</string>
+    <string name="create_event_dialog_save">Gøym</string>
+    <string name="alert_title">Kalendervarsel</string>
+    <string name="event_info_title">Vis hende</string>
+    <string name="event_info_title_invite">Møteinnbyding</string>
+    <string name="edit_event_all_day_label">Heile dagen</string>
+    <string name="edit_event_calendar_label">Kalender</string>
+    <string name="presence_label">Vis meg som</string>
+    <string name="reminders_label">Legg til påminning</string>
+    <string name="preferences_reminder_title">Varsel og påminningar</string>
+    <string name="no_calendars_found">Før du kan leggja til eit hende, må du leggja til minst ein kalenderkonto til eininga di og syrge for at ein kalender er synleg. Trykk på «legg til konto» for å leggja til ein konto (om du nyleg la til ein konto, vent til han er synkronisert og røyn att). Eller trykk «avbryt» og sjå til at minst ein kalender er synleg.</string>
+    <string name="view_event_organizer_label">Tilskipar:</string>
+    <string name="event_color_picker_dialog_title">Hendelet</string>
+    <string name="event_color_set_to_default">Set som forvald kalenderlet</string>
+    <string name="response_no">Nei</string>
+    <string name="view_event_response_label">Kjem du\?</string>
+    <string name="response_yes">Ja</string>
+    <string name="email_organizer_label">Send e-brev til tilskiparen</string>
+    <string name="agenda_today">I dag, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="quick_response_settings_edit_title">Snøggsvar</string>
+    <string name="quick_response_dialog_title">Vel snøggsvar</string>
+    <string name="agenda_yesterday">I går, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="show_newer_events">Trykk for å visa hende ifrå etter <xliff:g id="newest_search_range">%1$s</xliff:g></string>
+    <string name="show_older_events">Trykk for å visa hende ifrå før <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="edit_label">Brigd</string>
+    <string name="discard_label">Avbryt</string>
+    <string name="does_not_repeat">Ikkje gjentak</string>
+    <string name="every_weekday">Kvardagar (mån-fre)</string>
+    <plurals name="weekly">
+        <item quantity="one">Kvar veke på <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Kvar <xliff:g id="number">%1$d</xliff:g>. veke på <xliff:g id="days_of_week">%2$s</xliff:g></item>
+    </plurals>
+    <string name="modify_event">Brigd berre dette hendet</string>
+    <string name="new_event_dialog_label">Nytt hende</string>
+    <string name="modify_all">Brigd hendet og gjentakingane dess</string>
+    <string name="preferences_general_title">Kalendervisingsinnstillingar</string>
+    <string name="preferences_black_theme">Svart</string>
+    <string name="modify_all_following">Brigd denne og alle komande hende</string>
+    <string name="new_event_dialog_option">Nytt hende</string>
+    <string name="delete_this_event_title">Vil du slette dette hendet\?</string>
+    <string name="delete_recurring_event_title">Vil du slette <xliff:g id="eventtitle">%s</xliff:g>\?</string>
+    <string name="change_response_title">Brigd svar</string>
+    <string name="preferences_title">Innstillingar</string>
+    <string name="preferences_month_view_portrait">Månadsvisingsoppsett (ståande)</string>
+    <string name="preferences_month_view_landscape">Månadsvisingsoppsett (liggjande)</string>
+    <string name="preferences_system_theme">Systemforval</string>
+    <string name="preferences_color_pick">Hovudlet</string>
+    <string name="preferences_theme">Vising</string>
+    <string name="preferences_color">Hovudlet</string>
+    <string name="preferences_dark_theme">Mørk</string>
+    <string name="accessibility_pick_end_time">Endetid</string>
+    <string name="accessibility_pick_start_date">Byrjingsdato</string>
+    <string name="accessibility_remove_reminder">Tak bort påminning</string>
+    <string name="accessibility_pick_start_time">Byrjingstid</string>
+    <string name="accessibility_pick_time_zone">Tidssone</string>
+    <string name="accessibility_all_day">Heildagshende</string>
+    <string name="accessibility_reminder_time">Påminningstid</string>
+    <string name="accessibility_reminder_type">Påminningsslag</string>
+    <string name="template_announce_item_index">Hende <xliff:g id="item_index">%1$s</xliff:g> av <xliff:g id="item_count">%2$s</xliff:g>.</string>
+    <string name="recurrence_end_date">Til <xliff:g id="date">%s</xliff:g></string>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="one">Kvar <xliff:g id="count">%d</xliff:g> veke</item>
+        <item quantity="other">Kvar <xliff:g id="count">%d</xliff:g>. veke</item>
+    </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Kvar <xliff:g id="count">%d</xliff:g> dag</item>
+        <item quantity="other">Kvar <xliff:g id="count">%d</xliff:g>. dag</item>
+    </plurals>
+    <string name="recurrence_month_pattern_by_day">På same dag kvar månad</string>
+    <string name="recurrence_end_continously">I all framtid</string>
+    <string name="preferences_hide_declined_title">Skjul avviste hende</string>
+    <string name="display_time">Vis tid</string>
+    <string name="preferences_week_start_day_title">Veke byrjar på</string>
+    <string name="preferences_week_start_day_dialog">Veke byrjar på</string>
+    <string name="preferences_default_event_duration_title">Forvald hendelengd</string>
+    <string name="preferences_alerts_title">Varsel</string>
+    <string name="preferences_alerts_popup_title">Oppsprettsvarsel</string>
+    <string name="preferences_default_reminder_dialog">Forvald påminningstid</string>
+    <string name="preferences_use_home_tz_title">Nytta eiga tidssone</string>
+    <string name="preferences_use_home_tz_descrip">Vis kalendrar og hendetider i di eiga tidssone når du ferdast</string>
+    <string name="preferences_show_week_num_title">Vis veketal</string>
+    <string name="directory_searching_fmt">Søkjer i <xliff:g id="domain">%s</xliff:g> …</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> Android Open Source Project.</string>
+    <string name="authors">Utgjevar</string>
+    <string name="preferences_build_version">Utgåve</string>
+    <string name="changelog">Brigdelogg</string>
+    <plurals name="month_more_events">
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+    </plurals>
+    <string name="user_rejected_calendar_write_permission">Etar krev tilgjenge til å lesa og rite kalender for å verke. Røyn att.</string>
+    <plurals name="recurrence_end_count">
+        <item quantity="one">For <xliff:g id="event_count">%d</xliff:g> hende</item>
+        <item quantity="other">For <xliff:g id="event_count">%d</xliff:g> hende</item>
+    </plurals>
+    <string name="two_hours">2 timar</string>
+    <string name="six_days">6 dagar</string>
+    <string name="seven_days">7 dagar</string>
+    <string name="one_and_a_half_hours">1,5 timar</string>
+    <string name="preferences_calendar_visible">Vis hende</string>
+    <string name="preferences_list_calendar_summary_sync_off">Ikkje synkronisert</string>
+    <string name="preferences_list_add_remote_etesync">Legg til ein EteSync-kalender</string>
+    <string name="foreground_notification_channel_description">Krev varsel for å gjera indre synkroniseringar. Du kan trygt skjula denne sambandslina.</string>
+    <string name="snooze_label">Vent litt</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Spør om kvar lenge du vil vente med påminningar når du set dei på vent</string>
+    <string name="accessibility_remove_attendee">Tak bort deltakar</string>
+    <string name="accessibility_add_attendee">Legg til deltakar</string>
+    <string name="preferences_default_snooze_delay_dialog">Forvald ventetid</string>
+    <string name="preferences_default_snooze_delay_title">Forvald ventetid</string>
+    <string name="snooze_delay_dialog_title">Vel ventetid</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Nytta forvald ventetid kvar gong</string>
+    <string name="dismiss_all_label">Skjul alle</string>
+</resources>

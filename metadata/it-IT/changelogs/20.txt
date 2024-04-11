@@ -1,0 +1,5 @@
+- Richieste notifiche extra per sincronizzazione interna degli avvisi. Per favore silenziale.
+- Rimossi permessi non più necessari.
+- Icone di notifica colorate.
+- Correzione bug.
+- Nuove traduzioni.

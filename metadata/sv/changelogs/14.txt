@@ -1,0 +1,6 @@
+- Begär åtkomst vid körtid på Android 6 och uppåt.
+- Fixa krasch vid uppstart.
+- Tillåt användaren att krympa skärmen så att hela dagen är synlig.
+- Ställ in sekunder till noll vid skapandet av en ny händelse.
+- Mindre fixar för layouten.
+- Många buggfixar.

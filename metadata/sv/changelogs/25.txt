@@ -1,0 +1,4 @@
+- Återställ tidszonens databas
+- App-ikon för SVG
+- Omarbeta och återaktivera widgeten
+- Nya översättningar

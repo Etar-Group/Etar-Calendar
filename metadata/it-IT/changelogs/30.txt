@@ -1,0 +1,2 @@
+- Correzione delle notifiche su Android 12.
+- Aggiunta di DecSync e Birthday Adapter alle app "conosciute" e non crashare

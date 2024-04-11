@@ -17,7 +17,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
 
     <Spinner
         android:id="@+id/reminder_minutes_value"
@@ -34,6 +35,7 @@
         android:layout_height="wrap_content"
         android:gravity="fill"
         android:text="@string/after_start_of_event"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/reminder_minutes_value"
         android:id="@+id/reminder_minutes_sign" />
@@ -44,9 +46,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_reminder_type"
         android:entries="@array/reminder_methods_labels"
-        android:gravity="top|end"
-        android:paddingStart="0dp"
-        android:paddingEnd="28dp"
+        android:gravity="top|start"
         app:layout_constraintEnd_toStartOf="@+id/reminder_remove"
         app:layout_constraintStart_toEndOf="@+id/reminder_minutes_value"
         app:layout_constraintTop_toTopOf="@+id/reminder_minutes_value" />
@@ -58,6 +58,9 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_remove_reminder"
         android:gravity="center_vertical"
+        android:layout_marginTop="2dp"
+        android:padding="4dp"
+        android:paddingEnd="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/reminder_method_value"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/reminder_method_value" />

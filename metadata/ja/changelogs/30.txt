@@ -1,0 +1,2 @@
+- Android 12 での通知問題を修正
+- DecSync と Birthday Adapter をテストするアプリに追加し、クラッシュしないよう変更

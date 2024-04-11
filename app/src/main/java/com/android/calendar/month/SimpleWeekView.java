@@ -157,7 +157,7 @@ public class SimpleWeekView extends View {
     protected int mSelectedRight = -1;
     // The timezone to display times/dates in (used for determining when Today
     // is)
-    protected String mTimeZone = Utils.getCurrentTimezone();
+    protected String mTimeZone;
 
     protected int mBGColor;
     protected int mSelectedWeekBGColor;
@@ -181,6 +181,8 @@ public class SimpleWeekView extends View {
         mWeekNumColor = DynamicTheme.getColor(context, "month_week_num_color");
         mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
 
+        mTimeZone = Utils.getTimeZone(context, mTZUpdater);
+
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;
             if (mScale != 1) {
@@ -198,6 +200,14 @@ public class SimpleWeekView extends View {
         // Sets up any standard paints that will be used
         initView();
     }
+
+    private final Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            String tz = Utils.getTimeZone(getContext(), this);
+            mTimeZone = tz;
+        }
+    };
 
     /**
      * Sets all the parameters for displaying this week. The only required

@@ -1,4 +1,4 @@
-– Reprise de la mise en page de l’édition des évènements.
-– Abandon de la prise en charge d’Android 4.4.
-– Corrections de bogues généraux.
-– Nouvelles traductions.
+– Reprise de la mise en page de l’édition des évènements
+– Abandon de la prise en charge d’Android 4.4
+– Corrections de bogues généraux
+– Nouvelles traductions

@@ -77,8 +77,6 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privaatheid"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Voeg herinnering by"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen kalenders nie"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Voordat jy \'n gebeurtenis kan byvoeg, moet jy minstens een Kalender-rekening by jou toestel voeg en \'n kalender sigbaar maak. Raak Voeg Rekekning By om \'n rekening by te voeg (as jy sopas \'n rekening bygevoeg het, wag tot dit klaar gesinkroniseer het en probeer weer). Of raak Kanselleer en maak seker dat ten minste een kalender sigbaar is."</string>
-    <string name="add_account" msgid="1669072099756774952">"Voeg rekening by"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiseerder:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Kies geleentheidkleur"</string>

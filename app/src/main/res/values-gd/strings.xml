@@ -201,8 +201,6 @@
     <string name="choose_event_color_label">Tagh dath an tachartais</string>
     <string name="view_event_organizer_label">Eagraiche:</string>
     <string name="view_event_calendar_label">Mìosachan:</string>
-    <string name="add_account">Cuir cunntas ris</string>
-    <string name="no_calendars_found">Mus cuir thu tachartas ris, feumaidh tu cunntas mìosachain a chur ris an uidheam agad agus mìosachan a nochdadh. Suath ri “Cuir cunntas ris” a chur cunntas ris (ma tha thu dìreach air cunntas a chur ris, fuirich gus am bi an sioncronachadh deiseil is feuch ris a-rithist an uairsin). No suath ri “Sguir dheth” agus dèan cinnteach gu bheil mìosachan a nochdas ann.</string>
     <string name="no_syncable_calendars">Chan eil mìosachan ann</string>
     <string name="reminders_label">Cuir cuimhneachan ris</string>
     <string name="privacy_label">Prìobhaideachd</string>

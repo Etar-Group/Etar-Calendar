@@ -16,6 +16,9 @@
 
 package com.android.calendar.alerts;
 
+import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC;
+import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
+
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -48,6 +51,7 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.calendar.Utils;
@@ -66,7 +70,7 @@ import ws.xsoh.etar.R;
  */
 public class AlertService extends Service {
 
-    public static final String ALERT_CHANNEL_ID = "alert_channel_01";
+    public static final String ALERT_CHANNEL_GROUP_ID = "alert_channel_group_01";
     public static final String FOREGROUND_CHANNEL_ID = "foreground_channel_01";
 
     // Hard limit to the number of notifications displayed.
@@ -85,6 +89,7 @@ public class AlertService extends Service {
         CalendarAlerts.BEGIN,                   // 9
         CalendarAlerts.END,                     // 10
         CalendarAlerts.DESCRIPTION,             // 11
+        CalendarAlerts.CALENDAR_ID,             // 12
     };
     private static final String TAG = "AlertService";
     private static final int ALERT_INDEX_ID = 0;
@@ -99,6 +104,7 @@ public class AlertService extends Service {
     private static final int ALERT_INDEX_BEGIN = 9;
     private static final int ALERT_INDEX_END = 10;
     private static final int ALERT_INDEX_DESCRIPTION = 11;
+    private static final int ALERT_INDEX_CALENDAR_ID = 12;
     private static final String ACTIVE_ALERTS_SELECTION = "(" + CalendarAlerts.STATE + "=? OR "
             + CalendarAlerts.STATE + "=?) AND " + CalendarAlerts.ALARM_TIME + "<=";
     private static final String[] ACTIVE_ALERTS_SELECTION_ARGS = new String[] {
@@ -278,7 +284,7 @@ public class AlertService extends Service {
                 String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
                         info.allDay, info.location);
                 notification = AlertReceiver.makeBasicNotification(context, info.eventName,
-                        summaryText, info.startMillis, info.endMillis, info.eventId,
+                        summaryText, info.startMillis, info.endMillis, info.eventId, info.calendarId,
                         AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, false,
                         Notification.PRIORITY_MIN);
             } else {
@@ -405,7 +411,7 @@ public class AlertService extends Service {
             ids.setLength(ids.length() - 1);
         }
         if (ids.length() > 0) {
-            Log.d(TAG, "Reached max postings, bumping event IDs {" + ids.toString()
+            Log.d(TAG, "Reached max postings, bumping event IDs {" + ids
                     + "} to digest.");
         }
     }
@@ -469,6 +475,7 @@ public class AlertService extends Service {
             while (alertCursor.moveToNext()) {
                 final long alertId = alertCursor.getLong(ALERT_INDEX_ID);
                 final long eventId = alertCursor.getLong(ALERT_INDEX_EVENT_ID);
+                final long calendarId = alertCursor.getLong(ALERT_INDEX_CALENDAR_ID);
                 final int minutes = alertCursor.getInt(ALERT_INDEX_MINUTES);
                 final String eventName = alertCursor.getString(ALERT_INDEX_TITLE);
                 final String description = alertCursor.getString(ALERT_INDEX_DESCRIPTION);
@@ -507,6 +514,7 @@ public class AlertService extends Service {
                     msgBuilder.append("alertCursor result: alarmTime:").append(alarmTime)
                             .append(" alertId:").append(alertId)
                             .append(" eventId:").append(eventId)
+                            .append(" calendarId:").append(calendarId)
                             .append(" state: ").append(state)
                             .append(" minutes:").append(minutes)
                             .append(" declined:").append(declined)
@@ -586,7 +594,7 @@ public class AlertService extends Service {
 
                 // TODO: Prefer accepted events in case of ties.
                 NotificationInfo newInfo = new NotificationInfo(eventName, location,
-                        description, beginTime, endTime, eventId, allDay, newAlert);
+                        description, beginTime, endTime, eventId, calendarId, allDay, newAlert);
 
                 // Adjust for all day events to ensure the right bucket.  Don't use the 1/4 event
                 // duration grace period for these.
@@ -703,8 +711,8 @@ public class AlertService extends Service {
 
         String tickerText = getTickerText(info.eventName, info.location);
         NotificationWrapper notification = AlertReceiver.makeExpandingNotification(context,
-                info.eventName, summaryText, info.description, info.startMillis,
-                info.endMillis, info.eventId, notificationId, prefs.getDoPopup(), priorityVal);
+                info.eventName, summaryText, info.description, info.startMillis, info.endMillis,
+                info.eventId, info.calendarId, notificationId, prefs.getDoPopup(), priorityVal);
 
         boolean quietUpdate = true;
         String ringtone = NotificationPrefs.EMPTY_RINGTONE;
@@ -924,14 +932,23 @@ public class AlertService extends Service {
         if (intent != null) {
 
             if (Utils.isOreoOrLater()) {
-
                 createChannels(this);
                 Notification notification = new NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
                         .setContentTitle(getString(R.string.foreground_notification_title))
-                        .setSmallIcon(R.drawable.stat_notify_calendar)
+                        .setSmallIcon(R.drawable.stat_notify_refresh_events)
                         .setShowWhen(false)
                         .build();
-                startForeground(1337, notification);
+                if (Utils.isQOrLater()) {
+                    int serviceType;
+                    if (Utils.isUpsideDownCakeOrLater()) {
+                        serviceType = FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
+                    } else {
+                        serviceType = FOREGROUND_SERVICE_TYPE_DATA_SYNC;
+                    }
+                    ServiceCompat.startForeground(this, 1337, notification, serviceType);
+                } else {
+                    startForeground(1337, notification);
+                }
             }
 
             Message msg = mServiceHandler.obtainMessage();
@@ -954,16 +971,13 @@ public class AlertService extends Service {
 
     public static void createChannels(Context context) {
         if (Utils.isOreoOrLater()) {
-            // Create notification channel
-            NotificationMgr nm = new NotificationMgrWrapper(
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+            NotificationManager nm =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            NotificationChannel channel  = new NotificationChannel(
-                    ALERT_CHANNEL_ID,
-                    context.getString(R.string.standalone_app_label),
-                    NotificationManager.IMPORTANCE_HIGH);
-            channel.enableLights(true);
+            // Create a channel per calendar (so that the user can turn it off with granularity)
+            UtilsKt.createPerCalendarChannels(context, nm);
 
+            // Create a "Background tasks" channel to keep the app alive
             NotificationChannel foregroundChannel = new NotificationChannel(
                     FOREGROUND_CHANNEL_ID,
                     context.getString(R.string.foreground_notification_channel_name),
@@ -971,7 +985,6 @@ public class AlertService extends Service {
             foregroundChannel.setDescription(
                     context.getString(R.string.foreground_notification_channel_description));
 
-            nm.createNotificationChannel(channel);
             nm.createNotificationChannel(foregroundChannel);
         }
     }
@@ -1043,17 +1056,19 @@ public class AlertService extends Service {
         long startMillis;
         long endMillis;
         long eventId;
+        long calendarId;
         boolean allDay;
         boolean newAlert;
 
         NotificationInfo(String eventName, String location, String description, long startMillis,
-                         long endMillis, long eventId, boolean allDay, boolean newAlert) {
+                         long endMillis, long eventId, long calendarId, boolean allDay, boolean newAlert) {
             this.eventName = eventName;
             this.location = location;
             this.description = description;
             this.startMillis = startMillis;
             this.endMillis = endMillis;
             this.eventId = eventId;
+            this.calendarId = calendarId;
             this.newAlert = newAlert;
             this.allDay = allDay;
         }

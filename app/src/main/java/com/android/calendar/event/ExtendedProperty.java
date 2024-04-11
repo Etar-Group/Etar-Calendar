@@ -1,7 +1,6 @@
 package com.android.calendar.event;
 
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.ExtendedProperties;

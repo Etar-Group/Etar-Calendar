@@ -1,0 +1,5 @@
+- Stöd Android 12
+- Stöd designen Material You
+- Ta bort anslutningen till Android-tjänsten för databasens säkerhetskopia (trasig i de flesta Android-versionerna)
+- Generella buggfixar
+- Nya översättningar

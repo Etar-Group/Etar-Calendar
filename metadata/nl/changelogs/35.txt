@@ -1,0 +1,3 @@
+- Url veld toevoegen
+- Bugfixes
+- Nieuwe vertalingen

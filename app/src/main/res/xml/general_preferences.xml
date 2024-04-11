@@ -158,6 +158,12 @@
             app:entries="@array/preferences_skip_reminders_labels"
             app:entryValues="@array/preferences_skip_reminders_values"
             app:dialogTitle="@string/preferences_reminders_responded_dialog" />
+
+        <SwitchPreference
+            app:key="pref_do_not_check_battery_optimization"
+            app:defaultValue="false"
+            app:title="@string/preferences_do_not_check_battery_optimization"
+            app:summary="@string/preferences_do_not_check_battery_optimization_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen>

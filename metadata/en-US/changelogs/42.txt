@@ -1,0 +1,3 @@
+- Don't close edit event page when phone is rotated
+- Calendar notifications per calendar
+- Add preference: Don't check battery optimization

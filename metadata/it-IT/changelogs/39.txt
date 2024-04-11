@@ -1,0 +1,2 @@
+- Corretto crash in vista mese e settimana a causa di una regola non valida
+- Correzioni di errori

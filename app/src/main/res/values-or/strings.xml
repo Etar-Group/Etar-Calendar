@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_preferences">ସେଟିଂ</string>
+    <string name="menu_info">ସୂଚନା</string>
+    <string name="hint_description">ଵର୍ଣ୍ଣନା</string>
+    <string name="search">ସନ୍ଧାନ</string>
+    <string name="today">ଆଜି</string>
+    <string name="tomorrow">ଆସନ୍ତାକାଲି</string>
+    <string name="goto_today">ଆଜି</string>
+    <string name="when_label">କେବେ</string>
+    <string name="preferences_menu_about">Etar ସମ୍ବନ୍ଧରେ</string>
+    <plurals name="weekN">
+        <item quantity="one"></item>
+        <item quantity="other">ସପ୍ତାହ <xliff:g id="count">%d</xliff:g></item>
+    </plurals>
+</resources>

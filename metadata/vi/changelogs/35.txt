@@ -1,0 +1,3 @@
+- Thêm khung điền url
+- Sửa lỗi
+- Bản dịch mới

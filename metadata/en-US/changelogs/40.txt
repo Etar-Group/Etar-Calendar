@@ -1,0 +1,2 @@
+- Hopefully, finally, fixed a crash on month and week view due to invalid rrule
+- Bugfixes

@@ -71,8 +71,6 @@
     <string name="privacy_label" msgid="9215031965259597335">Pribadi</string>
     <string name="reminders_label" msgid="7292389181815525676">Tambah pengingat</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">Tidak ada kalender</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">Sebelum Anda bisa menambahkan acara, Anda harus menambahkan setidaknya satu akun Kalender ke perangkat dan buat kalender terlihat. Sentuh Tambah Akun untuk menambah akun (jika Anda baru saja menambahkan akun, tunggu sampai akun selesai disinkronkan dan coba lagi). Atau sentuh Batal dan pastikan setidaknya satu kalender terlihat.</string>
-    <string name="add_account" msgid="1669072099756774952">Tambah akun</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Penyelenggara:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Pilih warna acara"</string>
@@ -330,4 +328,7 @@
     <string name="preferences_real_event_colors">Gunakan warna acara asli</string>
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Duplikat</string>
+    <string name="hint_url">URL</string>
+    <string name="no_calendars_found">Sebelum Anda bisa menambahkan acara, Anda harus menambahkan setidaknya satu kalender ke perangkat Anda</string>
+    <string name="add_calendar">Tambah kalender</string>
 </resources>

@@ -27,9 +27,6 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -75,6 +72,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
@@ -244,7 +244,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     protected void onNewIntent(Intent intent) {
         String action = intent.getAction();
         if (DEBUG)
-            Log.d(TAG, "New intent received " + intent.toString());
+            Log.d(TAG, "New intent received " + intent);
         // Don't change the date if we're just returning to the app's home
         if (Intent.ACTION_VIEW.equals(action)
                 && !intent.getBooleanExtra(Utils.INTENT_KEY_HOME, false)) {
@@ -270,11 +270,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
 
-        // Create notification channel
-        AlertService.createChannels(this);
-
         // Check and ask for most needed permissions
         checkAppPermissions();
+
+        // Create notification channels
+        AlertService.createChannels(this);
 
         // Get time from intent or icicle
         long timeMillis = -1;
@@ -304,7 +304,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         if (DEBUG) {
             if (icicle != null && intent != null) {
-                Log.d(TAG, "both, icicle:" + icicle.toString() + "  intent:" + intent.toString());
+                Log.d(TAG, "both, icicle:" + icicle + "  intent:" + intent);
             } else {
                 Log.d(TAG, "not both, icicle:" + icicle + " intent:" + intent);
             }
@@ -429,10 +429,13 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     permissionsList.toArray(permissionsArray),
                     PERMISSIONS_REQUEST_WRITE_CALENDAR);
         }
+
     }
 
     private void checkAndRequestDisablingDoze() {
-        if (!dozeDisabled()) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
+        boolean doNotCheckBatteryOptimization = Utils.getSharedPreference(getApplicationContext(), GeneralPreferences.KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION, false);
+        if (!dozeDisabled() && !doNotCheckBatteryOptimization) {
             Intent intent = new Intent();
             intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
             intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
@@ -441,6 +444,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     private Boolean dozeDisabled() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+
         String packageName = getApplicationContext().getPackageName();
         PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
         return pm.isIgnoringBatteryOptimizations(packageName);
@@ -604,6 +609,14 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.registerFirstEventHandler(HANDLER_KEY, this);
         mOnSaveInstanceStateCalled = false;
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            if (!Utils.canScheduleAlarms(this)) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                startActivity(intent);
+            }
+        }
+
         if (!Utils.isCalendarPermissionGranted(this, true)) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.READ_CALENDAR is not granted");
@@ -692,7 +705,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         if (mCurrentView == ViewType.EDIT) {
             outState.putLong(BUNDLE_KEY_EVENT_ID, mController.getEventId());
         } else if (mCurrentView == ViewType.AGENDA) {
-            FragmentManager fm = getFragmentManager();
+            FragmentManager fm = getSupportFragmentManager();
             Fragment f = fm.findFragmentById(R.id.main_pane);
             if (f instanceof AgendaFragment) {
                 outState.putLong(BUNDLE_KEY_EVENT_ID, ((AgendaFragment) f).getLastShowEventId());
@@ -745,7 +758,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         if (DEBUG) {
             Log.d(TAG, "Initializing to " + timeMillis + " for view " + viewType);
         }
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         if (mShowCalendarControls) {
             Fragment miniMonthFrag = new MonthByWeekFragment(timeMillis, true);
@@ -914,7 +927,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         Utils.setTodayIcon(icon, this, mTimeZone);
 
         // Handle warning for disabling battery optimizations
-        if (dozeDisabled()) {
+        boolean doNotCheckBatteryOptimization = Utils.getSharedPreference(getApplicationContext(), GeneralPreferences.KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION, false);
+        if (dozeDisabled() || doNotCheckBatteryOptimization) {
             MenuItem menuInfoItem = menu.findItem(R.id.action_info);
             if (menuInfoItem != null) {
                 menuInfoItem.setVisible(false);
@@ -1112,7 +1126,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
         // Remove this when transition to and from month view looks fine.
         boolean doTransition = viewType != ViewType.MONTH && mCurrentView != ViewType.MONTH;
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         // Check if our previous view was an Agenda view
         // TODO remove this if framework ever supports nested fragments
         if (mCurrentView == ViewType.AGENDA) {
@@ -1454,7 +1468,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                             EventInfoFragment.DIALOG_WINDOW_STYLE,
                             null /* No reminders to explicitly pass in. */);
                     fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
-                    FragmentManager fm = getFragmentManager();
+                    FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     // if we have an old popup replace it
                     Fragment fOld = fm.findFragmentByTag(EVENT_INFO_FRAGMENT_TAG);

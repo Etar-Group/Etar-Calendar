@@ -1,7 +1,7 @@
-– Réduction de la taille de la fonte pour la vue de la semaine.
-– Activation des suggestions de recherches récentes.
-– Correction de l’exportation vers une carte SD.
-– Barre sur les titres des évènements annulés.
-– Utilisation du paramètre du système de thème sur Android 10.
-– Nouvelles traductions.
-– Corrections de bogues.
+– Réduction de la taille de la fonte pour la vue de la semaine
+– Activation des suggestions de recherches récentes
+– Correction de l’exportation vers une carte SD
+– Barre sur les titres des évènements annulés
+– Utilisation du paramètre du système de thème sur Android 10
+– Nouvelles traductions
+– Corrections de bogues

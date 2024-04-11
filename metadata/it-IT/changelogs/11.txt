@@ -1,0 +1,3 @@
+- Aggiunta un'opzione per selezionare il numero di giorni per settimana.
+- Aggiunta un'opzione per mostrare la vista predefinita all'avvio.
+- Correzione bug.

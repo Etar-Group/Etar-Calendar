@@ -1,0 +1,4 @@
+- Thêm hỗ trợ ngôn ngữ cho mỗi ứng dụng (android 13 trở lên)
+- Thêm thao tác vuốt sang trái/phải để xem theo tháng
+- Sửa lỗi
+- Bản dịch mới

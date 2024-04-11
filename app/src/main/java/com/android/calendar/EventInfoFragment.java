@@ -28,8 +28,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.app.Service;
 import android.content.ActivityNotFoundException;
 import android.content.ContentProviderOperation;
@@ -98,10 +96,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -137,7 +138,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -509,7 +509,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mY = -1;
     private int mMinTop;         // Dialog cannot be above this location
     private boolean mIsTabletConfig;
-    private Activity mActivity;
+    private AppCompatActivity mActivity;
     private Context mContext;
     private final Runnable mTZUpdater = new Runnable() {
         @Override
@@ -670,7 +670,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         final Activity activity = getActivity();
         mContext = activity;
         dynamicTheme.onCreate(activity);
-        mColorPickerDialog = (EventColorPickerDialog) activity.getFragmentManager()
+        mColorPickerDialog = (EventColorPickerDialog) mActivity.getSupportFragmentManager()
                 .findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
         if (mColorPickerDialog != null) {
             mColorPickerDialog.setOnColorSelectedListener(this);
@@ -750,14 +750,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mActivity = activity;
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mActivity = (AppCompatActivity) context;
         // Ensure that mIsTabletConfig is set before creating the menu.
         mIsTabletConfig = Utils.getConfigBool(mActivity, R.bool.tablet_config);
         mController = CalendarController.getInstance(mActivity);
         mController.registerEventHandler(R.layout.event_info, this);
-        mEditResponseHelper = new EditResponseHelper(activity);
+        mEditResponseHelper = new EditResponseHelper(mActivity);
         mEditResponseHelper.setDismissListener(
                 new DialogInterface.OnDismissListener() {
             @Override
@@ -802,7 +802,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mEditResponseHelper.setWhichEvents(UPDATE_ALL);
             mWhichEvents = mEditResponseHelper.getWhichEvents();
         }
-        mHandler = new QueryHandler(activity);
+        mHandler = new QueryHandler(mActivity);
         if (!mIsDialog) {
             setHasOptionsMenu(true);
         }
@@ -1449,7 +1449,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mCalendarColor, mIsTabletConfig);
             mColorPickerDialog.setOnColorSelectedListener(this);
         }
-        final FragmentManager fragmentManager = getFragmentManager();
+        final FragmentManager fragmentManager = getParentFragmentManager();
         fragmentManager.executePendingTransactions();
         if (!mColorPickerDialog.isAdded()) {
             mColorPickerDialog.show(fragmentManager, COLOR_PICKER_DIALOG_TAG);
@@ -2217,7 +2217,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // for simplicity).
 
         // TODO Switch to EditEventHelper.canRespond when this class uses CalendarEventModel.
-        if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
+        if (!mCanModifyCalendar || !mHasAttendeeData || (mIsOrganizer && mNumOfAttendees <= 1) ||
                 (mIsOrganizer && !mOwnerCanRespond)) {
             setVisibilityCommon(view, R.id.response_container, View.GONE);
             return;

@@ -42,8 +42,6 @@ import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendarcommon2.Time;
 
-import java.util.Calendar;
-
 import ws.xsoh.etar.R;
 
 /**
@@ -141,7 +139,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         // coming in without extras, which AppWidgetProvider then blocks.
         final String action = intent.getAction();
         if (LOGD)
-            Log.d(TAG, "AppWidgetProvider got the intent: " + intent.toString());
+            Log.d(TAG, "AppWidgetProvider got the intent: " + intent);
         if (Utils.getWidgetUpdateAction(context).equals(action)) {
             if (!isWidgetSupported(context)) {
                 return;

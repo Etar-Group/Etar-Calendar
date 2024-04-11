@@ -19,8 +19,6 @@ import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -33,6 +31,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 
@@ -140,12 +140,12 @@ public class EventInfoActivity extends AppCompatActivity {
 
         // Get the fragment if exists
         mInfoFragment = (EventInfoFragment)
-                getFragmentManager().findFragmentById(R.id.main_frame);
+                getSupportFragmentManager().findFragmentById(R.id.main_frame);
 
 
         // Create a new fragment if none exists
         if (mInfoFragment == null) {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             mInfoFragment = new EventInfoFragment(this, intent.getData(), mStartMillis, mEndMillis,
                     attendeeResponse, isDialog, (isDialog ?

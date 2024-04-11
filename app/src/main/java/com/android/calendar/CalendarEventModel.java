@@ -31,7 +31,6 @@ import androidx.annotation.Nullable;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventColorCache;
 import com.android.calendar.event.ExtendedProperty;
-import com.android.calendar.icalendar.VEvent;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.common.Rfc822Validator;
 

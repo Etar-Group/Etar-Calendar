@@ -1,0 +1,4 @@
+- Cải thiện chế độ xem tháng.
+- Quyền đọc danh bạ lại là tùy chọn.
+- Hộp văn bản đẹp hơn trong lúc tạo sự kiện.
+- Sửa lỗi nhỏ.

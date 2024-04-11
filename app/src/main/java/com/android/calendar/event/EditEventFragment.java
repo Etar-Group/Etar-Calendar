@@ -22,8 +22,6 @@ import static com.android.calendar.event.EditEventHelper.EXTENDED_INDEX_VALUE;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -62,6 +60,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
@@ -162,7 +162,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mColorPickerDialog.setCalendarColor(mModel.getCalendarColor());
                 mColorPickerDialog.setColors(colors, mModel.getEventColor());
             }
-            final FragmentManager fragmentManager = getFragmentManager();
+            final FragmentManager fragmentManager = getParentFragmentManager();
             fragmentManager.executePendingTransactions();
             if (!mColorPickerDialog.isAdded()) {
                 mColorPickerDialog.show(fragmentManager, COLOR_PICKER_DIALOG_TAG);
@@ -212,7 +212,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mColorPickerDialog = (EventColorPickerDialog) getActivity().getFragmentManager()
+        mColorPickerDialog = (EventColorPickerDialog) getActivity().getSupportFragmentManager()
                 .findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
         if (mColorPickerDialog != null) {
             mColorPickerDialog.setOnColorSelectedListener(this);
@@ -272,7 +272,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mModel.mCalendarAccessLevel = Calendars.CAL_ACCESS_NONE;
             mOutstandingQueries = TOKEN_ALL;
             if (DEBUG) {
-                Log.d(TAG, "startQuery: uri for event is " + mUri.toString());
+                Log.d(TAG, "startQuery: uri for event is " + mUri);
             }
             mHandler.startQuery(TOKEN_EVENT, null, mUri, EditEventHelper.EVENT_PROJECTION,
                     null /* selection */, null /* selection args */, null /* sort order */);
@@ -559,19 +559,37 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         return mModel.isEmpty();
     }
 
-    @Override
-    public void onPause() {
-        Activity act = getActivity();
-        if (mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
-                && mView.prepareForSave()) {
-            mOnDone.setDoneCode(Utils.DONE_SAVE);
-            mOnDone.run();
+    public void onBackPressed() {
+        if (canSave()) {
+            showDiscardConfirmAlert();
+            return;
         }
-        if (act !=null && (Build.VERSION.SDK_INT < 23 ||
-                    ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
-                        Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED))
-            act.finish();
-        super.onPause();
+
+        Utils.returnToCalendarHome(getActivity());
+    }
+
+    private boolean canSave() {
+        Activity act = getActivity();
+        return mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
+               && mView.prepareForSave();
+    }
+
+    private void showDiscardConfirmAlert() {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.discard_event_changes)
+                .setCancelable(true)
+                .setPositiveButton(R.string.discard, ((dialog, which) -> {
+                    revertEventChanges();
+                    Utils.returnToCalendarHome(getActivity());
+                    dialog.cancel();
+                }))
+                .setNegativeButton(R.string.cancel, ((dialog, which) -> dialog.cancel()))
+                .show();
+    }
+
+    private void revertEventChanges() {
+            mOnDone.setDoneCode(Utils.DONE_REVERT);
+            mOnDone.run();
     }
 
     @Override

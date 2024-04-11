@@ -1,0 +1,7 @@
+- Đã bỏ tiện ích này, hãy sử dụng Tiện ích Lịch ngay bây giờ: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+- Hỗ trợ các sự kiện màu tùy chỉnh.
+- Hỗ trợ tốt hơn cho các tập tin ics.
+- Thêm chủ đề màu xám.
+- Hỗ trợ khả năng hiển thị bí mật.
+- Hỗ trợ các kênh thông báo Android mới.
+- Rất nhiều bản sửa lỗi.

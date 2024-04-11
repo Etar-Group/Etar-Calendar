@@ -18,8 +18,6 @@ package com.android.calendar;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -40,6 +38,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -165,7 +165,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
     }
 
     private void initFragments(long timeMillis, String query) {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
         AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis, true);
@@ -180,7 +180,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
 
     private void showEventInfo(EventInfo event) {
         if (mShowEventDetailsWithAgenda) {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
 
             mEventInfoFragment = new EventInfoFragment(this, event.id,
@@ -230,7 +230,7 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
         mDeleteEventHelper.delete(startMillis, endMillis, eventId, -1);
         if (mIsMultipane && mEventInfoFragment != null
                 && eventId == mCurrentEventId) {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.remove(mEventInfoFragment);
             ft.commit();

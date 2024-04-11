@@ -20,7 +20,6 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -33,26 +32,14 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
-import com.android.calendar.persistence.tasks.DmfsOpenTasksContract;
 import com.android.calendar.settings.GeneralPreferences;
-import com.android.calendarcommon2.Time;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import ws.xsoh.etar.R;
-
-import static com.android.calendar.DayView.MILLIS_PER_DAY;
 
 // TODO: should Event be Parcelable so it can be passed via Intents?
 public class Event implements Cloneable {
@@ -100,30 +87,6 @@ public class Event implements Cloneable {
             Instances.ALL_DAY + "=1 OR (" + Instances.END + "-" + Instances.BEGIN + ")>="
                     + DateUtils.DAY_IN_MILLIS + " AS " + DISPLAY_AS_ALLDAY, // 20
     };
-
-    public static final String[] TASK_PROJECTION = new String[]{DmfsOpenTasksContract.Tasks.COLUMN_TITLE,        // 0
-            DmfsOpenTasksContract.Tasks.COLUMN_LOCATION,     // 1
-            DmfsOpenTasksContract.Tasks.COLUMN_IS_ALLDAY,    // 2
-            DmfsOpenTasksContract.Tasks.COLUMN_LIST_COLOR,   // 3
-            DmfsOpenTasksContract.Tasks.COLUMN_TZ,           // 4
-            DmfsOpenTasksContract.Tasks.COLUMN_ID,           // 5
-            DmfsOpenTasksContract.Tasks.COLUMN_START_DATE,   // 6
-            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,     // 7
-            DmfsOpenTasksContract.Tasks.COLUMN_ID,           // 8
-            DmfsOpenTasksContract.Tasks.COLUMN_START_DATE,   // 9
-            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,     // 10
-            DmfsOpenTasksContract.Tasks.COLUMN_START_DATE,   // 11
-            DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE,     // 12
-            DmfsOpenTasksContract.Tasks.COLUMN_HAS_ALLARMS,  // 13
-            DmfsOpenTasksContract.Tasks.COLUMN_RRULE,        // 14
-            DmfsOpenTasksContract.Tasks.COLUMN_RDATE,        // 15
-            DmfsOpenTasksContract.Tasks.COLUMN_STATUS,       // 16
-            DmfsOpenTasksContract.Tasks.COLUMN_ACCOUNT_NAME, // 17
-            DmfsOpenTasksContract.Tasks.COLUMN_ORGANIZER,    // 18
-            "0>0",                                           // 19
-            "0>0",                                           // 20
-    };
-
     private static final String EVENTS_WHERE = DISPLAY_AS_ALLDAY + "=0";
     private static final String ALLDAY_WHERE = DISPLAY_AS_ALLDAY + "=1";
     // The indices for the projection array above.
@@ -150,13 +113,6 @@ public class Event implements Cloneable {
     private static String mNoTitleString;
     private static int mNoColorColor;
 
-    public static final String AND_BRACKET = " AND (";
-    public static final String CLOSING_BRACKET = " )";
-    public static final String AND = " AND ";
-    public static final String OR = " OR ";
-    public static final String NOT_EQUALS = " != ";
-    public static final String LTE = " <= ";
-    public static final String GTE = " >= ";
 
     public long id;
     public int color;
@@ -190,7 +146,6 @@ public class Event implements Cloneable {
     public Event nextDown;
     private int mColumn;
     private int mMaxColumns;
-    private boolean task;
 
     public static final Event newInstance() {
         Event e = new Event();
@@ -210,7 +165,6 @@ public class Event implements Cloneable {
         e.isRepeating = false;
         e.status = Events.STATUS_CONFIRMED;
         e.selfAttendeeStatus = Attendees.ATTENDEE_STATUS_NONE;
-        e.task = false;
 
         return e;
     }
@@ -232,7 +186,6 @@ public class Event implements Cloneable {
 
         Cursor cEvents = null;
         Cursor cAllday = null;
-        Cursor cTasks = null;
 
         events.clear();
         try {
@@ -276,15 +229,6 @@ public class Event implements Cloneable {
             buildEventsFromCursor(events, cEvents, context, startDay, endDay);
             buildEventsFromCursor(events, cAllday, context, startDay, endDay);
 
-            // we use tasks as events
-            if (ContextCompat.checkSelfPermission(context, DmfsOpenTasksContract.TASK_READ_PERMISSION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                cTasks = instancesQueryForTasks(context.getContentResolver(), TASK_PROJECTION, startDay, endDay);
-
-                buildTasksFromCursor(events, cTasks, context, startDay, endDay);
-                Collections.sort(events, Comparator.comparing(u -> new Date(u.getStartMillis())));
-            }
-
         } finally {
             if (cEvents != null) {
                 cEvents.close();
@@ -296,116 +240,6 @@ public class Event implements Cloneable {
                 Debug.stopMethodTracing();
             }
         }
-    }
-
-    public static Cursor instancesQueryForTasks(ContentResolver cr, String[] projection, int startDay, int endDay) {
-        long startMills = getMillsFromJulian(startDay, true);
-        long endMills = getMillsFromJulian(endDay, false);
-        String taskWhere = DmfsOpenTasksContract.Tasks.COLUMN_STATUS + NOT_EQUALS + DmfsOpenTasksContract.Tasks.STATUS_COMPLETED + AND_BRACKET + DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE + LTE + endMills + CLOSING_BRACKET + AND_BRACKET + DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE + GTE + startMills + CLOSING_BRACKET + AND_BRACKET + DmfsOpenTasksContract.Tasks.COLUMN_VISIBLE + " = 1" + CLOSING_BRACKET + AND_BRACKET + DmfsOpenTasksContract.Tasks.COLUMN_DUE_DATE + " != 0" + CLOSING_BRACKET;
-
-        return cr.query(DmfsOpenTasksContract.Tasks.PROVIDER_URI, projection, taskWhere, null, "due ASC, title ASC");
-    }
-
-    public static long getMillsFromJulian(int day, boolean isStart) {
-        GregorianCalendar julianbaseCal = new GregorianCalendar();
-        julianbaseCal.clear();
-        julianbaseCal.set(4713, Calendar.JANUARY, 1, 12, 0, 0);
-        julianbaseCal.set(Calendar.ERA, GregorianCalendar.BC);
-
-        long juliandateMillis = day * (long) (MILLIS_PER_DAY);
-        long mills = juliandateMillis + julianbaseCal.getTimeInMillis();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(mills);
-        if (isStart) {
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-        } else {
-            calendar.set(Calendar.HOUR_OF_DAY, 23);
-            calendar.set(Calendar.MINUTE, 59);
-            calendar.set(Calendar.SECOND, 59);
-        }
-
-        return calendar.getTimeInMillis();
-    }
-
-    public static void buildTasksFromCursor(ArrayList<Event> events, Cursor cTasks, Context context, int startDay, int endDay) {
-        if (cTasks == null || events == null) {
-            Log.e(TAG, "buildEventsFromCursor: null cursor or null events list!");
-            return;
-        }
-
-        int count = cTasks.getCount();
-
-        if (count == 0) {
-            return;
-        }
-
-        Resources res = context.getResources();
-        mNoTitleString = res.getString(R.string.no_title_label);
-        mNoColorColor = res.getColor(R.color.event_center);
-        cTasks.moveToPosition(-1);
-
-        while (cTasks.moveToNext()) {
-            Event e = generateTaskFromCursor(cTasks, context);
-            if (e == null) {
-                continue;
-            }
-            if (e.startDay > endDay || e.endDay < startDay) {
-                continue;
-            }
-            events.add(e);
-        }
-    }
-
-    private static Event generateTaskFromCursor(Cursor cTasks, Context context) {
-
-        Event e = new Event();
-
-        e.id = cTasks.getLong(PROJECTION_EVENT_ID_INDEX);
-        e.title = cTasks.getString(PROJECTION_TITLE_INDEX);
-        if (e.title == null || e.title.length() == 0) {
-            e.title = mNoTitleString;
-        }
-        e.endMillis = cTasks.getLong(PROJECTION_END_INDEX);
-
-        e.endTime = getEndMinutes(e.endMillis);
-        e.startTime = e.endTime - 30;
-
-        e.endDay = Time.getJulianDay(e.endMillis, new Time().getGmtOffset());
-        e.startDay = Time.getJulianDay(e.endMillis, new Time().getGmtOffset());
-
-        e.startMillis = cTasks.getLong(PROJECTION_BEGIN_INDEX);
-        if (e.startMillis == 0) {
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(e.endMillis);
-            cal.add(Calendar.MINUTE, -30);
-            e.startMillis = cal.getTimeInMillis();
-        }
-        e.allDay = cTasks.getInt(PROJECTION_ALL_DAY_INDEX) != 0;
-
-        if (!cTasks.isNull(PROJECTION_COLOR_INDEX)) {
-            // Read the color from the database
-            e.color = Utils.getDisplayColorFromColor(context, cTasks.getInt(PROJECTION_COLOR_INDEX));
-        } else {
-            e.color = mNoColorColor;
-        }
-
-        e.status = cTasks.getInt(PROJECTION_STATUS_INDEX);
-        e.organizer = cTasks.getString(PROJECTION_ORGANIZER_INDEX);
-        if (e.organizer == null) {
-            e.organizer = cTasks.getString(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
-        }
-        e.task = true;
-        return e;
-    }
-
-    public static int getEndMinutes(long mills) {
-        GregorianCalendar instance = new GregorianCalendar();
-        instance.setGregorianChange(new Date(Long.MAX_VALUE));
-        instance.setTime(new Timestamp(mills));
-        return (instance.get(Calendar.HOUR_OF_DAY) * 60) + instance.get(Calendar.MINUTE);
     }
 
     /**
@@ -808,13 +642,5 @@ public class Event implements Cloneable {
     public boolean drawAsAllday() {
         // Use >= so we'll pick up Exchange allday events
         return allDay || endMillis - startMillis >= DateUtils.DAY_IN_MILLIS;
-    }
-
-    public boolean isTask() {
-        return task;
-    }
-
-    public void setTask(boolean task) {
-        this.task = task;
     }
 }
