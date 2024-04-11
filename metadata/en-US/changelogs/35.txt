@@ -1,3 +1,0 @@
-- Add url field
-- Bugfixes
-- New translations

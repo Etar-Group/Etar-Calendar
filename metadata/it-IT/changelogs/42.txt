@@ -1,3 +1,0 @@
-- Non chiudere la pagina di modifica evento quando il telefono viene ruotato
-- Notifiche per ogni calendario
-- Aggiunta preferenza: non controllare l'ottimizzazione della batteria

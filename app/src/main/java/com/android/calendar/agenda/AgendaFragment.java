@@ -17,6 +17,9 @@
 package com.android.calendar.agenda;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
@@ -28,10 +31,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.Adapter;
 import android.widget.HeaderViewListAdapter;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
@@ -130,7 +129,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             if (prevTime != -1) {
                 mTime.set(prevTime);
                 if (DEBUG) {
-                    Log.d(TAG, "Restoring time to " + mTime);
+                    Log.d(TAG, "Restoring time to " + mTime.toString());
                 }
             }
         }
@@ -399,7 +398,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
         // Create a fragment to show the event to the side of the agenda list
         if (mShowEventDetailsWithAgenda) {
-            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentManager fragmentManager = getFragmentManager();
             if (fragmentManager == null) {
                 // Got a goto event before the fragment finished attaching,
                 // stash the event and handle it later.

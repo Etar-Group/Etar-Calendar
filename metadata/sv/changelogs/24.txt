@@ -1,7 +1,0 @@
-- Minska på typsnittets storlek till händelsernas namn i veckovyn
-- Aktivera senaste sökförslagen
-- Fixa exportering till SD-kort
-- Stryk över titeln för avbrutna händelser
-- Se till att nyttogöra inställningarna för systemets tema i android 10
-- Nya översättningar
-- Buggfixar

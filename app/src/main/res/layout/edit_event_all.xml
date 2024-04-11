@@ -59,7 +59,7 @@
             android:inputType="textAutoCorrect|textCapSentences"
             android:minHeight="48dip"
             android:singleLine="true"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -137,17 +137,19 @@
             android:id="@+id/change_color_new_event"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/choose_event_color_label"
             android:enabled="false"
             android:scaleType="center"
+            android:scaleX="2"
+            android:scaleY="2"
             android:src="@drawable/ic_colorpicker"
+            android:tint="?attr/colorButtonNormal"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/calendar_selector_group_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view" />
+            app:layout_constraintTop_toTopOf="@+id/calendar_selector_group_icon" />
 
         <View
             android:id="@+id/view1"
@@ -157,16 +159,6 @@
             app:layout_constraintTop_toBottomOf="@+id/calendar_selector_group_icon" />
 
         <!-- ALL DAY -->
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_outline_schedule"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view1" />
-
         <TextView
             android:id="@+id/is_all_day_label"
             style="@style/TextAppearance.EditEvent"
@@ -192,6 +184,15 @@
             app:layout_constraintVertical_bias="0.4" />
 
         <!-- FROM - Read/write version which launches the date/time pickers -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_outline_schedule"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
 
         <Button
             android:id="@+id/start_date"
@@ -199,7 +200,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_start_date"
             android:gravity="start|center_vertical"
@@ -244,8 +245,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="12dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_end_time"
             android:gravity="end|center_vertical"
@@ -263,6 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:src="@drawable/ic_outline_public"
+            app:layout_constraintBottom_toBottomOf="@+id/timezone_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/timezone_button" />
 
@@ -273,11 +273,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginTop="8dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_time_zone"
-            android:gravity="start"
-            android:lineSpacingExtra="4dp"
+            android:gravity="start|center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timezone_icon"
             app:layout_constraintTop_toBottomOf="@+id/end_date" />
@@ -415,7 +413,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/attendees_icon"
             app:layout_constraintTop_toBottomOf="@+id/view2">
@@ -446,7 +444,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/where_icon"
             app:layout_constraintTop_toBottomOf="@+id/add_attendees_row">
@@ -478,7 +476,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/description_icon"
             app:layout_constraintTop_toBottomOf="@+id/where_row">
@@ -510,7 +508,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/url_icon"
             app:layout_constraintTop_toBottomOf="@+id/description_row">
@@ -583,7 +581,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
             android:focusable="true"
             android:orientation="vertical"
             android:translationY="-6dp"
@@ -628,7 +626,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:contentDescription="@string/accessibility_reminder_showmeas"
             android:entries="@array/availability"
             android:prompt="@string/presence_label"
@@ -663,7 +661,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:contentDescription="@string/accessibility_reminder_privacy"
             android:entries="@array/visibility"
             android:prompt="@string/privacy_label"

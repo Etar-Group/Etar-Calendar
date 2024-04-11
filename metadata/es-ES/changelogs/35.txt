@@ -1,3 +1,0 @@
-- Añadido un campo para la url
-- Corrección de errores
-- Nuevas traducciones

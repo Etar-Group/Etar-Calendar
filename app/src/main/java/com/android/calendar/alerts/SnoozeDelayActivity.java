@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.widget.TimePicker;
 
 import com.android.calendar.Utils;
-import com.android.calendar.settings.GeneralPreferences;
 
 import ws.xsoh.etar.R;
 
@@ -56,11 +55,6 @@ public class SnoozeDelayActivity extends Activity implements
         if (id == DIALOG_DELAY) {
             TimePickerDialog tpd = (TimePickerDialog) d;
             int delayMinutes = (int) (Utils.getDefaultSnoozeDelayMs(this) / (60L * 1000L));
-
-            if (delayMinutes < 0) {
-                delayMinutes = GeneralPreferences.SNOOZE_DELAY_DEFAULT_TIME;
-            }
-
             int hours = delayMinutes / 60;
             int minutes = delayMinutes % 60;
 

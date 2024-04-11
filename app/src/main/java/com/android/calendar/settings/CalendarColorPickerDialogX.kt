@@ -107,7 +107,7 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        queryService = QueryService(requireActivity())
+        queryService = QueryService(activity!!)
         if (mColors == null) {
             startQuery()
         }
@@ -194,7 +194,7 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
     }
 
     private fun useDefaultColors() {
-        val warningDialog = AlertDialog.Builder(requireActivity())
+        val warningDialog = AlertDialog.Builder(activity!!)
                 .setTitle(R.string.preferences_calendar_color_warning_title)
                 .setMessage(R.string.preferences_calendar_color_warning_message)
                 .setPositiveButton(R.string.preferences_calendar_color_warning_button) { dialogInterface, _ ->

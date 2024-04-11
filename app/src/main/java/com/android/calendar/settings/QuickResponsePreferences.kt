@@ -53,7 +53,7 @@ class QuickResponsePreferences : PreferenceFragmentCompat(), Preference.OnPrefer
 
         responsePreferences = arrayOfNulls(responses.size)
         for ((i, response) in responses.withIndex()) {
-            val responsePreference = EditTextPreference(requireActivity()).apply {
+            val responsePreference = EditTextPreference(activity).apply {
                 setDialogTitle(R.string.quick_response_settings_edit_title)
                 title = response
                 text = response

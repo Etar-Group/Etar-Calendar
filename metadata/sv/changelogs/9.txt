@@ -1,3 +1,0 @@
-- Lite bättre UI-ändringar.
-- Uppdatera översättningen för Svenska.
-- Buggfixar.

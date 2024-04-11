@@ -1,7 +1,0 @@
-- Thêm lịch ngoại tuyến.
-- Thêm lối tắt cho sự kiện mới.
-- Thiết kế sở thích mới.
-- Bộ chọn ngày giờ mới.
-- Chuyển giấy phép sang GPLv3.
-- Sửa lỗi.
-- Bản dịch mới.

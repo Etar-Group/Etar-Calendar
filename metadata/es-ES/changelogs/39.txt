@@ -1,2 +1,0 @@
-- Se corrigió el fallo en la vista de mes y semana debido a una regla no válida
-- Corrección de errores

@@ -1,8 +1,0 @@
-- Lägg till alternativ för att duplicera händelser
-- Visa veckodagar i surfplattan
-- Fixa krasch vid öppnande av en händelse med ett stort ID
-- Omarbeta mini-kalender i surfplattevyn.
-- Lägg till stöd för tema-baserade app-ikoner i Android 13
-- Visa händelser som pågår i flera dagar med korrekt start och slutpunkter
-- Buggfixar
-- Nya översättningar

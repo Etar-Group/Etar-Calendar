@@ -80,6 +80,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"Personvern"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Legg til påminnelse"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ingen kalendre"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Før du kan legge til en aktivitet, må du tilordne enheten din minst én Kalender-konto samt sørge for at du har en synlig kalender. Trykk på Legg til konto for å legge til en konto (Hvis du akkurat har gjort det, bør du vente til kontoen er synkronisert og prøve på nytt). Alternativt kan du trykke på Avbryt og sørge for at minst én kalender er synlig."</string>
+    <string name="add_account" msgid="1669072099756774952">"Legg til en konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Arrangør:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Velg aktivitetsfarge"</string>

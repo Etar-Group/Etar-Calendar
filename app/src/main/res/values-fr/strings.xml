@@ -23,27 +23,22 @@
     <string name="no_title_label" msgid="302177118061368042">"(Sans titre)"</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minute</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> minutes</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> min</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 h</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> h</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> h</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 j</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> j</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> j</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">semaine <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="many">semaine <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">semaine <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualiser"</string>
@@ -82,6 +77,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidentialité"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Ajouter un rappel"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Aucun agenda"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Avant d’ajouter un évènement, vous devez ajouter au moins un agenda à votre appareil et activer sa visibilité. Pour cela, appuyez sur « Ajouter un compte », ou sur « Annuler » si vous pensez qu’au moins un agenda est visible (vérifiez que c’est bien le cas). Si vous venez d’ajouter un compte, patientez jusqu’à la fin de la synchronisation, puis réessayez.</string>
+    <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda :"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisateur :"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">Sélectionner la couleur de l’évènement</string>
@@ -131,19 +128,16 @@
     <string name="endByDate" msgid="7654221304929538201">; jusqu’à <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; une seule fois</item>
-        <item quantity="many">; <xliff:g id="number">%d</xliff:g> fois</item>
-        <item quantity="other">; <xliff:g id="number">%d</xliff:g> fois</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> plusieurs fois</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one">Quotidien</item>
-        <item quantity="many">Tous les <xliff:g id="number">%d</xliff:g> jours</item>
-        <item quantity="other">Tous les <xliff:g id="number">%d</xliff:g> jours</item>
+        <item quantity="one" msgid="5169052946627480942">"Quotidien"</item>
+        <item quantity="other" msgid="5455230727715859264">"Tous les <xliff:g id="NUMBER">%d</xliff:g> jours"</item>
     </plurals>
-    <string name="every_weekday" msgid="5896574838353902978">Tous les jours en semaine (lun–ven)</string>
+    <string name="every_weekday" msgid="5896574838353902978">Jours en semaine (lun–ven)</string>
     <plurals name="weekly">
         <item quantity="one">Hebdomadaire, le <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="many">Toutes les <xliff:g id="number">%1$d</xliff:g> semaines, le <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="other">Toutes les <xliff:g id="number">%1$d</xliff:g> semaines, le <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Toutes les <xliff:g id="number">%1$d</xliff:g> semaines le <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">Mensuellement</string>
     <string name="yearly_plain" msgid="3652692085322162449">Annuellement</string>
@@ -187,8 +181,7 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Version"</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="many">+<xliff:g id="number">%d</xliff:g></item>
-        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="NUMBER">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">Aucun évènement à venir</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Test"</string>
@@ -215,34 +208,28 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">Évènement <xliff:g id="item_index">%1$s</xliff:g> sur <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 évènement</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> évènements</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> évènements</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 évènement</item>
-        <item quantity="many">+<xliff:g id="count">%d</xliff:g> évènements</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> évènements</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">Évènement sélectionné</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">Chaque jour</item>
-        <item quantity="many">Tous les <xliff:g id="count">%d</xliff:g> jours</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> jour</item>
         <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> jours</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">Chaque semaine</item>
-        <item quantity="many">Toutes les <xliff:g id="count">%d</xliff:g> semaines</item>
-        <item quantity="other">Toutes les <xliff:g id="count">%d</xliff:g> semaines</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> semaine</item>
+        <item quantity="other">Toutes les <xliff:g id="count">%d</xliff:g> semaines</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Chaque mois</item>
-        <item quantity="many">Tous les <xliff:g id="count">%d</xliff:g> mois</item>
-        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> mois</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> mois</item>
+        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> mois</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Chaque année</item>
-        <item quantity="many">Tous les <xliff:g id="count">%d</xliff:g> ans</item>
-        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> ans</item>
+        <item quantity="one">Chaque <xliff:g id="count">%d</xliff:g> année</item>
+        <item quantity="other">Tous les <xliff:g id="count">%d</xliff:g> ans</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"le même jour chaque mois"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Toujours"</string>
@@ -250,9 +237,8 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">Jusqu’au <xliff:g id="DATE">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Pour une série d’évènements</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">Pour <xliff:g id="event_count">%d</xliff:g> évènement</item>
-        <item quantity="many">Pour <xliff:g id="event_count">%d</xliff:g> évènements</item>
-        <item quantity="other">Pour <xliff:g id="event_count">%d</xliff:g> évènements</item>
+        <item quantity="one">Pour <xliff:g id="EVENT_COUNT">%d</xliff:g> évènement</item>
+        <item quantity="other">Pour <xliff:g id="EVENT_COUNT">%d</xliff:g> évènements</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifier la date de fin"</string>
     <string name="visibility_default">Par défaut</string>
@@ -353,16 +339,12 @@
     <string name="preferences_pure_black_night_mode">Mode pure nuit noire</string>
     <string name="no_reminder_label">Aucun</string>
     <plurals name="Nweeks">
-        <item quantity="one">1 sem.</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> sem.</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> sem.</item>
+        <item quantity="one">1 semaine</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> semaines</item>
     </plurals>
     <string name="foreground_notification_title">Enregistrement des nouveaux rappels…</string>
     <string name="after_start_of_event">après démarrage évènement</string>
     <string name="preferences_real_event_colors">Utiliser couleurs évènements</string>
     <string name="menu_info">Information</string>
     <string name="duplicate_label">Dupliquer</string>
-    <string name="hint_url">URL</string>
-    <string name="add_calendar">Ajouter un agenda</string>
-    <string name="no_calendars_found">Avant d’ajouter un évènement, vous devez ajouter au moins un agenda à votre appareil</string>
 </resources>

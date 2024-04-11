@@ -16,6 +16,7 @@
 
 package com.android.calendar;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,8 +28,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 import android.widget.ViewSwitcher.ViewFactory;
-
-import androidx.fragment.app.Fragment;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -100,7 +99,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.day_activity, null);
 
         mViewSwitcher = (ViewSwitcher) v.findViewById(R.id.switcher);

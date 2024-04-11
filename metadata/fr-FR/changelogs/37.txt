@@ -1,4 +1,0 @@
-- Ajout du choix de langue par application (android 13)
-- Ajout du balayage gauche/droite dans la vue mois
-- Correction de bugs
-- Nouvelles traductions

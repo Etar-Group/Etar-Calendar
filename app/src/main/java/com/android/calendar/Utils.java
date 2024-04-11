@@ -21,7 +21,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -55,7 +54,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
@@ -207,38 +205,11 @@ public class Utils {
     private static boolean mAllowWeekForDetailView = false;
     private static String sVersion = null;
 
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static boolean canScheduleAlarms(Context context) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        return alarmManager.canScheduleExactAlarms();
-    }
-
-    /**
-     * Returns whether the SDK is the UpsideDownCake release or later.
-     */
-    public static boolean isUpsideDownCakeOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
-    }
-
-    /**
-     * Returns whether the SDK is the Q release or later.
-     */
-    public static boolean isQOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
-    }
-
     /**
      * Returns whether the SDK is the Oreo release or later.
      */
     public static boolean isOreoOrLater() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
-    }
-
-    /**
-     * Returns whether the SDK is the Marshmallow release or later.
-     */
-    public static boolean isMOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     /**
@@ -822,9 +793,8 @@ public class Utils {
         }
         recycle.setTimezone(Time.TIMEZONE_UTC);
         recycle.set(utcTime);
-        Time target = new Time(tz);
-        target.set(0, 0, 0, recycle.getDay(), recycle.getMonth(), recycle.getYear());
-        return target.normalize();
+        recycle.setTimezone(tz);
+        return recycle.normalize();
     }
 
     public static long convertAlldayLocalToUTC(Time recycle, long localTime, String tz) {
@@ -833,9 +803,8 @@ public class Utils {
         }
         recycle.setTimezone(tz);
         recycle.set(localTime);
-        Time target = new Time(Time.TIMEZONE_UTC);
-        target.set(0, 0, 0, recycle.getDay(), recycle.getMonth(), recycle.getYear());
-        return target.normalize();
+        recycle.setTimezone(Time.TIMEZONE_UTC);
+        return recycle.normalize();
     }
 
     /**
@@ -1182,7 +1151,7 @@ public class Utils {
                         segments.add(i + 1, rhs);
                         strands.get(rhs.color).count++;
                         if (DEBUG) {
-                            Log.d(TAG, "Added rhs, curr:" + currSegment + " i:"
+                            Log.d(TAG, "Added rhs, curr:" + currSegment.toString() + " i:"
                                     + segments.get(i).toString());
                         }
                     }
@@ -1201,7 +1170,7 @@ public class Utils {
                         segments.add(i++, lhs);
                         strands.get(lhs.color).count++;
                         if (DEBUG) {
-                            Log.d(TAG, "Added lhs, curr:" + currSegment + " i:"
+                            Log.d(TAG, "Added lhs, curr:" + currSegment.toString() + " i:"
                                     + segments.get(i).toString());
                         }
                     }
@@ -1346,7 +1315,7 @@ public class Utils {
     private static void addNewSegment(LinkedList<DNASegment> segments, Event event,
             HashMap<Integer, DNAStrand> strands, int firstJulianDay, int minStart, int minMinutes) {
         if (event.startDay > event.endDay) {
-            Log.wtf(TAG, "Event starts after it ends: " + event);
+            Log.wtf(TAG, "Event starts after it ends: " + event.toString());
         }
         // If this is a multiday event split it up by day
         if (event.startDay != event.endDay) {
@@ -1787,7 +1756,7 @@ public class Utils {
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
 
         CalendarBroadcastReceiver r = new CalendarBroadcastReceiver(callback);
-        ContextCompat.registerReceiver(c, r, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
+        c.registerReceiver(r, filter);
         return r;
     }
 
@@ -1985,7 +1954,7 @@ public class Utils {
                     dialBuilder.append(ch);
                 }
             }
-            URLSpan span = new URLSpan("tel:" + dialBuilder);
+            URLSpan span = new URLSpan("tel:" + dialBuilder.toString());
 
             spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             phoneCount++;
@@ -2273,20 +2242,6 @@ public class Utils {
             }
             return false;
         }
-    }
-
-    /**
-     * Change a Time object to be the same (year, month, day, hour, minute, second) tuple
-     * but in another timezone
-     *
-     * @param t The Time object to modify
-     * @param timezone the new timezone
-     */
-    public static void changeTimezoneOnly(Time t, String timezone) {
-        Time pivot = new Time(timezone);
-        pivot.set(t.getSecond(), t.getMinute(), t.getHour(),
-                  t.getDay(), t.getMonth(), t.getYear());
-        t.set(pivot);
     }
 
 }

@@ -1,5 +1,5 @@
-– Prise en charge d’Android 12
-– Prise en charge du design Material You
-– Suppression de la connexion au service Android pour la sauvegarde de la base de données (cassée dans la plupart des versions Android)
-– Corrections de bogues généraux
-– Nouvelles traductions
+– Prise en charge d’Android 12.
+– Prise en charge du design Material You.
+– Suppression de la connexion au service Android pour la sauvegarde de la base de données (cassée dans la plupart des versions Android).
+– Corrections de bogues généraux.
+– Nouvelles traductions.

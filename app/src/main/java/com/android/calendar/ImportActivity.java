@@ -181,13 +181,9 @@ public class ImportActivity extends Activity {
 
         String dtEnd = firstEvent.getProperty(VEvent.DTEND);
         String dtEndParam = firstEvent.getPropertyParameters(VEvent.DTEND);
-        if (dtEnd != null && !TextUtils.isEmpty(dtEnd)) {
+        if (!TextUtils.isEmpty(dtEnd)) {
             calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
                     getLocalTimeFromString(dtEnd, dtEndParam));
-        } else {
-            // Treat start date as end date if un-specified
-            dtEnd = dtStart;
-            dtEndParam = dtStartParam;
         }
 
         boolean isAllDay = getLocalTimeFromString(dtEnd, dtEndParam)

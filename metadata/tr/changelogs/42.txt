@@ -1,3 +1,0 @@
-- Telefon döndürüldüğünde etkinlik düzenleme sayfası kapatılmasın
-- Takvim başına takvim bildirimleri
-- Tercih eklendi: Pil iyileştirmesi denetlenmesin

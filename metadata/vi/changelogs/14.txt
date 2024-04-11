@@ -1,6 +1,0 @@
-- Yêu cầu quyền khi chạy trên Android 6 trở lên.
-- Khắc phục sự cố khi khởi động.
-- Cho phép người dùng bóp màn hình để có thể nhìn thấy cả ngày.
-- Đặt giây về 0 khi tạo sự kiện mới.
-- Sửa lỗi bố cục nhỏ.
-- Rất nhiều bản sửa lỗi.

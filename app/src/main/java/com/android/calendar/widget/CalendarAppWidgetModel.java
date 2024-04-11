@@ -28,6 +28,10 @@ import com.android.calendar.Utils;
 import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
@@ -59,7 +63,7 @@ class CalendarAppWidgetModel {
         mContext = context;
     }
 
-    public void buildFromCursor(Cursor cursor, String timeZone) {
+    public void buildFromCursor(Cursor cursor, String timeZone, Boolean isTask) {
         final Time recycle = new Time(timeZone);
         final ArrayList<LinkedList<RowInfo>> mBuckets =
                 new ArrayList<LinkedList<RowInfo>>(CalendarAppWidgetService.MAX_DAYS);
@@ -80,13 +84,26 @@ class CalendarAppWidgetModel {
             final boolean allDay = cursor.getInt(CalendarAppWidgetService.INDEX_ALL_DAY) != 0;
             long start = cursor.getLong(CalendarAppWidgetService.INDEX_BEGIN);
             long end = cursor.getLong(CalendarAppWidgetService.INDEX_END);
+            if (isTask) {
+                Calendar instance = Calendar.getInstance();
+                instance.setTimeInMillis(end);
+                instance.add(Calendar.MINUTE, -30);
+                start = instance.getTimeInMillis();
+            }
             final String title = cursor.getString(CalendarAppWidgetService.INDEX_TITLE);
             final String location =
                     cursor.getString(CalendarAppWidgetService.INDEX_EVENT_LOCATION);
             // we don't compute these ourselves because it seems to produce the
             // wrong endDay for all day events
-            final int startDay = cursor.getInt(CalendarAppWidgetService.INDEX_START_DAY);
-            final int endDay = cursor.getInt(CalendarAppWidgetService.INDEX_END_DAY);
+            final int startDay;
+            final int endDay;
+            if (isTask) {
+                startDay = Time.getJulianDay(start, new Time().getGmtOffset());
+                endDay = Time.getJulianDay(end, new Time().getGmtOffset());
+            } else {
+                startDay = cursor.getInt(CalendarAppWidgetService.INDEX_START_DAY);
+                endDay = cursor.getInt(CalendarAppWidgetService.INDEX_END_DAY);
+            }
             final int color = cursor.getInt(CalendarAppWidgetService.INDEX_COLOR);
             final int selfStatus = cursor
                     .getInt(CalendarAppWidgetService.INDEX_SELF_ATTENDEE_STATUS);
@@ -111,18 +128,34 @@ class CalendarAppWidgetModel {
             int i = mEventInfos.size();
             mEventInfos.add(populateEventInfo(eventId, allDay, start, end, startDay, endDay, title,
                     location, color, selfStatus));
+        }
+    }
+
+    public void populateBuckets(String timeZone) {
+        final Time recycle = new Time(timeZone);
+        recycle.set(System.currentTimeMillis());
+        Collections.sort(mEventInfos, Comparator.comparing(u -> new Date(u.start)));
+
+        final ArrayList<LinkedList<RowInfo>> mBuckets =
+                new ArrayList<LinkedList<RowInfo>>(CalendarAppWidgetService.MAX_DAYS);
+        for (int i = 0; i < CalendarAppWidgetService.MAX_DAYS; i++) {
+            mBuckets.add(new LinkedList<RowInfo>());
+        }
+        int i = 0;
+        for (EventInfo mEventInfo : mEventInfos) {
             // populate the day buckets that this event falls into
-            int from = Math.max(startDay, mTodayJulianDay);
-            int to = Math.min(endDay, mMaxJulianDay);
+            int from = Math.max(Time.getJulianDay(mEventInfo.start, new Time().getGmtOffset()), mTodayJulianDay);
+            int to = Math.min(Time.getJulianDay(mEventInfo.end, new Time().getGmtOffset()), mMaxJulianDay);
             for (int day = from; day <= to; day++) {
                 LinkedList<RowInfo> bucket = mBuckets.get(day - mTodayJulianDay);
                 RowInfo rowInfo = new RowInfo(RowInfo.TYPE_MEETING, i);
-                if (allDay) {
+                if (mEventInfo.allDay) {
                     bucket.addFirst(rowInfo);
                 } else {
                     bucket.add(rowInfo);
                 }
             }
+            i++;
         }
 
         int day = mTodayJulianDay;
@@ -134,7 +167,9 @@ class CalendarAppWidgetModel {
                     final DayInfo dayInfo = populateDayInfo(day, recycle);
                     // Add the day header
                     final int dayIndex = mDayInfos.size();
-                    mDayInfos.add(dayInfo);
+                    if (!mDayInfos.contains(dayInfo)) {
+                        mDayInfos.add(dayInfo);
+                    }
                     mRowInfos.add(new RowInfo(RowInfo.TYPE_DAY, dayIndex));
                 }
 

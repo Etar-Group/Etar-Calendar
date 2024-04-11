@@ -64,7 +64,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private lateinit var colorPref: Preference
     private lateinit var realEventColors: SwitchPreference
     private lateinit var pureBlackNightModePref: SwitchPreference
-    private lateinit var doNotCheckBatteryOptimizationPref: SwitchPreference
     private lateinit var defaultStartPref: ListPreference
     private lateinit var hideDeclinedPref: SwitchPreference
     private lateinit var weekStartPref: ListPreference
@@ -74,7 +73,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private lateinit var homeTzPref: Preference
     private lateinit var popupPref: SwitchPreference
     private lateinit var snoozeDelayPref: ListPreference
-    private lateinit var useDefaultCustomSnoozeDelayPref: Preference
     private lateinit var defaultReminderPref: ListPreference
     private lateinit var copyDbPref: Preference
     private lateinit var skipRemindersPref: ListPreference
@@ -110,7 +108,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         colorPref = preferenceScreen.findPreference(KEY_COLOR_PREF)!!
         realEventColors = preferenceScreen.findPreference(KEY_REAL_EVENT_COLORS)!!
         pureBlackNightModePref = preferenceScreen.findPreference(KEY_PURE_BLACK_NIGHT_MODE)!!
-        doNotCheckBatteryOptimizationPref = preferenceScreen.findPreference(KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION)!!
         defaultStartPref = preferenceScreen.findPreference(KEY_DEFAULT_START)!!
         hideDeclinedPref = preferenceScreen.findPreference(KEY_HIDE_DECLINED)!!
         weekStartPref = preferenceScreen.findPreference(KEY_WEEK_START_DAY)!!
@@ -120,7 +117,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         homeTzPref = preferenceScreen.findPreference(KEY_HOME_TZ)!!
         popupPref = preferenceScreen.findPreference(KEY_ALERTS_POPUP)!!
         snoozeDelayPref = preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY)!!
-        useDefaultCustomSnoozeDelayPref = preferenceScreen.findPreference(KEY_USE_CUSTOM_SNOOZE_DELAY)!!
         defaultReminderPref = preferenceScreen.findPreference(KEY_DEFAULT_REMINDER)!!
         copyDbPref = preferenceScreen.findPreference(KEY_OTHER_COPY_DB)!!
         skipRemindersPref = preferenceScreen.findPreference(KEY_OTHER_REMINDERS_RESPONDED)!!
@@ -158,7 +154,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         buildSnoozeDelayEntries()
         buildDefaultReminderPrefEntries()
-        handleUseCustomSnoozeDelayVisibility()
         defaultEventDurationPref.summary = defaultEventDurationPref.entry
         themePref.summary = themePref.entry
         weekStartPref.summary = weekStartPref.entry
@@ -189,10 +184,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         tzpd?.setOnTimeZoneSetListener(this)
 
         initializeColorMap()
-    }
-
-    private fun handleUseCustomSnoozeDelayVisibility() {
-        useDefaultCustomSnoozeDelayPref.isEnabled = Integer.parseInt(snoozeDelayPref.value) >= 0
     }
 
     private fun showColorPickerDialog() {
@@ -240,7 +231,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
     override fun onStart() {
         super.onStart()
-        preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         setPreferenceListeners(this)
     }
 
@@ -251,7 +242,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         themePref.onPreferenceChangeListener = listener
         colorPref.onPreferenceChangeListener = listener
         pureBlackNightModePref.onPreferenceChangeListener = listener
-        doNotCheckBatteryOptimizationPref.onPreferenceChangeListener = listener
         defaultStartPref.onPreferenceChangeListener = listener
         hideDeclinedPref.onPreferenceChangeListener = listener
         weekStartPref.onPreferenceChangeListener = listener
@@ -268,13 +258,12 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     override fun onStop() {
-        preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
         super.onStop()
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         val a = activity ?: return
-        key ?: return
 
         BackupManager.dataChanged(a.packageName)
 
@@ -362,7 +351,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             snoozeDelayPref -> {
                 snoozeDelayPref.value = newValue as String
                 snoozeDelayPref.summary = snoozeDelayPref.entry
-                handleUseCustomSnoozeDelayVisibility()
             }
             defaultStartPref -> {
                 val i = defaultStartPref.findIndexOfValue(newValue as String)
@@ -415,8 +403,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         defaultReminderPref.entries = entries
     }
 
-    override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        when (preference.key) {
+    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+        when (preference!!.key) {
             KEY_COLOR_PREF -> {
                 showColorPickerDialog()
                 return true
@@ -524,7 +512,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         const val KEY_THEME_PREF = "pref_theme"
         const val KEY_COLOR_PREF = "pref_color"
         const val KEY_REAL_EVENT_COLORS = "pref_real_event_colors"
-        const val KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION = "pref_do_not_check_battery_optimization"
         const val KEY_PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode"
         const val KEY_DEFAULT_START = "preferences_default_start"
         const val KEY_HIDE_DECLINED = "preferences_hide_declined"
@@ -541,8 +528,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         const val KEY_ALERTS_POPUP = "preferences_alerts_popup"
         const val KEY_SHOW_CONTROLS = "preferences_show_controls"
         const val KEY_DEFAULT_REMINDER = "preferences_default_reminder"
-        const val NO_REMINDER = -2147483648
-        const val NO_REMINDER_STRING = "-2147483648"
+        const val NO_REMINDER = -1
+        const val NO_REMINDER_STRING = "-1"
         const val REMINDER_DEFAULT_TIME = 10 // in minutes
         const val KEY_USE_CUSTOM_SNOOZE_DELAY = "preferences_custom_snooze_delay"
         const val KEY_DEFAULT_SNOOZE_DELAY = "preferences_default_snooze_delay"

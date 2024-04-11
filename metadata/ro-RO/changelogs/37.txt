@@ -1,4 +1,0 @@
-- Adăugați suportul lingvistic pentru fiecare aplicație (android 13+)
-- Adăugați glisarea stânga/dreapta pentru vizualizarea lunară
-- Corecții de erori
-- Traduceri noi

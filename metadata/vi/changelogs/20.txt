@@ -1,5 +1,0 @@
-- Cần thêm thông báo để đồng bộ hóa cảnh báo nội bộ. Hãy tắt tiếng.
-- Không còn yêu cầu quyền không cần thiết.
-- Biểu tượng thông báo màu.
-- Sửa lỗi.
-- Bản dịch mới.

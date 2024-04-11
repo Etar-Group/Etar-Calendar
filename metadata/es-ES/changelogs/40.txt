@@ -1,2 +1,0 @@
-- Con suerte, finalmente se solucionó un problema en la vista de mes y semana debido a una regla no válida
-- Corrección de errores

@@ -28,10 +28,10 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> хвилин</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 хв</item>
-        <item quantity="few"><xliff:g id="count">%d</xliff:g> хв</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> хв</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> хв</item>
+        <item quantity="one">1 хвилина</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> хвилини</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> хвилин</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> хвилин</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 година</item>
@@ -85,6 +85,8 @@
     <string name="privacy_label" msgid="9215031965259597335">Приватність</string>
     <string name="reminders_label" msgid="7292389181815525676">"Додати нагадування"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">Немає календарів</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">Перш ніж додавати подію, потрібно додати в пристрій хоча б один обліковий запис служби Календар і зробити календар видимим. Щоб додати обліковий запис, торкніться опції «Додати обліковий запис» (якщо ви його щойно додали, зачекайте завершення синхронізації та повторіть спробу). Або торкніться опції \"Скасувати\" та переконайтеся, що принаймні один календар видимий.</string>
+    <string name="add_account" msgid="1669072099756774952">"Додати обліковий запис"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календар:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Організатор:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Виберіть колір події"</string>
@@ -178,7 +180,7 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">Типовий час нагадування</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Типовий час нагадування</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Використовувати домашній часовий пояс</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Домашній часовий пояс</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Показувати календарі й час події у домашньому часовому поясі під час подорожі</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">Домашній часовий пояс</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показувати номер тижня"</string>
@@ -361,7 +363,7 @@
     <string name="no_reminder_label">Немає</string>
     <plurals name="Nweeks">
         <item quantity="one">1 тиждень</item>
-        <item quantity="few"><xliff:g id="count">%d</xliff:g> тижні</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> тижня</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> тижнів</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> тижнів</item>
     </plurals>
@@ -370,11 +372,4 @@
     <string name="preferences_real_event_colors">Використовувати реальні кольори подій</string>
     <string name="menu_info">Інформація</string>
     <string name="duplicate_label">Дублікат</string>
-    <string name="hint_url">URL-адреса</string>
-    <string name="no_calendars_found">Перш ніж додати подію, створіть на своєму пристрої принаймні один календар</string>
-    <string name="add_calendar">Додати календар</string>
-    <string name="preferences_manage_notifications">Керувати сповіщеннями</string>
-    <string name="preferences_do_not_check_battery_optimization">Не перевіряти оптимізацію акумулятора</string>
-    <string name="preferences_do_not_check_battery_optimization_summary">Використовуйте на свій страх і ризик! Сповіщення більше не працюватимуть, віджет більше не оновлюватиметься, а фонові служби не працюватимуть. Але ви надалі не отримуватимете запити на ввімкнення фонових служб.</string>
-    <string name="calendars">Календарі</string>
 </resources>

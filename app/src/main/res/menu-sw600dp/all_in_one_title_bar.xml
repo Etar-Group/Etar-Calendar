@@ -26,7 +26,7 @@
     <item
         android:id="@+id/action_info"
         android:alphabeticShortcut="i"
-        android:icon="@drawable/ic_error_outline"
+        android:icon="@drawable/ic_info_outline"
         android:title="@string/menu_info"
         app:showAsAction="always|withText" />
     <item

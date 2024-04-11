@@ -40,7 +40,7 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> 天"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other">第 <xliff:g id="count">%d</xliff:g> 週</item>
+        <item quantity="other" msgid="8085184869561028365">"第 <xliff:g id="COUNT">%d</xliff:g> 週"</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"重新整理"</string>
     <string name="show_day_view" msgid="5782512782605466016">"顯示天"</string>
@@ -77,6 +77,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"隱私權"</string>
     <string name="reminders_label" msgid="7292389181815525676">"新增提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"無日曆"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"您必須在裝置上至少新增一個「日曆」帳戶，並將一個日曆設為顯示，才能新增活動。輕觸 [新增帳戶] 即可新增帳戶 (如果您剛剛新增帳戶，請稍候片刻，待帳戶同步處理完成後再試一次)；或是輕觸 [取消]，並確認至少將一個日曆設為顯示。"</string>
+    <string name="add_account" msgid="1669072099756774952">"新增帳戶"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"日曆："</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"主辦人："</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"選擇活動顏色"</string>
@@ -242,25 +244,4 @@
     <string name="preferences_default_snooze_delay_dialog">預設重響延遲</string>
     <string name="no_reminder_label">無</string>
     <string name="after_start_of_event">after start of event</string>
-    <string name="share_label">分享</string>
-    <plurals name="Nweeks">
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> 週</item>
-    </plurals>
-    <string name="hint_url">URL</string>
-    <string name="display_location">顯示地點</string>
-    <string name="preferences_dark_theme">暗色系</string>
-    <string name="preferences_black_theme">黑色系</string>
-    <string name="default_start_title">預設檢視</string>
-    <string name="preferences_light_theme">亮色系</string>
-    <string name="duplicate_label">複製</string>
-    <string name="goto_date">前往…</string>
-    <string name="display_time">顯示時間</string>
-    <string name="view_settings">檢視設定</string>
-    <string name="default_start_last">上次使用的檢視</string>
-    <string name="preferences_days_per_week_title">每週天數</string>
-    <string name="preferences_real_event_colors">使用實際的事件顏色</string>
-    <string name="preferences_theme">主題</string>
-    <string name="display_options">顯示選項</string>
-    <string name="preferences_system_theme">系統預設</string>
-    <string name="preferences_days_per_week_dialog">每週天數</string>
 </resources>

@@ -18,6 +18,7 @@ package com.android.calendar.recurrencepicker;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -54,7 +55,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.DialogFragment;
 
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.EventRecurrence;
@@ -412,7 +412,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
         if (!canHandleRecurrenceRule(er)) {
             throw new IllegalStateException("UI generated recurrence that it can't handle. ER:"
-                    + er + " Model: " + model);
+                    + er.toString() + " Model: " + model.toString());
         }
     }
 

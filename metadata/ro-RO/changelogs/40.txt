@@ -1,2 +1,0 @@
-- Sperăm că, în sfârșit, am rezolvat un accident la vizualizarea lunară și săptămânală din cauza unei reguli invalide
-- Corecții de erori

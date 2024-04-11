@@ -1,3 +1,0 @@
-- Buggar i månadsvyn fixades.
-- Fixade mörkt tema i surfplattor.
-- Nya översättningar.

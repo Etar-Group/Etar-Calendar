@@ -1,7 +1,0 @@
-- Lägg till ej uppkopplad kalender.
-- Lägg till genväg för ny händelse.
-- Ny design för Inställningar.
-- Ny väljare för datum och tid.
-- Byt licens till GPLv3.
-- Buggfixar.
-- Nya översättningar.

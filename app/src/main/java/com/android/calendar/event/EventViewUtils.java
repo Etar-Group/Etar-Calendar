@@ -46,24 +46,11 @@ public class EventViewUtils {
     // if the given minutes is 63, then this returns the string "63 minutes".
     // As another example, if the given minutes is 120, then this returns
     // "2 hours".
-    // if minute is < 0, returns `None`
     public static String constructReminderLabel(Context context, int minutes, boolean abbrev) {
         Resources resources = context.getResources();
-
-        if (minutes < 0) {
-            return resources.getString(R.string.no_snooze_label);
-        }
-
         int value, resId;
 
-        if (minutes == Integer.MIN_VALUE) {
-            value = 0;
-            resId = R.string.no_reminder_label;
-
-            String format = resources.getString(resId, value);
-            return String.format(format, value);
-
-        } else if (minutes % 60 != 0 || minutes == 0) {
+        if (minutes % 60 != 0 || minutes == 0) {
             value = minutes;
             if (abbrev) {
                 resId = R.plurals.Nmins;

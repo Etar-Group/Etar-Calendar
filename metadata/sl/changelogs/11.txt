@@ -1,3 +1,0 @@
-- Dodajte možnost izbire dnevov na teden.
-- Dodajte možnost za privzeti pogled, ki se prikaže ob zagonu.
-- Popravki napak.

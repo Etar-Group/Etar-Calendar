@@ -1,3 +1,0 @@
-- Thêm tùy chọn để chọn ngày trong Tuần.
-- Thêm tùy chọn hiển thị kiểu xem mặc định khi khởi động.
-- Sửa lỗi.

@@ -1,3 +1,0 @@
-- Đã sửa lỗi trong kiểu xem tháng.
-- Đã sửa chủ đề tối trên máy tính bảng.
-- Bản dịch mới.

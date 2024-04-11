@@ -8,7 +8,9 @@
     </string>
     <string name="tomorrow_at_time_fmt">Yfory am <xliff:g id="time_interval">%s</xliff:g>
     </string>
-    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="date_time_fmt">
+        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
+    </string>
     <string name="no_title_label">(Dim teitl)</string>
     <plurals name="Nminutes">
         <item quantity="zero">Dim munudau</item>
@@ -91,6 +93,8 @@
     <string name="privacy_label">Preifatrwydd</string>
     <string name="reminders_label">Ychwanegu nodyn atgoffa</string>
     <string name="no_syncable_calendars">Dim calendrau</string>
+    <string name="no_calendars_found">Cyn medru ychwanegu digwyddiad, rhaid ychwanegu o leiaf un cyfrif Calendr i dy ddyfais a gwneud calendr yn weladwy. Tapia Creu Cyfrif i ychwanegu cyfrif (os wyt ti newydd ychwanegu cyfrif, rho gynnig arall arni ar ôl aros iddo gysoni). Neu tapia Diddymu a sicrhau bod o leiaf un calendr yn weladwy.</string>
+    <string name="add_account">Ychwanegu cyfrif</string>
     <string name="view_event_calendar_label">Calendr:</string>
     <string name="view_event_organizer_label">Trefnydd:</string>
     <string name="choose_event_color_label">Dewisa liw i\'r digwyddiad</string>
@@ -261,12 +265,16 @@
     <string name="day_view_new_event_hint">+ Digwyddiad newydd</string>
     <string name="template_announce_item_index">Digwyddiad <xliff:g id="item_index">%1$s</xliff:g> o <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="zero"><xliff:g id="count">%d</xliff:g> digwyddiadau</item>
+        <item quantity="zero">0 digwyddiadau</item>
         <item quantity="one">1 digwyddiad</item>
-        <item quantity="two">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;%d&lt;/xlif&lt;/xliff:g&gt;&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt;f:g&gt; ddigwyddiad</item>
-        <item quantity="few"><xliff:g id="count">%d</xliff:g> digwyddiad</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> digwyddiad</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> digwyddiad</item>
+        <item quantity="two">
+            <xliff:g id="count">%d</xliff:g> ddigwyddiad</item>
+        <item quantity="few">
+            <xliff:g id="count">%d</xliff:g> digwyddiad</item>
+        <item quantity="many">
+            <xliff:g id="count">%d</xliff:g> digwyddiad</item>
+        <item quantity="other">
+            <xliff:g id="count">%d</xliff:g> digwyddiad</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="zero">0 digwyddiadau</item>
