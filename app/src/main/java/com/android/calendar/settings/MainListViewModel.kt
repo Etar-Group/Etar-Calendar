@@ -20,13 +20,14 @@ package com.android.calendar.settings
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import com.android.calendar.persistence.Calendar
-import com.android.calendar.persistence.CalendarRepository
+import com.android.calendar.persistence.ICalendarRepository
 
 
 class MainListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var repository: CalendarRepository = CalendarRepository(application)
+    private var repository = ICalendarRepository.get(application)
 
     // Using LiveData and caching what fetchCalendarsByAccountName returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
@@ -39,7 +40,7 @@ class MainListViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun loadCalendars() {
-        allCalendars = repository.getCalendarsOrderedByAccount()
+        allCalendars = repository.getCalendarsOrderedByAccount().asLiveData()
     }
 
     fun getCalendarsOrderedByAccount(): LiveData<List<Calendar>> {

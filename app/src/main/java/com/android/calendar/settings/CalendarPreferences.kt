@@ -36,20 +36,20 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
 import com.android.calendar.alerts.channelId
-import com.android.calendar.persistence.CalendarRepository
+import com.android.calendar.persistence.ICalendarRepository
 import ws.xsoh.etar.R
 
 
 class CalendarPreferences : PreferenceFragmentCompat() {
 
     private var calendarId: Long = -1
-    private lateinit var calendarRepository: CalendarRepository
+    private lateinit var calendarRepository: ICalendarRepository
     private lateinit var account: Account
     private var numberOfEvents: Long = -1
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         calendarId = requireArguments().getLong(ARG_CALENDAR_ID)
-        calendarRepository = CalendarRepository(requireActivity().application)
+        calendarRepository = ICalendarRepository.get(requireActivity().application)
         account = calendarRepository.queryAccount(calendarId)!!
         numberOfEvents = calendarRepository.queryNumberOfEvents(calendarId)!!
 
