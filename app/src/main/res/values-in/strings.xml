@@ -331,4 +331,12 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Sebelum Anda bisa menambahkan acara, Anda harus menambahkan setidaknya satu kalender ke perangkat Anda</string>
     <string name="add_calendar">Tambah kalender</string>
+    <string name="preferences_manage_notifications">Kelola notifikasi</string>
+    <string name="preferences_do_not_check_battery_optimization">Jangan periksa pengoptimalan baterai</string>
+    <string name="calendars">Kalender</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Gunakan dengan risiko Anda sendiri! Notifikasi tidak akan berfungsi lagi, widget tidak lagi diperbarui dan layanan latar belakang akan mogok. Namun Anda tidak akan ditanya lagi apakah ingin mengaktifkan layanan latar belakang.</string>
+    <string name="no_snooze_label">Nihil</string>
+    <string name="cancel">Batal</string>
+    <string name="discard_event_changes">Apakah Anda ingin membuang perubahan?</string>
+    <string name="discard">Buang</string>
 </resources>
