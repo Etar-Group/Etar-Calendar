@@ -137,6 +137,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.dmfs/lib-recur
 	implementation("org.dmfs:lib-recur:0.16.0")
 
+	// lifecycle
+	val lifecycle_version = "2.7.0"
+	implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 }
 
 tasks.preBuild.dependsOn(":aarGen")
