@@ -24,7 +24,7 @@ configure(external_projects) {
     }
 }
 
-tasks.register('aarGen') {
+task aarGen {
     description "Generates AAR from the external projects for Etar-Calendar"
     def aarTasks = [
             ':external:calendar:copyAAR',
@@ -37,12 +37,12 @@ tasks.register('aarGen') {
 
 idea.project.settings {
     taskTriggers {
-        afterSync tasks.named('aarGen')
+        afterSync tasks.getByName('aarGen')
     }
 }
 // External project configuration end
 
-tasks.register('clean', Delete) {
+task clean(type: Delete) {
     delete rootProject.buildDir
     delete 'app/libs'
 }
