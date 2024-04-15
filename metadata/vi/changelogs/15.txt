@@ -1,5 +1,0 @@
-- Yêu cầu quyền khi chạy trên Android 6 trở lên.
-- Hỗ trợ hiển thị âm lịch/lễ hội khi Ngôn ngữ là tiếng Trung.
-- Cập nhật bản dịch.
-- Sửa lỗi bố cục nhỏ.
-- Rất nhiều bản sửa lỗi.

@@ -1,4 +1,0 @@
-- Wsparcie udostępniania kalendarzy w formacie ics; możliwość importu/eksportu z/do karty SD.
-- Usunięto niepotrzebne uprawnienia.
-- Naprawiono ustawienia dźwiękowe w Android 6.
-- Poprawki błędów.

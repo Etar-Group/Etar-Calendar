@@ -1,7 +1,0 @@
-- Dodan je lokalni kalendar.
-- Dodan je prečac za novi događaj.
-- Novi dizajn postavki.
-- Novi birač datuma i vremena.
-- Licenca je promijenjena na GPLv3.
-- Ispravke grešaka.
-- Novi prijevodi.

@@ -1,2 +1,0 @@
-- Buggfix för alternativ-rutan.
-- Nya översättningar.

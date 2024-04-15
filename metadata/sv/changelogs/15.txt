@@ -1,5 +1,0 @@
-- Begär åtkomst vid körtid för Android 6 och uppåt.
-- Stöd för visning av lunar/festival när språket är Kinesiska.
-- Uppdatera översättningar.
-- Mindre layout-fixar.
-- Massor med buggfixar.

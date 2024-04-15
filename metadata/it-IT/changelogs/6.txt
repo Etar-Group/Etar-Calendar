@@ -1,3 +1,0 @@
-- Rimossi i permessi Internet mantenendo le stesse funzioni.
-- Aggiunto "Vai a..."
-- Correzione: il widget Agenda non si aggiorna tutti i giorni.

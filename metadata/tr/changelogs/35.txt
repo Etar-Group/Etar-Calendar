@@ -1,3 +1,0 @@
-- URL alanı eklendi
-- Hata düzeltmeleri
-- Yeni çeviriler

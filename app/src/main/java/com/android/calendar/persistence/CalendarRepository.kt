@@ -26,6 +26,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.CalendarContract
 import androidx.lifecycle.LiveData
+import com.android.calendar.persistence.tasks.DmfsOpenTasksContract
 import ws.xsoh.etar.R
 
 
@@ -42,7 +43,11 @@ internal class CalendarRepository(val application: Application) {
 
     private var contentResolver = application.contentResolver
 
-    private var allCalendars: CalendarLiveData = CalendarLiveData(application.applicationContext)
+    private var allCalendars: CalendarLiveData
+
+    init {
+        allCalendars = CalendarLiveData(application.applicationContext)
+    }
 
     fun getCalendarsOrderedByAccount(): LiveData<List<Calendar>> {
         return allCalendars
@@ -66,7 +71,24 @@ internal class CalendarRepository(val application: Application) {
                     val isPrimary = it.getInt(PROJECTION_INDEX_IS_PRIMARY) == 1
                     val isLocal = accountType == CalendarContract.ACCOUNT_TYPE_LOCAL
 
-                    calendars.add(Calendar(id, accountName, accountType, name, displayName, color, visible, syncEvents, isPrimary, isLocal))
+                    calendars.add(Calendar(id, accountName, accountType, name, displayName, color, visible, syncEvents, isPrimary, isLocal, false))
+                }
+            }
+
+            context.contentResolver.query(taskListsUri, TASKLIST_PROJECTION, null, null, null)?.use {
+                while (it.moveToNext()) {
+                    val id = it.getLong(0)
+                    val accountName = it.getString(1)
+                    val accountType = it.getString(2)
+                    val name = it.getString(4)
+                    val displayName = it.getString(4)
+                    val color = it.getInt(5)
+                    val visible = it.getInt(6) == 1
+                    val syncEvents = it.getInt(7) == 1
+                    val isPrimary = true
+                    val isLocal = accountType == CalendarContract.ACCOUNT_TYPE_LOCAL
+
+                    calendars.add(Calendar(id, accountName, accountType, name, displayName, color, visible, syncEvents, isPrimary, isLocal, true))
                 }
             }
             return calendars
@@ -74,6 +96,7 @@ internal class CalendarRepository(val application: Application) {
 
         companion object {
             private val uri = CalendarContract.Calendars.CONTENT_URI
+            private val taskListsUri = DmfsOpenTasksContract.TaskLists.PROVIDER_URI
 
             private val PROJECTION = arrayOf(
                     CalendarContract.Calendars._ID,
@@ -87,6 +110,18 @@ internal class CalendarRepository(val application: Application) {
                     CalendarContract.Calendars.SYNC_EVENTS,
                     CalendarContract.Calendars.IS_PRIMARY
             )
+
+            private val TASKLIST_PROJECTION = arrayOf(
+                DmfsOpenTasksContract.TaskLists.COLUMN_ID,
+                DmfsOpenTasksContract.TaskLists.COLUMN_ACCOUNT_NAME,
+                DmfsOpenTasksContract.TaskLists.COLUMN_ACCOUNT_TYPE,
+                DmfsOpenTasksContract.TaskLists.COLUMN_LIST_OWNER,
+                DmfsOpenTasksContract.TaskLists.COLUMN_NAME,
+                DmfsOpenTasksContract.TaskLists.COLUMN_COLOR,
+                DmfsOpenTasksContract.TaskLists.COLUMN_VISIBLE,
+                DmfsOpenTasksContract.TaskLists.COLUMN_SYNC_ENABLE
+            )
+
             const val PROJECTION_INDEX_ID = 0
             const val PROJECTION_INDEX_ACCOUNT_NAME = 1
             const val PROJECTION_INDEX_ACCOUNT_TYPE = 2
@@ -178,23 +213,43 @@ internal class CalendarRepository(val application: Application) {
         return contentResolver.delete(calUri, null, null) == 1
     }
 
-    fun queryAccount(calendarId: Long): Account? {
-        val calendarUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarId)
-        contentResolver.query(calendarUri, ACCOUNT_PROJECTION, null, null, null)?.use {
-            if (it.moveToFirst()) {
-                val accountName = it.getString(PROJECTION_ACCOUNT_INDEX_NAME)
-                val accountType = it.getString(PROJECTION_ACCOUNT_INDEX_TYPE)
-                return Account(accountName, accountType)
+    fun queryAccount(calendarId: Long, isTask: Boolean): Account? {
+        if (isTask) {
+            val taskUri =
+                ContentUris.withAppendedId(DmfsOpenTasksContract.TaskLists.PROVIDER_URI, calendarId)
+            contentResolver.query(taskUri, ACCOUNT_PROJECTION, null, null, null)?.use {
+                if (it.moveToFirst()) {
+                    val accountName = it.getString(PROJECTION_ACCOUNT_INDEX_NAME)
+                    val accountType = it.getString(PROJECTION_ACCOUNT_INDEX_TYPE)
+                    return Account(accountName, accountType)
+                }
+            }
+        } else {
+            val calendarUri =
+                ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarId)
+            contentResolver.query(calendarUri, ACCOUNT_PROJECTION, null, null, null)?.use {
+                if (it.moveToFirst()) {
+                    val accountName = it.getString(PROJECTION_ACCOUNT_INDEX_NAME)
+                    val accountType = it.getString(PROJECTION_ACCOUNT_INDEX_TYPE)
+                    return Account(accountName, accountType)
+                }
             }
         }
         return null
     }
 
-    fun queryNumberOfEvents(calendarId: Long): Long? {
+    fun queryNumberOfEvents(calendarId: Long, isTask: Boolean): Long? {
         val args = arrayOf(calendarId.toString())
-        contentResolver.query(CalendarContract.Events.CONTENT_URI, PROJECTION_COUNT_EVENTS, WHERE_COUNT_EVENTS, args, null)?.use {
-            if (it.moveToFirst()) {
-                return it.getLong(PROJECTION_COUNT_EVENTS_INDEX_COUNT)
+        if (isTask) {
+            val cursor = contentResolver.query(DmfsOpenTasksContract.Tasks.PROVIDER_URI, null, WHERE_COUNT_TASKS, args, null)
+            val count = cursor?.count?.toLong()
+            cursor?.close()
+            return count
+        } else {
+            contentResolver.query(CalendarContract.Events.CONTENT_URI, PROJECTION_COUNT_EVENTS, WHERE_COUNT_EVENTS, args, null)?.use {
+                if (it.moveToFirst()) {
+                    return it.getLong(PROJECTION_COUNT_EVENTS_INDEX_COUNT)
+                }
             }
         }
         return null
@@ -213,6 +268,7 @@ internal class CalendarRepository(val application: Application) {
         )
         const val PROJECTION_COUNT_EVENTS_INDEX_COUNT = 0
         const val WHERE_COUNT_EVENTS = CalendarContract.Events.CALENDAR_ID + "=?"
+        const val WHERE_COUNT_TASKS = DmfsOpenTasksContract.Tasks.COLUMN_LIST_ID + "=?"
 
         const val DEFAULT_COLOR_KEY = "1"
 

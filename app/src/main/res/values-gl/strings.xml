@@ -247,6 +247,8 @@
     <string name="choose_event_color_label">Elixe a cor do evento</string>
     <string name="view_event_organizer_label">Organizador:</string>
     <string name="view_event_calendar_label">Calendario:</string>
+    <string name="add_account">Engadir conta</string>
+    <string name="no_calendars_found">Antes de poder engadir un evento, debes engadir polo menos unha conta de calendario ao teu dispositivo e facer visible un calendario. Preme en Engadir Conta para engadir unha conta (se acabas de engadir unha conta, agarda a que remate de sincronizarse e inténtao de novo). Ou preme Cancelar e asegúrate de que polo menos un calendario está visible.</string>
     <string name="no_syncable_calendars">Sen calendarios</string>
     <string name="reminders_label">Engadir recordatorio</string>
     <string name="privacy_label">Privacidade</string>

@@ -1,3 +1,0 @@
-- Url Feld hinzugefügt
-- Bugfixes
-- Neue Übersetzungen

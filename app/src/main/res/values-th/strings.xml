@@ -77,6 +77,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"ข้อมูลส่วนบุคคล"</string>
     <string name="reminders_label" msgid="7292389181815525676">"เพิ่มการแจ้งเตือน"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ไม่มีปฏิทิน"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"ก่อนที่คุณจะสามารถเพิ่มกิจกรรมได้ คุณต้องเพิ่มบัญชีปฏิทินอย่างน้อยหนึ่งบัญชีลงในอุปกรณ์ของคุณและทำให้ปฏิทินหนึ่งปรากฏให้เห็น แตะ \"เพิ่มบัญชี\" เพื่อเพิ่มบัญชี (หากคุณเพิ่งเพิ่มบัญชี รอให้ซิงค์เสร็จก่อนและลองอีกครั้ง) หรือแตะ \"ยกเลิก\" และตรวจสอบว่ามีอย่างน้อยปฏิทินหนึ่งปรากฏให้เห็น"</string>
+    <string name="add_account" msgid="1669072099756774952">"เพิ่มบัญชี"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"ปฏิทิน:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"ผู้จัด:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"เลือกสีของกิจกรรม"</string>

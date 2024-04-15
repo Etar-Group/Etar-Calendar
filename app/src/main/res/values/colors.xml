@@ -102,7 +102,7 @@
     <color name="month_dna_conflict_time_color">#FF333333</color>
 
     <color name="event_center">#ff6bd697</color>
-    <color name="edit_event_separator">#FF555555</color>
+    <color name="edit_event_separator">#FFDDDDDD</color>
     <color name="edit_event_small">#000000</color>
 
     <color name="calendar_visible">#ff000000</color>

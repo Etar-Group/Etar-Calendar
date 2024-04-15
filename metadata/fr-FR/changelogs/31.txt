@@ -1,2 +1,2 @@
-– Correction du plantage et des notifications sur Android 12
-– Correction du type de média des évènements partagés
+– Correction du plantage et des notifications sur Android 12.
+– Correction du type de média des évènements partagés.

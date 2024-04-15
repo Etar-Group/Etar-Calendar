@@ -1,7 +1,0 @@
-- Aggiunto calendario offline.
-- Aggiunto collegamento per un nuovo evento.
-- Nuovo design delle impostazioni.
-- Nuovo selettore di data e ora.
-- Cambiata la licenza a GPLv3.
-- Correzione bug.
-- Nuove traduzioni.

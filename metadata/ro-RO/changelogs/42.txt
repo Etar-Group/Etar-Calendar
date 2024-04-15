@@ -1,3 +1,0 @@
-- Nu închideți pagina de editare a evenimentului atunci când telefonul este rotit
-- Notificări calendaristice pentru fiecare calendar
-- Adăugați preferințe: Nu verificați optimizarea bateriei

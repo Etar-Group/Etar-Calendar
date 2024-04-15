@@ -1,3 +1,0 @@
-- Loại bỏ quyền truy cập Internet trong khi vẫn giữ nguyên chức năng.
-- Thêm 'Đi tới...'.
-- Khắc phục: Tiện ích lịch biểu không cập nhật hàng ngày.

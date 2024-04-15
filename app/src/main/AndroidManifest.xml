@@ -30,16 +30,19 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="org.dmfs.permission.READ_TASKS" />
+    <uses-permission android:name="org.dmfs.permission.WRITE_TASKS" />
 
     <queries>
-        <intent>
-            <action android:name="android.content.SyncAdapter" />
-        </intent>
+        <package android:name="at.bitfire.davdroid" />
+        <package android:name="com.etesync.syncadapter" />
+        <package android:name="com.google.android.gm" />
+        <package android:name="org.birthdayadapter" />
+        <package android:name="org.decsync.cc" />
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -52,6 +55,8 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" />
         </intent>
+        <provider android:authorities="org.tasks" android:exported="false" />
+        <provider android:authorities="org.dmfs.tasks" android:exported="false" />
     </queries>
 
     <application android:name="com.android.calendar.CalendarApplication"
@@ -112,7 +117,6 @@
         </activity>
 
         <activity android:name="com.android.calendar.event.EditEventActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Base.CalendarAppThemeWithActionBar">
         </activity>
 
@@ -268,9 +272,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.android.calendar.alerts.AlertService"
-            android:exported="false"
-            android:foregroundServiceType="dataSync|systemExempted" />
+        <service android:name="com.android.calendar.alerts.AlertService" />
 
         <service android:name="com.android.calendar.alerts.DismissAlarmsService" />
 

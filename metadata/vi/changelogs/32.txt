@@ -1,7 +1,0 @@
-- Tạo và hiển thị lời nhắc sau khi bắt đầu sự kiện bằng hộp kiểm
-- Sửa chữa lời nhắc có giá trị âm
-- Sửa thời gian không hợp lệ do thay đổi múi giờ
-- Tùy chọn thêm sự kiện mới từ màn hình tiện ích
-- Làm lại màu chủ đề
-- Sửa lỗi
-- Bản dịch mới

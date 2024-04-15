@@ -1,1 +1,0 @@
-- Corrección de los fallos en los eventos recurrentes

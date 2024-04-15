@@ -48,6 +48,8 @@
     <string name="privacy_label">Privacidade</string>
     <string name="reminders_label">Adicionar lembrete</string>
     <string name="no_syncable_calendars">Nenhuma agenda disponível</string>
+    <string name="no_calendars_found">Antes de adicionar um evento, você deve adicionar pelo menos uma conta do Agenda a seu dispositivo e tornar uma agenda visível. Toque em \"Adicionar conta\" para adicionar uma conta (caso tenha adicionado uma conta recentemente, aguarde o fim da sincronização e tente novamente). Ou toque em \"Cancelar\" e certifique-se de que pelo menos uma agenda esteja visível.</string>
+    <string name="add_account">Adicionar conta</string>
     <string name="view_event_calendar_label">Agenda:</string>
     <string name="view_event_organizer_label">Organizador:</string>
     <string name="choose_event_color_label">Escolher cor do evento</string>
@@ -325,8 +327,4 @@
     <string name="after_start_of_event">after start of event</string>
     <string name="duplicate_label">Duplicar</string>
     <string name="preferences_real_event_colors">Usar cores reais de evento</string>
-    <string name="hint_url">URL</string>
-    <string name="menu_info">Informação</string>
-    <string name="add_calendar">Adicionar calendário</string>
-    <string name="no_calendars_found">Antes que você possa adicionar um evento, você deve adicionar pelo menos um calendário no seu dispositivo.</string>
 </resources>

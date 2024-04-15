@@ -1,4 +1,0 @@
-- Khôi phục cơ sở dữ liệu múi giờ
-- Biểu tượng ứng dụng SVG
-- Làm lại và kích hoạt lại tiện ích
-- Bản dịch mới

@@ -33,7 +33,6 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 
 import com.android.calendar.Utils;
-import com.android.calendar.settings.GeneralPreferences;
 
 /**
  * Service for asynchronously marking a fired alarm as dismissed and scheduling
@@ -94,10 +93,6 @@ public class SnoozeAlarmsService extends IntentService {
             resolver.update(uri, dismissValues, selection, null);
 
             // Add a new alarm
-            if (snoozeDelay < 0) {
-                snoozeDelay = GeneralPreferences.SNOOZE_DELAY_DEFAULT_TIME * 60L * 1000L;
-            }
-
             long alarmTime = System.currentTimeMillis() + snoozeDelay;
             ContentValues values = AlertUtils.makeContentValues(eventId, eventStart, eventEnd,
                     alarmTime, 0);

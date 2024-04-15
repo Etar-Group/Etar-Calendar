@@ -1,2 +1,0 @@
-- Khắc phục sự cố và thông báo trên Android 12
-- Sửa lỗi loại sự kiện chia sẻ MIME

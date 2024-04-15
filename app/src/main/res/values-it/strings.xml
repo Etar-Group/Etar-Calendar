@@ -42,7 +42,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> giorni</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">Settimana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one"></item>
         <item quantity="many">Settimana <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">Settimana <xliff:g id="count">%d</xliff:g></item>
     </plurals>
@@ -85,6 +85,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Aggiungi promemoria"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nessun calendario"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Prima di poter aggiungere un evento, devi aggiungere almeno un account Calendar al dispositivo e impostare un calendario come visibile. Tocca Aggiungi account per aggiungere un account (se hai appena aggiunto un account, attendi che venga completata la sincronizzazione e riprova). In alternativa, tocca Annulla e assicurati che sia visibile almeno un calendario."</string>
+    <string name="add_account" msgid="1669072099756774952">"Aggiungi account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendario:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Agenda:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Scegli colore evento"</string>
@@ -126,7 +128,7 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Dettagli"</string>
     <string name="edit_label" msgid="8934331258435656534">"Modifica"</string>
     <string name="delete_label" msgid="874742811918030739">"Elimina"</string>
-    <string name="save_label" msgid="2133599104834432589">Fatto</string>
+    <string name="save_label" msgid="2133599104834432589">"Salva"</string>
     <string name="discard_label" msgid="2394623883289782541">"Annulla"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Ignora tutto"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Posticipa"</string>
@@ -241,9 +243,9 @@
         <item quantity="other">Ogni <xliff:g id="count">%d</xliff:g> mesi</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Ogni <xliff:g id="count">%d</xliff:g> anno</item>
-        <item quantity="many">Ogni <xliff:g id="count">%d</xliff:g> anni</item>
-        <item quantity="other">Ogni <xliff:g id="count">%d</xliff:g> anni</item>
+        <item quantity="one">Ogni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; anno</item>
+        <item quantity="many">Ogni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; anni</item>
+        <item quantity="other">Ogni &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; anni</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"lo stesso giorno ogni mese"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Sempre"</string>
@@ -251,9 +253,9 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Fino al giorno: <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Per una serie di eventi"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">Per <xliff:g id="event_count">%d</xliff:g> evento</item>
-        <item quantity="many">Per <xliff:g id="event_count">%d</xliff:g> eventi</item>
-        <item quantity="other">Per <xliff:g id="event_count">%d</xliff:g> eventi</item>
+        <item quantity="one">Per &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt; evento</item>
+        <item quantity="many">Per &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt; eventi</item>
+        <item quantity="other">Per &lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"event_count\"&gt; eventi</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"modifica data di fine"</string>
     <string name="user_rejected_calendar_write_permission">Etar richiede le autorizzazioni di lettura e scrittura del calendario per funzionare. Riprova.</string>
@@ -297,7 +299,7 @@
     <string name="cal_import_error_msg">Importazione del calendario non riuscita</string>
     <string name="cal_import_error_date_msg">Impossibile interpretare la data inserita: %s</string>
     <string name="cal_pick_ics">Scegli file da importare</string>
-    <string name="show_time_no">Non mostrare l\'ora</string>
+    <string name="show_time_no">No</string>
     <string name="show_time_start">Solo tempo di inizio</string>
     <string name="show_time_start_end">Ora di inizio e fine</string>
     <string name="show_time_start_end_below">Ora di inizio e fine sotto all\'evento</string>
@@ -362,11 +364,4 @@
     <string name="duplicate_label">Sdoppia</string>
     <string name="preferences_real_event_colors">Usa colori di eventi reali</string>
     <string name="menu_info">Informazioni</string>
-    <string name="hint_url">URL</string>
-    <string name="no_calendars_found">Prima di poter aggiungere un evento, devi aggiungere almeno un calendario al tuo dispositivo</string>
-    <string name="add_calendar">Aggiungi calendario</string>
-    <string name="preferences_do_not_check_battery_optimization_summary">Usa a tuo rischio! Le notifiche non funzioneranno più, il widget non si aggiornerà e i servizi in secondo piano verranno terminati. Ma non ti verrà più chiesto se vuoi attivare il servizio in secondo piano.</string>
-    <string name="preferences_do_not_check_battery_optimization">Non controllare l\'ottimizzazione della batteria</string>
-    <string name="preferences_manage_notifications">Gestisci le notifiche</string>
-    <string name="calendars">Calendari</string>
 </resources>

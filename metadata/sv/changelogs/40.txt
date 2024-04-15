@@ -1,2 +1,0 @@
-- Förhoppningsvis, slutligen, fixade en krasch i månads och vecko-vyn till föjd av felatig rregel
-- Buggfixar

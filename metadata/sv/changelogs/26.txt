@@ -1,4 +1,0 @@
-- Omarbeta redigeringen av händelsens layout
-- Släpp stödet för Android 4.4
-- Generella buggfixar
-- Nya översättningar

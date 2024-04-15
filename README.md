@@ -18,10 +18,11 @@ this app would be just a dream. So thanks to them!
 ## Features
 - Month view.
 - Week, day & agenda view.
+- view task on day, week, month and agenda view
 - Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
 - Material designed.
 - Support offline calendar.
-- Agenda widget.
+- Agenda and task widget.
 - Multilingual UI.
 
 ## How to use Etar
@@ -35,6 +36,8 @@ Sync your calendar to a server:
   usable from different devices.) To sync such a calendar to some server you
   need yet another app, e. g. DAVx5. That’s necessary because a Caldav client
   isn't included in Etar.
+
+  The following [link](https://ownyourbits.com/2017/12/30/sync-nextcloud-tasks-calendars-and-contacts-on-your-android-device/) provides a tutorial how to use Nextcloud + DAVx5 + Etar.
 
 ### Technical explanation
 On Android there are "Calendar providers". These can be calendars that are

@@ -77,6 +77,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"Faragha"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Ongeza kumbusho"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Hakuna kalenda"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Kabla ya kuongeza tukio, sharti uongeze angalau akaunti moja ya Kalenda kwenye kifaa chako na ufanye kalenda ionekane. Gusa Ongeza Akaunti ili uongeze akaunti (kama umeongeza akaunti sasa hivi, subiri imalize kusawazishwa na ujaribu tena). Au gusa Ghairi na uhakikishe kuwa angalau kalenda moja inaonekana."</string>
+    <string name="add_account" msgid="1669072099756774952">"Ongeza akaunti"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Mwandalizi:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Chagua rangi ya tukio"</string>

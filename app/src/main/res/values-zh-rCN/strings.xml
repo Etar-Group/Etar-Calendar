@@ -34,7 +34,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> 天</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other">第 <xliff:g id="count">%d</xliff:g> 周</item>
+        <item quantity="other">Week <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"刷新"</string>
     <string name="show_day_view" msgid="5782512782605466016">"显示日期"</string>
@@ -71,6 +71,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"活动性质"</string>
     <string name="reminders_label" msgid="7292389181815525676">"添加提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"无日历"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">在添加活动前，您必须添加至少一个日历帐户并使日历可见。轻触“添加账户”以添加账户（如果您刚刚添加过帐户，请等待其同步完成并重试）。或轻触“取消”并确认至少一个日历可见。</string>
+    <string name="add_account" msgid="1669072099756774952">"添加帐户"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"日历："</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"组织者："</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"选择活动颜色"</string>
@@ -219,11 +221,11 @@
     <string name="visibility_private">私人</string>
     <string name="visibility_public">公开</string>
     <string name="preferences_alerts_custom_snooze_delay_title">询问暂停提醒时长</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">每次进行暂停操作时均询问暂停时长</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">暂停提醒时询问持续时长</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">总是使用默认的暂停提醒时长</string>
     <string name="snooze_delay_dialog_title">设定暂停提醒的重复时间</string>
     <string name="preferences_default_snooze_delay_title">默认暂停提醒时长</string>
-    <string name="preferences_default_snooze_delay_dialog">暂停提醒时长默认值</string>
+    <string name="preferences_default_snooze_delay_dialog">默认暂停提醒时长</string>
     <string name="no_map">手机里没有找到地图</string>
     <string name="goto_date">跳转到…</string>
     <string name="rsvp_accepted">回复是。</string>
@@ -329,11 +331,4 @@
     <string name="preferences_real_event_colors">使用真实事件颜色</string>
     <string name="menu_info">信息</string>
     <string name="duplicate_label">复制</string>
-    <string name="hint_url">URL</string>
-    <string name="no_calendars_found">你必须添加至少一个日历到设备才能添加活动</string>
-    <string name="add_calendar">添加日历</string>
-    <string name="preferences_manage_notifications">管理通知</string>
-    <string name="calendars">日历</string>
-    <string name="preferences_do_not_check_battery_optimization_summary">风险自负！通知将不再工作，小部件将不再更新，后台服务将崩溃。不过如果你想启用后台服务，程序将不再进行询问。</string>
-    <string name="preferences_do_not_check_battery_optimization">不检查电池优化</string>
 </resources>

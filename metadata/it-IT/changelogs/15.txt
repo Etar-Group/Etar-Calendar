@@ -1,5 +1,0 @@
-- Richiedi i permessi all'esecuzione da Android 6 in poi.
-- Supporta la visualizzazione lunare/festiva quando la lingua è il cinese.
-- Aggiornamento delle traduzioni.
-- Correzioni minori al layout.
-- Correzione di molti bug.

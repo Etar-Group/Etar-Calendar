@@ -81,6 +81,8 @@
     <string name="privacy_label" msgid="9215031965259597335">"الخصوصية"</string>
     <string name="reminders_label" msgid="7292389181815525676">"إضافة تذكير"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"بلا تقاويم"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"قبل أن تتمكن من إضافة حدث، يتعين عليك إضافة حساب تقويم واحد على الأقل إلى جهازك وجعل أحد التقويمات مرئيًا. يمكنك لمس \"إضافة حساب\" لإضافة حساب (إذا أضفت حسابًا، فانتظر حتى تكتمل عملية مزامنته وحاول مرة أخرى). أو يمكنك لمس \"إلغاء\" والتأكد من أن تقويمًا واحدًا على الأقل مرئي."</string>
+    <string name="add_account" msgid="1669072099756774952">"إضافة حساب"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"التقويم:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"المنظِّم:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"اختيار لون الحدث"</string>

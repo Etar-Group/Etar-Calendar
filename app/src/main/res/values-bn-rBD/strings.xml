@@ -20,6 +20,7 @@
     <string name="choose_event_color_label">কাজের রঙ নিন</string>
     <string name="view_event_organizer_label">সংগঠক:</string>
     <string name="view_event_calendar_label">বর্ষপঞ্জি:</string>
+    <string name="add_account">অ্যাকাউন্ট যোগ করুন</string>
     <string name="no_syncable_calendars">কোনও ক্যালেন্ডার নেই</string>
     <string name="reminders_label">রিমাইন্ডার(স্মরণলিপি) যোগ করুন</string>
     <string name="privacy_label">গোপনীয়তা</string>
@@ -112,6 +113,7 @@
     <string name="calendar_square_color_picker_description">রঙ বাছাইকারী</string>
     <string name="calendar_color_picker_dialog_title">বর্ষপঞ্জিকার রঙ</string>
     <string name="event_color_set_to_default">পূর্বনির্ধারিত বর্ষপঞ্জিকার রং নির্ধারণ করুন</string>
+    <string name="no_calendars_found">আপনি একটি কাজ যোগ করার আগে, আপনাকে অবশ্যই আপনার ডিভাইসে কমপক্ষে একটি ক্যালেন্ডার একাউন্ট যুক্ত করতে হবে এবং একটি ক্যালেন্ডার দৃশ্যমান করতে হবে। একটি অ্যাকাউন্ট যোগ করার জন্য অ্যাড-এ টিপ দিন (যদি আপনি কেবলই একটি অ্যাকাউন্ট যোগ করেন, এটি সিঙ্ক করার জন্য অপেক্ষা করুন এবং আবার চেষ্টা করুন) । বা এটা বাতিল করুন এবং নিশ্চিত করুন অন্তত একটি ক্যালেন্ডার দৃশ্যমান।</string>
     <string name="every_weekday">প্রতি সাপ্তাহিক দিনে (সোম-শুক্র)</string>
     <plurals name="daily">
         <item quantity="one">দৈনিক</item>

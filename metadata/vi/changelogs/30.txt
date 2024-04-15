@@ -1,2 +1,0 @@
-- Sửa thông báo trên Android 12
-- Thêm DecSync và Birthday Adapter vào các ứng dụng "đã biết" và không gặp sự cố

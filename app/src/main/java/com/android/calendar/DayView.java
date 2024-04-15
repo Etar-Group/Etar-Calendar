@@ -225,7 +225,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         @Override
         public void run() {
             if (mClickedEvent != null) {
-                mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mClickedEvent.id,
+                long eventType = EventType.VIEW_EVENT;
+                if (mClickedEvent.isTask()) {
+                    eventType = EventType.VIEW_TASK;
+                }
+                mController.sendEventRelatedEvent(this, eventType, mClickedEvent.id,
                         mClickedEvent.startMillis, mClickedEvent.endMillis,
                         DayView.this.getWidth() / 2, mClickedYLocation,
                         getSelectedTimeInMillis());
@@ -956,7 +960,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * @return selected time in UTC milliseconds since the epoch.
      */
     long getSelectedTimeInMillis() {
-        Time time = new Time(Utils.getTimeZone(mContext, mTZUpdater));
+        Time time = new Time();
         time.set(mBaseDate);
         time.setJulianDay(mSelectionDay);
         time.setHour(mSelectionHour);
@@ -4370,7 +4374,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 return true;
 
             default:
-                if (DEBUG) Log.e(TAG, "Not MotionEvent " + ev);
+                if (DEBUG) Log.e(TAG, "Not MotionEvent " + ev.toString());
                 if (mGestureDetector.onTouchEvent(ev)) {
                     return true;
                 }

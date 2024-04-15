@@ -1,4 +1,0 @@
-- Recupero database dei fusi orari.
-- Icona dell'app in SVG.
-- Risistemazione e riattivazione del widget.
-- Nuove traduzioni

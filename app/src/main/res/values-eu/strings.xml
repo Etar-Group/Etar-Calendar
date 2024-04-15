@@ -47,6 +47,7 @@
     <string name="privacy_label">Pribatutasuna</string>
     <string name="reminders_label">Gehitu jakinarazpena</string>
     <string name="no_syncable_calendars">Egutegirik ez</string>
+    <string name="add_account">Gehitu kontua</string>
     <string name="view_event_calendar_label">Egutegia:</string>
     <string name="view_event_organizer_label">Antolatzailea:</string>
     <string name="choose_event_color_label">Aukeratu gertaeraren kolorea</string>
@@ -220,6 +221,7 @@
         <item quantity="one"><xliff:g id="count">%d</xliff:g>. astea</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g>. astea</item>
     </plurals>
+    <string name="no_calendars_found">Gertaera bat gehitu aurretik, gutxienez Egutegi bat gehitu behar duzu zure gailuan eta egutegia ikusgarri bezala markatu. Ukitu Gehitu Kontua kontu bat gehitzeko (kontu bat gehitu baduzu, itxaron sinkronizazioa bukatu arte eta saiatu berriz). Edo ukitu Utzi eta ziurtatu gutxienez egutegi bat dagoela ikusgarri.</string>
     <string name="show_newer_events">Ukitu gertaerak ikusteko <xliff:g id="newest_search_range">%1$s</xliff:g> baino geroago</string>
     <string name="does_not_repeat">Aldi baterako gertaera</string>
     <string name="endByDate">; <xliff:g id="date">%s</xliff:g> arte</string>

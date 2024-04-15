@@ -17,6 +17,9 @@
 package com.android.calendar.agenda;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
@@ -28,10 +31,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.Adapter;
 import android.widget.HeaderViewListAdapter;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
@@ -83,6 +82,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private long mLastHandledEventId = -1;
     private Time mLastHandledEventTime = null;
 
+    public boolean isTask = false;
+
     public AgendaFragment() {
         this(0, false);
     }
@@ -128,7 +129,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             if (prevTime != -1) {
                 mTime.set(prevTime);
                 if (DEBUG) {
-                    Log.d(TAG, "Restoring time to " + mTime);
+                    Log.d(TAG, "Restoring time to " + mTime.toString());
                 }
             }
         }
@@ -166,10 +167,12 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             lv.setAdapter(a);
             if (a instanceof HeaderViewListAdapter) {
                 mAdapter = (AgendaWindowAdapter) ((HeaderViewListAdapter)a).getWrappedAdapter();
+                mAdapter.isTask = isTask;
                 lv.setIndexer(mAdapter);
                 lv.setHeaderHeightListener(mAdapter);
             } else if (a instanceof AgendaWindowAdapter) {
                 mAdapter = (AgendaWindowAdapter)a;
+                mAdapter.isTask = isTask;
                 lv.setIndexer(mAdapter);
                 lv.setHeaderHeightListener(mAdapter);
             } else {
@@ -214,6 +217,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 getActivity());
         boolean hideDeclined = prefs.getBoolean(
                 GeneralPreferences.KEY_HIDE_DECLINED, false);
+        AgendaWindowAdapter.AgendaItem item = mAgendaListView.getFirstVisibleAgendaItem();
+        if (item!=null && item.isTask) {
+            Time t = new Time(mTimeZone);
+            t.set(item.end);
+            mController.setTime(item.end);
+            mTime.set(t.toMillis());
+        }
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
         if (mLastHandledEventId != -1) {
@@ -388,7 +398,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
         // Create a fragment to show the event to the side of the agenda list
         if (mShowEventDetailsWithAgenda) {
-            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentManager fragmentManager = getFragmentManager();
             if (fragmentManager == null) {
                 // Got a goto event before the fragment finished attaching,
                 // stash the event and handle it later.
@@ -457,6 +467,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Time t = new Time(mTimeZone);
             t.setJulianDay(mJulianDayOnTop);
             mController.setTime(t.toMillis());
+            mTime.set(t.toMillis());
             // Cannot sent a message that eventually may change the layout of the views
             // so instead post a runnable that will run when the layout is done
             if (!mIsTabletConfig) {

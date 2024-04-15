@@ -1,4 +1,0 @@
-- Bestätigungsdialog beim Verlassen während der Terminerstellung
-- Option "Keine Schlummerfunktion" hinzufügt
-- Verbessertes Wischen nach links/rechts und nach oben/unten in der Monatsansicht
-- Kleinere Fehlerbehebungen

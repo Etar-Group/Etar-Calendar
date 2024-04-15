@@ -41,7 +41,6 @@
 
     <!-- Reminder format strings -->
     <string name="no_reminder_label">None</string>
-    <string name="no_snooze_label">None</string>
     <plurals name="Nminutes">
         <!-- This is the label for a 1-minute reminder. -->
         <item quantity="one">1 minute</item>
@@ -157,7 +156,8 @@
     <!-- This is a label on a menu item. Pressing this menu item shows the
          View settings menu [CHAR LIMIT=20] -->
     <string name="view_settings">"View settings"</string>
-
+    <string name="view_agenda_tasks">"View Tasks"</string>
+    <string name="view_agenda_events">"View Events"</string>
 
     <!-- Month view -->
     <skip/>
@@ -243,10 +243,10 @@
     <!-- Title of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_syncable_calendars">No calendars</string>
     <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->
-    <string name="no_calendars_found">Before you can add an event, you must add at least one calendar to your device</string>
+    <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to your device and make a calendar visible. Touch Add Account to add an account (if you just added an account, wait for it to finish syncing and try again). Or touch Cancel and make sure at least one calendar is visible.</string>
     <!-- Body of dialog prompting the user to create an account.[CHAR LIMIT=NONE] -->
     <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
-    <string name="add_calendar">Add calendar</string>
+    <string name="add_account">Add account</string>
 
     <!-- View Event -->
     <skip/>
@@ -322,6 +322,8 @@
     <string name="event_info_organizer">Organizer:</string>
     <!-- Reminders label [CHAR LIMIT=15]-->
     <string name="event_info_reminders_label">Reminders</string>
+
+    <string name="event_info_reminders_cannot_add_label">Reminders are not available for task</string>
 
     <!-- Agenda View strings -->
     <skip/>
@@ -780,8 +782,6 @@
     <string name="preferences_calendar_info_category">Calendar information</string>
     <string name="preferences_calendar_color">Color</string>
     <string name="preferences_calendar_visible">Display events</string>
-    <!-- Button to access system notification preference for a given calendar -->
-    <string name="preferences_manage_notifications">Manage notifications</string>
     <string name="preferences_calendar_synchronize">Synchronize this calendar</string>
     <string name="preferences_calendar_color_warning_title">Warning</string>
     <string name="preferences_calendar_color_warning_message">Changing the color may be reverted when the calendar is synchronized again.\n\nIn DAVx⁵ \'Manage calendar colors\' can be disabled to prevent this.</string>
@@ -807,13 +807,5 @@
     <string name="after_start_of_event">after start of event</string>
 
     <string name="pref_theme_default" translatable="false">light</string>
-    <string name="preferences_do_not_check_battery_optimization">Don\'t check battery optimization</string>
-    <string name="preferences_do_not_check_battery_optimization_summary">Use at your own risk! Notifications will no longer work, widget will no longer update and background services will crash. But you won\'t get asked again if you want to enable the background service.</string>
 
-    <!-- Name of notification channel group -->
-    <string name="calendars">Calendars</string>
-
-    <string name="discard_event_changes">Do you want to discard changes?</string>
-    <string name="discard">Discard</string>
-    <string name="cancel">Cancel</string>
 </resources>

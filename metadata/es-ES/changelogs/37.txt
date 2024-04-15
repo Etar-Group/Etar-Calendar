@@ -1,4 +1,0 @@
-- Añadir soporte de idioma por aplicación (android 13+)
-- Añadir deslizamiento izquierda/derecha a la vista del mes
-- Corrección de errores
-- Nuevas traducciones

@@ -1,4 +1,0 @@
-- Add per-app language support(android 13+)
-- Add left/right swipe to month view
-- Bugfixes
-- New translations

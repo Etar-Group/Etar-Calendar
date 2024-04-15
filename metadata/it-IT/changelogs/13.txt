@@ -1,4 +1,0 @@
-- Supporta la condivisione di calendari come .ics e l'importazione/esportazione da scheda SD.
-- Rimozione permessi inutilizzati.
-- Correzione impostazioni sonore su Android 6.
-- Correzione di molti bug.

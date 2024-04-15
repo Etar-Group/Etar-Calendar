@@ -75,9 +75,9 @@ class MainListPreferences : PreferenceFragmentCompat() {
             val accountCategoryUniqueKey = "account_category_${calendar.accountName}_${calendar.accountType}"
             var accountCategory = screen.findPreference<PreferenceCategory>(accountCategoryUniqueKey)
             if (accountCategory == null) {
-                accountCategory = PreferenceCategory(requireContext()).apply {
+                accountCategory = PreferenceCategory(context).apply {
                     key = accountCategoryUniqueKey
-                    title = calendar.accountName
+                    title = if (calendar.isTasks) "My task" else calendar.accountName
                     icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_account_circle)
                     order = if (calendar.isLocal) 10 else 11 // show offline calendar first
                     isOrderingAsAdded = false // use alphabetic ordering for children
@@ -86,10 +86,10 @@ class MainListPreferences : PreferenceFragmentCompat() {
             }
 
             // add preference per calendar if not already present
-            val calendarUniqueKey = "calendar_preference_${calendar.id}"
+            val calendarUniqueKey = "calendar_preference_${calendar.id}_${calendar.name}"
             var calendarPreference = screen.findPreference<Preference>(calendarUniqueKey)
             if (calendarPreference == null) {
-                calendarPreference = Preference(requireContext())
+                calendarPreference = Preference(context)
                 accountCategory.addPreference(calendarPreference)
             }
             calendarPreference.apply {
@@ -97,11 +97,12 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 title = if (calendar.displayName.isNullOrBlank()) getString(R.string.preferences_calendar_no_display_name) else calendar.displayName
                 fragment = CalendarPreferences::class.java.name
                 order = if (calendar.isPrimary) 1 else 2 // primary calendar is first, others are alphabetically ordered below
-                icon = getCalendarIcon(calendar.color, calendar.visible, calendar.syncEvents)
+                icon = getCalendarIcon(calendar.color, calendar.visible, calendar.syncEvents, calendar.isTasks)
                 summary = getCalendarSummary(calendar.visible, calendar.syncEvents)
             }
             // pass-through calendar id for CalendarPreferences
             calendarPreference.extras.putLong(CalendarPreferences.ARG_CALENDAR_ID, calendar.id)
+            calendarPreference.extras.putBoolean(CalendarPreferences.ARG_IS_TASKS, calendar.isTasks)
         }
 
         // remove preferences for calendars no longer existing
@@ -138,11 +139,17 @@ class MainListPreferences : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getCalendarIcon(color: Int, visible: Boolean, syncEvents: Boolean): Drawable {
+    private fun getCalendarIcon(color: Int, visible: Boolean, syncEvents: Boolean, isTask: Boolean): Drawable {
         val icon = if (!syncEvents) {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_sync_off_light)
-        } else if (visible) {
+        } else if (visible && !isTask) {
             ContextCompat.getDrawable(requireContext(), R.drawable.circle)
+        } else if (visible && isTask) {
+            ContextCompat.getDrawable(requireContext(), R.drawable.square)
+        } else if (!visible && !isTask) {
+            ContextCompat.getDrawable(requireContext(), R.drawable.circle_outline)
+        } else if (!visible && isTask) {
+            ContextCompat.getDrawable(requireContext(), R.drawable.square_outline)
         } else {
             ContextCompat.getDrawable(requireContext(), R.drawable.circle_outline)
         }
@@ -152,12 +159,12 @@ class MainListPreferences : PreferenceFragmentCompat() {
     }
 
     private fun addGeneralPreferences(screen: PreferenceScreen) {
-        val generalPreference = Preference(requireContext()).apply {
+        val generalPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_general)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_settings)
             fragment = GeneralPreferences::class.java.name
         }
-        val addCaldavPreference = Preference(requireContext()).apply {
+        val addCaldavPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_remote)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)
         }
@@ -165,7 +172,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
             launchDavX5Login()
             true
         }
-        val addEtesyncPreference = Preference(requireContext()).apply {
+        val addEtesyncPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_remote_etesync)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)
         }
@@ -173,7 +180,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
             launchAddEtesync()
             true
         }
-        val addOfflinePreference = Preference(requireContext()).apply {
+        val addOfflinePreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_offline)
             icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)
         }
