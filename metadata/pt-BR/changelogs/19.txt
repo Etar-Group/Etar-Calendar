@@ -1,0 +1,2 @@
+- Correção de bug de notificações.
+- Novas traduções.

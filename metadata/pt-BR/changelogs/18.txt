@@ -1,0 +1,3 @@
+- Bugs na visualização mensal corrigidos.
+- Correção ao modo escuro em tablets.
+- Novas traduções.
