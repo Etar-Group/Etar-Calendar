@@ -329,4 +329,9 @@
     <string name="menu_info">Informação</string>
     <string name="add_calendar">Adicionar calendário</string>
     <string name="no_calendars_found">Antes que você possa adicionar um evento, você deve adicionar pelo menos um calendário no seu dispositivo.</string>
+    <string name="preferences_manage_notifications">Gerenciar notificações</string>
+    <string name="preferences_do_not_check_battery_optimization">Não verifique a otimização da bateria</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Use por sua própria conta e risco! Notificações não funcionarão mais, o widget não atualizará mais, e serviços em segundo plano irão quebrar. Você não será perguntado novamente se você quer ativar o serviço em segundo plano.</string>
+    <string name="no_snooze_label">Nenhuma</string>
+    <string name="calendars">Calendários</string>
 </resources>
