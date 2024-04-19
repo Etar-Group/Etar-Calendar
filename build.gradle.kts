@@ -4,7 +4,7 @@ import org.jetbrains.gradle.ext.taskTriggers
 plugins {
     id("com.android.application") version "8.3.1" apply false
     id("com.android.library") version "8.3.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.23" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.10" apply false
     id("org.ec4j.editorconfig") version "0.1.0" apply false
     id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.7" apply true
 }
@@ -27,7 +27,7 @@ configure(externalProjects) {
     }
 }
 
-task("aarGen") {
+tasks.register("aarGen") {
     description = "Generates AAR from the external projects for Etar-Calendar"
     val aarTasks = arrayOf(
         ":external:calendar:copyAAR",
@@ -40,12 +40,12 @@ task("aarGen") {
 
 idea.project.settings {
     taskTriggers {
-        afterSync(tasks.getByName("aarGen"))
+        afterSync(tasks.named("aarGen"))
     }
 }
 
 // External project configuration end
-task<Delete>("clean") {
-    delete(rootProject.buildDir)
+tasks.register<Delete>("clean") {
+    delete(rootProject.layout.buildDirectory)
     delete("app/libs")
 }
