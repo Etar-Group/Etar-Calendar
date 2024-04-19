@@ -197,7 +197,7 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Añadir recordatorio"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Eliminar recordatorio"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Añadir asistente"</string>
-    <string name="accessibility_all_day" msgid="4146955438811915282">"Todo el día"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">Cita para todo el día</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Duración del recordatorio"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Tipo de recordatorio"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mostrarme como"</string>
