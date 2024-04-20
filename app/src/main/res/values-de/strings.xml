@@ -351,4 +351,9 @@
     <string name="preferences_manage_notifications">Benachrichtigungen verwalten</string>
     <string name="preferences_do_not_check_battery_optimization">Akku-Optimierung nicht überprüfen</string>
     <string name="calendars">Kalender</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Verwendung auf eigene Gefahr! Benachrichtigungen werden nicht mehr funktionieren, Widgets werden nicht mehr aktualisiert und Hintergrunddienste werden abstürzen. Aber Sie werden nicht mehr gefragt, ob Sie den Hintergrunddienst aktivieren möchten.</string>
+    <string name="no_snooze_label">Kein</string>
+    <string name="discard_event_changes">Möchten Sie die Änderungen verwerfen?</string>
+    <string name="discard">Verwerfen</string>
+    <string name="cancel">Abbrechen</string>
 </resources>
