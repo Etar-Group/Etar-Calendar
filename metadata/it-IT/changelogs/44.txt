@@ -1,0 +1,2 @@
+- Aggiunta autorizzazione mancante
+- Corretta compilazione che falliva
