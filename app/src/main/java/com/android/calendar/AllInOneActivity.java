@@ -263,50 +263,57 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         super.onCreate(icicle);
         dynamicTheme.onCreate(this);
-
-        // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
-
-        // Check and ask for most needed permissions
         checkAppPermissions();
-
-        // Create notification channels
         AlertService.createChannels(this);
-
-        // Get time from intent or icicle
+        long timeMillis = getTimeMillis(icicle);
+        int viewType = getViewType(icicle, timeMillis);
+        mTimeZone = getTimeZone(timeMillis);
+        setupResources();
+        setContentViewAndBindings();
+        setupToolbar(viewType);
+        setupNavDrawer();
+        setupFloatingActionButton();
+        initFragments(timeMillis, viewType, icicle);
+        registerPreferenceChangeListener();
+        mContentResolver = getContentResolver();
+    }
+    
+    private long getTimeMillis(Bundle icicle) {
         long timeMillis = -1;
-        int viewType = -1;
         final Intent intent = getIntent();
         if (icicle != null) {
             timeMillis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
-            viewType = icicle.getInt(BUNDLE_KEY_RESTORE_VIEW, -1);
         } else {
             String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
-                // Open EventInfo later
                 timeMillis = parseViewAction(intent);
             }
-
             if (timeMillis == -1) {
                 timeMillis = Utils.timeFromIntentInMillis(intent);
             }
         }
-
+        return timeMillis;
+    }
+    
+    private int getViewType(Bundle icicle, long timeMillis) {
+        int viewType;
+        if (icicle != null) {
+            viewType = icicle.getInt(BUNDLE_KEY_RESTORE_VIEW, -1);
+        } else {
+            viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
+        }
         if (viewType == -1 || viewType > ViewType.MAX_VALUE) {
             viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
         }
-        mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
-        Time t = new Time(mTimeZone);
-        t.set(timeMillis);
-
-        if (DEBUG) {
-            if (icicle != null && intent != null) {
-                Log.d(TAG, "both, icicle:" + icicle + "  intent:" + intent);
-            } else {
-                Log.d(TAG, "not both, icicle:" + icicle + " intent:" + intent);
-            }
-        }
-
+        return viewType;
+    }
+    
+    private String getTimeZone(long timeMillis) {
+        return Utils.getTimeZone(this, mHomeTimeUpdater);
+    }
+    
+    private void setupResources() {
         Resources res = getResources();
         mHideString = res.getString(R.string.hide_controls);
         mShowString = res.getString(R.string.show_controls);
@@ -318,15 +325,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }
             mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         } else {
-            // Make sure width is in between allowed min and max width values
             mControlsAnimateWidth = Math.max(res.getDisplayMetrics().widthPixels * 45 / 100,
                     (int) res.getDimension(R.dimen.min_portrait_calendar_controls_width));
             mControlsAnimateWidth = Math.min(mControlsAnimateWidth,
                     (int) res.getDimension(R.dimen.max_portrait_calendar_controls_width));
         }
-
         mControlsAnimateHeight = (int) res.getDimension(R.dimen.calendar_controls_height);
-
         mHideControls = !Utils.getSharedPreference(
                 this, GeneralPreferences.KEY_SHOW_CONTROLS, true);
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
@@ -342,28 +346,20 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 Utils.getConfigBool(this, R.bool.show_event_info_full_screen);
         mCalendarControlsAnimationTime = res.getInteger(R.integer.calendar_controls_animation_time);
         Utils.setAllowWeekForDetailView(mIsMultipane);
-
-        // setContentView must be called before configureActionBar
+    }
+    
+    private void setContentViewAndBindings() {
         binding = AllInOneMaterialBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
         mDrawerLayout = binding.drawerLayout;
         mNavigationView = binding.navigationView;
-
         mFab = binding.floatingActionButton;
-
         if (mIsTabletConfig) {
             mDateRange = binding.include.dateBar;
             mWeekTextView = binding.include.weekNum;
         } else {
             mDateRange = DateRangeTitleBinding.inflate(getLayoutInflater()).getRoot();
         }
-
-        setupToolbar(viewType);
-        setupNavDrawer();
-        setupFloatingActionButton();
-
         mHomeTime = binding.include.homeTime;
         mMiniMonth = binding.include.miniMonth;
         if (mIsTabletConfig && mOrientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -373,20 +369,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mCalendarsList = binding.include.calendarList;
         mMiniMonthContainer = binding.include.miniMonthContainer;
         mSecondaryPane = binding.include.secondaryPane;
-
-        // Must register as the first activity because this activity can modify
-        // the list of event handlers in it's handle method. This affects who
-        // the rest of the handlers the controller dispatches to are.
-        mController.registerFirstEventHandler(HANDLER_KEY, this);
-
-        initFragments(timeMillis, viewType, icicle);
-
-        // Listen for changes that would require this to be refreshed
+    }
+    
+    private void registerPreferenceChangeListener() {
         SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
-
-        mContentResolver = getContentResolver();
-    }
+    }    
 
     private void checkAppPermissions() {
         // Here, thisActivity is the current activity
