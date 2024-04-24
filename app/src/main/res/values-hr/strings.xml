@@ -365,4 +365,12 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Prije dodavanje događaja moraš dodati barem jedan kalendar na svoj uređaj</string>
     <string name="add_calendar">Dodaj kalendar</string>
+    <string name="preferences_manage_notifications">Upravljaj obavijestima</string>
+    <string name="preferences_do_not_check_battery_optimization">Nemoj provjeravati optimizaciju baterije</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Koristi na vlastitu odgovornost! Obavijesti više neće raditi, widget se više neće ažurirati, a pozadinske usluge će se srušiti. Ali nećeš biti ponovo upitan/a je li želiš omogućiti pozadinsku uslugu.</string>
+    <string name="calendars">Kalendari</string>
+    <string name="no_snooze_label">Ništa</string>
+    <string name="discard_event_changes">Želiš li odbaciti promjene?</string>
+    <string name="discard">Odbaci</string>
+    <string name="cancel">Odustani</string>
 </resources>
