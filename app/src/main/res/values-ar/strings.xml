@@ -19,32 +19,47 @@
     <string name="tomorrow" msgid="614434811813859237">"غدًا"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"اليوم في <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"غدًا في <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="date_time_fmt" msgid="1642972650061946484">
-        <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
-    </string>
+    <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(بلا عنوان)"</string>
     <plurals name="Nminutes">
-        <item quantity="zero">دقيقة واحدة</item>
+        <item quantity="zero">٠ دقيقة</item>
         <item quantity="one">دقيقة واحدة</item>
         <item quantity="two">دقيقتين</item>
-        <item quantity="few">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; دقائق</item>
-        <item quantity="many">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; دقائق</item>
-        <item quantity="other">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"count\"&gt; دقائق</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> دقائق</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> دقيقة</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> دقيقة</item>
     </plurals>
     <plurals name="Nmins">
-        <item msgid="9191090668359663663" quantity="one">"دقيقة واحدة"</item>
-        <item msgid="9175648445939148974" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> دقيقة"</item>
+        <item quantity="zero">٠ دقيقة</item>
+        <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتين</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> دقائق</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> دقيقة</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> دقيقة</item>
     </plurals>
     <plurals name="Nhours">
-        <item msgid="4793697728599296830" quantity="one">"ساعة واحدة"</item>
-        <item msgid="4477841052001760620" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> ساعة"</item>
+        <item quantity="zero">٠ ساعه</item>
+        <item quantity="one">ساعة واحدة</item>
+        <item quantity="two">ساعتين</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> ساعات</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> ساعة</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> ساعة</item>
     </plurals>
     <plurals name="Ndays">
-        <item msgid="5988137255732166573" quantity="one">"يوم واحد"</item>
-        <item msgid="1709378992389618261" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> يوم"</item>
+        <item quantity="zero">٠ يوم</item>
+        <item quantity="one">يوم واحد</item>
+        <item quantity="two">يومين</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> أيام</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> يوم</item>
+        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> يوم</item>
     </plurals>
     <plurals name="weekN">
-        <item msgid="8085184869561028365" quantity="other">"الأسبوع <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="zero">الأسبوع <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">الأسبوع <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="two">الأسبوع <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="few">الأسبوع <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">الأسبوع <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">الأسبوع <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"تحديث"</string>
     <string name="show_day_view" msgid="5782512782605466016">"عرض اليوم"</string>
@@ -55,7 +70,7 @@
     <string name="event_view" msgid="7621353079385122317">"عرض الحدث"</string>
     <string name="event_create" msgid="6941040556709110617">"حدث جديد"</string>
     <string name="event_edit" msgid="4006961928830064662">"تعديل الحدث"</string>
-    <string name="event_delete" msgid="2386667193277770442">"حذف حدث"</string>
+    <string name="event_delete" msgid="2386667193277770442">حذف الحدث</string>
     <string name="goto_today" msgid="9162136434410891230">"اليوم"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"الإعدادات"</string>
     <string name="search" msgid="550656004486017426">"بحث"</string>
@@ -75,7 +90,7 @@
     <string name="alert_title" msgid="7869592820853066853">"إعلامات التقاويم"</string>
     <string name="event_info_title" msgid="56024222340421620">"عرض الحدث"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"دعوة اجتماع"</string>
-    <string name="edit_event_all_day_label" msgid="6200181113992136073">"اليوم كله"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">اليوم بأكمله</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"التقويم"</string>
     <string name="presence_label" msgid="6169724148441175862">"حالتي المعروضة هي"</string>
     <string name="privacy_label" msgid="9215031965259597335">"الخصوصية"</string>
@@ -85,15 +100,15 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"المنظِّم:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"اختيار لون الحدث"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"لون الحدث"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"تعيين على لون التقويم الافتراضي"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">تعيين على لون التقويم الافتراضي</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"لون التقويم"</string>
-    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"منتقي ألوان"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">منتقي أللون</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"هل ستحضر؟"</string>
     <string name="response_yes" msgid="2027484304899988350">"نعم"</string>
     <string name="response_maybe" msgid="7791500973627841695">"ربما"</string>
     <string name="response_no" msgid="561911691884148136">"لا"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"إرسال بريد إلكتروني إلى المدعوين"</string>
-    <string name="email_organizer_label" msgid="7178059542798074813">"منظم البريد الإلكتروني"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">إرسال بريد إلكترونى الى المنظم</string>
     <string name="email_picker_label" msgid="4808253965057791781">"إرسال رسالة إلكترونية إلى"</string>
     <string name="event_not_found" msgid="8356864185947582727">"لم يتم العثور على الحدث."</string>
     <string name="map_label" msgid="8795383535586556038">"خريطة"</string>
@@ -129,17 +144,29 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"حدث لمرة واحدة"</string>
     <string name="endByDate" msgid="7654221304929538201">"؛ حتى <xliff:g id="DATE">%s</xliff:g>"</string>
     <plurals name="endByCount">
-        <item msgid="3727754565990691816" quantity="one">"؛ لمرة واحدة"</item>
-        <item msgid="4855496837834652446" quantity="other">"؛ لـ <xliff:g id="NUMBER">%d</xliff:g> من المرات"</item>
+        <item quantity="zero">؛ ٠ مرة</item>
+        <item quantity="one">؛ لمرة واحدة</item>
+        <item quantity="two">؛ لمرتين</item>
+        <item quantity="few">; لـ <xliff:g id="number">%d</xliff:g> مرات</item>
+        <item quantity="many">; لـ <xliff:g id="number">%d</xliff:g> مرة</item>
+        <item quantity="other">; لـ <xliff:g id="number">%d</xliff:g> مرة</item>
     </plurals>
     <plurals name="daily">
-        <item msgid="5169052946627480942" quantity="one">"يوميًا"</item>
-        <item msgid="5455230727715859264" quantity="other">"كل <xliff:g id="NUMBER">%d</xliff:g> أيام"</item>
+        <item quantity="zero">٠ يوم</item>
+        <item quantity="one">يوميًا</item>
+        <item quantity="two">يوميًا</item>
+        <item quantity="few">كل <xliff:g id="number">%d</xliff:g> أيام</item>
+        <item quantity="many">كل <xliff:g id="number">%d</xliff:g> يوم</item>
+        <item quantity="other">كل <xliff:g id="NUMBER">%d</xliff:g> يوم</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"كل أيام الأسبوع (الاثنين-الجمعة)"</string>
     <plurals name="weekly">
-        <item msgid="5463021019301453273" quantity="one">"يوم <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> من كل أسبوع"</item>
-        <item msgid="2857390143157377867" quantity="other">"يوم <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> من كل <xliff:g id="NUMBER">%1$d</xliff:g> من الأسابيع"</item>
+        <item quantity="zero">يوم <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> من كل أسبوع</item>
+        <item quantity="one">يوم <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> من كل أسبوع</item>
+        <item quantity="two">كل <xliff:g id="number">%1$d</xliff:g> اسبوع فى <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="few">كل <xliff:g id="number">%1$d</xliff:g> اسابيع فى <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="many">كل <xliff:g id="number">%1$d</xliff:g> اسبوع فى <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">كل <xliff:g id="number">%1$d</xliff:g> اسبوع فى <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"شهريًا"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"سنويًا"</string>
@@ -174,11 +201,15 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"إظهار رقم الأسبوع"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"نسخة الإصدار"</string>
     <plurals name="month_more_events">
-        <item msgid="8971334808414201327" quantity="one">"1+"</item>
-        <item msgid="1997405398178470838" quantity="other">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="zero">+1</item>
+        <item quantity="one">1+</item>
+        <item quantity="two">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="few">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="many">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"لا توجد أحداث تقويم قادمة"</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"إصدار تجريبي"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">تجريبي</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"تخطي التذكيرات"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"تخطي التذكيرات"</string>
     <string name="copy_db" msgid="437691290566699292">"إرسال قاعدة البيانات"</string>
@@ -193,7 +224,7 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"إضافة تذكير"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"إزالة التذكير"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"إضافة أحد الحضور"</string>
-    <string name="accessibility_all_day" msgid="4146955438811915282">"حدث اليوم كله"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">حدث لليوم بأكمله</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"وقت التذكير"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"نوع التذكير"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"حالتي المعروضة هي"</string>
@@ -201,29 +232,53 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ حدث جديد"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"الحدث <xliff:g id="ITEM_INDEX">%1$s</xliff:g> من <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
     <plurals name="Nevents">
-        <item msgid="5230907142214104485" quantity="one">"حدث واحد"</item>
-        <item msgid="6093072093209431078" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> من الأحداث"</item>
+        <item quantity="zero">٠ حدث</item>
+        <item quantity="one">حدث واحد</item>
+        <item quantity="two">حدثين</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> أحداث</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> حدث</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> حدث</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item msgid="431585781647034528" quantity="one">"+ حدث واحد"</item>
-        <item msgid="3609243840882275136" quantity="other">"+<xliff:g id="COUNT">%d</xliff:g> من الأحداث"</item>
+        <item quantity="zero">+ ٠ حدث</item>
+        <item quantity="one">+ حدث واحد</item>
+        <item quantity="two">+ حدثين</item>
+        <item quantity="few">+<xliff:g id="count">%d</xliff:g> أحداث</item>
+        <item quantity="many">+<xliff:g id="count">%d</xliff:g> حدث</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> حدث</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"حدث محدد"</string>
     <plurals name="recurrence_interval_daily">
-        <item msgid="1205422710088692631" quantity="one">"كل <xliff:g id="COUNT">%d</xliff:g> يوم"</item>
-        <item msgid="707566499994398250" quantity="other">"كل <xliff:g id="COUNT">%d</xliff:g> يوم"</item>
+        <item quantity="zero">كل <xliff:g id="count">%d</xliff:g> يوم</item>
+        <item quantity="one">كل <xliff:g id="COUNT">%d</xliff:g> يوم</item>
+        <item quantity="two">كل يومين</item>
+        <item quantity="few">كل <xliff:g id="count">%d</xliff:g> أيام</item>
+        <item quantity="many">كل <xliff:g id="count">%d</xliff:g> يوم</item>
+        <item quantity="other">كل <xliff:g id="COUNT">%d</xliff:g> يوم</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item msgid="4948681635464488351" quantity="one">"كل <xliff:g id="COUNT">%d</xliff:g> أسبوع"</item>
-        <item msgid="7094801039989237061" quantity="other">"كل <xliff:g id="COUNT">%d</xliff:g> أسبوع"</item>
+        <item quantity="zero">كل <xliff:g id="count">%d</xliff:g> اسبوع</item>
+        <item quantity="one">كل <xliff:g id="COUNT">%d</xliff:g> أسبوع</item>
+        <item quantity="two">كل اسبوعين</item>
+        <item quantity="few">كل <xliff:g id="count">%d</xliff:g> اسابيع</item>
+        <item quantity="many">كل <xliff:g id="count">%d</xliff:g> اسبوع</item>
+        <item quantity="other">كل <xliff:g id="COUNT">%d</xliff:g> أسبوع</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item msgid="4768178401603139718" quantity="one">"كل <xliff:g id="COUNT">%d</xliff:g> شهر"</item>
-        <item msgid="5419723710346646523" quantity="other">"كل <xliff:g id="COUNT">%d</xliff:g> شهر"</item>
+        <item quantity="zero">كل <xliff:g id="count">%d</xliff:g> شهر</item>
+        <item quantity="one">كل <xliff:g id="COUNT">%d</xliff:g> شهر</item>
+        <item quantity="two">كل شهرين</item>
+        <item quantity="few">كل <xliff:g id="count">%d</xliff:g> أشهر</item>
+        <item quantity="many">كل <xliff:g id="count">%d</xliff:g> شهر</item>
+        <item quantity="other">كل <xliff:g id="COUNT">%d</xliff:g> شهر</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item msgid="5819562634008179102" quantity="one">"كل <xliff:g id="COUNT">%d</xliff:g> عام"</item>
-        <item msgid="5678653649746562060" quantity="other">"كل <xliff:g id="COUNT">%d</xliff:g> عام"</item>
+        <item quantity="zero">كل <xliff:g id="count">%d</xliff:g> عام</item>
+        <item quantity="one">كل <xliff:g id="COUNT">%d</xliff:g> عام</item>
+        <item quantity="two">كل عامين</item>
+        <item quantity="few">كل <xliff:g id="count">%d</xliff:g> أعوام</item>
+        <item quantity="many">كل <xliff:g id="COUNT">%d</xliff:g> عام</item>
+        <item quantity="other">كل <xliff:g id="COUNT">%d</xliff:g> عام</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"في اليوم نفسه من كل شهر"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"للأبد"</string>
@@ -231,13 +286,17 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"حتى <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"لعدد من الأحداث"</string>
     <plurals name="recurrence_end_count">
-        <item msgid="1400782968090516215" quantity="one">"لـ <xliff:g id="EVENT_COUNT">%d</xliff:g> حدث"</item>
-        <item msgid="8779598489398048259" quantity="other">"لـ <xliff:g id="EVENT_COUNT">%d</xliff:g> من الأحداث"</item>
+        <item quantity="zero">لـ <xliff:g id="EVENT_COUNT">%d</xliff:g> حدث</item>
+        <item quantity="one">لـ <xliff:g id="EVENT_COUNT">%d</xliff:g> حدث</item>
+        <item quantity="two">لحدثين</item>
+        <item quantity="few">لـ <xliff:g id="EVENT_COUNT">%d</xliff:g> أحداث</item>
+        <item quantity="many">لـ <xliff:g id="EVENT_COUNT">%d</xliff:g> حدث</item>
+        <item quantity="other">لـ <xliff:g id="EVENT_COUNT">%d</xliff:g> حدث</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"تغيير تاريخ الانتهاء"</string>
     <string name="goto_date">"الذهاب إلى…"</string>
     <string name="calendar_permission_not_granted">تم رفض الأذونات المطلوبة ، قم بتمكينها من تطبيق الإعدادات حتى يمكنك تحرير الأحداث</string>
-    <string name="user_rejected_calendar_write_permission">"يتعذر التطبيق عن التشغيل، إيتار يتطلب صلاحياتي القراءة والكتابة على التقويم حتى يعمل بالشكل المطلوب"</string>
+    <string name="user_rejected_calendar_write_permission">تطبيق إيتار يتطلب صلاحية القراءة والكتابة على التقويم حتى يعمل بالشكل المطلوب. من فضلك حاول مرة اخرى.</string>
     <string name="visibility_default">افتراضي</string>
     <string name="visibility_private">خاص</string>
     <string name="visibility_public">عام</string>
@@ -260,11 +319,11 @@
     <string name="fifteen_minutes">15 دقيقة</string>
     <string name="thirty_minutes">30 دقيقة</string>
     <string name="one_hour">ساعة</string>
-    <string name="two_hours">ساعتان</string>
+    <string name="two_hours">ساعتين</string>
     <string name="default_start_title">العرض الافتراضي</string>
     <string name="cal_import_menu_title">استيراد حدث</string>
     <string name="cal_nothing_to_import">لا شيء للاستيراد</string>
-    <string name="display_options">عرض التفاصيل</string>
+    <string name="display_options">إعدادات العرض</string>
     <string name="display_time">عرض الوقت</string>
     <string name="display_location">عرض الموقع</string>
     <string name="show_time_no">لا تظهر الوقت</string>
@@ -312,8 +371,8 @@
     <string name="show_time_start_end">وقت البدء والانتهاء</string>
     <string name="show_time_start">فقط وقت البدء</string>
     <string name="cal_pick_ics">اختر ملفًا لاستيراده</string>
-    <string name="cal_import_error_date_msg">تعذر فهم المنطقة الزمنية المحددة: %s</string>
-    <string name="cal_import_error_time_zone_msg">تعذر فهم المنطقة الزمنية المحددة: %s</string>
+    <string name="cal_import_error_date_msg">تعذر فهم التاريخ المحدد: %s</string>
+    <string name="cal_import_error_time_zone_msg">تعذر فهم الوقت المحدد: %s</string>
     <string name="cal_import_error_msg">فشل الاستيراد إلى التقويم</string>
     <string name="cal_export_event_sdcard_title">تصدير إلى بطاقة SD</string>
     <string name="cal_share_intent_title">أرسل الحدث إلى:</string>
@@ -324,12 +383,12 @@
     <string name="five_days">5 أيام</string>
     <string name="four_days">4 أيام</string>
     <string name="three_days">3 أيام</string>
-    <string name="two_days">يومان</string>
-    <string name="source_code">المصدر</string>
+    <string name="two_days">يومين</string>
+    <string name="source_code">الكود المصدرى</string>
     <string name="license">الرخصة</string>
     <string name="preferences_default_snooze_delay_dialog">التأخير الافتراضي للغفوة</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">اطلب تأجيل الغفوة كلما أغفيت التذكيرات</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">اطلب تذكير غفوة التأخير</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">اطلب وقت تأخير الغفوة كلما أغفيت التذكيرات</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">اسال عن وقت تاخير الغفوة</string>
     <string name="default_start_last">عرض مستخم سابقا</string>
     <string name="maximum_number_of_lines">أقصى عدد أسطر للحدث</string>
     <string name="preferences_pure_black_night_mode">وضع الليلي النقي الداكن</string>
@@ -341,5 +400,26 @@
     <string name="rsvp_declined">تمت الإجابة بلا.</string>
     <string name="rsvp_tentative">تمت الإحابة بمحتمل.</string>
     <string name="no_reminder_label">لا شيء</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">بعد بدء الحدث</string>
+    <string name="foreground_notification_title">جارى اضافة التذكيرات جديد…</string>
+    <string name="preferences_do_not_check_battery_optimization">لا تتحقق من اعداد تحسين البطارية</string>
+    <string name="duplicate_label">تكرار</string>
+    <string name="hint_url">URL</string>
+    <string name="no_calendars_found">قبل اضافة حدث, تحتاج الى اضافة تقويم واحد على الاقل الى جهازك</string>
+    <string name="preferences_manage_notifications">إدارة الاشعارات</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">استخدمها على مسؤليتك! لن تعمل التنبيهات, لن يتم تحديث الويدجيت ولن تعمل الخدمات التى تعمل فى الخلفية بشكل جيد. لكنه لن يسالك مرة اخرى اذا كنت لاتريد للخدمات التى تعمل فى الخلفية ان تعمل.</string>
+    <string name="calendars">التقويمات</string>
+    <string name="add_calendar">أضف تقوييم</string>
+    <string name="no_snooze_label">بدون</string>
+    <string name="cancel">إلغاء</string>
+    <string name="discard_event_changes">هل تريد تجاهل هذه التغييرات؟</string>
+    <string name="discard">تجاهل</string>
+    <plurals name="Nweeks">
+        <item quantity="zero">٠ اسبوع</item>
+        <item quantity="one">اسبوع واحد</item>
+        <item quantity="two">اسبوعين</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> أسابيع</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> اسبوع</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> اسبوع</item>
+    </plurals>
 </resources>
