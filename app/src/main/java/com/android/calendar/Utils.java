@@ -1429,9 +1429,13 @@ public class Utils {
      * @param act The activity using the view
      */
     public static void setUpSearchView(SearchView view, Activity act) {
-        SearchManager searchManager = (SearchManager) act.getSystemService(Context.SEARCH_SERVICE);
-        view.setSearchableInfo(searchManager.getSearchableInfo(act.getComponentName()));
-        view.setQueryRefinementEnabled(true);
+        try {
+            SearchManager searchManager = (SearchManager) act.getSystemService(Context.SEARCH_SERVICE);
+            view.setSearchableInfo(searchManager.getSearchableInfo(act.getComponentName()));
+            view.setQueryRefinementEnabled(true);
+        } catch (Exception e) {
+            Log.d(TAG, "Search Service not found");
+        }
     }
 
     /**
