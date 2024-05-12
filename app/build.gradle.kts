@@ -130,7 +130,7 @@ dependencies {
 	coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
 	// Coroutines
-	val coroutines_version = "1.8.0"
+	val coroutines_version = "1.8.1"
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
 
