@@ -362,9 +362,15 @@ public class EditEventHelper {
             // event calendar has changed
             eventIdIndex = ops.size();
 
-            ops.addAll(moveEventToCalendar(
-                    String.valueOf(model.mId),
-                    String.valueOf(model.mCalendarId)));
+            // when moving recurrences between calendars, we must use the start time of the whole
+            // recurrence and not the start time of the currently opened instance.
+            if (!TextUtils.isEmpty(model.mRrule)) {
+                long recurrenceStartTime = getStartTimeForRecurrence(
+                    model.mOriginalStart, model.mStart, originalModel.mStart, model.mAllDay);
+                values.put(Events.DTSTART, recurrenceStartTime);
+            }
+
+            ops.addAll(moveEventToCalendar(model.mId, model.mSyncId, values));
 
             forceSaveReminders = true;
         } else if (TextUtils.isEmpty(model.mRrule) && TextUtils.isEmpty(originalModel.mRrule)) {
@@ -457,8 +463,9 @@ public class EditEventHelper {
             }
         }
 
-        // New Event or New Exception to an existing event
+        // New event or new exception to an existing event or event moved to different calendar
         boolean newEvent = (eventIdIndex != -1);
+
         ArrayList<ReminderEntry> originalReminders;
         if (originalModel != null) {
             originalReminders = originalModel.mReminders;
@@ -630,76 +637,71 @@ public class EditEventHelper {
         return true;
     }
 
-    private List<ContentProviderOperation> moveEventToCalendar(
-            final String eventId, final String newCalendarId) {
+    /**
+     * Moves an existing event to a different calendar provider by deleting the event from its old
+     * calendar and creating the same event in the new calendar.
+     *
+     * @param eventId    the id of the event in the old calendar which should be moved. this is used
+     *                   to delete the event from the old calendars, and in case of a recurrence,
+     *                   its exceptions.
+     * @param syncId     sync-id of the event to be moved. used the find recurrence exceptions if
+     *                   provided.
+     * @param eventValues the new values of the event. the id of the new calendar should be set here
+     *                   via {@link Events#CALENDAR_ID}. if this is a recurrence, please see
+     *                   {@link #getStartTimeForRecurrence(long, long, long, boolean)} for getting
+     *                   the DTSTART value correct.
+     * @return a list of content provider operations which have to be performed in order to move the
+     * event to the new calendar.
+     */
+    private List<ContentProviderOperation> moveEventToCalendar(long eventId, String syncId,
+        ContentValues eventValues) {
 
         final List<ContentProviderOperation> ops = new ArrayList<>();
-        final String syncId;
-        int eventIdIndex;
 
-        // retrieve event, create it in target calendar, delete from source calendar
-        try (Cursor cursor = mContextResolver.query(
-                Events.CONTENT_URI,
-                EVENT_PROJECTION,
-                Events._ID + "= ?",
-                new String[]{String.valueOf(eventId)},
-                null
-        )) {
-            if (cursor == null || cursor.getCount() != 1 || !cursor.moveToFirst()) {
-                final String count = cursor == null ? "no cursor" : String.valueOf(cursor.getCount());
-                throw new IllegalStateException("expected exactly 1 event, but got " + count);
-            }
+        // set eventIdIndex for back referencing when inserting recurrence exceptions later
+        int eventIdIndex = ops.size();
 
-            final CalendarEventModel model = new CalendarEventModel();
-            setModelFromCursor(model, cursor, mContext);
-            final ContentValues values = getContentValuesFromModel(model);
-            values.put(Events.CALENDAR_ID, newCalendarId);
-            values.remove(Events.ORGANIZER);
+        // create event in new calendar and delete the event from the old calendar
+        // insert of the new event must always be the first operation, as calling code may depend on this!
+        ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI)
+            .withValues(eventValues)
+            .build());
 
-            syncId = model.mSyncId;
+        ops.add(ContentProviderOperation.newDelete(
+            ContentUris.withAppendedId(Events.CONTENT_URI, eventId)).build());
 
-            // set eventIdIndex for back referencing when inserting exceptions
-            eventIdIndex = ops.size();
-            ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI)
-                    .withValues(values)
-                    .build());
-
-            ops.add(ContentProviderOperation.newDelete(
-                    ContentUris.withAppendedId(Events.CONTENT_URI, model.mId)).build());
-        }
-
-        // moving event exceptions is currently ony supported for api level 30 and above
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+        // if syncId is not provided, or api level is < 30, return here before trying to move exceptions
+        if (TextUtils.isEmpty(syncId) || Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             return ops;
         }
 
         // retrieve events exceptions, create them in target calendar, delete them from source calendar
         try (Cursor cursor = mContextResolver.query(
-                Events.CONTENT_URI,
-                EVENT_PROJECTION,
-                Events.ORIGINAL_SYNC_ID + "= ? AND " + Events._SYNC_ID + " IS NULL",
-                new String[]{String.valueOf(syncId)},
-                null
+            Events.CONTENT_URI,
+            EVENT_PROJECTION,
+            Events.ORIGINAL_SYNC_ID + "= ? AND " + Events._SYNC_ID + " IS NULL",
+            new String[]{syncId},
+            null
         )) {
             while (cursor != null && cursor.moveToNext()) {
                 final CalendarEventModel model = new CalendarEventModel();
                 setModelFromCursor(model, cursor, mContext);
                 final ContentValues values = getContentValuesFromModel(model);
-                values.put(Events.CALENDAR_ID, newCalendarId);
+                values.put(Events.CALENDAR_ID, eventValues.getAsString(Events.CALENDAR_ID));
                 values.put(Events.ORIGINAL_INSTANCE_TIME, model.mOriginalTime);
                 values.remove(Events.ORGANIZER);
 
                 ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI)
-                        .withValues(values)
-                        // note: this call requires API level 30
-                        .withValueBackReference(Events.ORIGINAL_ID, eventIdIndex, Events._ID)
-                        .build());
+                    .withValues(values)
+                    // note: this call requires API level 30
+                    .withValueBackReference(Events.ORIGINAL_ID, eventIdIndex, Events._ID)
+                    .build());
 
-                Uri.Builder b = Events.CONTENT_EXCEPTION_URI.buildUpon();
-                ContentUris.appendId(b, Long.parseLong(eventId));
-                ContentUris.appendId(b, model.mId);
+                Uri.Builder exceptionUriBuilder = Events.CONTENT_EXCEPTION_URI.buildUpon();
+                ContentUris.appendId(exceptionUriBuilder, eventId); // original event id
+                ContentUris.appendId(exceptionUriBuilder, model.mId); // exception event id
 
-                ops.add(ContentProviderOperation.newDelete(b.build()).build());
+                ops.add(ContentProviderOperation.newDelete(exceptionUriBuilder.build()).build());
             }
         }
 
@@ -791,30 +793,50 @@ public class EditEventHelper {
             return;
         }
 
-        // If we are modifying all events then we need to set DTSTART to the
-        // start time of the first event in the series, not the current
-        // date and time. If the start time of the event was changed
-        // (from, say, 3pm to 4pm), then we want to add the time difference
-        // to the start time of the first event in the series (the DTSTART
-        // value). If we are modifying one instance or all following instances,
-        // then we leave the DTSTART field alone.
+        // If we are modifying all events in then we need to set DTSTART to the
+        // start time of the first event in the series, not the current date and time.
         if (modifyWhich == MODIFY_ALL) {
-            long oldStartMillis = originalModel.mStart;
-            if (oldBegin != newBegin) {
-                // The user changed the start time of this event
-                long offset = newBegin - oldBegin;
-                oldStartMillis += offset;
-            }
-            if (newAllDay) {
-                Time time = new Time(Time.TIMEZONE_UTC);
-                time.set(oldStartMillis);
-                time.setHour(0);
-                time.setMinute(0);
-                time.setSecond(0);
-                oldStartMillis = time.toMillis();
-            }
-            values.put(Events.DTSTART, oldStartMillis);
+            values.put(Events.DTSTART,
+                    getStartTimeForRecurrence(oldBegin, newBegin, originalModel.mStart, newAllDay));
         }
+    }
+
+    /**
+     * If we are modifying all events in a recurrence, then we need to set DTSTART to the start time
+     * of the first event in the recurrence, not to the date and time of the event currently being
+     * modified. If the start time of the event was changed (from, say, 3pm to 4pm), then we need to
+     * add the time difference to the start time of the first event in the recurrence (the DTSTART
+     * value).
+     * <p>
+     * If we are modifying one instance or if we are modifying all following instances of a
+     * recurrence then we leave the DTSTART field alone. This method should not be used to get the
+     * start time for these cases!
+     *
+     * @param oldStartTime    the start time of the currently opened event, before user
+     *                        modification
+     * @param newStartTime    the start time of the currently opened event, after user modification
+     * @param seriesStartTime the start time of the recurring series
+     * @param isAllDay        whether the event is an all-day event, after user modification
+     */
+    private long getStartTimeForRecurrence(long oldStartTime, long newStartTime,
+        long seriesStartTime, boolean isAllDay) {
+
+        if (oldStartTime != newStartTime) {
+            // The user changed the start time of this event
+            long offset = newStartTime - oldStartTime;
+            seriesStartTime += offset;
+        }
+
+        if (isAllDay) {
+            Time time = new Time(Time.TIMEZONE_UTC);
+            time.set(seriesStartTime);
+            time.setHour(0);
+            time.setMinute(0);
+            time.setSecond(0);
+            seriesStartTime = time.toMillis();
+        }
+
+        return seriesStartTime;
     }
 
     /**
