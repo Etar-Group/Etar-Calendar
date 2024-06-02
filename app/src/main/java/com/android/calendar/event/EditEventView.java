@@ -1224,6 +1224,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
             mUrlGroup.setVisibility(View.VISIBLE);
+
+            // disallow changing calendar for recurrences when not modifying all instances
             mCalendarsSpinner.setEnabled(mode == Utils.MODIFY_ALL);
         }
         setAllDayViewsVisibility(mAllDayCheckBox.isChecked());

@@ -756,11 +756,11 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     final String[] selectionArgs;
                     final boolean isRecurring = !TextUtils.isEmpty(mModel.mRrule);
                     if (isRecurring && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                        // recurring event, api level < 30. disable changing calendars.
+                        // recurring event AND api level < 30. disable changing calendars.
                         selection = EditEventHelper.CALENDARS_WHERE;
                         selectionArgs = new String[] { Long.toString(mModel.mCalendarId) };
                     } else if (isRecurring) {
-                        // recurring event, api level >= 30. enable changing calendars to synced calendars.
+                        // recurring event AND api level >= 30. enable changing calendars to synced calendars.
                         selection = EditEventHelper.CALENDARS_WHERE_SYNCED_WRITEABLE_VISIBLE;
                         selectionArgs = null;
                     } else {
