@@ -1,0 +1,3 @@
+- kalender aanpassen voor bestaande evenementen
+- Probleem opgelost in functie go-to-date
+- Kleine problemen opgelost
