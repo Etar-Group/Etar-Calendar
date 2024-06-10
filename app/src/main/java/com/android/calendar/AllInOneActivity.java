@@ -935,15 +935,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     selectedTime.setMonth(monthOfYear);
                     selectedTime.setDay(dayOfMonth);
 
-                    Calendar c = Calendar.getInstance();
-                    c.set(year, monthOfYear, dayOfMonth);
-                    int weekday = c.get(Calendar.DAY_OF_WEEK);
-                    if (weekday == 1) {
-                        selectedTime.setWeekDay(7);
-                    } else {
-                        selectedTime.setWeekDay(weekday - 1);
-                    }
-
                     long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
                     mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
                 }
