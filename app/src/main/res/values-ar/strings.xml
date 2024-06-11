@@ -422,4 +422,6 @@
         <item quantity="many"><xliff:g id="count">%d</xliff:g> اسبوع</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> اسبوع</item>
     </plurals>
+    <string name="menu_info">المعلومات</string>
+    <string name="preferences_real_event_colors">إستعمل لون الحدث الحقيقي</string>
 </resources>
