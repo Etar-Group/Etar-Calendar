@@ -1,0 +1,3 @@
+- Permetti di modificare i calendari su eventi esistenti
+- Corretta la funzione vai-alla-data
+- Piccole correzioni di errori
