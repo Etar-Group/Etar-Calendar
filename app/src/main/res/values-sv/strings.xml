@@ -352,4 +352,5 @@
     <string name="preferences_do_not_check_battery_optimization_summary">Använd på egen risk! Aviseringar kommer inte längre fungera, widgeten kommer inte längre uppdatera och bakgrundstjänster kommer att krascha, men du kommer inte att bli tillfrågad igen om du vill aktivera bakgrundstjänsten.</string>
     <string name="calendars">Kalendrar</string>
     <string name="preferences_do_not_check_battery_optimization">Kontrollera inte optimering av batteriet</string>
+    <string name="no_snooze_label">Ingen</string>
 </resources>
