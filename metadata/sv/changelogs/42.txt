@@ -1,0 +1,3 @@
+- Stäng inte sidan för redigering av händelse när telefonen vrids
+- Kalendernotiser per kalender
+- Lägg till preferens: Kontrollera inte batterioptimering
