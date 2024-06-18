@@ -1,0 +1,4 @@
+- Lägg till bekräftelsedialogruta vid avvisande av händelse
+- Lägg till inget snoozealternativ
+- Förbättra svep vänster/höger och svep upp/ned i månadsvy
+-Små buggfixar

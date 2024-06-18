@@ -1,0 +1,3 @@
+- Tillåt redigering av kalender på befintliga händelser
+-Fixade gå till datum funktion
+- Små buggfixar
