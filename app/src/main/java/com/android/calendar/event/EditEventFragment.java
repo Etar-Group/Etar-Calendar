@@ -764,8 +764,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                         // recurring event AND api level >= 30. enable changing calendars to synced
                         // calendars only, as we currently don't allow recurrence exceptions in local calendars
                         // and would lose them when moving the recurrence between calendars
-                        selection = EditEventHelper.CALENDARS_WHERE_SYNCED_WRITEABLE_VISIBLE;
-                        selectionArgs = null;
+                        selection = EditEventHelper.CALENDARS_SELECTION_FOR_MOVING_RECURRENCE;
+                        selectionArgs = new String[] { Long.toString(mModel.mCalendarId) };
                     } else {
                         // non recurring event. enable changing calendars to all calendars.
                         selection = EditEventHelper.CALENDARS_WHERE_WRITEABLE_VISIBLE;
