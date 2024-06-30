@@ -112,7 +112,7 @@ public class CalendarToolbarHandler {
         long now = System.currentTimeMillis();
         Time time = new Time(mTimeZone);
         time.set(now);
-        long runInMillis = (24 * 3600 - time.getHour() * 3600 - time.getMinute() * 60 -
+        long runInMillis = (24 * 3600 - time.getHour() * 3600L - time.getMinute() * 60L -
                 time.getSecond() + 1) * 1000;
         mMidnightHandler.postDelayed(mTimeUpdater, runInMillis);
     }

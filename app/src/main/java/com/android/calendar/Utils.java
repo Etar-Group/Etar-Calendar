@@ -291,7 +291,7 @@ public class Utils {
         }
 
         // Check if the user wants the last view or the default startup view
-        int defaultStart = Integer.valueOf(prefs.getString(GeneralPreferences.KEY_DEFAULT_START,
+        int defaultStart = Integer.parseInt(prefs.getString(GeneralPreferences.KEY_DEFAULT_START,
                 GeneralPreferences.DEFAULT_DEFAULT_START));
         if (defaultStart == -2) {
             // Return the last view used
@@ -581,7 +581,7 @@ public class Utils {
             List<String> path = data.getPathSegments();
             if (path.size() == 2 && path.get(0).equals("time")) {
                 try {
-                    millis = Long.valueOf(data.getLastPathSegment());
+                    millis = Long.parseLong(data.getLastPathSegment());
                 } catch (NumberFormatException e) {
                     Log.i("Calendar", "timeFromIntentInMillis: Data existed but no valid time "
                             + "found. Using current time.");
@@ -719,25 +719,18 @@ public class Utils {
      * Converts the day of the week from android.text.format.Time to java.util.Calendar
      */
     public static int convertDayOfWeekFromTimeToCalendar(int timeDayOfWeek) {
-        switch (timeDayOfWeek) {
-            case Time.MONDAY:
-                return Calendar.MONDAY;
-            case Time.TUESDAY:
-                return Calendar.TUESDAY;
-            case Time.WEDNESDAY:
-                return Calendar.WEDNESDAY;
-            case Time.THURSDAY:
-                return Calendar.THURSDAY;
-            case Time.FRIDAY:
-                return Calendar.FRIDAY;
-            case Time.SATURDAY:
-                return Calendar.SATURDAY;
-            case Time.SUNDAY:
-                return Calendar.SUNDAY;
-            default:
-                throw new IllegalArgumentException("Argument must be between Time.SUNDAY and " +
-                        "Time.SATURDAY");
-        }
+        return switch (timeDayOfWeek) {
+            case Time.MONDAY -> Calendar.MONDAY;
+            case Time.TUESDAY -> Calendar.TUESDAY;
+            case Time.WEDNESDAY -> Calendar.WEDNESDAY;
+            case Time.THURSDAY -> Calendar.THURSDAY;
+            case Time.FRIDAY -> Calendar.FRIDAY;
+            case Time.SATURDAY -> Calendar.SATURDAY;
+            case Time.SUNDAY -> Calendar.SUNDAY;
+            default ->
+                    throw new IllegalArgumentException("Argument must be between Time.SUNDAY and " +
+                            "Time.SATURDAY");
+        };
     }
 
     /**
@@ -759,12 +752,12 @@ public class Utils {
 
     public static int getDaysPerWeek(Context context) {
         final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
-        return Integer.valueOf(prefs.getString(GeneralPreferences.KEY_DAYS_PER_WEEK, "7"));
+        return Integer.parseInt(prefs.getString(GeneralPreferences.KEY_DAYS_PER_WEEK, "7"));
     }
 
     public static int getMDaysPerWeek(Context context) {
         final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
-        return Integer.valueOf(prefs.getString(GeneralPreferences.KEY_MDAYS_PER_WEEK, "7"));
+        return Integer.parseInt(prefs.getString(GeneralPreferences.KEY_MDAYS_PER_WEEK, "7"));
     }
 
     public static boolean useCustomSnoozeDelay(Context context) {
@@ -776,7 +769,7 @@ public class Utils {
         final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         final String value = prefs.getString(GeneralPreferences.KEY_DEFAULT_SNOOZE_DELAY, null);
         final long intValue = value != null
-                ? Long.valueOf(value)
+                ? Long.parseLong(value)
                 : GeneralPreferences.SNOOZE_DELAY_DEFAULT_TIME;
 
         return intValue * 60L * 1000L; // min -> ms
@@ -1505,7 +1498,7 @@ public class Utils {
         long now = System.currentTimeMillis();
         Time time = new Time(timezone);
         time.set(now);
-        long runInMillis = (24 * 3600 - time.getHour() * 3600 - time.getMinute() * 60 -
+        long runInMillis = (24 * 3600 - time.getHour() * 3600L - time.getMinute() * 60L -
                 time.getSecond() + 1) * 1000;
         h.removeCallbacks(r);
         h.postDelayed(r, runInMillis);
