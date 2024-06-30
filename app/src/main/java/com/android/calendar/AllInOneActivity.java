@@ -498,12 +498,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mToolbar.setNavigationIcon(R.drawable.ic_menu_navigator);
         setSupportActionBar(mToolbar);
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AllInOneActivity.this.openDrawer();
-            }
-        });
+        mToolbar.setNavigationOnClickListener(v -> AllInOneActivity.this.openDrawer());
+        mToolbar.setOnClickListener(v -> goToDate());
         mActionBar = getSupportActionBar();
         if (mActionBar == null) return;
         mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -917,33 +913,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
             return true;
         } else if (itemId == R.id.action_goto) {
-            Time todayTime;
-            t = new Time(mTimeZone);
-            t.set(mController.getTime());
-            todayTime = new Time(mTimeZone);
-            todayTime.set(System.currentTimeMillis());
-            if (todayTime.getMonth() == t.getMonth()) {
-                t = todayTime;
-            }
-
-            DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    Time selectedTime = new Time(mTimeZone);
-                    selectedTime.set(System.currentTimeMillis());  // Needed for recalc function in DayView(time + gmtoff)
-                    selectedTime.setYear(year);
-                    selectedTime.setMonth(monthOfYear);
-                    selectedTime.setDay(dayOfMonth);
-
-                    long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
-                    mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
-                }
-            };
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, datePickerListener,
-                    t.getYear(), t.getMonth(), t.getDay());
-                    datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
-                    datePickerDialog.show();
-
+            goToDate();
         } else if (itemId == R.id.action_hide_controls) {
             mHideControls = !mHideControls;
             Utils.setSharedPreference(
@@ -1273,6 +1243,37 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         } else if (mHomeTime != null) {
             mHomeTime.setVisibility(View.GONE);
         }
+    }
+
+    public void goToDate() {
+        Time t;
+        Time todayTime;
+        t = new Time(mTimeZone);
+        t.set(mController.getTime());
+        todayTime = new Time(mTimeZone);
+        todayTime.set(System.currentTimeMillis());
+        if (todayTime.getMonth() == t.getMonth()) {
+            t = todayTime;
+        }
+
+        DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Time selectedTime = new Time(mTimeZone);
+                selectedTime.set(System.currentTimeMillis());  // Needed for recalc function in DayView(time + gmtoff)
+                selectedTime.setYear(year);
+                selectedTime.setMonth(monthOfYear);
+                selectedTime.setDay(dayOfMonth);
+
+                long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
+                mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
+            }
+        };
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, datePickerListener,
+                t.getYear(), t.getMonth(), t.getDay());
+        datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
+        datePickerDialog.show();
+
     }
 
     @Override
