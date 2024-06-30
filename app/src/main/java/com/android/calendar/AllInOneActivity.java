@@ -95,7 +95,6 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -476,25 +475,14 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         if (!mIsTabletConfig) {
             mCalendarToolbarHandler = new CalendarToolbarHandler(this, mToolbar, viewType);
         } else {
-            int titleResource;
-            switch (viewType) {
-                case ViewType.AGENDA:
-                    titleResource = R.string.agenda_view;
-                    break;
-                case ViewType.DAY:
-                    titleResource = R.string.day_view;
-                    break;
-                case ViewType.MONTH:
-                    titleResource = R.string.month_view;
-                    break;
-                case ViewType.WEEK:
-                default:
-                    titleResource = R.string.week_view;
-                    break;
-            }
+            int titleResource = switch (viewType) {
+                case ViewType.AGENDA -> R.string.agenda_view;
+                case ViewType.DAY -> R.string.day_view;
+                case ViewType.MONTH -> R.string.month_view;
+                default -> R.string.week_view;
+            };
             mToolbar.setTitle(titleResource);
         }
-        // mToolbar.setTitle(getTitle());
         mToolbar.setNavigationIcon(R.drawable.ic_menu_navigator);
         setSupportActionBar(mToolbar);
 
@@ -535,13 +523,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         });
     }
 
-
-
-    private void hideActionBar() {
-        if (mActionBar == null) return;
-        mActionBar.hide();
-    }
-
     private void showActionBar() {
         if (mActionBar == null) return;
         mActionBar.show();
@@ -554,7 +535,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             List<String> path = data.getPathSegments();
             if (path.size() == 2 && path.get(0).equals("events")) {
                 try {
-                    mViewEventId = Long.valueOf(data.getLastPathSegment());
+                    mViewEventId = Long.parseLong(data.getLastPathSegment());
                     if (mViewEventId != -1) {
                         mIntentEventStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
