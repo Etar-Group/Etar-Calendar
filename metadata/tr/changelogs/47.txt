@@ -1,0 +1,2 @@
+- Tarihe gitmek için geçerli ayın üzerine dokun
+- Küçük hata düzeltmeleri
