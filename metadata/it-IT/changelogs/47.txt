@@ -1,0 +1,2 @@
+- Tocca il mese attuale per aprire il "vai alla data"
+- Piccole correzioni
