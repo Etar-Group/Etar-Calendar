@@ -369,4 +369,5 @@
     <string name="preferences_do_not_check_battery_optimization">Nu verificați optimizarea bateriei</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Utilizați pe propriul risc! Notificările nu vor mai funcționa, widget-urile nu se vor mai actualiza și serviciile din fundal se vor bloca. Dar nu veți mai fi întrebat din nou dacă doriți să activați serviciul de fundal.</string>
     <string name="calendars">Calendare</string>
+    <string name="no_snooze_label">Niciuna</string>
 </resources>
