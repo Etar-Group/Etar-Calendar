@@ -1,0 +1,2 @@
+- Atingeți pe luna curentă pentru a deschide data curentă
+- Mici corecturi de erori

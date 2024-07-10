@@ -1,0 +1,2 @@
+- Adăugarea permisiunii lipsă
+- Fixare eșec de compilare

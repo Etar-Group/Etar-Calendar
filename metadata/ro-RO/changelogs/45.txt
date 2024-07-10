@@ -1,0 +1,1 @@
+- Fixare eșec de compilare
