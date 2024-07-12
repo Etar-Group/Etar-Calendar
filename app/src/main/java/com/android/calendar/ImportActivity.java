@@ -162,6 +162,8 @@ public class ImportActivity extends Activity {
                 IcalendarUtils.uncleanseString(firstEvent.getProperty(VEvent.URL)));
         calIntent.putExtra(CalendarContract.Events.ORGANIZER,
                 IcalendarUtils.uncleanseString(firstEvent.getProperty(VEvent.ORGANIZER)));
+        calIntent.putExtra(CalendarContract.Events.RRULE,
+                IcalendarUtils.uncleanseString(firstEvent.getProperty(VEvent.RRULE)));
 
         if (firstEvent.mAttendees.size() > 0) {
             StringBuilder builder = new StringBuilder();

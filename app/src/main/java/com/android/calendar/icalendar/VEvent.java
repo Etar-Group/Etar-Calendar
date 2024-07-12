@@ -45,6 +45,7 @@ public class VEvent {
     public static String DESCRIPTION = "DESCRIPTION";
     public static String ATTENDEE = "ATTENDEE";
     public static String CATEGORIES = "CATEGORIES";
+    public static String RRULE = "RRULE";
 
     // Stores the -arity of the attributes that this component can have
     private static HashMap<String, Integer> sPropertyList = new HashMap<String, Integer>();
@@ -66,6 +67,7 @@ public class VEvent {
         sPropertyList.put(DTSTAMP,1);
         sPropertyList.put(SUMMARY,1);
         sPropertyList.put(DESCRIPTION,1);
+        sPropertyList.put(RRULE, 1);
 
         sPropertyList.put(ATTENDEE, Integer.MAX_VALUE);
         sPropertyList.put(CATEGORIES, Integer.MAX_VALUE);
