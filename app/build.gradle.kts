@@ -16,7 +16,7 @@ android {
 	compileSdk = 34
 
 	defaultConfig {
-		minSdk = 21
+		minSdk = 23
 		targetSdk = 34
 		versionCode = 47
 		versionName = "1.0.47"
@@ -138,7 +138,7 @@ dependencies {
 	implementation("org.dmfs:lib-recur:0.17.1")
 
 	// lifecycle
-	val lifecycle_version = "2.8.2"
+	val lifecycle_version = "2.8.3"
 	implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 }
 
