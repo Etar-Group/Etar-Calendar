@@ -132,22 +132,19 @@ public class AlertReceiver extends BroadcastReceiver {
             }
             mStartingService.acquire();
 
-            if (Utils.isMOrLater()) {
-                if (pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
-                    if (Utils.isOreoOrLater()) {
-                        if (Utils.isUpsideDownCakeOrLater() && !Utils.canScheduleAlarms(context)) {
-                            return;
-                        }
-                        context.startForegroundService(intent);
-                    } else {
-                        context.startService(intent);
+            if (pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
+                if (Utils.isOreoOrLater()) {
+                    if (Utils.isUpsideDownCakeOrLater() && !Utils.canScheduleAlarms(context)) {
+                        return;
                     }
+                    context.startForegroundService(intent);
                 } else {
-                    Log.d(TAG, "Battery optimizations are not disabled");
+                    context.startService(intent);
                 }
             } else {
-                context.startService(intent);
+                Log.d(TAG, "Battery optimizations are not disabled");
             }
+
         }
     }
 
