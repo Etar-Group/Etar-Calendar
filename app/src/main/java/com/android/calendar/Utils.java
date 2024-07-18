@@ -235,13 +235,6 @@ public class Utils {
     }
 
     /**
-     * Returns whether the SDK is the Marshmallow release or later.
-     */
-    public static boolean isMOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-    }
-
-    /**
      * Returns whether the system supports Material You.
      *
      * As of Android 12.0, Material You is only available on some devices (Pixel, select Samsung
