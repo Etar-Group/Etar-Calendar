@@ -1,0 +1,3 @@
+-Menghapus izin akses internet tanpa menghilangkan keberfungsian aplikasj.
+- Menambahkan 'Buka ...'
+-Pembetulan: gawit Agenda tidak teperbarui secara harian.

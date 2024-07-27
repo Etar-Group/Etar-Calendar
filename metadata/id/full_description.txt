@@ -1,0 +1,12 @@
+Fitur:
+- Tampilan bulanan.
+- Tampilan harian, mingguan, dan agenda
+- Dilengkapi fitur penyinkronan dengan kalender Android. Berfungsi bersama Google Calendar, Exchange, dll.
+- Desain Material.
+- Tema terang dan gelap.
+- Gratis, bersumber terbuka, dan tanpa iklan sama sekali.
+- Mendukung fitur pembagian kalender melalui ICS dan mampu mengekspor/mengimpor kalender dari kartu SD.
+-Antarmuka mendukung multibahasa.
+
+Jika Anda menemukan kutu atau memiliki saran: https://github.com/Etar-Group/Etar-Calendar/issues
+Kode sumber: https://github.com/Etar-Group/Etar-Calendar
