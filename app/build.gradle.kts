@@ -138,7 +138,7 @@ dependencies {
 	implementation("org.dmfs:lib-recur:0.17.1")
 
 	// lifecycle
-	val lifecycle_version = "2.8.3"
+	val lifecycle_version = "2.8.4"
 	implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 }
 
