@@ -39,7 +39,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Εβδομάδα <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Ανανέωση"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Εμφάνιση ημέρας"</string>
@@ -336,4 +336,13 @@
     <string name="share_label">Μοιράσου</string>
     <string name="no_reminder_label">Κανένα</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="foreground_notification_title">Προγραμματίζονται νέες υπενθυμίσεις…</string>
+    <string name="hint_url">Διεύθυνση</string>
+    <string name="add_calendar">Προσθήκη ημερολογίου</string>
+    <string name="no_snooze_label">Κανένα</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 εβδομάδα</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> εβδομάδες</item>
+    </plurals>
+    <string name="menu_info">Πληροφορίες</string>
 </resources>
