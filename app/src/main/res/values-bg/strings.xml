@@ -39,9 +39,9 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Седмица <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other"/>
+        <item quantity="other">Седмица <xliff:g id="count">%d</xliff:g></item>
     </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">Опресняване</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">Презареждане</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показване на деня"</string>
     <string name="agenda_view" msgid="5566084759423843245">"График"</string>
     <string name="day_view" msgid="4467754504843584437">"Ден"</string>
@@ -63,7 +63,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Гости"</string>
     <string name="creating_event" msgid="7516249252554059980">"Събитието е създадено."</string>
     <string name="saving_event" msgid="7694181017411177226">"Събитието е запазено."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Празно събитие: Не е създадено"</string>
+    <string name="empty_event" msgid="9018699257414338634">Не е създадено празно събитие.</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Ще бъдат изпратени покани."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ще бъдат изпратени актуализации."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Запазване"</string>
@@ -94,7 +94,7 @@
     <string name="map_label" msgid="8795383535586556038">"Карта"</string>
     <string name="call_label" msgid="2960328220008869083">"Обаждане"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Бързи отговори"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Редакт. на отговорите по подразб. при изпращ. на имейли до гостите"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">Промяна на шаблонните отговори</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Бърз отговор"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Изберете бърз отговор"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Намирането на програма за електронна поща не бе успешно"</string>
@@ -115,7 +115,7 @@
     <string name="show_newer_events" msgid="2604638815440163080">"Докоснете, за да видите събитията след <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Търсене в моите календари"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Подробности"</string>
-    <string name="edit_label" msgid="8934331258435656534">"Редакт."</string>
+    <string name="edit_label" msgid="8934331258435656534">Променяне</string>
     <string name="delete_label" msgid="874742811918030739">"Изтриване"</string>
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>
     <string name="discard_label" msgid="2394623883289782541">"Отказ"</string>
@@ -150,7 +150,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Настройки за преглед на календар"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Известия и напомняния"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Скриване на отказани събития"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">Скриване на отклонените събития</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Седмицата започва от"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Седмицата започва от"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Изчистване на историята на търсенията"</string>
@@ -160,12 +160,12 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вибриране"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Звук"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Изскачащо известие"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Стандартен час за напомняне"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Стандартен час за напомняне"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">Време за напомняне</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Напомняне</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Часова зона у дома"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Показва календарите и събитията с часовата ви зона у дома, когато сте на път"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Часова зона у дома"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Часови пояс у дома</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Показва календарите и събитията с часовия пояс у дома, когато сте на път</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">Часови пояс у дома</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показване на номера на седмицата"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версия"</string>
     <plurals name="month_more_events">
@@ -234,29 +234,29 @@
     <string name="visibility_private">Частно</string>
     <string name="visibility_public">Обществено</string>
     <string name="no_reminder_label">Няма</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">след началото на събитието</string>
     <string name="share_label">Споделяне</string>
     <string name="goto_date">Към…</string>
     <plurals name="Nweeks">
         <item quantity="one">1 седмица</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> седмици</item>
     </plurals>
-    <string name="preferences_alerts_custom_snooze_delay_summary_off">Винаги използвайте забавяне на отлагането по подразбиране</string>
-    <string name="snooze_delay_dialog_title">Задайте закъснение на дрямката</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Използване на подразбираната стойност</string>
+    <string name="snooze_delay_dialog_title">Отлагане за…</string>
     <string name="view_settings">Преглед на настройките</string>
     <string name="rsvp_accepted">Отговарям с да.</string>
     <string name="rsvp_tentative">Може би отговорих.</string>
-    <string name="rsvp_declined">Не отговорих.</string>
+    <string name="rsvp_declined">Получен отговор „не“.</string>
     <string name="foreground_notification_channel_name">Фонови задачи</string>
     <string name="no_map">Няма инсталирано приложение за карти</string>
     <string name="preferences_pure_black_night_mode">Чисто черен нощен режим</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">Поискайте закъснение при отлагане на напомняне</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Повторно напомняне</string>
     <string name="menu_info">Информация</string>
     <string name="foreground_notification_title">Насрочват се нови напомняния…</string>
     <string name="preferences_days_per_week_dialog">Дни в седмицата</string>
-    <string name="source_code">Източник</string>
+    <string name="source_code">Изходен код</string>
     <string name="preferences_issues">Докладвайте проблеми</string>
-    <string name="calendar_permission_not_granted">Необходимите разрешения бяха отказани, активирайте ги от Настройките, за да редактирате събитията</string>
+    <string name="calendar_permission_not_granted">Необходимите разрешения бяха отказани, включете ги от Настройките, за да редактирате събитията</string>
     <string name="three_days">3 дни</string>
     <string name="preferences_month_view_landscape">Оформление на месечен изглед (пейзаж)</string>
     <string name="preferences_system_theme">Система по подразбиране</string>
@@ -265,12 +265,12 @@
     <string name="preferences_black_theme">Черна</string>
     <string name="preferences_color">Основен цвят</string>
     <string name="default_start_title">Изглед по подразбиране</string>
-    <string name="display_location">Местоположение на дисплея</string>
+    <string name="display_location">Показване на местоположението</string>
     <string name="maximum_number_of_lines">Максимален брой редове в събитието</string>
     <string name="default_start_last">Използван преди това изглед</string>
-    <string name="preferences_default_event_duration_title">Продължителност на събитието по подразбиране</string>
+    <string name="preferences_default_event_duration_title">Подразбирана продължителност на събитията</string>
     <string name="preferences_default_snooze_delay_title">Време за забавяне на дрямката по подразбиране</string>
-    <string name="preferences_default_snooze_delay_dialog">Забавяне на дрямката по подразбиране</string>
+    <string name="preferences_default_snooze_delay_dialog">Подразбирано време за повторно напомняне</string>
     <string name="authors">Автори</string>
     <string name="changelog">Дневник на промените</string>
     <string name="license">Лиценз</string>
@@ -283,12 +283,12 @@
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="seven_days">7 дни</string>
     <string name="user_rejected_calendar_write_permission">Etar изисква разрешения за четене и запис на календара, за да работи правилно. Моля, опитайте отново.</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">Поискайте забавяне на отлагането при всяко отлагане на напомняния</string>
-    <string name="display_time">Време на показване</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Питане за периода на повторно напомняне</string>
+    <string name="display_time">Показване на часа</string>
     <string name="preferences_color_pick">Основен цвят</string>
     <string name="preferences_theme">Тема</string>
-    <string name="preferences_real_event_colors">Използвайте реални цветове на събитието</string>
-    <string name="display_options">Опции на дисплея</string>
+    <string name="preferences_real_event_colors">Използване истинските цветове на събитието</string>
+    <string name="display_options">Оформление</string>
     <string name="foreground_notification_channel_description">Необходими са известия за вътрешна синхронизация. Можете безопасно да скриете този канал.</string>
     <string name="duplicate_label">Дубликат</string>
     <string name="preferences_month_view_portrait">Оформление на месечен изглед (портрет)</string>
@@ -313,9 +313,9 @@
     <string name="cal_nothing_to_import">Нищо за импортиране</string>
     <string name="cal_import_error_msg">Импортирането в календара е неуспешно</string>
     <string name="cal_import_error_date_msg">Не мога да разбера дадената дата:%s</string>
-    <string name="show_time_no">Не показвай часа</string>
-    <string name="show_time_start">Само начален час</string>
-    <string name="show_time_start_end">Начален и краен час</string>
+    <string name="show_time_no">Без показване на часове</string>
+    <string name="show_time_start">Само началния час</string>
+    <string name="show_time_start_end">Началния и крайния час</string>
     <string name="show_time_start_end_below">Начален и краен час под събитието</string>
     <string name="preferences_calendar_no_display_name">Календар без име</string>
     <string name="preferences_calendar_account_local">календар извън линия</string>
@@ -345,4 +345,15 @@
 \nВ DAVx⁵ „Управление на цветовете на календара“ може да бъде деактивирано, за да се предотврати това.</string>
     <string name="preferences_list_add_offline_title">Добавяне на календар извън линия</string>
     <string name="thirty_minutes">30 минути</string>
+    <string name="no_snooze_label">Няма</string>
+    <string name="preferences_manage_notifications">Управления на известията</string>
+    <string name="preferences_do_not_check_battery_optimization">Без проверка на оптимизацията на батерията</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Използвайте на своя отговорност! Известията няма да работят, приспособленията няма да се обновяват, услугата във фонов режим ще се срине, но няма да бъдете питани отново дали желаете услугата във фонов режим да бъде включена.</string>
+    <string name="calendars">Календари</string>
+    <string name="hint_url">Препратка</string>
+    <string name="no_calendars_found">Преди да можете да добавяте събития е необходимо на устройството да бъде добавен календар</string>
+    <string name="add_calendar">Добавяне на календар</string>
+    <string name="discard_event_changes">Желаете ли да се откажете от промените?</string>
+    <string name="cancel">Отказ</string>
+    <string name="discard">Затваряне</string>
 </resources>
