@@ -382,7 +382,7 @@
     <string name="hint_url">כתובת</string>
     <string name="add_calendar">הוספת לוח שנה</string>
     <string name="no_calendars_found">לפני שיתאפשר לך להוסיף אירוע, יש להוסיף לפחות לוח שנה אחד למכשיר שלך</string>
-    <string name="preferences_manage_notifications">נהל התראות</string>
-    <string name="preferences_do_not_check_battery_optimization">אל תבדוק מיטוב סוללה</string>
+    <string name="preferences_manage_notifications">ניהול התראות</string>
+    <string name="preferences_do_not_check_battery_optimization">לא לבדוק מיטוב סוללה</string>
     <string name="no_snooze_label">ללא</string>
 </resources>
