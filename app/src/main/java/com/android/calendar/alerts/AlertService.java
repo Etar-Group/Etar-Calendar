@@ -16,7 +16,6 @@
 
 package com.android.calendar.alerts;
 
-import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC;
 import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
 
 import android.Manifest;
@@ -943,7 +942,7 @@ public class AlertService extends Service {
                     if (Utils.isUpsideDownCakeOrLater()) {
                         serviceType = FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
                     } else {
-                        serviceType = FOREGROUND_SERVICE_TYPE_DATA_SYNC;
+                        serviceType = 0;
                     }
                     ServiceCompat.startForeground(this, 1337, notification, serviceType);
                 } else {
