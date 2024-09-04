@@ -13,7 +13,7 @@ editorconfig {
 android {
 	namespace = "ws.xsoh.etar"
 	testNamespace = "com.android.calendar.tests"
-	compileSdk = 34
+	compileSdk = 35
 
 	defaultConfig {
 		minSdk = 23
