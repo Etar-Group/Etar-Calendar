@@ -233,22 +233,20 @@ public class DynamicTheme {
     }
 
     public static String getColorName(int id) {
-        switch (id) {
-            case  R.color.colorPrimary :
-                return TEAL;
-            case R.color.colorBluePrimary:
-                return BLUE;
-            case R.color.colorOrangePrimary:
-                return ORANGE;
-            case R.color.colorGreenPrimary:
-                return GREEN;
-            case R.color.colorRedPrimary:
-                return RED;
-            case R.color.colorPurplePrimary:
-                return PURPLE;
-            default:
-                throw new UnsupportedOperationException("Unknown color id : " + id);
+        if (id == R.color.colorPrimary) {
+            return TEAL;
+        } else if (id == R.color.colorBluePrimary) {
+            return BLUE;
+        } else if (id == R.color.colorOrangePrimary) {
+            return ORANGE;
+        } else if (id == R.color.colorGreenPrimary) {
+            return GREEN;
+        } else if (id == R.color.colorRedPrimary) {
+            return RED;
+        } else if (id == R.color.colorPurplePrimary) {
+            return PURPLE;
         }
+        throw new UnsupportedOperationException("Unknown color id : " + id);
     }
 
     public static int getColor(Context context, String id) {
