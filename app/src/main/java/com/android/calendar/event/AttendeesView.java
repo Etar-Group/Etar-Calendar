@@ -105,7 +105,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         mPresenceQueryHandler = new PresenceQueryHandler(context.getContentResolver());
 
         final Resources resources = context.getResources();
-        mDefaultBadge = resources.getDrawable(R.drawable.ic_contact_picture);
+        mDefaultBadge = resources.getDrawable(com.android.ex.chips.R.drawable.ic_contact_picture);
         mNoResponsePhotoAlpha =
             resources.getInteger(R.integer.noresponse_attendee_photo_alpha_level);
         mDefaultPhotoAlpha = resources.getInteger(R.integer.default_attendee_photo_alpha_level);
