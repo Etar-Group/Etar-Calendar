@@ -932,34 +932,27 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         final int itemId = item.getItemId();
-        switch (itemId) {
-            case R.id.day_menu_item:
-                if (mCurrentView != ViewType.DAY) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
-                }
-                break;
-            case R.id.week_menu_item:
-                if (mCurrentView != ViewType.WEEK) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
-                }
-                break;
-            case R.id.month_menu_item:
-                if (mCurrentView != ViewType.MONTH) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
-                }
-                break;
-            case R.id.agenda_menu_item:
-                if (mCurrentView != ViewType.AGENDA) {
-                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
-                }
-                break;
-            case R.id.action_settings:
-                mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
-                break;
-            case R.id.action_about:
-                Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-                break;
+        if (itemId == R.id.day_menu_item) {
+            if (mCurrentView != ViewType.DAY) {
+                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+            }
+        } else if (itemId == R.id.week_menu_item) {
+            if (mCurrentView != ViewType.WEEK) {
+                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+            }
+        } else if (itemId == R.id.month_menu_item) {
+            if (mCurrentView != ViewType.MONTH) {
+                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
+            }
+        } else if (itemId == R.id.agenda_menu_item) {
+            if (mCurrentView != ViewType.AGENDA) {
+                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
+            }
+        } else if (itemId == R.id.action_settings) {
+            mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+        } else if (itemId == R.id.action_about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
         }
         mDrawerLayout.closeDrawers();
         return true;
