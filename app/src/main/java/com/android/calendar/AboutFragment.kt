@@ -18,7 +18,6 @@
 package com.android.calendar
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,6 +29,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ws.xsoh.etar.R
 import java.util.Calendar
+import ws.xsoh.etar.BuildConfig
 
 class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,7 +39,7 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<TextView>(R.id.version).text = getVersionNumber()
+        view.findViewById<TextView>(R.id.version).text = BuildConfig.VERSION_NAME
 
         val year = Calendar.getInstance().get(Calendar.YEAR).toString()
         view.findViewById<TextView>(R.id.copyright).text = getString(R.string.app_copyright, year)
@@ -62,16 +62,6 @@ class AboutFragment : Fragment() {
 
         view.findViewById<Button>(R.id.source).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_source_url))))
-        }
-    }
-
-    private fun getVersionNumber(): String {
-        return try {
-            val context = requireContext()
-            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            packageInfo.versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-            "?"
         }
     }
 
