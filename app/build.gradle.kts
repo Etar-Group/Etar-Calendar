@@ -121,13 +121,13 @@ dependencies {
 	// Core
 	implementation("androidx.core:core-ktx:1.13.1")
 	implementation(fileTree("include" to arrayOf("*.jar", "*.aar"), "dir" to "libs"))
-	implementation("androidx.preference:preference:1.2.1")
+	implementation("androidx.preference:preference-ktx:1.2.1")
 	implementation("androidx.appcompat:appcompat:1.7.0")
 	implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 	implementation("com.google.android.material:material:1.12.0")
 	testImplementation("junit:junit:4.13.2")
 
-	coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+	coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.1")
 
 	// Coroutines
 	val coroutines_version = "1.8.1"
@@ -138,7 +138,7 @@ dependencies {
 	implementation("org.dmfs:lib-recur:0.17.1")
 
 	// lifecycle
-	val lifecycle_version = "2.8.3"
+	val lifecycle_version = "2.8.4"
 	implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 }
 
