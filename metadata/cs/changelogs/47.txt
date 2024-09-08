@@ -1,0 +1,2 @@
+- Tap on current month to open go to date
+- Small bugfixes

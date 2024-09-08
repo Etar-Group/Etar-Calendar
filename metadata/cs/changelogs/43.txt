@@ -1,0 +1,4 @@
+- Add confirmation dialog on event discard
+- Add no snooze option
+- Improve left/right swipe and up/down swipe in month view
+- Small bugfixes
