@@ -1,0 +1,3 @@
+- Allow editing calendar on existing events
+- Fix go-to date function
+- Small bugfixes
