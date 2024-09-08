@@ -365,4 +365,12 @@
     <string name="hint_url">Adresa URL</string>
     <string name="no_calendars_found">Před přidáním události je nutné přidat do zařízení alespoň jeden účet s kalendářem</string>
     <string name="add_calendar">Přidat kalendář</string>
+    <string name="no_snooze_label">Žádný</string>
+    <string name="calendars">Kalendáře</string>
+    <string name="preferences_manage_notifications">Správa oznámení</string>
+    <string name="preferences_do_not_check_battery_optimization">Nekontrolovat optimalizace baterie</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Použijte na vlastní nebezpečí! Oznámení nebudou fungovat, widget se nebude aktualizovat a služby na pozadí mohou být ukončeny. Nebudete ale znovu dotázáni, zda chcete povolit službu na pozadí.</string>
+    <string name="discard_event_changes">Chcete zahodit změny?</string>
+    <string name="discard">Zahodit</string>
+    <string name="cancel">Zrušit</string>
 </resources>
