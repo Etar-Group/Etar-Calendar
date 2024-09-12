@@ -155,10 +155,10 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">デフォルトのリマインダー時間</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">デフォルトのリマインダー時間</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">自宅のタイムゾーンを使用</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">自宅のタイムゾーンを使用する</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">旅行中も自宅のタイムゾーンでカレンダーと予定時刻を表示します</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">自宅のタイムゾーン</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">週番号を表示</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">週番号を表示する</string>
     <string name="preferences_build_version" msgid="8242471883413502068">ビルド バージョン</string>
     <plurals name="month_more_events">
         <item quantity="one" msgid="8971334808414201327">"+1"</item>
@@ -253,12 +253,12 @@
     <string name="preferences_days_per_week_title">1 週間の日数</string>
     <string name="preferences_default_event_duration_title">デフォルトの予定の期間</string>
     <string name="preferences_color">メインの色</string>
-    <string name="preferences_real_event_colors">実際の予定の色で表示</string>
+    <string name="preferences_real_event_colors">実際の予定の色で表示する</string>
     <string name="preferences_pure_black_night_mode">ピュアブラックのナイトモード</string>
     <string name="default_start_title">起動時の表示</string>
     <string name="display_options">表示設定</string>
     <string name="display_time">時刻表示</string>
-    <string name="display_location">場所表示</string>
+    <string name="display_location">場所を表示する</string>
     <string name="maximum_number_of_lines">予定の最大行数</string>
     <string name="authors">開発者</string>
     <string name="changelog">更新履歴</string>
@@ -300,7 +300,7 @@
     <string name="preferences_calendar_number_of_events">予定 %1$d 件</string>
     <string name="preferences_calendar_display_name">名前を変更</string>
     <string name="preferences_calendar_info_category">カレンダーの情報</string>
-    <string name="preferences_calendar_visible">予定を表示</string>
+    <string name="preferences_calendar_visible">予定を表示する</string>
     <string name="preferences_calendar_color_warning_title">警告</string>
     <string name="preferences_calendar_color_warning_button">確認しました</string>
     <string name="preferences_calendar_delete_message">このカレンダーを本当に削除しますか？</string>
@@ -322,7 +322,7 @@
     <string name="offline_account_name">オフラインのカレンダー</string>
     <string name="calendar_permission_not_granted">必要な権限が拒否されました。予定を編集するには、設定アプリから権限を許可してください</string>
     <string name="preferences_calendar_account">%1$s アカウント</string>
-    <string name="preferences_calendar_synchronize">このカレンダーを同期</string>
+    <string name="preferences_calendar_synchronize">このカレンダーを同期する</string>
     <string name="preferences_calendar_delete">カレンダーを削除</string>
     <string name="preferences_calendar_color_warning_message">カレンダーを再同期すると、色の変更が元に戻ることがあります。
 \n
@@ -332,7 +332,7 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">予定を追加するには、端末にカレンダーアカウントを少なくとも 1 つ追加してカレンダーを表示できるようにする必要があります</string>
     <string name="add_calendar">カレンダーを追加</string>
-    <string name="preferences_do_not_check_battery_optimization">電池の最適化にチェックをつけないでください</string>
+    <string name="preferences_do_not_check_battery_optimization">バッテリー最適化について確認しない</string>
     <string name="preferences_manage_notifications">通知を管理</string>
     <string name="preferences_do_not_check_battery_optimization_summary">ご自身の責任で使用してください！ 通知がなくなり、ウィジェットも更新されなくなり、バックグラウンドサービスがクラッシュします。バックグラウンドサービスを有効にすれば問題ありません。</string>
     <string name="calendars">カレンダー</string>
