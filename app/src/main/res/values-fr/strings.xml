@@ -365,4 +365,12 @@
     <string name="hint_url">URL</string>
     <string name="add_calendar">Ajouter un agenda</string>
     <string name="no_calendars_found">Avant d’ajouter un évènement, vous devez ajouter au moins un agenda à votre appareil</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Utilisez à vos risques et périls ! Les notifications ne fonctionneront plus, le widget ne sera plus mis à jour et les services d\'arrière-plan planteront. Mais vous n\'aurez plus de demande d\'activation du service d\'arrière-plan.</string>
+    <string name="preferences_manage_notifications">Gérer les notifications</string>
+    <string name="preferences_do_not_check_battery_optimization">Ne pas vérifier l\'optimisation de la batterie</string>
+    <string name="calendars">Calendriers</string>
+    <string name="no_snooze_label">Aucun</string>
+    <string name="discard_event_changes">Voulez-vous abandonner vos modifications ?</string>
+    <string name="discard">Abandonner</string>
+    <string name="cancel">Annuler</string>
 </resources>
