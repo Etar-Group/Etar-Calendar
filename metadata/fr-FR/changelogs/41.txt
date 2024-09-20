@@ -1,0 +1,1 @@
+- Correction d'une erreur de compilation F-Droid

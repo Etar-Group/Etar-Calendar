@@ -1,0 +1,3 @@
+- Ne pas fermer la page d'édition de l'évènement lorsque le téléphone est tourné
+- Notifications spécifiques à un calendrier
+- Ajout d'une préférence : Ne pas vérifier l'optimisation de la batterie
