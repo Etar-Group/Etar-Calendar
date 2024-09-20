@@ -1,0 +1,2 @@
+- Enfin, on l'espère, correction d'un plantage sur la vue mensuelle et hebdomadaire lié à un rrule invalide
+- Correction de bogues
