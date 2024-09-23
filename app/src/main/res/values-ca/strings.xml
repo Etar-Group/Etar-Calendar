@@ -347,4 +347,13 @@
     <string name="menu_info">Informació</string>
     <string name="add_calendar">Afegeix calendari</string>
     <string name="duplicate_label">Duplica</string>
+    <string name="no_snooze_label">Cap</string>
+    <string name="no_calendars_found">Abans de crear un esdeveniment, heu d\'afegir almenys un calendari al vostre dispositiu</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Utilitzeu sota el vostre compte i risc! Les notificacions no funcionaran, el giny no s\'actualitzarà i els serveis en rerefons fallaran. I no si us demanarà més si voleu tornar-los a habilitar.</string>
+    <string name="preferences_manage_notifications">Administra les notificacions</string>
+    <string name="calendars">Calendaris</string>
+    <string name="preferences_do_not_check_battery_optimization">No verifiquis l\'optimització de la bateria</string>
+    <string name="discard_event_changes">Voleu descartar els canvis?</string>
+    <string name="discard">Descarta</string>
+    <string name="cancel">Cancel·la</string>
 </resources>
