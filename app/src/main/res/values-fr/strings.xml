@@ -22,22 +22,22 @@
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Sans titre)"</string>
     <plurals name="Nminutes">
-        <item quantity="one">1 minute</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> minute</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> minutes</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 min</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> min</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> min</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 h</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> h</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> h</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> h</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">1 j</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> j</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> j</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> j</item>
     </plurals>
@@ -353,7 +353,7 @@
     <string name="preferences_pure_black_night_mode">Mode pure nuit noire</string>
     <string name="no_reminder_label">Aucun</string>
     <plurals name="Nweeks">
-        <item quantity="one">1 sem.</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> sem.</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> sem.</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> sem.</item>
     </plurals>
