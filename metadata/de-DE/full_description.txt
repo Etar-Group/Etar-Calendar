@@ -1,7 +1,7 @@
 Merkmale:
 - Monatsansicht
 - Wochen-, Tages- und Agenda-Ansicht.
-- Verwendet Android-Kalender-Synchronisation. Arbeitet mit Google-Kalender, Exchange usw. zusammen.
+- Verwendet Android-Kalender-Provider und zeigt alle synchronisierten Kalender.
 - Material Design.
 - Dunkles und helles Design.
 - Frei, quelloffen und ohne Werbung.

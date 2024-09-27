@@ -1,7 +1,7 @@
 Caracteristici:
 - Vizualizare lunară.
 - Vizualizarea săptămânii, a zilei și a agendei.
-- Utilizează sincronizarea calendarului Android. Funcționează cu Google Calendar, Exchange, etc.
+- Utilizează sincronizarea calendarului Android.
 - Material Design.
 - Temă întunecată și ușoară.
 - Gratuit, open source și absolut fără reclame.

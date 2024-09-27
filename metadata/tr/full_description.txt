@@ -1,7 +1,7 @@
 Özellikler:
 - Aylık görünüm.
 - Hafta, gün ve ajanda görünümü.
-- Android takvim eşzamanlamasını kullanır. Google Takvim, Exchange vb. ile çalışır.
+- Android takvim eşzamanlamasını kullanır.
 - Material tasarım.
 - Koyu ve açık tema.
 - Özgür, açık kaynak ve kesinlikle reklamsız.

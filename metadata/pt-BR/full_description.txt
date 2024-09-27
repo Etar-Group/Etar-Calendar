@@ -1,7 +1,7 @@
 Funções:
 - Visão do mês.
 - Visão de semana, dia e agenda.
-- Usa a sincronização do calendário do Android. Funciona com Google Calendário, Exchange etc.
+- Usa a sincronização do calendário do Android.
 - Material Design.
 - Tema escuro e claro.
 - Grátis, código aberto e absolutamente nenhum anúncio.

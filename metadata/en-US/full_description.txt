@@ -1,10 +1,11 @@
 Features:
 - Month view.
 - Week, day and agenda view.
-- Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
+- Uses Android calendar storage to show all synchronized calendars.
 - Material Design.
 - Dark and light theme.
-- Free, open source and absolutely no ads.
+- Support offline calendar.
+- Agenda widget.
 - Support sharing calendars via ICS and the ability to import/export from SD card.
 - Multilingual UI.
 

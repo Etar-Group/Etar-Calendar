@@ -1,7 +1,7 @@
 Možnosti:
 - Zobrazení měsíce.
 - Zobrazení týdne, dne a formou agendy.
-- Používá synchronizaci kalendářů Androidu. Funguje s Google Kalendářem, MS Exchange, atp.
+- Používá synchronizaci kalendářů Androidu.
 - Se vzhledem ve stylu material.
 - Tmavý a světlý motiv.
 - Svobodný, open source a zcela bez reklam.

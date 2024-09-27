@@ -1,6 +1,6 @@
 Ezaugarriak:
 - Hilabete, aste, egun eta agenda ikuspegiak.
-- Android egutegi sinkronizazioa. Google Calendar, Exchange, etab.
+- Android egutegi sinkronizazioa.
 - Material Design.
 - Gai ilun eta argiak.
 - Doakoa, kode irekikoa eta iragarkirik gabe.

@@ -1,7 +1,7 @@
 Caratteristiche:
 - Vista del mese.
 - Vista della settimana, giorno e agenda.
-- Usa la sincronizzazione del calendario Android. Funziona con Google Calendar, Exchange... ecc.
+- Usa la sincronizzazione del calendario Android.
 - Material design.
 - Temi chiaro e scuro.
 - Libero, open source e assolutamente nessuna pubblicità.
