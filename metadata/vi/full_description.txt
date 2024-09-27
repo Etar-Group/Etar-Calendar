@@ -1,7 +1,7 @@
 Tính năng:
 - Kiểu xem tháng.
 - Kiểu xem tuần, ngày và lịch biểu.
-- Sử dụng đồng bộ lịch Android. Hoạt động với Lịch Google, Exchange, vv.
+- Sử dụng đồng bộ lịch Android.
 - Thiết kế Vật liệu.
 - Chủ đề tối và sáng.
 - Miễn phí, nguồn mở và hoàn toàn không có quảng cáo.

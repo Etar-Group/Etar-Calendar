@@ -17,11 +17,13 @@ this app would be just a dream. So thanks to them!
 
 ## Features
 - Month view.
-- Week, day & agenda view.
-- Uses Android calendar sync. Works with Google Calendar, Exchange, etc.
-- Material designed.
+- Week, day and agenda view.
+- Uses Android calendar storage to show all synchronized calendars.
+- Material Design.
+- Dark and light theme.
 - Support offline calendar.
 - Agenda widget.
+- Support sharing calendars via ICS and the ability to import/export from SD card.
 - Multilingual UI.
 
 ## How to use Etar

@@ -1,7 +1,7 @@
 Funktioner:
 - Månadsvy.
 - Vecko-, dag- och agendavy.
-- Använder Android-kalendersynkronisering. Fungerar med Google Kalender, Exchange, osv.
+- Använder Android-kalendersynkronisering.
 - Materialdesign.
 - Mörkt och ljust tema.
 - Gratis, öppen källkod och absolut inga annonser.

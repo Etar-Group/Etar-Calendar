@@ -1,7 +1,7 @@
 Fonctionnalités :
 – Affichage par mois.
 – Affichages par semaine, par jour et agenda.
-– Utilise la synchronisation Android du calendrier. Fonctionne avec Google Calendar, Exchange, etc.
+– Utilise la synchronisation Android du calendrier.
 – Material Design.
 – Thèmes sombre et clair.
 – Gratuit, libre et sans aucune publicité.
