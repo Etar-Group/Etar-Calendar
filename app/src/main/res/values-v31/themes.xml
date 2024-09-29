@@ -3,7 +3,7 @@
     <!--System palette (Android 12+)-->
     <style name="CalendarAppThemeLightMonet" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@android:color/system_accent1_500</item>
-        <item name="colorPrimaryDark">@android:color/system_accent1_800</item>
+        <item name="colorPrimaryDark">@android:color/system_accent1_500</item>
         <item name="colorAccent">@android:color/system_accent2_500</item>
         <item name="light_dark">@color/bg_black</item>
         <item name="android:windowBackground">@android:color/system_neutral1_10</item>
@@ -44,7 +44,7 @@
     </style>
     <style name="CalendarAppThemeDarkMonet" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@android:color/system_accent1_500</item>
-        <item name="colorPrimaryDark">@android:color/system_accent1_900</item>
+        <item name="colorPrimaryDark">@android:color/system_accent1_800</item>
         <item name="colorAccent">@android:color/system_accent2_400</item>
         <item name="light_dark">@android:color/white</item>
         <item name="android:windowBackground">@android:color/system_neutral1_800</item>
@@ -85,7 +85,7 @@
     </style>
     <style name="CalendarAppThemeBlackMonet" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@android:color/system_accent1_500</item>
-        <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorPrimaryDark">@color/app_bar_black</item>
         <item name="colorAccent">@android:color/system_accent2_400</item>
         <item name="light_dark">@android:color/white</item>
         <item name="android:windowBackground">@color/bg_black</item>
