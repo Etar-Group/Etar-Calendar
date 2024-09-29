@@ -5,6 +5,7 @@ Features:
 - Material Design.
 - Donker en licht thema.
 - Gratis, open-source en absoluut geen advertenties.
+- Agenda-widget
 - Ondersteunt kalenders delen via ICS en kan im-/exporteren van/naar SD-kaart.
 - Meertalige gebruikersinterface.
 
