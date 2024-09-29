@@ -6,7 +6,7 @@ plugins {
     id("com.android.library") version "8.6.0" apply false
     id("org.jetbrains.kotlin.android") version "2.0.20" apply false
     id("org.ec4j.editorconfig") version "0.1.0" apply false
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.8" apply true
+    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.9" apply true
 }
 
 // External project configuration start
