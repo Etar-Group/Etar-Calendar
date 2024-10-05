@@ -128,7 +128,7 @@ dependencies {
 	implementation("com.google.android.material:material:1.12.0")
 	testImplementation("junit:junit:4.13.2")
 
-	coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.1")
+	coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
 
 	// Coroutines
 	val coroutines_version = "1.8.1"
