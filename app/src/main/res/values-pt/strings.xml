@@ -367,4 +367,6 @@
     <string name="preferences_do_not_check_battery_optimization">Não verificar otimização de bateria</string>
     <string name="preferences_manage_notifications">Gerir notificações</string>
     <string name="calendars">Calendários</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Use por sua própria conta e risco! Notificações já não funcionarão, o widget não atualizará mais, e serviços em segundo plano irão quebrar. Não será perguntado novamente se quer ativar o serviço em segundo plano.</string>
+    <string name="no_snooze_label">Nenhum</string>
 </resources>
