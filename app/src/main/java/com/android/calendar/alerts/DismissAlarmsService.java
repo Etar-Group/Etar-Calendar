@@ -29,11 +29,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.util.Log;
-
-import androidx.core.app.TaskStackBuilder;
 import androidx.core.content.ContextCompat;
-
-import com.android.calendar.EventInfoActivity;
 import com.android.calendar.alerts.GlobalDismissManager.AlarmId;
 
 import java.util.LinkedList;
@@ -44,7 +40,6 @@ import java.util.List;
  */
 public class DismissAlarmsService extends IntentService {
     private static final String TAG = "DismissAlarmsService";
-    public static final String SHOW_ACTION = "com.android.calendar.SHOW";
     public static final String DISMISS_ACTION = "com.android.calendar.DISMISS";
 
     private static final String[] PROJECTION = new String[] {
@@ -113,15 +108,6 @@ public class DismissAlarmsService extends IntentService {
             NotificationManager nm =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(notificationId);
-        }
-
-        if (SHOW_ACTION.equals(intent.getAction())) {
-            // Show event on Calendar app by building an intent and task stack to start
-            // EventInfoActivity with AllInOneActivity as the parent activity rooted to home.
-            Intent i = AlertUtils.buildEventViewIntent(this, eventId, eventStart, eventEnd);
-
-            TaskStackBuilder.create(this)
-                    .addParentStack(EventInfoActivity.class).addNextIntent(i).startActivities();
         }
     }
 
