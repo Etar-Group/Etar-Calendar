@@ -16,13 +16,17 @@
 
 package com.android.calendar.alerts;
 
+import android.Manifest;
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
@@ -31,6 +35,7 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.Time;
@@ -216,6 +221,39 @@ public class AlertUtils {
         i.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin);
         i.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end);
         return i;
+    }
+
+    /**
+     * Removes a notification and dismisses a fired alarm by updating the calendar alert state from
+     * {@link CalendarAlerts#STATE_FIRED} to {@link CalendarAlerts#STATE_DISMISSED}.
+     *
+     * @param context        application context
+     * @param eventId        the event id to update the alert state of
+     * @param notificationId the notification to dismiss
+     */
+    public static void dismissNotificationAndFiredAlarm(Context context, long eventId,
+        int notificationId) {
+
+        if (notificationId != -1) {
+            NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(notificationId);
+        }
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR)
+            != PackageManager.PERMISSION_GRANTED) {
+            //If permission is not granted then just return.
+            Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
+            return;
+        }
+
+        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED + " AND " +
+            CalendarAlerts.EVENT_ID + "=" + eventId;
+        ContentResolver resolver = context.getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
+
+        resolver.update(CalendarAlerts.CONTENT_URI, values, selection, null);
     }
 
     public static SharedPreferences getFiredAlertsTable(Context context) {
