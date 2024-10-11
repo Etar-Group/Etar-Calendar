@@ -254,9 +254,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.android.calendar.alerts.GlobalDismissManager"
-                  android:exported="false" />
-
         <receiver android:name="com.android.calendar.UpgradeReceiver"
             android:exported="true">
             <intent-filter>
