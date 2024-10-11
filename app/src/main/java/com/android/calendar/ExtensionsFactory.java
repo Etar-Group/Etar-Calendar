@@ -99,39 +99,4 @@ public class ExtensionsFactory {
 
         return sAllInOneMenuExtensions;
     }
-
-    public static CloudNotificationBackplane getCloudNotificationBackplane() {
-        CloudNotificationBackplane cnb = null;
-
-        String className = sProperties.getProperty(CLOUD_NOTIFICATION_KEY);
-        if (className != null) {
-            cnb = createInstance(className);
-        } else {
-            Log.d(TAG, CLOUD_NOTIFICATION_KEY + " not found in properties file.");
-        }
-
-        if (cnb == null) {
-            cnb = new CloudNotificationBackplane() {
-                @Override
-                public boolean open(Context context) {
-                    return true;
-                }
-
-                @Override
-                public boolean subscribeToGroup(String senderId, String account, String groupId)
-                        throws IOException {
-                    return true;}
-
-                @Override
-                public void send(String to, String msgId, Bundle data) {
-                }
-
-                @Override
-                public void close() {
-                }
-            };
-        }
-
-        return cnb;
-    }
 }

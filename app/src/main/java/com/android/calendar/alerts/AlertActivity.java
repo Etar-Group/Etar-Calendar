@@ -40,7 +40,6 @@ import android.widget.ListView;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
-import com.android.calendar.alerts.GlobalDismissManager.AlarmId;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -103,7 +102,7 @@ public class AlertActivity extends Activity implements OnClickListener {
             long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
 
             // Mark this alarm as DISMISSED
-            dismissAlarm(alarmId, eventId, startMillis);
+            dismissAlarm(alarmId);
 
             // build an intent and task stack to start EventInfoActivity with AllInOneActivity
             // as the parent activity rooted to home.
@@ -125,50 +124,14 @@ public class AlertActivity extends Activity implements OnClickListener {
         String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
                 selection, null /* selectionArgs */, Utils.UNDO_DELAY);
-
-        if (mCursor == null) {
-            Log.e(TAG, "Unable to globally dismiss all notifications because cursor was null.");
-            return;
-        }
-        if (mCursor.isClosed()) {
-            Log.e(TAG, "Unable to globally dismiss all notifications because cursor was closed.");
-            return;
-        }
-        if (!mCursor.moveToFirst()) {
-            Log.e(TAG, "Unable to globally dismiss all notifications because cursor was empty.");
-            return;
-        }
-
-        List<AlarmId> alarmIds = new LinkedList<AlarmId>();
-        do {
-            long eventId = mCursor.getLong(INDEX_EVENT_ID);
-            long eventStart = mCursor.getLong(INDEX_BEGIN);
-            alarmIds.add(new AlarmId(eventId, eventStart));
-        } while (mCursor.moveToNext());
-        initiateGlobalDismiss(alarmIds);
     }
 
-    private void dismissAlarm(long id, long eventId, long startTime) {
+    private void dismissAlarm(long id) {
         ContentValues values = new ContentValues(1 /* size */);
         values.put(PROJECTION[INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
         String selection = CalendarAlerts._ID + "=" + id;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
                 selection, null /* selectionArgs */, Utils.UNDO_DELAY);
-
-        List<AlarmId> alarmIds = new LinkedList<AlarmId>();
-        alarmIds.add(new AlarmId(eventId, startTime));
-        initiateGlobalDismiss(alarmIds);
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initiateGlobalDismiss(List<AlarmId> alarmIds) {
-        new AsyncTask<List<AlarmId>, Void, Void>() {
-            @Override
-            protected Void doInBackground(List<AlarmId>... params) {
-                GlobalDismissManager.dismissGlobally(getApplicationContext(), params[0]);
-                return null;
-            }
-        }.execute(alarmIds);
     }
 
     @Override
