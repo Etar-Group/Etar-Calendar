@@ -36,6 +36,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 
+import com.android.calendar.alerts.AlertUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +75,7 @@ public class EventInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int attendeeResponse = 0;
         mEventId = -1;
+        int notificationId = -1;
         boolean isDialog = false;
         ArrayList<ReminderEntry> reminders = null;
 
@@ -90,6 +92,7 @@ public class EventInfoActivity extends AppCompatActivity {
             mEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
             attendeeResponse = intent.getIntExtra(ATTENDEE_STATUS,
                     Attendees.ATTENDEE_STATUS_NONE);
+            notificationId = intent.getIntExtra(AlertUtils.NOTIFICATION_ID_KEY, -1);
             Uri data = intent.getData();
             if (data != null) {
                 try {
@@ -123,6 +126,12 @@ public class EventInfoActivity extends AppCompatActivity {
             Log.w(TAG, "No event id");
             Toast.makeText(this, R.string.event_not_found, Toast.LENGTH_SHORT).show();
             finish();
+        }
+
+        // if a notificationId is supplied, this event was opened by clicking on a notification
+        // and we must dismiss the notification and update the alert status to dismissed
+        if (notificationId != -1 && mEventId != -1) {
+            AlertUtils.dismissNotificationAndFiredAlarm(this, mEventId, notificationId);
         }
 
         // If we do not support showing full screen event info in this configuration,

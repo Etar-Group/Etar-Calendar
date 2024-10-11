@@ -16,21 +16,11 @@
 
 package com.android.calendar.alerts;
 
-import android.Manifest;
 import android.app.IntentService;
-import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
-import android.util.Log;
-
-import androidx.core.content.ContextCompat;
 
 import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
@@ -70,28 +60,8 @@ public class SnoozeAlarmsService extends IntentService {
                 AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
 
         if (eventId != -1) {
-            ContentResolver resolver = getContentResolver();
-
-            // Remove notification
-            if (notificationId != AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID) {
-                NotificationManager nm =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                nm.cancel(notificationId);
-            }
-            if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.WRITE_CALENDAR)
-                    != PackageManager.PERMISSION_GRANTED) {
-                //If permission is not granted then just return.
-                Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
-                return;
-            }
-            // Dismiss current alarm
-            Uri uri = CalendarAlerts.CONTENT_URI;
-            String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED + " AND " +
-                    CalendarAlerts.EVENT_ID + "=" + eventId;
-            ContentValues dismissValues = new ContentValues();
-            dismissValues.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
-            resolver.update(uri, dismissValues, selection, null);
+            // dismiss current alarm
+            AlertUtils.dismissNotificationAndFiredAlarm(this, eventId, notificationId);
 
             // Add a new alarm
             if (snoozeDelay < 0) {
@@ -101,7 +71,7 @@ public class SnoozeAlarmsService extends IntentService {
             long alarmTime = System.currentTimeMillis() + snoozeDelay;
             ContentValues values = AlertUtils.makeContentValues(eventId, eventStart, eventEnd,
                     alarmTime, 0);
-            resolver.insert(uri, values);
+            getContentResolver().insert(CalendarAlerts.CONTENT_URI, values);
             AlertUtils.scheduleAlarm(SnoozeAlarmsService.this, AlertUtils.createAlarmManager(this),
                     alarmTime);
         }
