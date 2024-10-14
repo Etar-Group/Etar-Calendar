@@ -81,9 +81,8 @@ public class DismissAlarmsService extends IntentService {
         ContentResolver resolver = getContentResolver();
         ContentValues values = new ContentValues();
         values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this,
+            Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
             return;
