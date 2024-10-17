@@ -7,8 +7,16 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import ws.xsoh.etar.R;
 
@@ -38,6 +46,11 @@ public class DynamicTheme {
     public void onCreate(Activity activity) {
         currentTheme = getSelectedTheme(activity);
         activity.setTheme(currentTheme);
+
+        // Only required since Android 15
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            setupEdgeToEdge(activity);
+        }
     }
 
     public void onResume(Activity activity) {
@@ -325,5 +338,34 @@ public class DynamicTheme {
         static void invoke(Activity activity) {
             activity.overridePendingTransition(0, 0);
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    private static void setupEdgeToEdge(@NonNull Activity activity) {
+        Window window = activity.getWindow();
+        View rootView = activity.getWindow().getDecorView().getRootView();
+
+        WindowCompat.setDecorFitsSystemWindows(window, false);
+        ViewCompat.setOnApplyWindowInsetsListener(rootView,
+            (v, windowInsets) -> {
+                Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                        WindowInsetsCompat.Type.displayCutout());
+                v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+                return WindowInsetsCompat.CONSUMED;
+            });
+
+        // Special Handling
+        setSystemBarsColors(activity);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    private static void setSystemBarsColors(@NonNull Activity activity) {
+        boolean lightAppearance = !DynamicTheme.isSystemInDarkTheme(activity);
+        View rootView = activity.getWindow().getDecorView().getRootView();
+        WindowInsetsControllerCompat windowInsetsController =
+                WindowCompat.getInsetsController(activity.getWindow(), rootView);
+
+        windowInsetsController.setAppearanceLightStatusBars(lightAppearance);
+        windowInsetsController.setAppearanceLightNavigationBars(lightAppearance);
     }
 }
