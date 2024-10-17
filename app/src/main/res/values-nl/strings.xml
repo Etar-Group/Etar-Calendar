@@ -353,4 +353,7 @@
     <string name="preferences_do_not_check_battery_optimization_summary">Gebruik op eigen risico! Meldingen zullen niet meer werken, de widget wordt niet meer bijgewerkt en achtergronddiensten kunnen vastlopen. Maar u wordt niet opnieuw gevraagd of u de achtergronddienst wilt inschakelen.</string>
     <string name="calendars">Agenda\'s</string>
     <string name="no_snooze_label">Geen</string>
+    <string name="discard_event_changes">Wil je veranderingen weggooien?</string>
+    <string name="cancel">Annuleren</string>
+    <string name="discard">Weggooien</string>
 </resources>
