@@ -353,4 +353,7 @@
     <string name="calendars">Takvimler</string>
     <string name="preferences_do_not_check_battery_optimization">Pil iyileştirmesini denetleme</string>
     <string name="no_snooze_label">Yok</string>
+    <string name="discard">At</string>
+    <string name="cancel">İptal</string>
+    <string name="discard_event_changes">Değişiklikleri atmak istiyor musunuz?</string>
 </resources>
