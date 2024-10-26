@@ -48,7 +48,6 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
-import androidx.core.app.TaskStackBuilder;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
