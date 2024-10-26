@@ -389,7 +389,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     private void checkAppPermissions() {
         // Here, thisActivity is the current activity
-        if (Build.VERSION.SDK_INT >= 23 && (ContextCompat.checkSelfPermission(this,
+        if ((ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this,
@@ -423,7 +423,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     private void checkAndRequestDisablingDoze() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
         boolean doNotCheckBatteryOptimization = Utils.getSharedPreference(getApplicationContext(), GeneralPreferences.KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION, false);
         if (!dozeDisabled() && !doNotCheckBatteryOptimization) {
             Intent intent = new Intent();
@@ -434,8 +433,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     private Boolean dozeDisabled() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
-
         String packageName = getApplicationContext().getPackageName();
         PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
         return pm.isIgnoringBatteryOptimizations(packageName);
