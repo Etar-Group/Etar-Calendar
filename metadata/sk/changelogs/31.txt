@@ -1,0 +1,2 @@
+- Fix haváriu a upozornenia na Android 12
+- Fix MIME typ zdieľanej akcie

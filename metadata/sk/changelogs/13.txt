@@ -1,0 +1,4 @@
+- Podpora zdieľanie kalendárov prostredníctvom ics a schopnosť importovať/export z sdcard.
+- Odstráňte nepoužité povolenia.
+- Fix nastavenie zvuku na Android 6.
+- Veľa opráv chýb.

@@ -1,0 +1,8 @@
+- Pridať možnosť duplicitných udalostí
+- Zobraziť dni v tablete
+- Fix crash pri otvorení akcie s veľmi veľkým ID
+- Rework mini kalendár v prehliadke tabletu
+- Pridať podporu pre ikony App v systéme Android 13
+- Zobraziť multiday udalosti s správny začiatok a koncové body
+- Bugfixes
+- Nové preklady

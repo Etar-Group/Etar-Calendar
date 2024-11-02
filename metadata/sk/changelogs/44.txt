@@ -1,0 +1,2 @@
+- Pridať chýbajúce povolenie
+- Oprava budovať zlyhanie

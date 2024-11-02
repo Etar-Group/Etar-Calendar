@@ -1,0 +1,5 @@
+- Požiadať o povolenie pri spustení na Android 6 nahor.
+- Podpora zobrazenie lunárne/festival, keď je jazyk čínsky.
+- Aktualizácia prekladov.
+- Minor Layout opravy.
+- Veľa opráv chýb.

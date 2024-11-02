@@ -1,0 +1,7 @@
+- Znížte veľkosť písma názvov v týždni
+- Aktivovať nedávne návrhy vyhľadávania
+- Fix export na SD kartu
+- Strike cez názov zrušenia udalostí
+- Využite nastavenie systému na Android 10
+- Nové preklady
+- Bugfixes

@@ -1,0 +1,7 @@
+- Vložte widget, použite kalendár Widget pre teraz: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+- Podpora vlastných farebných udalostí.
+- Lepšia podpora pre ics súbory.
+- Pridajte sivú tému.
+- Podpora viditeľnosti dôverné.
+- Podpora nových Android oznámenia kanálov.
+- Veľa opráv chýb.

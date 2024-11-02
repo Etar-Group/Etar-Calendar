@@ -1,0 +1,3 @@
+- Odstránenie povolenia na internet pri zachovaní rovnakej funkčnosti.
+- Pridať 'Go To...'.
+- Fix: Programový widget nie je aktualizovaný denne.

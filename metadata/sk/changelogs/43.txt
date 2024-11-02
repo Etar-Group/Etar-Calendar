@@ -1,0 +1,4 @@
+- Pridať potvrdenie dialógové okno na akciu
+- Pridať žiadnu možnosť snooze
+- Zlepšite ľavú / pravú swipe a hore/down swipe v mesiaci view
+- Malé opravy chýb
