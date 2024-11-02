@@ -365,4 +365,12 @@
     <string name="hint_url">URL</string>
     <string name="no_calendars_found">Pred pridaním udalosti musíte do zariadenia pridať aspoň jeden kalendár</string>
     <string name="add_calendar">Pridať kalendár</string>
+    <string name="discard_event_changes">Chcete zlikvidovať zmeny?</string>
+    <string name="discard">Aktuality</string>
+    <string name="cancel">Zrušiť</string>
+    <string name="preferences_manage_notifications">Správa notifikácie</string>
+    <string name="preferences_do_not_check_battery_optimization">Nekontrolujte optimalizáciu batérie</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Použite na vlastné riziko! Oznámenia už nebudú fungovať, widget už nebude aktualizovať a služby pozadia sa zrúti. Ale nebudete sa pýtať znova, ak chcete povoliť službu pozadia.</string>
+    <string name="calendars">Kalendáre</string>
+    <string name="no_snooze_label">Žiadne</string>
 </resources>
