@@ -26,6 +26,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
@@ -65,6 +66,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -196,6 +198,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private long mIntentEventEndMillis = -1;
     private int mIntentAttendeeResponse = Attendees.ATTENDEE_STATUS_NONE;
     private boolean mIntentAllDay = false;
+    private Activity mActivity;
     private AllInOneMaterialBinding binding;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
@@ -262,7 +265,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         super.onCreate(icicle);
         dynamicTheme.onCreate(this);
-
+        mActivity = this;
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
 
@@ -385,6 +388,27 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         mContentResolver = getContentResolver();
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (mCurrentView == ViewType.EDIT || mBackToPreviousView) {
+                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, mPreviousView);
+                } else {
+                    int defaultStartView = Utils.getViewTypeFromIntentAndSharedPref(mActivity);
+
+                    // If the current view is the default one, quit app. If not, go back to default view.
+                    if (mCurrentView == defaultStartView
+                            || defaultStartView == com.android.calendar.CalendarController.ViewType.AGENDA
+                            || defaultStartView == com.android.calendar.CalendarController.ViewType.DAY ) {
+                       finish();
+                    } else {
+                        mController.sendEvent(this, EventType.GO_TO, null, null, -1, defaultStartView);
+                    }
+                }
+            }
+        });
+
     }
 
     private void checkAppPermissions() {
@@ -791,15 +815,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     icicle.getLong(BUNDLE_KEY_EVENT_ID, -1), viewType);
         } else if (viewType != ViewType.EDIT) {
             mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mCurrentView == ViewType.EDIT || mBackToPreviousView) {
-            mController.sendEvent(this, EventType.GO_TO, null, null, -1, mPreviousView);
-        } else {
-            super.onBackPressed();
         }
     }
 
