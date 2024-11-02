@@ -1,0 +1,7 @@
+- Vytvorte a ukážte pripomenutie po štarte akcie pomocou pokladnice
+- Opravy pripomenutie s negatívnymi hodnotami
+- Fix neplatné časy v dôsledku zmeny časového pásma
+- Možnosť pridať novú udalosť z obrazovky widgetu
+- Prepracovať tému farby
+- Bugfixes
+- Nové preklady

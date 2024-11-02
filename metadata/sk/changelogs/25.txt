@@ -1,0 +1,4 @@
+- Obnovenie časového pásma databázy
+- ikona aplikácie SVG
+- Prepracovať a reagovať widget
+- Nové preklady

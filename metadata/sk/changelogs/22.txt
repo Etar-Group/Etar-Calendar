@@ -1,0 +1,7 @@
+- Pridať offline kalender.
+- Pridajte skratku pre novú udalosť.
+- Nový dizajn preferencií.
+- Nový časovač.
+- Prepnúť licenciu na GPLv3.
+- Bugfixy.
+- Nové preklady.

@@ -1,0 +1,2 @@
+- Fix notifikácie na Android 12
+- Pridajte DecSync a adaptér na narodeniny "známe" aplikácie a nefungujú

@@ -1,0 +1,13 @@
+Vlastnosti:
+- mesačný pohľad.
+- Týždenný, denný a perspektívny pohľad.
+- Používa Android kalendár skladovanie ukázať všetky synchronizované kalendáre.
+- Materiálový dizajn.
+- Tmavo a svetlo tému.
+- Podpora offline kalendár.
+- Programový widget.
+- Podpora zdieľanie kalendárov cez ICS a schopnosť importovať/export z SD karty.
+- Multilingválne UI.
+
+Chyby a spätnú väzbu: https://github.com/Etar-Group/Etar-Calendar/issues
+Zdroj kód: https://github.com/Etar-Group/Etar-Calendar

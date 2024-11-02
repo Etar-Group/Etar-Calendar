@@ -1,0 +1,3 @@
+- Pridať url pole
+- Bugfixes
+- Nové preklady

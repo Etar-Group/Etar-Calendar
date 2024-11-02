@@ -1,0 +1,4 @@
+- Pridanie jazykovej podpory (aroid 13+)
+- Pridať vľavo / vpravo swipe na mesiac zobraziť
+- Bugfixes
+- Nové preklady

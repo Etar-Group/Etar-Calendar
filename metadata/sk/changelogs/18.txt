@@ -1,0 +1,3 @@
+- Chyby v mesiaci zobraziť pevné.
+- Opravený tmavý tému na tablety.
+- Nové preklady.

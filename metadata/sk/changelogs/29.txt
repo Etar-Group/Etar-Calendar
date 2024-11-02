@@ -1,0 +1,5 @@
+- Podpora Android 12
+- Podporný materiál You Design
+- Odstráňte pripojenie k službe Android pre zálohovanie databázy (broken vo väčšine Android verzie)
+- Všeobecné opravy chýb
+- Nové preklady

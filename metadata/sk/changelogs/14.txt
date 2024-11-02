@@ -1,0 +1,6 @@
+- Požiadať o povolenie pri spustení na Android 6 nahor.
+- Fix haváriu pri štarte.
+- Umožnite užívateľovi stlačiť displej tak, že celý deň je viditeľný.
+- Nastaviť sekúnd na nulu pri vytváraní novej akcie.
+- Minor Layout opravy.
+- Veľa opráv chýb.
