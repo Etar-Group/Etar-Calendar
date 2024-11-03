@@ -124,7 +124,7 @@ dependencies {
 	implementation(fileTree("include" to arrayOf("*.jar", "*.aar"), "dir" to "libs"))
 	implementation("androidx.preference:preference-ktx:1.2.1")
 	implementation("androidx.appcompat:appcompat:1.7.0")
-	implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+	implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 	implementation("com.google.android.material:material:1.12.0")
 	testImplementation("junit:junit:4.13.2")
 
