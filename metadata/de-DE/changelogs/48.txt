@@ -1,0 +1,4 @@
+- Unterstützung für Android 5 eingestellt
+- Zur Standardansicht zurückkehren, anstatt zu beenden
+- Benachrichtigung nach Ende des Ereignisses löschen
+- Fehlerbehebungen
