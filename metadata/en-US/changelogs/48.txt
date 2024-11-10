@@ -1,0 +1,4 @@
+- Drop support for android 5
+- Go back to default view instead of quitting
+- Clear notification after event ends
+- Small bugfixes
