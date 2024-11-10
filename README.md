@@ -1,4 +1,3 @@
-![Etar Calendar](metadata/en-US/images/featureGraphic.png)
 # Etar Calendar
 Etar (from Arabic:  `إِيتَار`)  is an open source material designed calendar made for everyone!
 
