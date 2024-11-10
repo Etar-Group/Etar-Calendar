@@ -1,0 +1,4 @@
+- Ondersteuning voor Android 5 is stopgezet
+- Keer terug naar standaardweergave in plaats van te stoppen
+- Verwijder melding nadat de gebeurtenis is beëindigd
+- Kleine probleemoplossingen
