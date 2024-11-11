@@ -1,0 +1,4 @@
+- Odebrána podpora pro Android 5
+- Přechod zpět na výchozí zobrazení namísto opuštění
+- Odstranění oznámení po skončení události
+- Malé opravy chyb
