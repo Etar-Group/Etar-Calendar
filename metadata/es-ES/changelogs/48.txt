@@ -1,0 +1,4 @@
+- Se elimina el soporte para Android 5
+- Volver a la vista predeterminada en lugar de salir
+- Notificación clara después de que finalice el evento
+- Pequeñas correcciones de errores
