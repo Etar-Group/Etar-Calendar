@@ -1,0 +1,3 @@
+- Tambahkan pilihan untuk memilih hari per Minggu.
+- Tambah pilihan agar tampilan bawaan muncul saat aplikasi dibuka.
+- Perbaikan kutu aplikasi.
