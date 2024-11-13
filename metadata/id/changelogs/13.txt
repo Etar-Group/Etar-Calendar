@@ -1,0 +1,4 @@
+- Mendukung pembagian kalender melalui ics dan mampu mengimpor/mengekspor kalender dari kartu SD 
+- Menghapus permohonan yang tidak dipakai 
+- Memperbaiki pengaturan pada Android 6
+- Baaanyak kutu yang diperbaiki.
