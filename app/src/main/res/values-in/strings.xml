@@ -17,10 +17,10 @@
     <string name="when_label" msgid="894636567327261599">Waktu</string>
     <string name="today" msgid="8577375020252453006">"Hari ini"</string>
     <string name="tomorrow" msgid="614434811813859237">"Besok"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">Hari ini pada jam <xliff:g id="time_interval">%s</xliff:g></string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Besok pada jam <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Hari ini pada pukul <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Besok pada pukul <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
-    <string name="no_title_label" msgid="302177118061368042">"(Tanpa judul)"</string>
+    <string name="no_title_label" msgid="302177118061368042">(Tiada judul)</string>
     <plurals name="Nminutes">
         <item quantity="other"><xliff:g id="count">%d</xliff:g> menit</item>
     </plurals>
@@ -217,10 +217,10 @@
     <string name="visibility_default">Bawaan</string>
     <string name="visibility_private">Pribadi</string>
     <string name="visibility_public">Publik</string>
-    <string name="goto_date">Kunjungi…</string>
-    <string name="rsvp_accepted">Merespons ya.</string>
-    <string name="rsvp_tentative">Merespons mungkin.</string>
-    <string name="rsvp_declined">Merespons tidak.</string>
+    <string name="goto_date">Lihat tanggal…</string>
+    <string name="rsvp_accepted">Merespons dengan \"ya\".</string>
+    <string name="rsvp_tentative">Merespons dengan \"mungkin\".</string>
+    <string name="rsvp_declined">Merespons dengan \"tidak\".</string>
     <string name="preferences_theme">Tema</string>
     <string name="preferences_light_theme">Terang</string>
     <string name="preferences_dark_theme">Gelap</string>
@@ -318,7 +318,7 @@
     <string name="preferences_list_add_remote_etesync">Tambah kalender EteSync</string>
     <string name="preferences_pure_black_night_mode">Mode malam hitam pekat</string>
     <string name="foreground_notification_channel_name">Proses latar belakang</string>
-    <string name="foreground_notification_channel_description">Notifikasi dibutuhkan untuk sinkronisasi internal. Anda bisa menyembunyikan kanal ini.</string>
+    <string name="foreground_notification_channel_description">Notifikasi dibutuhkan untuk penyinkronan internal. Anda dapat menyembunyikan kanal ini.</string>
     <string name="no_reminder_label">Tak Satu Pun</string>
     <plurals name="Nweeks">
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minggu</item>
