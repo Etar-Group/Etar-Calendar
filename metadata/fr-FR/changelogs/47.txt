@@ -1,0 +1,2 @@
+- Appuyer sur le mois courant pour accéder à Aller à une date
+- Corrections de bogues mineurs
