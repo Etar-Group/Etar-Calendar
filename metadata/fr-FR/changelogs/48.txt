@@ -1,0 +1,4 @@
+- Abandon du support d'Android 5
+- Retour à la vue par défaut plutôt que de fermer
+- Suppression de la notification quand l'évènement est terminé
+- Corrections de bogues mineurs

@@ -1,0 +1,4 @@
+- Ajout de fenêtre de confirmation à l'annulation d'un évènement
+- Ajout d'une option pour empêcher le report de sonnerie
+- Amélioration des balayages gauche/droite et haut/bas dans la vue par mois
+- Corrections de bogues mineurs
