@@ -1,0 +1,4 @@
+- Podpora Drop pre Android 5
+- Prejdite späť na predvolený pohľad namiesto ukončenia
+- Jasné oznámenie po skončení akcie
+- Malé opravy chýb
