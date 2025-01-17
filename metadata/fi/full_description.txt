@@ -1,0 +1,13 @@
+Ominaisuudet:
+- Kuukausinäkymä.
+- Viikko-, päivä- ja esityslistanäkymä.
+- Käyttää Android-kalenterin tallennustilaa näyttääkseen kaikki synkronoidut kalenterit.
+- Materiaalisuunnittelu.
+- Tumma ja vaalea teema.
+- Tukee ei-verkkokalenteria.
+- Esityslista-vimpain.
+- Tukee kalentereiden jakamista ICS:n kautta ja kykyä tuoda / viedä SD-kortilta.
+- Monikielinen käyttöliittymä.
+
+Viat ja palaute: https://github.com/Etar-Group/Etar-Calendar/issues
+Lähdekoodi: https://github.com/Etar-Group/Etar-Calendar
