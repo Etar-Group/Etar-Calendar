@@ -1,0 +1,4 @@
+- Palauta aikavyöhyketietokanta
+- SVG-sovelluskuvake
+- Muokkaa ja aktivoi vimpain uudelleen
+- Uudet käännökset

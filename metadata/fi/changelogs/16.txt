@@ -1,0 +1,7 @@
+- Vimpain poistettiin, käytä kalenteri-vimpainta toistaiseksi: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+- Tuki mukautetuille väritapahtumille.
+- Parempi tuki ics-tiedostoille.
+- Lisää harmaa teema.
+- Tukee näkyvyyttä luottamuksellisesti.
+- Tukee uusia Android-ilmoituskanavia.
+- Paljon viankorjauksia.

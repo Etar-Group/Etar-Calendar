@@ -1,0 +1,7 @@
+- Luo ja näytä muistutuksia tapahtuman alkamisen jälkeen valintaruudun avulla
+- Korjausmuistutus negatiivisilla arvoilla
+- Korjaa aikavyöhykemuutosten aiheuttamat virheelliset ajat
+- Mahdollisuus lisätä uusi tapahtuma vimpain-näytöstä
+- Muokkaa teemavärejä uudelleen
+- Viankorjauksia
+- Uudet käännökset

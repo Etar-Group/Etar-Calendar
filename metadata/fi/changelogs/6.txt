@@ -1,0 +1,3 @@
+- Internet-luvan poistaminen säilyttäen samalla toiminnallisuuden.
+- Lisää "Siirry...".
+- Korjaus: Esityslista-vimpain ei päivity päivittäin.
