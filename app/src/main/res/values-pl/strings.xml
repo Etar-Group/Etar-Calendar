@@ -382,4 +382,8 @@
     <string name="preferences_manage_notifications">Zarządzanie powiadomieniami</string>
     <string name="calendars">Kalendarze</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Używasz tej opcji na własne ryzyko! Powiadomienia nie będą już działać, widżet nie będzie już aktualizowany, a usługi działające w tle ulegną awarii. Ale nie będziesz już więcej pytany, czy chcesz włączyć usługę w tle.</string>
+    <string name="no_snooze_label">Brak</string>
+    <string name="discard_event_changes">Czy chcesz odrzucić wprowadzone zmiany?</string>
+    <string name="discard">Porzuć</string>
+    <string name="cancel">Anuluj</string>
 </resources>
