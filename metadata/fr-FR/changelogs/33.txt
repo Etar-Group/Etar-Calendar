@@ -1,8 +1,8 @@
-- Ajouter une option pour dupliquer les événements
+- Ajouter une option pour dupliquer les évènements
 - Afficher les jours de la semaine sur la tablette
-- Correction d'un crash lors de l'ouverture d'un événement avec un très grand ID
+- Correction d'un crash lors de l'ouverture d'un évènement avec un très grand ID
 - Retravailler le mini calendrier dans la vue tablette
 - Ajout de la prise en charge des icônes d'applications thématiques sous Android 13
-- Affichage des événements de plusieurs jours avec les points de début et de fin corrects
+- Affichage des évènements de plusieurs jours avec les points de début et de fin corrects
 - Corrections de bugs
 - Nouvelles traductions
