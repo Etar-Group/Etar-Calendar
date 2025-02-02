@@ -55,7 +55,7 @@
     <string name="event_view" msgid="7621353079385122317">Afficher l’évènement</string>
     <string name="event_create" msgid="6941040556709110617">Nouvel évènement</string>
     <string name="event_edit" msgid="4006961928830064662">Modifier l’évènement</string>
-    <string name="event_delete" msgid="2386667193277770442">Supprimer l’événement</string>
+    <string name="event_delete" msgid="2386667193277770442">Supprimer l’évènement</string>
     <string name="goto_today" msgid="9162136434410891230">Aujourd’hui</string>
     <string name="goto_date">"Aller au…"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Paramètres"</string>
@@ -275,7 +275,7 @@
     <string name="display_options">Voir les détails</string>
     <string name="display_time">Affichage de l’heure</string>
     <string name="display_location">Affichage du lieu</string>
-    <string name="preferences_default_event_duration_title">Durée d’événement par défaut</string>
+    <string name="preferences_default_event_duration_title">Durée d’évènement par défaut</string>
     <string name="preferences_issues">Signaler des problèmes</string>
     <string name="user_rejected_calendar_write_permission">Etar requiert les droits de lecture et d’écriture de l’agenda pour fonctionner correctement. Veuillez réessayer.</string>
     <string name="calendar_permission_not_granted">Les autorisations requises ont été refusées, veuillez les accorder dans les paramètres de l’application pour modifier les évènements</string>
@@ -306,7 +306,7 @@
     <string name="foreground_notification_channel_description">La synchronisation interne nécessite les notifications. Vous pouvez masquer ce canal en toute sécurité.</string>
     <string name="cal_import_error_time_zone_msg">Impossible de comprendre le fuseau horaire donné : %s</string>
     <string name="preferences_calendar_account">Compte %1$s</string>
-    <string name="preferences_calendar_delete">Suprrimer le calendrier</string>
+    <string name="preferences_calendar_delete">Supprimer le calendrier</string>
     <string name="preferences_calendar_display_name">Modifier le nom</string>
     <string name="preferences_calendar_color">Couleur</string>
     <string name="preferences_calendar_visible">Afficher les évènements</string>
@@ -364,7 +364,7 @@
     <string name="duplicate_label">Dupliquer</string>
     <string name="hint_url">URL</string>
     <string name="add_calendar">Ajouter un agenda</string>
-    <string name="no_calendars_found">Avant d’ajouter un évènement, vous devez ajouter au moins un agenda à votre appareil</string>
+    <string name="no_calendars_found">Avant d\'ajouter un évènement, vous devez ajouter au moins un agenda sur votre appareil</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Utilisez à vos risques et périls ! Les notifications ne fonctionneront plus, le widget ne sera plus mis à jour et les services d\'arrière-plan planteront. Mais vous n\'aurez plus de demande d\'activation du service d\'arrière-plan.</string>
     <string name="preferences_manage_notifications">Gérer les notifications</string>
     <string name="preferences_do_not_check_battery_optimization">Ne pas vérifier l\'optimisation de la batterie</string>
