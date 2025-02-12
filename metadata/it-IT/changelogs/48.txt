@@ -1,0 +1,4 @@
+- Android 5 non più supportato
+- Torna alla vista predefinita invece di uscire
+- Chiudi la notifica dopo la fine dell'evento
+- Piccole correzioni di errori
