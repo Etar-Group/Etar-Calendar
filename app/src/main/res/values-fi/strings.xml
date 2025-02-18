@@ -39,9 +39,9 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Viikko <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Päivitä"</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">Virkistä</string>
     <string name="show_day_view" msgid="5782512782605466016">"Näytä päivä"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Tapahtumat"</string>
     <string name="day_view" msgid="4467754504843584437">"Päivä"</string>
