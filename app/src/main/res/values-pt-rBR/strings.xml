@@ -185,24 +185,29 @@
     <string name="cal_share_intent_title">Enviar evento para:</string>
     <string name="show_time_no">Não</string>
     <plurals name="Nminutes">
-        <item quantity="one">1 minuto</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> minuto</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> de minutos</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">1 min.</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> min.</item>
+        <item quantity="one">%d min</item>
+        <item quantity="many">%d de mins</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">1 hora</item>
+        <item quantity="one">%d hora</item>
+        <item quantity="many">%d de horas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">1 dia</item>
+        <item quantity="one">%d dia</item>
+        <item quantity="many">%d de dias</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="one">semana <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">semanas <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g>ª semana</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g>ª semana</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>ª semana</item>
     </plurals>
     <string name="goto_date">Ir para…</string>
     <string name="no_map">Não existe nenhum aplicativo de mapas instalado</string>
@@ -318,7 +323,8 @@
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="no_reminder_label">Nenhum</string>
     <plurals name="Nweeks">
-        <item quantity="one">1 semana</item>
+        <item quantity="one">%d semana</item>
+        <item quantity="many">%d de semanas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <string name="foreground_notification_title">Agendando novos lembretes…</string>
@@ -334,4 +340,7 @@
     <string name="preferences_do_not_check_battery_optimization_summary">Use por sua própria conta e risco! Notificações não funcionarão mais, o widget não atualizará mais, e serviços em segundo plano irão quebrar. Você não será perguntado novamente se você quer ativar o serviço em segundo plano.</string>
     <string name="no_snooze_label">Nenhuma</string>
     <string name="calendars">Calendários</string>
+    <string name="discard_event_changes">Você gostaria de descartar as alterações?</string>
+    <string name="discard">Descartar</string>
+    <string name="cancel">Cancelar</string>
 </resources>
