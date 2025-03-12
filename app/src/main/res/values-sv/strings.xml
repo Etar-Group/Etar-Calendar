@@ -39,7 +39,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Vecka <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="other">Veckor <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Vecka <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Uppdatera"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Visa dag"</string>
