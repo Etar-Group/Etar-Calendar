@@ -328,10 +328,10 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             // Else, check if the day we tapped has any events scheduled to it.
             int viewJulianDay = Time.getJulianDay(day.normalize(), day.getGmtOffset());
             int dayIndex = viewJulianDay - mFirstJulianDay;
-            boolean dayHasEvents = mEventDayList.subList(dayIndex, dayIndex+1)
+            boolean dayHasEvents = mEventDayList.subList(dayIndex, dayIndex + 1)
                      .stream().anyMatch(l -> !l.isEmpty());
 
-            if(dayHasEvents) {
+            if (dayHasEvents) {
                 // If there are events on that day, switch to the detailed view for that day
                 mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
                         ViewType.DETAIL,
