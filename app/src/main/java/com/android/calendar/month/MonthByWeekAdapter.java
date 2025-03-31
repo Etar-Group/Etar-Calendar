@@ -339,9 +339,8 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                                 | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS, null, null);
             } else {
                 // If there are *no* events on that day, let the user create one
-                long selectedTimeInMillis = mSelectedDay.normalize();
                 mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
-                        selectedTimeInMillis, 0, 0, 0,0, -1);
+                        day.normalize(), 0, 0, 0,0, -1);
             }
         }
     }
