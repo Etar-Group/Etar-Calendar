@@ -325,11 +325,23 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
                     ViewType.CURRENT, CalendarController.EXTRA_GOTO_DATE, null, null);
         } else {
-            // Else , switch to the detailed view
-            mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
-                    ViewType.DETAIL,
-                            CalendarController.EXTRA_GOTO_DATE
-                            | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS, null, null);
+            // Else, check if the day we tapped has any events scheduled to it.
+            int viewJulianDay = Time.getJulianDay(day.normalize(), day.getGmtOffset());
+            int dayIndex = viewJulianDay - mFirstJulianDay;
+            boolean dayHasEvents = mEventDayList.subList(dayIndex, dayIndex + 1)
+                     .stream().anyMatch(l -> !l.isEmpty());
+
+            if (dayHasEvents) {
+                // If there are events on that day, switch to the detailed view for that day
+                mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
+                        ViewType.DETAIL,
+                        CalendarController.EXTRA_GOTO_DATE
+                                | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS, null, null);
+            } else {
+                // If there are *no* events on that day, let the user create one
+                mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
+                        day.normalize(), 0, 0, 0,0, -1);
+            }
         }
     }
 
