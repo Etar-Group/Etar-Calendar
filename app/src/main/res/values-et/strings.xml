@@ -40,7 +40,8 @@
         <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> päeva"</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"Nädal: <xliff:g id="COUNT">%d</xliff:g>"</item>
+        <item quantity="one">Nädal: <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Nädal: <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Värskenda"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Kuva päev"</string>
@@ -236,4 +237,37 @@
     <string name="visibility_public">Avalik</string>
     <string name="no_reminder_label">Puudub</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="add_calendar">Lisa kalender</string>
+    <string name="preferences_month_view_portrait">Kuu vaate paigutus (vertikaalne)</string>
+    <string name="menu_info">Info</string>
+    <string name="preferences_month_view_landscape">Kuu vaate paigutus (horisontaalne)</string>
+    <string name="preferences_light_theme">Hele</string>
+    <string name="display_location">Kuva asukoht</string>
+    <string name="preferences_black_theme">Must</string>
+    <string name="goto_date">Vali päev…</string>
+    <string name="foreground_notification_channel_name">Taustaülesanded</string>
+    <plurals name="Nweeks">
+        <item quantity="one">1 nädal</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> nädalat</item>
+    </plurals>
+    <string name="foreground_notification_title">Uute meeldetuletuste ajastamine…</string>
+    <string name="foreground_notification_channel_description">Sisemiseks sünkroonimiseks tuleb lubada märguanded. Selle kanali saab turvaliselt peita.</string>
+    <string name="rsvp_declined">Vastas ei.</string>
+    <string name="preferences_system_theme">Süsteemi vaikeseade</string>
+    <string name="preferences_color_pick">Peamine värv</string>
+    <string name="preferences_real_event_colors">Kasuta tõelisi sündmuse värve</string>
+    <string name="no_snooze_label">Pole</string>
+    <string name="share_label">Jaga</string>
+    <string name="hint_url">URL</string>
+    <string name="rsvp_accepted">Vastas jah.</string>
+    <string name="no_calendars_found">Enne sündmuse lisamist pead oma seadmesse lisama vähemalt ühe kalendri</string>
+    <string name="no_map">Ühtegi kaardirakendust pole paigaldatud</string>
+    <string name="duplicate_label">Duplikaat</string>
+    <string name="preferences_theme">Teema</string>
+    <string name="preferences_dark_theme">Tume</string>
+    <string name="preferences_color">Peamine värv</string>
+    <string name="preferences_pure_black_night_mode">Süsimust öörežiim</string>
+    <string name="default_start_title">Vaikevaade</string>
+    <string name="display_options">Kuvamise valikud</string>
+    <string name="display_time">Kuva kellaaeg</string>
 </resources>
