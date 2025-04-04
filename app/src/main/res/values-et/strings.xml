@@ -158,7 +158,7 @@
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Otsinguajaloo kustutamine"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Eemaldage kõik tehtud otsingud"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Otsinguajalugu on kustutatud."</string>
-    <string name="preferences_alerts_title" msgid="6636088008103904020">"Teatised"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">Märguanded</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibreerimine"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Heli"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Hüpikteatis"</string>
@@ -168,7 +168,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Kodune ajavöönd"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Kuvab reisides kalendrid ja sündmuste ajad koduse aja järgi"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Kodune ajavöönd"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Nädala numbri kuvamine"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">Kuva nädala number</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Järguversioon"</string>
     <plurals name="month_more_events">
         <item quantity="one" msgid="8971334808414201327">"+1"</item>
@@ -350,4 +350,9 @@
     <string name="preferences_calendar_delete">Kustuta kalender</string>
     <string name="preferences_calendar_info_category">Kalendri teave</string>
     <string name="preferences_calendar_color">Värv</string>
+    <string name="calendars">Kalendrid</string>
+    <string name="discard_event_changes">Kas soovid muudatustest loobuda?</string>
+    <string name="discard">Loobu</string>
+    <string name="cancel">Tühista</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Kasuta omal vastutusel! Märguanded enam ei tööta, vidinat ei värskendata ja taustateenused jooksevad kokku. Kuid taustateenuse lubamise kohta rohkem ei küsita.</string>
 </resources>
