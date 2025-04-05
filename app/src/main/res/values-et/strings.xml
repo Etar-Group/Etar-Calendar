@@ -141,8 +141,8 @@
     <string name="monthly" msgid="4587116285383048586">"Iga kuu"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Iga aasta"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"Kohandatud (ei saa kohandada telefonis)"</string>
-    <string name="modify_event" msgid="5982876409997142690">"Muutke ainult seda sündmust"</string>
-    <string name="modify_all" msgid="4421657265864209041">"Muutke kõiki seeria sündmusi"</string>
+    <string name="modify_event" msgid="5982876409997142690">Muuda ainult seda sündmust</string>
+    <string name="modify_all" msgid="4421657265864209041">Muuda kõiki seeria sündmusi</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Muuda seda sündmust ja kõiki tulevasi sündmusi."</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Uus sündmus"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Uus sündmus"</string>
@@ -156,7 +156,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Nädala algus:"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Nädala algus:"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Otsinguajaloo kustutamine"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Eemaldage kõik tehtud otsingud"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">Eemalda kõik tehtud otsingud</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Otsinguajalugu on kustutatud."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">Märguanded</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibreerimine"</string>
@@ -178,7 +178,7 @@
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimentaalne"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Jäta meeldetul. vahele"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Jäta meeldetul. vahele"</string>
-    <string name="copy_db" msgid="437691290566699292">"Saatke andmebaas"</string>
+    <string name="copy_db" msgid="437691290566699292">Saada andmebaas</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Domeeni <xliff:g id="DOMAIN">%s</xliff:g> otsimine ..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Eemalda osaleja"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Alguskuupäev"</string>
