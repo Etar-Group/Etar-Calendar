@@ -109,9 +109,9 @@
     <string name="agenda_today" msgid="5965841338467422191">"오늘, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"어제, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"내일, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"로드 중..."</string>
-    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> 이전 일정을 보려면 터치하세요."</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> 이후 일정을 보려면 터치하세요."</string>
+    <string name="loading" msgid="3772533493214331230">로드 중…</string>
+    <string name="show_older_events" msgid="5140647493681439926"><xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> 이전 일정을 보려면 터치하세요</string>
+    <string name="show_newer_events" msgid="2604638815440163080"><xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> 이후 일정을 보려면 터치하세요</string>
     <string name="search_title" msgid="8898015280250716254">"내 캘린더 검색"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"세부정보"</string>
     <string name="edit_label" msgid="8934331258435656534">"수정"</string>
@@ -176,7 +176,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"알림 건너뛰기"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"알림 건너뛰기"</string>
     <string name="copy_db" msgid="437691290566699292">"데이터베이스 보내기"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> 검색 중..."</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687"><xliff:g id="DOMAIN">%s</xliff:g> 검색 중…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"참석자 삭제"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"시작일"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"시작 시간"</string>
@@ -268,7 +268,7 @@
     <string name="error_generating_ics">이 이벤트를 공유하는데 문제가있습니다</string>
     <string name="cal_share_intent_title">이벤트 전송 대상:</string>
     <string name="cal_export_event_sdcard_title">sd카드로 보내기</string>
-    <string name="cal_export_succ_msg">이벤트 보내기가 성공적으로 완료됨: %1s</string>
+    <string name="cal_export_succ_msg">일정 내보내기 완료: %1$s</string>
     <string name="cal_import_menu_title">이벤트 가져오기</string>
     <string name="cal_nothing_to_import">가져올것이 없습니다</string>
     <string name="cal_import_error_msg">달력을 가져오는데 실패하였습니다</string>
@@ -281,12 +281,75 @@
     <string name="display_time">디스플레이 시간</string>
     <string name="display_location">디스플레이 위치</string>
     <string name="show_time_no">시간 표시 안 함</string>
-    <string name="show_time_start">오직 시작시간</string>
-    <string name="show_time_start_end">시작시간과 끝나는시간</string>
-    <string name="show_time_start_end_below">이벤트보다 낮은 시작 및 종료 시간</string>
+    <string name="show_time_start">시작 시간만</string>
+    <string name="show_time_start_end">시작/종료 시간</string>
+    <string name="show_time_start_end_below">일정 아래에 시작/종료 시간 표시</string>
     <string name="maximum_number_of_lines">이벤트의 최대 라인 수</string>
     <string name="foreground_notification_channel_name">동기화 경고</string>
-    <string name="foreground_notification_channel_description">Foreground 알림 내부 경계 태세를 동기화에 필요하다. 음소거 해달라</string>
+    <string name="foreground_notification_channel_description">내부 동기화를 위해 필요한 알림입니다. 비활성화해도 괜찮습니다.</string>
     <string name="no_reminder_label">없음</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">일정 시작 이후</string>
+    <string name="four_days">4일</string>
+    <string name="preferences_system_theme">시스템 기본값</string>
+    <string name="menu_info">정보</string>
+    <string name="duplicate_label">복사</string>
+    <string name="source_code">소스 코드</string>
+    <string name="two_days">2일</string>
+    <string name="five_days">5일</string>
+    <string name="six_days">6일</string>
+    <string name="seven_days">7일</string>
+    <string name="preferences_calendar_color">색상</string>
+    <string name="preferences_calendar_visible">일정 표시</string>
+    <string name="preferences_list_calendar_summary_sync_off">동기화 비활성화</string>
+    <string name="preferences_list_calendar_summary_invisible">일정이 표시되지 않습니다</string>
+    <string name="cal_import_error_time_zone_msg">설정된 표준 시간을 불러올 수 없습니다: %s</string>
+    <string name="preferences_calendar_info_category">캘린더 정보</string>
+    <string name="preferences_calendar_synchronize">이 캘린더를 동기화</string>
+    <string name="preferences_calendar_color_warning_title">경고</string>
+    <string name="preferences_calendar_color_warning_button">이해했습니다</string>
+    <string name="preferences_calendar_delete_cancel">취소</string>
+    <string name="preferences_list_add_offline_cancel">취소</string>
+    <string name="preferences_menu_about">Etar에 대해서</string>
+    <string name="discard_event_changes">변경된 내용을 버리시겠습니까?</string>
+    <string name="discard">저장하지 않음</string>
+    <string name="cancel">취소</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
+    <string name="foreground_notification_title">리마인더 일정 생성중…</string>
+    <string name="three_days">3일</string>
+    <string name="no_calendars_found">일정을 추가하기 위해서는 먼저 장치에 캘린더를 추가해야 합니다</string>
+    <string name="authors">개발자</string>
+    <string name="changelog">변경내역</string>
+    <plurals name="Nweeks">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>주</item>
+    </plurals>
+    <string name="preferences_real_event_colors">실제 일정 색상으로 표시</string>
+    <string name="preferences_list_add_remote">CalDAV 캘린더 추가</string>
+    <string name="preferences_calendar_delete_message">이 캘린더를 정말로 삭제하시겠습니까?</string>
+    <string name="preferences_calendar_delete_delete">캘린더 삭제</string>
+    <string name="preferences_calendar_color_warning_message">캘린더를 다시 동기화하면 변경한 색상이 적용되지 않을 수 있습니다.\n\nDAVx⁵에서 \'캘린더 색상 관리\'를 비활성화하여 방지할 수 있습니다.</string>
+    <string name="preferences_manage_notifications">알림 설정 관리</string>
+    <string name="preferences_list_add_remote_etesync">EteSync 캘린더 추가</string>
+    <string name="preferences_list_add_offline">오프라인 캘린더 추가</string>
+    <string name="preferences_list_general">일반 설정</string>
+    <string name="preferences_list_add_offline_title">오프라인 캘린더 추가</string>
+    <string name="preferences_list_add_offline_error_empty">캘린더 이름을 입력해 주십시오!</string>
+    <string name="preferences_list_add_offline_message">오프라인 캘린더는 클라우드 서비스와 동기화되지 않으며 로컬 기기에서만 이용할 수 있습니다.</string>
+    <string name="preferences_list_add_offline_button">캘린더 추가</string>
+    <string name="preferences_list_add_offline_name">이름</string>
+    <string name="offline_account_name">오프라인 캘린더</string>
+    <string name="preferences_do_not_check_battery_optimization">배터리 최적화를 해제해 주십시오</string>
+    <string name="calendars">캘린더</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">사용자의 책임 하에 사용하세요! 알림이 비활성화되고, 위젯이 갱신되지 않으며 백그라운드 서비스가 충돌할 수 있습니다. 백그라운드 서비스를 활성화할지 묻는 메시지가 더 이상 표시되지 않습니다.</string>
+    <string name="hint_url">URL</string>
+    <string name="preferences_pure_black_night_mode">완전 다크모드</string>
+    <string name="preferences_calendar_no_display_name">이름 없는 캘린더</string>
+    <string name="preferences_calendar_account">%1$s 계정</string>
+    <string name="preferences_calendar_configure_account">%1$s에서 캘린더 설정</string>
+    <string name="preferences_calendar_account_local">오프라인 캘린더</string>
+    <string name="preferences_calendar_display_name">이름 변경</string>
+    <string name="preferences_calendar_number_of_events">일정 %1$d건</string>
+    <string name="preferences_calendar_delete">캘린더 삭제</string>
+    <string name="add_calendar">캘린더 추가</string>
+    <string name="no_snooze_label">없음</string>
+    <string name="license">라이센스</string>
 </resources>
