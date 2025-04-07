@@ -1,0 +1,2 @@
+- Android 12 알림 오류 수정
+- DecSync 및 Birthday Adapter를 충돌하지 않도록 "알려진" 앱으로 추가

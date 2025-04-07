@@ -1,0 +1,7 @@
+- 위젯 삭제. 현재는 캘린더 위젯을 사용해 주십시오: https://f-droid.org/de/packages/com.plusonelabs.calendar/
+- 사용자 지정 색상 일정 지원
+- ICS 파일 지원 개선
+- 그레이 테마 추가
+- 숨기기 기능 지원
+- 신규 Android 알림 채널 지원
+- 다수의 버그 수정
