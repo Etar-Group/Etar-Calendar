@@ -1,0 +1,13 @@
+기능:
+- 월별 보기
+- 주간/일간 일정 목록 보기
+- Android 캘린더를 사용하여 동기화된 모든 캘린더를 표시.
+- 머티리얼 디자인
+- 라이트/다크 테마
+- 오프라인 캘린더 기능 지원
+- 일정 표시 위젯
+- ICS를 통한 캘린더 공유 및 SD카드 가져오기/내보내기 기능 지원
+- 다국어 UI
+
+버그 보고 및 피드백: https://github.com/Etar-Group/Etar-Calendar/issues
+소스 코드: https://github.com/Etar-Group/Etar-Calendar
