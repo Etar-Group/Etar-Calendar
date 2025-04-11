@@ -24,16 +24,18 @@
     </string>
     <string name="no_title_label" msgid="302177118061368042">"(Nav nosaukuma)"</string>
     <plurals name="Nminutes">
-        <item quantity="one" msgid="4871052965772159239">"1 minūte"</item>
-        <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minūte(-es)"</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> minūtes</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> minūte</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minūtes</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one" msgid="9191090668359663663">"1 min"</item>
         <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one" msgid="4793697728599296830">"1 stunda"</item>
-        <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> stunda(-as)"</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> stundas</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> stunda</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> stundas</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one" msgid="5988137255732166573">"1 diena"</item>
@@ -174,7 +176,7 @@
         <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Kalendārā nav plānotu pasākumu."</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimentāli"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">Izmēģinājuma</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Izlaist atgādinājumus"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Atgādinājumu izlaišana"</string>
     <string name="copy_db" msgid="437691290566699292">"Nosūtīt datu bāzi"</string>
