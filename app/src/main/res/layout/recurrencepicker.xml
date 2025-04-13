@@ -17,7 +17,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- This outer linear layout protects the fixed dimensions of the dialog.
          The dimensions are not respected if this outer layout is not present. -->
@@ -59,12 +60,13 @@
                         android:gravity="start"
                         android:padding="0dp" />
 
-                    <androidx.appcompat.widget.SwitchCompat
+                    <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/repeat_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="4dp" />
+                        android:layout_marginStart="4dp"
+                        app:thumbTint="@color/preference_material_switch_color"/>
                 </LinearLayout>
 
                 <LinearLayout

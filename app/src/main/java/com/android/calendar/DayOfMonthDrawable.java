@@ -47,7 +47,7 @@ public class DayOfMonthDrawable extends Drawable {
         mTextSize = c.getResources().getDimension(R.dimen.today_icon_text_size);
         mPaint = new Paint();
         mPaint.setAlpha(255);
-        mPaint.setColor(MaterialColors.getColor(c, R.attr.colorControlNormal, Color.BLACK));
+        mPaint.setColor(MaterialColors.getColor(c, android.R.attr.colorControlNormal, Color.BLACK));
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setTextSize(mTextSize);
         mPaint.setTextAlign(Paint.Align.CENTER);

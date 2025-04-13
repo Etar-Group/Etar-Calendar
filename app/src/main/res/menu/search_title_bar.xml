@@ -32,6 +32,6 @@
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
-        android:icon="@drawable/ic_menu_settings"
+        android:icon="@drawable/outline_settings"
         android:title="@string/menu_preferences" />
 </menu>
