@@ -38,13 +38,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginTop="8dp"
             android:background="@null"
             android:focusable="true"
             android:hint="@string/hint_what"
             android:inputType="textAutoCorrect|textCapSentences"
-            android:minHeight="48dip"
+            android:minHeight="40dip"
             android:singleLine="true"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
         <View
             android:id="@+id/view"
             style="@style/EditEventSeparator"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -103,7 +103,9 @@
             android:contentDescription="@string/choose_event_color_label"
             android:enabled="false"
             android:scaleType="center"
-            android:src="@drawable/ic_colorpicker"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:src="@drawable/outline_color_lens"
             app:layout_constraintBottom_toBottomOf="@+id/calendars_spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/calendars_spinner"
@@ -143,7 +145,7 @@
             android:id="@+id/is_all_day"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/accessibility_all_day"
             android:gravity="center_vertical|end"
             app:layout_constraintBottom_toBottomOf="@+id/is_all_day_label"
@@ -156,68 +158,60 @@
 
         <Button
             android:id="@+id/start_date"
-            style="@style/TextAppearance.EditEvent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/accessibility_pick_start_date"
             android:gravity="start|center_vertical"
-            android:paddingHorizontal="0dp"
+            android:paddingHorizontal="12dp"
             android:textAlignment="textStart"
-            app:layout_constraintEnd_toStartOf="@+id/start_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/is_all_day_label" />
 
         <Button
             android:id="@+id/end_date"
-            style="@style/TextAppearance.EditEvent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_pick_end_date"
             android:gravity="start|center_vertical"
-            android:paddingHorizontal="0dp"
+            android:paddingHorizontal="12dp"
             android:textAlignment="textStart"
-            app:layout_constraintEnd_toStartOf="@+id/end_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_date" />
 
         <Button
             android:id="@+id/start_time"
-            style="@style/TextAppearance.EditEvent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/accessibility_pick_start_time"
             android:gravity="end|center_vertical"
             android:minWidth="48dp"
+            android:paddingHorizontal="12dp"
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@+id/start_date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/start_date"
             app:layout_constraintTop_toTopOf="@+id/start_date" />
 
         <Button
             android:id="@+id/end_time"
-            style="@style/TextAppearance.EditEvent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="12dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/accessibility_pick_end_time"
             android:gravity="end|center_vertical"
             android:minWidth="48dp"
+            android:paddingHorizontal="12dp"
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@+id/end_date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/end_date"
-            app:layout_constraintTop_toBottomOf="@+id/start_time" />
+            app:layout_constraintTop_toBottomOf="@+id/start_date" />
 
         <!-- TIME ZONE - Read/write version with button to launch picker -->
         <ImageView
@@ -225,21 +219,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginBottom="22dp"
             android:src="@drawable/ic_outline_public"
-            app:layout_constraintBottom_toBottomOf="@+id/view7"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/timezone_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/timezone_button" />
 
         <Button
             android:id="@+id/timezone_button"
-            style="@style/TextAppearance.EditEvent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/accessibility_pick_time_zone"
-            android:gravity="start"
+            android:gravity="start|center_vertical"
             android:lineSpacingExtra="4dp"
             android:paddingHorizontal="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -249,7 +242,7 @@
         <View
             android:id="@+id/view7"
             style="@style/EditEventSeparator"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timezone_button" />
@@ -369,26 +362,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="14dp"
             android:src="@drawable/ic_outline_person_add"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
+            app:layout_constraintBottom_toBottomOf="@+id/add_attendees_row"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/add_attendees_row"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/attendees_icon"
-            app:layout_constraintTop_toBottomOf="@+id/view2">
+            app:layout_constraintTop_toTopOf="@+id/view2">
 
             <com.android.calendar.chips.RecipientEditTextView
                 android:id="@+id/attendees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dip"
                 android:hint="@string/hint_attendees"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress|textMultiLine|textCapWords"
@@ -401,10 +394,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginBottom="14dp"
             android:src="@drawable/ic_outline_place"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/where_row" />
+            app:layout_constraintBottom_toBottomOf="@+id/where_row"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/where_row"
@@ -432,12 +425,12 @@
         <ImageView
             android:id="@+id/description_icon"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginBottom="14dp"
             android:src="@drawable/ic_outline_notes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/description_row" />
+            app:layout_constraintBottom_toBottomOf="@+id/description_row"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_row"
@@ -464,12 +457,12 @@
         <ImageView
             android:id="@+id/url_icon"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginBottom="14dp"
             android:src="@drawable/ic_outline_link"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/url_row" />
+            app:layout_constraintBottom_toBottomOf="@+id/url_row"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/url_row"
@@ -495,6 +488,7 @@
         <View
             android:id="@+id/view3"
             style="@style/EditEventSeparator"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/url_row" />
@@ -512,14 +506,14 @@
 
         <Button
             android:id="@+id/rrule"
-            style="@style/TextAppearance.EditEvent"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="32dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/accessibility_pick_recurrence"
             android:gravity="start|center_vertical"
+            android:paddingHorizontal="12dp"
             android:text="@string/does_not_repeat"
             app:layout_constraintBottom_toBottomOf="@+id/rrule_icon"
             app:layout_constraintEnd_toEndOf="parent"
@@ -529,6 +523,7 @@
         <View
             android:id="@+id/view4"
             style="@style/EditEventSeparator"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rrule_icon" />
@@ -564,9 +559,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="12dp"
             android:contentDescription="@string/accessibility_add_reminder"
-            android:minHeight="20dip"
             android:text="@string/reminders_label"
             app:layout_constraintStart_toEndOf="@+id/reminder_icon"
             app:layout_constraintTop_toBottomOf="@+id/reminder_items_container" />
@@ -574,6 +569,7 @@
         <View
             android:id="@+id/view5"
             style="@style/EditEventSeparator"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reminder_add" />

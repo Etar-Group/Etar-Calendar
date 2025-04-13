@@ -78,7 +78,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
                 accountCategory = PreferenceCategory(requireContext()).apply {
                     key = accountCategoryUniqueKey
                     title = calendar.accountName
-                    icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_account_circle)
+                    icon = ContextCompat.getDrawable(requireContext(), R.drawable.outline_account_circle)
                     order = if (calendar.isLocal) 10 else 11 // show offline calendar first
                     isOrderingAsAdded = false // use alphabetic ordering for children
                 }
@@ -154,7 +154,7 @@ class MainListPreferences : PreferenceFragmentCompat() {
     private fun addGeneralPreferences(screen: PreferenceScreen) {
         val generalPreference = Preference(requireContext()).apply {
             title = getString(R.string.preferences_list_general)
-            icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_settings)
+            icon = ContextCompat.getDrawable(requireContext(), R.drawable.outline_settings)
             fragment = GeneralPreferences::class.java.name
         }
         val addCaldavPreference = Preference(requireContext()).apply {
