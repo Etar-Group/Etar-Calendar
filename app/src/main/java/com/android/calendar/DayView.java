@@ -20,7 +20,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -80,6 +79,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendarcommon2.Time;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -4996,7 +4996,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             flags |= DateUtils.FORMAT_24HOUR;
         }
         mLongPressTitle = Utils.formatDateRange(mContext, time, time, flags);
-        new AlertDialog.Builder(mContext).setTitle(mLongPressTitle)
+        new MaterialAlertDialogBuilder(mContext)
+                .setTitle(mLongPressTitle)
                 .setItems(mLongPressItems, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
