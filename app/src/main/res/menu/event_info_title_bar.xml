@@ -18,12 +18,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/info_action_edit"
         android:alphabeticShortcut="e"
-        android:icon="@drawable/ic_edit_event"
+        android:icon="@drawable/outline_edit_event"
         android:title="@string/edit_label"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/info_action_delete"
         android:alphabeticShortcut="d"
-        android:icon="@drawable/ic_delete_event"
+        android:icon="@drawable/outline_delete_event"
         android:title="@string/delete_label"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/info_action_duplicate"
@@ -34,16 +34,16 @@
     <item android:id="@+id/info_action_share_event"
         android:alphabeticShortcut="s"
         android:title="@string/share_label"
-        android:icon="@drawable/ic_share_event"
+        android:icon="@drawable/outline_share_event"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/info_action_export"
         android:alphabeticShortcut="x"
         android:title="@string/cal_export_event_sdcard_title"
-        android:icon="@drawable/ic_save_event"
+        android:icon="@drawable/outline_save_event"
         app:showAsAction="ifRoom"/>
     <item android:id='@+id/info_action_change_color'
         android:alphabeticShortcut="c"
-        android:icon="@drawable/ic_colorpicker"
+        android:icon="@drawable/outline_color_lens"
         android:title="@string/choose_event_color_label"
         app:showAsAction="ifRoom" />
 </menu>

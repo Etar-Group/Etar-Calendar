@@ -104,7 +104,7 @@
                             android:enabled="false"
                             android:padding="8dip"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_colorpicker"
+                            android:src="@drawable/outline_color_lens"
                             android:visibility="gone"
                             app:tint="@color/titleTextColor" />
                         <ImageButton
@@ -117,7 +117,7 @@
                             android:enabled="false"
                             android:padding="8dip"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_edit_event"
+                            android:src="@drawable/outline_edit_event"
                             android:visibility="gone" />
                         <ImageButton
                             android:id="@+id/delete"
@@ -128,7 +128,7 @@
                             android:enabled="false"
                             android:padding="8dip"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_delete_event"
+                            android:src="@drawable/outline_delete_event"
                             android:visibility="gone" />
                     </LinearLayout>
                 </LinearLayout>
@@ -330,7 +330,7 @@
                     android:layout_marginEnd="0dp"
                     android:layout_marginTop="0dip"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableStart="@drawable/ic_email"
+                    android:drawableStart="@drawable/outline_email"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:paddingBottom="0dp"
