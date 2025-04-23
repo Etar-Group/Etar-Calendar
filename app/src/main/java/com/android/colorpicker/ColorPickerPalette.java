@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar.colorpicker;
+package com.android.colorpicker;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -25,9 +25,9 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import com.android.colorpicker.ColorPickerDialog;
-import com.android.colorpicker.ColorPickerSwatch;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+
+import ws.xsoh.etar.R;
 
 /**
  * A color picker custom view which creates an grid of color squares.  The number of squares per
@@ -60,16 +60,16 @@ public class ColorPickerPalette extends TableLayout {
         mNumColumns = columns;
         Resources res = getResources();
         if (size == ColorPickerDialog.SIZE_LARGE) {
-            mSwatchLength = res.getDimensionPixelSize(com.android.colorpicker.R.dimen.color_swatch_large);
-            mMarginSize = res.getDimensionPixelSize(com.android.colorpicker.R.dimen.color_swatch_margins_large);
+            mSwatchLength = res.getDimensionPixelSize(R.dimen.color_swatch_large);
+            mMarginSize = res.getDimensionPixelSize(R.dimen.color_swatch_margins_large);
         } else {
-            mSwatchLength = res.getDimensionPixelSize(com.android.colorpicker.R.dimen.color_swatch_small);
-            mMarginSize = res.getDimensionPixelSize(com.android.colorpicker.R.dimen.color_swatch_margins_small);
+            mSwatchLength = res.getDimensionPixelSize(R.dimen.color_swatch_small);
+            mMarginSize = res.getDimensionPixelSize(R.dimen.color_swatch_margins_small);
         }
         mOnColorSelectedListener = listener;
 
-        mDescription = res.getString(com.android.colorpicker.R.string.color_swatch_description);
-        mDescriptionSelected = res.getString(com.android.colorpicker.R.string.color_swatch_description_selected);
+        mDescription = res.getString(R.string.color_swatch_description);
+        mDescriptionSelected = res.getString(R.string.color_swatch_description_selected);
     }
 
     private TableRow createTableRow() {
@@ -185,8 +185,8 @@ public class ColorPickerPalette extends TableLayout {
     /**
      * Creates a color swatch.
      */
-    private com.android.colorpicker.ColorPickerSwatch createColorSwatch(int color, int selectedColor) {
-        com.android.colorpicker.ColorPickerSwatch view = new ColorPickerSwatch(getContext(), color,
+    private ColorPickerSwatch createColorSwatch(int color, int selectedColor) {
+        ColorPickerSwatch view = new ColorPickerSwatch(getContext(), color,
                 color == selectedColor, mOnColorSelectedListener);
         TableRow.LayoutParams params = new TableRow.LayoutParams(mSwatchLength, mSwatchLength);
         params.setMargins(mMarginSize, mMarginSize, mMarginSize, mMarginSize);
