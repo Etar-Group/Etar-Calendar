@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar.colorpicker;
+package com.android.colorpicker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,8 +26,9 @@ import android.widget.ProgressBar;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.android.colorpicker.ColorPickerPalette;
 import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+
+import ws.xsoh.etar.R;
 
 /**
  * A dialog which takes in as input an array of colors and creates a palette allowing the user to
@@ -47,7 +48,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     protected static final String KEY_COLUMNS = "columns";
     protected static final String KEY_SIZE = "size";
 
-    protected int mTitleResId = com.android.colorpicker.R.string.color_picker_default_title;
+    protected int mTitleResId = R.string.color_picker_default_title;
     protected int[] mColors = null;
     protected String[] mColorContentDescriptions = null;
     protected int mSelectedColor;
@@ -109,9 +110,9 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Activity activity = getActivity();
 
-        View view = LayoutInflater.from(getActivity()).inflate(com.android.colorpicker.R.layout.color_picker_dialog, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.color_picker_dialog, null);
         mProgress = (ProgressBar) view.findViewById(android.R.id.progress);
-        mPalette = (ColorPickerPalette) view.findViewById(com.android.colorpicker.R.id.color_picker);
+        mPalette = (ColorPickerPalette) view.findViewById(R.id.color_picker);
         mPalette.init(mSize, mColumns, this);
 
         if (mColors != null) {
