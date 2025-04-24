@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.colorpicker;
+package com.android.calendar.colorpicker;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 
 import ws.xsoh.etar.R;
 

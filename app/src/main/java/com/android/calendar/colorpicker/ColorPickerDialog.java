@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.colorpicker;
+package com.android.calendar.colorpicker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,7 +26,7 @@ import android.widget.ProgressBar;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 
 import ws.xsoh.etar.R;
 

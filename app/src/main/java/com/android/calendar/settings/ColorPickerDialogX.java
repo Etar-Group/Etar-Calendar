@@ -10,8 +10,8 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.android.colorpicker.ColorPickerPalette;
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.colorpicker.ColorPickerPalette;
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ws.xsoh.etar.R;
