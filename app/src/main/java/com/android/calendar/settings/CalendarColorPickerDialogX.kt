@@ -29,8 +29,8 @@ import android.provider.CalendarContract.Colors
 import android.util.SparseIntArray
 import com.android.calendar.AsyncQueryService
 import com.android.calendar.Utils
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener
-import com.android.colorpicker.HsvColorComparator
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener
+import com.android.calendar.colorpicker.HsvColorComparator
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ws.xsoh.etar.R
 import java.util.ArrayList
@@ -208,7 +208,9 @@ class CalendarColorPickerDialogX : ColorPickerDialogX() {
     }
 
     private fun setColorPalette(colorsToSort: Array<Int>) {
-        Arrays.sort(colorsToSort, HsvColorComparator())
+        Arrays.sort(colorsToSort,
+            HsvColorComparator()
+        )
         mColors = IntArray(colorsToSort.size)
         for (i in mColors.indices) {
             mColors[i] = colorsToSort[i]

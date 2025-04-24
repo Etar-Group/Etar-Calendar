@@ -20,7 +20,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.android.colorpicker.ColorPickerDialog;
+import com.android.calendar.colorpicker.ColorPickerDialog;
 
 import ws.xsoh.etar.R;
 

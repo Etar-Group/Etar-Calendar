@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.colorpicker;
+package com.android.calendar.colorpicker;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
