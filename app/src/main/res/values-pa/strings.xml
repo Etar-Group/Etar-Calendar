@@ -79,11 +79,6 @@
         <item quantity="one">1 ਹਫ਼ਤਾ</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> \u0020ਹਫ਼ਤੇ</item>
     </plurals>
-
-    <string name="color_picker_default_title" msgid="1248663997452044787">"ਇੱਕ ਰੰਗ ਚੁਣੋ"</string>
-    <string name="color_swatch_description" msgid="2883438431173736180">"ਰੰਗ <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
-    <string name="color_swatch_description_selected" msgid="5020921249944943124">"ਰੰਗ <xliff:g id="COLOR_INDEX">%1$d</xliff:g> ਚੁਣਿਆ ਗਿਆ"</string>
-
     <string name="hint_time_zone_search" msgid="804776560897143016">"ਦੇਸ਼ ਦਾ ਨਾਮ ਟਾਈਪ ਕਰੋ"</string>
     <string name="searchview_description_clear" msgid="1603860069305867810">"ਸਵਾਲ ਹਟਾਓ"</string>
     <string name="no_results_found" msgid="5475293015394772651">"ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਮਿਲੇ।"</string>
