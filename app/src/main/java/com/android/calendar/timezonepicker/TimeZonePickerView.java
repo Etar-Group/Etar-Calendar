@@ -35,6 +35,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.core.content.ContextCompat;
+
 import ws.xsoh.etar.R;
 
 public class TimeZonePickerView extends LinearLayout implements TextWatcher, OnItemClickListener,
@@ -117,8 +119,7 @@ public class TimeZonePickerView extends LinearLayout implements TextWatcher, OnI
 
     private void updateHint(int hintTextId, int imageDrawableId) {
         String hintText = getResources().getString(hintTextId);
-        Drawable searchIcon = getResources().getDrawable(imageDrawableId);
-
+        Drawable searchIcon = ContextCompat.getDrawable(getContext(), imageDrawableId);
         SpannableStringBuilder ssb = new SpannableStringBuilder("   "); // for the icon
         ssb.append(hintText);
         int textSize = (int) (mAutoCompleteTextView.getTextSize() * 1.25);
