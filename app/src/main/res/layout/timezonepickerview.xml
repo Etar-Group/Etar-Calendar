@@ -16,11 +16,10 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="300dp"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,7 +39,7 @@
             android:imeOptions="actionDone"
             android:minHeight="48dp"
             android:singleLine="true"
-            android:paddingRight="30dp" >
+            android:paddingEnd="30dp" >
         </AutoCompleteTextView>
         <ImageButton
             android:id="@+id/clear_search"
@@ -50,8 +49,8 @@
             android:paddingEnd="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_gravity="right|center_vertical"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="end|center_vertical"
             android:background="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_clear_search_holo_light"
             android:visibility="gone"
@@ -62,7 +61,6 @@
         android:id="@+id/timezonelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFECECEC"
         android:choiceMode="singleChoice" >
     </ListView>
 </LinearLayout>

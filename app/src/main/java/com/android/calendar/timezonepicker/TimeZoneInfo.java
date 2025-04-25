@@ -22,12 +22,9 @@ import android.text.Spannable.Factory;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.util.SparseArray;
 
-import java.lang.reflect.Field;
 import java.text.DateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
