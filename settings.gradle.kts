@@ -17,6 +17,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Etar-Calendar"
 include(":external:calendar")
-include(":external:timezonepicker")
 include(":external:chips")
 include(":app")

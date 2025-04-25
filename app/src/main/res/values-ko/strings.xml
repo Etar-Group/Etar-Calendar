@@ -289,4 +289,8 @@
     <string name="foreground_notification_channel_description">Foreground 알림 내부 경계 태세를 동기화에 필요하다. 음소거 해달라</string>
     <string name="no_reminder_label">없음</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"국가 입력"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"검색어 삭제"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"검색결과 없음"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"팔레스타인"</string>
 </resources>

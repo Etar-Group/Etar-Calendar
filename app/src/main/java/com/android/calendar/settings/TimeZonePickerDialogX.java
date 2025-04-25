@@ -26,8 +26,8 @@ import android.view.WindowManager;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.android.timezonepicker.TimeZoneInfo;
-import com.android.timezonepicker.TimeZonePickerView;
+import com.android.calendar.timezonepicker.TimeZoneInfo;
+import com.android.calendar.timezonepicker.TimeZonePickerView;
 
 import org.jetbrains.annotations.NotNull;
 

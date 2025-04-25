@@ -236,4 +236,8 @@
     <string name="visibility_public">สาธารณะ</string>
     <string name="no_reminder_label">ไม่มี</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"พิมพ์ชื่อประเทศ"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"ล้างข้อความค้นหา"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"ไม่พบผลการค้นหา"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"ปาเลสไตน์"</string>
 </resources>

@@ -356,4 +356,8 @@
     <string name="discard_event_changes">Möchten Sie die Änderungen verwerfen?</string>
     <string name="discard">Verwerfen</string>
     <string name="cancel">Abbrechen</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Ländernamen eingeben"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Suchanfrage löschen"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Keine Ergebnisse gefunden"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palästina"</string>
 </resources>

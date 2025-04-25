@@ -424,4 +424,8 @@
     </plurals>
     <string name="menu_info">المعلومات</string>
     <string name="preferences_real_event_colors">إستعمل لون الحدث الحقيقي</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"أدخِل اسم البلد"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"محو طلب البحث"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"لم يتم العثور على نتائج"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"فلسطين"</string>
 </resources>

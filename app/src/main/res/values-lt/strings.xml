@@ -367,4 +367,8 @@
     <string name="hint_url">Nuoroda</string>
     <string name="no_calendars_found">Prieš pridėdami įvykį, turite į įrenginį pridėti bent vieną kalendorių</string>
     <string name="add_calendar">Pridėti kalendorių</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Įveskite šalies pavad."</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Išvalyti užklausą"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Nerasta jokių rezultatų"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
 </resources>

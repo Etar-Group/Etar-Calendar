@@ -326,4 +326,8 @@
     <string name="menu_info">Información</string>
     <string name="foreground_notification_title">Programando novos recordatorios…</string>
     <string name="duplicate_label">Duplicar</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Escribe o nome do país"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Borrar consulta"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Ningún resultado"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
 </resources>

@@ -389,4 +389,8 @@
     <string name="discard_event_changes">למחוק שינויים?</string>
     <string name="discard">התעלמות</string>
     <string name="cancel">ביטול</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"יש להזין את שם המדינה"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"מחיקת השאילתה"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"לא נמצאו תוצאות"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"הרשות הפלסטינית"</string>
 </resources>
