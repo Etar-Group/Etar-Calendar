@@ -355,4 +355,8 @@
     <string name="discard">Loobu</string>
     <string name="cancel">Tühista</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Kasuta omal vastutusel! Märguanded enam ei tööta, vidinat ei värskendata ja taustateenused jooksevad kokku. Kuid taustateenuse lubamise kohta rohkem ei küsita.</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Sisestage riigi nimi"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Päringu tühistamine"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Tulemusi ei leitud"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestiina"</string>
 </resources>

@@ -370,4 +370,8 @@
     <string name="preferences_do_not_check_battery_optimization_summary">Utilizați pe propriul risc! Notificările nu vor mai funcționa, widget-urile nu se vor mai actualiza și serviciile din fundal se vor bloca. Dar nu veți mai fi întrebat din nou dacă doriți să activați serviciul de fundal.</string>
     <string name="calendars">Calendare</string>
     <string name="no_snooze_label">Niciuna</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Introdu numele țării"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Șterge interogarea"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Niciun rezultat"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>c
 </resources>

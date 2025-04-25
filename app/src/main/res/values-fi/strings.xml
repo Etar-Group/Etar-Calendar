@@ -330,4 +330,8 @@
     <string name="foreground_notification_channel_name">Hälytyksen synkronointi</string>
     <string name="no_reminder_label">Ei mitään</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Anna maan nimi"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Tyhjennä kysely"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Ei tuloksia"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestiina"</string>
 </resources>
