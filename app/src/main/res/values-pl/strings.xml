@@ -382,4 +382,8 @@
     <string name="preferences_manage_notifications">Zarządzanie powiadomieniami</string>
     <string name="calendars">Kalendarze</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Używasz tej opcji na własne ryzyko! Powiadomienia nie będą już działać, widżet nie będzie już aktualizowany, a usługi działające w tle ulegną awarii. Ale nie będziesz już więcej pytany, czy chcesz włączyć usługę w tle.</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Wpisz nazwę kraju"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Wyczyść zapytanie"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Nie znaleziono wyników"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestyna"</string>
 </resources>

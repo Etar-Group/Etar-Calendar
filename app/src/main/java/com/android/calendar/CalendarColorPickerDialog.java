@@ -28,9 +28,9 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
 import android.util.SparseIntArray;
 
-import com.android.colorpicker.ColorPickerDialog;
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
-import com.android.colorpicker.HsvColorComparator;
+import com.android.calendar.colorpicker.ColorPickerDialog;
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.colorpicker.HsvColorComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

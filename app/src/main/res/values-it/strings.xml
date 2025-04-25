@@ -373,4 +373,8 @@
     <string name="discard_event_changes">Vuoi scartare le modifiche?</string>
     <string name="discard">Scarta</string>
     <string name="cancel">Annulla</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Digita il nome del Paese"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Cancella query"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Nessun risultato trovato"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
 </resources>

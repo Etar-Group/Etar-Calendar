@@ -369,4 +369,8 @@
     <string name="calendars">Calendários</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Use por sua própria conta e risco! Notificações já não funcionarão, o widget não atualizará mais, e serviços em segundo plano irão quebrar. Não será perguntado novamente se quer ativar o serviço em segundo plano.</string>
     <string name="no_snooze_label">Nenhum</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Digite o nome do país"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Limpar consulta"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Nenhum resultado encontrado"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
 </resources>

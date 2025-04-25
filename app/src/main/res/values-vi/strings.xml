@@ -336,4 +336,8 @@
     <string name="duplicate_label">Nhân đôi</string>
     <string name="add_calendar">Thêm lịch</string>
     <string name="no_calendars_found">Trước khi có thể thêm sự kiện, bạn phải thêm ít nhất một lịch vào thiết bị của mình</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Nhập tên quốc gia"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Xóa truy vấn"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Không tìm thấy kết quả"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestine"</string>
 </resources>

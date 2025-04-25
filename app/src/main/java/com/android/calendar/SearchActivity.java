@@ -45,6 +45,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
@@ -92,12 +93,11 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
     };
     private BroadcastReceiver mTimeChangesReceiver;
     private ContentResolver mContentResolver;
-    private final DynamicTheme dynamicTheme = new DynamicTheme();
 
     @Override
     protected void onCreate(Bundle icicle) {
+        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         super.onCreate(icicle);
-        dynamicTheme.onCreate(this);
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
         mHandler = new Handler();
@@ -314,7 +314,6 @@ public class SearchActivity extends AppCompatActivity implements CalendarControl
     @Override
     protected void onResume() {
         super.onResume();
-        dynamicTheme.onResume(this);
 
         Utils.setMidnightUpdater(
                 mHandler, mTimeChangesUpdater, Utils.getTimeZone(this, mTimeChangesUpdater));
