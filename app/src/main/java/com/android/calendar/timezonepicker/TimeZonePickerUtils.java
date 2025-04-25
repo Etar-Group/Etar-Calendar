@@ -143,11 +143,7 @@ public class TimeZonePickerUtils {
     }
 
     public static char getDstSymbol() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            return '\u2600'; // The Sun emoji icon.
-        } else {
-            return '*';
-        }
+        return '\u2600'; // The Sun emoji icon.
     }
 
     /**
