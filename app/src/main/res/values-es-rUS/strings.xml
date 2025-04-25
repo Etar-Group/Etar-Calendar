@@ -346,7 +346,6 @@
     <string name="preferences_calendar_delete_cancel">Cancelar</string>
     <string name="preferences_calendar_color_warning_button">entiendo</string>
     <string name="preferences_calendar_delete_message">¿Realmente quieres eliminar este calendario\?</string>
-
     <string name="hint_time_zone_search" msgid="804776560897143016">"Escribe el país."</string>
     <string name="searchview_description_clear" msgid="1603860069305867810">"Eliminar la consulta"</string>
     <string name="no_results_found" msgid="5475293015394772651">"No se encontró ningún resultado."</string>

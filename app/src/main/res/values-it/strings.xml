@@ -373,11 +373,6 @@
     <string name="discard_event_changes">Vuoi scartare le modifiche?</string>
     <string name="discard">Scarta</string>
     <string name="cancel">Annulla</string>
-
-    <string name="color_picker_default_title" msgid="1248663997452044787">"Seleziona un colore"</string>
-    <string name="color_swatch_description" msgid="2883438431173736180">"Colore <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
-    <string name="color_swatch_description_selected" msgid="5020921249944943124">"Colore selezionato: <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
-
     <string name="hint_time_zone_search" msgid="804776560897143016">"Digita il nome del Paese"</string>
     <string name="searchview_description_clear" msgid="1603860069305867810">"Cancella query"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Nessun risultato trovato"</string>
