@@ -345,4 +345,15 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> εβδομάδες</item>
     </plurals>
     <string name="menu_info">Πληροφορίες</string>
+    <string name="preferences_real_event_colors">Χρήση πραγματικών χρωμάτων συμβάντων</string>
+    <string name="duplicate_label">Διπλότυπο</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Χρήση με δική σας ευθύνη! Οι ειδοποιήσεις δεν θα λειτουργούν πλέον, το widget δεν θα ενημερώνεται πλέον και οι υπηρεσίες παρασκηνίου θα καταρρεύσουν. Αλλά δεν θα σας ρωτήσουν ξανά αν θέλετε να ενεργοποιήσετε την υπηρεσία παρασκηνίου.</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="preferences_do_not_check_battery_optimization">Μην ελέγχετε τη βελτιστοποίηση της μπαταρίας</string>
+    <string name="preferences_manage_notifications">Διαχείριση ειδοποιήσεων</string>
+    <string name="no_calendars_found">Προτού μπορέσετε να προσθέσετε ένα συμβάν, πρέπει να προσθέσετε τουλάχιστον ένα ημερολόγιο στη συσκευή σας.</string>
+    <string name="preferences_pure_black_night_mode">Καθαρή μαύρη νυχτερινή λειτουργία</string>
+    <string name="calendars">Ημερολόγια</string>
+    <string name="discard_event_changes">Θέλετε να απορρίψετε τις αλλαγές;</string>
+    <string name="discard">Απόρριψη</string>
 </resources>
