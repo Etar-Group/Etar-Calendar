@@ -1,0 +1,4 @@
+- Ta bort stöd för android 5
+- Gå tillbaka till standard-vyn istället för att sluta
+- Rensa avisering efter att evenemanget har slutat
+- Små buggfixar
