@@ -237,8 +237,8 @@
     <string name="preferences_alerts_custom_snooze_delay_summary_on">Duur van sluimer-pauze vragen</string>
     <string name="preferences_alerts_custom_snooze_delay_summary_off">Altijd standaard sluimer-pauze gebruiken</string>
     <string name="snooze_delay_dialog_title">Duur sluimer-pauze instellen</string>
-    <string name="preferences_default_snooze_delay_title">Standaard sluimer-pauze duur</string>
-    <string name="preferences_default_snooze_delay_dialog">Standaard sluimer-pauze duur</string>
+    <string name="preferences_default_snooze_delay_title">Standaard sluimer-pauzeduur</string>
+    <string name="preferences_default_snooze_delay_dialog">Standaard sluimer-pauzeduur</string>
     <string name="goto_date">Ga naar…</string>
     <string name="rsvp_accepted">Antwoord is Ja.</string>
     <string name="rsvp_tentative">Antwoord is Misschien.</string>
