@@ -312,7 +312,7 @@
     <string name="cal_pick_ics">Vyberte soubor pro import</string>
     <string name="view_settings">Nastavení zobrazení</string>
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Části © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
-    <string name="preferences_menu_about">O Etar</string>
+    <string name="preferences_menu_about">O aplikaci</string>
     <string name="preferences_list_add_offline_button">Přidat kalendář</string>
     <string name="preferences_list_add_offline_message">Offline kalendáře NEJSOU synchronizovány s webovou službou a jsou dostupné pouze na vašem telefonu.</string>
     <string name="preferences_list_add_offline_error_empty">Zadejte název kalendáře!</string>
