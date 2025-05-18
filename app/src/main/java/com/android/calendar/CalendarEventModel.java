@@ -298,7 +298,7 @@ public class CalendarEventModel implements Serializable {
     }
 
     public void addAttendee(Attendee attendee) {
-        mAttendeesList.put(attendee.mEmail, attendee);
+        mAttendeesList.put(attendee.identifierKey(), attendee);
     }
 
     public void addAttendees(String attendees, Rfc822Validator validator) {
@@ -316,7 +316,7 @@ public class CalendarEventModel implements Serializable {
     }
 
     public void removeAttendee(Attendee attendee) {
-        mAttendeesList.remove(attendee.mEmail);
+        mAttendeesList.remove(attendee.identifierKey());
     }
 
     public String getAttendeesString() {
@@ -835,9 +835,19 @@ public class CalendarEventModel implements Serializable {
             mIdNamespace = idNamespace;
         }
 
+        public String identifierKey() {
+            if (mEmail != null) {
+                return mEmail;
+            } else if (mIdNamespace != null && mIdentity != null) {
+                return mIdNamespace + ":" + mIdentity;
+            }
+
+            return mName;
+        }
+
         @Override
         public int hashCode() {
-            return (mEmail == null) ? 0 : mEmail.hashCode();
+            return (identifierKey() == null ? 0 : identifierKey().hashCode());
         }
 
         @Override
@@ -849,7 +859,7 @@ public class CalendarEventModel implements Serializable {
                 return false;
             }
             Attendee other = (Attendee) obj;
-            if (!TextUtils.equals(mEmail, other.mEmail)) {
+            if (!TextUtils.equals(identifierKey(), other.identifierKey())) {
                 return false;
             }
             return true;
