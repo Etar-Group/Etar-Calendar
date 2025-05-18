@@ -246,7 +246,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                 continue;
             }
             AttendeeItem attendeeItem = (AttendeeItem) view.getTag();
-            if (TextUtils.equals(attendee.mEmail, attendeeItem.mAttendee.mEmail)) {
+            if (TextUtils.equals(attendee.identifierKey(), attendeeItem.mAttendee.identifierKey())) {
                 return true;
             }
         }
