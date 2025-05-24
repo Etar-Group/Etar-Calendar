@@ -436,7 +436,7 @@
         <item>"America/Porto_Velho"</item>
         <!-- Non DST version -->
         <item>"America/Belem"</item>
-</string-array>
+    </string-array>
 
     <!--
         Replacement display strings for time zones. The order should match the entries in
@@ -482,7 +482,7 @@
         <item>"Amazon - Rondônia"</item>
         <!-- Non DST version of Brasilia Standard Time -->
         <item>"Brasilia - Pará"</item>
-        </string-array>
+    </string-array>
 
     <!--
         Country codes

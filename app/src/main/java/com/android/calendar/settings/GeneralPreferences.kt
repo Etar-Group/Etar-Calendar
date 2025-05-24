@@ -158,6 +158,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             preferenceScreen.removePreferenceRecursively(KEY_COLOR_PREF)
         }
 
+        if (themePref.value == "system" && !DynamicTheme.isSystemInDarkTheme(requireActivity()) || themePref.value == "light") {
+            preferenceScreen.removePreferenceRecursively(KEY_PURE_BLACK_NIGHT_MODE)
+        }
+
         buildSnoozeDelayEntries()
         buildDefaultReminderPrefEntries()
         handleUseCustomSnoozeDelayVisibility()
@@ -300,7 +304,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 a.recreate()
             }
             KEY_PURE_BLACK_NIGHT_MODE -> {
-                if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a)) {
+                if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a) || themePref.value == "dark") {
                     Utils.sendUpdateWidgetIntent(a)
                     a.recreate()
                 }
