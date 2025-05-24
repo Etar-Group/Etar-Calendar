@@ -39,8 +39,8 @@ class SettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        applyThemeAndPrimaryColor()
         super.onCreate(savedInstanceState)
+        applyThemeAndPrimaryColor()
 
         val fragment = if (intent.hasExtra(EXTRA_SHOW_FRAGMENT)) {
             supportFragmentManager.fragmentFactory.instantiate(

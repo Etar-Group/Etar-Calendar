@@ -265,8 +265,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     protected void onCreate(Bundle icicle) {
-        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         super.onCreate(icicle);
+        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         mActivity = this;
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
