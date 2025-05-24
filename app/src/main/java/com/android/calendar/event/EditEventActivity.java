@@ -36,6 +36,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendarcommon2.Time;
 
 import java.util.ArrayList;
@@ -52,7 +53,6 @@ public class EditEventActivity extends AbstractCalendarActivity {
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
 
     private static boolean mIsMultipane;
-    private final DynamicTheme dynamicTheme = new DynamicTheme();
     private EditEventFragment mEditFragment;
 
     private ArrayList<ReminderEntry> mReminders;
@@ -65,9 +65,9 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     @Override
     protected void onCreate(Bundle icicle) {
+        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         super.onCreate(icicle);
 
-        dynamicTheme.onCreate(this);
         mEventInfo = getEventInfoFromIntent(icicle);
         mReminders = getReminderEntriesFromIntent();
         mEventColorInitialized = getIntent().hasExtra(EXTRA_EVENT_COLOR);

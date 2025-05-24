@@ -27,7 +27,6 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -59,7 +58,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -90,13 +88,19 @@ import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.SettingsActivity;
 import com.android.calendar.settings.SettingsActivityKt;
 import com.android.calendar.settings.ViewDetailsPreferences;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendarcommon2.Time;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -160,7 +164,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private View mMiniMonth;
     private View mCalendarsList;
     private View mMiniMonthContainer;
-    private final DynamicTheme dynamicTheme = new DynamicTheme();
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 
         @Override
@@ -262,9 +265,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     protected void onCreate(Bundle icicle) {
-        setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         super.onCreate(icicle);
-        dynamicTheme.onCreate(this);
+        DynamicThemeKt.applyThemeAndPrimaryColor(this);
         mActivity = this;
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
@@ -504,7 +506,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             };
             mToolbar.setTitle(titleResource);
         }
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_navigator);
         setSupportActionBar(mToolbar);
 
         mToolbar.setNavigationOnClickListener(v -> AllInOneActivity.this.openDrawer());
@@ -587,7 +588,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     protected void onResume() {
         super.onResume();
-        dynamicTheme.onResume(this);
 
         // Check if the upgrade code has ever been run. If not, force a sync just this one time.
         Utils.trySyncAndDisableUpgradeReceiver(this);
@@ -1232,34 +1232,35 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     }
 
     public void goToDate() {
-        Time t;
-        Time todayTime;
-        t = new Time(mTimeZone);
-        t.set(mController.getTime());
-        todayTime = new Time(mTimeZone);
-        todayTime.set(System.currentTimeMillis());
-        if (todayTime.getMonth() == t.getMonth()) {
-            t = todayTime;
-        }
+        MaterialPickerOnPositiveButtonClickListener<Long> materialPickerOnPositiveButtonClickListener = new MaterialPickerOnPositiveButtonClickListener<>() {
+            @Override
+            public void onPositiveButtonClick(Long selection) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(new Date(selection));
 
-        DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Time selectedTime = new Time(mTimeZone);
                 selectedTime.set(System.currentTimeMillis());  // Needed for recalc function in DayView(time + gmtoff)
-                selectedTime.setYear(year);
-                selectedTime.setMonth(monthOfYear);
-                selectedTime.setDay(dayOfMonth);
+                selectedTime.setYear(calendar.get(Calendar.YEAR));
+                selectedTime.setMonth(calendar.get(Calendar.MONTH));
+                selectedTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
 
                 long extras = CalendarController.EXTRA_GOTO_TIME | CalendarController.EXTRA_GOTO_DATE;
                 mController.sendEvent(this, EventType.GO_TO, selectedTime, null, selectedTime, -1, ViewType.CURRENT, extras, null, null);
             }
         };
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, datePickerListener,
-                t.getYear(), t.getMonth(), t.getDay());
-        datePickerDialog.getDatePicker().setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this));
-        datePickerDialog.show();
 
+        CalendarConstraints calendarConstraints = new CalendarConstraints.Builder()
+                .setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(this))
+                .build();
+
+        MaterialDatePicker<Long> datePickerDialog = MaterialDatePicker.Builder.datePicker()
+                .setSelection(Calendar.getInstance().getTimeInMillis())
+                .setCalendarConstraints(calendarConstraints)
+                .setTitleText(R.string.goto_date)
+                .build();
+
+        datePickerDialog.addOnPositiveButtonClickListener(materialPickerOnPositiveButtonClickListener);
+        datePickerDialog.show(getSupportFragmentManager(), "GoTo");
     }
 
     @Override

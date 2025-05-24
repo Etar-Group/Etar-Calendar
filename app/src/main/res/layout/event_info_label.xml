@@ -24,6 +24,5 @@
     android:layout_marginRight="8dip"
     android:gravity="center_vertical"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    style="?android:attr/listSeparatorTextViewStyle"
-    android:textColor="?attr/event_info_label_color" />
+    style="?android:attr/listSeparatorTextViewStyle" />
 

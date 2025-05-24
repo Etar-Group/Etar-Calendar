@@ -17,14 +17,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurfaceContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- This outer linear layout protects the fixed dimensions of the dialog.
          The dimensions are not respected if this outer layout is not present. -->
     <LinearLayout
         android:layout_width="@dimen/recurrence_picker_width"
         android:layout_height="@dimen/recurrence_picker_height"
-        android:background="?attr/recurrence_picker_bgcolor"
         android:orientation="vertical"
         android:padding="0dp" >
 
@@ -44,7 +45,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/recurrence_picker_bgcolor_up"
                     android:paddingLeft="12dip"
                     android:paddingTop="12dip"
                     android:paddingRight="12dip"
@@ -59,14 +59,16 @@
                         android:layout_gravity="center_horizontal"
                         android:entries="@array/recurrence_freq"
                         android:gravity="start"
-                        android:padding="0dp" />
+                        android:padding="0dp"
+                        android:popupBackground="?attr/colorSurfaceContainer" />
 
-                    <androidx.appcompat.widget.SwitchCompat
+                    <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/repeat_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="4dp" />
+                        android:layout_marginStart="4dp"
+                        app:thumbTint="@color/preference_material_switch_color"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -200,7 +202,8 @@
                             android:layout_marginEnd="8dp"
                             android:entries="@array/recurrence_freq"
                             android:gravity="start|center_vertical"
-                            android:padding="0dp" />
+                            android:padding="0dp"
+                            android:popupBackground="?attr/colorSurfaceContainer" />
 
                         <EditText
                             android:id="@+id/endCount"
@@ -269,8 +272,7 @@
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/save_label"
-                android:textColor="?attr/done_text_recurrence" />
+                android:text="@string/save_label" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
