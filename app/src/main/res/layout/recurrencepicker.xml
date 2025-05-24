@@ -18,6 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="?attr/colorSurfaceContainer"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- This outer linear layout protects the fixed dimensions of the dialog.
@@ -58,7 +59,8 @@
                         android:layout_gravity="center_horizontal"
                         android:entries="@array/recurrence_freq"
                         android:gravity="start"
-                        android:padding="0dp" />
+                        android:padding="0dp"
+                        android:popupBackground="?attr/colorSurfaceContainer" />
 
                     <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/repeat_switch"
@@ -200,7 +202,8 @@
                             android:layout_marginEnd="8dp"
                             android:entries="@array/recurrence_freq"
                             android:gravity="start|center_vertical"
-                            android:padding="0dp" />
+                            android:padding="0dp"
+                            android:popupBackground="?attr/colorSurfaceContainer" />
 
                         <EditText
                             android:id="@+id/endCount"

@@ -88,6 +88,7 @@
             android:paddingStart="0dp"
             android:paddingEnd="2dp"
             android:prompt="@string/edit_event_calendar_label"
+            android:popupBackground="?attr/colorSurfaceContainer"
             app:layout_constraintBottom_toBottomOf="@+id/calendar_selector_group_icon"
             app:layout_constraintEnd_toStartOf="@+id/change_color"
             app:layout_constraintHorizontal_bias="0.0"
@@ -188,14 +189,14 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
             android:contentDescription="@string/accessibility_pick_start_time"
             android:gravity="end|center_vertical"
             android:minWidth="48dp"
             android:paddingHorizontal="12dp"
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@+id/start_date"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/start_date"
             app:layout_constraintTop_toTopOf="@+id/start_date" />
 
         <Button
@@ -203,14 +204,14 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
             android:contentDescription="@string/accessibility_pick_end_time"
             android:gravity="end|center_vertical"
             android:minWidth="48dp"
             android:paddingHorizontal="12dp"
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@+id/end_date"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/end_date"
             app:layout_constraintTop_toBottomOf="@+id/start_date" />
 
         <!-- TIME ZONE - Read/write version with button to launch picker -->
@@ -595,6 +596,7 @@
             android:contentDescription="@string/accessibility_reminder_showmeas"
             android:entries="@array/availability"
             android:prompt="@string/presence_label"
+            android:popupBackground="?attr/colorSurfaceContainer"
             app:layout_constraintBottom_toBottomOf="@+id/availability_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/availability_icon"
@@ -630,6 +632,7 @@
             android:contentDescription="@string/accessibility_reminder_privacy"
             android:entries="@array/visibility"
             android:prompt="@string/privacy_label"
+            android:popupBackground="?attr/colorSurfaceContainer"
             app:layout_constraintBottom_toBottomOf="@+id/visibility_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/visibility_icon"
