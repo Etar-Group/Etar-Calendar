@@ -35,7 +35,6 @@
         android:duplicateParentState="true"
         android:ellipsize="marquee"
         android:singleLine="true"
-        style="?android:attr/spinnerItemStyle"
         android:textSize="14sp" />
 
 </LinearLayout>
