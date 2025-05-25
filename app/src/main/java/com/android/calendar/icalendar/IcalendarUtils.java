@@ -78,6 +78,43 @@ public class IcalendarUtils {
         return input;
     }
 
+    public static ArrayList<String> splitQuoted(String input, char sep, int maxsplit) {
+        ArrayList<String> result = new ArrayList<String>();
+
+        if (maxsplit == 0) {
+            result.add(input);
+	          return result;
+        }
+
+        int cursor = 0;
+        int length = input.length();
+        boolean inquote = false;
+        int splits = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == '"' && (i > 0 && input.charAt(i-1) != '\\')) {
+                inquote = !inquote;
+            }
+
+            if (!inquote && input.charAt(i) == sep) {
+                result.add(input.substring(cursor, i));
+                cursor = i + 1;
+                splits++;
+            }
+
+            if (i + 1 == input.length() || splits == maxsplit) {
+                result.add(input.substring(cursor, input.length()));
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public static ArrayList<String> splitQuoted(String input, char sep) {
+        return splitQuoted(input, sep, -1);
+    }
+
     /**
      * Creates an empty temporary file in the given directory using the given
      * prefix and suffix as part of the file name. If {@code suffix} is null, {@code .tmp} is used.
