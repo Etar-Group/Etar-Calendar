@@ -79,4 +79,8 @@
         <item quantity="one">1 ਹਫ਼ਤਾ</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> \u0020ਹਫ਼ਤੇ</item>
     </plurals>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"ਦੇਸ਼ ਦਾ ਨਾਮ ਟਾਈਪ ਕਰੋ"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"ਸਵਾਲ ਹਟਾਓ"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਮਿਲੇ।"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"ਪੈਲਸਟੀਨ"</string>
 </resources>

@@ -352,4 +352,8 @@
     <string name="add_calendar">캘린더 추가</string>
     <string name="no_snooze_label">없음</string>
     <string name="license">라이센스</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"국가 입력"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"검색어 삭제"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"검색결과 없음"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"팔레스타인"</string>
 </resources>

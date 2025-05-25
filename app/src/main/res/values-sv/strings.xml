@@ -353,4 +353,8 @@
     <string name="calendars">Kalendrar</string>
     <string name="preferences_do_not_check_battery_optimization">Kontrollera inte optimering av batteriet</string>
     <string name="no_snooze_label">Ingen</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Ange land"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Ta bort frågan"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Inga resultat hittades"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
 </resources>

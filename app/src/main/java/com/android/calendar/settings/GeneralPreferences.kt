@@ -51,8 +51,8 @@ import com.android.calendar.DynamicTheme
 import com.android.calendar.Utils
 import com.android.calendar.alerts.AlertReceiver
 import com.android.calendar.event.EventViewUtils
-import com.android.timezonepicker.TimeZoneInfo
-import com.android.timezonepicker.TimeZonePickerUtils
+import com.android.calendar.timezonepicker.TimeZoneInfo
+import com.android.calendar.timezonepicker.TimeZonePickerUtils
 import ws.xsoh.etar.R
 import java.util.TimeZone
 
@@ -154,6 +154,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         if (Utils.isMonetAvailable(requireContext())) {
             // Palette is controlled by user wallpaper
             preferenceScreen.removePreferenceRecursively(KEY_COLOR_PREF)
+        }
+
+        if (themePref.value == "system" && !DynamicTheme.isSystemInDarkTheme(requireActivity()) || themePref.value == "light") {
+            preferenceScreen.removePreferenceRecursively(KEY_PURE_BLACK_NIGHT_MODE)
         }
 
         buildSnoozeDelayEntries()
@@ -298,7 +302,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 a.recreate()
             }
             KEY_PURE_BLACK_NIGHT_MODE -> {
-                if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a)) {
+                if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a) || themePref.value == "dark") {
                     Utils.sendUpdateWidgetIntent(a)
                     a.recreate()
                 }

@@ -59,4 +59,8 @@
         <item quantity="one">१ दिन</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> दिनहरु</item>
     </plurals>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"देशको नाम लेख्नुहोस्"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"प्रश्‍न हटाउनुहोस्"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"कुनै परिणामहरू फेला परेन।"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"प्यालेस्टाइन"</string>
 </resources>

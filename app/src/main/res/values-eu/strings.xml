@@ -326,4 +326,8 @@
     </plurals>
     <string name="preferences_real_event_colors">Erabili gertaera kolore errealak</string>
     <string name="menu_info">Informazioa</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Idatzi herrialdearen izena"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Garbitu kontsulta"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Ez da emaitzarik aurkitu"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
 </resources>

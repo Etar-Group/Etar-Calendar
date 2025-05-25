@@ -381,4 +381,8 @@
     <string name="discard_event_changes">Хочете відкинути зміни?</string>
     <string name="cancel">Скасувати</string>
     <string name="discard">Відкинути</string>
+    <string name="hint_time_zone_search" msgid="804776560897143016">"Введіть назву країни"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"Очистити запит"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"Нічого не знайдено"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"Палестина"</string>
 </resources>
