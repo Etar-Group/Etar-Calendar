@@ -16,6 +16,7 @@
 
 package com.android.calendar.icalendar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ListIterator;
 
@@ -91,16 +92,19 @@ public class Attendee {
         String line = iter.next();
         if (line.startsWith("ATTENDEE")) {
             String entry = VEvent.parseTillNextAttribute(iter, line);
-            // extract the email address at the end
-            String[] split1 = entry.split("(:MAILTO)?:", 2);
-            if (split1.length > 1) {
-                mEmail = split1[1];
+
+            ArrayList<String> parts = IcalendarUtils.splitQuoted(entry, ':', 1);
+
+            String uri = parts.get(1);
+            if (uri.toUpperCase().startsWith("MAILTO:")) {
+                mEmail = uri.substring(7, uri.length());
             }
-            if (!split1[0].isEmpty()) {
-                String[] split2 = split1[0].split("=|;");
-                int n = split2.length / 2;
-                for (int i = 0; i < n; ++i) {
-                     addProperty(split2[2 * i + 1], split2[2 * i + 2]);
+
+            ArrayList<String> params = IcalendarUtils.splitQuoted(parts.get(0), ';');
+            for (int i = 0; i < params.size(); i++) {
+                String[] kv = params.get(i).split("=", 2);
+                if (kv.length == 2) {
+                    addProperty(kv[0], kv[1]);
                 }
             }
         }
