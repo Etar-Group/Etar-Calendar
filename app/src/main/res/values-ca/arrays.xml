@@ -113,4 +113,36 @@
     <item msgid="422053689531707709">"quart dissabte de cada mes"</item>
     <item msgid="5499975799312474425">"últim dissabte de cada mes"</item>
   </string-array>
+
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"Hora del centre d\'Austràlia - NT"</item>
+    <item msgid="4345275500159159867">"Hora del centre d\'Austràlia - SA"</item>
+    <item msgid="6771274300523132094">"Hora de l\'est d\'Austràlia - QLD"</item>
+    <item msgid="4685547681424666687">"Hora de l\'est d\'Austràlia - NSW"</item>
+    <item msgid="5259393186526893961">"Hora estàndard de les Muntanyes - Dawson Creek"</item>
+    <item msgid="5984634754870859705">"Hora estàndard central - Saskatchewan"</item>
+    <item msgid="5340374311583423836">"Hora estàndard de l\'est - Atikokan"</item>
+    <item msgid="8922086438245451625">"Hora estàndard de l\'Atlàntic - Quebec"</item>
+    <item msgid="8353677384517034413">"Hora de Hawaii-Illes Aleutianes - Hawaii"</item>
+    <item msgid="6426791761018806420">"Hora de Hawaii-Illes Aleutianes - Alaska"</item>
+    <item msgid="7076353182411415610">"Hora estàndard del Pacífic - Metlakatla"</item>
+    <item msgid="373990592918179890">"Hora estàndard de les Muntanyes - Arizona"</item>
+    <item msgid="353899326999279114">"Hora del Pacífic - Baix Califòrnia"</item>
+    <item msgid="6432134534714673873">"Hora de les Muntanyes - Chihuahua"</item>
+    <item msgid="7629345735485663968">"Hora central - Tamaulipas"</item>
+    <item msgid="3874729044260979505">"Hora de les Muntanyes - Sonora"</item>
+    <item msgid="1106209575683600471">"Hora de l\'Àfrica oriental"</item>
+    <item msgid="6538017087072480128">"Hora estàndard de l\'Atlàntic"</item>
+    <item msgid="6758957851822881177">"Hora estàndard de l\'Atlàntic"</item>
+    <item msgid="2477556470536619081">"Hora de l’Est d’Europa"</item>
+    <item msgid="7328461310893621937">"Hora de Kaliningrad"</item>
+    <item msgid="4212642599758736931">"Amazònia - Rondônia"</item>
+    <item msgid="2370319280810537375">"Brasília - Pará"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"Sint Maarten"</item>
+    <item msgid="5330962017221568054">"Carib Neerlandès"</item>
+    <item msgid="1465164631761814300">"Curaçao"</item>
+    <item msgid="8972081011408691260">"Sudan del Sud"</item>
+  </string-array>
 </resources>
