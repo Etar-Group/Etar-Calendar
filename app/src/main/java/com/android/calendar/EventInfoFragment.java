@@ -124,8 +124,8 @@ import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.calendarcommon2.Time;
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
-import com.android.colorpicker.HsvColorComparator;
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.colorpicker.HsvColorComparator;
 
 import org.jetbrains.annotations.NotNull;
 

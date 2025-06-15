@@ -22,7 +22,7 @@ import android.util.AttributeSet;
 import android.widget.QuickContactBadge;
 
 import com.android.calendar.CalendarColorPickerDialog;
-import com.android.colorpicker.ColorStateDrawable;
+import com.android.calendar.colorpicker.ColorStateDrawable;
 
 import ws.xsoh.etar.R;
 
