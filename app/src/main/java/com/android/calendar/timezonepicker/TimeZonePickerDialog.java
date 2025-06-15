@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.timezonepicker;
+package com.android.calendar.timezonepicker;
 
 import android.app.Dialog;
 import android.app.DialogFragment;

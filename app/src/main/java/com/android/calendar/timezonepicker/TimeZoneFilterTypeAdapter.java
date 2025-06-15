@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.timezonepicker;
+package com.android.calendar.timezonepicker;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -30,6 +30,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import ws.xsoh.etar.R;
 
 public class TimeZoneFilterTypeAdapter extends BaseAdapter implements Filterable, OnClickListener {
     public static final String TAG = "TimeZoneFilterTypeAdapter";

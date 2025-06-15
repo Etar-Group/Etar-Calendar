@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.timezonepicker;
+package com.android.calendar.timezonepicker;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -28,6 +28,8 @@ import android.util.Log;
 
 import java.util.Locale;
 import java.util.TimeZone;
+
+import ws.xsoh.etar.R;
 
 public class TimeZonePickerUtils {
     private static final String TAG = "TimeZonePickerUtils";

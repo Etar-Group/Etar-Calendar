@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.timezonepicker;
+package com.android.calendar.timezonepicker;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -34,6 +34,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import ws.xsoh.etar.R;
 
 public class TimeZonePickerView extends LinearLayout implements TextWatcher, OnItemClickListener,
     OnClickListener {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.timezonepicker;
+package com.android.calendar.timezonepicker;
 
 import android.content.Context;
 import android.text.Spannable;

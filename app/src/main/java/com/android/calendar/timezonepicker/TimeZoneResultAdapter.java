@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.timezonepicker;
+package com.android.calendar.timezonepicker;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,12 +28,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.timezonepicker.TimeZoneFilterTypeAdapter.OnSetFilterListener;
-import com.android.timezonepicker.TimeZonePickerView.OnTimeZoneSetListener;
+import com.android.calendar.timezonepicker.TimeZoneFilterTypeAdapter.OnSetFilterListener;
+import com.android.calendar.timezonepicker.TimeZonePickerView.OnTimeZoneSetListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+
+import ws.xsoh.etar.R;
 
 public class TimeZoneResultAdapter extends BaseAdapter implements OnItemClickListener,
         OnSetFilterListener {
@@ -85,7 +87,7 @@ public class TimeZoneResultAdapter extends BaseAdapter implements OnItemClickLis
     private int mFilteredTimeZoneLength = 0;
 
     public TimeZoneResultAdapter(Context context, TimeZoneData tzd,
-            com.android.timezonepicker.TimeZonePickerView.OnTimeZoneSetListener l) {
+            TimeZonePickerView.OnTimeZoneSetListener l) {
         super();
 
         mContext = context;

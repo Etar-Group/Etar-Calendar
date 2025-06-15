@@ -89,9 +89,9 @@ import com.android.ex.chips.AccountSpecifier;
 import com.android.ex.chips.BaseRecipientAdapter;
 import com.android.ex.chips.ChipsUtil;
 import com.android.ex.chips.RecipientEditTextView;
-import com.android.timezonepicker.TimeZoneInfo;
-import com.android.timezonepicker.TimeZonePickerDialog;
-import com.android.timezonepicker.TimeZonePickerUtils;
+import com.android.calendar.timezonepicker.TimeZoneInfo;
+import com.android.calendar.timezonepicker.TimeZonePickerDialog;
+import com.android.calendar.timezonepicker.TimeZonePickerUtils;
 
 import com.google.android.material.textfield.TextInputEditText;
 
