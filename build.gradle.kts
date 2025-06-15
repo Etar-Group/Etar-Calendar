@@ -17,7 +17,6 @@ plugins {
 val externalProjects = listOf(
     project(":external:calendar"),
     project(":external:chips"),
-    project(":external:timezonepicker")
 )
 
 configure(externalProjects) {
@@ -31,7 +30,6 @@ tasks.register("aarGen") {
     val aarTasks = arrayOf(
         ":external:calendar:copyAAR",
         ":external:chips:copyAAR",
-        ":external:timezonepicker:copyAAR"
     )
     dependsOn(*aarTasks)
 }
