@@ -353,4 +353,8 @@
     <string name="preferences_manage_notifications">Gerir notificações</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Use por sua própria conta e risco! Notificações já não funcionarão, o widget não atualizará mais, e serviços em segundo plano irão quebrar. Não será perguntado novamente se quer ativar o serviço em segundo plano.</string>
     <string name="calendars">Calendários</string>
+
+    <string name="color_picker_default_title" msgid="1248663997452044787">"Selecionar uma Cor"</string>
+    <string name="color_swatch_description" msgid="2883438431173736180">"Cor <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
+    <string name="color_swatch_description_selected" msgid="5020921249944943124">"Cor <xliff:g id="COLOR_INDEX">%1$d</xliff:g> selecionada"</string>
 </resources>

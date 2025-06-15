@@ -74,8 +74,8 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.Utils;
 import com.android.calendarcommon2.Time;
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
-import com.android.colorpicker.HsvColorComparator;
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.colorpicker.HsvColorComparator;
 
 import java.io.Serializable;
 import java.util.ArrayList;

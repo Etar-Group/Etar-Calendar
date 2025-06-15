@@ -1,24 +1,40 @@
-package com.android.calendar.settings;
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.android.calendar.colorpicker;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.android.calendar.colorpicker.ColorPickerPalette;
 import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 
 import ws.xsoh.etar.R;
 
 /**
- * 1-to-1 Copy of ColorPickerDialog but using androidx classes
+ * A dialog which takes in as input an array of colors and creates a palette allowing the user to
+ * select a specific color swatch, which invokes a listener.
  */
-public class ColorPickerDialogX extends DialogFragment implements OnColorSelectedListener {
+public class ColorPickerDialog extends DialogFragment implements OnColorSelectedListener {
 
     public static final int SIZE_LARGE = 1;
     public static final int SIZE_SMALL = 2;
@@ -44,13 +60,13 @@ public class ColorPickerDialogX extends DialogFragment implements OnColorSelecte
 
     protected OnColorSelectedListener mListener;
 
-    public ColorPickerDialogX() {
+    public ColorPickerDialog() {
         // Empty constructor required for dialog fragments.
     }
 
-    public static ColorPickerDialogX newInstance(int titleResId, int[] colors, int selectedColor,
-                                                 int columns, int size) {
-        ColorPickerDialogX ret = new ColorPickerDialogX();
+    public static ColorPickerDialog newInstance(int titleResId, int[] colors, int selectedColor,
+            int columns, int size) {
+        ColorPickerDialog ret = new ColorPickerDialog();
         ret.initialize(titleResId, colors, selectedColor, columns, size);
         return ret;
     }

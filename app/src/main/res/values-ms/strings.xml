@@ -236,4 +236,8 @@
     <string name="visibility_public">Awam</string>
     <string name="no_reminder_label">Tiada</string>
     <string name="after_start_of_event">after start of event</string>
+
+    <string name="color_picker_default_title" msgid="1248663997452044787">"Pilih Warna"</string>
+    <string name="color_swatch_description" msgid="2883438431173736180">"Warna <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
+    <string name="color_swatch_description_selected" msgid="5020921249944943124">"Warna <xliff:g id="COLOR_INDEX">%1$d</xliff:g> dipilih"</string>
 </resources>
