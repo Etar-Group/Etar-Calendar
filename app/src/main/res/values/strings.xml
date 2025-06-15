@@ -820,4 +820,22 @@
     <string name="color_swatch_description">Color <xliff:g id="color_index" example="14">%1$d</xliff:g></string>
     <!-- Content description for a selected color square. -->
     <string name="color_swatch_description_selected">Color <xliff:g id="color_index" example="14">%1$d</xliff:g> selected</string>
+
+    <!-- Hint text to encourage the user to enter a country name to find a time zone
+     [CHAR LIMIT=25] -->
+    <string name="hint_time_zone_search">Type country name</string>
+
+    <!-- Description of clear icon in the search bar, for accessibility. [CHAR LIMIT=NONE]-->
+    <string name="searchview_description_clear">Clear query</string>
+
+    <!-- Item to show when no timezones are found. [CHAR LIMIT=NONE]-->
+    <string name="no_results_found">No results found</string>
+
+    <!-- Name to be displayed for "Palestine". This will be used when searching for a country to
+         select a timezone. [CHAR LIMIT=NONE]
+         *NOTE*: Please be sure to translate this as "Palestine", specifically instead of
+                 "Palestinian Territories". This is for use following Google's updated policy on
+                 this matter.
+                  -->
+    <string name="palestine_display_name">Palestine</string>
 </resources>

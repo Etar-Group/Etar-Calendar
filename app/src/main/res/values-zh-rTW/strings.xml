@@ -309,4 +309,9 @@
     <string name="color_picker_default_title" msgid="1248663997452044787">"選取顏色"</string>
     <string name="color_swatch_description" msgid="2883438431173736180">"色彩 <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
     <string name="color_swatch_description_selected" msgid="5020921249944943124">"已選取色彩 <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
+
+    <string name="hint_time_zone_search" msgid="804776560897143016">"請輸入國家/地區名稱"</string>
+    <string name="searchview_description_clear" msgid="1603860069305867810">"清除查詢"</string>
+    <string name="no_results_found" msgid="5475293015394772651">"找不到相符的結果"</string>
+    <string name="palestine_display_name" msgid="3485026339977302148">"巴勒斯坦"</string>
 </resources>
