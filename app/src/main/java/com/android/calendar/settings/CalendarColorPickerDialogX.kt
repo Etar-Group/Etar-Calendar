@@ -30,8 +30,8 @@ import android.util.SparseIntArray
 import androidx.appcompat.app.AlertDialog
 import com.android.calendar.AsyncQueryService
 import com.android.calendar.Utils
-import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener
-import com.android.colorpicker.HsvColorComparator
+import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener
+import com.android.calendar.colorpicker.HsvColorComparator
 import ws.xsoh.etar.R
 import java.util.ArrayList
 import java.util.Arrays
