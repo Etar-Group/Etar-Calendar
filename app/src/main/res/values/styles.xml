@@ -229,4 +229,9 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
         </style>
+
+    <!-- Style for dialog labels. -->
+    <style name="font_family_thin">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
 </resources>
