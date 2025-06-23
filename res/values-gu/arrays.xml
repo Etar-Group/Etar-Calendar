@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"ઓસ્ટ્રેલિયન સેન્ટ્રલ - NT"</item>
+    <item msgid="4345275500159159867">"ઓસ્ટ્રેલિયન સેન્ટ્રલ - SA"</item>
+    <item msgid="6771274300523132094">"ઓસ્ટ્રેલિયન પૂર્વીય - QLD"</item>
+    <item msgid="4685547681424666687">"ઓસ્ટ્રેલિયન પૂર્વીય -  NSW"</item>
+    <item msgid="5259393186526893961">"માઉન્ટેન સ્ટૅન્ડર્ડ - ડૉવ્સન ક્રીક"</item>
+    <item msgid="5984634754870859705">"મધ્ય સ્ટૅન્ડર્ડ - સાસ્કેચમેન"</item>
+    <item msgid="5340374311583423836">"ઇસ્ટર્ન સ્ટૅન્ડર્ડ - એટિકોકેન"</item>
+    <item msgid="8922086438245451625">"એટલાન્ટિક સ્ટૅન્ડર્ડ - ક્યૂબેક"</item>
+    <item msgid="8353677384517034413">"હવાઈ-એલ્યુશિઅન - હવાઈ"</item>
+    <item msgid="6426791761018806420">"હવાઈ-એલ્યુશિઅન - અલાસ્કા"</item>
+    <item msgid="7076353182411415610">"પેસિફિક સ્ટૅન્ડર્ડ - મેટલાકાટ્લા"</item>
+    <item msgid="373990592918179890">"માઉન્ટેન સ્ટૅન્ડર્ડ - એરિઝોના"</item>
+    <item msgid="353899326999279114">"પેસિફિક - બાજા કેલિફોર્નિયા"</item>
+    <item msgid="6432134534714673873">"માઉન્ટેન - ચિહુઆહુઆ"</item>
+    <item msgid="7629345735485663968">"સેન્ટ્રલ - ટેમાઉલિપાસ"</item>
+    <item msgid="3874729044260979505">"માઉન્ટેન - સોનોરા"</item>
+    <item msgid="1106209575683600471">"પૂર્વ આફ્રિકા સમય"</item>
+    <item msgid="6538017087072480128">"અટલાન્ટિક સ્ટૅન્ડર્ડ સમય"</item>
+    <item msgid="6758957851822881177">"અટલાન્ટિક સ્ટૅન્ડર્ડ સમય"</item>
+    <item msgid="2477556470536619081">"પૂર્વી યુરોપિયન સમય"</item>
+    <item msgid="7328461310893621937">"કેલાઇનિંગ્રૅડ સમય"</item>
+    <item msgid="4212642599758736931">"એમેઝોન - રોન્ડોનિયા"</item>
+    <item msgid="2370319280810537375">"બ્રાસિલિયા - પેરા"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"સિંટ માર્ટેન"</item>
+    <item msgid="5330962017221568054">"કેરેબિયન નેધરલેન્ડ્ઝ"</item>
+    <item msgid="1465164631761814300">"ક્યુરાસાઓ"</item>
+    <item msgid="8972081011408691260">"દક્ષિણ સુદાન"</item>
+  </string-array>
+</resources>

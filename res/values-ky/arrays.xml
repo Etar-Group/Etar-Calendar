@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"Борбордук Австралиялык – NT"</item>
+    <item msgid="4345275500159159867">"Борбордук Австралиялык – SA"</item>
+    <item msgid="6771274300523132094">"Чыгыш Австралия – QLD"</item>
+    <item msgid="4685547681424666687">"Чыгыш Австралия – NSW"</item>
+    <item msgid="5259393186526893961">"Тоо убакыты – Доусон булуңу"</item>
+    <item msgid="5984634754870859705">"Борбордук убакыт – Саскачеван"</item>
+    <item msgid="5340374311583423836">"Чыгыш убакыт алкагы – Атикокан"</item>
+    <item msgid="8922086438245451625">"Атлантика убакыт алкагы – Квебек"</item>
+    <item msgid="8353677384517034413">"Гавайи-Алеут – Гавайи"</item>
+    <item msgid="6426791761018806420">"Гавайи-Алеут – Аляска"</item>
+    <item msgid="7076353182411415610">"Тынч Океан убакыты – Метлакатла"</item>
+    <item msgid="373990592918179890">"Тоо убакыты – Аризона"</item>
+    <item msgid="353899326999279114">"Тынч Океан – Төмөнкү Калифорния"</item>
+    <item msgid="6432134534714673873">"Тоолуу – Чихуахуа"</item>
+    <item msgid="7629345735485663968">"Борбордук – Тамаулипас"</item>
+    <item msgid="3874729044260979505">"Тоолуу – Сонора"</item>
+    <item msgid="1106209575683600471">"Чыгыш Африка убакыты"</item>
+    <item msgid="6538017087072480128">"Атлантика убакыт алкагы"</item>
+    <item msgid="6758957851822881177">"Атлантика убакыт алкагы"</item>
+    <item msgid="2477556470536619081">"Чыгыш Европа убакыт алкагы"</item>
+    <item msgid="7328461310893621937">"Калининград убакыты"</item>
+    <item msgid="4212642599758736931">"Амазон – Рондония"</item>
+    <item msgid="2370319280810537375">"Бразилиа – Пара"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"Синт-Мартен"</item>
+    <item msgid="5330962017221568054">"Кариб Нидерланддары"</item>
+    <item msgid="1465164631761814300">"Кюрасао"</item>
+    <item msgid="8972081011408691260">"Түштүк Судан"</item>
+  </string-array>
+</resources>

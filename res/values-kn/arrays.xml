@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"ಆಸ್ಟ್ರೇಲಿಯನ್ ಸೆಂಟ್ರಲ್ - NT"</item>
+    <item msgid="4345275500159159867">"ಆಸ್ಟ್ರೇಲಿಯನ್ ಸೆಂಟ್ರಲ್ - SA"</item>
+    <item msgid="6771274300523132094">"ಆಸ್ಟ್ರೇಲಿಯನ್ ಈಸ್ಟ್ರನ್ - QLD"</item>
+    <item msgid="4685547681424666687">"ಆಸ್ಟ್ರೇಲಿಯನ್ ಈಸ್ಟ್ರನ್  - NSW"</item>
+    <item msgid="5259393186526893961">"ಮೌಂಟನ್ ಸ್ಟ್ಯಾಂಡರ್ಡ್ - ಡಾವ್ಸನ್ ಕ್ರೀಕ್"</item>
+    <item msgid="5984634754870859705">"ಸೆಂಟ್ರಲ್ ಸ್ಟ್ಯಾಂಡರ್ಡ್ - ಸಾಸ್ಕಾಚೆವನ್"</item>
+    <item msgid="5340374311583423836">"ಈಸ್ಟರ್ನ್ ಸ್ಟ್ಯಾಂಡರ್ಡ್ - ಅತಿಕೊಕನ್‌"</item>
+    <item msgid="8922086438245451625">"ಅಟ್ಲಾಂಟಿಕ್ ಸ್ಟ್ಯಾಂಡರ್ಡ್ - ಕ್ವಿಬೆಕ್"</item>
+    <item msgid="8353677384517034413">"ಹವಾಯಿ ಅಲುಟಿಯನ್ - ಹವಾಯಿ"</item>
+    <item msgid="6426791761018806420">"ಹವಾಯಿ ಅಲುಟಿಯನ್ - ಅಲಾಸ್ಕನ್"</item>
+    <item msgid="7076353182411415610">"ಪೆಸಿಫಿಕ್ ಸ್ಟ್ಯಾಂಡರ್ಡ್ - ಮೆಟ್ಲಾಕಟ್ಲಾ"</item>
+    <item msgid="373990592918179890">"ಮೌಂಟನ್ ಸ್ಟ್ಯಾಂಡರ್ಡ್ - ಅರಿಜೋನಾ"</item>
+    <item msgid="353899326999279114">"ಪೆಸಿಫಿಕ್ - ಬಾಜಾ ಕ್ಯಾಲಿಫೊರ್ನಿಯಾ"</item>
+    <item msgid="6432134534714673873">"ಮೌಂಟೇನ್ - ಚಿಹುವಾ"</item>
+    <item msgid="7629345735485663968">"ಸೆಂಟ್ರಲ್ - ತಮೌಲಿಪಾಸ್"</item>
+    <item msgid="3874729044260979505">"ಮೌಂಟೇನ್ - ಸೋನೋರಾ"</item>
+    <item msgid="1106209575683600471">"ಪೂರ್ವ ಆಫ್ರಿಕಾ ಸಮಯ"</item>
+    <item msgid="6538017087072480128">"ಅಟ್ಲಾಂಟಿಕ್ ಪ್ರಮಾಣಿತ ಸಮಯ"</item>
+    <item msgid="6758957851822881177">"ಅಟ್ಲಾಂಟಿಕ್ ಪ್ರಮಾಣಿತ ಸಮಯ"</item>
+    <item msgid="2477556470536619081">"ಪೂರ್ವ ಯುರೋಪಿಯನ್ ಸಮಯ"</item>
+    <item msgid="7328461310893621937">"ಕಲಿನಿಂಗ್ರಾಡ್‌ ಸಮಯ"</item>
+    <item msgid="4212642599758736931">"ಅಮೆಜಾನ್ - ರೊಂಡೊನಿಯಾ"</item>
+    <item msgid="2370319280810537375">"ಬ್ರೆಜಿಲಿಯಾ - ಪಾರಾ"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"ಸಿಂಟ್ ಮಾರ್ಟನ್"</item>
+    <item msgid="5330962017221568054">"ಕೆರೀಬಿಯನ್ ನೆದರ್‌ಲ್ಯಾಂಡ್ಸ್"</item>
+    <item msgid="1465164631761814300">"ಕುರಾಕಾವ್"</item>
+    <item msgid="8972081011408691260">"ದಕ್ಷಿಣ ಸೂಡಾನ್"</item>
+  </string-array>
+</resources>

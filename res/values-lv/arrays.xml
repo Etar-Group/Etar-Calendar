@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"Austrālijas centr. laiks — NT"</item>
+    <item msgid="4345275500159159867">"Austrālijas centr. laiks — SA"</item>
+    <item msgid="6771274300523132094">"Austrālijas austrumu laiks — QLD"</item>
+    <item msgid="4685547681424666687">"Austrālijas austrumu laiks — NSW"</item>
+    <item msgid="5259393186526893961">"Kalnu r. st. laiks — Dousonkrīka"</item>
+    <item msgid="5984634754870859705">"Centr. st. laiks — Saskačevana"</item>
+    <item msgid="5340374311583423836">"Austrumu standarta laiks — Atikokana"</item>
+    <item msgid="8922086438245451625">"Atlantijas standarta laiks — Kvebeka"</item>
+    <item msgid="8353677384517034413">"Havaju–Aleutu laiks — Havajas"</item>
+    <item msgid="6426791761018806420">"Havaju–Aleutu laiks — Aļaska"</item>
+    <item msgid="7076353182411415610">"Klusā ok. st. laiks — Metlakatla"</item>
+    <item msgid="373990592918179890">"Kalnu rajona st. laiks — Arizona"</item>
+    <item msgid="353899326999279114">"Klusā ok. l. — Lejaskalifornija"</item>
+    <item msgid="6432134534714673873">"Kalnu rajona laiks — Čivava"</item>
+    <item msgid="7629345735485663968">"Centrālais laiks — Tamaulipasa"</item>
+    <item msgid="3874729044260979505">"Kalnu rajona laiks — Sonora"</item>
+    <item msgid="1106209575683600471">"Austrumāfrikas laiks"</item>
+    <item msgid="6538017087072480128">"Atlantijas standarta laiks"</item>
+    <item msgid="6758957851822881177">"Atlantijas standarta laiks"</item>
+    <item msgid="2477556470536619081">"Austrumeiropas laiks"</item>
+    <item msgid="7328461310893621937">"Kaļiņingradas laiks"</item>
+    <item msgid="4212642599758736931">"Amazone — Rondonija"</item>
+    <item msgid="2370319280810537375">"Brazilja — Para"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"Sintmārtena"</item>
+    <item msgid="5330962017221568054">"Nīderlandes Karību salas"</item>
+    <item msgid="1465164631761814300">"Kirasao"</item>
+    <item msgid="8972081011408691260">"Dienvidsudāna"</item>
+  </string-array>
+</resources>

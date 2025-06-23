@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"ആസ്‌ട്രേലിയൻ സെൻട്രൽ - NT"</item>
+    <item msgid="4345275500159159867">"ആസ്‌ട്രേലിയൻ സെൻട്രൽ - SA"</item>
+    <item msgid="6771274300523132094">"ആസ്‌ട്രേലിയൻ കിഴക്കൻ - QLD"</item>
+    <item msgid="4685547681424666687">"ആസ്‌ട്രേലിയൻ കിഴക്കൻ - NSW"</item>
+    <item msgid="5259393186526893961">"മൗണ്ടൻ സ്‌റ്റാൻഡേർഡ് - ഡാവ്‌സൺ ക്രീക്ക്"</item>
+    <item msgid="5984634754870859705">"സെൻട്രൽ സ്‌റ്റാൻഡേർഡ് - സസ്‌ക്കാചുവാൻ"</item>
+    <item msgid="5340374311583423836">"കിഴക്കൻ സ്‌റ്റാൻഡേർഡ് - അടികോകൻ"</item>
+    <item msgid="8922086438245451625">"അറ്റ്‌ലാന്റിക് സ്‌റ്റാൻഡേർഡ് - ക്യൂബെക്"</item>
+    <item msgid="8353677384517034413">"ഹവായ്-അലൂഷ്യൻ - ഹവായ്"</item>
+    <item msgid="6426791761018806420">"ഹവായ്-അലൂഷ്യൻ - അലാസ്‌ക"</item>
+    <item msgid="7076353182411415610">"പസഫിക് സ്റ്റാൻഡേർഡ് - മെഡ്‌ലകട്‌ലെ"</item>
+    <item msgid="373990592918179890">"മൗണ്ടൻ സ്‌റ്റാൻഡേർഡ് - അരിസോണ"</item>
+    <item msgid="353899326999279114">"പസഫിക് - ബാജ കാലിഫോർണിയ"</item>
+    <item msgid="6432134534714673873">"മൗണ്ടൻ - ചിഹുവാഹുവ"</item>
+    <item msgid="7629345735485663968">"സെൻട്രൽ - തമൗലിപാസ്"</item>
+    <item msgid="3874729044260979505">"മൗണ്ടൻ - സൊണോറ"</item>
+    <item msgid="1106209575683600471">"കിഴക്കൻ ആഫ്രിക്ക സമയം"</item>
+    <item msgid="6538017087072480128">"അറ്റ്ലാന്‍റിക് സ്റ്റാന്‍ഡേര്‍ഡ് സമയം"</item>
+    <item msgid="6758957851822881177">"അറ്റ്ലാന്‍റിക് സ്റ്റാന്‍ഡേര്‍ഡ് സമയം"</item>
+    <item msgid="2477556470536619081">"കിഴക്കൻ യൂറോപ്യൻ സമയം"</item>
+    <item msgid="7328461310893621937">"കലിനിൻഗ്രാഡ് സമയം"</item>
+    <item msgid="4212642599758736931">"ആമസോൺ - റൊൺഡോണിയ"</item>
+    <item msgid="2370319280810537375">"ബ്രസീലിയ - പാര"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"സിന്റ് മാർട്ടെൻ"</item>
+    <item msgid="5330962017221568054">"കരീബിയൻ നെതർലാൻഡ്‌സ്"</item>
+    <item msgid="1465164631761814300">"കുറാകാവോ"</item>
+    <item msgid="8972081011408691260">"ദക്ഷിണ സുഡാൻ"</item>
+  </string-array>
+</resources>
