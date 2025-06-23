@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"অস্ট্রেলিয়ার মধ্য - NT"</item>
+    <item msgid="4345275500159159867">"অস্ট্রেলিয়ার মধ্য - SA"</item>
+    <item msgid="6771274300523132094">"অস্ট্রেলিয়ার পূর্বাঞ্চলীয় - QLD"</item>
+    <item msgid="4685547681424666687">"অস্ট্রেলিয়ার পূর্বাঞ্চলীয় - NSW"</item>
+    <item msgid="5259393186526893961">"মাউন্টেন মানক - ডসন ক্রিক"</item>
+    <item msgid="5984634754870859705">"মধ্য মানক - সাসকাচেওয়ান"</item>
+    <item msgid="5340374311583423836">"পূর্বাঞ্চলীয় মানক - অ্যাটিকোকান"</item>
+    <item msgid="8922086438245451625">"আটলান্টিক মানক - ক্যুবেক"</item>
+    <item msgid="8353677384517034413">"হাওয়াই-আলেউত - হাওয়াই"</item>
+    <item msgid="6426791761018806420">"হাওয়াই-আলেউত - আলাস্কা"</item>
+    <item msgid="7076353182411415610">"প্যাসিফিক মানক - মেটলাকাটলা"</item>
+    <item msgid="373990592918179890">"মাউন্টেন মানক - আরিজোনা"</item>
+    <item msgid="353899326999279114">"প্যাসিফিক - বাজা ক্যালিফোর্নিয়া"</item>
+    <item msgid="6432134534714673873">"মাউন্টেন - চিহুয়াহুয়া"</item>
+    <item msgid="7629345735485663968">"মধ্য - তামাউলিপাস"</item>
+    <item msgid="3874729044260979505">"মাউন্টেন - সোনোরা"</item>
+    <item msgid="1106209575683600471">"পূর্ব আফ্রিকা সময়"</item>
+    <item msgid="6538017087072480128">"আটলান্টিক মানক সময়"</item>
+    <item msgid="6758957851822881177">"আটলান্টিক মানক সময়"</item>
+    <item msgid="2477556470536619081">"পূর্ব ইউরোপীয় সময়"</item>
+    <item msgid="7328461310893621937">"কালিনিনগ্রাদ সময়"</item>
+    <item msgid="4212642599758736931">"আমাজন - রনডনিয়া"</item>
+    <item msgid="2370319280810537375">"ব্রাসিলিয়া - পারা"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"সিন্ট মারটিন"</item>
+    <item msgid="5330962017221568054">"ক্যারিবিয়ান নেদারল্যান্ডস"</item>
+    <item msgid="1465164631761814300">"কিউরাসো"</item>
+    <item msgid="8972081011408691260">"দক্ষিণ সুদান"</item>
+  </string-array>
+</resources>
