@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"मध्य ऑस्ट्रेलियाई - NT"</item>
+    <item msgid="4345275500159159867">"मध्य ऑस्ट्रेलियाई - SA"</item>
+    <item msgid="6771274300523132094">"पूर्वी ऑस्ट्रेलियाई - QLD"</item>
+    <item msgid="4685547681424666687">"पूर्वी ऑस्ट्रेलियाई - NSW"</item>
+    <item msgid="5259393186526893961">"पर्वतीय मानक - डॉसन क्रीक"</item>
+    <item msgid="5984634754870859705">"मध्य मानक - सास्केचवान"</item>
+    <item msgid="5340374311583423836">"पूर्वी मानक - एटिकोकन"</item>
+    <item msgid="8922086438245451625">"अटलांटिक मानक - क्यूबेक"</item>
+    <item msgid="8353677384517034413">"हवाई-एल्यूशियन - हवाई"</item>
+    <item msgid="6426791761018806420">"हवाई-एल्यूशियन - अलास्का"</item>
+    <item msgid="7076353182411415610">"प्रशांत मानक - मेटलाकाटला"</item>
+    <item msgid="373990592918179890">"पर्वतीय मानक - एरिज़ोना"</item>
+    <item msgid="353899326999279114">"प्रशांत - बाजा कैलिफ़ोर्निया"</item>
+    <item msgid="6432134534714673873">"पर्वत - चिहुआहुआ"</item>
+    <item msgid="7629345735485663968">"मध्य - टमाउलिपास"</item>
+    <item msgid="3874729044260979505">"पर्वत - सोनोरा"</item>
+    <item msgid="1106209575683600471">"पूर्वी अफ़्रीकी समय"</item>
+    <item msgid="6538017087072480128">"अटलांटिक मानक समय"</item>
+    <item msgid="6758957851822881177">"अटलांटिक मानक समय"</item>
+    <item msgid="2477556470536619081">"पूर्वी यूरोपीय समय"</item>
+    <item msgid="7328461310893621937">"कालिनिनग्राद समय"</item>
+    <item msgid="4212642599758736931">"अमेज़न - रॉन्डॉनिया"</item>
+    <item msgid="2370319280810537375">"ब्राज़िलिया - पैरा"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"सिंट मार्टिन"</item>
+    <item msgid="5330962017221568054">"कैरेबियाई नीदरलैंड्स"</item>
+    <item msgid="1465164631761814300">"क्यूरासाओ"</item>
+    <item msgid="8972081011408691260">"दक्षिण सूडान"</item>
+  </string-array>
+</resources>

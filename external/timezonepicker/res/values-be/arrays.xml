@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"Аўстралійскі цэнтральны час - NT"</item>
+    <item msgid="4345275500159159867">"Аўстралійскі цэнтральны час - SA"</item>
+    <item msgid="6771274300523132094">"Усходнеаўстрал. час - Квінсленд"</item>
+    <item msgid="4685547681424666687">"Ўсходнеаўстралійскі час - NSW"</item>
+    <item msgid="5259393186526893961">"Горны стандарт. час - Досан-Крык"</item>
+    <item msgid="5984634754870859705">"Цэнтр. стандарт. час - Саскачэван"</item>
+    <item msgid="5340374311583423836">"Усходні стандарт. час - Ацікакан"</item>
+    <item msgid="8922086438245451625">"Атлантычны станд. час - Квебек"</item>
+    <item msgid="8353677384517034413">"Гавайска-алеуцкі час - Гаваі"</item>
+    <item msgid="6426791761018806420">"Гавайска-алеуцкі час - Аляска"</item>
+    <item msgid="7076353182411415610">"Стандартны ціхаакіянскі час - Метлакатла"</item>
+    <item msgid="373990592918179890">"Горны стандартны час - Арызона"</item>
+    <item msgid="353899326999279114">"Ціхаакіянскі час - Баха Каліфорнія"</item>
+    <item msgid="6432134534714673873">"Горны час - Чыўаўа"</item>
+    <item msgid="7629345735485663968">"Цэнтральны час - Тамаулипас"</item>
+    <item msgid="3874729044260979505">"Горны час - Санора"</item>
+    <item msgid="1106209575683600471">"Усходнеафрыканскі час"</item>
+    <item msgid="6538017087072480128">"Атлантычны стандартны час"</item>
+    <item msgid="6758957851822881177">"Атлантычны стандартны час"</item>
+    <item msgid="2477556470536619081">"Усходнееўрапейскі час"</item>
+    <item msgid="7328461310893621937">"Калінінградскі час"</item>
+    <item msgid="4212642599758736931">"Амазонка – Рандонія"</item>
+    <item msgid="2370319280810537375">"Бразіліа - Пара"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"Сінт-Мартен"</item>
+    <item msgid="5330962017221568054">"Карыбскія Нідэрланды"</item>
+    <item msgid="1465164631761814300">"Кюрасаа"</item>
+    <item msgid="8972081011408691260">"Паўднёвы Судан"</item>
+  </string-array>
+</resources>

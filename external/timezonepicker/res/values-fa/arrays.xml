@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"‏‫استرالیای مرکزی - NT"</item>
+    <item msgid="4345275500159159867">"‏‫استرالیای مرکزی - SA"</item>
+    <item msgid="6771274300523132094">"‏استرالیای شرقی - QLD"</item>
+    <item msgid="4685547681424666687">"‏استرالیای شرقی - NSW"</item>
+    <item msgid="5259393186526893961">"استاندارد کوهستان - داوسون کریک"</item>
+    <item msgid="5984634754870859705">"استاندارد مرکزی - ساسکاچوان"</item>
+    <item msgid="5340374311583423836">"استاندارد شرقی - آتیکوکان"</item>
+    <item msgid="8922086438245451625">"استاندارد اقیانوس اطلس - کبک"</item>
+    <item msgid="8353677384517034413">"هاوایی-آلوشن - هاوایی"</item>
+    <item msgid="6426791761018806420">"هاوایی-آلوشن- آلاسکا"</item>
+    <item msgid="7076353182411415610">"استاندارد اقیانوس آرام-متلاکاتلا"</item>
+    <item msgid="373990592918179890">"استاندارد کوهستان - آریزونا"</item>
+    <item msgid="353899326999279114">"اقیانوس آرام - باجا کالیفرنیا"</item>
+    <item msgid="6432134534714673873">"کوهستان - چیواوا"</item>
+    <item msgid="7629345735485663968">"مرکزی - تامائولیپاس"</item>
+    <item msgid="3874729044260979505">"کوهستان - سونورا"</item>
+    <item msgid="1106209575683600471">"زمان آفریقای شرقی"</item>
+    <item msgid="6538017087072480128">"وقت عادی اقیانوس اطلس"</item>
+    <item msgid="6758957851822881177">"وقت عادی اقیانوس اطلس"</item>
+    <item msgid="2477556470536619081">"زمان اروپای شرقی"</item>
+    <item msgid="7328461310893621937">"زمان کالینینگراد"</item>
+    <item msgid="4212642599758736931">"آمازون - روندونیا"</item>
+    <item msgid="2370319280810537375">"برازیلیا - پارا"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"سینت مارتن"</item>
+    <item msgid="5330962017221568054">"کارائیب هلند"</item>
+    <item msgid="1465164631761814300">"کوراسائو"</item>
+    <item msgid="8972081011408691260">"سودان جنوبی"</item>
+  </string-array>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"オーストラリア中部 - NT"</item>
+    <item msgid="4345275500159159867">"オーストラリア中部 - SA"</item>
+    <item msgid="6771274300523132094">"オーストラリア東部 - QLD"</item>
+    <item msgid="4685547681424666687">"オーストラリア東部 - NSW"</item>
+    <item msgid="5259393186526893961">"山岳部標準 - ドーソンクリーク"</item>
+    <item msgid="5984634754870859705">"中部標準 - サスカチュワン"</item>
+    <item msgid="5340374311583423836">"東部標準 - アティコカン"</item>
+    <item msgid="8922086438245451625">"大西洋標準 - ケベック"</item>
+    <item msgid="8353677384517034413">"ハワイアリューシャン - ハワイ"</item>
+    <item msgid="6426791761018806420">"ハワイアリューシャン - アラスカ"</item>
+    <item msgid="7076353182411415610">"太平洋標準 - メトラカトラ"</item>
+    <item msgid="373990592918179890">"山岳部標準 - アリゾナ"</item>
+    <item msgid="353899326999279114">"太平洋 - バハカリフォルニア"</item>
+    <item msgid="6432134534714673873">"山岳部 - チワワ"</item>
+    <item msgid="7629345735485663968">"中部 - タマウリパス"</item>
+    <item msgid="3874729044260979505">"山岳部 - ソノラ"</item>
+    <item msgid="1106209575683600471">"東アフリカ時間"</item>
+    <item msgid="6538017087072480128">"大西洋標準時"</item>
+    <item msgid="6758957851822881177">"大西洋標準時"</item>
+    <item msgid="2477556470536619081">"東ヨーロッパ時間"</item>
+    <item msgid="7328461310893621937">"カリーニングラード時間"</item>
+    <item msgid="4212642599758736931">"アマゾン - ロンドニア"</item>
+    <item msgid="2370319280810537375">"ブラジリア - パラー"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"シントマールテン"</item>
+    <item msgid="5330962017221568054">"オランダ領カリブ"</item>
+    <item msgid="1465164631761814300">"キュラソー"</item>
+    <item msgid="8972081011408691260">"南スーダン"</item>
+  </string-array>
+</resources>

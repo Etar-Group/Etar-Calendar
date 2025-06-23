@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"অষ্ট্ৰেলিয়াৰ কেন্দ্ৰীয় সময় - NT"</item>
+    <item msgid="4345275500159159867">"অষ্ট্ৰেলিয়াৰ কেন্দ্ৰীয় সময় - SA"</item>
+    <item msgid="6771274300523132094">"অষ্ট্ৰেলিয়াৰ প্ৰাচ্য সময় - QLD"</item>
+    <item msgid="4685547681424666687">"অষ্ট্ৰেলিয়াৰ প্ৰাচ্য সময় - NSW"</item>
+    <item msgid="5259393186526893961">"পৰ্ব্বতীয় মান সময় - ডাউচ\'ন ক্ৰেক"</item>
+    <item msgid="5984634754870859705">"কেন্দ্ৰীয় মান সময় - ছাছকাটছেৱান"</item>
+    <item msgid="5340374311583423836">"প্ৰাচ্য মান সময় - আটিক\'কান"</item>
+    <item msgid="8922086438245451625">"আটলাণ্টিক মান সময় - কিউবেক"</item>
+    <item msgid="8353677384517034413">"হাৱাই-এলুৱেটিয়ান - হাৱাই"</item>
+    <item msgid="6426791761018806420">"হাৱাই-এলুৱেটিয়ান - আলাস্কা"</item>
+    <item msgid="7076353182411415610">"প্ৰশান্ত মান সময় - মেটলাকাটলা"</item>
+    <item msgid="373990592918179890">"পৰ্ব্বতীয় মান সময় - আৰিজোৱানা"</item>
+    <item msgid="353899326999279114">"প্ৰশান্ত মহাসাগৰীয় সময় - বাজা কেলিফ\'ৰ্নিয়া"</item>
+    <item msgid="6432134534714673873">"পৰ্ব্বতীয় মান সময় - চিহুৱাহুৱা"</item>
+    <item msgid="7629345735485663968">"কেন্দ্ৰীয় সময় - টামাওলিপাচ"</item>
+    <item msgid="3874729044260979505">"পৰ্ব্বতীয় মান সময় - চ\'ন\'ৰা"</item>
+    <item msgid="1106209575683600471">"পূব আফ্ৰিকাৰ সময়"</item>
+    <item msgid="6538017087072480128">"আটলাণ্টিক মান সময়"</item>
+    <item msgid="6758957851822881177">"আটলাণ্টিক মান সময়"</item>
+    <item msgid="2477556470536619081">"প্ৰাচ্য ইউৰোপীয় সময়"</item>
+    <item msgid="7328461310893621937">"কালিনিনগ্ৰাডৰ সময়"</item>
+    <item msgid="4212642599758736931">"আমাজনৰ সময় - ৰ\'ণ্ড\'নিয়া"</item>
+    <item msgid="2370319280810537375">"ব্ৰাজিলিয়াৰ সময় - পেৰে"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"ছেইণ্ট মাৰ্টিন"</item>
+    <item msgid="5330962017221568054">"কেৰিবিয়ান নেডাৰলেণ্ড"</item>
+    <item msgid="1465164631761814300">"কাৰাকাও"</item>
+    <item msgid="8972081011408691260">"দক্ষিণ ছুডান"</item>
+  </string-array>
+</resources>

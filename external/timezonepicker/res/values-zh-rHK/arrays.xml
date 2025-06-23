@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="timezone_rename_labels">
+    <item msgid="4609638052107641231">"澳洲中部時間 - 北領地"</item>
+    <item msgid="4345275500159159867">"澳洲中部時間 - 南澳"</item>
+    <item msgid="6771274300523132094">"澳洲東部時間 - 昆士蘭"</item>
+    <item msgid="4685547681424666687">"澳洲東部時間 - 新南威爾斯"</item>
+    <item msgid="5259393186526893961">"山區標準時間 - 道森克里克"</item>
+    <item msgid="5984634754870859705">"中部標準時間 - 薩斯喀徹溫"</item>
+    <item msgid="5340374311583423836">"東部標準時間 - 阿蒂科肯"</item>
+    <item msgid="8922086438245451625">"大西洋標準時間 - 魁北克"</item>
+    <item msgid="8353677384517034413">"夏威夷/阿留申時間 - 夏威夷"</item>
+    <item msgid="6426791761018806420">"夏威夷/阿留申時間 - 阿拉斯加"</item>
+    <item msgid="7076353182411415610">"太平洋標準時間 - 梅特拉卡特拉"</item>
+    <item msgid="373990592918179890">"山區標準時間 - 亞利桑那"</item>
+    <item msgid="353899326999279114">"太平洋時間 - 下加利福尼亞"</item>
+    <item msgid="6432134534714673873">"山區時間 - 吉娃娃"</item>
+    <item msgid="7629345735485663968">"中部時間 - 塔毛利帕斯"</item>
+    <item msgid="3874729044260979505">"山區時間 - 索諾拉"</item>
+    <item msgid="1106209575683600471">"東非時間"</item>
+    <item msgid="6538017087072480128">"大西洋標準時間"</item>
+    <item msgid="6758957851822881177">"大西洋標準時間"</item>
+    <item msgid="2477556470536619081">"東歐時間"</item>
+    <item msgid="7328461310893621937">"加里寧格勒時間"</item>
+    <item msgid="4212642599758736931">"亞馬遜 - 朗多尼亞"</item>
+    <item msgid="2370319280810537375">"巴西利亞 - 帕拉"</item>
+  </string-array>
+  <string-array name="backup_country_names">
+    <item msgid="9141777876082196578">"聖馬丁"</item>
+    <item msgid="5330962017221568054">"荷蘭加勒比區"</item>
+    <item msgid="1465164631761814300">"庫拉索"</item>
+    <item msgid="8972081011408691260">"南蘇丹"</item>
+  </string-array>
+</resources>
