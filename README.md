@@ -72,7 +72,6 @@ Install and extract Android SDK command line tools.
 ```
 tools/bin/sdkmanager platform-tools
 export ANDROID_HOME=/path/to/android-sdk/
-git submodule update --init
 gradle :app:assembleDebug
 ```
 ## License

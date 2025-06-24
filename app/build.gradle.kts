@@ -7,7 +7,7 @@ plugins {
 }
 
 editorconfig {
-	excludes = listOf("external/**", "metadata/**", "**/*.webp")
+	excludes = listOf("metadata/**", "**/*.webp")
 }
 
 kotlin {
@@ -120,8 +120,6 @@ android {
 dependencies {
 
 	// Core
-    implementation(fileTree("include" to arrayOf("*.jar", "*.aar"), "dir" to "libs"))
-
 	implementation(libs.androidx.core)
 	implementation(libs.androidx.preference)
 	implementation(libs.androidx.appcompat)
@@ -140,5 +138,3 @@ dependencies {
 	// lifecycle
 	implementation(libs.androidx.lifecycle.livedata)
 }
-
-tasks.preBuild.dependsOn(":aarGen")
