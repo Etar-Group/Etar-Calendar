@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.ex.chips;
+package com.android.calendar.chips;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -32,10 +32,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 
-import com.android.ex.chips.BaseRecipientAdapter.DirectoryListQuery;
-import com.android.ex.chips.BaseRecipientAdapter.DirectorySearchParams;
-import com.android.ex.chips.DropdownChipLayouter.AdapterType;
-import com.android.ex.chips.Queries.Query;
+import com.android.calendar.chips.BaseRecipientAdapter.DirectoryListQuery;
+import com.android.calendar.chips.BaseRecipientAdapter.DirectorySearchParams;
+import com.android.calendar.chips.DropdownChipLayouter.AdapterType;
+import com.android.calendar.chips.Queries.Query;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.android.ex.chips;
+package com.android.calendar.chips;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -27,7 +27,9 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.ex.chips.Queries.Query;
+import com.android.calendar.chips.Queries.Query;
+
+import ws.xsoh.etar.R;
 
 /**
  * A class that inflates and binds the views in the dropdown list from

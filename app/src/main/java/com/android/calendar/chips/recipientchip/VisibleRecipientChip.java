@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.ex.chips.recipientchip;
+package com.android.calendar.chips.recipientchip;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
-import com.android.ex.chips.RecipientEntry;
+import com.android.calendar.chips.RecipientEntry;
 
 /**
  * VisibleRecipientChip defines a ReplacementSpan that contains information relevant to a

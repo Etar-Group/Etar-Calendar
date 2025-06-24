@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.ex.chips;
+package com.android.calendar.chips;
 
 import android.accounts.Account;
 import android.app.Activity;
@@ -41,8 +41,8 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-import com.android.ex.chips.ChipsUtil.PermissionsCheckListener;
-import com.android.ex.chips.DropdownChipLayouter.AdapterType;
+import com.android.calendar.chips.ChipsUtil.PermissionsCheckListener;
+import com.android.calendar.chips.DropdownChipLayouter.AdapterType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -647,8 +647,8 @@ public class BaseRecipientAdapter extends BaseAdapter implements Filterable, Acc
     }
 
     /**
-     * If true, forces using the {@link com.android.ex.chips.SingleRecipientArrayAdapter}
-     * instead of {@link com.android.ex.chips.RecipientAlternatesAdapter} when
+     * If true, forces using the {@link com.android.calendar.chips.SingleRecipientArrayAdapter}
+     * instead of {@link com.android.calendar.chips.RecipientAlternatesAdapter} when
      * clicking on a chip. Default implementation returns {@code false}.
      */
     public boolean forceShowAddress() {
@@ -787,10 +787,10 @@ public class BaseRecipientAdapter extends BaseAdapter implements Filterable, Acc
     }
 
     /**
-     * Called whenever {@link com.android.ex.chips.BaseRecipientAdapter.DirectoryFilter}
+     * Called whenever {@link com.android.calendar.chips.BaseRecipientAdapter.DirectoryFilter}
      * wants to add an additional entry to the results. Derived classes should override
      * this method if they are not using the default data structures provided by
-     * {@link com.android.ex.chips.BaseRecipientAdapter} and are instead using their
+     * {@link com.android.calendar.chips.BaseRecipientAdapter} and are instead using their
      * own data structures to store and collate data.
      * @param entry the entry being added
      * @param isAggregatedEntry

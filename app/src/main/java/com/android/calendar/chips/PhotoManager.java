@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.ex.chips;
+package com.android.calendar.chips;
 
 /**
- * Used by the {@link com.android.ex.chips.BaseRecipientAdapter} to handle fetching
+ * Used by the {@link com.android.calendar.chips.BaseRecipientAdapter} to handle fetching
  * photos from external sources and caching them for faster lookup later.
  */
 public interface PhotoManager {
@@ -26,7 +26,7 @@ public interface PhotoManager {
     public static final int PHOTO_CACHE_SIZE = 20;
 
     /**
-     * Sets the {@link com.android.ex.chips.RecipientEntry}'s photo bytes. If the photo bytes
+     * Sets the {@link com.android.calendar.chips.RecipientEntry}'s photo bytes. If the photo bytes
      * are cached, this action happens immediately. Otherwise, the work to fetch the photo
      * bytes is performed asynchronously before setting the value on the UI thread.<p/>
      *

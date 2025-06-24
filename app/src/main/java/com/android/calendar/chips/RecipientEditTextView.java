@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.android.ex.chips;
+package com.android.calendar.chips;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -92,12 +92,12 @@ import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.android.ex.chips.DropdownChipLayouter.PermissionRequestDismissedListener;
-import com.android.ex.chips.RecipientAlternatesAdapter.RecipientMatchCallback;
-import com.android.ex.chips.recipientchip.DrawableRecipientChip;
-import com.android.ex.chips.recipientchip.InvisibleRecipientChip;
-import com.android.ex.chips.recipientchip.ReplacementDrawableSpan;
-import com.android.ex.chips.recipientchip.VisibleRecipientChip;
+import com.android.calendar.chips.DropdownChipLayouter.PermissionRequestDismissedListener;
+import com.android.calendar.chips.RecipientAlternatesAdapter.RecipientMatchCallback;
+import com.android.calendar.chips.recipientchip.DrawableRecipientChip;
+import com.android.calendar.chips.recipientchip.InvisibleRecipientChip;
+import com.android.calendar.chips.recipientchip.ReplacementDrawableSpan;
+import com.android.calendar.chips.recipientchip.VisibleRecipientChip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,6 +107,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import ws.xsoh.etar.R;
 
 /**
  * RecipientEditTextView is an auto complete text view for use with applications

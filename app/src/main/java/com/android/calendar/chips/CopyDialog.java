@@ -1,4 +1,4 @@
-package com.android.ex.chips;
+package com.android.calendar.chips;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,6 +8,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import ws.xsoh.etar.R;
 
 /**
  * Simple dialog fragment for copying the contents of a chip.

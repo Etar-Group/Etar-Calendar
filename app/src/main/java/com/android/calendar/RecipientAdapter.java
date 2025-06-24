@@ -19,7 +19,7 @@ package com.android.calendar;
 import android.accounts.Account;
 import android.content.Context;
 
-import com.android.ex.chips.BaseRecipientAdapter;
+import com.android.calendar.chips.BaseRecipientAdapter;
 
 public class RecipientAdapter extends BaseRecipientAdapter {
     public RecipientAdapter(Context context) {

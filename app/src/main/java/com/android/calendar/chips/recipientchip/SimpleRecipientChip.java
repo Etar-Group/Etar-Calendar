@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.ex.chips.recipientchip;
+package com.android.calendar.chips.recipientchip;
 
-import com.android.ex.chips.RecipientEntry;
+import com.android.calendar.chips.RecipientEntry;
 
 import android.text.TextUtils;
 
