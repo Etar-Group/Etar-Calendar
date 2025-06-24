@@ -1,5 +1,0 @@
-[submodule "external/chips"]
-	path = external/chips
-	url = https://github.com/Etar-Group/android_frameworks_opt_chips.git
-	branch = rebase
-	ignore = untracked
