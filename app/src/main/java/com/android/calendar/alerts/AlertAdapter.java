@@ -27,7 +27,7 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.Locale;
 import java.util.TimeZone;

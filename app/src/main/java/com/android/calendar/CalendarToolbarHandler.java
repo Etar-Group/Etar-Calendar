@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.Formatter;
 import java.util.Locale;

@@ -79,7 +79,7 @@ import android.widget.ViewSwitcher;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.settings.GeneralPreferences;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Arrays;

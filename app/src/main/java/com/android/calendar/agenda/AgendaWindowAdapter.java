@@ -45,7 +45,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.Date;
 import java.util.Formatter;

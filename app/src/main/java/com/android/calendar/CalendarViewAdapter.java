@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.LunarUtils.LunarInfoLoader;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.Calendar;
 import java.util.Formatter;

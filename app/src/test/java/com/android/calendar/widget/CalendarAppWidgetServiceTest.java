@@ -20,7 +20,7 @@ package com.android.calendar.widget;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetService.CalendarFactory;
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import android.content.Context;
 import android.database.MatrixCursor;

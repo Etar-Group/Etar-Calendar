@@ -36,8 +36,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.calendarcommon2.DateException;
-import com.android.calendarcommon2.Duration;
+import com.android.calendar.calendarcommon2.DateException;
+import com.android.calendar.calendarcommon2.Duration;
 
 import ws.xsoh.etar.R;
 

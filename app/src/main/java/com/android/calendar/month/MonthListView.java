@@ -26,7 +26,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 public class MonthListView extends ListView {
 

@@ -57,8 +57,8 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.EventRecurrence;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.EventRecurrence;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;

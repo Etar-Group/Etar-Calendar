@@ -45,7 +45,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
 import ws.xsoh.etar.databinding.SimpleFrameLayoutMaterialBinding;

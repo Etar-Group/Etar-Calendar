@@ -45,11 +45,11 @@ import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.DateException;
-import com.android.calendarcommon2.EventRecurrence;
-import com.android.calendarcommon2.RecurrenceProcessor;
-import com.android.calendarcommon2.RecurrenceSet;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.DateException;
+import com.android.calendar.calendarcommon2.EventRecurrence;
+import com.android.calendar.calendarcommon2.RecurrenceProcessor;
+import com.android.calendar.calendarcommon2.RecurrenceSet;
+import com.android.calendar.calendarcommon2.Time;
 import com.android.common.Rfc822Validator;
 
 import java.util.ArrayList;

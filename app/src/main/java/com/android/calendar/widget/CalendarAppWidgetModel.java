@@ -25,7 +25,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

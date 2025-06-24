@@ -41,7 +41,7 @@ import com.android.calendar.EventInfoFragment;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
 import com.android.calendar.settings.GeneralPreferences;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.Date;
 

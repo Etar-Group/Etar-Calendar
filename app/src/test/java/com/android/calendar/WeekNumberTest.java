@@ -22,7 +22,7 @@ import android.test.suitebuilder.annotation.Smoke;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 /**
  * Unit tests for {@link android.text.format.Time#getWeekNumber}.

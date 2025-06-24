@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendarcommon2;
+package com.android.calendar.calendarcommon2;
 
 public class DateException extends Exception
 {

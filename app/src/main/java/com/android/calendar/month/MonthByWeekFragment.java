@@ -53,7 +53,7 @@ import com.android.calendar.DynamicTheme;
 import com.android.calendar.Event;
 import com.android.calendar.Utils;
 import com.android.calendar.event.CreateEventDialogFragment;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Calendar;

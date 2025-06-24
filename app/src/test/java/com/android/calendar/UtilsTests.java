@@ -18,7 +18,7 @@ package com.android.calendar;
 
 import com.android.calendar.Utils;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import android.content.Context;
 import android.content.res.Configuration;

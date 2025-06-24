@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.calendarcommon2;
+package com.android.calendar.calendarcommon2;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

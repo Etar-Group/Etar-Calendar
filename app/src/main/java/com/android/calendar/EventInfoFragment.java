@@ -120,10 +120,10 @@ import com.android.calendar.icalendar.Organizer;
 import com.android.calendar.icalendar.VCalendar;
 import com.android.calendar.icalendar.VEvent;
 import com.android.calendar.settings.GeneralPreferences;
-import com.android.calendarcommon2.DateException;
-import com.android.calendarcommon2.Duration;
-import com.android.calendarcommon2.EventRecurrence;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.DateException;
+import com.android.calendar.calendarcommon2.Duration;
+import com.android.calendar.calendarcommon2.EventRecurrence;
+import com.android.calendar.calendarcommon2.Time;
 import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.calendar.colorpicker.HsvColorComparator;
 

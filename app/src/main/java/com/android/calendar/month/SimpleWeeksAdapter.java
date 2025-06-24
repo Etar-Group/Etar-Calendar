@@ -31,7 +31,7 @@ import android.widget.ListView;
 // refactored into the public api
 import com.android.calendar.CalendarController;
 import com.android.calendar.Utils;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.Calendar;
 import java.util.HashMap;

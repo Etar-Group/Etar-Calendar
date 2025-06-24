@@ -30,7 +30,7 @@ import android.widget.TextView;
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Formatter;

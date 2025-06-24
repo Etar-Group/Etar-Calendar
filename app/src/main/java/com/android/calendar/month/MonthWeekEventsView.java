@@ -50,7 +50,7 @@ import com.android.calendar.Event;
 import com.android.calendar.LunarUtils;
 import com.android.calendar.Utils;
 import com.android.calendar.settings.ViewDetailsPreferences;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import java.util.ArrayList;
 import java.util.Formatter;

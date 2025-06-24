@@ -32,7 +32,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
-import com.android.calendarcommon2.Time;
+import com.android.calendar.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
 
