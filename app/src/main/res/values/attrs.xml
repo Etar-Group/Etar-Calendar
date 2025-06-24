@@ -51,4 +51,24 @@
         <attr name="divider_select_calendars" format="color"/>
         <attr name="calendarSpinnerDisabledTextColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="RecipientEditTextView">
+        <attr name="avatarPosition">
+            <enum name="end" value="0" />
+            <enum name="start" value="1" />
+        </attr>
+        <attr name="chipBackground" format="reference" />
+        <attr name="chipDelete" format="reference" />
+        <attr name="chipFontSize" format="reference" />
+        <attr name="chipHeight" format="reference" />
+        <attr name="chipPadding" format="reference" />
+        <attr name="disableDelete" format="boolean" />
+        <attr name="invalidChipBackground" format="reference" />
+        <attr name="imageSpanAlignment">
+            <enum name="bottom" value = "0"/>
+            <enum name="baseline" value = "1"/>
+        </attr>
+        <attr name="unselectedChipBackgroundColor" format="color" />
+        <attr name="unselectedChipTextColor" format="color" />
+    </declare-styleable>
 </resources>
