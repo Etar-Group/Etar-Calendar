@@ -30,6 +30,7 @@ import android.util.SparseIntArray
 import androidx.appcompat.app.AlertDialog
 import com.android.calendar.AsyncQueryService
 import com.android.calendar.Utils
+import com.android.calendar.colorpicker.ColorPickerDialog
 import com.android.calendar.colorpicker.ColorPickerSwatch.OnColorSelectedListener
 import com.android.calendar.colorpicker.HsvColorComparator
 import ws.xsoh.etar.R
@@ -39,11 +40,11 @@ import java.util.Arrays
 
 /**
  * Based on CalendarColorPickerDialog.java
- * - extends ColorPickerDialogX for androidx compatibility
+ * - extends ColorPickerDialog for androidx compatibility
  * - added OnCalendarColorSelectedListener
  * - handle calendars where no additional colors are provided by the account
  */
-class CalendarColorPickerDialogX : ColorPickerDialogX() {
+class CalendarColorPickerDialogX : ColorPickerDialog() {
     private var queryService: QueryService? = null
     private val colorKeyMap = SparseIntArray()
     private var calendarId: Long = 0
