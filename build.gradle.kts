@@ -15,7 +15,6 @@ plugins {
 // projects using a custom task  in order to let Android Studio work properly.
 // MUST BE RUN MANUALLY ON CLI COMPILATION
 val externalProjects = listOf(
-    project(":external:calendar"),
     project(":external:chips"),
 )
 
@@ -28,7 +27,6 @@ configure(externalProjects) {
 tasks.register("aarGen") {
     description = "Generates AAR from the external projects for Etar-Calendar"
     val aarTasks = arrayOf(
-        ":external:calendar:copyAAR",
         ":external:chips:copyAAR",
     )
     dependsOn(*aarTasks)
