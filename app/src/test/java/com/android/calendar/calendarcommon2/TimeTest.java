@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.calendarcommon2;
+package com.android.calendar.calendarcommon2;
 
 import android.util.TimeFormatException;
 
@@ -23,7 +23,7 @@ import androidx.test.filters.SmallTest;
 import junit.framework.TestCase;
 
 /**
- * Tests for com.android.calendarcommon2.Time.
+ * Tests for com.android.calendar.calendarcommon2.Time.
  *
  * Some of these tests are borrowed from android.text.format.TimeTest.
  */

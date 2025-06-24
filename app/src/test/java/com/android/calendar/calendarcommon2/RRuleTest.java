@@ -17,7 +17,7 @@
 
 /* Based on http://code.google.com/p/google-rfc-2445/source/browse/trunk/test/com/google/ical/iter/RRuleIteratorImplTest.java */
 
-package com.android.calendarcommon2;
+package com.android.calendar.calendarcommon2;
 
 
 import android.os.Debug;
