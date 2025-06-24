@@ -245,4 +245,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"ล้างข้อความค้นหา"</string>
     <string name="no_results_found" msgid="5475293015394772651">"ไม่พบผลการค้นหา"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"ปาเลสไตน์"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="copy_email" msgid="1084563757174121331">"คัดลอกอีเมล"</string>
+    <string name="copy_number" msgid="8860802152973030914">"คัดลอกหมายเลขโทรศัพท์"</string>
+    <string name="action_label" msgid="7172664623795021857">"เสร็จสิ้น"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"คำแนะนำเกี่ยวกับข้อมูลติดต่อที่เปิดอยู่"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"ไม่มีคำแนะนำ"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"นำ <xliff:g id="CONTACT">%s</xliff:g> ออกจากผู้รับ"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"คัดลอก"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"ยกเลิก"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"อนุญาตให้แนะนำรายชื่อติดต่อ"</string>
 </resources>

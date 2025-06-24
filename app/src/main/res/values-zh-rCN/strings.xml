@@ -349,4 +349,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"清除查询"</string>
     <string name="no_results_found" msgid="5475293015394772651">"找不到任何结果"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"巴勒斯坦"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="copy_email" msgid="1084563757174121331">"复制电子邮件地址"</string>
+    <string name="copy_number" msgid="8860802152973030914">"复制电话号码"</string>
+    <string name="action_label" msgid="7172664623795021857">"回车"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"联系人推荐已打开"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"没有任何建议"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"从收件人列表中移除<xliff:g id="CONTACT">%s</xliff:g>"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"复制"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"取消"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"允许推荐联系人"</string>
 </resources>

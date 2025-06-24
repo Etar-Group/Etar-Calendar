@@ -17,4 +17,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"ক্যোয়ারী সাফ করুন"</string>
     <string name="no_results_found" msgid="5475293015394772651">"কোনো ফলাফল পাওয়া যায়নি"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"প্যালেস্তাইন"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>টি"</string>
+    <string name="copy_email" msgid="1084563757174121331">"ইমেল ঠিকানা কপি করুন"</string>
+    <string name="copy_number" msgid="8860802152973030914">"ফোন নম্বর কপি করুন"</string>
+    <string name="action_label" msgid="7172664623795021857">"ফেরত যান"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"যোগাযোগের পরামর্শগুলি খোলা হয়েছে"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"কোনো প্রস্তাবনা উপলব্ধ নেই"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"প্রাপকদের কাছ থেকে <xliff:g id="CONTACT">%s</xliff:g> সরান"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"কপি করুন"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"বাতিল করুন"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"পরিচিতিগুলির প্রস্তাবনায় অনুমতি দিন"</string>
 </resources>

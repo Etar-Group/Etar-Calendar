@@ -349,4 +349,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"検索キーワードを削除"</string>
     <string name="no_results_found" msgid="5475293015394772651">"一致する検索結果はありません"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"パレスチナ"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="copy_email" msgid="1084563757174121331">"メールアドレスをコピー"</string>
+    <string name="copy_number" msgid="8860802152973030914">"電話番号をコピー"</string>
+    <string name="action_label" msgid="7172664623795021857">"Enter"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"選択できる連絡先候補の数"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"候補はありません"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"宛先から<xliff:g id="CONTACT">%s</xliff:g>さんを削除します"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"コピー"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"キャンセル"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"連絡先の提案を許可"</string>
 </resources>

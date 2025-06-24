@@ -19,14 +19,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <com.android.ex.chips.RecipientEditTextView
+    <com.android.calendar.chips.RecipientEditTextView
         android:id="@+id/email_retv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email_addresses"
         android:minHeight="58dp" />
 
-    <com.android.ex.chips.RecipientEditTextView
+    <com.android.calendar.chips.RecipientEditTextView
         android:id="@+id/phone_retv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

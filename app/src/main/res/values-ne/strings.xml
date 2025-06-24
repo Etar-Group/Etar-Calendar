@@ -68,4 +68,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"प्रश्‍न हटाउनुहोस्"</string>
     <string name="no_results_found" msgid="5475293015394772651">"कुनै परिणामहरू फेला परेन।"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"प्यालेस्टाइन"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="copy_email" msgid="1084563757174121331">"इमेल ठेगाना कपी गर्नुहोस्"</string>
+    <string name="copy_number" msgid="8860802152973030914">"फोन नम्बरको कपी गर्नुहोस्"</string>
+    <string name="action_label" msgid="7172664623795021857">"फर्कनुहोस्"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"सम्पर्क सुझाव खोलियो"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"कुनै पनि सुझाव उपलब्ध छैन"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"प्राप्तकर्ताहरूबाट <xliff:g id="CONTACT">%s</xliff:g> हटाउनुहोस्"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"कपी गर्नुहोस्"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"रद्द गर्नुहोस्"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"सम्पर्क सुझावहरूलाई अनुमति दिनुहोस्"</string>
 </resources>

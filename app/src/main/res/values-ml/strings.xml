@@ -70,4 +70,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"ചോദ്യം മായ്‌ക്കുക"</string>
     <string name="no_results_found" msgid="5475293015394772651">"ഫലങ്ങളൊന്നുമില്ല"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"പലസ്‌തീൻ"</string>
+
+    <string name="more_string" msgid="643992135011109762">"<xliff:g id="COUNT">%1$d</xliff:g> എണ്ണം കൂടി"</string>
+    <string name="copy_email" msgid="1084563757174121331">"ഇമെയിൽ വിലാസം പകർത്തുക"</string>
+    <string name="copy_number" msgid="8860802152973030914">"ഫോൺ നമ്പർ പകർത്തുക"</string>
+    <string name="action_label" msgid="7172664623795021857">"മടങ്ങുക"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"കോൺടാക്‌റ്റ് നിർദ്ദേശങ്ങൾ ലഭ്യമാണ്"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"നിർദ്ദേശങ്ങളൊന്നും ലഭ്യമല്ല"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"സ്വീകർത്താക്കളിൽ നിന്ന് <xliff:g id="CONTACT">%s</xliff:g> നീക്കംചെയ്യുക"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"പകര്‍ത്തുക"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"റദ്ദാക്കുക"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"കോൺടാക്റ്റുകളുടെ നിർദ്ദേശങ്ങൾ അനുവദിക്കുക"</string>
 </resources>

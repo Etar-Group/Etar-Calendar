@@ -374,4 +374,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Izbris poizvedbe"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Ni rezultatov"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="copy_email" msgid="1084563757174121331">"Kopiranje e-poštnega naslova"</string>
+    <string name="copy_number" msgid="8860802152973030914">"Kopiranje telefonske številke"</string>
+    <string name="action_label" msgid="7172664623795021857">"Vračalka"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Predlogi za stike so odprti"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Ni predlogov"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Odstranitev stika <xliff:g id="CONTACT">%s</xliff:g> s seznama prejemnikov"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"Kopiraj"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"Prekliči"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"Dovoli predlaganje stikov"</string>
 </resources>

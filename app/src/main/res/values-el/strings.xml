@@ -365,4 +365,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Διαγραφή ερωτήματος"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Δεν βρέθηκαν αποτελέσματα"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Παλαιστίνη"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="copy_email" msgid="1084563757174121331">"Αντιγραφή διεύθυνσης ηλεκτρονικού ταχυδρομείου"</string>
+    <string name="copy_number" msgid="8860802152973030914">"Αντιγραφή αριθμού τηλεφώνου"</string>
+    <string name="action_label" msgid="7172664623795021857">"Επιστροφή"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Οι προτάσεις επαφών άνοιξαν"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Δεν υπάρχουν διαθέσιμες προτάσεις"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Κατάργηση του χρήστη <xliff:g id="CONTACT">%s</xliff:g> από τους αποδέκτες"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"Αντιγραφή"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"Ακύρωση"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"Να επιτρέπονται οι προτάσεις επαφών"</string>
 </resources>

@@ -245,4 +245,15 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Futa hoja"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Hakuna matokeo yaliyopatikana"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
+
+    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="copy_email" msgid="1084563757174121331">"Nakili anwani ya barua pepe"</string>
+    <string name="copy_number" msgid="8860802152973030914">"Nakili namba ya simu"</string>
+    <string name="action_label" msgid="7172664623795021857">"Rudi"</string>
+    <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Mapendekezo ya anwani yamefunguliwa"</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Hakuna mapendekezo yanayopatikana"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Ondoa <xliff:g id="CONTACT">%s</xliff:g> miongoni mwa wapokeaji"</string>
+    <string name="chips_action_copy" msgid="6984158516334578792">"Nakili"</string>
+    <string name="chips_action_cancel" msgid="2582257014578396781">"Ghairi"</string>
+    <string name="chips_permission_text" msgid="5601284803674008863">"Ruhusu mapendekezo ya anwani"</string>
 </resources>
