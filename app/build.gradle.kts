@@ -28,10 +28,6 @@ android {
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
 
-	sourceSets {
-		named("main").get().java.srcDirs("../external/ex/common/java")
-	}
-
 	buildTypes {
 		release {
 			// TODO: could be enabled for ProGuard minimization
