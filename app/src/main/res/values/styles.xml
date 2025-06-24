@@ -242,9 +242,9 @@
         <item name="android:inputType">textEmailAddress|textMultiLine</item>
         <item name="android:minHeight">@dimen/chip_height</item>
         <item name="android:popupBackground">@android:color/white</item>
-        <item name="android:textAlignment" tools:ignore="NewApi">viewStart</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:textDirection" tools:ignore="NewApi">locale</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="RecipientEditTextView" parent="@style/RecipientEditTextViewBase">
