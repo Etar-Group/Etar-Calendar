@@ -51,6 +51,7 @@ import com.android.calendar.DynamicTheme
 import com.android.calendar.Utils
 import com.android.calendar.alerts.AlertReceiver
 import com.android.calendar.event.EventViewUtils
+import com.android.calendar.colorpicker.ColorPickerDialog
 import com.android.calendar.timezonepicker.TimeZoneInfo
 import com.android.calendar.timezonepicker.TimeZonePickerUtils
 import ws.xsoh.etar.R
@@ -196,7 +197,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     private fun showColorPickerDialog() {
-        val colorPickerDialog = ColorPickerDialogX()
+        val colorPickerDialog = ColorPickerDialog()
         val selectedColorName = Utils.getSharedPreference(activity, KEY_COLOR_PREF, "teal")
         val selectedColor = ContextCompat.getColor(requireContext(), DynamicTheme.getColorId(selectedColorName))
         colorPickerDialog.initialize(R.string.preferences_color_pick,
