@@ -1,0 +1,34 @@
+[versions]
+agp = "8.10.0"
+compat = "1.7.0"
+constraint = "2.2.1"
+core = "1.16.0"
+desugar = "2.1.5"
+junit = "4.13.2"
+kotlin = "2.1.21"
+editorconfig = "0.1.0"
+ideaExt = "1.1.10"
+coroutines = "1.10.2"
+libRecur = "0.17.1"
+lifecycle = "2.9.0"
+material = "1.12.0"
+preference = "1.2.1"
+
+[libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "compat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraint" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "core" }
+androidx-lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-preference = { module = "androidx.preference:preference-ktx", version.ref = "preference" }
+android-tools-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
+junit = { module = "junit:junit", version.ref = "junit" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+dmfs-lib-recur = { module = "org.dmfs:lib-recur", version.ref = "libRecur" }
+google-android-material = { module = "com.google.android.material:material", version.ref = "material" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version.ref = "ideaExt" }
+ec4j-editorconfig = { id = "org.ec4j.editorconfig", version.ref = "editorconfig" }

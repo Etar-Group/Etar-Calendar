@@ -2,11 +2,11 @@ import org.jetbrains.gradle.ext.settings
 import org.jetbrains.gradle.ext.taskTriggers
 
 plugins {
-    id("com.android.application") version "8.10.0" apply false
-    id("com.android.library") version "8.10.0" apply false
-    id("org.jetbrains.kotlin.android") version "2.1.21" apply false
-    id("org.ec4j.editorconfig") version "0.1.0" apply false
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.10" apply true
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.ec4j.editorconfig) apply false
+    alias(libs.plugins.jetbrains.idea.ext) apply true
 }
 
 // External project configuration start

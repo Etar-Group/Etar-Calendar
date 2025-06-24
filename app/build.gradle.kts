@@ -1,9 +1,9 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
 plugins {
-	id("com.android.application")
-	id("org.jetbrains.kotlin.android")
-	id("org.ec4j.editorconfig")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ec4j.editorconfig)
 }
 
 editorconfig {
@@ -124,27 +124,25 @@ android {
 dependencies {
 
 	// Core
-	implementation("androidx.core:core-ktx:1.16.0")
-	implementation(fileTree("include" to arrayOf("*.jar", "*.aar"), "dir" to "libs"))
-	implementation("androidx.preference:preference-ktx:1.2.1")
-	implementation("androidx.appcompat:appcompat:1.7.0")
-	implementation("androidx.constraintlayout:constraintlayout:2.2.1")
-	implementation("com.google.android.material:material:1.12.0")
-	testImplementation("junit:junit:4.13.2")
+    implementation(fileTree("include" to arrayOf("*.jar", "*.aar"), "dir" to "libs"))
 
-	coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+	implementation(libs.androidx.core)
+	implementation(libs.androidx.preference)
+	implementation(libs.androidx.appcompat)
+	implementation(libs.androidx.constraintlayout)
+	implementation(libs.google.android.material)
+	testImplementation(libs.junit)
+
+	coreLibraryDesugaring(libs.android.tools.desugar)
 
 	// Coroutines
-	val coroutines_version = "1.10.2"
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+	implementation(libs.kotlinx.coroutines.android)
 
 	// https://mvnrepository.com/artifact/org.dmfs/lib-recur
-	implementation("org.dmfs:lib-recur:0.17.1")
+	implementation(libs.dmfs.lib.recur)
 
 	// lifecycle
-	val lifecycle_version = "2.9.0"
-	implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+	implementation(libs.androidx.lifecycle.livedata)
 }
 
 tasks.preBuild.dependsOn(":aarGen")
