@@ -48,7 +48,7 @@ package com.android.calendar.event;
  import com.android.calendar.ContactsAsyncHelper;
  import com.android.calendar.Utils;
  import com.android.calendar.event.EditEventHelper.AttendeeItem;
- import com.android.common.Rfc822Validator;
+ import com.android.calendar.common.Rfc822Validator;
 
  import java.util.ArrayList;
  import java.util.HashMap;

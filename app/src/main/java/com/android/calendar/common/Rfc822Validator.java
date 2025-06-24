@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.common;
+package com.android.calendar.common;
 
 import android.text.TextUtils;
 import android.text.util.Rfc822Token;

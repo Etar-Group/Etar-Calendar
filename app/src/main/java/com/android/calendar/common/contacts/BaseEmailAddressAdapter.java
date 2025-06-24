@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.common.contacts;
+package com.android.calendar.common.contacts;
 
-import com.android.common.widget.CompositeCursorAdapter;
+import com.android.calendar.common.widget.CompositeCursorAdapter;
 
 import android.accounts.Account;
 import android.content.ContentResolver;
