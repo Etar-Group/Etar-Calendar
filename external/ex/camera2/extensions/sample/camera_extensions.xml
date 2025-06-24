@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-    <library name="androidx.camera.extensions.impl"
-            file="/vendor/framework/androidx.camera.extensions.impl.jar"/>
-</permissions>
