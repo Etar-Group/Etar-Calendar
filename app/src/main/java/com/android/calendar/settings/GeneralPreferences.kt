@@ -53,13 +53,14 @@ import com.android.calendar.alerts.AlertReceiver
 import com.android.calendar.event.EventViewUtils
 import com.android.calendar.colorpicker.ColorPickerDialog
 import com.android.calendar.timezonepicker.TimeZoneInfo
+import com.android.calendar.timezonepicker.TimeZonePickerDialog
 import com.android.calendar.timezonepicker.TimeZonePickerUtils
 import ws.xsoh.etar.R
 import java.util.TimeZone
 
 class GeneralPreferences : PreferenceFragmentCompat(),
         OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener,
-        TimeZonePickerDialogX.OnTimeZoneSetListener {
+        TimeZonePickerDialog.OnTimeZoneSetListener {
 
     private lateinit var themePref: ListPreference
     private lateinit var colorPref: Preference
@@ -186,7 +187,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         homeTzPref.summary = timezoneName ?: timeZoneId
 
         val tzpd = requireActivity().supportFragmentManager
-                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
+                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialog?
         tzpd?.setOnTimeZoneSetListener(this)
 
         initializeColorMap()
@@ -225,15 +226,15 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
     private fun showTimezoneDialog() {
         val arguments = Bundle().apply {
-            putLong(TimeZonePickerDialogX.BUNDLE_START_TIME_MILLIS, System.currentTimeMillis())
-            putString(TimeZonePickerDialogX.BUNDLE_TIME_ZONE, Utils.getTimeZone(activity, null))
+            putLong(TimeZonePickerDialog.BUNDLE_START_TIME_MILLIS, System.currentTimeMillis())
+            putString(TimeZonePickerDialog.BUNDLE_TIME_ZONE, Utils.getTimeZone(activity, null))
         }
 
         val fm = requireActivity().supportFragmentManager
-        var tzpd: TimeZonePickerDialogX? = fm.findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialogX?
+        var tzpd: TimeZonePickerDialog? = fm.findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialog?
         tzpd?.dismiss()
 
-        tzpd = TimeZonePickerDialogX()
+        tzpd = TimeZonePickerDialog()
         tzpd.arguments = arguments
         tzpd.setOnTimeZoneSetListener(this)
         tzpd.show(fm, FRAG_TAG_TIME_ZONE_PICKER)
