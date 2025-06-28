@@ -1,0 +1,6 @@
+This library is not actively supported and the source is only available
+as a reference for use with `packages/apps/Calendar` and
+`packages/apps/Messaging`.
+
+This project will be removed from the source manifest sometime in the
+future along with these two apps.

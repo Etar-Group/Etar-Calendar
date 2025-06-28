@@ -1,0 +1,23 @@
+import org.gradle.api.artifacts.Dependency;
+
+apply plugin: 'com.android.library'
+
+android {
+    sourceSets.main {
+        manifest.srcFile 'AndroidManifest.xml'
+        java.srcDirs = ['src']
+        res.srcDirs = ['res']
+    }
+}
+
+dependencies {
+    compile findDependency(':support-v4', 'com.android.support:support-v4:23.3.+')
+}
+
+Dependency findDependency(String projectName, String moduleName) {
+    if (findProject(projectName) != null) {
+        return dependencies.project(path: projectName)
+    }
+
+    return dependencies.create(moduleName)
+}
