@@ -21,7 +21,7 @@
     android:minHeight="@dimen/chip_dropdown_height"
     android:padding="12dp">
 
-    <com.android.ex.chips.CircularImageView style="@style/ChipStartIconStyle" />
+    <com.android.calendar.chips.CircularImageView style="@style/ChipStartIconStyle" />
 
     <LinearLayout style="@style/ChipTextViewLayoutStyle">
 
