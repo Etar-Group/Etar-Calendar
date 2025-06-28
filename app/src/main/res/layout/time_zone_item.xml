@@ -28,7 +28,6 @@
 
     <TextView
         android:id="@+id/time_zone"
-        style="@style/font_family_thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
@@ -38,7 +37,6 @@
 
     <TextView
         android:id="@+id/time_offset"
-        style="@style/font_family_thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
@@ -46,7 +44,6 @@
 
     <TextView
         android:id="@+id/location"
-        style="@style/font_family_thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
