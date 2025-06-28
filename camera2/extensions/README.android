@@ -1,0 +1,12 @@
+Library Name: CameraX Extension stub and sample
+License: Apache 2
+Description: The CameraX Extension stub library along with a very basic sample
+implementation. The stub includes extension API versions 1.2.0, 1.1.0 and older.
+
+Local patches
+-------------
+- No changes to the stubs
+- Minor modifications to the sample implementation switching effects to white balance modes
+- The HDR preview processor doesn't use GL to render to the registered output surface instead
+  it will just attach the incoming image
+
