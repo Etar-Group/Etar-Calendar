@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="android.camera.extensions.impl.service">
+
+    <uses-permission android:name="android.permission.SYSTEM_CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:defaultToDeviceProtectedStorage="true"
+        android:forceQueryable="true"
+        android:directBootAware="true">
+
+        <service android:name=".EyesFreeVidService"
+            android:visibleToInstantApps="true"
+            android:exported="true">
+        </service>
+    </application>
+
+</manifest>

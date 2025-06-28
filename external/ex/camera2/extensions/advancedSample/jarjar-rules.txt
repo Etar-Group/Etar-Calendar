@@ -1,0 +1,1 @@
+rule kotlin.** androidx.camera.extensions.impl.advanced.@0

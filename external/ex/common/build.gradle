@@ -1,0 +1,17 @@
+apply plugin: 'android-library'
+apply plugin: 'logtags'
+
+android {
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['java']
+            logtags.srcDirs = ['java']
+        }
+    }
+
+    lintOptions {
+        // TODO: fix errors and reenable.
+        abortOnError false
+    }
+}
