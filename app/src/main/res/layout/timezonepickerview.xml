@@ -28,7 +28,6 @@
 
         <AutoCompleteTextView
             android:id="@+id/searchBox"
-            style="@style/font_family_thin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

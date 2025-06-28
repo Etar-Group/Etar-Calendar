@@ -225,11 +225,6 @@
         <item name="android:paddingBottom">4dp</item>
         </style>
 
-    <!-- Style for dialog labels. -->
-    <style name="font_family_thin">
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
     <style name="RecipientEditTextViewBase">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
