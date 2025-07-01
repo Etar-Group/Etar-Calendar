@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">நாட்காட்டி</string>
-    <string name="tomorrow_at_time_fmt">நாளை &lt;xliff: g ஐடி = \"time_interval\"&gt;%s &lt;/xliff: g&gt;</string>
+    <string name="tomorrow_at_time_fmt">நாளை <xliff:g id="time_interval">%s </xliff:g></string>
     <string name="calendar_refresh">புதுப்பிப்பு</string>
     <string name="show_day_view">நாள் காட்டு</string>
     <string name="event_delete">நிகழ்வை நீக்கு</string>
@@ -32,7 +32,7 @@
     <string name="when_label">எப்போது</string>
     <string name="today">இன்று</string>
     <string name="tomorrow">நாளை</string>
-    <string name="today_at_time_fmt">இன்று &lt;xliff இல்: g ஐடி = \"time_interval\"&gt;%s &lt;/xliff: g&gt;</string>
+    <string name="today_at_time_fmt">இன்று &lt;xliff:g id=\"time_interval\"&gt;%s &lt;/xliff: g&gt;</string>
     <plurals name="Nhours">
         <item quantity="one">1 மணி நேரம்</item>
         <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; மணிநேரம்</item>
