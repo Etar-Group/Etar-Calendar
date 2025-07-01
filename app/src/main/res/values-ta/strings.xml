@@ -32,7 +32,7 @@
     <string name="when_label">எப்போது</string>
     <string name="today">இன்று</string>
     <string name="tomorrow">நாளை</string>
-    <string name="today_at_time_fmt">இன்று &lt;xliff:g id=\"time_interval\"&gt;%s &lt;/xliff: g&gt;</string>
+    <string name="today_at_time_fmt">இன்று <xliff:g id="time_interval">%s </xliff:g></string>
     <plurals name="Nhours">
         <item quantity="one">1 மணி நேரம்</item>
         <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; மணிநேரம்</item>
@@ -43,11 +43,11 @@
     <string name="no_snooze_label">எதுவுமில்லை</string>
     <plurals name="Nminutes">
         <item quantity="one">1 மணித்துளி</item>
-        <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; நிமிடங்கள்</item>
+        <item quantity="other"><xliff:g id="count">%d </xliff:g> நிமிடங்கள்</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 மணித்துளி</item>
-        <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; நிமிடங்கள்</item>
+        <item quantity="other"><xliff:g id="count">%d </xliff:g> நிமிடங்கள்</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 நாள்</item>
@@ -348,4 +348,8 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"நகலெடு"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"ரத்துசெய்"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"தொடர்புகளின் பரிந்துரைகளை அனுமதிக்கவும்"</string>
+    <plurals name="weekN">
+        <item quantity="one">வாரம் <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">வாரம் <xliff:g id="count">%d</xliff:g></item>
+    </plurals>
 </resources>
