@@ -4,9 +4,10 @@ Merkmale:
 - Verwendet Android-Kalender-Provider und zeigt alle synchronisierten Kalender.
 - Material Design.
 - Dunkles und helles Design.
-- Frei, quelloffen und ohne Werbung.
+- Unterstützt Offline-Kalender.
+- Agenda-Widget.
 - Unterstützt die Freigabe von Kalendern über ICS und die Möglichkeit, von der SD-Karte zu importieren/exportieren.
 - Mehrsprachige Benutzeroberfläche.
 
-Bugs, Fehler & Feedback: https://github.com/Etar-Group/Etar-Calendar/issues
+Bugs und Feedback: https://github.com/Etar-Group/Etar-Calendar/issues
 Quellcode: https://github.com/Etar-Group/Etar-Calendar
