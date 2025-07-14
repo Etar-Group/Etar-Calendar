@@ -1,0 +1,5 @@
+- Passaggio a Material3
+- Corretti i partecipanti senza email che non venivano mostrati
+- Corretti i partecipanti di iCalendar
+- Corretta la creazione di eventi dalla vista mensile che talvolta andava sul giorno sbagliato
+- Altre piccole correzioni di errori
