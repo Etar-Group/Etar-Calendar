@@ -1,0 +1,5 @@
+- Pārslēgšanās uz Material3
+- Novērsta apmeklētāju bez e-pasta adreses neattēlošana
+- Salabota iCalendar apmeklētāju apstrāde
+- Novērsta nepareiza noklusējuma diena notikuma izveidošanā mēneša skatā
+- Citi mazu nepilnību labojumi
