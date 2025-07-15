@@ -1,0 +1,5 @@
+- Přechod na Material 3
+- Oprava nezobrazování účastníků bez e-mailu
+- Oprava zpracování účastníků z iCalendar
+- Oprava vytváření událostí z měsíčního zobrazení, které někdy nastaví špatný den
+- Další malé opravy chyb
