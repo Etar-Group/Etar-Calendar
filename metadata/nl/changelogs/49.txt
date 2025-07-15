@@ -1,5 +1,5 @@
 - Overschakeling naar Material3
-- weergave van deelnemers zonder e-mailadres
+- Weergave van deelnemers zonder e-mailadres
 - Correctie van verwerking van iCalendar-deelnemers
-- Correctie van aanmaak van gebeurtenissen  met verkeerde dag vanuit maandweergave
+- Correctie van aanmaak van gebeurtenissen met verkeerde dag vanuit maandweergave
 - Meer kleine correcties
