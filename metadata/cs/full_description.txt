@@ -1,10 +1,10 @@
-Možnosti:
+Funkce:
 - Zobrazení měsíce.
 - Zobrazení týdne, dne a formou agendy.
 - Používá úložiště kalendářů Android pro zobrazení všech synchronizovaných kalendářů.
 - Material Design.
 - Tmavý a světlý motiv.
-- Podpora offline kalendáře.
+- Podporuje offline kalendáře.
 - Widget agendy.
 - Podporuje sdílení kalendářů pomocí ISC a umožňuje importovat/exportovat z SD karty.
 - Vícejazyčné uživatelské prostředí.
