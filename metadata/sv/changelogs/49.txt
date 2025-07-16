@@ -1,0 +1,5 @@
+- Bytte till Material3
+- Löste närvarande utan att e-postadressen visades
+- Löste tolkning av närvarande i iCalendar
+- Fixade att Månadsvyn ibland ställdes in per automatik till fel dag i samband med att en händelse skapades
+- Ytterligare mindre bugg-fixar
