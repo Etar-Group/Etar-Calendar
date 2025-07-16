@@ -1,12 +1,13 @@
 Funktioner:
 - Månadsvy.
-- Vecko-, dag- och agendavy.
-- Använder Android-kalendersynkronisering.
+- Vecka, dag och agenda-vy.
+- Använder Android's lagringsplats för kalendern så att alla synkroniserade kalendrar visas.
 - Materialdesign.
 - Mörkt och ljust tema.
-- Gratis, öppen källkod och absolut inga annonser.
+- Stöd för nedkopplad kalender.
+- Agenda-widget.
 - Stöd för att dela kalendrar via ICS och möjligheten att importera/exportera från SD-kort.
 - Flerspråkigt användargränssnitt.
 
-Buggar och feedback: https://github.com/Etar-Group/Etar-Calendar/issues
+Buggar och återgivning: https://github.com/Etar-Group/Etar-Calendar/issues
 Källkod: https://github.com/Etar-Group/Etar-Calendar
