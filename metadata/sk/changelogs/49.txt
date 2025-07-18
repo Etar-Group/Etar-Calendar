@@ -1,0 +1,5 @@
+- Prepnúť na materiál3
+- Fix účastníkov bez e-mailu, ktoré nie sú zobrazené
+- Fix parsing iCalendar zúčastňuje
+- Vytvorenie udalosti Fix od Mesiaca niekedy predvolené na nesprávny deň
+- Ďalšie malé opravy chýb
