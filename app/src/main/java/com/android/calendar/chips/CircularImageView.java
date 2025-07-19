@@ -1,4 +1,4 @@
-package com.android.ex.chips;
+package com.android.calendar.chips;
 
 import android.content.Context;
 import android.graphics.Bitmap;
