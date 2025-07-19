@@ -1664,7 +1664,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void showDatePickerDialog(View view) {
         MaterialPickerOnPositiveButtonClickListener<Long> materialPickerOnPositiveButtonClickListener = timePicked -> {
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTime(new Date(timePicked));
             onDateSet(view, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         };
@@ -1674,7 +1674,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 .build();
 
         MaterialDatePicker<Long> datePickerDialog = MaterialDatePicker.Builder.datePicker()
-                .setSelection(Calendar.getInstance().getTimeInMillis())
+                .setSelection(mStartTime.toMillis())
                 .setCalendarConstraints(calendarConstraints)
                 .setTitleText(R.string.goto_date)
                 .build();
