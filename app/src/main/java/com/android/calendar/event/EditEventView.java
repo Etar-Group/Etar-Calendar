@@ -1607,6 +1607,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 .setHour((view == mStartTimeButton) ? mStartTime.getHour() : mEndTime.getHour())
                 .setMinute((view == mStartTimeButton) ? mStartTime.getMinute() : mEndTime.getMinute())
                 .setTimeFormat(timeFormat)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
                 .build();
 
         materialTimePicker.addOnPositiveButtonClickListener((dialog) -> {
