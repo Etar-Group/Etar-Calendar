@@ -1,0 +1,5 @@
+- Umstellung auf Material3
+- Teilnehmer ohne E-Mail werden nicht mehr angezeigt
+- Verarbeitung von iCalendar-Teilnehmern korrigiert
+- Bei der Erstellung von Terminen in der Monatsansicht wurde manchmal der falsche Tag ausgewählt
+- Weitere kleine Fehlerbehebungen
