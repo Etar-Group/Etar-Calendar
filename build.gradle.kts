@@ -1,5 +1,3 @@
-import org.jetbrains.gradle.ext.settings
-import org.jetbrains.gradle.ext.taskTriggers
 
 plugins {
     alias(libs.plugins.android.application) apply false
