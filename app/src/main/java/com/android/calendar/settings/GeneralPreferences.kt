@@ -51,7 +51,6 @@ import com.android.calendar.DynamicTheme
 import com.android.calendar.Utils
 import com.android.calendar.alerts.AlertReceiver
 import com.android.calendar.event.EventViewUtils
-import com.android.calendar.colorpicker.ColorPickerDialog
 import com.android.calendar.timezonepicker.TimeZoneInfo
 import com.android.calendar.timezonepicker.TimeZonePickerDialog
 import com.android.calendar.timezonepicker.TimeZonePickerUtils
@@ -63,7 +62,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         TimeZonePickerDialog.OnTimeZoneSetListener {
 
     private lateinit var themePref: ListPreference
-    private lateinit var colorPref: Preference
     private lateinit var realEventColors: SwitchPreference
     private lateinit var pureBlackNightModePref: SwitchPreference
     private lateinit var doNotCheckBatteryOptimizationPref: SwitchPreference
@@ -109,7 +107,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         super.onCreate(savedInstanceState)
 
         themePref = preferenceScreen.findPreference(KEY_THEME_PREF)!!
-        colorPref = preferenceScreen.findPreference(KEY_COLOR_PREF)!!
         realEventColors = preferenceScreen.findPreference(KEY_REAL_EVENT_COLORS)!!
         pureBlackNightModePref = preferenceScreen.findPreference(KEY_PURE_BLACK_NIGHT_MODE)!!
         doNotCheckBatteryOptimizationPref = preferenceScreen.findPreference(KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION)!!
@@ -153,11 +150,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             ringtonePref.summary = ringtoneDisplayString ?: ""
         }
 
-        if (Utils.isMonetAvailable(requireContext())) {
-            // Palette is controlled by user wallpaper
-            preferenceScreen.removePreferenceRecursively(KEY_COLOR_PREF)
-        }
-
         if (themePref.value == "system" && !DynamicTheme.isSystemInDarkTheme(requireActivity()) || themePref.value == "light") {
             preferenceScreen.removePreferenceRecursively(KEY_PURE_BLACK_NIGHT_MODE)
         }
@@ -194,38 +186,10 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER) as TimeZonePickerDialog?
         tzpd?.setOnTimeZoneSetListener(this)
 
-        initializeColorMap()
     }
 
     private fun handleUseCustomSnoozeDelayVisibility() {
         useDefaultCustomSnoozeDelayPref.isEnabled = Integer.parseInt(snoozeDelayPref.value) >= 0
-    }
-
-    private fun showColorPickerDialog() {
-        val colorPickerDialog = ColorPickerDialog()
-        val selectedColorName = Utils.getSharedPreference(activity, KEY_COLOR_PREF, "teal")
-        val selectedColor = ContextCompat.getColor(requireContext(), DynamicTheme.getColorId(selectedColorName))
-        colorPickerDialog.initialize(R.string.preferences_color_pick,
-                intArrayOf(ContextCompat.getColor(requireContext(), R.color.colorPrimary),
-                        ContextCompat.getColor(requireContext(), R.color.colorBluePrimary),
-                        ContextCompat.getColor(requireContext(), R.color.colorPurplePrimary),
-                        ContextCompat.getColor(requireContext(), R.color.colorRedPrimary),
-                        ContextCompat.getColor(requireContext(), R.color.colorOrangePrimary),
-                        ContextCompat.getColor(requireContext(), R.color.colorGreenPrimary)),
-                selectedColor, 3, 2)
-        colorPickerDialog.setOnColorSelectedListener { colour ->
-            Utils.setSharedPreference(activity, KEY_COLOR_PREF, DynamicTheme.getColorName(colorMap.get(colour)))
-        }
-        colorPickerDialog.show(parentFragmentManager, "colorpicker")
-    }
-
-    private fun initializeColorMap() {
-        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorPrimary), R.color.colorPrimary)
-        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorBluePrimary), R.color.colorBluePrimary)
-        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorOrangePrimary), R.color.colorOrangePrimary)
-        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorGreenPrimary), R.color.colorGreenPrimary)
-        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorRedPrimary), R.color.colorRedPrimary)
-        colorMap.put(ContextCompat.getColor(requireContext(), R.color.colorPurplePrimary), R.color.colorPurplePrimary)
     }
 
     private fun showTimezoneDialog() {
@@ -255,7 +219,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
      */
     private fun setPreferenceListeners(listener: Preference.OnPreferenceChangeListener) {
         themePref.onPreferenceChangeListener = listener
-        colorPref.onPreferenceChangeListener = listener
         pureBlackNightModePref.onPreferenceChangeListener = listener
         doNotCheckBatteryOptimizationPref.onPreferenceChangeListener = listener
         defaultStartPref.onPreferenceChangeListener = listener
@@ -296,10 +259,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 a.sendBroadcast(intent)
             }
             KEY_THEME_PREF -> {
-                Utils.sendUpdateWidgetIntent(a)
-                a.recreate()
-            }
-            KEY_COLOR_PREF -> {
                 Utils.sendUpdateWidgetIntent(a)
                 a.recreate()
             }
@@ -423,10 +382,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
-            KEY_COLOR_PREF -> {
-                showColorPickerDialog()
-                return true
-            }
             KEY_HOME_TZ -> {
                 showTimezoneDialog()
                 return true
@@ -528,7 +483,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     companion object {
         // Preference keys
         const val KEY_THEME_PREF = "pref_theme"
-        const val KEY_COLOR_PREF = "pref_color"
         const val KEY_REAL_EVENT_COLORS = "pref_real_event_colors"
         const val KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION = "pref_do_not_check_battery_optimization"
         const val KEY_PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode"
