@@ -490,8 +490,7 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
 
         // Custom action labels are discouraged in L; a checkmark icon is shown in place of the
         // custom text in this case.
-        outAttrs.actionLabel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? null :
-            getContext().getString(R.string.action_label);
+        outAttrs.actionLabel = null;
         return connection;
     }
 
@@ -685,13 +684,12 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
         return getResources().getString(R.string.accessbility_suggestion_dropdown_opened);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void announceForAccessibilityCompat(String text) {
         final AccessibilityManager accessibilityManager =
                 (AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
         final boolean isAccessibilityOn = accessibilityManager.isEnabled();
 
-        if (isAccessibilityOn && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (isAccessibilityOn) {
             final ViewParent parent = getParent();
             if (parent != null) {
                 AccessibilityEvent event = AccessibilityEvent.obtain(
@@ -993,8 +991,7 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
      * the layout direction is LTR or RTL.
      */
     private boolean shouldPositionAvatarOnRight() {
-        final boolean isRtl = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
-                getLayoutDirection() == LAYOUT_DIRECTION_RTL;
+        final boolean isRtl = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
         final boolean assignedPosition = mAvatarPosition == AVATAR_POSITION_END;
         // If in Rtl mode, the position should be flipped.
         return isRtl ? !assignedPosition : assignedPosition;
@@ -2101,11 +2098,7 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
     private int putOffsetInRange(final float x, final float y) {
         final int offset;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            offset = getOffsetForPosition(x, y);
-        } else {
-            offset = supportGetOffsetForPosition(x, y);
-        }
+        offset = getOffsetForPosition(x, y);
 
         return putOffsetInRange(offset);
     }
@@ -2592,9 +2585,6 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
     }
 
     private boolean isTouchExplorationEnabled() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            return false;
-        }
 
         final AccessibilityManager accessibilityManager = (AccessibilityManager)
                 getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);

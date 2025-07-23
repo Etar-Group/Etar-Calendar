@@ -117,7 +117,7 @@ public class Utils {
     public static final int YEAR_MAX = 2036;
     public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
-    public static final int PI_FLAG_IMMUTABLE = Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
+    public static final int PI_FLAG_IMMUTABLE = PendingIntent.FLAG_IMMUTABLE;
 
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
@@ -2253,7 +2253,6 @@ public class Utils {
     }
 
     public static boolean isCalendarPermissionGranted(Context context, boolean showWarningToast) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             return true;

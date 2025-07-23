@@ -42,7 +42,7 @@ public class ChipsUtil {
      * Returns true when the caller can use Chips UI in its environment.
      */
     public static boolean supportsChipsUi() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+        return true;
     }
 
     /**
@@ -52,7 +52,7 @@ public class ChipsUtil {
      * check if we have {@link #REQUIRED_PERMISSIONS}.
      */
     public static boolean isRunningMOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+        return true;
     }
 
     /**

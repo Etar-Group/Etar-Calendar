@@ -56,7 +56,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
     // TODO Move these to Calendar.java
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
-    private static final int PI_FLAG_IMMUTABLE = Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
+    private static final int PI_FLAG_IMMUTABLE = PendingIntent.FLAG_IMMUTABLE;
 
     /**
      * Build {@link ComponentName} describing this specific
