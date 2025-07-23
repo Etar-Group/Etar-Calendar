@@ -18,7 +18,7 @@ val AppCompatActivity.isSystemInDarkTheme: Boolean
 
 fun AppCompatActivity.applyThemeAndPrimaryColor() {
     val selectedTheme = ThemeUtils.getTheme(this)
-    val selectedColor = ThemeUtils.getColor(this)
+    val selectedColor = ThemeUtils.getColor()
 
     val uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
 

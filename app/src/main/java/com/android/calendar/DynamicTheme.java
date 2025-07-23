@@ -27,18 +27,12 @@ public class DynamicTheme {
     private static final String TAG = "DynamicTheme";
 
     private static final String THEME_PREF = "pref_theme";
-    private static final String COLOR_PREF = "pref_color";
     private static final String PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode";
     private static final String SYSTEM = "system";
     private static final String LIGHT = "light";
     private static final String DARK  = "dark";
     private static final String BLACK = "black";
     private static final String TEAL = "teal";
-    private static final String BLUE = "blue";
-    private static final String ORANGE  = "orange";
-    private static final String GREEN  = "green";
-    private static final String RED  = "red";
-    private static final String PURPLE = "purple";
     private static final String MONET = "monet";
     private int currentTheme;
 
@@ -113,86 +107,6 @@ public class DynamicTheme {
                 return R.style.CalendarAppThemeDarkTeal;
             case BLACK+TEAL:
                 return R.style.CalendarAppThemeBlackTeal;
-            case SYSTEM+ORANGE:
-                if (isSystemInDarkTheme(activity)) {
-                    if (pureBlack) {
-                        return R.style.CalendarAppThemeBlackOrange;
-                    } else {
-                        return R.style.CalendarAppThemeDarkOrange;
-                    }
-                } else {
-                    return R.style.CalendarAppThemeLightOrange;
-                }
-            case LIGHT+ORANGE:
-                return R.style.CalendarAppThemeLightOrange;
-            case DARK+ORANGE:
-                return R.style.CalendarAppThemeDarkOrange;
-            case BLACK+ORANGE:
-                return R.style.CalendarAppThemeBlackOrange;
-            case SYSTEM+BLUE:
-                if (isSystemInDarkTheme(activity)) {
-                    if (pureBlack) {
-                        return R.style.CalendarAppThemeBlackBlue;
-                    } else {
-                        return R.style.CalendarAppThemeDarkBlue;
-                    }
-                } else {
-                    return R.style.CalendarAppThemeLightBlue;
-                }
-            case LIGHT+BLUE:
-                return R.style.CalendarAppThemeLightBlue;
-            case DARK+BLUE:
-                return R.style.CalendarAppThemeDarkBlue;
-            case BLACK+BLUE:
-                return R.style.CalendarAppThemeBlackBlue;
-            case SYSTEM+GREEN:
-                if (isSystemInDarkTheme(activity)) {
-                    if (pureBlack) {
-                        return R.style.CalendarAppThemeBlackGreen;
-                    } else {
-                        return R.style.CalendarAppThemeDarkGreen;
-                    }
-                } else {
-                    return R.style.CalendarAppThemeLightGreen;
-                }
-            case LIGHT+GREEN:
-                return R.style.CalendarAppThemeLightGreen;
-            case DARK+GREEN:
-                return R.style.CalendarAppThemeDarkGreen;
-            case BLACK+GREEN:
-                return R.style.CalendarAppThemeBlackGreen;
-            case SYSTEM+RED:
-                if (isSystemInDarkTheme(activity)) {
-                    if (pureBlack) {
-                        return R.style.CalendarAppThemeBlackRed;
-                    } else {
-                        return R.style.CalendarAppThemeDarkRed;
-                    }
-                } else {
-                    return R.style.CalendarAppThemeLightRed;
-                }
-            case LIGHT+RED:
-                return R.style.CalendarAppThemeLightRed;
-            case DARK+RED:
-                return R.style.CalendarAppThemeDarkRed;
-            case BLACK+RED:
-                return R.style.CalendarAppThemeBlackRed;
-            case SYSTEM+PURPLE:
-                if (isSystemInDarkTheme(activity)) {
-                    if (pureBlack) {
-                        return R.style.CalendarAppThemeBlackPurple;
-                    } else {
-                        return R.style.CalendarAppThemeDarkPurple;
-                    }
-                } else {
-                    return R.style.CalendarAppThemeLightPurple;
-                }
-            case LIGHT+PURPLE:
-                return R.style.CalendarAppThemeLightPurple;
-            case DARK+PURPLE:
-                return R.style.CalendarAppThemeDarkPurple;
-            case BLACK+PURPLE:
-                return R.style.CalendarAppThemeBlackPurple;
             default:
                 throw new UnsupportedOperationException("Unknown theme: " + getTheme(activity));
         }
@@ -202,7 +116,7 @@ public class DynamicTheme {
         if (Utils.isMonetAvailable(context)) {
             return MONET;
         } else {
-            return Utils.getSharedPreference(context, COLOR_PREF, TEAL);
+            return TEAL;
         }
     }
 
@@ -225,41 +139,11 @@ public class DynamicTheme {
         }
     }
     public static int getColorId(String name) {
-        switch (name) {
-            case TEAL:
-                return R.color.colorPrimary;
-            case BLUE:
-                return R.color.colorBluePrimary;
-            case ORANGE:
-                return R.color.colorOrangePrimary;
-            case GREEN:
-                return R.color.colorGreenPrimary;
-            case RED:
-                return R.color.colorRedPrimary;
-            case PURPLE:
-                return R.color.colorPurplePrimary;
-            case MONET:
-                return android.R.color.system_accent1_500;
-            default:
-                throw new UnsupportedOperationException("Unknown color name : " + name);
-        }
-    }
-
-    public static String getColorName(int id) {
-        if (id == R.color.colorPrimary) {
-            return TEAL;
-        } else if (id == R.color.colorBluePrimary) {
-            return BLUE;
-        } else if (id == R.color.colorOrangePrimary) {
-            return ORANGE;
-        } else if (id == R.color.colorGreenPrimary) {
-            return GREEN;
-        } else if (id == R.color.colorRedPrimary) {
-            return RED;
-        } else if (id == R.color.colorPurplePrimary) {
-            return PURPLE;
-        }
-        throw new UnsupportedOperationException("Unknown color id : " + id);
+        return switch (name) {
+            case TEAL -> R.color.colorPrimary;
+            case MONET -> android.R.color.system_accent1_500;
+            default -> throw new UnsupportedOperationException("Unknown color name : " + name);
+        };
     }
 
     public static int getColor(Context context, String id) {

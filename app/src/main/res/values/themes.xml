@@ -12,7 +12,9 @@
     </style>
 
     <!-- Inherit base theme to allow overriding Light Theme as per API levels -->
-    <style name="Theme.Etar" parent="BaseTheme" />
+    <style name="Theme.Etar" parent="BaseTheme">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
     <style name="CalendarAppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -61,96 +63,5 @@
         <item name="colorPrimaryDark">@color/bg_black</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <style name="CalendarAppThemeLightOrange" parent="CalendarAppThemeLight">
-        <item name="colorPrimary">@color/colorOrangePrimary</item>
-        <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
-        <item name="colorAccent">@color/colorOrangeAccent</item>
-        <item name="android:statusBarColor">@color/colorOrangePrimary</item>
-    </style>
-    <style name="CalendarAppThemeDarkOrange" parent="CalendarAppThemeDark">
-        <item name="colorPrimary">@color/colorOrangePrimary</item>
-        <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
-        <item name="colorAccent">@color/colorOrangeAccent</item>
-        <item name="android:statusBarColor">@color/colorOrangePrimary</item>
-    </style>
-    <style name="CalendarAppThemeBlackOrange" parent="CalendarAppThemeBlack">
-        <item name="colorPrimary">@color/colorOrangePrimary</item>
-        <item name="colorPrimaryDark">@color/bg_black</item>
-        <item name="colorAccent">@color/colorOrangeAccent</item>
-    </style>
-
-    <style name="CalendarAppThemeLightBlue" parent="CalendarAppThemeLight">
-        <item name="colorPrimary">@color/colorBluePrimary</item>
-        <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
-        <item name="colorAccent">@color/colorBlueAccent</item>
-        <item name="android:statusBarColor">@color/colorBluePrimary</item>
-    </style>
-    <style name="CalendarAppThemeDarkBlue" parent="CalendarAppThemeDark">
-        <item name="colorPrimary">@color/colorBluePrimary</item>
-        <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
-        <item name="colorAccent">@color/colorBlueAccent</item>
-        <item name="android:statusBarColor">@color/colorBluePrimary</item>
-    </style>
-    <style name="CalendarAppThemeBlackBlue" parent="CalendarAppThemeBlack">
-        <item name="colorPrimary">@color/colorBluePrimary</item>
-        <item name="colorPrimaryDark">@color/bg_black</item>
-        <item name="colorAccent">@color/colorBlueAccent</item>
-    </style>
-
-    <style name="CalendarAppThemeLightGreen" parent="CalendarAppThemeLight">
-        <item name="colorPrimary">@color/colorGreenPrimary</item>
-        <item name="colorPrimaryDark">@color/colorGreenPrimaryDark</item>
-        <item name="colorAccent">@color/colorGreenAccent</item>
-        <item name="android:statusBarColor">@color/colorGreenPrimary</item>
-    </style>
-    <style name="CalendarAppThemeDarkGreen" parent="CalendarAppThemeDark">
-        <item name="colorPrimary">@color/colorGreenPrimary</item>
-        <item name="colorPrimaryDark">@color/colorGreenPrimaryDark</item>
-        <item name="colorAccent">@color/colorGreenAccent</item>
-        <item name="android:statusBarColor">@color/colorGreenPrimary</item>
-    </style>
-    <style name="CalendarAppThemeBlackGreen" parent="CalendarAppThemeBlack">
-        <item name="colorPrimary">@color/colorGreenPrimary</item>
-        <item name="colorPrimaryDark">@color/bg_black</item>
-        <item name="colorAccent">@color/colorGreenAccent</item>
-    </style>
-
-    <style name="CalendarAppThemeLightRed" parent="CalendarAppThemeLight">
-        <item name="colorPrimary">@color/colorRedPrimary</item>
-        <item name="colorPrimaryDark">@color/colorRedPrimaryDark</item>
-        <item name="colorAccent">@color/colorRedAccent</item>
-        <item name="android:statusBarColor">@color/colorRedPrimary</item>
-    </style>
-    <style name="CalendarAppThemeDarkRed" parent="CalendarAppThemeDark">
-        <item name="colorPrimary">@color/colorRedPrimary</item>
-        <item name="colorPrimaryDark">@color/colorRedPrimaryDark</item>
-        <item name="colorAccent">@color/colorRedAccent</item>
-        <item name="android:statusBarColor">@color/colorRedPrimary</item>
-    </style>
-    <style name="CalendarAppThemeBlackRed" parent="CalendarAppThemeBlack">
-        <item name="colorPrimary">@color/colorRedPrimary</item>
-        <item name="colorPrimaryDark">@color/bg_black</item>
-        <item name="colorAccent">@color/colorRedAccent</item>
-    </style>
-
-    <style name="CalendarAppThemeLightPurple" parent="CalendarAppThemeLight">
-        <item name="colorPrimary">@color/colorPurplePrimary</item>
-        <item name="colorPrimaryDark">@color/colorPurplePrimaryDark</item>
-        <item name="colorAccent">@color/colorPurpleAccent</item>
-        <item name="android:statusBarColor">@color/colorPurplePrimary</item>
-    </style>
-    <style name="CalendarAppThemeDarkPurple" parent="CalendarAppThemeDark">
-        <item name="colorPrimary">@color/colorPurplePrimary</item>
-        <item name="colorPrimaryDark">@color/colorPurplePrimaryDark</item>
-        <item name="colorAccent">@color/colorPurpleAccent</item>
-        <item name="android:statusBarColor">@color/colorPurplePrimary</item>
-    </style>
-    <style name="CalendarAppThemeBlackPurple" parent="CalendarAppThemeBlack">
-        <item name="colorPrimary">@color/colorPurplePrimary</item>
-        <item name="colorPrimaryDark">@color/bg_black</item>
-        <item name="colorAccent">@color/colorPurpleAccent</item>
-    </style>
-
 
 </resources>
