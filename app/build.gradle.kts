@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
@@ -103,9 +104,11 @@ android {
 		targetCompatibility(JavaVersion.VERSION_21)
 	}
 
-	kotlinOptions {
-		jvmTarget = "21"
-	}
+kotlin {
+    compilerOptions {
+         jvmTarget = JvmTarget.JVM_21
+    }
+}
 
 	useLibrary("android.test.base")
 	useLibrary("android.test.mock")
