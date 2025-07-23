@@ -146,9 +146,8 @@ public class AlertService extends Service {
         final long currentTime = System.currentTimeMillis();
         ContentValues vals = new ContentValues();
         vals.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             //If permission is not granted then just return.
             Log.d(TAG, "Manifest.permission.WRITE_CALENDAR is not granted");
             return;

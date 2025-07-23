@@ -364,7 +364,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
+        if (ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
                 Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(EditEventFragment.this.getActivity(), new String[]{Manifest.permission.READ_CONTACTS},
                 0);
