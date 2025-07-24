@@ -1,11 +1,12 @@
 Fonctionnalités :
-– Affichage par mois.
-– Affichages par semaine, par jour et agenda.
-– Utilise la synchronisation Android du calendrier.
-– Material Design.
-– Thèmes sombre et clair.
-– Gratuit, libre et sans aucune publicité.
-– Prend en charge le partage des calendriers via iCalendar (.ics) et l’importation et l’exportation vers une carte SD.
+– Affichage par mois ;
+– Affichages par semaine, par jour et agenda ; 
+– Utilise la synchronisation Android du calendrier ;
+– Material Design; 
+– Thèmes sombre et clair ;
+– Prise en charge de calendriers hors-ligne ;
+– Widget de calendrier ;
+– Prend en charge le partage des calendriers via iCalendar (.ics) et l’importation et l’exportation vers une carte SD ;
 – Interface utilisateur multilingue.
 
 Signalement de bogues et commentaires : https://github.com/Etar-Group/Etar-Calendar/issues
