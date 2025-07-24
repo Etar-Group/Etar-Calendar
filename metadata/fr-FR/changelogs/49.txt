@@ -1,0 +1,5 @@
+— Passage à Material3 ;
+— Correction d'un souci d'affichage pour les invités sans e-mail ;
+— Correction de l'analyse syntaxique iCalendar pour les invités ;
+— Correction du choix du jour parfois erroné lors de la création d'évènements à partir de la vue mensuelle ;
+— Davantage de petites corrections.
