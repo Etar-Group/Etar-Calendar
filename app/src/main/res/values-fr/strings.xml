@@ -180,7 +180,7 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">Temps de rappel par défaut</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">Temps de rappel par défaut</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Mon fuseau horaire"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">Utiliser mon fuseau horaire</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Afficher les agendas et les évènements dans votre fuseau horaire habituel, même en déplacement</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Mon fuseau horaire"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">Afficher le numéro de semaine</string>
@@ -375,15 +375,14 @@
     <string name="cancel">Annuler</string>
     <string name="hint_time_zone_search" msgid="804776560897143016">"Saisir un nom de pays"</string>
     <string name="searchview_description_clear" msgid="1603860069305867810">"Effacer la requête"</string>
-    <string name="no_results_found" msgid="5475293015394772651">"Aucun résultat trouvé."</string>
+    <string name="no_results_found" msgid="5475293015394772651">Aucun résultat trouvé</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestine"</string>
-
     <string name="more_string" msgid="643992135011109762">"+ <xliff:g id="COUNT">%1$d</xliff:g>"</string>
     <string name="copy_email" msgid="1084563757174121331">"Copier l\'adresse e-mail"</string>
     <string name="copy_number" msgid="8860802152973030914">"Copier le numéro de téléphone"</string>
     <string name="action_label" msgid="7172664623795021857">"Entrée"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Suggestions de contacts ouvertes"</string>
-    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Aucune suggestion disponible."</string>
+    <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">Aucune suggestion disponible</string>
     <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Retirer <xliff:g id="CONTACT">%s</xliff:g> des destinataires"</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Copier"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Annuler"</string>
