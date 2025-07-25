@@ -34,7 +34,6 @@ package com.android.calendar.event;
  import android.provider.ContactsContract.Data;
  import android.provider.ContactsContract.RawContacts;
  import android.text.TextUtils;
- import android.text.util.Rfc822Token;
  import android.util.AttributeSet;
  import android.util.Log;
  import android.view.LayoutInflater;
@@ -44,15 +43,15 @@ package com.android.calendar.event;
  import android.widget.QuickContactBadge;
  import android.widget.TextView;
 
+ import androidx.core.content.ContextCompat;
+
  import com.android.calendar.CalendarEventModel.Attendee;
  import com.android.calendar.ContactsAsyncHelper;
  import com.android.calendar.Utils;
  import com.android.calendar.event.EditEventHelper.AttendeeItem;
- import com.android.calendar.common.Rfc822Validator;
 
  import java.util.ArrayList;
  import java.util.HashMap;
- import java.util.LinkedHashSet;
 
  import ws.xsoh.etar.R;
 
@@ -91,7 +90,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     private final int mDefaultPhotoAlpha;
     // Cache for loaded photos
     HashMap<String, Drawable> mRecycledPhotos;
-    private Rfc822Validator mValidator;
     // Number of attendees responding or not responding.
     private int mYes;
     private int mNo;
@@ -105,7 +103,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         mPresenceQueryHandler = new PresenceQueryHandler(context.getContentResolver());
 
         final Resources resources = context.getResources();
-        mDefaultBadge = resources.getDrawable(R.drawable.ic_contact_picture);
+        mDefaultBadge = ContextCompat.getDrawable(context, R.drawable.ic_contact_picture);
         mNoResponsePhotoAlpha =
             resources.getInteger(R.integer.noresponse_attendee_photo_alpha_level);
         mDefaultPhotoAlpha = resources.getInteger(R.integer.default_attendee_photo_alpha_level);
@@ -137,10 +135,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                 minusButton.setVisibility(visibility);
             }
         }
-    }
-
-    public void setRfc822Validator(Rfc822Validator validator) {
-        mValidator = validator;
     }
 
     private View constructDividerView(CharSequence label) {
@@ -368,28 +362,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     public void addAttendees(ArrayList<Attendee> attendees) {
         synchronized (this) {
             for (final Attendee attendee : attendees) {
-                addOneAttendee(attendee);
-            }
-        }
-    }
-
-    public void addAttendees(HashMap<String, Attendee> attendees) {
-        synchronized (this) {
-            for (final Attendee attendee : attendees.values()) {
-                addOneAttendee(attendee);
-            }
-        }
-    }
-
-    public void addAttendees(String attendees) {
-        final LinkedHashSet<Rfc822Token> addresses =
-                EditEventHelper.getAddressesFromList(attendees, mValidator);
-        synchronized (this) {
-            for (final Rfc822Token address : addresses) {
-                final Attendee attendee = new Attendee(address.getName(), address.getAddress());
-                if (TextUtils.isEmpty(attendee.mName)) {
-                    attendee.mName = attendee.mEmail;
-                }
                 addOneAttendee(attendee);
             }
         }
