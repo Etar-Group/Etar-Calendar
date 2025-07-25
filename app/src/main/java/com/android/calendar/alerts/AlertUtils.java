@@ -133,7 +133,7 @@ public class AlertUtils {
 
         intent.putExtra(CalendarContract.CalendarAlerts.ALARM_TIME, alarmTime);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         manager.set(alarmType, alarmTime, pi);
     }
 
