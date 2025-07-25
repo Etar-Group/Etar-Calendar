@@ -167,7 +167,7 @@ public class AlertReceiver extends BroadcastReceiver {
         return TaskStackBuilder.create(context)
             .addParentStack(EventInfoActivity.class)
             .addNextIntent(intent)
-            .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+            .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     private static PendingIntent createDeleteEventIntent(Context context, long eventId,
@@ -195,7 +195,7 @@ public class AlertReceiver extends BroadcastReceiver {
         ContentUris.appendId(builder, eventId);
         ContentUris.appendId(builder, startMillis);
         intent.setData(builder.build());
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     // if default snooze minute < 0, means the snooze option is disable
@@ -221,10 +221,10 @@ public class AlertReceiver extends BroadcastReceiver {
 
         if (Utils.useCustomSnoozeDelay(context)) {
             intent.setClass(context, SnoozeDelayActivity.class);
-            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         } else {
             intent.setClass(context, SnoozeAlarmsService.class);
-            return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+            return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
     }
 
@@ -233,7 +233,7 @@ public class AlertReceiver extends BroadcastReceiver {
         clickIntent.setClass(context, AlertActivity.class);
         clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(context, 0, clickIntent,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     public static NotificationWrapper makeBasicNotification(Context context, String title,
@@ -415,7 +415,7 @@ public class AlertReceiver extends BroadcastReceiver {
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
         deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         if (digestTitle == null || digestTitle.length() == 0) {
             digestTitle = res.getString(R.string.no_title_label);
@@ -552,7 +552,7 @@ public class AlertReceiver extends BroadcastReceiver {
                         broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                         return PendingIntent.getBroadcast(context,
                                 Long.valueOf(eventId).hashCode(), broadcastIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                     }
                 } while (attendeesCursor.moveToNext());
             }
@@ -690,7 +690,7 @@ public class AlertReceiver extends BroadcastReceiver {
                         if (geoIntent != null) {
                             taskStackBuilder.addNextIntentWithParentStack(geoIntent);
                             return taskStackBuilder.getPendingIntent(0,
-                                    PendingIntent.FLAG_UPDATE_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                         }
                     }
                     Intent broadcastIntent = new Intent(MAP_ACTION);
@@ -698,7 +698,7 @@ public class AlertReceiver extends BroadcastReceiver {
                     broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                     return PendingIntent.getBroadcast(context,
                             Long.valueOf(eventId).hashCode(), broadcastIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                            PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 }
             }
         }
@@ -749,7 +749,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
                 return PendingIntent.getBroadcast(context,
                         Long.valueOf(eventId).hashCode(), broadcastIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT | Utils.PI_FLAG_IMMUTABLE);
+                        PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             }
         }
 

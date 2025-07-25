@@ -117,7 +117,6 @@ public class Utils {
     public static final int YEAR_MAX = 2036;
     public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
-    public static final int PI_FLAG_IMMUTABLE = PendingIntent.FLAG_IMMUTABLE;
 
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
