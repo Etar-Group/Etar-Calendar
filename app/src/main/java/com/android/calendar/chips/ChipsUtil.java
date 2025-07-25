@@ -39,34 +39,11 @@ public class ChipsUtil {
             new String[] { Manifest.permission.READ_CONTACTS };
 
     /**
-     * Returns true when the caller can use Chips UI in its environment.
-     */
-    public static boolean supportsChipsUi() {
-        return true;
-    }
-
-    /**
-     * Whether we are running on M or later version.
-     *
-     * <p>This is interesting for us because new permission model is introduced in M and we need to
-     * check if we have {@link #REQUIRED_PERMISSIONS}.
-     */
-    public static boolean isRunningMOrLater() {
-        return true;
-    }
-
-    /**
      * Returns {@link PackageManager#PERMISSION_GRANTED} if given permission is granted, or
      * {@link PackageManager#PERMISSION_DENIED} if not.
      */
     public static int checkPermission(Context context, String permission) {
-        if (isRunningMOrLater()) {
-            // TODO: Use "context.checkSelfPermission(permission)" once it's safe to move to M sdk
-            return context.checkPermission(permission, Process.myPid(), Process.myUid());
-        } else {
-            // Assume that we have permission before M.
-            return PackageManager.PERMISSION_GRANTED;
-        }
+            return context.checkSelfPermission(permission);
     }
 
     /**

@@ -56,7 +56,6 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
     // TODO Move these to Calendar.java
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
-    private static final int PI_FLAG_IMMUTABLE = PendingIntent.FLAG_IMMUTABLE;
 
     /**
      * Build {@link ComponentName} describing this specific
@@ -244,7 +243,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             intent.putExtra(CalendarContract.Events.CALENDAR_ID, -1);
 
             final PendingIntent addEventPendingIntent = PendingIntent.getActivity(
-                    context, 0 /* no requestCode */, intent, PI_FLAG_IMMUTABLE);
+                    context, 0 /* no requestCode */, intent, PendingIntent.FLAG_IMMUTABLE);
             views.setOnClickPendingIntent(R.id.iv_add, addEventPendingIntent);
 
             // Each list item will call setOnClickExtra() to let the list know
