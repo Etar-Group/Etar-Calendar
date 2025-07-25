@@ -1348,14 +1348,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     // From com.google.android.gm.ComposeActivity
     private MultiAutoCompleteTextView initMultiAutoCompleteTextView(RecipientEditTextView list) {
-        if (ChipsUtil.supportsChipsUi()) {
-            mAddressAdapter = new RecipientAdapter(mActivity);
-            list.setAdapter((BaseRecipientAdapter) mAddressAdapter);
-            list.setOnFocusListShrinkRecipients(false);
-        } else {
-            mAddressAdapter = new EmailAddressAdapter(mActivity);
-            list.setAdapter((EmailAddressAdapter)mAddressAdapter);
-        }
+        mAddressAdapter = new RecipientAdapter(mActivity);
+        list.setAdapter((BaseRecipientAdapter) mAddressAdapter);
+        list.setOnFocusListShrinkRecipients(false);
         list.setTokenizer(new Rfc822Tokenizer());
         list.setValidator(mEmailValidator);
 

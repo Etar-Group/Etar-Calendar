@@ -488,9 +488,6 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
 
         outAttrs.actionId = EditorInfo.IME_ACTION_DONE;
 
-        // Custom action labels are discouraged in L; a checkmark icon is shown in place of the
-        // custom text in this case.
-        outAttrs.actionLabel = null;
         return connection;
     }
 
@@ -2566,12 +2563,6 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
                 return;
             }
 
-            if (isTouchExplorationEnabled()) {
-                // The chips cannot be touch-explored. However, doing a double-tap results in
-                // the popup being shown for the last chip, which is of no value.
-                return;
-            }
-
             mSelectedChip = currentChip;
             setSelection(getText().getSpanEnd(mSelectedChip));
             setCursorVisible(false);
@@ -2582,13 +2573,6 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements
                 showAlternates(currentChip, mAlternatesPopup);
             }
         }
-    }
-
-    private boolean isTouchExplorationEnabled() {
-
-        final AccessibilityManager accessibilityManager = (AccessibilityManager)
-                getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
-        return accessibilityManager.isTouchExplorationEnabled();
     }
 
     private boolean shouldShowEditableText(DrawableRecipientChip currentChip) {
