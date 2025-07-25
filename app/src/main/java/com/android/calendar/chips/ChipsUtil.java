@@ -39,24 +39,16 @@ public class ChipsUtil {
             new String[] { Manifest.permission.READ_CONTACTS };
 
     /**
-     * Returns {@link PackageManager#PERMISSION_GRANTED} if given permission is granted, or
-     * {@link PackageManager#PERMISSION_DENIED} if not.
-     */
-    public static int checkPermission(Context context, String permission) {
-            return context.checkSelfPermission(permission);
-    }
-
-    /**
      * Returns true if all permissions in {@link #REQUIRED_PERMISSIONS} are granted.
      *
      * <p>If {@link PermissionsCheckListener} is specified it will be called for every
-     * {@link #checkPermission} call.
+     * {@link #checkSelfPermission} call.
      */
     public static boolean hasPermissions(Context context,
             @Nullable PermissionsCheckListener permissionsCheckListener) {
         for (String permission : REQUIRED_PERMISSIONS) {
             final boolean granted =
-                    checkPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+                    context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
             if (permissionsCheckListener != null) {
                 permissionsCheckListener.onPermissionCheck(permission, granted);
             }
