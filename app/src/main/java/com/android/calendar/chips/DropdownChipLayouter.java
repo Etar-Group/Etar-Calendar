@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.calendar.chips.Queries.Query;
+import com.google.android.material.color.MaterialColors;
 
 import ws.xsoh.etar.R;
 
@@ -387,11 +388,11 @@ public class DropdownChipLayouter {
     }
 
     /**
-     * Returns a resource ID representing an image which should be shown when ther's no relevant
+     * Returns a resource ID representing an image which should be shown when there's no relevant
      * photo is available.
      */
     protected @DrawableRes int getDefaultPhotoResId() {
-        return R.drawable.ic_contact_picture;
+        return R.drawable.outline_account_circle;
     }
 
     /**
@@ -502,8 +503,7 @@ public class DropdownChipLayouter {
                 if (index != -1) {
                     SpannableStringBuilder styled = SpannableStringBuilder.valueOf(result);
                     ForegroundColorSpan highlightSpan =
-                            new ForegroundColorSpan(mContext.getResources().getColor(
-                                    R.color.chips_dropdown_text_highlighted));
+                            new ForegroundColorSpan(MaterialColors.getColor(mContext, android.R.attr.colorControlNormal, Color.BLACK));
                     styled.setSpan(highlightSpan,
                             index, index + constraint.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     styledResults[i] = styled;
