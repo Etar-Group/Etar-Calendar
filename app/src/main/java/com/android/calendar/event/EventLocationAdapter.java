@@ -173,7 +173,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
                         // First listing for a distinct contact should have the name/icon.
                         addressesForName = new ArrayList<Result>();
                         nameToAddresses.put(name, addressesForName);
-                        result = new Result(name, address, R.drawable.ic_baseline_account_circle,
+                        result = new Result(name, address, R.drawable.outline_account_circle,
                                 contactPhotoUri);
                     } else {
                         // Do not include name/icon in subsequent listings for the same contact.
