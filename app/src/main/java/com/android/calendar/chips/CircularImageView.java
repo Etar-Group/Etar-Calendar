@@ -12,14 +12,15 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * An ImageView class with a circle mask so that all images are drawn in a
  * circle instead of a square.
  */
-public class CircularImageView extends ImageView {
+public class CircularImageView extends AppCompatImageView {
     private static float circularImageBorder = 1f;
 
     private final Matrix matrix;
@@ -58,12 +59,12 @@ public class CircularImageView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         Drawable drawable = getDrawable();
-        BitmapDrawable bitmapDrawable = null;
+        BitmapDrawable bitmapDrawable;
         // support state list drawable by getting the current state
         if (drawable instanceof StateListDrawable) {
-            if (((StateListDrawable) drawable).getCurrent() != null) {
-                bitmapDrawable = (BitmapDrawable) drawable.getCurrent();
-            }
+            bitmapDrawable = (BitmapDrawable) drawable.getCurrent();
+        } else if (drawable instanceof VectorDrawable) {
+            bitmapDrawable = getBitmapDrawableFromVectorDrawable(drawable);
         } else {
             bitmapDrawable = (BitmapDrawable) drawable;
         }
@@ -110,5 +111,20 @@ public class CircularImageView extends ImageView {
         // Then draw the border.
         canvas.drawCircle(dest.centerX(), dest.centerY(),
                 dest.width() / 2f - circularImageBorder / 2, borderPaint);
+    }
+
+    private BitmapDrawable getBitmapDrawableFromVectorDrawable(Drawable drawable) {
+        int width = drawable.getIntrinsicWidth();
+        int height = drawable.getIntrinsicHeight();
+
+        if (width <= 0) width = 1;
+        if (height <= 0) height = 1;
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return new BitmapDrawable(getResources(), bitmap);
     }
 }
