@@ -27,6 +27,7 @@ import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -34,7 +35,6 @@ import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.DynamicTheme;
 import com.android.calendar.Utils;
 import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.calendarcommon2.Time;
@@ -114,6 +114,19 @@ public class EditEventActivity extends AbstractCalendarActivity {
             ft.show(mEditFragment);
             ft.commit();
         }
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (mEditFragment != null) {
+                    mEditFragment.onBackPressed();
+                } else {
+                    if (isEnabled()) {
+                        finish();
+                    }
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -172,19 +185,9 @@ public class EditEventActivity extends AbstractCalendarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mEditFragment != null) {
-            mEditFragment.onBackPressed();
-            return;
-        }
-
-        super.onBackPressed();
     }
 }
