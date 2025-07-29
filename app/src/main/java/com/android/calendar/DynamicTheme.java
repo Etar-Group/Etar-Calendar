@@ -124,7 +124,7 @@ public class DynamicTheme {
         String theme = getTheme(context);
         switch (theme) {
             case SYSTEM:
-                if (isSystemInDarkTheme((Activity) context)) {
+                if (isSystemInDarkTheme(context)) {
                     return "_" + "dark";
                 } else {
                     return "";
@@ -170,7 +170,7 @@ public class DynamicTheme {
         String theme = getTheme(context);
         switch (theme) {
             case SYSTEM:
-                if (isSystemInDarkTheme((Activity) context)) {
+                if (isSystemInDarkTheme(context)) {
                     return android.R.style.Theme_DeviceDefault_Dialog;
                 } else {
                     return android.R.style.Theme_DeviceDefault_Light_Dialog;
@@ -214,8 +214,8 @@ public class DynamicTheme {
         return Build.VERSION.SDK_INT >= 29;
     }
 
-    public static boolean isSystemInDarkTheme(@NonNull Activity activity) {
-        return (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    public static boolean isSystemInDarkTheme(@NonNull Context context) {
+        return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
     private static final class OverridePendingTransition {
