@@ -93,6 +93,7 @@ public class Event implements Cloneable {
             Events.GUESTS_CAN_MODIFY,        // 19
             Instances.ALL_DAY + "=1 OR (" + Instances.END + "-" + Instances.BEGIN + ")>="
                     + DateUtils.DAY_IN_MILLIS + " AS " + DISPLAY_AS_ALLDAY, // 20
+            Events.AVAILABILITY,             // 21
     };
     private static final String EVENTS_WHERE = DISPLAY_AS_ALLDAY + "=0";
     private static final String ALLDAY_WHERE = DISPLAY_AS_ALLDAY + "=1";
@@ -117,6 +118,7 @@ public class Event implements Cloneable {
     private static final int PROJECTION_ORGANIZER_INDEX = 18;
     private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 19;
     private static final int PROJECTION_DISPLAY_AS_ALLDAY = 20;
+    private static final int PROJECTION_AVAILABILITY_INDEX = 21;
     private static String mNoTitleString;
     private static int mNoColorColor;
 
@@ -140,6 +142,7 @@ public class Event implements Cloneable {
     public boolean isRepeating;
     public int status;
     public int selfAttendeeStatus;
+    public int availability;
     // The coordinates of the event rectangle drawn on the screen.
     public float left;
     public float right;
@@ -172,6 +175,7 @@ public class Event implements Cloneable {
         e.isRepeating = false;
         e.status = Events.STATUS_CONFIRMED;
         e.selfAttendeeStatus = Attendees.ATTENDEE_STATUS_NONE;
+        e.availability = Events.AVAILABILITY_FREE;
 
         return e;
     }
@@ -396,6 +400,7 @@ public class Event implements Cloneable {
         }
 
         e.selfAttendeeStatus = cEvents.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
+        e.availability = cEvents.getInt(PROJECTION_AVAILABILITY_INDEX);
         return e;
     }
 
@@ -604,6 +609,7 @@ public class Event implements Cloneable {
         e.selfAttendeeStatus = selfAttendeeStatus;
         e.organizer = organizer;
         e.guestsCanModify = guestsCanModify;
+        e.availability = availability;
 
         return e;
     }
@@ -626,6 +632,7 @@ public class Event implements Cloneable {
         dest.selfAttendeeStatus = selfAttendeeStatus;
         dest.organizer = organizer;
         dest.guestsCanModify = guestsCanModify;
+        dest.availability = availability;
     }
 
     public final void dump() {
@@ -730,5 +737,9 @@ public class Event implements Cloneable {
     public boolean drawAsAllday() {
         // Use >= so we'll pick up Exchange allday events
         return allDay || endMillis - startMillis >= DateUtils.DAY_IN_MILLIS;
+    }
+
+    public boolean isFree() {
+        return availability == Events.AVAILABILITY_FREE;
     }
 }

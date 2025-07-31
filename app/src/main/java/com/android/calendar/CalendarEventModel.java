@@ -95,7 +95,7 @@ public class CalendarEventModel implements Serializable {
     public String mTimezone2 = null;
     public boolean mAllDay = false;
     public boolean mHasAlarm = false;
-    public int mAvailability = Events.AVAILABILITY_BUSY;
+    public int mAvailability = Events.AVAILABILITY_FREE;
     public boolean mAvailabilityExplicitlySet = false;
     // PROVIDER_NOTES How does an event not have attendee data? The owner is added
     // as an attendee by default.
