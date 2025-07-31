@@ -15,7 +15,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- This is the app label used for alert notifications -->
-    <string name="standalone_app_label" translatable="false">Etar</string>
+    <string name="standalone_app_label" translatable="false">Availtar</string>
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
 
@@ -270,6 +270,11 @@
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
     <string name="view_event_response_label">Attending?</string>
+    
+    <!-- Label for event availability (busy/free status) -->
+    <string name="availability_label">Availability</string>
+    <string name="availability_busy">Busy</string>
+    <string name="availability_free">Free</string>
     <!-- Response for whether attending an event - accepted [CHAR LIMIT=10]-->
     <string name="response_yes">Yes</string>
     <!-- Response for whether attending an event - tentative [CHAR LIMIT=10]-->
@@ -503,6 +508,12 @@
     <string name="preferences_days_per_week_title">Days per week</string>
     <string name="preferences_days_per_week_dialog">Days per week</string>
     <string name="preferences_days_per_week_default" translatable="false">7</string>
+    
+    <!-- Week view hour range preferences -->
+    <string name="preferences_week_view_start_hour_title">Week view start hour</string>
+    <string name="preferences_week_view_start_hour_dialog">Select start hour for week view</string>
+    <string name="preferences_week_view_end_hour_title">Week view end hour</string>
+    <string name="preferences_week_view_end_hour_dialog">Select end hour for week view</string>
     <!-- Title of the default event duration setting-->
     <string name="preferences_default_event_duration_title">Default event duration</string>
     <!-- Title of the settings item to clear the recent search history [CHAR LIMIT=40] -->
