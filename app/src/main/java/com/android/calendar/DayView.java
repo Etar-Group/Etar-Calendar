@@ -1334,7 +1334,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Event.computePositions(mEvents, minimumDurationMillis);
 
         // Compute the top of our reachable view
-        mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        int totalHours = getMaxHour() - getMinHour();
+        mMaxViewStartY = HOUR_GAP + getMinHour() * (mCellHeight + HOUR_GAP) + totalHours * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
         if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
             mMaxViewStartY = 0;
         }
@@ -1915,12 +1916,33 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return view;
     }
 
+    private int getMaxHour() {
+        if (mNumDays == 5) { // Week view
+            return Utils.getWeekViewEndHour(mContext);
+        } else { // Day view
+            return 24;
+        }
+    }
+    
+    private int getMinHour() {
+        if (mNumDays == 5) { // Week view
+            return Utils.getWeekViewStartHour(mContext);
+        } else { // Day view
+            return 0;
+        }
+    }
+    
     private void initFirstHour() {
-        mFirstHour = mSelectionHour - mNumHours / 5;
-        if (mFirstHour < 0) {
-            mFirstHour = 0;
-        } else if (mFirstHour + mNumHours > 24) {
-            mFirstHour = 24 - mNumHours;
+        if (mNumDays == 5) {
+            // Week view: show configurable hour range
+            mFirstHour = getMinHour();
+        } else {
+            mFirstHour = mSelectionHour - mNumHours / 5;
+            if (mFirstHour < getMinHour()) {
+                mFirstHour = getMinHour();
+            } else if (mFirstHour + mNumHours > getMaxHour()) {
+                mFirstHour = getMaxHour() - mNumHours;
+            }
         }
     }
 
@@ -1979,7 +2001,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
 
         if (mSelectionHour > mFirstHour + mNumHours - 3) {
-            if (mFirstHour < 24 - mNumHours) {
+            if (mFirstHour < getMaxHour() - mNumHours) {
                 mFirstHour += 1;
                 mViewStartY += (mCellHeight + HOUR_GAP);
                 if (mViewStartY > mMaxViewStartY) {
@@ -1989,7 +2011,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     mViewStartY = 0;
                 }
                 return;
-            } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
+            } else if (mFirstHour == getMaxHour() - mNumHours && mFirstHourOffset > 0) {
                 mViewStartY = mMaxViewStartY;
             }
         }
@@ -2521,7 +2543,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
         int deltaY = hourStep * totCellHeight;
         int y = i * totCellHeight + mHoursTextHeight / 2 - HOUR_GAP;
-        for (; i < 24; i += hourStep) {
+        for (; i < getMaxHour(); i += hourStep) {
             String time = mHourStrs[i];
             canvas.drawText(time, HOURS_LEFT_MARGIN, y, p);
             y += deltaY;
@@ -2617,7 +2639,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         final float deltaY = mCellHeight + HOUR_GAP;
         int linesIndex = 0;
         final float startY = 0;
-        final float stopY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
+        final float stopY = HOUR_GAP + (getMaxHour() - getMinHour()) * (mCellHeight + HOUR_GAP);
         float x = mHoursWidth;
 
         // Draw the inner horizontal grid lines
@@ -2626,7 +2648,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setAntiAlias(false);
         y = 0;
         linesIndex = 0;
-        for (int hour = 0; hour <= 24; hour++) {
+        for (int hour = getMinHour(); hour <= getMaxHour(); hour++) {
             mLines[linesIndex++] = GRID_LINE_LEFT_MARGIN;
             mLines[linesIndex++] = y;
             mLines[linesIndex++] = stopX;
@@ -3512,7 +3534,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setStrokeWidth(EVENT_RECT_STROKE_WIDTH);
         p.setColor(color);
         int alpha = p.getAlpha();
-        p.setAlpha(mEventsAlpha);
+        
+        // Make free events more transparent
+        int eventAlpha = mEventsAlpha;
+        if (event.isFree()) {
+            eventAlpha = (int) (mEventsAlpha * 0.4f); // 40% opacity for free events
+        }
+        
+        p.setAlpha(eventAlpha);
         canvas.drawRect(r, p);
         p.setAlpha(alpha);
         p.setStyle(Style.FILL);
@@ -4239,7 +4268,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
-        mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        int totalHours = getMaxHour() - getMinHour();
+        mMaxViewStartY = HOUR_GAP + getMinHour() * (mCellHeight + HOUR_GAP) + totalHours * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
         if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
             mMaxViewStartY = 0;
         }

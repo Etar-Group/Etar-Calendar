@@ -1536,7 +1536,17 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mBoundaries.setRectangle(mFormat.getDaySpan(day), mFormat.getEventLines());
             mEventSquarePaint.setStyle(getRectanglePaintStyle());
             mEventSquarePaint.setColor(getRectangleColor());
+            
+            // Make free events more transparent
+            int originalAlpha = mEventSquarePaint.getAlpha();
+            if (mEvent.isFree()) {
+                mEventSquarePaint.setAlpha((int) (originalAlpha * 0.4f)); // 40% opacity for free events
+            }
+            
             canvas.drawRect(r, mEventSquarePaint);
+            
+            // Restore original alpha
+            mEventSquarePaint.setAlpha(originalAlpha);
         }
 
         protected int getAvailableSpaceForText(int spanningDays) {
