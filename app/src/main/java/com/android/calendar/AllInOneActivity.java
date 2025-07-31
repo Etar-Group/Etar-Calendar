@@ -944,21 +944,25 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         final int itemId = item.getItemId();
+        
+        // Get current time to always navigate to today when switching views
+        long todayMillis = System.currentTimeMillis();
+        
         if (itemId == R.id.day_menu_item) {
             if (mCurrentView != ViewType.DAY) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+                mController.sendEvent(this, EventType.GO_TO, null, null, todayMillis, ViewType.DAY);
             }
         } else if (itemId == R.id.week_menu_item) {
             if (mCurrentView != ViewType.WEEK) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+                mController.sendEvent(this, EventType.GO_TO, null, null, todayMillis, ViewType.WEEK);
             }
         } else if (itemId == R.id.month_menu_item) {
             if (mCurrentView != ViewType.MONTH) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
+                mController.sendEvent(this, EventType.GO_TO, null, null, todayMillis, ViewType.MONTH);
             }
         } else if (itemId == R.id.agenda_menu_item) {
             if (mCurrentView != ViewType.AGENDA) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
+                mController.sendEvent(this, EventType.GO_TO, null, null, todayMillis, ViewType.AGENDA);
             }
         } else if (itemId == R.id.action_settings) {
             mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
@@ -1067,7 +1071,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             case ViewType.WEEK:
             default:
                 mNavigationView.getMenu().findItem(R.id.week_menu_item).setChecked(true);
-                frag = new DayFragment(timeMillis, Utils.getDaysPerWeek(this));
+                frag = new DayFragment(timeMillis, 5);
                 if (mIsTabletConfig) {
                     mToolbar.setTitle(R.string.week_view);
                 }
