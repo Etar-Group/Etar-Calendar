@@ -86,15 +86,45 @@
             android:textColor="@color/agenda_item_where_text_color"
             style="?android:attr/textAppearanceSmallInverse" />
     </LinearLayout>
-    <ImageView
-        android:id="@+id/selected_marker"
+    <LinearLayout
         android:layout_column="2"
         android:layout_row="1"
         android:layout_rowSpan="1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:visibility="gone"
-        android:contentDescription="@string/acessibility_selected_marker_description"
-        android:background="@drawable/list_multi_left_activated_holo" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+        
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/agenda_availability_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:thumbTint="@color/availability_toggle_thumb"
+            android:trackTint="@color/availability_toggle_track"/>
+            
+        <TextView
+            android:id="@+id/agenda_availability_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:layout_marginTop="2dp"
+            android:text="FREE"/>
+            
+        <ImageView
+            android:id="@+id/selected_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:contentDescription="@string/acessibility_selected_marker_description"
+            android:background="@drawable/list_multi_left_activated_holo" />
+    </LinearLayout>
 </GridLayout>

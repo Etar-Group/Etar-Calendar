@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -93,6 +94,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     public static final int INDEX_OWNER_ACCOUNT = 15;
     public static final int INDEX_CAN_ORGANIZER_RESPOND= 16;
     public static final int INDEX_TIME_ZONE = 17;
+    public static final int INDEX_AVAILABILITY = 18;
     static final boolean BASICLOG = false;
     static final boolean DEBUGLOG = false;
     private static final String TAG = "AgendaWindowAdapter";
@@ -119,6 +121,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.OWNER_ACCOUNT, // 15
             Instances.CAN_ORGANIZER_RESPOND, // 16
             Instances.EVENT_TIMEZONE, // 17
+            Events.AVAILABILITY, // 18
     };
     // Listview may have a bug where the index/position is not consistent when there's a header.
     // position == positionInListView - OFF_BY_ONE_BUG

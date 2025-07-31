@@ -30,6 +30,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+import android.widget.CompoundButton;
+import android.content.ContentValues;
+import android.content.ContentUris;
+import android.provider.CalendarContract;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import com.android.calendar.ColorChipView;
 import com.android.calendar.DynamicTheme;
@@ -107,6 +113,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
                     view.findViewById(R.id.agenda_item_text_container);
             holder.selectedMarker = view.findViewById(R.id.selected_marker);
             holder.colorChip = (ColorChipView)view.findViewById(R.id.agenda_item_color);
+            holder.availabilityToggle = (SwitchMaterial)view.findViewById(R.id.agenda_availability_toggle);
+            holder.availabilityStatus = (TextView)view.findViewById(R.id.agenda_availability_status);
         }
 
         holder.startTimeMilli = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
@@ -163,10 +171,58 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         TextView where = holder.where;
 
         holder.instanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
+        holder.eventId = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
 
         /* Calendar Color */
         int color = Utils.getDisplayColorFromColor(context, cursor.getInt(AgendaWindowAdapter.INDEX_COLOR));
+        
+        // Handle availability for visual distinction and toggle
+        int availability = cursor.getInt(AgendaWindowAdapter.INDEX_AVAILABILITY);
+        boolean isFree = (availability == Events.AVAILABILITY_FREE);
+        
+        // Apply visual distinction for free events (transparency)
+        if (isFree) {
+            holder.colorChip.setAlpha(0.4f);
+            holder.title.setAlpha(0.7f);
+            holder.when.setAlpha(0.7f);
+            holder.where.setAlpha(0.7f);
+        } else {
+            holder.colorChip.setAlpha(1.0f);
+            holder.title.setAlpha(1.0f);
+            holder.when.setAlpha(1.0f);
+            holder.where.setAlpha(1.0f);
+        }
+        
         holder.colorChip.setColor(color);
+        
+        // Setup availability toggle
+        holder.availabilityToggle.setOnCheckedChangeListener(null);
+        holder.availabilityToggle.setChecked(isFree);
+        holder.availabilityStatus.setText(isFree ? "FREE" : "BUSY");
+        
+        final ViewHolder finalHolder = holder;
+        final Context finalContext = context;
+        holder.availabilityToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                updateEventAvailability(finalContext, finalHolder.eventId, isChecked);
+                // Update status text immediately
+                finalHolder.availabilityStatus.setText(isChecked ? "FREE" : "BUSY");
+                
+                // Update visual distinction immediately
+                if (isChecked) {
+                    finalHolder.colorChip.setAlpha(0.4f);
+                    finalHolder.title.setAlpha(0.7f);
+                    finalHolder.when.setAlpha(0.7f);
+                    finalHolder.where.setAlpha(0.7f);
+                } else {
+                    finalHolder.colorChip.setAlpha(1.0f);
+                    finalHolder.title.setAlpha(1.0f);
+                    finalHolder.when.setAlpha(1.0f);
+                    finalHolder.where.setAlpha(1.0f);
+                }
+            }
+        });
 
         // What
         String titleString = cursor.getString(AgendaWindowAdapter.INDEX_TITLE);
@@ -221,6 +277,18 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         }
     }
 
+    private void updateEventAvailability(Context context, long eventId, boolean isFree) {
+        int newAvailability = isFree ? Events.AVAILABILITY_FREE : Events.AVAILABILITY_BUSY;
+        
+        // Update the database
+        ContentValues values = new ContentValues();
+        values.put(Events.AVAILABILITY, newAvailability);
+        
+        context.getContentResolver().update(
+            ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId),
+            values, null, null);
+    }
+
     static class ViewHolder {
 
         public static final int DECLINED_RESPONSE = 0;
@@ -235,10 +303,13 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         LinearLayout textContainer;
         long instanceId;
         ColorChipView colorChip;
+        SwitchMaterial availabilityToggle;
+        TextView availabilityStatus;
         long startTimeMilli;
         boolean allDay;
         boolean grayed;
         int julianDay;
+        long eventId;
     }
 }
 
