@@ -545,6 +545,11 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         // experimental
         const val KEY_OTHER_COPY_DB = "preferences_copy_db"
         const val KEY_OTHER_REMINDERS_RESPONDED = "preferences_reminders_responded"
+        
+        const val KEY_WEEK_VIEW_START_HOUR = "preferences_week_view_start_hour"
+        const val KEY_WEEK_VIEW_END_HOUR = "preferences_week_view_end_hour"
+        const val DEFAULT_WEEK_VIEW_START_HOUR = "8"
+        const val DEFAULT_WEEK_VIEW_END_HOUR = "19"
 
         internal const val REQUEST_CODE_ALERT_RINGTONE = 42
 

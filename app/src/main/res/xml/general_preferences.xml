@@ -64,6 +64,20 @@
             app:entryValues="@array/preferences_days_per_week_values"
             app:dialogTitle="@string/preferences_days_per_week_dialog" />
         <ListPreference
+            app:key="preferences_week_view_start_hour"
+            app:defaultValue="8"
+            app:title="@string/preferences_week_view_start_hour_title"
+            app:entries="@array/hour_labels"
+            app:entryValues="@array/hour_values"
+            app:dialogTitle="@string/preferences_week_view_start_hour_dialog" />
+        <ListPreference
+            app:key="preferences_week_view_end_hour"
+            app:defaultValue="19"
+            app:title="@string/preferences_week_view_end_hour_title"
+            app:entries="@array/hour_labels"
+            app:entryValues="@array/hour_values"
+            app:dialogTitle="@string/preferences_week_view_end_hour_dialog" />
+        <ListPreference
             app:key="preferences_default_event_duration"
             app:defaultValue="60"
             app:title="@string/preferences_default_event_duration_title"

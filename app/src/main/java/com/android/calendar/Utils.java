@@ -752,6 +752,16 @@ public class Utils {
         return Integer.parseInt(prefs.getString(GeneralPreferences.KEY_MDAYS_PER_WEEK, "7"));
     }
 
+    public static int getWeekViewStartHour(Context context) {
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
+        return Integer.parseInt(prefs.getString(GeneralPreferences.KEY_WEEK_VIEW_START_HOUR, GeneralPreferences.DEFAULT_WEEK_VIEW_START_HOUR));
+    }
+
+    public static int getWeekViewEndHour(Context context) {
+        final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
+        return Integer.parseInt(prefs.getString(GeneralPreferences.KEY_WEEK_VIEW_END_HOUR, GeneralPreferences.DEFAULT_WEEK_VIEW_END_HOUR));
+    }
+
     public static boolean useCustomSnoozeDelay(Context context) {
         final SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
         return prefs.getBoolean(GeneralPreferences.KEY_USE_CUSTOM_SNOOZE_DELAY, false);
