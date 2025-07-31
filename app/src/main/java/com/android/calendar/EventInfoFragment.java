@@ -95,11 +95,14 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -391,6 +394,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private ExpandableTextView mUrl;
     private AttendeesView mLongAttendees;
     private Button emailAttendeesButton;
+    
+    // Availability controls
+    private View mAvailabilityContainer;
+    private TextView mAvailabilityStatus;
+    private SwitchMaterial mAvailabilityToggle;
     private Menu mMenu = null;
     private View mHeadlines;
     private ScrollView mScrollView;
@@ -819,6 +827,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
 
         mResponseRadioGroup = (RadioGroup) mView.findViewById(R.id.response_value);
+        
+        // Initialize availability controls
+        mAvailabilityContainer = mView.findViewById(R.id.availability_container);
+        mAvailabilityStatus = mView.findViewById(R.id.availability_status);
+        mAvailabilityToggle = mView.findViewById(R.id.availability_toggle);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -2072,6 +2085,60 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         updateExtended();
     }
 
+    void updateAvailability(View view) {
+        // Show availability toggle only if user can modify the event
+        if (!mCanModifyEvent) {
+            setVisibilityCommon(view, R.id.availability_container, View.GONE);
+            return;
+        }
+
+        setVisibilityCommon(view, R.id.availability_container, View.VISIBLE);
+
+        int availability = mEventCursor.getInt(EVENT_INDEX_AVAILABILITY);
+        boolean isFree = (availability == Events.AVAILABILITY_FREE);
+        
+        // Update status text
+        String statusText = isFree ? 
+            getString(R.string.availability_free) : 
+            getString(R.string.availability_busy);
+        mAvailabilityStatus.setText(statusText);
+        
+        // Set toggle state without triggering listener
+        mAvailabilityToggle.setOnCheckedChangeListener(null);
+        mAvailabilityToggle.setChecked(isFree);
+        
+        // Set toggle listener
+        mAvailabilityToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                updateEventAvailability(isChecked);
+            }
+        });
+    }
+
+    private void updateEventAvailability(boolean isFree) {
+        int newAvailability = isFree ? Events.AVAILABILITY_FREE : Events.AVAILABILITY_BUSY;
+        
+        // Update the database
+        ContentValues values = new ContentValues();
+        values.put(Events.AVAILABILITY, newAvailability);
+        
+        AsyncQueryService service = new AsyncQueryService(getActivity());
+        service.startUpdate(service.getNextToken(), null, 
+            ContentUris.withAppendedId(Events.CONTENT_URI, mEventId), 
+            values, null, null, 0);
+        
+        // Update UI immediately
+        String statusText = isFree ? 
+            getString(R.string.availability_free) : 
+            getString(R.string.availability_busy);
+        mAvailabilityStatus.setText(statusText);
+        
+        // Show toast for user feedback
+        String message = getString(R.string.availability_label) + ": " + statusText;
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
     void updateResponse(View view) {
         // we only let the user accept/reject/etc. a meeting if:
         // a) you can edit the event's containing calendar AND
@@ -2516,6 +2583,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mAttendeesCursor = Utils.matrixCursorFromCursor(cursor);
                     initAttendeesCursor(mView);
                     updateResponse(mView);
+                    updateAvailability(mView);
                     break;
                 case TOKEN_QUERY_REMINDERS:
                     mRemindersCursor = Utils.matrixCursorFromCursor(cursor);

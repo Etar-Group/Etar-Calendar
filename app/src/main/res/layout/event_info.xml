@@ -149,6 +149,51 @@
 
             </LinearLayout>
 
+            <!-- AVAILABILITY -->
+            <LinearLayout
+                android:id="@+id/availability_container"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/availability_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="8dip"
+                    android:paddingRight="8dip"
+                    android:layout_marginLeft="8dip"
+                    android:layout_marginRight="8dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    style="?android:attr/listSeparatorTextViewStyle"
+                    android:text="@string/availability_label" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="52dip"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="8dip"
+                    android:paddingRight="8dip"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/availability_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        style="?android:attr/textAppearanceMedium"
+                        android:textSize="16sp"/>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/availability_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dip"/>
+                </LinearLayout>
+            </LinearLayout>
+
             <!-- RESPONSE -->
             <LinearLayout
                 android:id="@+id/response_container"
