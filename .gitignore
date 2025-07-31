@@ -39,3 +39,52 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+# Claude Code related files
+CLAUDE.md
+.claude_context/
+.claude_instructions/
+claude_session.md
+claude_*.md
+
+# Temporary and work files
+*.tmp
+*.bak
+*.swp
+*~
+
+# IDE and editor files
+.vscode/
+*.sublime-*
+*.atom
+.editorconfig
+
+# OS generated files
+Thumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Archive files (often used for manual backups)
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Testing and coverage
+coverage/
+*.coverage
+.nyc_output/
+.pytest_cache/
+
+# Documentation build
+docs/_build/
+site/
