@@ -1,0 +1,4 @@
+- Improve guest selection style and readability
+- Fix Event date picker for end date always preselects start
+- Remove PrimaryColor preference
+- Bugfixes
