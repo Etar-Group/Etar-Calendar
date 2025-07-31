@@ -1669,8 +1669,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 .setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity))
                 .build();
 
+        Calendar calPickTime = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        if (view == mStartDateButton) {
+            calPickTime.set(mStartTime.getYear(), mStartTime.getMonth(), mStartTime.getDay());
+        } else {
+            calPickTime.set(mEndTime.getYear(), mEndTime.getMonth(), mEndTime.getDay());
+        }
+
         MaterialDatePicker<Long> datePickerDialog = MaterialDatePicker.Builder.datePicker()
-                .setSelection(mStartTime.toMillis())
+                .setSelection(calPickTime.getTimeInMillis())
                 .setCalendarConstraints(calendarConstraints)
                 .setTitleText(R.string.goto_date)
                 .build();
