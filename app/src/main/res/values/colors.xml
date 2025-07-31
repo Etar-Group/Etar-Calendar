@@ -45,6 +45,10 @@
     <color name="week_today">#802979ff</color>
     <color name="week_saturday">#80333333</color>
     <color name="week_sunday">#80333333</color>
+    
+    <!-- Availability toggle colors -->
+    <color name="availability_toggle_thumb">#FF4CAF50</color>
+    <color name="availability_toggle_track">#FFCCCCCC</color>
     <color name="calendar_future_bg_color">#ffffffff</color>
     <color name="calendar_hour_label">#ff666666</color>
     <color name="calendar_hour_background">#ffEEEEEE</color>
