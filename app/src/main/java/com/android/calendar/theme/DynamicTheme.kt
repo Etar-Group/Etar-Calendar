@@ -9,6 +9,7 @@ import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowInsetsControllerCompat
+import com.android.calendar.DynamicTheme
 import com.android.calendar.theme.ThemeUtils.isPureBlackModeEnabled
 import com.android.calendar.theme.model.Theme
 import ws.xsoh.etar.R
@@ -57,6 +58,11 @@ fun AppCompatActivity.applyThemeAndPrimaryColor() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
+    }
+
+    // Setup edge to edge
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        DynamicTheme.setupEdgeToEdge(this)
     }
 }
 

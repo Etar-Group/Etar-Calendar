@@ -225,7 +225,7 @@ public class DynamicTheme {
     }
 
     @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
-    private static void setupEdgeToEdge(@NonNull Activity activity) {
+    public static void setupEdgeToEdge(@NonNull Activity activity) {
         Window window = activity.getWindow();
         View rootView = activity.getWindow().getDecorView().getRootView();
 
