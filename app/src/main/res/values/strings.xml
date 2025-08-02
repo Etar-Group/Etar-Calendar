@@ -485,6 +485,8 @@
     <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
     <string name="preferences_hide_declined_title">Hide declined events</string>
+    <!-- Settings check box label to auto dismiss events that have ended -->
+    <string name="preferences_auto_dismiss_title">Auto-dismiss ended events</string>
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>
     <string name="display_options">Display options</string>

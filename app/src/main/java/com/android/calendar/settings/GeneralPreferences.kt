@@ -67,6 +67,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private lateinit var doNotCheckBatteryOptimizationPref: SwitchPreference
     private lateinit var defaultStartPref: ListPreference
     private lateinit var hideDeclinedPref: SwitchPreference
+    private lateinit var autoDismissPref: SwitchPreference
     private lateinit var weekStartPref: ListPreference
     private lateinit var dayWeekPref: ListPreference
     private lateinit var defaultEventDurationPref: ListPreference
@@ -112,6 +113,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         doNotCheckBatteryOptimizationPref = preferenceScreen.findPreference(KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION)!!
         defaultStartPref = preferenceScreen.findPreference(KEY_DEFAULT_START)!!
         hideDeclinedPref = preferenceScreen.findPreference(KEY_HIDE_DECLINED)!!
+        autoDismissPref = preferenceScreen.findPreference(KEY_AUTO_DISMISS)!!
         weekStartPref = preferenceScreen.findPreference(KEY_WEEK_START_DAY)!!
         dayWeekPref = preferenceScreen.findPreference(KEY_DAYS_PER_WEEK)!!
         defaultEventDurationPref = preferenceScreen.findPreference(KEY_DEFAULT_EVENT_DURATION)!!
@@ -223,6 +225,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         doNotCheckBatteryOptimizationPref.onPreferenceChangeListener = listener
         defaultStartPref.onPreferenceChangeListener = listener
         hideDeclinedPref.onPreferenceChangeListener = listener
+        autoDismissPref.onPreferenceChangeListener = listener
         weekStartPref.onPreferenceChangeListener = listener
         dayWeekPref.onPreferenceChangeListener = listener
         defaultEventDurationPref.onPreferenceChangeListener = listener
@@ -308,6 +311,11 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 requireActivity().sendBroadcast(intent)
                 return true
             }
+			/* TODO needed?
+            autoDismissPref -> {
+                autoDismissPref.isChecked = newValue as Boolean
+            }
+			*/
             weekStartPref -> {
                 weekStartPref.value = newValue as String
                 weekStartPref.summary = weekStartPref.entry
@@ -488,6 +496,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         const val KEY_PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode"
         const val KEY_DEFAULT_START = "preferences_default_start"
         const val KEY_HIDE_DECLINED = "preferences_hide_declined"
+        const val KEY_AUTO_DISMISS = "preferences_auto_dismiss"
         const val KEY_WEEK_START_DAY = "preferences_week_start_day"
         const val KEY_SHOW_WEEK_NUM = "preferences_show_week_num"
         const val KEY_DAYS_PER_WEEK = "preferences_days_per_week"

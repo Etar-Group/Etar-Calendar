@@ -463,6 +463,9 @@ public class AlertService extends Service {
         boolean remindRespondedOnly = skipRemindersPref.equals(context.getResources().
                 getStringArray(R.array.preferences_skip_reminders_values)[1]);
         Time time = new Time();
+	// Auto dismiss events that have ended
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(context);
+	boolean autoDismiss = prefs.getBoolean(GeneralPreferences.KEY_AUTO_DISMISS, false);
 
         ContentResolver cr = context.getContentResolver();
         HashMap<Long, NotificationInfo> eventIds = new HashMap<Long, NotificationInfo>();
@@ -531,7 +534,7 @@ public class AlertService extends Service {
                 boolean newAlert = false;
 
                 // clearing out alerts after the events ended. b/1880369
-                if (endTime < currentTime) {
+                if (autoDismiss && (endTime < currentTime)) {
                     newState = CalendarAlerts.STATE_DISMISSED;
                 }
 

@@ -46,6 +46,10 @@
             app:defaultValue="false"
             app:title="@string/preferences_hide_declined_title" />
         <SwitchPreference
+            app:key="preferences_auto_dismiss"
+            app:defaultValue="false"
+            app:title="@string/preferences_auto_dismiss_title" />
+        <SwitchPreference
             app:key="preferences_show_week_num"
             app:defaultValue="false"
             app:title="@string/preferences_show_week_num_title" />
