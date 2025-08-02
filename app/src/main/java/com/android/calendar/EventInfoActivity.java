@@ -68,7 +68,7 @@ public class EventInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle icicle) {
-        DynamicThemeKt.applyThemeAndPrimaryColor(this);
+        DynamicThemeKt.applyTheme(this);
         super.onCreate(icicle);
 
         // Get the info needed for the fragment

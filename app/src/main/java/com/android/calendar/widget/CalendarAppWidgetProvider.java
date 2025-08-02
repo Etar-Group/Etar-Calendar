@@ -40,6 +40,7 @@ import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.calendarcommon2.Time;
+import com.android.calendar.theme.DynamicThemeKt;
 
 import ws.xsoh.etar.R;
 
@@ -218,7 +219,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setInt(R.id.header, "setBackgroundResource", headerColor);
 
             // Set widget background color based on chosen app theme
-            int backgroundColor = DynamicTheme.getWidgetBackgroundStyle(context);
+            int backgroundColor = DynamicThemeKt.getWidgetBackgroundStyle(context);
             views.setInt(R.id.widget_background, "setBackgroundResource", backgroundColor);
 
             // Attach to list of events
