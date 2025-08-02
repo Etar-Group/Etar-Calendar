@@ -1,0 +1,4 @@
+- De leesbaarheid van de gastenkeuze verbeterd
+- Vooraf geselecteerde einddatum blijft behouden
+- Optie voor primaire kleur verwijderd
+- Verdere kleine probleemoplossingen
