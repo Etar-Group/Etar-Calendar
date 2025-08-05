@@ -530,13 +530,15 @@ public class AlertService extends Service {
                 int newState = -1;
                 boolean newAlert = false;
 
-                // clearing out alerts after the events ended. b/1880369
-                if (endTime < currentTime) {
-                    newState = CalendarAlerts.STATE_DISMISSED;
-                }
+                // Uncomment for the behavior of clearing out alerts after the
+                // events ended. b/1880369
+                //
+                // if (endTime < currentTime) {
+                //     newState = CalendarAlerts.DISMISSED;
+                // } else
 
                 // Remove declined events
-                boolean sendAlert = !declined  && newState != CalendarAlerts.STATE_DISMISSED;
+                boolean sendAlert = !declined;
                 // Check for experimental reminder settings.
                 if (remindRespondedOnly) {
                     // If the experimental setting is turned on, then only send
