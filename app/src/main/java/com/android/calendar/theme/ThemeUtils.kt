@@ -3,7 +3,6 @@ package com.android.calendar.theme
 import android.content.Context
 import android.os.Build
 import com.android.calendar.Utils
-import com.android.calendar.theme.model.Color
 import com.android.calendar.theme.model.Theme
 
 object ThemeUtils {
@@ -23,8 +22,4 @@ object ThemeUtils {
         return Theme.valueOf(theme.uppercase())
     }
 
-    fun getColor(): Color {
-        val color = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Color.MONET.name else Color.TEAL.name
-        return Color.valueOf(color.uppercase())
-    }
 }
