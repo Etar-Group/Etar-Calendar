@@ -268,6 +268,13 @@ public class DeleteEventHelper {
         // just some of them.
         String rRule = model.mRrule;
         String originalEvent = model.mOriginalSyncId;
+
+        if (!(mContext instanceof Activity activity)) {
+            return;
+        }
+        if (activity.isFinishing() || activity.isDestroyed()) {
+            return;
+        }
         if (TextUtils.isEmpty(rRule)) {
             AlertDialog dialog = new MaterialAlertDialogBuilder(mContext)
                     .setMessage(R.string.delete_this_event_title)
