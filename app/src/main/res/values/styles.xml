@@ -134,7 +134,7 @@
         <item name="android:textColor">@color/calendar_date_range_color</item>
     </style>
 
-    <style name="CalendarTheme.WithoutActionBar" parent="CalendarAppThemeLight">
+    <style name="CalendarTheme.WithoutActionBar" parent="CalendarAppThemeLightTeal">
         <item name="android:endYear">2036</item>
         <item name="android:startYear">1970</item>
         <item name="android:windowBackground">@color/bg_black</item>

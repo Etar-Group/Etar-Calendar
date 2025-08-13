@@ -65,7 +65,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     @Override
     protected void onCreate(Bundle icicle) {
-        DynamicThemeKt.applyThemeAndPrimaryColor(this);
+        DynamicThemeKt.applyTheme(this);
         super.onCreate(icicle);
 
         mEventInfo = getEventInfoFromIntent(icicle);
