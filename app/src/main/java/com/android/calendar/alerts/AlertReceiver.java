@@ -48,6 +48,8 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import com.android.calendar.DynamicTheme;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
@@ -249,7 +251,7 @@ public class AlertReceiver extends BroadcastReceiver {
         final PackageManager packageManager = context.getPackageManager();
         List<ResolveInfo> resolveInfo = packageManager.queryIntentActivities(intent,
                 PackageManager.MATCH_DEFAULT_ONLY);
-        return (resolveInfo.size() > 0);
+        return (!resolveInfo.isEmpty());
     }
 
     private static Notification buildBasicNotification(Notification.Builder notificationBuilder,
@@ -257,7 +259,7 @@ public class AlertReceiver extends BroadcastReceiver {
             long eventId, long calendarId, int notificationId, boolean doPopup, int priority,
             boolean addActionButtons) {
         Resources resources = context.getResources();
-        if (title == null || title.length() == 0) {
+        if (title == null || title.isEmpty()) {
             title = resources.getString(R.string.no_title_label);
         }
 
@@ -275,7 +277,7 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setContentText(summaryText);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar_events);
         int color = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
-        notificationBuilder.setColor(context.getResources().getColor(color));
+        notificationBuilder.setColor(ContextCompat.getColor(context, color));
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
 
@@ -676,8 +678,7 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     private static PendingIntent createMapBroadcastIntent(Context context, URLSpan[] urlSpans,
             long eventId) {
-        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
-            URLSpan urlSpan = urlSpans[span_i];
+        for (URLSpan urlSpan : urlSpans) {
             String urlString = urlSpan.getURL();
             if (urlString.startsWith(GEO_PREFIX)) {
                 Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
@@ -712,8 +713,7 @@ public class AlertReceiver extends BroadcastReceiver {
      * If no links are found, return null.
      */
     private static Intent createMapActivityIntent(Context context, URLSpan[] urlSpans) {
-        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
-            URLSpan urlSpan = urlSpans[span_i];
+        for (URLSpan urlSpan : urlSpans) {
             String urlString = urlSpan.getURL();
             if (urlString.startsWith(GEO_PREFIX)) {
                 Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
@@ -740,8 +740,7 @@ public class AlertReceiver extends BroadcastReceiver {
             return null;
         }
 
-        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
-            URLSpan urlSpan = urlSpans[span_i];
+        for (URLSpan urlSpan : urlSpans) {
             String urlString = urlSpan.getURL();
             if (urlString.startsWith(TEL_PREFIX)) {
                 Intent broadcastIntent = new Intent(CALL_ACTION);
@@ -770,8 +769,7 @@ public class AlertReceiver extends BroadcastReceiver {
             return null;
         }
 
-        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
-            URLSpan urlSpan = urlSpans[span_i];
+        for (URLSpan urlSpan : urlSpans) {
             String urlString = urlSpan.getURL();
             if (urlString.startsWith(TEL_PREFIX)) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(urlString));

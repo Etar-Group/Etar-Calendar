@@ -35,7 +35,7 @@ fun AppCompatActivity.applyTheme() {
 
     // Setup edge to edge
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-        setupEdgeToEdge(this);
+        setupEdgeToEdge(this)
     }
 
     // Set selected theme mode to the app

@@ -2753,9 +2753,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int computeMaxStringWidth(int currentMax, String[] strings, Paint p) {
         float maxWidthF = 0.0f;
 
-        int len = strings.length;
-        for (int i = 0; i < len; i++) {
-            float width = p.measureText(strings[i]);
+        for (String string : strings) {
+            float width = p.measureText(string);
             maxWidthF = Math.max(width, maxWidthF);
         }
         int maxWidth = (int) (maxWidthF + 0.5);

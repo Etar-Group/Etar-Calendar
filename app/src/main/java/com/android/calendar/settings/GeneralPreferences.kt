@@ -36,7 +36,6 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.SparseIntArray
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference

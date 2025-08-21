@@ -551,8 +551,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         int size = vals.length;
         ArrayList<Integer> list = new ArrayList<Integer>(size);
 
-        for (int i = 0; i < size; i++) {
-            list.add(vals[i]);
+        for (int val : vals) {
+            list.add(val);
         }
 
         return list;

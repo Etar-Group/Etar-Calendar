@@ -1031,14 +1031,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
             for (int i = 0; i < mMaxNumberOfLines + 1; i++) {
                 mEventsByHeight.add(new ArrayList<FormattedEventBase>());
             }
-            ListIterator<FormattedEventBase> iterator = mEventDay.listIterator();
-            while (iterator.hasNext()) {
-                FormattedEventBase event = iterator.next();
+            for (FormattedEventBase event : mEventDay) {
                 final int eventHeight = event.getFormat().getEventLines();
                 if (eventHeight > 0) {
                     mVisibleEvents++;
                     if (event.isBordered()) {
-                    mFullDayEventsCount++;
+                        mFullDayEventsCount++;
                     }
                 }
                 mEventsByHeight.get(eventHeight).add(event);

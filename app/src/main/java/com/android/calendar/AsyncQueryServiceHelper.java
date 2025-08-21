@@ -87,9 +87,7 @@ public class AsyncQueryServiceHelper extends IntentService {
 
         synchronized (sWorkQueue) {
             // Unknown order even for a PriorityQueue
-            Iterator<OperationInfo> it = sWorkQueue.iterator();
-            while (it.hasNext()) {
-                OperationInfo info = it.next();
+            for (OperationInfo info : sWorkQueue) {
                 if (info.delayMillis > 0 && lastScheduleTime < info.mScheduledTimeMillis) {
                     if (op == null) {
                         op = new Operation();
@@ -225,10 +223,7 @@ public class AsyncQueryServiceHelper extends IntentService {
                 case Operation.EVENT_ARG_BATCH:
                     try {
                         args.result = resolver.applyBatch(args.authority, args.cpo);
-                    } catch (RemoteException e) {
-                        Log.e(TAG, e.toString());
-                        args.result = null;
-                    } catch (OperationApplicationException e) {
+                    } catch (RemoteException | OperationApplicationException e) {
                         Log.e(TAG, e.toString());
                         args.result = null;
                     }

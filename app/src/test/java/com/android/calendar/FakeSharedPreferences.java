@@ -106,7 +106,7 @@ class FakeSharedPreferences implements SharedPreferences, SharedPreferences.Edit
 
     @Override
     public Editor putBoolean(String key, boolean value) {
-        mTempValues.put(key, Boolean.valueOf(value));
+        mTempValues.put(key, value);
         return this;
     }
 
