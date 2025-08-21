@@ -41,9 +41,6 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import ws.xsoh.etar.R;
 import ws.xsoh.etar.databinding.AlertActivityBinding;
 
