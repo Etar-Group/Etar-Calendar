@@ -378,8 +378,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int size = vals.length;
         ArrayList<Integer> list = new ArrayList<Integer>(size);
 
-        for (int i = 0; i < size; i++) {
-            list.add(vals[i]);
+        for (int val : vals) {
+            list.add(val);
         }
 
         return list;

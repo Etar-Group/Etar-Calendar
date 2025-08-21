@@ -59,9 +59,9 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
         activity?.title = getString(R.string.display_options)
     }
 
-    private class PreferenceKeys internal constructor(val KEY_DISPLAY_TIME: String,
-                                                      val KEY_DISPLAY_LOCATION: String,
-                                                      val KEY_MAX_NUMBER_OF_LINES: String)
+    private class PreferenceKeys(val KEY_DISPLAY_TIME: String,
+                                 val KEY_DISPLAY_LOCATION: String,
+                                 val KEY_MAX_NUMBER_OF_LINES: String)
 
     private class PreferenceConfiguration(val keys: PreferenceKeys) {
         private lateinit var displayTime: ListPreference

@@ -74,7 +74,7 @@ public class ImportActivity extends Activity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     String convertedTimeZoneId = android.icu.util.TimeZone
                             .getIDForWindowsID(timeZone, "001");
-                    if (convertedTimeZoneId != null && !convertedTimeZoneId.equals("")) {
+                    if (convertedTimeZoneId != null && !convertedTimeZoneId.isEmpty()) {
                         format.setTimeZone(TimeZone.getTimeZone(convertedTimeZoneId));
                     }
                     else {

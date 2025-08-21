@@ -2466,12 +2466,11 @@ public class RecurrenceProcessorTest extends TestCase {
             RecurrenceProcessor rp = new RecurrenceProcessor();
 
             int len = performanceRrules.length;
-            for (int i = 0; i < len; i++) {
-                String rrule = performanceRrules[i];
+            for (String rrule : performanceRrules) {
                 //Log.i(TAG, "expanding rule: " + rrule);
                 RecurrenceSet recur = new RecurrenceSet(rrule, null, null, null);
 
-                long [] dates = rp.expand(dtstart, recur, rangeStartMillis, rangeEndMillis);
+                long[] dates = rp.expand(dtstart, recur, rangeStartMillis, rangeEndMillis);
                 //Log.i(TAG, "num instances: " + out.size());
 
                 // Also include the time to iterate through the expanded values

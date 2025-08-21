@@ -225,9 +225,9 @@ public class RecurrenceSetTest extends TestCase {
                 + "Expected: " + Arrays.toString(expected) + " Actual: " + Arrays.toString(actual),
                         expected.length, actual.length);
         List<Object> actualList = Arrays.asList(actual);
-        for (int i = 0; i < expected.length; ++i) {
-            if (!actualList.contains(expected[i])) {
-                fail("Expected: " + expected[i] + " but not found in Actual: "
+        for (Object o : expected) {
+            if (!actualList.contains(o)) {
+                fail("Expected: " + o + " but not found in Actual: "
                         + Arrays.toString(actual));
             }
         }

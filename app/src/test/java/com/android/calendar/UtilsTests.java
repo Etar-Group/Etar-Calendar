@@ -144,8 +144,8 @@ public class UtilsTests extends TestCase {
     public void setUp() {
         mIsDuplicateName = new HashMap<String, Boolean> ();
         mDuplicateNameCursor = new MatrixCursor(DUPLICATE_NAME_COLUMNS);
-        for (int i = 0; i < DUPLICATE_NAMES.length; i++) {
-            mDuplicateNameCursor.addRow(DUPLICATE_NAMES[i]);
+        for (String[] duplicateName : DUPLICATE_NAMES) {
+            mDuplicateNameCursor.addRow(duplicateName);
         }
 
         mIsDuplicateNameExpected = new HashMap<String, Boolean> ();

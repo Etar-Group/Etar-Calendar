@@ -62,11 +62,7 @@ public class ExtensionsFactory {
         try {
             Class<?> c = Class.forName(className);
             return (T) c.newInstance();
-        } catch (ClassNotFoundException e) {
-            Log.e(TAG, className + ": unable to create instance.", e);
-        } catch (IllegalAccessException e) {
-            Log.e(TAG, className + ": unable to create instance.", e);
-        } catch (InstantiationException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             Log.e(TAG, className + ": unable to create instance.", e);
         }
         return null;
