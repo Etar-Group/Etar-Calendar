@@ -85,7 +85,6 @@ import com.android.calendar.common.Rfc822InputFilter;
 import com.android.calendar.common.Rfc822Validator;
 import com.android.calendar.chips.AccountSpecifier;
 import com.android.calendar.chips.BaseRecipientAdapter;
-import com.android.calendar.chips.ChipsUtil;
 import com.android.calendar.chips.RecipientEditTextView;
 import com.android.calendar.timezonepicker.TimeZoneInfo;
 import com.android.calendar.timezonepicker.TimeZonePickerDialog;

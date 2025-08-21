@@ -18,7 +18,6 @@ package com.android.calendar.timezonepicker;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
 import android.text.Spannable;
 import android.text.Spannable.Factory;
 import android.text.format.DateUtils;
