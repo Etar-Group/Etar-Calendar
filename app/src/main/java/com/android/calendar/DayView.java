@@ -75,6 +75,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.settings.GeneralPreferences;
@@ -752,15 +754,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             DAY_HEADER_HEIGHT = (int) (DAY_HEADER_HEIGHT + DAY_HEADER_FONT_SIZE + 2);
         }
 
-        mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_indicator_holo_light);
-        mCurrentTimeAnimateLine = mResources
-                .getDrawable(R.drawable.timeline_indicator_activated_holo_light);
-        mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
-        mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_expand_holo_light);
-        mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_collapse_holo_light);
-        mNewEventHintColor =  mResources.getColor(R.color.new_event_hint_text_color);
-        mAcceptedOrTentativeEventBoxDrawable = mResources
-                .getDrawable(R.drawable.panel_month_event_holo_light);
+        mCurrentTimeLine = ResourcesCompat.getDrawable(mResources, R.drawable.timeline_indicator_holo_light, null);
+        mCurrentTimeAnimateLine = ResourcesCompat.getDrawable(mResources, R.drawable.timeline_indicator_activated_holo_light, null);
+        mTodayHeaderDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.today_blue_week_holo_light, null);
+        mExpandAlldayDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.ic_expand_holo_light, null);
+        mCollapseAlldayDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.ic_collapse_holo_light, null);
+        mNewEventHintColor =  ResourcesCompat.getColor(mResources, R.color.new_event_hint_text_color, null);
+        mAcceptedOrTentativeEventBoxDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.panel_month_event_holo_light, null);
 
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
