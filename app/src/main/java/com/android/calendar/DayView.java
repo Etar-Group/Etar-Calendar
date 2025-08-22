@@ -2625,7 +2625,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setStrokeWidth(GRID_LINE_INNER_WIDTH);
         p.setAntiAlias(false);
         y = 0;
-        linesIndex = 0;
         for (int hour = 0; hour <= 24; hour++) {
             mLines[linesIndex++] = GRID_LINE_LEFT_MARGIN;
             mLines[linesIndex++] = y;
