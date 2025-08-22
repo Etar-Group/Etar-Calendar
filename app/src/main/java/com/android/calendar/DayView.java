@@ -1988,7 +1988,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 if (mViewStartY < 0) {
                     mViewStartY = 0;
                 }
-                return;
             } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
                 mViewStartY = mMaxViewStartY;
             }
