@@ -796,6 +796,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     @Override
     protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         if (mHandler == null) {
             mHandler = getHandler();
             mHandler.post(mUpdateCurrentTime);
