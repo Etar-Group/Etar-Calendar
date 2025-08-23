@@ -50,10 +50,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.android.calendar.DynamicTheme;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -276,7 +277,7 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar_events);
-        int color = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
+        int color = DynamicThemeKt.getColorId(DynamicThemeKt.getPrimaryColor(context));
         notificationBuilder.setColor(ContextCompat.getColor(context, color));
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
