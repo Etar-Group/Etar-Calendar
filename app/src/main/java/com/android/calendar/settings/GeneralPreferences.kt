@@ -46,10 +46,10 @@ import androidx.preference.SwitchPreference
 import com.android.calendar.CalendarController
 import com.android.calendar.CalendarRecentSuggestionsProvider
 import com.android.calendar.CalendarUtils
-import com.android.calendar.DynamicTheme
 import com.android.calendar.Utils
 import com.android.calendar.alerts.AlertReceiver
 import com.android.calendar.event.EventViewUtils
+import com.android.calendar.theme.isSystemInDarkTheme
 import com.android.calendar.timezonepicker.TimeZoneInfo
 import com.android.calendar.timezonepicker.TimeZonePickerDialog
 import com.android.calendar.timezonepicker.TimeZonePickerUtils
@@ -149,7 +149,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             ringtonePref.summary = ringtoneDisplayString ?: ""
         }
 
-        if (themePref.value == "system" && !DynamicTheme.isSystemInDarkTheme(requireActivity()) || themePref.value == "light") {
+        if (themePref.value == "system" && !isSystemInDarkTheme(requireActivity()) || themePref.value == "light") {
             preferenceScreen.removePreferenceRecursively(KEY_PURE_BLACK_NIGHT_MODE)
         }
 
@@ -262,7 +262,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
                 a.recreate()
             }
             KEY_PURE_BLACK_NIGHT_MODE -> {
-                if (themePref.value == "system" && DynamicTheme.isSystemInDarkTheme(a) || themePref.value == "dark") {
+                if (themePref.value == "system" && isSystemInDarkTheme(a) || themePref.value == "dark") {
                     Utils.sendUpdateWidgetIntent(a)
                     a.recreate()
                 }
