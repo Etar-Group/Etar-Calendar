@@ -45,12 +45,12 @@ import android.view.accessibility.AccessibilityManager;
 
 import androidx.core.content.ContextCompat;
 
-import com.android.calendar.DynamicTheme;
 import com.android.calendar.Event;
 import com.android.calendar.LunarUtils;
 import com.android.calendar.Utils;
 import com.android.calendar.settings.ViewDetailsPreferences;
 import com.android.calendar.calendarcommon2.Time;
+import com.android.calendar.theme.DynamicThemeKt;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -234,23 +234,23 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected void loadColors(Context context) {
         Resources res = context.getResources();
 
-        mMonthWeekNumColor = DynamicTheme.getColor(context, "month_week_num_color");
-        mMonthNumColor = DynamicTheme.getColor(context, "month_day_number");
-        mMonthNumOtherColor = DynamicTheme.getColor(context, "month_day_number_other");
-        mMonthNumTodayColor = DynamicTheme.getColor(context, "month_today_number");
-        mMonthEventColor = DynamicTheme.getColor(context, "month_event_color");
-        mMonthDeclinedEventColor = DynamicTheme.getColor(context, "agenda_item_declined_color");
-        mMonthDeclinedExtrasColor = DynamicTheme.getColor(context, "agenda_item_where_declined_text_color");
-        mMonthEventExtraColor = DynamicTheme.getColor(context, "month_event_extra_color");
-        mMonthEventOtherColor = DynamicTheme.getColor(context, "month_event_other_color");
-        mMonthEventExtraOtherColor = DynamicTheme.getColor(context, "month_event_extra_other_color");
-        mMonthBGTodayColor = DynamicTheme.getColor(context, "month_today_bgcolor");
-        mMonthBGFocusMonthColor = DynamicTheme.getColor(context, "month_focus_month_bgcolor");
-        mMonthBGOtherColor = DynamicTheme.getColor(context, "month_other_bgcolor");
-        mMonthBGColor = DynamicTheme.getColor(context, "month_bgcolor");
-        mDaySeparatorInnerColor = DynamicTheme.getColor(context, "month_grid_lines");
-        mTodayAnimateColor = DynamicTheme.getColor(context, "today_highlight_color");
-        mClickedDayColor = DynamicTheme.getColor(context, "day_clicked_background_color");
+        mMonthWeekNumColor = DynamicThemeKt.getColor(context, "month_week_num_color");
+        mMonthNumColor = DynamicThemeKt.getColor(context, "month_day_number");
+        mMonthNumOtherColor = DynamicThemeKt.getColor(context, "month_day_number_other");
+        mMonthNumTodayColor = DynamicThemeKt.getColor(context, "month_today_number");
+        mMonthEventColor = DynamicThemeKt.getColor(context, "month_event_color");
+        mMonthDeclinedEventColor = DynamicThemeKt.getColor(context, "agenda_item_declined_color");
+        mMonthDeclinedExtrasColor = DynamicThemeKt.getColor(context, "agenda_item_where_declined_text_color");
+        mMonthEventExtraColor = DynamicThemeKt.getColor(context, "month_event_extra_color");
+        mMonthEventOtherColor = DynamicThemeKt.getColor(context, "month_event_other_color");
+        mMonthEventExtraOtherColor = DynamicThemeKt.getColor(context, "month_event_extra_other_color");
+        mMonthBGTodayColor = DynamicThemeKt.getColor(context, "month_today_bgcolor");
+        mMonthBGFocusMonthColor = DynamicThemeKt.getColor(context, "month_focus_month_bgcolor");
+        mMonthBGOtherColor = DynamicThemeKt.getColor(context, "month_other_bgcolor");
+        mMonthBGColor = DynamicThemeKt.getColor(context, "month_bgcolor");
+        mDaySeparatorInnerColor = DynamicThemeKt.getColor(context, "month_grid_lines");
+        mTodayAnimateColor = DynamicThemeKt.getColor(context, "today_highlight_color");
+        mClickedDayColor = DynamicThemeKt.getColor(context, "day_clicked_background_color");
         mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
 
@@ -564,7 +564,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             canvas.drawRect(r, p);
         }
         if (mHasToday) {
-            int selectedColor = ContextCompat.getColor(mContext, DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(mContext)));
+            int selectedColor = ContextCompat.getColor(mContext, DynamicThemeKt.getColorId(DynamicThemeKt.getPrimaryColor(mContext)));
 
             if (Utils.getSharedPreference(mContext, "pref_theme", "light").equals("light")) {
                 p.setColor(selectedColor);

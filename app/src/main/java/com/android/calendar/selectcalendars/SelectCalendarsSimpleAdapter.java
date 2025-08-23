@@ -34,7 +34,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentManager;
 
 import com.android.calendar.CalendarColorPickerDialog;
-import com.android.calendar.DynamicTheme;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
 
@@ -84,10 +84,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mRes = context.getResources();
 
-        mColorCalendarVisible = DynamicTheme.getColor(context, "calendar_visible");
-        mColorCalendarHidden = DynamicTheme.getColor(context, "calendar_hidden");
-        mColorCalendarSecondaryVisible = DynamicTheme.getColor(context, "calendar_secondary_visible");
-        mColorCalendarSecondaryHidden = DynamicTheme.getColor(context, "calendar_secondary_hidden");
+        mColorCalendarVisible = DynamicThemeKt.getColor(context, "calendar_visible");
+        mColorCalendarHidden = DynamicThemeKt.getColor(context, "calendar_hidden");
+        mColorCalendarSecondaryVisible = DynamicThemeKt.getColor(context, "calendar_secondary_visible");
+        mColorCalendarSecondaryHidden = DynamicThemeKt.getColor(context, "calendar_secondary_hidden");
 
         if (mScale == 0) {
             mScale = mRes.getDisplayMetrics().density;

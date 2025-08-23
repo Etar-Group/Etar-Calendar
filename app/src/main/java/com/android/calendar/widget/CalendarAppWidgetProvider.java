@@ -35,12 +35,11 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.android.calendar.AllInOneActivity;
-import com.android.calendar.DynamicTheme;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.calendarcommon2.Time;
-import com.android.calendar.theme.DynamicThemeKt;
 
 import ws.xsoh.etar.R;
 
@@ -215,7 +214,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.date, date);
 
             // Set widget header background based on chosen primary app color
-            int headerColor = DynamicTheme.getColorId(DynamicTheme.getPrimaryColor(context));
+            int headerColor = DynamicThemeKt.getColorId(DynamicThemeKt.getPrimaryColor(context));
             views.setInt(R.id.header, "setBackgroundResource", headerColor);
 
             // Set widget background color based on chosen app theme

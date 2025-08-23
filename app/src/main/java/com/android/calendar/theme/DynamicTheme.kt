@@ -15,13 +15,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.android.calendar.DynamicTheme
+import com.android.calendar.Utils
+import com.android.calendar.theme.ThemeUtils.getSuffix
 import com.android.calendar.theme.ThemeUtils.isPureBlackModeEnabled
 import com.android.calendar.theme.model.Theme
 import ws.xsoh.etar.R
 
-val Context.isSystemInDarkTheme: Boolean
-    get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+private const val TEAL: String = "teal"
+private const val MONET: String = "monet"
 
 fun AppCompatActivity.applyTheme() {
     val selectedTheme = ThemeUtils.getTheme(this)
@@ -29,7 +30,7 @@ fun AppCompatActivity.applyTheme() {
     val uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
 
     // Handle black theme/mode
-    if (selectedTheme == Theme.SYSTEM && isPureBlackModeEnabled && isSystemInDarkTheme || selectedTheme == Theme.DARK && isPureBlackModeEnabled) {
+    if (selectedTheme == Theme.SYSTEM && isPureBlackModeEnabled && isSystemInDarkTheme(this) || selectedTheme == Theme.DARK && isPureBlackModeEnabled) {
         theme.applyStyle(R.style.colorBackgroundBlack, true)
     }
 
@@ -91,7 +92,7 @@ private fun Context.getStyledAttributeColor(id: Int): Int {
 fun getDialogStyle(context: Context): Int {
     val theme = ThemeUtils.getTheme(context)
     when (theme) {
-        Theme.SYSTEM -> if (context.isSystemInDarkTheme) {
+        Theme.SYSTEM -> if (isSystemInDarkTheme(context)) {
             return android.R.style.Theme_DeviceDefault_Dialog
         } else {
             return android.R.style.Theme_DeviceDefault_Light_Dialog
@@ -107,7 +108,7 @@ fun getWidgetBackgroundStyle(context: Context): Int {
     val theme = ThemeUtils.getTheme(context)
     val pureBlack = context.isPureBlackModeEnabled
     when (theme) {
-        Theme.SYSTEM -> if ((context.isSystemInDarkTheme)
+        Theme.SYSTEM -> if ((isSystemInDarkTheme(context))
                 ) {
             if (pureBlack) {
                 return R.color.bg_black
@@ -123,6 +124,47 @@ fun getWidgetBackgroundStyle(context: Context): Int {
         Theme.BLACK -> return R.color.bg_black
         else -> throw java.lang.UnsupportedOperationException("Unknown theme: " + theme)
     }
+}
+
+fun getPrimaryColor(context: Context?): String {
+    if (Utils.isMonetAvailable(context)) {
+        return MONET
+    } else {
+        return TEAL
+    }
+}
+
+fun getColorId(name: String): Int {
+    return when (name) {
+        TEAL -> R.color.colorPrimary
+        MONET -> android.R.color.system_accent1_500
+        else -> throw java.lang.UnsupportedOperationException("Unknown color name : " + name)
+    }
+}
+
+fun getColor(context: Context, id: String?): Int {
+    val suffix = getSuffix(context)
+    val res = context.resources
+    // When aapt is called with --rename-manifest-package, the package name is changed for the
+    // application, but not for the resources. This is to find the package name of a known
+    // resource to know what package to lookup the colors in.
+    val packageName = res.getResourcePackageName(R.string.app_label)
+    return res.getColor(res.getIdentifier(id + suffix, "color", packageName))
+}
+
+fun getDrawableId(context: Context, id: String?): Int {
+    val suffix = getSuffix(context)
+    val res = context.resources
+    // When aapt is called with --rename-manifest-package, the package name is changed for the
+    // application, but not for the resources. This is to find the package name of a known
+    // resource to know what package to lookup the drawables in.
+    val packageName = res.getResourcePackageName(R.string.app_label)
+    return res.getIdentifier(id + suffix, "drawable", packageName)
+}
+
+fun isSystemInDarkTheme(context: Context): Boolean {
+    return (context.resources
+        .configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 }
 
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
@@ -148,7 +190,7 @@ private fun setupEdgeToEdge(activity: Activity) {
 
 @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 private fun setSystemBarsColors(activity: Activity) {
-    val lightAppearance = !DynamicTheme.isSystemInDarkTheme(activity)
+    val lightAppearance = !isSystemInDarkTheme(activity)
     val rootView = activity.window.decorView.rootView
     val windowInsetsController =
         WindowCompat.getInsetsController(activity.window, rootView)

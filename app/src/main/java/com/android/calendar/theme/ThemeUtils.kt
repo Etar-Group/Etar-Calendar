@@ -22,4 +22,19 @@ object ThemeUtils {
         return Theme.valueOf(theme.uppercase())
     }
 
+    fun getSuffix(context: Context): String {
+        val theme = getTheme(context)
+        when (theme) {
+            Theme.SYSTEM -> if (isSystemInDarkTheme(context)) {
+                return "_" + "dark"
+            } else {
+                return ""
+            }
+
+            Theme.LIGHT -> return ""
+            Theme.DARK, Theme.BLACK -> return "_" + theme
+            else -> throw IllegalArgumentException("Unknown theme: " + theme)
+        }
+    }
+
 }

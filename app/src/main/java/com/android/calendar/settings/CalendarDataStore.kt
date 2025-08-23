@@ -20,6 +20,7 @@ package com.android.calendar.settings
 import android.content.ContentUris
 import android.content.ContentValues
 import android.provider.CalendarContract
+import androidx.core.database.getStringOrNull
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceDataStore
 
@@ -63,8 +64,9 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
+            val columnIndex = it.getColumnIndexOrThrow(databaseKey)
             if (it.moveToFirst()) {
-                return it.getInt(it.getColumnIndex(databaseKey)) == 1
+                return it.getInt(columnIndex) == 1
             }
         }
         return defValue
@@ -82,8 +84,9 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
+            val columnIndex = it.getColumnIndexOrThrow(databaseKey)
             if (it.moveToFirst()) {
-                return it.getInt(it.getColumnIndex(databaseKey))
+                return it.getInt(columnIndex)
             }
         }
         return defValue
@@ -101,8 +104,9 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
 
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
+            val columnIndex = it.getColumnIndexOrThrow(databaseKey)
             if (it.moveToFirst()) {
-                return it.getString(it.getColumnIndex(databaseKey))
+                return it.getString(columnIndex)
             }
         }
         return defValue

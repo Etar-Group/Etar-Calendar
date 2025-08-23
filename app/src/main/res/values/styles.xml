@@ -345,6 +345,6 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:contentDescription">@android:string/cancel</item>
         <item name="android:padding">@dimen/chip_icon_padding</item>
-        <item name="android:src">@drawable/chips_ic_close_24dp</item>
+        <item name="android:src">@drawable/ic_close</item>
     </style>
 </resources>

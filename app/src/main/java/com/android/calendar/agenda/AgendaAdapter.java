@@ -32,7 +32,7 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.ColorChipView;
-import com.android.calendar.DynamicTheme;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.Utils;
 import com.android.calendar.calendarcommon2.Time;
 
@@ -67,10 +67,10 @@ public class AgendaAdapter extends ResourceCursorAdapter {
 
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
-        mDeclinedColor = DynamicTheme.getColor(context, "agenda_item_declined_color");
-        mStandardColor = DynamicTheme.getColor(context, "agenda_item_standard_color");
-        mWhereDeclinedColor = DynamicTheme.getColor(context, "agenda_item_where_declined_text_color");
-        mWhereColor = DynamicTheme.getColor(context, "agenda_item_where_text_color");
+        mDeclinedColor = DynamicThemeKt.getColor(context, "agenda_item_declined_color");
+        mStandardColor = DynamicThemeKt.getColor(context, "agenda_item_standard_color");
+        mWhereDeclinedColor = DynamicThemeKt.getColor(context, "agenda_item_where_declined_text_color");
+        mWhereColor = DynamicThemeKt.getColor(context, "agenda_item_where_text_color");
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 

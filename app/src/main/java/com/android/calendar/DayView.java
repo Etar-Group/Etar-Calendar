@@ -75,10 +75,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.calendarcommon2.Time;
+import com.android.calendar.theme.DynamicThemeKt;
+import com.android.calendar.theme.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -752,15 +756,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             DAY_HEADER_HEIGHT = (int) (DAY_HEADER_HEIGHT + DAY_HEADER_FONT_SIZE + 2);
         }
 
-        mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_indicator_holo_light);
-        mCurrentTimeAnimateLine = mResources
-                .getDrawable(R.drawable.timeline_indicator_activated_holo_light);
-        mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
-        mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_expand_holo_light);
-        mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_collapse_holo_light);
-        mNewEventHintColor =  mResources.getColor(R.color.new_event_hint_text_color);
-        mAcceptedOrTentativeEventBoxDrawable = mResources
-                .getDrawable(R.drawable.panel_month_event_holo_light);
+        mCurrentTimeLine = ResourcesCompat.getDrawable(mResources, R.drawable.timeline_indicator_holo_light, null);
+        mCurrentTimeAnimateLine = ResourcesCompat.getDrawable(mResources, R.drawable.timeline_indicator_activated_holo_light, null);
+        mTodayHeaderDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.today_blue_week_holo_light, null);
+        mExpandAlldayDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.ic_expand_holo_light, null);
+        mCollapseAlldayDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.ic_collapse_holo_light, null);
+        mNewEventHintColor =  ResourcesCompat.getColor(mResources, R.color.new_event_hint_text_color, null);
+        mAcceptedOrTentativeEventBoxDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.panel_month_event_holo_light, null);
 
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
@@ -796,6 +798,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     @Override
     protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         if (mHandler == null) {
             mHandler = getHandler();
             mHandler.post(mUpdateCurrentTime);
@@ -818,20 +821,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCurrentTime.set(currentTime);
         mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.getGmtOffset());
 
-        mWeek_todayColor = DynamicTheme.getColor(mContext, "week_today");
-        mWeek_saturdayColor = DynamicTheme.getColor(mContext, "week_saturday");
-        mWeek_sundayColor = DynamicTheme.getColor(mContext, "week_sunday");
-        mCalendarDateBannerTextColor = DynamicTheme.getColor(mContext, "calendar_date_banner_text_color");
-        mFutureBgColorRes = DynamicTheme.getColor(mContext, "calendar_future_bg_color");
-        mBgColor = DynamicTheme.getColor(mContext, "calendar_hour_background");
-        mCalendarHourLabelColor = DynamicTheme.getColor(mContext, "calendar_hour_label");
-        mCalendarGridAreaSelected = DynamicTheme.getColor(mContext, "calendar_grid_area_selected");
-        mCalendarGridLineInnerHorizontalColor = DynamicTheme.getColor(mContext, "calendar_grid_line_inner_horizontal_color");
-        mCalendarGridLineInnerVerticalColor = DynamicTheme.getColor(mContext, "calendar_grid_line_inner_vertical_color");
-        mPressedColor = DynamicTheme.getColor(mContext, "pressed");
-        mClickedColor = DynamicTheme.getColor(mContext, "day_event_clicked_background_color");
-        mEventTextColor = DynamicTheme.getColor(mContext, "calendar_event_text_color");
-        mMoreEventsTextColor = DynamicTheme.getColor(mContext, "month_event_other_color");
+        mWeek_todayColor = DynamicThemeKt.getColor(mContext, "week_today");
+        mWeek_saturdayColor = DynamicThemeKt.getColor(mContext, "week_saturday");
+        mWeek_sundayColor = DynamicThemeKt.getColor(mContext, "week_sunday");
+        mCalendarDateBannerTextColor = DynamicThemeKt.getColor(mContext, "calendar_date_banner_text_color");
+        mFutureBgColorRes = DynamicThemeKt.getColor(mContext, "calendar_future_bg_color");
+        mBgColor = DynamicThemeKt.getColor(mContext, "calendar_hour_background");
+        mCalendarHourLabelColor = DynamicThemeKt.getColor(mContext, "calendar_hour_label");
+        mCalendarGridAreaSelected = DynamicThemeKt.getColor(mContext, "calendar_grid_area_selected");
+        mCalendarGridLineInnerHorizontalColor = DynamicThemeKt.getColor(mContext, "calendar_grid_line_inner_horizontal_color");
+        mCalendarGridLineInnerVerticalColor = DynamicThemeKt.getColor(mContext, "calendar_grid_line_inner_vertical_color");
+        mPressedColor = DynamicThemeKt.getColor(mContext, "pressed");
+        mClickedColor = DynamicThemeKt.getColor(mContext, "day_event_clicked_background_color");
+        mEventTextColor = DynamicThemeKt.getColor(mContext, "calendar_event_text_color");
+        mMoreEventsTextColor = DynamicThemeKt.getColor(mContext, "month_event_other_color");
 
         int gridLineColor = mResources.getColor(R.color.calendar_grid_line_highlight_color);
         Paint p = mSelectionPaint;
@@ -1988,7 +1991,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 if (mViewStartY < 0) {
                     mViewStartY = 0;
                 }
-                return;
             } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
                 mViewStartY = mMaxViewStartY;
             }
@@ -2625,7 +2627,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setStrokeWidth(GRID_LINE_INNER_WIDTH);
         p.setAntiAlias(false);
         y = 0;
-        linesIndex = 0;
         for (int hour = 0; hour <= 24; hour++) {
             mLines[linesIndex++] = GRID_LINE_LEFT_MARGIN;
             mLines[linesIndex++] = y;

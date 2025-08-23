@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.calendar.DynamicTheme;
+import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
 import com.android.calendar.calendarcommon2.Time;
@@ -237,10 +237,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
             // Set the background of the view, it is grayed for day that are in the past and today
             if (row.mDay > mTodayJulianDay) {
-                agendaDayView.setBackgroundResource(DynamicTheme.getDrawableId(mContext, "agenda_item_bg_primary"));
+                agendaDayView.setBackgroundResource(DynamicThemeKt.getDrawableId(mContext, "agenda_item_bg_primary"));
                 holder.grayed = false;
             } else {
-                agendaDayView.setBackgroundResource(DynamicTheme.getDrawableId(mContext, "agenda_item_bg_secondary"));
+                agendaDayView.setBackgroundResource(DynamicThemeKt.getDrawableId(mContext, "agenda_item_bg_secondary"));
                 holder.grayed = true;
             }
             return agendaDayView;
@@ -262,11 +262,11 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // if event in the past or started already, un-bold the title and set the background
             if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
                     (allDay && row.mDay <= mTodayJulianDay)) {
-                itemView.setBackgroundResource(DynamicTheme.getDrawableId(mContext, "agenda_item_bg_secondary"));
+                itemView.setBackgroundResource(DynamicThemeKt.getDrawableId(mContext, "agenda_item_bg_secondary"));
                 title.setTypeface(Typeface.DEFAULT);
                 holder.grayed = true;
             } else {
-                itemView.setBackgroundResource(DynamicTheme.getDrawableId(mContext, "agenda_item_bg_primary"));
+                itemView.setBackgroundResource(DynamicThemeKt.getDrawableId(mContext, "agenda_item_bg_primary"));
                 title.setTypeface(Typeface.DEFAULT_BOLD);
                 holder.grayed = false;
             }
