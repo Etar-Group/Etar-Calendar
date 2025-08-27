@@ -82,7 +82,6 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.calendarcommon2.Time;
 import com.android.calendar.theme.DynamicThemeKt;
-import com.android.calendar.theme.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -575,7 +574,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected final Resources mResources;
     protected final Drawable mCurrentTimeLine;
     protected final Drawable mCurrentTimeAnimateLine;
-    protected final Drawable mTodayHeaderDrawable;
     protected final Drawable mExpandAlldayDrawable;
     protected final Drawable mCollapseAlldayDrawable;
     protected Drawable mAcceptedOrTentativeEventBoxDrawable;
@@ -758,7 +756,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mCurrentTimeLine = ResourcesCompat.getDrawable(mResources, R.drawable.timeline_indicator_holo_light, null);
         mCurrentTimeAnimateLine = ResourcesCompat.getDrawable(mResources, R.drawable.timeline_indicator_activated_holo_light, null);
-        mTodayHeaderDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.today_blue_week_holo_light, null);
         mExpandAlldayDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.ic_expand_holo_light, null);
         mCollapseAlldayDrawable = ResourcesCompat.getDrawable(mResources, R.drawable.ic_collapse_holo_light, null);
         mNewEventHintColor =  ResourcesCompat.getColor(mResources, R.color.new_event_hint_text_color, null);

@@ -18,7 +18,6 @@ package com.android.calendar.month;
 
 import android.app.Service;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
@@ -39,7 +38,6 @@ import java.security.InvalidParameterException;
 import java.text.NumberFormat;
 import java.util.HashMap;
 
-import ws.xsoh.etar.R;
 
 /**
  * <p>
@@ -171,7 +169,6 @@ public class SimpleWeekView extends View {
     public SimpleWeekView(Context context) {
         super(context);
 
-        Resources res = context.getResources();
         mBGColor = DynamicThemeKt.getColor(context, "month_bgcolor");
         mSelectedWeekBGColor = DynamicThemeKt.getColor(context, "month_selected_week_bgcolor");
         mFocusMonthColor = DynamicThemeKt.getColor(context, "month_mini_day_number");
@@ -179,7 +176,6 @@ public class SimpleWeekView extends View {
         mDaySeparatorColor = DynamicThemeKt.getColor(context, "month_grid_lines");
         mTodayOutlineColor = DynamicThemeKt.getColor(context, "mini_month_today_outline_color");
         mWeekNumColor = DynamicThemeKt.getColor(context, "month_week_num_color");
-        mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
 
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
 

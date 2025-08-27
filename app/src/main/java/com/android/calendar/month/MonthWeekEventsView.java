@@ -232,8 +232,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     protected void loadColors(Context context) {
-        Resources res = context.getResources();
-
         mMonthWeekNumColor = DynamicThemeKt.getColor(context, "month_week_num_color");
         mMonthNumColor = DynamicThemeKt.getColor(context, "month_day_number");
         mMonthNumOtherColor = DynamicThemeKt.getColor(context, "month_day_number_other");
@@ -251,7 +249,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mDaySeparatorInnerColor = DynamicThemeKt.getColor(context, "month_grid_lines");
         mTodayAnimateColor = DynamicThemeKt.getColor(context, "today_highlight_color");
         mClickedDayColor = DynamicThemeKt.getColor(context, "day_clicked_background_color");
-        mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
 
     /**
