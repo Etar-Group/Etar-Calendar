@@ -352,7 +352,6 @@
     <string name="discard_event_changes">Você gostaria de descartar as alterações?</string>
     <string name="discard">Descartar</string>
     <string name="cancel">Cancelar</string>
-
     <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
     <string name="copy_email" msgid="1084563757174121331">"Copiar endereço de e-mail"</string>
     <string name="copy_number" msgid="8860802152973030914">"Copiar número de telefone"</string>
@@ -363,4 +362,8 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Copiar"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Cancelar"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Permitir sugestões de contatos"</string>
+    <string name="hint_time_zone_search">Insira o nome do país</string>
+    <string name="searchview_description_clear">Limpar a consulta</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
+    <string name="palestine_display_name">Palestina</string>
 </resources>
