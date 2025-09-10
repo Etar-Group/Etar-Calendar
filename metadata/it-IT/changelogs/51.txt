@@ -1,0 +1,4 @@
+- Migliorato lo stile e la leggibilità della selezione dell'ospite
+- Corretto il selettore della data dell'evento per la data finale che preselezionava sempre preimpostazioni l'inizio
+- RImossa la preferenza Colore primario
+- Correzione errori
