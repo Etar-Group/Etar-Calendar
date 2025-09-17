@@ -340,7 +340,6 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Xóa truy vấn"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Không tìm thấy kết quả"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestine"</string>
-
     <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
     <string name="copy_email" msgid="1084563757174121331">"Sao chép địa chỉ email"</string>
     <string name="copy_number" msgid="8860802152973030914">"Sao chép số điện thoại"</string>
@@ -351,4 +350,5 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Sao chép"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Hủy"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Cho phép đề xuất liên hệ"</string>
+    <string name="no_snooze_label">Không có</string>
 </resources>
