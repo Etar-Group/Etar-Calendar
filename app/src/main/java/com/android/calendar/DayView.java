@@ -2511,7 +2511,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         setupHourTextPaint(p);
         int totCellHeight =  mCellHeight + HOUR_GAP;
         int hourStep = (mHoursTextHeight + totCellHeight - 1)/ totCellHeight;
-        int i = mFirstHour;
+        int i = Math.max(mFirstHour, 0);
         if (   (mFirstHourOffset < mHoursTextHeight / 2)
             && (mAlldayHeight == 0)
             && (mNumDays == 1))
