@@ -26,7 +26,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/wrapper-validation@v5
       - name: Build with Gradle
         run: |
           ./gradlew :app:assembleDebug
