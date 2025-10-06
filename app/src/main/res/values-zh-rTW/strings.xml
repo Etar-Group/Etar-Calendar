@@ -309,7 +309,6 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"清除查詢"</string>
     <string name="no_results_found" msgid="5475293015394772651">"找不到相符的結果"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"巴勒斯坦"</string>
-
     <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g> 人"</string>
     <string name="copy_email" msgid="1084563757174121331">"複製電子郵件地址"</string>
     <string name="copy_number" msgid="8860802152973030914">"複製電話號碼"</string>
@@ -320,4 +319,44 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"複製"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"取消"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"允許聯絡人建議"</string>
+    <string name="preferences_month_view_portrait">月檢視版面（直向）</string>
+    <string name="preferences_month_view_landscape">月檢視版面（橫向）</string>
+    <string name="preferences_color">主色彩</string>
+    <string name="preferences_color_pick">主色彩</string>
+    <string name="calendar_permission_not_granted">必要的權限已被拒絕，請從設定應用程式中啟用後再編輯行程</string>
+    <string name="preferences_calendar_configure_account">在 %1$s 中設定行事曆</string>
+    <string name="preferences_calendar_number_of_events">%1$d 個行程</string>
+    <string name="preferences_calendar_delete">刪除行事曆</string>
+    <string name="preferences_calendar_display_name">變更名稱</string>
+    <string name="preferences_calendar_info_category">變更名稱</string>
+    <string name="preferences_calendar_color">色彩</string>
+    <string name="preferences_calendar_visible">色彩</string>
+    <string name="preferences_manage_notifications">管理通知</string>
+    <string name="preferences_calendar_synchronize">同步此行事曆</string>
+    <string name="preferences_calendar_color_warning_title">警告</string>
+    <string name="preferences_calendar_color_warning_message">變更色彩後，在再次同步行事曆時可能會被還原。\n\n在 DAVx⁵ 中，可以停用「管理行事曆色彩」以防止此情況發生。</string>
+    <string name="preferences_calendar_color_warning_button">我了解</string>
+    <string name="preferences_calendar_delete_message">您確定要刪除此行事曆嗎？</string>
+    <string name="preferences_calendar_delete_delete">刪除行事曆</string>
+    <string name="preferences_calendar_delete_cancel">取消</string>
+    <string name="preferences_list_calendar_summary_sync_off">未同步</string>
+    <string name="preferences_list_calendar_summary_invisible">未顯示行程</string>
+    <string name="preferences_list_general">一般設定</string>
+    <string name="preferences_list_add_remote">新增 CalDAV 行事曆</string>
+    <string name="preferences_list_add_remote_etesync">新增 EteSync 行事曆</string>
+    <string name="preferences_list_add_offline">新增離線行事曆</string>
+    <string name="preferences_list_add_offline_title">新增離線行事曆</string>
+    <string name="preferences_list_add_offline_error_empty">請輸入行事曆名稱！</string>
+    <string name="preferences_list_add_offline_message">離線行事曆不會同步到雲端服務，只能在您的手機上使用。</string>
+    <string name="preferences_list_add_offline_button">新增行事曆</string>
+    <string name="preferences_list_add_offline_name">名稱</string>
+    <string name="preferences_list_add_offline_cancel">取消</string>
+    <string name="preferences_menu_about">關於 Etar</string>
+    <string name="offline_account_name">離線行事曆</string>
+    <string name="preferences_do_not_check_battery_optimization">請勿啟用電池最佳化</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">自行承擔風險！通知將不再運作、桌面小工具將不再更新，背景服務可能會當機。但系統將不再詢問您是否要啟用背景服務。</string>
+    <string name="calendars">行事曆</string>
+    <string name="cancel">取消</string>
+    <string name="discard_event_changes">你要捨棄變更嗎？</string>
+    <string name="discard">捨棄</string>
 </resources>
