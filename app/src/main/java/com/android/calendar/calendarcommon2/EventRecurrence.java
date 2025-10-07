@@ -802,6 +802,9 @@ public class EventRecurrence {
             int[] bydayNum;
             int bydayCount;
 
+            // Remove leading/trailing whitespace, including newlines
+            value = value.trim();
+
             if (value.indexOf(",") < 0) {
                 /* only one entry, skip split() overhead */
                 bydayCount = 1;
