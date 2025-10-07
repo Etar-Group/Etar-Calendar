@@ -240,7 +240,6 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"پاک کردن عبارت جستجو"</string>
     <string name="no_results_found" msgid="5475293015394772651">"نتیجه‌ای پیدا نشد"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"فلسطین"</string>
-
     <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
     <string name="copy_email" msgid="1084563757174121331">"کپی نشانی ایمیل"</string>
     <string name="copy_number" msgid="8860802152973030914">"کپی شماره تلفن"</string>
@@ -251,4 +250,45 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"کپی"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"لغو"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"اجازه دادن به پیشنهادات مخاطبین"</string>
+    <string name="no_snooze_label">هیچ</string>
+    <string name="share_label">اشتراک‌گذاری</string>
+    <string name="foreground_notification_channel_name">کارهای پس‌زمینه</string>
+    <string name="no_map">نقشه‌ای در تلفن شما یافت نشد</string>
+    <string name="preferences_system_theme">پیش‌فرض سیستم</string>
+    <string name="preferences_light_theme">روشن</string>
+    <string name="preferences_dark_theme">تاریک</string>
+    <string name="preferences_black_theme">مشکی</string>
+    <string name="preferences_color">رنگ اصلی</string>
+    <string name="preferences_color_pick">رنگ اصلی</string>
+    <string name="preferences_real_event_colors">از رنگ اصلی رویداد استفاده کنید</string>
+    <string name="preferences_pure_black_night_mode">مشکی خالص حالت شب</string>
+    <string name="display_options">گزینه‌های نمایش</string>
+    <string name="display_time">نمایش زمان</string>
+    <string name="display_location">نمایش مکان</string>
+    <string name="maximum_number_of_lines">حداکثر تعداد خطوط در رویداد</string>
+    <string name="default_start_last">نمای استفاده‌شده قبلی</string>
+    <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> پروژه Etar. Portions © 2005-<xliff:g>%1$s</xliff:g> پروژه متن‌باز اندروید.</string>
+    <string name="authors">ایجادکنندگان</string>
+    <string name="changelog">لیست تغییرات</string>
+    <string name="license">مجوز</string>
+    <string name="preferences_issues">گزارش مشکلات</string>
+    <string name="source_code">کدمنبع</string>
+    <string name="visibility_confidential">محرمانگی</string>
+    <string name="three_days">۳ روز</string>
+    <string name="four_days">۴ روز</string>
+    <string name="five_days">۵ روز</string>
+    <string name="six_days">۶ روز</string>
+    <string name="seven_days">۷ روز</string>
+    <string name="fifteen_minutes">۱۵ دقیقه</string>
+    <string name="thirty_minutes">۳۰ دقیقه</string>
+    <string name="one_hour">۱ ساعت</string>
+    <string name="one_and_a_half_hours">۱.۵ ساعت</string>
+    <string name="two_hours">۲ ساعت</string>
+    <string name="cal_export_event_sdcard_title">خروجی گرفتن در کارت حافظه</string>
+    <string name="cal_export_succ_msg">رویدادها با موفقیت خروجی گرفته شدند: %1$s</string>
+    <string name="cal_import_menu_title">وارد کردن رویداد</string>
+    <string name="cal_nothing_to_import">موردی برای وارد کردن وجود ندارد</string>
+    <string name="cal_import_error_msg">وارد کردن به تقویم ناموفق بود</string>
+    <string name="cal_pick_ics">یک پرونده برای وارد کردن انتخاب کنید</string>
+    <string name="preferences_calendar_no_display_name">تنظیمات</string>
 </resources>
