@@ -1,0 +1,4 @@
+- Misafir seçim biçimi ve okunabilirliği iyileştirildi
+- Etkinlik tarih seçici için bitiş tarihi her zaman başlangıç tarihini önceden seçiyordu, bu sorun giderildi
+- PrimaryColor tercihi kaldırıldı
+- Hata düzeltmeleri
