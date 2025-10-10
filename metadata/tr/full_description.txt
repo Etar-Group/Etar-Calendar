@@ -4,7 +4,8 @@
 - Android takvim eşzamanlamasını kullanır.
 - Material tasarım.
 - Koyu ve açık tema.
-- Özgür, açık kaynak ve kesinlikle reklamsız.
+- Çevrim dışı takvim desteği.
+- Ajanda widget'ı.
 - ICS aracılığıyla takvim paylaşımı ve SD karttan içe/dışa aktarma özelliği.
 - Çok dilli kullanıcı arayüzü.
 

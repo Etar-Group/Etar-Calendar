@@ -1,0 +1,4 @@
+- Android 5 desteği kaldırıldı
+- Çıkmak yerine öntanımlı görünüme geri dön
+- Etkinlik bittikten sonra bildirimi sil
+- Küçük hata düzeltmeleri

@@ -1,0 +1,5 @@
+- Material3'e geçiş
+- E-postası olmayan katılımcıların görüntülenmemesi sorunu düzeltildi
+- iCalendar katılımcılarının ayrıştırılması sorunu düzeltildi
+- Ay görünümünden etkinlik oluşturma işleminin bazen yanlış güne ayarlanması sorunu düzeltildi
+- Diğer küçük hata düzeltmeleri
