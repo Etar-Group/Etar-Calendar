@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import com.android.calendar.Utils
 import com.android.calendar.theme.model.Theme
+import kotlin.text.lowercase
 
 object ThemeUtils {
 
@@ -32,7 +33,7 @@ object ThemeUtils {
             }
 
             Theme.LIGHT -> return ""
-            Theme.DARK, Theme.BLACK -> return "_" + theme
+            Theme.DARK, Theme.BLACK -> return "_" + theme.name.lowercase()
             else -> throw IllegalArgumentException("Unknown theme: " + theme)
         }
     }
