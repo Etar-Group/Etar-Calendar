@@ -1,0 +1,7 @@
+- Adicionar calendário off-line.
+- Adicionar atalho para novo evento.
+- Novo design das preferências.
+- Novo seletor de data e hora.
+- Mudança da licença para GPLv3.
+- Correções de bugs.
+- Novas traduções.

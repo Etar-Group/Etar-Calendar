@@ -1,0 +1,7 @@
+- Criar e mostrar lembretes após o início do evento usando uma caixa de seleção
+- Reparar lembretes com valores negativos
+- Corrigir horários inválidos devido a mudanças de fuso horário
+- Opção para adicionar um novo evento a partir da tela do widget
+- Reformular as cores do tema
+- Correções de bugs
+- Novas traduções

@@ -1,0 +1,4 @@
+- Retirada do suporte para Android 5
+- Retorno à visualização padrão em vez de sair
+- Limpeza da notificação após o término do evento
+- Pequenas correções de bugs

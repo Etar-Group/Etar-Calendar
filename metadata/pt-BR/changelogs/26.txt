@@ -1,0 +1,4 @@
+- Reformulação do layout de edição de eventos
+- Retirada do suporte para Android 4.4
+- Correções gerais de bugs
+- Novas traduções
