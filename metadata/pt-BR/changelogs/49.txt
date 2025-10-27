@@ -1,0 +1,5 @@
+- Mudança para o Material3
+- Correção da não exibição dos participantes sem e-mail
+- Correção da análise dos participantes do iCalendar
+- Correção da criação de eventos a partir da visualização mensal, que às vezes apresentava o dia errado por padrão
+- Outras pequenas correções de bugs

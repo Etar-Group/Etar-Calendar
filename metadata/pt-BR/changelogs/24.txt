@@ -1,0 +1,7 @@
+- Redução do tamanho da fonte dos nomes dos eventos na visualização semanal
+- Ativação das sugestões de pesquisa recente
+- Correção da exportação para o cartão SD
+- Título dos eventos cancelados riscado
+- Utilização da configuração do tema do sistema no Android 10
+- Novas traduções
+- Correções de bugs

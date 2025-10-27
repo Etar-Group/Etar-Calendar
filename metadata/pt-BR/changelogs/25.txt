@@ -1,0 +1,4 @@
+- Recuperar banco de dados de fuso horário
+- Ícone do aplicativo SVG
+- Reformular e reativar o widget
+- Novas traduções

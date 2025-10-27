@@ -1,0 +1,2 @@
+- Corrigir notificações no Android 12
+- Adicionar DecSync e Birthday Adapter aos aplicativos "conhecidos" e não travar

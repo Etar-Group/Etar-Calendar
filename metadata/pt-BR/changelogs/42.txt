@@ -1,0 +1,3 @@
+- Não fechar a página de edição do evento quando o telefone for girado
+- Notificações do calendário por calendário
+- Adicionar preferência: Não verificar a otimização da bateria
