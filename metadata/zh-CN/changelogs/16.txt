@@ -1,0 +1,7 @@
+- 已移除原有小部件，目前请使用 Calendar Widget：https://f-droid.org/de/packages/com.plusonelabs.calendar/。
+- 支持自定义事件颜色。
+- 改进了对 ics 文件的支持。
+- 新增灰色主题。
+- 支持可见性保密。
+- 支持新的 Android 通知渠道。
+- 修复了大量错误。
