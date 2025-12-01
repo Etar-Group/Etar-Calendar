@@ -353,4 +353,14 @@
     <string name="foreground_notification_channel_name">Cydamseriad Hysbysiadau</string>
     <string name="foreground_notification_channel_description">Hysbysiad blaendir angenrheidiol er cydamseru hysbysiadau mewnol. I\'w ddistewi.</string>
     <string name="after_start_of_event">after start of event</string>
+    <string name="no_reminder_label">Dim</string>
+    <string name="no_snooze_label">Dim</string>
+    <plurals name="Nweeks">
+        <item quantity="zero"></item>
+        <item quantity="one">1 wythnos</item>
+        <item quantity="two">pythefnos</item>
+        <item quantity="few"><xliff:g id="count">%d</xliff:g> wythnos</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> wythnos</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> wythnos</item>
+    </plurals>
 </resources>
