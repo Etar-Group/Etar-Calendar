@@ -1,0 +1,7 @@
+- Membuat dan menampilkan pengingat setelah acara dimulai menggunakan kotak centang.  
+- Memperbaiki pengingat dengan nilai negatif.  
+- Memperbaiki waktu tidak valid karena perubahan zona waktu.  
+- Opsi untuk menambahkan acara baru dari layar widget.  
+- Mengubah ulang warna tema.  
+- Perbaikan bug.  
+- Terjemahan baru.

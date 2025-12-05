@@ -1,0 +1,7 @@
+- Mengurangi ukuran font nama acara di tampilan minggu.  
+- Mengaktifkan saran pencarian terbaru.  
+- Memperbaiki ekspor ke kartu SD.  
+- Memberi coretan pada judul acara yang dibatalkan.  
+- Menggunakan pengaturan tema sistem di Android 10.  
+- Terjemahan baru.  
+- Perbaikan bug.

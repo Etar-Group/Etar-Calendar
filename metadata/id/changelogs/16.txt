@@ -1,0 +1,7 @@
+- Widget dihapus, gunakan Widget Kalender untuk sementara: [https://f-droid.org/de/packages/com.plusonelabs.calendar/](https://f-droid.org/de/packages/com.plusonelabs.calendar/).  
+- Dukungan untuk warna acara kustom.  
+- Dukungan yang lebih baik untuk file ics.  
+- Menambahkan tema abu-abu.  
+- Dukungan visibilitas rahasia.  
+- Dukungan saluran notifikasi Android baru.  
+- Banyak perbaikan bug.

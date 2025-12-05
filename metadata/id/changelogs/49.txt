@@ -1,0 +1,5 @@
+- Beralih ke Material3  
+- Memperbaiki peserta tanpa email yang tidak ditampilkan  
+- Memperbaiki penguraian peserta iCalendar  
+- Memperbaiki pembuatan acara dari tampilan Bulan yang kadang default ke hari yang salah  
+- Perbaikan bug kecil tambahan

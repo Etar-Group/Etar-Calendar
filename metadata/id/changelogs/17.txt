@@ -1,0 +1,4 @@
+- Tampilan bulan diperbaiki.  
+- Izin membaca kontak kembali menjadi opsional.  
+- Kotak teks yang lebih menarik saat membuat acara.  
+- Perbaikan bug kecil.

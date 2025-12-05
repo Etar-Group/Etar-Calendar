@@ -1,0 +1,8 @@
+- Menambahkan opsi untuk menduplikasi acara.  
+- Menampilkan hari kerja di tablet.  
+- Memperbaiki crash saat membuka acara dengan ID sangat besar.  
+- Mengubah ulang kalender mini di tampilan tablet.  
+- Menambahkan dukungan untuk Ikon Aplikasi Bertema di Android 13.  
+- Menampilkan acara multi-hari dengan titik awal dan akhir yang benar.  
+- Perbaikan bug.  
+- Terjemahan baru.
