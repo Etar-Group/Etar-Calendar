@@ -1,0 +1,2 @@
+- Semoga akhirnya memperbaiki crash pada tampilan bulan dan minggu karena aturan berulang tidak valid.  
+- Perbaikan bug.

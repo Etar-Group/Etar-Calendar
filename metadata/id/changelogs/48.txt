@@ -1,0 +1,4 @@
+- Menghapus dukungan untuk Android 5  
+- Kembali ke tampilan default alih-alih keluar  
+- Menghapus notifikasi setelah acara berakhir  
+- Perbaikan bug kecil

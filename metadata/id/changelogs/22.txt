@@ -1,0 +1,7 @@
+- Menambahkan kalender offline.  
+- Menambahkan pintasan untuk acara baru.  
+- Desain preferensi baru.  
+- Pemilih tanggal dan waktu baru.  
+- Mengubah lisensi ke GPLv3.  
+- Perbaikan bug.  
+- Terjemahan baru.

@@ -1,0 +1,3 @@
+- Menambahkan kolom URL.  
+- Perbaikan bug.  
+- Terjemahan baru.

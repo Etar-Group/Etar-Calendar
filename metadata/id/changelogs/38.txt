@@ -1,0 +1,1 @@
+- Memperbaiki crash pada acara berulang.

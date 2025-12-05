@@ -1,0 +1,4 @@
+- Meningkatkan gaya dan keterbacaan pemilihan tamu  
+- Memperbaiki pemilih tanggal acara untuk tanggal akhir yang selalu memilih tanggal awal  
+- Menghapus preferensi Warna Utama  
+- Perbaikan bug

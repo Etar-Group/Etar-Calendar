@@ -1,0 +1,2 @@
+- Menambahkan izin yang hilang.  
+- Memperbaiki kegagalan build.

@@ -1,0 +1,6 @@
+- Meminta izin saat runtime pada Android 6 ke atas.  
+- Memperbaiki crash saat startup.  
+- Memungkinkan pengguna memperkecil tampilan agar seluruh hari terlihat.  
+- Mengatur detik ke nol saat membuat acara baru.  
+- Perbaikan kecil pada tata letak.  
+- Banyak perbaikan bug.

@@ -1,0 +1,3 @@
+- Mengizinkan pengeditan kalender pada acara yang ada.  
+- Memperbaiki fungsi pergi ke tanggal.  
+- Perbaikan bug kecil.

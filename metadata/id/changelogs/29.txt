@@ -1,0 +1,5 @@
+- Dukungan untuk Android 12.  
+- Dukungan Desain Material You.  
+- Menghapus koneksi ke layanan Android untuk pencadangan basis data (rusak di sebagian besar versi Android).  
+- Perbaikan bug umum.  
+- Terjemahan baru.

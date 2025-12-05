@@ -1,0 +1,3 @@
+- Bug pada tampilan bulan diperbaiki.  
+- Memperbaiki tema gelap di tablet.  
+- Terjemahan baru.

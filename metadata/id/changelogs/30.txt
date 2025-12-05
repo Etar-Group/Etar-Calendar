@@ -1,0 +1,2 @@
+- Memperbaiki notifikasi di Android 12.  
+- Menambahkan DecSync dan Birthday Adapter ke aplikasi "dikenal" dan mencegah crash.

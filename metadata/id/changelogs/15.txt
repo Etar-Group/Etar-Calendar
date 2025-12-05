@@ -1,0 +1,5 @@
+- Meminta izin saat runtime pada Android 6 ke atas.  
+- Mendukung tampilan kalender lunar/festival jika Bahasa adalah Cina.  
+- Memperbarui terjemahan.  
+- Perbaikan kecil pada tata letak.  
+- Banyak perbaikan bug.

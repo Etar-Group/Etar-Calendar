@@ -1,0 +1,2 @@
+- Memperbaiki crash dan notifikasi di Android 12.  
+- Memperbaiki tipe MIME dari acara yang dibagikan.
