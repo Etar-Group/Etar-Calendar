@@ -12,7 +12,8 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Naptár"</string>
     <string name="when_label" msgid="894636567327261599">"Mikor"</string>
     <string name="today" msgid="8577375020252453006">"Ma"</string>
@@ -37,6 +38,10 @@
         <item quantity="one">1 nap</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> nap</item>
     </plurals>
+    <plurals name="Nweeks">
+        <item quantity="one">1 hét</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hét</item>
+    </plurals>
     <plurals name="weekN">
         <item quantity="one"><xliff:g id="count">%d</xliff:g>. hét</item>
         <item quantity="other"/>
@@ -53,6 +58,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Esemény törlése"</string>
     <string name="goto_today" msgid="9162136434410891230">"Ma"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Beállítások"</string>
+    <string name="menu_info">Infó</string>
     <string name="search" msgid="550656004486017426">"Keresés"</string>
     <string name="hide_controls" msgid="830320505938520882">"Vezérlők elrejtése"</string>
     <string name="show_controls" msgid="715520586028062621">Vezérlők megjelenítése</string>
@@ -117,6 +123,7 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Részletek"</string>
     <string name="edit_label" msgid="8934331258435656534">"Szerkeszt"</string>
     <string name="delete_label" msgid="874742811918030739">"Törlés"</string>
+    <string name="duplicate_label">Duplikálás</string>
     <string name="save_label" msgid="2133599104834432589">"Kész"</string>
     <string name="discard_label" msgid="2394623883289782541">"Mégse"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Az összes törlése"</string>
@@ -138,7 +145,7 @@
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Havi"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Évente"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">"Egyéni... (telefonon nem állítható be)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Egyéni… (telefonon nem állítható be)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Csak a jelen esemény módosítása"</string>
     <string name="modify_all" msgid="4421657265864209041">"A sorozat összes eseményének módosítása"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"A jelen és az összes jövőbeli esemény módosítása"</string>
@@ -177,7 +184,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Emlékeztetők kihagyása"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Emlékeztetők kihagyása"</string>
     <string name="copy_db" msgid="437691290566699292">"Adatbázis küldése"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Keresés <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Keresés <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Résztvevő eltávolítása"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Kezdés dátuma"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Kezdés ideje"</string>
@@ -239,6 +246,7 @@
     <string name="snooze_delay_dialog_title">Szundi beállítása</string>
     <string name="preferences_default_snooze_delay_title">Szundi időtartama</string>
     <string name="preferences_default_snooze_delay_dialog">Alapértelmezett szundi időtartama</string>
+    <string name="preferences_manage_notifications">Értesítések kezelése</string>
     <string name="preferences_calendar_synchronize">Naptár szinkronizálása</string>
     <string name="offline_account_name">Offline naptár</string>
     <string name="preferences_menu_about">Az Etar névjegye</string>
@@ -330,19 +338,22 @@
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> Az Etar projekt. Egyes részekre a következő vonatkozik: © 2005-<xliff:g>%1$s</xliff:g> Android Open Source Project.</string>
     <string name="preferences_days_per_week_dialog">A hét napjainak száma</string>
     <string name="preferences_days_per_week_title">A hét napjainak száma</string>
+    <string name="preferences_real_event_colors">Használjon valós eseményszíneket</string>
     <string name="preferences_pure_black_night_mode">Teljesen fekete éjszakai mód</string>
     <string name="preferences_month_view_landscape">Havi nézet (Fekvő)</string>
     <string name="no_map">Nincs térképalkalmazás telepítve</string>
     <string name="foreground_notification_channel_description">Előtérbeli értesítés szükséges a belső riasztásszinkronizálásához.</string>
+    <string name="foreground_notification_title">Új emlékeztetők ütemezése…</string>
     <string name="foreground_notification_channel_name">Riasztások szinkronizálása</string>
-    <string name="no_reminder_label">Semelyik</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="no_reminder_label">Nincs</string>
+    <string name="no_snooze_label">Nincs</string>
+    <string name="after_start_of_event">esemény kezdete után</string>
     <string name="hint_time_zone_search" msgid="804776560897143016">"Gépelje be az országnevet"</string>
     <string name="searchview_description_clear" msgid="1603860069305867810">"Lekérdezés törlése"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Nincs találat"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palesztina"</string>
 
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"E-mail cím másolása"</string>
     <string name="copy_number" msgid="8860802152973030914">"Telefonszám másolása"</string>
     <string name="action_label" msgid="7172664623795021857">"Enter"</string>
@@ -352,4 +363,12 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Másolás"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Mégse"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Névjegyjavaslatok engedélyezése"</string>
+    <string name="discard">Elvetés</string>
+    <string name="cancel">Mégse</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Saját felelősségre használja! Az alkalmazás nem kérdezi meg újra, hogy futhat-e a háttérben. Ekkor az alkalmazáshoz tartozó értesítések késhetnek vagy nem fognak működni, a widgetek nem frissülhetnek, és a háttérszolgáltatások összeomolhatnak.</string>
+    <string name="calendars">Naptárak</string>
+    <string name="discard_event_changes">Elveti a változtatásokat?</string>
+    <string name="no_calendars_found">Mielőtt hozzáadhatna egy eseményt, legalább egy naptárat hozzá kell adnia az eszközéhez.</string>
+    <string name="add_calendar">Naptár hozzáadása</string>
+    <string name="preferences_do_not_check_battery_optimization">Ne ellenőrizze az akkumulátor optimalizálást</string>
 </resources>
