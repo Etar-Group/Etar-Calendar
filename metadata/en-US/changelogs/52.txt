@@ -1,0 +1,4 @@
+- Fix taping on the event from the widget open concrete event.
+- Prevent dialog crash when activity is destroyed
+- Revert "6430-t-Clear_notification_after_event_ends
+- Bugfixes
