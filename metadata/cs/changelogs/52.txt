@@ -1,0 +1,4 @@
+- Oprava otevření konkrétní události při klepnutí na událost z widgetu
+- Zabránění pádu dialogového okna při zrušení aktivity
+- Vrácení „6430-t-Clear_notification_after_event_ends“
+- Opravy chyb
