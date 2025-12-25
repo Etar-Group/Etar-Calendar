@@ -1,0 +1,4 @@
+- Reparatie van tikken op het evenement vanuit het widget evenement openen.
+- Voorkomen dat dialoog crasht wanneer activiteit wordt vernietigd
+- Ongedaan maken"6430-t-Clear_notification_after_event_ends"
+- Bugfixes
