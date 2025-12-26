@@ -18,6 +18,7 @@
 */
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -260,9 +261,11 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.android.calendar.alerts.AlertService"
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType= "systemExempted"
             android:exported="false"
-            android:foregroundServiceType="systemExempted" />
+            tools:node="merge" />
 
         <service android:name="com.android.calendar.alerts.DismissAlarmsService" />
 
