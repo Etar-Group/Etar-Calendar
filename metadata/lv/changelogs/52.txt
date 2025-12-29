@@ -1,0 +1,4 @@
+- Salabota noteikta notikuma atvēršana pēc piesišanas logrīkā.
+- Novērsta lodziņa avārija, kad darbība ir iznīcināta.
+- Atsaukts "6430-t-Clear_notification_after_event_ends"
+- Kļūdu labojumi
