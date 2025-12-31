@@ -1,0 +1,4 @@
+- Corrigir a gravação do evento a partir do widget de evento concreto aberto.
+- Evitar a falha da caixa de diálogo quando a atividade é destruída
+- Reverter "6430-t-Clear_notification_after_event_ends
+- Correções de bugs
