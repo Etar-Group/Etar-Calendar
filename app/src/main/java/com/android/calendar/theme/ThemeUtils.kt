@@ -27,13 +27,13 @@ object ThemeUtils {
         val theme = getTheme(context)
         when (theme) {
             Theme.SYSTEM -> if (isSystemInDarkTheme(context)) {
-                return "_" + "dark"
+                return if (context.isPureBlackModeEnabled) "_" + "black" else "_" + "dark"
             } else {
                 return ""
             }
-
             Theme.LIGHT -> return ""
-            Theme.DARK, Theme.BLACK -> return "_" + theme.name.lowercase()
+            Theme.DARK -> return if (context.isPureBlackModeEnabled) "_" + "black" else "_" + "dark"
+            Theme.BLACK -> return "_" + theme.name.lowercase()
             else -> throw IllegalArgumentException("Unknown theme: " + theme)
         }
     }
