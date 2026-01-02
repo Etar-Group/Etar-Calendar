@@ -325,7 +325,7 @@
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description">newid y ddydiad diwedd</string>
     <string name="user_rejected_calendar_write_permission">Mae ar Etar angen caniatâd darllen ac ysgrifennu calendr i weithio\'n gywir. Rho gynnig arall arni.</string>
-    <string name="calendar_permission_not_granted">Yn anffodus, ni all y nodwedd hon gweithio. Mae ar Etar angen caniatâd darllen ac ysgrifennu calendr i weithio\'n gywir.</string>
+    <string name="calendar_permission_not_granted">Caniatâd angenrheidiol wedi\'i wrthod, galluogwch nhw o\'r Gosodiadau i adolygu digwyddiadau</string>
     <string name="visibility_default">Rhagosodiad</string>
     <string name="visibility_confidential">Cyfrinachol</string>
     <string name="visibility_private">Preifat</string>
@@ -356,7 +356,7 @@
     <string name="no_reminder_label">Dim</string>
     <string name="no_snooze_label">Dim</string>
     <plurals name="Nweeks">
-        <item quantity="zero"></item>
+        <item quantity="zero"/>
         <item quantity="one">1 wythnos</item>
         <item quantity="two">pythefnos</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> wythnos</item>
