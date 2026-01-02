@@ -71,7 +71,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private static final String WHERE_CALENDARS_VISIBLE = Calendars.VISIBLE + "=1";
     private static final String INSTANCES_SORT_ORDER = Instances.START_DAY + ","
             + Instances.START_MINUTE + "," + Instances.TITLE;
-    private static final int WEEKS_BUFFER = 1;
+    private static final int WEEKS_BUFFER = 6;
     // How long to wait after scroll stops before starting the loader
     // Using scroll duration because scroll state changes don't update
     // correctly when a scroll is triggered programmatically.
@@ -105,12 +105,11 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private CreateEventDialogFragment mEventDialog;
     private CursorLoader mLoader;
     private Uri mEventUri;
-    private volatile boolean mShouldLoad = true;
     private final Runnable mUpdateLoader = new Runnable() {
         @Override
         public void run() {
             synchronized (this) {
-                if (!mShouldLoad || mLoader == null) {
+                if (mLoader == null) {
                     return;
                 }
                 // Stop any previous loads while we update the uri
@@ -480,19 +479,25 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                             | DateUtils.FORMAT_SHOW_YEAR, null, null);
         }
     }
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        super.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
+
+        synchronized (mUpdateLoader) {
+            mHandler.removeCallbacks(mUpdateLoader);
+            mHandler.postDelayed(mUpdateLoader, LOADER_DELAY);
+        }
+    }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
         synchronized (mUpdateLoader) {
             if (scrollState != OnScrollListener.SCROLL_STATE_IDLE) {
-                mShouldLoad = false;
-                stopLoader();
                 mDesiredDay.set(System.currentTimeMillis());
             } else {
                 mHandler.removeCallbacks(mUpdateLoader);
-                mShouldLoad = true;
-                mHandler.postDelayed(mUpdateLoader, LOADER_DELAY);
+                mHandler.postDelayed(mUpdateLoader, 0);
             }
         }
         if (scrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
