@@ -4762,16 +4762,24 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // If there are any events in the selected region, then assign the
         // closest one to mSelectedEvent.
-        if (mSelectedEvents.size() > 0) {
+        if (!mSelectedEvents.isEmpty()) {
             int len = mSelectedEvents.size();
             Event closestEvent = null;
             float minDist = mViewWidth + mViewHeight; // some large distance
+            float maxCol = -99999;
             for (int index = 0; index < len; index++) {
                 Event ev = mSelectedEvents.get(index);
+
+                // dist will yield 0.0 for all events overlapping each other.
+                // In order to select the correct one we use the topmost event (i.e. the one with
+                // the highest col value!
+
                 float dist = geometry.pointToEvent(x, y, ev);
-                if (dist < minDist) {
+                float col  = ev.getColumn();
+                if (dist <= minDist && col > maxCol) {
                     minDist = dist;
                     closestEvent = ev;
+                    maxCol = col;
                 }
             }
             setSelectedEvent(closestEvent);
