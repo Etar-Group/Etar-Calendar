@@ -24,6 +24,11 @@ public class EventGeometry {
 
     private float mMinuteHeight;
 
+    // How many pixels is each column set off from the
+    // very left of column 0?
+    // This is used to enable stacked parallel events.
+    private static final float mPerColMargin  = 32;
+
     private float mHourGap;
     private float mMinEventHeight;
 
@@ -97,8 +102,9 @@ public class EventGeometry {
             event.bottom = event.top + mMinEventHeight;
         }
 
-        float colWidth = (float) (cellWidth - (maxCols + 1) * mCellMargin) / (float) maxCols;
-        event.left = left + col * (colWidth + mCellMargin);
+
+        float colWidth = (float) (cellWidth - (maxCols) * mCellMargin) - (float) (col * mPerColMargin);
+        event.left = left + (col) * mPerColMargin;
         event.right = event.left + colWidth;
         return true;
     }
