@@ -11,7 +11,7 @@
     <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label">(Dim teitl)</string>
     <plurals name="Nminutes">
-        <item quantity="zero">Dim munudau</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> munudau</item>
         <item quantity="one">1 munud</item>
         <item quantity="two"><xliff:g id="count">%d</xliff:g> funud</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> munud</item>
@@ -339,7 +339,7 @@
     <string name="error_generating_ics">Cafwyd problemau wrth geisio rhannu\'r digwyddiad</string>
     <string name="cal_share_intent_title">Anfon y digwyddiad at:</string>
     <string name="cal_export_event_sdcard_title">Allforio i gerdyn SD</string>
-    <string name="cal_export_succ_msg">Allforiwyd y digwyddiad yn llwyddiannus: %1s</string>
+    <string name="cal_export_succ_msg">Allforiwyd y digwyddiad yn llwyddiannus: %1$s</string>
     <string name="cal_import_menu_title">Mewnforio digwyddiad</string>
     <string name="cal_nothing_to_import">Dim byd i\'w mewnforio</string>
     <string name="cal_import_error_msg">Methwyd â mewnforio i\'r calendr</string>
@@ -352,15 +352,88 @@
     <string name="maximum_number_of_lines">Uchafswm o linellau ar gyfer digwyddiad</string>
     <string name="foreground_notification_channel_name">Cydamseriad Hysbysiadau</string>
     <string name="foreground_notification_channel_description">Hysbysiad blaendir angenrheidiol er cydamseru hysbysiadau mewnol. I\'w ddistewi.</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">ar ôl cychwyn digwyddiad</string>
     <string name="no_reminder_label">Dim</string>
     <string name="no_snooze_label">Dim</string>
     <plurals name="Nweeks">
-        <item quantity="zero"/>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> wythnosau</item>
         <item quantity="one">1 wythnos</item>
         <item quantity="two">pythefnos</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> wythnos</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> wythnos</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> wythnos</item>
     </plurals>
+    <string name="menu_info">Manylion</string>
+    <string name="hint_url">URL</string>
+    <string name="foreground_notification_title">Wrthi\'n trefnu atgofion newydd…</string>
+    <string name="no_calendars_found">Cyn y gallwch ychwanegu digwyddiad, rhaid i chi ychwanegu o leiaf un calendr at eich dyfais</string>
+    <string name="add_calendar">Ychwanegu calendr</string>
+    <string name="duplicate_label">Dyblygu</string>
+    <string name="preferences_system_theme">Rhagosodiad system</string>
+    <string name="preferences_real_event_colors">Defnyddiwch liwiau digwyddiadau go iawn</string>
+    <string name="preferences_pure_black_night_mode">Modd nos ddu pur</string>
+    <string name="app_copyright">© 2015-<xliff:g> %1$s</xliff:g> Prosiect Etar. Darnau © 2005-<xliff:g> %1$s</xliff:g> Prosiect Cod Agored Android.</string>
+    <string name="authors">Awduron</string>
+    <string name="changelog">Newidiadau</string>
+    <string name="license">Trwydded</string>
+    <string name="source_code">Ffynhonnell</string>
+    <string name="two_days">2 ddiwrnod</string>
+    <string name="three_days">3 diwrnod</string>
+    <string name="four_days">4 diwrnod</string>
+    <string name="five_days">5 diwrnod</string>
+    <string name="six_days">6 diwrnod</string>
+    <string name="seven_days">7 diwrnod</string>
+    <string name="cal_import_error_time_zone_msg">Methu deall y parth amser a roddir: %s</string>
+    <string name="preferences_calendar_no_display_name">Calendr dienw</string>
+    <string name="preferences_calendar_account">Cyfrif %1$s</string>
+    <string name="preferences_calendar_account_local">Calendr all-lein</string>
+    <string name="preferences_calendar_configure_account">Ffurfweddu calendr yn %1$s</string>
+    <string name="preferences_calendar_number_of_events">%1$d digwyddiad</string>
+    <string name="preferences_calendar_delete">Dileu calendr</string>
+    <string name="preferences_calendar_display_name">Newid enw</string>
+    <string name="preferences_calendar_info_category">Manylion calendr</string>
+    <string name="preferences_calendar_color">Lliw</string>
+    <string name="preferences_calendar_visible">Dangos digwyddiadau</string>
+    <string name="preferences_manage_notifications">Rheoli hysbysiadau</string>
+    <string name="preferences_calendar_synchronize">Cydweddu\'r calendr hwn</string>
+    <string name="preferences_calendar_color_warning_title">Rhybudd</string>
+    <string name="preferences_calendar_color_warning_message">Mae modd dadwneud newid y lliw pan fydd y calendr wedi\'i gydweddu eto.\n\nYn DAVx⁵ mae modd analluogi \'Rheoli lliwiau calendr\' i atal hyn.</string>
+    <string name="preferences_calendar_color_warning_button">Rwy\'n deall</string>
+    <string name="preferences_calendar_delete_message">Ydych chi wir eisiau dileu\'r calendr hwn?</string>
+    <string name="preferences_calendar_delete_delete">Dileu calendr</string>
+    <string name="preferences_calendar_delete_cancel">Na</string>
+    <string name="preferences_list_calendar_summary_sync_off">Heb ei gydweddu</string>
+    <string name="preferences_list_calendar_summary_invisible">Dyw digwyddiadau ddim yn cael eu dangos</string>
+    <string name="preferences_list_general">Gosodiadau cyffredinol</string>
+    <string name="preferences_list_add_remote">Ychwanegu calendr CalDAV</string>
+    <string name="preferences_list_add_remote_etesync">Ychwanegu calendr EteSync</string>
+    <string name="preferences_list_add_offline">Ychwanegu calendr all-lein</string>
+    <string name="preferences_list_add_offline_title">Ychwanegu calendr all-lein</string>
+    <string name="preferences_list_add_offline_error_empty">Rhowch enw calendr!</string>
+    <string name="preferences_list_add_offline_message">NID yw calendrau all-lein wedi\'u cydweddu â gwasanaeth cwmwl a dim ond ar eich ffôn y maen nhw ar gael.</string>
+    <string name="preferences_list_add_offline_button">Ychwanegu calendr</string>
+    <string name="preferences_list_add_offline_name">Enw</string>
+    <string name="preferences_list_add_offline_cancel">Na</string>
+    <string name="preferences_menu_about">Ynglŷn ag Etar</string>
+    <string name="offline_account_name">Calendr All-lein</string>
+    <string name="preferences_do_not_check_battery_optimization">Peidiwch â gwirio optimeiddio batri</string>
+    <string name="preferences_do_not_check_battery_optimization_summary">Defnyddiwch ar eich risg eich hun! Bydd hysbysiadau ddim yn gweithio mwyach, bydd y teclyn ddim yn diweddaru mwyach a bydd y gwasanaethau cefndir yn chwalu. Ond byddwn ddim yn gofyn i chi eto a ydych chi am alluogi\'r gwasanaeth cefndir.</string>
+    <string name="calendars">Calendrau</string>
+    <string name="discard_event_changes">Ydych chi eisiau dileu newidiadau?</string>
+    <string name="discard">Dileu</string>
+    <string name="cancel">Na</string>
+    <string name="hint_time_zone_search">Teipiwch enw gwlad</string>
+    <string name="searchview_description_clear">Clirio\'r ymholiad</string>
+    <string name="no_results_found">Heb ganfod canlyniad</string>
+    <string name="palestine_display_name">Palesteina</string>
+    <string name="more_string">+<xliff:g id="count"> %1$d</xliff:g></string>
+    <string name="copy_email">Copïo cyfeiriad e-bost</string>
+    <string name="copy_number">Copïo rhif ffôn</string>
+    <string name="action_label">Dychwelyd</string>
+    <string name="accessbility_suggestion_dropdown_opened">Awgrymiadau cyswllt wedi\'u hagor</string>
+    <string name="accessbility_suggestion_dropdown_closed">Dim awgrymiadau ar gael</string>
+    <string name="dropdown_delete_button_desc">Tynnu <xliff:g id="contact"> %s</xliff:g> gan dderbynwyr</string>
+    <string name="chips_action_copy">Copïo</string>
+    <string name="chips_action_cancel">Na</string>
+    <string name="chips_permission_text">Caniatáu awgrymiadau cysylltiadau</string>
 </resources>
