@@ -1,0 +1,4 @@
+- Behebung des Problems beim Anzeigen des Widgets für konkrete Ereignisse
+- Vermeidung des Absturzes des Dialogfelds beim Beenden der Aktivität
+- Rückgängigmachen von „6430-t-Clear_notification_after_event_ends“
+- Fehlerbehebungen
