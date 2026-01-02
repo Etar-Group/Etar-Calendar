@@ -127,7 +127,9 @@ dependencies {
 	implementation(libs.androidx.appcompat)
 	implementation(libs.androidx.constraintlayout)
 	implementation(libs.google.android.material)
-	testImplementation(libs.junit)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.concurrent.futures)
+    testImplementation(libs.junit)
 
 	coreLibraryDesugaring(libs.android.tools.desugar)
 

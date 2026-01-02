@@ -16,14 +16,11 @@
 
 package com.android.calendar.alerts;
 
-import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
-
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -34,13 +31,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
-import android.os.Process;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.CalendarAlerts;
@@ -50,7 +40,6 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.calendar.Utils;
@@ -65,9 +54,9 @@ import java.util.TimeZone;
 import ws.xsoh.etar.R;
 
 /**
- * This service is used to handle calendar event reminders.
+ * Static service class is used to handle calendar event reminders. Called by AlertWorker.
  */
-public class AlertService extends Service {
+public class AlertService {
 
     public static final String ALERT_CHANNEL_GROUP_ID = "alert_channel_group_01";
     public static final String FOREGROUND_CHANNEL_ID = "foreground_channel_01";
@@ -138,8 +127,6 @@ public class AlertService extends Service {
                     + " AND "
                     + CalendarContract.CalendarAlerts.END + ">=?";
     private static Boolean sReceivedProviderReminderBroadcast = null;
-    private volatile Looper mServiceLooper;
-    private volatile ServiceHandler mServiceHandler;
 
     static void dismissOldAlerts(Context context) {
         ContentResolver cr = context.getContentResolver();
@@ -830,15 +817,15 @@ public class AlertService extends Service {
         }
     }
 
-    void processMessage(Message msg) {
-        Bundle bundle = (Bundle) msg.obj;
 
-        // On reboot, update the notification bar with the contents of the
-        // CalendarAlerts table.
-        String action = bundle.getString("action");
+    public static void handleAction(Context context, String action) {
         if (DEBUG) {
-            Log.d(TAG, bundle.getLong(android.provider.CalendarContract.CalendarAlerts.ALARM_TIME)
-                    + " Action = " + action);
+            Log.d(TAG, "Handling action: " + action);
+        }
+
+        if (sReceivedProviderReminderBroadcast == null) {
+            sReceivedProviderReminderBroadcast = Utils.getSharedPreference(context,
+                    PROVIDER_REMINDER_PREF_KEY, false);
         }
 
         // Some OEMs had changed the provider's EVENT_REMINDER broadcast to their own event,
@@ -847,15 +834,10 @@ public class AlertService extends Service {
         boolean providerReminder = action.equals(
                 android.provider.CalendarContract.ACTION_EVENT_REMINDER);
         if (providerReminder) {
-            if (sReceivedProviderReminderBroadcast == null) {
-                sReceivedProviderReminderBroadcast = Utils.getSharedPreference(this,
-                        PROVIDER_REMINDER_PREF_KEY, false);
-            }
-
             if (!sReceivedProviderReminderBroadcast) {
                 sReceivedProviderReminderBroadcast = true;
                 Log.d(TAG, "Setting key " + PROVIDER_REMINDER_PREF_KEY + " to: true");
-                Utils.setSharedPreference(this, PROVIDER_REMINDER_PREF_KEY, true);
+                Utils.setSharedPreference(context, PROVIDER_REMINDER_PREF_KEY, true);
             }
         }
 
@@ -863,7 +845,7 @@ public class AlertService extends Service {
                 action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
                 action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
                 (action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) &&
-                 !Boolean.TRUE.equals(sReceivedProviderReminderBroadcast)) ||
+                !Boolean.TRUE.equals(sReceivedProviderReminderBroadcast)) ||
                 action.equals(Intent.ACTION_LOCALE_CHANGED)) {
 
             // b/7652098: Add a delay after the provider-changed event before refreshing
@@ -877,83 +859,37 @@ public class AlertService extends Service {
                 }
             }
 
-            updateAlertNotification(this);
+            updateAlertNotification(context);
         } else if (action.equals(Intent.ACTION_TIME_CHANGED)) {
-            doTimeChanged();
+            rescheduleAndDisplayTimeChanged(context);
         } else if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
-            dismissOldAlerts(this);
+            dismissOldAlerts(context);
         } else {
             Log.w(TAG, "Invalid action: " + action);
         }
 
-        // Schedule the alarm for the next upcoming reminder, if not done by the provider.
+        // Scheduling next alarm
         if (sReceivedProviderReminderBroadcast == null || !sReceivedProviderReminderBroadcast) {
             Log.d(TAG, "Scheduling next alarm with AlarmScheduler. "
                     + "sEventReminderReceived: " + sReceivedProviderReminderBroadcast);
-            AlarmScheduler.scheduleNextAlarm(this);
+            AlarmScheduler.scheduleNextAlarm(context);
         }
     }
 
-    private void doTimeChanged() {
-        ContentResolver cr = getContentResolver();
-        // TODO Move this into Provider
-        rescheduleMissedAlarms(cr, this, AlertUtils.createAlarmManager(this));
-        updateAlertNotification(this);
+    private static void rescheduleAndDisplayTimeChanged(Context context) {
+        ContentResolver cr = context.getContentResolver();
+        rescheduleMissedAlarms(cr, context, AlertUtils.createAlarmManager(context));
+        updateAlertNotification(context);
     }
 
-    @Override
-    public void onCreate() {
-        HandlerThread thread = new HandlerThread("AlertService",
-                Process.THREAD_PRIORITY_BACKGROUND);
-        thread.start();
+    public static Notification buildForegroundNotification(Context context, String title, int iconResId, String channelId) {
 
-        mServiceLooper = thread.getLooper();
-        mServiceHandler = new ServiceHandler(mServiceLooper);
-
-        // Flushes old fired alerts from internal storage, if needed.
-        AlertUtils.flushOldAlertsFromInternalStorage(getApplication());
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent != null) {
-
-            if (Utils.isOreoOrLater()) {
-                createChannels(this);
-                Notification notification = new NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
-                        .setContentTitle(getString(R.string.foreground_notification_title))
-                        .setSmallIcon(R.drawable.stat_notify_refresh_events)
-                        .setShowWhen(false)
-                        .build();
-                if (Utils.isQOrLater()) {
-                    int serviceType;
-                    if (Utils.isUpsideDownCakeOrLater()) {
-                        serviceType = FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
-                    } else {
-                        serviceType = 0;
-                    }
-                    ServiceCompat.startForeground(this, 1337, notification, serviceType);
-                } else {
-                    startForeground(1337, notification);
-                }
-            }
-
-            Message msg = mServiceHandler.obtainMessage();
-            msg.arg1 = startId;
-            msg.obj = intent.getExtras();
-            mServiceHandler.sendMessage(msg);
-        }
-        return START_REDELIVER_INTENT;
-    }
-
-    @Override
-    public void onDestroy() {
-        mServiceLooper.quit();
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+        return new NotificationCompat.Builder(context, channelId)
+                .setContentTitle(title)
+                .setSmallIcon(iconResId)
+                .setShowWhen(false)
+                .setCategory(Notification.CATEGORY_SERVICE)
+                .build();
     }
 
     public static void createChannels(Context context) {
@@ -1106,20 +1042,6 @@ public class AlertService extends Service {
             String retVal = ringtone;
             ringtone = EMPTY_RINGTONE;
             return retVal;
-        }
-    }
-
-    private final class ServiceHandler extends Handler {
-        public ServiceHandler(Looper looper) {
-            super(looper);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            processMessage(msg);
-            // NOTE: We MUST not call stopSelf() directly, since we need to
-            // make sure the wake lock acquired by AlertReceiver is released.
-            AlertReceiver.finishStartingService(AlertService.this, msg.arg1);
         }
     }
 }

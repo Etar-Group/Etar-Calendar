@@ -19,7 +19,6 @@ package com.android.calendar.alerts;
 
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -116,51 +115,6 @@ public class AlertReceiver extends BroadcastReceiver {
         HandlerThread thr = new HandlerThread("AlertReceiver async");
         thr.start();
         sAsyncHandler = new Handler(thr.getLooper());
-    }
-
-    /**
-     * Start the service to process the current event notifications, acquiring
-     * the wake lock before returning to ensure that the service will run.
-     */
-    public static void beginStartingService(Context context, Intent intent) {
-        synchronized (mStartingServiceSync) {
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-
-            if (mStartingService == null) {
-                mStartingService = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                        "Etar:StartingAlertService");
-                mStartingService.setReferenceCounted(false);
-            }
-            mStartingService.acquire();
-
-            if (pm.isIgnoringBatteryOptimizations(context.getPackageName())) {
-                if (Utils.isOreoOrLater()) {
-                    if (Utils.isUpsideDownCakeOrLater() && !Utils.canScheduleAlarms(context)) {
-                        return;
-                    }
-                    context.startForegroundService(intent);
-                } else {
-                    context.startService(intent);
-                }
-            } else {
-                Log.d(TAG, "Battery optimizations are not disabled");
-            }
-
-        }
-    }
-
-    /**
-     * Called back by the service when it has finished processing notifications,
-     * releasing the wake lock if the service is now stopping.
-     */
-    public static void finishStartingService(Service service, int startId) {
-        synchronized (mStartingServiceSync) {
-            if (mStartingService != null) {
-                if (service.stopSelfResult(startId)) {
-                    mStartingService.release();
-                }
-            }
-        }
     }
 
     private static PendingIntent createClickEventIntent(Context context, long eventId,
@@ -788,6 +742,8 @@ public class AlertReceiver extends BroadcastReceiver {
         if (context == null || intent.getAction() == null)
             return;
 
+        String action = intent.getAction();
+
         if (AlertService.DEBUG) {
             Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent);
         }
@@ -847,17 +803,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 context.startActivity(i);
             }
         } else {
-            Intent i = new Intent();
-            i.setClass(context, AlertService.class);
-            i.putExtras(intent);
-            i.putExtra("action", intent.getAction());
-            Uri uri = intent.getData();
-
-
-            if (uri != null) {
-                i.putExtra("uri", uri.toString());
-            }
-            beginStartingService(context, i);
+            AlertUtils.scheduleAlertWorker(context, action);
         }
     }
 
