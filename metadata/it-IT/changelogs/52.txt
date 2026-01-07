@@ -1,0 +1,4 @@
+- Corretto il taping sull'evento dal widget evento di apertura.
+- Previeni crash della finestra quando l'attività viene distrutta
+- Ripristino di "6430-t-Clear_notification_after_event_ends
+- Correzione di errori
