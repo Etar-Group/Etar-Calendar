@@ -1,3 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">Awitay</string>
+    <string name="when_label">Melmi</string>
+    <string name="today">Ass-a</string>
+    <string name="tomorrow">Azekka</string>
+    <string name="no_reminder_label">Ula yiwen</string>
+    <string name="no_snooze_label">Ula yiwen</string>
+    <string name="agenda_view">Tasmektit</string>
+    <string name="day_view">Ass</string>
+    <string name="week_view">Imalas</string>
+    <string name="month_view">Ayyur</string>
+    <string name="share_label">Zuzer</string>
+    <string name="goto_today">Ass-a</string>
+    <string name="menu_preferences">Iɣewwaren</string>
+    <string name="menu_info">Talɣut</string>
+    <string name="search">Nadi</string>
+    <string name="hint_where">Adeg</string>
+    <string name="hint_description">Aglam</string>
+    <string name="hint_url">URL</string>
+    <string name="hint_attendees">Inebgiwen</string>
+    <string name="create_event_dialog_save">Sekles</string>
+    <string name="edit_event_calendar_label">Awitay</string>
+    <string name="privacy_label">Tabaḍnit</string>
+    <string name="response_yes">Ih</string>
+    <string name="response_maybe">Ahat</string>
+    <string name="response_no">Uhu</string>
+    <string name="map_label">Takarḍa</string>
+    <string name="call_label">Siwel</string>
+    <string name="event_info_reminders_label">Ismektiyen</string>
+    <string name="loading">Yessalay-d…</string>
+    <string name="edit_event_label">Talqayt</string>
+    <string name="edit_label">Ẓreg</string>
+    <string name="delete_label">Kkes</string>
+    <string name="duplicate_label">Sisleg</string>
+    <string name="save_label">Yemmed</string>
+    <string name="discard_label">Semmet</string>
+    <string name="monthly">Yal ayyur</string>
+    <string name="yearly_plain">Yal aseggas</string>
+    <string name="preferences_title">Iɣewwaren</string>
+    <string name="preferences_theme">Asentel</string>
+    <string name="preferences_light_theme">Aceɛlal</string>
+    <string name="preferences_dark_theme">Ubrik</string>
+    <string name="preferences_black_theme">Aberkan</string>
+    <string name="preferences_alerts_vibrateWhen_title">Argigi</string>
+    <string name="preferences_default_reminder_default">10</string>
+    <string name="authors">Imeskaren</string>
+    <string name="license">Turagt</string>
+    <string name="source_code">Aɣbalu</string>
+    <string name="accessibility_reminder_privacy">Tabaḍnit</string>
+    <string name="preferences_calendar_color">Ini</string>
+    <string name="preferences_calendar_delete_cancel">Semmet</string>
+    <string name="preferences_list_add_offline_name">Isem</string>
+    <string name="preferences_list_add_offline_cancel">Semmet</string>
+    <string name="calendars">Iwitayen</string>
+    <string name="cancel">Semmet</string>
+    <string name="palestine_display_name">Falasṭin</string>
+    <string name="chips_action_cancel">Semmet</string>
+    <string name="two_days">2 n wussan</string>
+    <string name="three_days">3 n wussan</string>
+    <string name="four_days">4 n wussan</string>
+    <string name="five_days">5 n wussan</string>
+    <string name="six_days">6 n wussan</string>
+    <string name="seven_days">7 n wussan</string>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> n wass</item>
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> n wussan</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> n useggas</item>
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> n iseggasen</item>
+    </plurals>
+    <string name="view_event_calendar_label">Awitay:</string>
+    <string name="visibility_private">Uslig</string>
+    <string name="visibility_public">Azayaz</string>
+    <string name="chips_action_copy">Nɣel</string>
+    <string name="no_title_label">(war azwel)</string>
+    <string name="edit_event_all_day_label">Ass kamel</string>
+    <string name="reminders_label">Rnu yiwen n usmekti</string>
+    <string name="no_syncable_calendars">Ulac iwitayen</string>
+    <string name="add_calendar">Rnu awitay</string>
+    <string name="calendar_color_picker_dialog_title">Ini n uwitay</string>
+    <string name="calendar_square_color_picker_description">Fren ini</string>
+    <string name="preferences_calendar_account">Amiḍan %1$s</string>
+    <string name="preferences_calendar_color_warning_button">Gziɣ</string>
+    <string name="preferences_calendar_delete_delete">Kkes awitay</string>
+    <string name="preferences_list_general">Iɣewwaren imuta</string>
+    <string name="preferences_list_add_offline_button">Rnu awitay</string>
+    <string name="preferences_menu_about">Ɣef Etar</string>
+    <string name="offline_account_name">Awitay bu war tuqqna</string>
+    <string name="preferences_list_add_remote">Rnu yiwen n uwitay n CalDAV</string>
+    <string name="preferences_list_add_remote_etesync">Rnu yiwen n uwitay n EteSync</string>
+    <string name="preferences_list_add_offline">Rnu yiwen n uwitay bu war tuqqna</string>
+    <string name="preferences_list_add_offline_title">Rnu yiwen n uwitay bu war tuqqna</string>
+    <string name="hint_time_zone_search">Aru isem n tmurt</string>
+    <string name="no_results_found">Ulac igmaḍ yettwafen</string>
+    <string name="copy_email">Nɣel tansa n yimayl</string>
+    <string name="copy_number">Nɣel uṭṭun n tiliɣri</string>
+    <string name="today_at_time_fmt">Ass-a ɣef <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt">Azekka ɣef <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
 </resources>
