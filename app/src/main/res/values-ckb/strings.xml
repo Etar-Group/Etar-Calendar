@@ -182,4 +182,24 @@
     <string name="hint_time_zone_search">ناوی وڵات بنووسە</string>
     <string name="palestine_display_name">فەڵەستین</string>
     <string name="more_string">+<xliff:g id="count">%1$d</xliff:g></string>
+    <string name="chips_action_copy">لەبەرگرتنەوە</string>
+    <string name="chips_action_cancel">پاشگەزبوونەوە</string>
+    <string name="preferences_list_calendar_summary_sync_off">هاودەم نەکراوە</string>
+    <string name="visibility_private">تایبەت</string>
+    <string name="visibility_public">گشتی</string>
+    <string name="source_code">کۆدی ژێدەر</string>
+    <string name="license">مۆڵەت</string>
+    <string name="preferences_issues">هەواڵدان لە کێشەیەک</string>
+    <string name="accessibility_pick_start_date">ڕێکەوتی دەستپێک</string>
+    <string name="accessibility_pick_start_time">کاتی دەستپێک</string>
+    <string name="accessibility_pick_end_date">ڕێکەوتی کۆتاییهاتن</string>
+    <string name="accessibility_pick_end_time">کاتی کۆتاییهاتن</string>
+    <string name="accessibility_pick_time_zone">ناوچەی کات</string>
+    <string name="accessibility_reminder_privacy">تایبەتمەندێتی</string>
+    <string name="day_view_new_event_hint">+ بۆنەیەکی نوێ</string>
+    <string name="visibility_default">بنەڕەت</string>
+    <string name="preferences_calendar_synchronize">ئەم ساڵنامەیە هاودەم بکە</string>
+    <string name="copy_email">ئیمێڵەکە لەبەربگرەوە</string>
+    <string name="copy_number">ژمارەی پەیوەندییەکە لەبەربگرەوە</string>
+    <string name="action_label">گەڕانەوە</string>
 </resources>
