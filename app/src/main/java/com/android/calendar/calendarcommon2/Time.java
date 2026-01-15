@@ -212,6 +212,7 @@ public class Time {
     }
 
     public void switchTimezone(String timezone) {
+        this.timezone = timezone;
         long msBefore = mCalendar.getTimeInMillis();
         mCalendar.setTimeZone(TimeZone.getTimeZone(timezone));
         mCalendar.setTimeInMillis(msBefore);
