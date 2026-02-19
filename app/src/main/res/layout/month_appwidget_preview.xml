@@ -76,41 +76,105 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="1" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="2" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="3" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="4" android:textColor="@color/month_day_number" />
-        <!-- Day 5 with event -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical">
+        <!-- Day 1 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:gravity="center" android:textSize="11sp"
-                android:text="5" android:textColor="@color/month_day_number" />
-            <TextView android:layout_width="match_parent" android:layout_height="11dip"
-                android:layout_marginTop="1dip" android:layout_marginStart="1dip"
-                android:layout_marginEnd="1dip" android:background="@color/colorAccent"
-                android:text="Gym" android:textSize="8sp" android:textColor="@android:color/white"
-                android:maxLines="1" android:gravity="center_vertical"
-                android:paddingStart="2dip" android:paddingEnd="1dip" />
-        </LinearLayout>
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="6" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="7" android:textColor="@color/month_day_number" />
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="1" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 2 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="2" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 3 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="3" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 4 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="4" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 5 with event -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip" android:paddingBottom="1dip">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="5" android:textColor="@color/month_day_number" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="11dip"
+                    android:layout_marginTop="1dip" android:orientation="horizontal">
+                    <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                        android:background="@color/colorAccent" />
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:textSize="8sp" android:text="Gym" android:maxLines="1"
+                        android:ellipsize="end" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="2dip" android:paddingEnd="1dip" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 6 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="6" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 7 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="7" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
     </LinearLayout>
 
     <!-- Week 2 -->
@@ -118,47 +182,115 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="8" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="9" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="10" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="11" android:textColor="@color/month_day_number" />
-        <!-- Day 12 with two events -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical">
+        <!-- Day 8 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:gravity="center" android:textSize="11sp"
-                android:text="12" android:textColor="@color/month_day_number" />
-            <TextView android:layout_width="match_parent" android:layout_height="11dip"
-                android:layout_marginTop="1dip" android:layout_marginStart="1dip"
-                android:layout_marginEnd="1dip" android:background="#FF4285F4"
-                android:text="Meeting" android:textSize="8sp" android:textColor="@android:color/white"
-                android:maxLines="1" android:gravity="center_vertical"
-                android:paddingStart="2dip" android:paddingEnd="1dip" />
-            <TextView android:layout_width="match_parent" android:layout_height="11dip"
-                android:layout_marginTop="1dip" android:layout_marginStart="1dip"
-                android:layout_marginEnd="1dip" android:background="#FFEA4335"
-                android:text="Lunch" android:textSize="8sp" android:textColor="@android:color/white"
-                android:maxLines="1" android:gravity="center_vertical"
-                android:paddingStart="2dip" android:paddingEnd="1dip" />
-        </LinearLayout>
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="13" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="14" android:textColor="@color/month_day_number" />
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="8" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 9 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="9" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 10 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="10" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 11 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="11" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 12 with two events -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip" android:paddingBottom="1dip">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="12" android:textColor="@color/month_day_number" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="11dip"
+                    android:layout_marginTop="1dip" android:orientation="horizontal">
+                    <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                        android:background="#FF4285F4" />
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:textSize="8sp" android:text="Meeting" android:maxLines="1"
+                        android:ellipsize="end" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="2dip" android:paddingEnd="1dip" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="11dip"
+                    android:layout_marginTop="1dip" android:orientation="horizontal">
+                    <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                        android:background="#FFEA4335" />
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:textSize="8sp" android:text="Lunch" android:maxLines="1"
+                        android:ellipsize="end" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="2dip" android:paddingEnd="1dip" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 13 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="13" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 14 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="14" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
     </LinearLayout>
 
     <!-- Week 3 (today = 19) -->
@@ -166,36 +298,97 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="15" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="16" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="17" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="18" android:textColor="@color/month_day_number" />
-        <!-- Day 19: today -->
-        <FrameLayout android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center">
-            <TextView android:layout_width="20dip" android:layout_height="20dip"
-                android:layout_gravity="center" android:gravity="center"
-                android:textSize="11sp" android:text="19"
-                android:textColor="@android:color/white"
-                android:background="@drawable/month_widget_today_circle" />
+        <!-- Day 15 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="15" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
         </FrameLayout>
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="20" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="21" android:textColor="@color/month_day_number" />
+        <!-- Day 16 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="16" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 17 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="17" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 18 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="18" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 19: today -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip" android:paddingBottom="1dip">
+                <TextView android:layout_width="20dip" android:layout_height="20dip"
+                    android:layout_gravity="center" android:gravity="center"
+                    android:textSize="11sp" android:text="19"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/month_widget_today_circle" />
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 20 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="20" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 21 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="21" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
     </LinearLayout>
 
     <!-- Week 4 -->
@@ -203,41 +396,105 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="22" android:textColor="@color/month_day_number" />
-        <!-- Day 23 with event -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical">
+        <!-- Day 22 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:gravity="center" android:textSize="11sp"
-                android:text="23" android:textColor="@color/month_day_number" />
-            <TextView android:layout_width="match_parent" android:layout_height="11dip"
-                android:layout_marginTop="1dip" android:layout_marginStart="1dip"
-                android:layout_marginEnd="1dip" android:background="#FF34A853"
-                android:text="Dentist" android:textSize="8sp" android:textColor="@android:color/white"
-                android:maxLines="1" android:gravity="center_vertical"
-                android:paddingStart="2dip" android:paddingEnd="1dip" />
-        </LinearLayout>
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="24" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="25" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="26" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="27" android:textColor="@color/month_day_number" />
-        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
-            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
-            android:text="28" android:textColor="@color/month_day_number" />
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="22" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 23 with event -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip" android:paddingBottom="1dip">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="23" android:textColor="@color/month_day_number" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="11dip"
+                    android:layout_marginTop="1dip" android:orientation="horizontal">
+                    <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                        android:background="#FF34A853" />
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:textSize="8sp" android:text="Dentist" android:maxLines="1"
+                        android:ellipsize="end" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="2dip" android:paddingEnd="1dip" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 24 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="24" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 25 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="25" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 26 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="26" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 27 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="27" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
+        <!-- Day 28 -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="28" android:textColor="@color/month_day_number"
+                android:paddingTop="1dip" />
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+            <TextView android:layout_width="match_parent" android:layout_height="1dip"
+                android:layout_gravity="bottom" android:background="@color/month_grid_lines" />
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>

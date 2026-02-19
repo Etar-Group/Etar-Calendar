@@ -79,103 +79,142 @@
         android:orientation="horizontal">
 
         <!-- Sun 15 -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical" android:paddingTop="1dip">
-            <TextView android:layout_width="18dip" android:layout_height="18dip"
-                android:gravity="center" android:textSize="11sp"
-                android:text="15" android:textColor="@color/month_day_number" />
-        </LinearLayout>
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip">
+                <TextView android:layout_width="18dip" android:layout_height="18dip"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="15" android:textColor="@color/month_day_number" />
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+        </FrameLayout>
 
         <!-- Mon 16 with event -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical" android:paddingTop="1dip">
-            <TextView android:layout_width="18dip" android:layout_height="18dip"
-                android:gravity="center" android:textSize="11sp"
-                android:text="16" android:textColor="@color/month_day_number" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="14dip"
-                android:layout_marginTop="1dip" android:orientation="horizontal">
-                <TextView android:layout_width="3dip" android:layout_height="match_parent"
-                    android:background="#FF4285F4" />
-                <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
-                    android:textSize="7sp" android:text="9:00" android:gravity="center_vertical"
-                    android:textColor="@color/month_day_number"
-                    android:paddingStart="2dip" android:paddingEnd="1dip" />
-                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:textSize="8sp" android:text="Standup" android:maxLines="1"
-                    android:ellipsize="end" android:gravity="center_vertical"
-                    android:textColor="@color/month_day_number"
-                    android:paddingStart="1dip" android:paddingEnd="1dip" />
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip">
+                <TextView android:layout_width="18dip" android:layout_height="18dip"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="16" android:textColor="@color/month_day_number" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="14dip"
+                    android:layout_marginTop="1dip" android:orientation="horizontal">
+                    <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                        android:background="#FF4285F4" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                        android:textSize="7sp" android:text="9:00" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="2dip" android:paddingEnd="1dip" />
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:textSize="8sp" android:text="Standup" android:maxLines="1"
+                        android:ellipsize="end" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="1dip" android:paddingEnd="1dip" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+        </FrameLayout>
 
         <!-- Tue 17 -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical" android:paddingTop="1dip">
-            <TextView android:layout_width="18dip" android:layout_height="18dip"
-                android:gravity="center" android:textSize="11sp"
-                android:text="17" android:textColor="@color/month_day_number" />
-        </LinearLayout>
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip">
+                <TextView android:layout_width="18dip" android:layout_height="18dip"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="17" android:textColor="@color/month_day_number" />
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+        </FrameLayout>
 
-        <!-- Wed 18 with events -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical" android:paddingTop="1dip">
-            <TextView android:layout_width="18dip" android:layout_height="18dip"
-                android:gravity="center" android:textSize="11sp"
-                android:text="18" android:textColor="@color/month_day_number" />
-            <TextView android:layout_width="match_parent" android:layout_height="14dip"
-                android:layout_marginTop="1dip" android:layout_marginStart="1dip"
-                android:layout_marginEnd="1dip" android:background="@color/colorAccent"
-                android:text="Holiday" android:textSize="8sp" android:textColor="@android:color/white"
-                android:maxLines="1" android:gravity="center_vertical"
-                android:paddingStart="2dip" android:paddingEnd="1dip" />
-        </LinearLayout>
+        <!-- Wed 18 with event -->
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip">
+                <TextView android:layout_width="18dip" android:layout_height="18dip"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="18" android:textColor="@color/month_day_number" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="14dip"
+                    android:layout_marginTop="1dip" android:orientation="horizontal">
+                    <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                        android:background="@color/colorAccent" />
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:textSize="8sp" android:text="Holiday" android:maxLines="1"
+                        android:ellipsize="end" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="2dip" android:paddingEnd="1dip" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+        </FrameLayout>
 
         <!-- Thu 19: today -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical" android:paddingTop="1dip">
-            <TextView android:layout_width="18dip" android:layout_height="18dip"
-                android:layout_gravity="center_horizontal" android:gravity="center"
-                android:textSize="11sp" android:text="19"
-                android:textColor="@android:color/white"
-                android:background="@drawable/month_widget_today_circle" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="14dip"
-                android:layout_marginTop="1dip" android:orientation="horizontal">
-                <TextView android:layout_width="3dip" android:layout_height="match_parent"
-                    android:background="#FFEA4335" />
-                <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
-                    android:textSize="7sp" android:text="2:00" android:gravity="center_vertical"
-                    android:textColor="@color/month_day_number"
-                    android:paddingStart="2dip" android:paddingEnd="1dip" />
-                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:textSize="8sp" android:text="Dentist" android:maxLines="1"
-                    android:ellipsize="end" android:gravity="center_vertical"
-                    android:textColor="@color/month_day_number"
-                    android:paddingStart="1dip" android:paddingEnd="1dip" />
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip">
+                <TextView android:layout_width="18dip" android:layout_height="18dip"
+                    android:layout_gravity="center_horizontal" android:gravity="center"
+                    android:textSize="11sp" android:text="19"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/month_widget_today_circle" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="14dip"
+                    android:layout_marginTop="1dip" android:orientation="horizontal">
+                    <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                        android:background="#FFEA4335" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                        android:textSize="7sp" android:text="2:00" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="2dip" android:paddingEnd="1dip" />
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:textSize="8sp" android:text="Dentist" android:maxLines="1"
+                        android:ellipsize="end" android:gravity="center_vertical"
+                        android:textColor="@color/month_day_number"
+                        android:paddingStart="1dip" android:paddingEnd="1dip" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+        </FrameLayout>
 
         <!-- Fri 20 -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical" android:paddingTop="1dip">
-            <TextView android:layout_width="18dip" android:layout_height="18dip"
-                android:gravity="center" android:textSize="11sp"
-                android:text="20" android:textColor="@color/month_day_number" />
-        </LinearLayout>
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip">
+                <TextView android:layout_width="18dip" android:layout_height="18dip"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="20" android:textColor="@color/month_day_number" />
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+        </FrameLayout>
 
         <!-- Sat 21 -->
-        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
-            android:layout_weight="1" android:gravity="center_horizontal"
-            android:orientation="vertical" android:paddingTop="1dip">
-            <TextView android:layout_width="18dip" android:layout_height="18dip"
-                android:gravity="center" android:textSize="11sp"
-                android:text="21" android:textColor="@color/month_day_number" />
-        </LinearLayout>
+        <FrameLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center_horizontal" android:orientation="vertical"
+                android:paddingTop="1dip">
+                <TextView android:layout_width="18dip" android:layout_height="18dip"
+                    android:gravity="center" android:textSize="11sp"
+                    android:text="21" android:textColor="@color/month_day_number" />
+            </LinearLayout>
+            <TextView android:layout_width="1dip" android:layout_height="match_parent"
+                android:layout_gravity="end" android:background="@color/month_grid_lines" />
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>
