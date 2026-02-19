@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2026 The Etar Project
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:minHeight="40dip"
+        android:orientation="horizontal"
+        android:paddingStart="12dip"
+        android:paddingEnd="12dip">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Feb 15 - 21, 2026"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Day-of-week labels -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="4dip"
+        android:paddingBottom="4dip">
+
+        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
+            android:textColor="@color/month_day_names_color" android:text="SU" />
+        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
+            android:textColor="@color/month_day_names_color" android:text="MO" />
+        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
+            android:textColor="@color/month_day_names_color" android:text="TU" />
+        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
+            android:textColor="@color/month_day_names_color" android:text="WE" />
+        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
+            android:textColor="@color/month_day_names_color" android:text="TH" />
+        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
+            android:textColor="@color/month_day_names_color" android:text="FR" />
+        <TextView android:layout_width="0dip" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center" android:textSize="11sp"
+            android:textColor="@color/month_day_names_color" android:text="SA" />
+    </LinearLayout>
+
+    <!-- Single week row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- Sun 15 -->
+        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center_horizontal"
+            android:orientation="vertical" android:paddingTop="1dip">
+            <TextView android:layout_width="18dip" android:layout_height="18dip"
+                android:gravity="center" android:textSize="11sp"
+                android:text="15" android:textColor="@color/month_day_number" />
+        </LinearLayout>
+
+        <!-- Mon 16 with event -->
+        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center_horizontal"
+            android:orientation="vertical" android:paddingTop="1dip">
+            <TextView android:layout_width="18dip" android:layout_height="18dip"
+                android:gravity="center" android:textSize="11sp"
+                android:text="16" android:textColor="@color/month_day_number" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="14dip"
+                android:layout_marginTop="1dip" android:orientation="horizontal">
+                <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                    android:background="#FF4285F4" />
+                <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    android:textSize="7sp" android:text="9:00" android:gravity="center_vertical"
+                    android:textColor="@color/month_day_number"
+                    android:paddingStart="2dip" android:paddingEnd="1dip" />
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:textSize="8sp" android:text="Standup" android:maxLines="1"
+                    android:ellipsize="end" android:gravity="center_vertical"
+                    android:textColor="@color/month_day_number"
+                    android:paddingStart="1dip" android:paddingEnd="1dip" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Tue 17 -->
+        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center_horizontal"
+            android:orientation="vertical" android:paddingTop="1dip">
+            <TextView android:layout_width="18dip" android:layout_height="18dip"
+                android:gravity="center" android:textSize="11sp"
+                android:text="17" android:textColor="@color/month_day_number" />
+        </LinearLayout>
+
+        <!-- Wed 18 with events -->
+        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center_horizontal"
+            android:orientation="vertical" android:paddingTop="1dip">
+            <TextView android:layout_width="18dip" android:layout_height="18dip"
+                android:gravity="center" android:textSize="11sp"
+                android:text="18" android:textColor="@color/month_day_number" />
+            <TextView android:layout_width="match_parent" android:layout_height="14dip"
+                android:layout_marginTop="1dip" android:layout_marginStart="1dip"
+                android:layout_marginEnd="1dip" android:background="@color/colorAccent"
+                android:text="Holiday" android:textSize="8sp" android:textColor="@android:color/white"
+                android:maxLines="1" android:gravity="center_vertical"
+                android:paddingStart="2dip" android:paddingEnd="1dip" />
+        </LinearLayout>
+
+        <!-- Thu 19: today -->
+        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center_horizontal"
+            android:orientation="vertical" android:paddingTop="1dip">
+            <TextView android:layout_width="18dip" android:layout_height="18dip"
+                android:layout_gravity="center_horizontal" android:gravity="center"
+                android:textSize="11sp" android:text="19"
+                android:textColor="@android:color/white"
+                android:background="@drawable/month_widget_today_circle" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="14dip"
+                android:layout_marginTop="1dip" android:orientation="horizontal">
+                <TextView android:layout_width="3dip" android:layout_height="match_parent"
+                    android:background="#FFEA4335" />
+                <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    android:textSize="7sp" android:text="2:00" android:gravity="center_vertical"
+                    android:textColor="@color/month_day_number"
+                    android:paddingStart="2dip" android:paddingEnd="1dip" />
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:textSize="8sp" android:text="Dentist" android:maxLines="1"
+                    android:ellipsize="end" android:gravity="center_vertical"
+                    android:textColor="@color/month_day_number"
+                    android:paddingStart="1dip" android:paddingEnd="1dip" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Fri 20 -->
+        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center_horizontal"
+            android:orientation="vertical" android:paddingTop="1dip">
+            <TextView android:layout_width="18dip" android:layout_height="18dip"
+                android:gravity="center" android:textSize="11sp"
+                android:text="20" android:textColor="@color/month_day_number" />
+        </LinearLayout>
+
+        <!-- Sat 21 -->
+        <LinearLayout android:layout_width="0dip" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center_horizontal"
+            android:orientation="vertical" android:paddingTop="1dip">
+            <TextView android:layout_width="18dip" android:layout_height="18dip"
+                android:gravity="center" android:textSize="11sp"
+                android:text="21" android:textColor="@color/month_day_number" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
