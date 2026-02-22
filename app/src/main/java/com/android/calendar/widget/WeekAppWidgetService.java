@@ -19,8 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.CalendarContract.Attendees;
-import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -36,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import ws.xsoh.etar.R;
 
@@ -68,10 +67,6 @@ public class WeekAppWidgetService extends RemoteViewsService {
         private static final int INDEX_END_DAY = 5;
         private static final int INDEX_SELF_ATTENDEE_STATUS = 6;
 
-        private static final String SELECTION_VISIBLE = Calendars.VISIBLE + "=1";
-        private static final String SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
-                + Instances.SELF_ATTENDEE_STATUS + "!="
-                + Attendees.ATTENDEE_STATUS_DECLINED;
         private static final String SORT_ORDER = Instances.ALL_DAY + " DESC, "
                 + Instances.START_MINUTE + " ASC, "
                 + Instances.TITLE + " ASC";
@@ -131,7 +126,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
 
             // Grid line borders — right border on all except last column
             int gridLineColor = DynamicThemeKt.getColor(mContext, "month_grid_lines");
-            boolean lastColumn = (position == 6);
+            boolean lastColumn = (position == BaseGridWidgetProvider.DAYS_PER_WEEK - 1);
 
             if (lastColumn) {
                 views.setViewVisibility(R.id.week_cell_border_right, View.GONE);
@@ -311,7 +306,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
             long startMillis = mModel.mDays.get(0).timeMillis;
             // End of week: start of the day after last day
             Calendar endCal = Calendar.getInstance();
-            endCal.setTimeInMillis(mModel.mDays.get(6).timeMillis);
+            endCal.setTimeInMillis(mModel.mDays.get(BaseGridWidgetProvider.DAYS_PER_WEEK - 1).timeMillis);
             endCal.add(Calendar.DAY_OF_MONTH, 1);
             long endMillis = endCal.getTimeInMillis();
 
@@ -324,15 +319,16 @@ public class WeekAppWidgetService extends RemoteViewsService {
             boolean is24h = DateFormat.is24HourFormat(mContext);
 
             String selection = Utils.getHideDeclinedEvents(mContext)
-                    ? SELECTION_HIDE_DECLINED : SELECTION_VISIBLE;
+                    ? BaseGridWidgetProvider.SELECTION_HIDE_DECLINED
+                    : BaseGridWidgetProvider.SELECTION_VISIBLE;
 
             Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
                     Long.toString(startMillis) + "/" + Long.toString(endMillis));
 
             // One list per day
             @SuppressWarnings("unchecked")
-            List<WeekAppWidgetModel.EventInfo>[] eventsByDay = new List[7];
-            for (int i = 0; i < 7; i++) {
+            List<WeekAppWidgetModel.EventInfo>[] eventsByDay = new List[BaseGridWidgetProvider.DAYS_PER_WEEK];
+            for (int i = 0; i < BaseGridWidgetProvider.DAYS_PER_WEEK; i++) {
                 eventsByDay[i] = new ArrayList<>();
             }
 
@@ -363,7 +359,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
 
                         // Determine which days in the week this event falls on
                         int fromDayIndex = Math.max(0, eventStartDay - weekStartJulianDay);
-                        int toDayIndex = Math.min(6, eventEndDay - weekStartJulianDay);
+                        int toDayIndex = Math.min(BaseGridWidgetProvider.DAYS_PER_WEEK - 1, eventEndDay - weekStartJulianDay);
 
                         for (int dayIdx = fromDayIndex; dayIdx <= toDayIndex; dayIdx++) {
                             // Show time label only on the start day
@@ -382,7 +378,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
             }
 
             // Sort each day: all-day/multi-day first, then timed by startMinute
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < BaseGridWidgetProvider.DAYS_PER_WEEK; i++) {
                 Collections.sort(eventsByDay[i], (a, b) -> {
                     if (a.isAllDay != b.isAllDay) {
                         return a.isAllDay ? -1 : 1;
@@ -392,8 +388,8 @@ public class WeekAppWidgetService extends RemoteViewsService {
             }
 
             // Attach events to the model days
-            List<WeekAppWidgetModel.DayInfo> updatedDays = new ArrayList<>(7);
-            for (int i = 0; i < 7; i++) {
+            List<WeekAppWidgetModel.DayInfo> updatedDays = new ArrayList<>(BaseGridWidgetProvider.DAYS_PER_WEEK);
+            for (int i = 0; i < BaseGridWidgetProvider.DAYS_PER_WEEK; i++) {
                 WeekAppWidgetModel.DayInfo original = mModel.mDays.get(i);
                 if (eventsByDay[i].isEmpty()) {
                     updatedDays.add(original);
@@ -408,10 +404,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
             int hour = startMinute / 60;
             int minute = startMinute % 60;
             if (is24h) {
-                if (minute == 0) {
-                    return String.valueOf(hour) + ":00";
-                }
-                return String.valueOf(hour) + ":" + (minute < 10 ? "0" : "") + minute;
+                return String.format(Locale.getDefault(), "%d:%02d", hour, minute);
             } else {
                 String amPm = hour < 12 ? "a" : "p";
                 int displayHour = hour % 12;
@@ -419,7 +412,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
                 if (minute == 0) {
                     return displayHour + amPm;
                 }
-                return displayHour + ":" + (minute < 10 ? "0" : "") + minute + amPm;
+                return String.format(Locale.getDefault(), "%d:%02d%s", displayHour, minute, amPm);
             }
         }
     }

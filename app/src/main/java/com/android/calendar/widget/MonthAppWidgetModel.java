@@ -23,8 +23,6 @@ import java.util.Map;
 
 class MonthAppWidgetModel {
 
-    private static final int DAYS_PER_WEEK = 7;
-
     final List<CellInfo> mCells;
 
     private MonthAppWidgetModel(List<CellInfo> cells) {
@@ -60,12 +58,12 @@ class MonthAppWidgetModel {
         int firstDow = cal.get(Calendar.DAY_OF_WEEK);
 
         // How many cells from the previous month do we need?
-        int offset = (firstDow - firstDayOfWeek + DAYS_PER_WEEK) % DAYS_PER_WEEK;
+        int offset = (firstDow - firstDayOfWeek + BaseGridWidgetProvider.DAYS_PER_WEEK) % BaseGridWidgetProvider.DAYS_PER_WEEK;
 
         // Calculate total rows needed (round up to full weeks)
         int totalCells = offset + daysInMonth;
-        int rows = (totalCells + DAYS_PER_WEEK - 1) / DAYS_PER_WEEK;
-        int gridSize = rows * DAYS_PER_WEEK;
+        int rows = (totalCells + BaseGridWidgetProvider.DAYS_PER_WEEK - 1) / BaseGridWidgetProvider.DAYS_PER_WEEK;
+        int gridSize = rows * BaseGridWidgetProvider.DAYS_PER_WEEK;
 
         // Previous month info
         cal.add(Calendar.MONTH, -1);
@@ -83,19 +81,27 @@ class MonthAppWidgetModel {
 
         List<CellInfo> cells = new ArrayList<>(gridSize);
 
-        List<EventChip> emptyChips = Collections.<EventChip>emptyList();
+        List<EventChip> emptyChips = Collections.emptyList();
+
+        // Template calendar for getTimeMillis — cloned per call to avoid repeated allocation
+        Calendar template = Calendar.getInstance();
+        template.clear();
+        template.set(Calendar.HOUR_OF_DAY, 0);
+        template.set(Calendar.MINUTE, 0);
+        template.set(Calendar.SECOND, 0);
+        template.set(Calendar.MILLISECOND, 0);
 
         // Fill previous month overflow cells
         for (int i = 0; i < offset; i++) {
             int day = prevMonthDays - offset + 1 + i;
-            long millis = getTimeMillis(prevYear, prevMonth, day);
+            long millis = getTimeMillis(template, prevYear, prevMonth, day);
             cells.add(new CellInfo(day, false, false, millis, emptyChips));
         }
 
         // Fill current month cells
         for (int day = 1; day <= daysInMonth; day++) {
             boolean isToday = (year == todayYear && month == todayMonth && day == todayDay);
-            long millis = getTimeMillis(year, month, day);
+            long millis = getTimeMillis(template, year, month, day);
             List<EventChip> chips = (eventsByDay != null && eventsByDay.containsKey(day))
                     ? eventsByDay.get(day) : emptyChips;
             cells.add(new CellInfo(day, true, isToday, millis, chips));
@@ -104,7 +110,7 @@ class MonthAppWidgetModel {
         // Fill next month overflow cells to complete the last row
         int nextDay = 1;
         while (cells.size() < gridSize) {
-            long millis = getTimeMillis(nextYear, nextMonth, nextDay);
+            long millis = getTimeMillis(template, nextYear, nextMonth, nextDay);
             cells.add(new CellInfo(nextDay, false, false, millis, emptyChips));
             nextDay++;
         }
@@ -112,16 +118,11 @@ class MonthAppWidgetModel {
         return new MonthAppWidgetModel(cells);
     }
 
-    private static long getTimeMillis(int year, int month, int day) {
-        Calendar cal = Calendar.getInstance();
-        cal.clear();
+    private static long getTimeMillis(Calendar template, int year, int month, int day) {
+        Calendar cal = (Calendar) template.clone();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
         return cal.getTimeInMillis();
     }
 

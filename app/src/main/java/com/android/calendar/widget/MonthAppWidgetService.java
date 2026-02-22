@@ -19,8 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.CalendarContract.Attendees;
-import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
 import android.util.Log;
 import android.view.View;
@@ -66,10 +64,6 @@ public class MonthAppWidgetService extends RemoteViewsService {
         private static final int INDEX_END_DAY = 4;
         private static final int INDEX_ALL_DAY = 5;
 
-        private static final String SELECTION_VISIBLE = Calendars.VISIBLE + "=1";
-        private static final String SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
-                + Instances.SELF_ATTENDEE_STATUS + "!="
-                + Attendees.ATTENDEE_STATUS_DECLINED;
         private static final String SORT_ORDER = Instances.ALL_DAY + " DESC, "
                 + Instances.START_DAY + " ASC, "
                 + Instances.START_MINUTE + " ASC";
@@ -134,8 +128,8 @@ public class MonthAppWidgetService extends RemoteViewsService {
             // Grid line borders
             int gridLineColor = DynamicThemeKt.getColor(mContext, "month_grid_lines");
             int totalCells = mModel.mCells.size();
-            boolean lastColumn = (position % 7 == 6);
-            boolean lastRow = (position >= totalCells - 7);
+            boolean lastColumn = (position % BaseGridWidgetProvider.DAYS_PER_WEEK == BaseGridWidgetProvider.DAYS_PER_WEEK - 1);
+            boolean lastRow = (position >= totalCells - BaseGridWidgetProvider.DAYS_PER_WEEK);
 
             if (lastColumn) {
                 views.setViewVisibility(R.id.month_cell_border_right, View.GONE);
@@ -303,7 +297,7 @@ public class MonthAppWidgetService extends RemoteViewsService {
 
             // Calculate cell height to fill available grid space
             if (mGridHeightPx > 0 && mModel.mCells.size() > 0) {
-                int rows = mModel.mCells.size() / 7;
+                int rows = mModel.mCells.size() / BaseGridWidgetProvider.DAYS_PER_WEEK;
                 mCellHeightPx = mGridHeightPx / rows;
             } else {
                 mCellHeightPx = DEFAULT_CELL_HEIGHT_PX;
@@ -353,11 +347,12 @@ public class MonthAppWidgetService extends RemoteViewsService {
 
             // Compute grid start for row-boundary span type calculation
             int firstDow = start.get(Calendar.DAY_OF_WEEK);
-            int offset = (firstDow - firstDayOfWeek + 7) % 7;
+            int offset = (firstDow - firstDayOfWeek + BaseGridWidgetProvider.DAYS_PER_WEEK) % BaseGridWidgetProvider.DAYS_PER_WEEK;
             int gridStartJulianDay = monthStartJulianDay - offset;
 
             String selection = Utils.getHideDeclinedEvents(mContext)
-                    ? SELECTION_HIDE_DECLINED : SELECTION_VISIBLE;
+                    ? BaseGridWidgetProvider.SELECTION_HIDE_DECLINED
+                    : BaseGridWidgetProvider.SELECTION_VISIBLE;
 
             Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
                     Long.toString(startMillis) + "/" + Long.toString(endMillis));
@@ -395,11 +390,11 @@ public class MonthAppWidgetService extends RemoteViewsService {
                                 spanType = MonthAppWidgetModel.EventChip.SPAN_SINGLE;
                             } else {
                                 // Determine column in grid (0=first, 6=last)
-                                int col = (julianDay - gridStartJulianDay) % 7;
+                                int col = (julianDay - gridStartJulianDay) % BaseGridWidgetProvider.DAYS_PER_WEEK;
                                 boolean isFirst = julianDay == fromDay;
                                 boolean isLast = julianDay == toDay;
                                 boolean isRowStart = col == 0;
-                                boolean isRowEnd = col == 6;
+                                boolean isRowEnd = col == BaseGridWidgetProvider.DAYS_PER_WEEK - 1;
 
                                 if ((isFirst || isRowStart) && (isLast || isRowEnd)) {
                                     spanType = MonthAppWidgetModel.EventChip.SPAN_SINGLE;
