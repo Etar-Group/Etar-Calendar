@@ -17,25 +17,25 @@
     <string name="when_label" msgid="894636567327261599">"When"</string>
     <string name="today" msgid="8577375020252453006">"Today"</string>
     <string name="tomorrow" msgid="614434811813859237">"Tomorrow"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Today at <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Tomorrow at <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Today at <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Tomorrow at <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(No title)"</string>
     <plurals name="Nminutes">
-        <item msgid="4871052965772159239" quantity="one">"1 minute"</item>
-        <item msgid="5644461630927544936" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
+        <item quantity="one">1 minute</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> min</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nhours">
-        <item msgid="4793697728599296830" quantity="one">"1 hour"</item>
-        <item msgid="4477841052001760620" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> hours"</item>
+        <item quantity="one">1 hour</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
     </plurals>
     <plurals name="Ndays">
-        <item msgid="5988137255732166573" quantity="one">"1 day"</item>
-        <item msgid="1709378992389618261" quantity="other">"<xliff:g id="COUNT">%d</xliff:g> days"</item>
+        <item quantity="one">1 day</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> days</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Week <xliff:g id="count">%d</xliff:g></item>
@@ -111,8 +111,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">Yesterday, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Tomorrow, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Loading…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Touch to view events before <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Touch to view events after <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">Touch to view events before <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Touch to view events after <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">"Search my calendars"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Edit"</string>
@@ -122,7 +122,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Dismiss all"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Snooze"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"One-time event"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; until <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">; until <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item msgid="3727754565990691816" quantity="one">"; for one time"</item>
         <item msgid="4855496837834652446" quantity="other">"; for <xliff:g id="NUMBER">%d</xliff:g> times"</item>
@@ -360,7 +360,6 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Clear query"</string>
     <string name="no_results_found" msgid="5475293015394772651">"No results found"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestine"</string>
-
     <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
     <string name="copy_email" msgid="1084563757174121331">"Copy email address"</string>
     <string name="copy_number" msgid="8860802152973030914">"Copy phone number"</string>
