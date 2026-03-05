@@ -113,8 +113,8 @@
     <string name="event_info_organizer" msgid="9138683335394832629">Pořadatel:</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Připomenutí"</string>
     <string name="agenda_today" msgid="5965841338467422191">Dnes, <xliff:g id="date">%1$s</xliff:g></string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">Včera, <xliff:g id="DATE">%1$s</xliff:g></string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">Zítra, <xliff:g id="DATE">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Včera, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Zítra, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Načítání\u2026"</string>
     <string name="show_older_events" msgid="5140647493681439926">Dotykem zobrazíte události před obdobím <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
     <string name="show_newer_events" msgid="2604638815440163080">Dotykem zobrazíte události po období <xliff:g id="newest_search_range">%1$s</xliff:g></string>
@@ -153,7 +153,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Nová událost"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Nová událost"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Smazat tuto událost?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Smazat <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">Smazat <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Změnit odpověď"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Nastavení"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Nastavení zobrazení kalendáře"</string>
@@ -377,14 +377,13 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Smazat dotaz"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Nebyly nalezeny žádné výsledky"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
-
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"Kopírovat e-mailovou adresu"</string>
     <string name="copy_number" msgid="8860802152973030914">"Kopírovat telefonní číslo"</string>
     <string name="action_label" msgid="7172664623795021857">"Enter"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Otevřené návrhy kontaktů"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Nejsou k dispozici žádné návrhy"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Odstranit z příjemců kontakt <xliff:g id="CONTACT">%s</xliff:g>"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Odstranit z příjemců kontakt <xliff:g id="contact">%s</xliff:g></string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Kopírovat"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Zrušit"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Povolit návrhy kontaktů"</string>
