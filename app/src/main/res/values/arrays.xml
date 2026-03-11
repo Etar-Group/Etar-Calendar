@@ -490,4 +490,38 @@
         <item>"Curaçao"</item>
         <item>"South Sudan"</item>
     </string-array>
+
+    <array name="calendar_icons_dynamic" translatable="false">
+        <item>@drawable/logo_calendar_01_adaptive</item>
+        <item>@drawable/logo_calendar_02_adaptive</item>
+        <item>@drawable/logo_calendar_03_adaptive</item>
+        <item>@drawable/logo_calendar_04_adaptive</item>
+        <item>@drawable/logo_calendar_05_adaptive</item>
+        <item>@drawable/logo_calendar_06_adaptive</item>
+        <item>@drawable/logo_calendar_07_adaptive</item>
+        <item>@drawable/logo_calendar_08_adaptive</item>
+        <item>@drawable/logo_calendar_09_adaptive</item>
+        <item>@drawable/logo_calendar_10_adaptive</item>
+        <item>@drawable/logo_calendar_11_adaptive</item>
+        <item>@drawable/logo_calendar_12_adaptive</item>
+        <item>@drawable/logo_calendar_13_adaptive</item>
+        <item>@drawable/logo_calendar_14_adaptive</item>
+        <item>@drawable/logo_calendar_15_adaptive</item>
+        <item>@drawable/logo_calendar_16_adaptive</item>
+        <item>@drawable/logo_calendar_17_adaptive</item>
+        <item>@drawable/logo_calendar_18_adaptive</item>
+        <item>@drawable/logo_calendar_19_adaptive</item>
+        <item>@drawable/logo_calendar_20_adaptive</item>
+        <item>@drawable/logo_calendar_21_adaptive</item>
+        <item>@drawable/logo_calendar_22_adaptive</item>
+        <item>@drawable/logo_calendar_23_adaptive</item>
+        <item>@drawable/logo_calendar_24_adaptive</item>
+        <item>@drawable/logo_calendar_25_adaptive</item>
+        <item>@drawable/logo_calendar_26_adaptive</item>
+        <item>@drawable/logo_calendar_27_adaptive</item>
+        <item>@drawable/logo_calendar_28_adaptive</item>
+        <item>@drawable/logo_calendar_29_adaptive</item>
+        <item>@drawable/logo_calendar_30_adaptive</item>
+        <item>@drawable/logo_calendar_31_adaptive</item>
+    </array>
 </resources>
