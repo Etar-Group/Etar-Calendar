@@ -85,6 +85,11 @@
             <meta-data android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
 
+            <meta-data android:name="${applicationId}.dynamic_icons"
+                android:resource="@array/calendar_icons_dynamic" />
+            <meta-data android:name="com.teslacoilsw.launcher.calendarIconArray"
+                android:resource="@array/calendar_icons_dynamic" />
+
         </activity>
 
         <activity-alias android:name="com.android.calendar.LaunchActivity"
