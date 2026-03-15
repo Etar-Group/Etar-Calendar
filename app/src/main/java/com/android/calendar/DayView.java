@@ -87,6 +87,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -3133,6 +3134,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         selectionArea.right = selectionArea.left + cellWidth;
 
         final ArrayList<Event> events = mEvents;
+
+        // Sort events by column, so they are drawn in order of column. This
+        // leads to events with the higher column number being drawn last, which
+        // ensures proper z-sorting when multiple events overlap.
+        events.sort(Comparator.comparingInt(Event::getColumn));
+
         int numEvents = events.size();
         EventGeometry geometry = mEventGeometry;
 
@@ -3163,6 +3170,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (r.top > viewEndY || r.bottom < mViewStartY) {
                 continue;
             }
+
             StaticLayout layout = getEventLayout(mLayouts, i, event, eventTextPaint, r);
             // TODO: not sure why we are 4 pixels off
             drawEventText(layout, r, canvas, mViewStartY + 4, mViewStartY + mViewHeight
@@ -4762,16 +4770,24 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // If there are any events in the selected region, then assign the
         // closest one to mSelectedEvent.
-        if (mSelectedEvents.size() > 0) {
+        if (!mSelectedEvents.isEmpty()) {
             int len = mSelectedEvents.size();
             Event closestEvent = null;
             float minDist = mViewWidth + mViewHeight; // some large distance
+            float maxCol = -99999;
             for (int index = 0; index < len; index++) {
                 Event ev = mSelectedEvents.get(index);
+
+                // dist will yield 0.0 for all events overlapping each other.
+                // In order to select the correct one we use the topmost event (i.e. the one with
+                // the highest col value!
+
                 float dist = geometry.pointToEvent(x, y, ev);
-                if (dist < minDist) {
+                float col  = ev.getColumn();
+                if (dist <= minDist && col > maxCol) {
                     minDist = dist;
                     closestEvent = ev;
+                    maxCol = col;
                 }
             }
             setSelectedEvent(closestEvent);
