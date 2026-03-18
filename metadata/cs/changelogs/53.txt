@@ -1,0 +1,6 @@
+- Oprava duplicitních oznámení o narozeninách kontaktů
+- Oprava kompatibility CalDAV u opakujících se událostí
+- Využití WorkManageru pro lepší zpracování oznámení
+- Změna tmavé barvy pro lepší kontrast
+- Oprava chyby „Barvy černého motivu nebyly načteny“
+- Opravy chyb
