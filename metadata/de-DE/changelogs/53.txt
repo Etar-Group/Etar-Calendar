@@ -1,0 +1,6 @@
+- Doppelte Benachrichtigungen für Kontakt-Geburtstage korrigiert
+- CalDAV-Kompatibilität für wiederkehrende Ereignisse verbessert
+- WorkManager-Integration für zuverlässigere Benachrichtigungen
+- Anpassung der Dunkelmodus-Farben für besseren Kontrast
+- Fehler behoben: „Black Theme“-Farben wurden teilweise nicht geladen
+- Fehlerbehebungen
