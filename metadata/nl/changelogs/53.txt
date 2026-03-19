@@ -1,0 +1,6 @@
+- Fix duplicate contact birthday notifications
+- Fix CalDAV compatibility for recurring events.
+- Use WorkManager for better notification handling
+- Change dark color for better contrast
+- Fix "black theme colors not loaded"
+- Bugfixes
