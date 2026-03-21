@@ -1,0 +1,11 @@
+-Muaj fal
+-Ujk, dag, au surutumam fal
+-Bruk Android dagtumam pr sejena al kamagdagtumam
+-Material Design wa
+-Kuraj au shiraj fal
+-Deki brukena uten zerjet
+-Surutumam widget wa
+-Deki kamaghar dagtumam met ICS, au ki anta/sada SD made
+-Mangeglossa
+Prabljem au hanupje: https://github.com/Etar-Group/Etar-Calendar/issues
+Kompjukaku: https://github.com/Etar-Group/Etar-Calendar
