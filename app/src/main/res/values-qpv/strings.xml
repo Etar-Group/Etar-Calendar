@@ -1,3 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">Dagtumam</string>
+    <string name="when_label">Koske</string>
+    <string name="today">Imadag</string>
+    <string name="tomorrow">Mirajdag</string>
+    <string name="today_at_time_fmt">Imadag na <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt">Mirajdag na <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="no_title_label">(Nil namej)</string>
+    <string name="no_reminder_label">Nil</string>
+    <string name="no_snooze_label">Nil</string>
+    <plurals name="Nminutes">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> fun</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Nmins">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> fun</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> zhikan</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> dag</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Nweeks">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> ujk</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="one"><xliff:g id="count">%d</xliff:g>s ujk</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="calendar_refresh">Gjen</string>
+    <string name="show_day_view">Seoze dag</string>
+    <string name="agenda_view">Surutumam</string>
+    <string name="day_view">Dag</string>
+    <string name="week_view">Ujk</string>
+    <string name="month_view">Muaj</string>
+    <string name="event_view">Se slutsazma</string>
+    <string name="event_create">Neo slutsazma</string>
+    <string name="event_edit">Kavari slutsazma</string>
+    <string name="event_delete">Keshte slutsazma</string>
+    <string name="share_label">Kamaganta</string>
+    <string name="goto_today">Imadag</string>
+    <string name="goto_date">Skoj ad …</string>
+    <string name="menu_preferences">Kavarina</string>
+    <string name="menu_info">Tsujte</string>
+    <string name="search">Suha</string>
+    <string name="hide_controls">Xnopyt jevalting</string>
+    <string name="show_controls">Seoze jevalting</string>
+    <string name="view_settings">Seoze kavarina</string>
+    <string name="select_synced_calendars_button">Dagtumam pr kamagoze</string>
+    <string name="hint_what">Namej f slutsazma</string>
+    <string name="hint_where">Plas</string>
+    <string name="hint_description">Tsujkaku</string>
+    <string name="hint_url">Lehti</string>
+    <string name="hint_attendees">Mik</string>
+    <string name="creating_event">Slutsazma mahenadan</string>
+    <string name="saving_event">Slutsazma kavarjena</string>
+    <string name="empty_event">Ohare slutsazma mahenanaj</string>
+    <string name="creating_event_with_guest">Tulaspor postena miraj!</string>
+    <string name="map_label">Doko</string>
+    <string name="call_label">Ring</string>
 </resources>
