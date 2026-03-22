@@ -1,6 +1,6 @@
-- Fix duplicate contact birthday notifications
-- Fix CalDAV compatibility for recurring events.
-- Use WorkManager for better notification handling
-- Change dark color for better contrast
-- Fix "black theme colors not loaded"
+- Repareer dubbele contactverjaardagsmeldingen
+- Repareer CalDAV-compatibiliteit voor terugkerende gebeurtenissen.
+- Gebruik WorkManager voor een betere afhandeling van meldingen
+- Verander donkere kleur voor beter contrast
+- Repareer "zwarte themakleuren niet geladen"
 - Bugfixes
