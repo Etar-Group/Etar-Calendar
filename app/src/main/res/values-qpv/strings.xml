@@ -11,27 +11,27 @@
     <string name="no_snooze_label">Nil</string>
     <plurals name="Nminutes">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> fun</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> fun</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> zhikan</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> dag</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="Nweeks">
         <item quantity="one"><xliff:g id="count">%d</xliff:g> ujk</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="weekN">
         <item quantity="one"><xliff:g id="count">%d</xliff:g>s ujk</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="calendar_refresh">Gjen</string>
     <string name="show_day_view">Seoze dag</string>
@@ -64,4 +64,32 @@
     <string name="creating_event_with_guest">Tulaspor postena miraj!</string>
     <string name="map_label">Doko</string>
     <string name="call_label">Ring</string>
+    <string name="alert_title">Dagtumam vitkiposta</string>
+    <string name="add_calendar">Anta dagtumam</string>
+    <string name="calendar_color_picker_dialog_title">Dagtumam varge</string>
+    <string name="calendar_square_color_picker_description">Varge sentakuting</string>
+    <string name="agenda_today">Imadag, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday">Dandag, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow">Mirajdag, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="authors">Kakuzhin</string>
+    <string name="changelog">Dankavari Kaban</string>
+    <string name="accessibility_remove_attendee">Keshte mik</string>
+    <string name="accessibility_pick_start_date">Dag f hazhi</string>
+    <string name="accessibility_pick_start_time">Tid f hazhi</string>
+    <string name="accessibility_pick_end_date">Dag f ovari</string>
+    <string name="accessibility_pick_end_time">Tid f ovari</string>
+    <string name="accessibility_pick_time_zone">Tid klaani</string>
+    <string name="accessibility_pick_recurrence">Gjensuru slutsazma</string>
+    <string name="accessibility_add_reminder">Anta deposta tsuj afto</string>
+    <string name="accessibility_remove_reminder">Keshte deposta</string>
+    <string name="accessibility_add_attendee">Anta mik</string>
+    <string name="accessibility_all_day">Hel dag slutsazma</string>
+    <string name="accessibility_reminder_time">Tid f deposta</string>
+    <string name="accessibility_reminder_type">Deposta fal</string>
+    <string name="accessibility_reminder_showmeas">Seoze n lik</string>
+    <string name="accessibility_reminder_privacy">Tajnazma</string>
+    <string name="acessibility_selected_marker_description">Sentakena slutsazma</string>
+    <string name="acessibility_recurrence_choose_end_date_description">kavari dag f ovari</string>
+    <string name="calendar_permission_not_granted">Trengena lakjazma najsentakena, da kavari Settings app wa pr kavari slutsazma</string>
+    <string name="cal_share_intent_title">Posta slutsazma pashn made:</string>
 </resources>
