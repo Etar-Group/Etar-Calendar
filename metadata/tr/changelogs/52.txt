@@ -1,0 +1,4 @@
+- Widget concrete etkinliği açta etkinliğe dokunulduğunda yaşanan sorun giderildi
+- Etkinlik sonlandırıldığında iletişim kutusunun çökmesi giderildi
+- "6430-t-Clear_notification_after_event_ends" geri alındı
+- Hata düzeltmeleri
