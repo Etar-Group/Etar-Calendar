@@ -1,0 +1,6 @@
+- Kişilerin doğum günü bildirimlerindeki yinelenme sorunu düzeltildi
+- Tekrarlanan etkinlikler için CalDAV uyumluluğu düzeltildi
+- Bildirimlerin daha iyi yönetilmesi için WorkManager kullanıldı
+- Daha iyi karşıtlık için koyu renkler değiştirildi
+- "Siyah tema renkleri yüklenmedi" hatası düzeltildi
+- Hata düzeltmeleri
