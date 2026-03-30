@@ -1,0 +1,6 @@
+- Correção de notificações duplicadas de aniversários de contatos
+- Correção da compatibilidade com CalDAV para eventos recorrentes
+- Uso do WorkManager para um melhor gerenciamento de notificações
+- Alteração da cor escura para melhorar o contraste
+- Correção do erro "cores do tema preto não carregadas"
+- Correções de bugs
