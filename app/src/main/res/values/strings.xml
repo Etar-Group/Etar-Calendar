@@ -552,6 +552,9 @@
     <!-- Default value for the default snooze delay (in minutes) -->
     <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
 
+    <string name="preferences_staggered_display_title">Staggered display</string>
+    <string name="preferences_staggered_display_summary">Display overlapping events in a staggered layout</string>
+
     <!-- About dialog strings -->
     <string name="app_authors" translatable="false">The Etar Project</string>
     <string name="app_authors_url" translatable="false">https://github.com/Etar-Group/Etar-Calendar/graphs/contributors</string>

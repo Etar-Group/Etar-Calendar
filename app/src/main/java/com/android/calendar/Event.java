@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import ws.xsoh.etar.R;
@@ -145,6 +146,7 @@ public class Event implements Cloneable {
     public float right;
     public float top;
     public float bottom;
+    public float textTop;
     // These 4 fields are used for navigating among events within the selected
     // hour in the Day and Week view.
     public Event nextRight;
@@ -153,6 +155,8 @@ public class Event implements Cloneable {
     public Event nextDown;
     private int mColumn;
     private int mMaxColumns;
+    private boolean mDrawStaggered;
+    private long mTextOffsetMillis;
 
     public static final Event newInstance() {
         Event e = new Event();
@@ -478,68 +482,270 @@ public class Event implements Cloneable {
      * @param eventsList the list of events, sorted into increasing time order
      * @param minimumDurationMillis minimum duration acceptable as cell height of each event
      * rectangle in millisecond. Should be 0 when it is not determined.
+     * @param drawStaggered if true, overlapping events will be drawn in a staggered layout
+     * (ignored for all-day events)
      */
     /* package */ static void computePositions(ArrayList<Event> eventsList,
-            long minimumDurationMillis) {
+            long minimumDurationMillis, boolean drawStaggered) {
         if (eventsList == null) {
             return;
         }
 
         // Compute the column positions separately for the all-day events
-        doComputePositions(eventsList, minimumDurationMillis, false);
-        doComputePositions(eventsList, minimumDurationMillis, true);
+        doComputePositions(eventsList, minimumDurationMillis, false, drawStaggered);
+        doComputePositions(eventsList, minimumDurationMillis, true, false);
     }
 
     private static void doComputePositions(ArrayList<Event> eventsList,
-            long minimumDurationMillis, boolean doAlldayEvents) {
-        final ArrayList<Event> activeList = new ArrayList<Event>();
-        final ArrayList<Event> groupList = new ArrayList<Event>();
+            long minimumDurationMillis, boolean doAlldayEvents, boolean drawStaggered) {
+        final ArrayList<Event> groupList = new ArrayList<>();
 
-        if (minimumDurationMillis < 0) {
-            minimumDurationMillis = 0;
-        }
+        // Staggered display is not supported for all day events
+        drawStaggered = drawStaggered && !doAlldayEvents;
 
-        long colMask = 0;
-        int maxCols = 0;
+        long currentGroupEndMillis = -1;
         for (Event event : eventsList) {
             // Process all-day events separately
             if (event.drawAsAllday() != doAlldayEvents)
                 continue;
 
-           if (!doAlldayEvents) {
+            if (!groupList.isEmpty() && event.getStartMillis() >= currentGroupEndMillis) {
+                // This event is not part of the current group, start new group
+                computeGroupLayout(groupList, minimumDurationMillis, doAlldayEvents, drawStaggered);
+                groupList.clear();
+            }
+
+            groupList.add(event);
+            currentGroupEndMillis = Math.max(currentGroupEndMillis, event.getEndMillis());
+        }
+        computeGroupLayout(groupList, minimumDurationMillis, doAlldayEvents, drawStaggered);
+    }
+
+    /**
+     * Computes the layout for one group of events (i.e., a set of events connected by overlapping).
+     * For each event in the group, `event.drawAsAllday()` MUST match `doAlldayEvents`.
+     *
+     * @param groupList The list of events in the group.
+     * @param minimumDurationMillis Minimum duration acceptable as cell height of each event
+     * rectangle in milliseconds. Should be 0 when it is not determined.
+     * @param doAlldayEvents Whether this is a group of all-day events
+     * @param drawStaggered If true, overlapping events will be drawn in a staggered layout
+     * (ignored for all-day events)
+     */
+    private static void computeGroupLayout(ArrayList<Event> groupList,
+            long minimumDurationMillis, boolean doAlldayEvents, boolean drawStaggered) {
+        final ArrayList<Event> activeList = new ArrayList<>();
+        final ArrayList<Event> processedList = new ArrayList<>();
+
+        if (minimumDurationMillis < 0) {
+            minimumDurationMillis = 0;
+        }
+
+        // Staggered display is not supported for all day events
+        drawStaggered = drawStaggered && !doAlldayEvents;
+
+        long colMask = 0;
+        int maxColumns = 0;
+        for (Event event : groupList) {
+            if (!doAlldayEvents) {
                 colMask = removeNonAlldayActiveEvents(
                         event, activeList.iterator(), minimumDurationMillis, colMask);
             } else {
                 colMask = removeAlldayActiveEvents(event, activeList.iterator(), colMask);
             }
 
-            // If the active list is empty, then reset the max columns, clear
-            // the column bit mask, and empty the groupList.
-            if (activeList.isEmpty()) {
-                for (Event ev : groupList) {
-                    ev.setMaxColumns(maxCols);
-                }
-                maxCols = 0;
-                colMask = 0;
-                groupList.clear();
-            }
-
-            // Find the first empty column.  Empty columns are represented by
-            // zero bits in the column mask "colMask".
-            int col = findFirstZeroBit(colMask);
-            if (col == 64)
-                col = 63;
-            colMask |= (1L << col);
-            event.setColumn(col);
             activeList.add(event);
-            groupList.add(event);
-            int len = activeList.size();
-            if (maxCols < len)
-                maxCols = len;
+            processedList.add(event);
+
+            if (drawStaggered) {
+                long newColMask = computeEventColAndTextOffsetStaggered(event, activeList, groupList,
+                        colMask, maxColumns, minimumDurationMillis);
+                if (newColMask == -1) {
+                    // No valid column found
+                    // -> staggered layout not possible, fall back to non-staggered layout
+                    computeGroupLayout(groupList, minimumDurationMillis, doAlldayEvents, false);
+                    return;
+                }
+                colMask = newColMask;
+            } else {
+                long newColMask = computeEventColAndTextOffset(event, colMask);
+                if (newColMask == -1) {
+                    // TODO: No column available. What do we do now?
+                    // Use last column and reset text offset
+                    event.setColumn(63);
+                    event.setTextOffsetMillis(0);
+                } else {
+                    colMask = newColMask;
+                }
+            }
+            if (maxColumns < event.getColumn() + 1)
+                maxColumns = event.getColumn() + 1;
         }
         for (Event ev : groupList) {
-            ev.setMaxColumns(maxCols);
+            ev.setMaxColumns(maxColumns);
         }
+        for (Event ev : groupList) {
+            ev.setDrawStaggered(drawStaggered);
+        }
+    }
+
+    /**
+     * Finds and sets the minimum unoccupied column for the given event.
+     * This function updates the column and textOffsetMillis value for the given event in place.
+     *
+     * @param newEvent Event to find a column and compute textOffsetMillis for
+     * @param colMask Bitmask of occupied columns at A's start time before A has been inserted
+     * @return Bitmask of occupied columns at A's start time after A has been inserted, or -1 if
+     * there is no unoccupied column
+     */
+    public static long computeEventColAndTextOffset(Event newEvent, long colMask) {
+        for (int col = 0; col < 64; ++col) {
+            if ((colMask & (1L << col)) == 0) {
+                newEvent.setColumn(col);
+                newEvent.setTextOffsetMillis(0);
+                colMask |= (1L << col);
+                return colMask;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Finds and sets the minimum column for the given event A such that
+     * 1) there is a timespan of at least minimumDurationMillis where no other event B from groupList
+     *    that is in a higher column is overlapping A, and
+     * 2) for each other event C from activeList there is a timespan of at least minimumDurationMillis
+     *    where no event D from groupList (including A) that is in a higher column than C is overlapping C.
+     * This function may insert a new column between to other columns if necessary.
+     * This function updates the column and textOffsetMillis value for A and any other events which
+     * have been moved or obscured by A in place.
+     *
+     * @param newEvent Event A to find a column and compute textOffsetMillis for
+     * @param activeList All events from the current group which are active at A's start time (including A)
+     * @param groupList All events from the current group (including A) sorted by their start time (ASC)
+     * @param colMask Bitmask of occupied columns at A's start time before A has been inserted
+     * @param maxColumns Current number of columns in group
+     * @param minimumDurationMillis Min unobscured duration
+     * @return Bitmask of occupied columns at A's start time after A has been inserted, or -1 if it
+     * is not possible to insert A according to the rules outlined above
+     */
+    private static long computeEventColAndTextOffsetStaggered(Event newEvent, List<Event> activeList, List<Event> groupList,
+                                                              long colMask, int maxColumns, long minimumDurationMillis) {
+        for (int col = 0; col < 64; ++col) {
+            newEvent.setColumn(col);
+            boolean obscuresEventInPrevCol = false;
+            // Check if newEvent completely obscures any events in col - 1
+            // Columns below col - 1 have already been checked in previous iterations of this loop
+            for (Event other : activeList) {
+                if (other == newEvent || other.getColumn() != col - 1)
+                    continue;
+                long unobsuredOffsetOther = getUnobscuredDurationOffset(other, groupList, minimumDurationMillis);
+                if (unobsuredOffsetOther == -1) {
+                    // newEvent obscures event in previous column
+                    obscuresEventInPrevCol = true;
+                    break;
+                }
+                // Update other event's textOffsetMillis
+                // We can do this here since we know the new event is going to be in a higher column
+                // than this no matter what
+                // Exception: If this loop breaks later and a new column is inserted below col - 1,
+                // we need to recompute this again!
+                other.setTextOffsetMillis(unobsuredOffsetOther);
+            }
+            if (obscuresEventInPrevCol) {
+                // We need to insert a new column between col - 1 and col - 2
+                // Check if this is possible, i.e. if newEvent will not be completely obscured by
+                // events in higher columns, by playing newEvent in col - 2 temporarily
+                newEvent.setColumn(col - 2);
+                long unobsuredOffset = getUnobscuredDurationOffset(newEvent, groupList, minimumDurationMillis);
+                if (unobsuredOffset == -1) {
+                    // newEvent is completely obscured by events in higher columns
+                    // -> inserting new column is not possible, give up
+                    return -1;
+                }
+                // Insert newEvent at col - 1
+                newEvent.setColumn(col - 1);
+                newEvent.setTextOffsetMillis(unobsuredOffset);
+                // Fix textOffsetMillis value for active events from col - 1 since it may have been
+                // changed earlier because of newEvent (see above)
+                for (Event other : activeList) {
+                    // If textOffsetMillis is 0, we can skip this (no way to improve)
+                    if (other == newEvent || other.getColumn() != col - 1 || other.getTextOffsetMillis() == 0)
+                        continue;
+                    long unobsuredOffsetOther = getUnobscuredDurationOffset(other, groupList, minimumDurationMillis);
+                    if (unobsuredOffsetOther == -1) {
+                        // This should never happen!
+                        return -1;
+                    }
+                    other.setTextOffsetMillis(unobsuredOffsetOther);
+                }
+                // Move other events from col - 1 to higher column
+                for (Event other : groupList) {
+                    if (other == newEvent || other.getColumn() < col - 1)
+                        continue;
+                    // Move other up
+                    other.setColumn(other.getColumn() + 1);
+                }
+                // Shift the bits in the mask to match the new column indices
+                long lowBits = colMask & ((1L << col) - 1);
+                long highBits = col < 63 ? (colMask >> col) << (col + 1) : 0;
+                colMask = lowBits | highBits;
+                break;
+            } else if ((colMask & (1L << col)) != 0) {
+                // Column is occupied, try next
+                continue;
+            } else if (col >= maxColumns) {
+                // No columns above this, insert newEvent here
+                newEvent.setTextOffsetMillis(0);
+                break;
+            } else {
+                // Column is free and newEvent is not completely obscuring any other event
+                // Check if events in higher columns completely obscure newEvent
+                long unobsuredOffset = getUnobscuredDurationOffset(newEvent, groupList, minimumDurationMillis);
+                if (unobsuredOffset != -1) {
+                    // newEvent not (completely) obscured by events in higher columns
+                    // Update textOffsetMillis and insert newEvent here
+                    newEvent.setTextOffsetMillis(unobsuredOffset);
+                    break;
+                }
+            }
+        }
+        // Update colMask
+        colMask |= (1L << newEvent.getColumn());
+        return colMask;
+    }
+
+    /**
+     * Checks for a given event whether it has a timespan of at least minimumDurationMillis where no
+     * other event from groupList that is in a higher column is overlapping the given event.
+     * If the given event or another event from groupList is shorter than minimumDurationMillis,
+     * this function considers that event to be of duration minimumDurationMillis.
+     *
+     * @param event The event to check
+     * @param groupList All events from the current group sorted by their start time (ASC)
+     * @param minimumDurationMillis Min unobscured duration
+     * @return The offset of the start of the unobscured timespan relative to the event start time,
+     * or -1 if no timespan exists
+     */
+    private static long getUnobscuredDurationOffset(Event event, List<Event> groupList,
+            long minimumDurationMillis) {
+        long startUnobscured = event.getStartMillis();
+        // Event is always displayed with duration of at least minimumDurationMillis
+        long eventEndMillis = Math.max(event.getEndMillis(), event.getStartMillis() + minimumDurationMillis);
+        for (Event other : groupList) {
+            if (event == other || other.getColumn() <= event.getColumn())
+                continue;
+            if (other.getStartMillis() >= eventEndMillis)
+                break;
+            if (other.getStartMillis() - startUnobscured >= minimumDurationMillis)
+                return startUnobscured - event.getStartMillis();
+            long otherEndMillis = Math.max(other.getEndMillis(), other.getStartMillis() + minimumDurationMillis);
+            startUnobscured = Math.max(startUnobscured, otherEndMillis);
+        }
+        if (eventEndMillis - startUnobscured >= minimumDurationMillis) {
+            return startUnobscured - event.getStartMillis();
+        }
+        return -1;
     }
 
     private static long removeAlldayActiveEvents(Event event, Iterator<Event> iter, long colMask) {
@@ -573,14 +779,6 @@ public class Event implements Cloneable {
             }
         }
         return colMask;
-    }
-
-    public static int findFirstZeroBit(long val) {
-        for (int ii = 0; ii < 64; ++ii) {
-            if ((val & (1L << ii)) == 0)
-                return ii;
-        }
-        return 64;
     }
 
     @Override
@@ -711,6 +909,14 @@ public class Event implements Cloneable {
         mMaxColumns = maxColumns;
     }
 
+    public boolean isDrawStaggered() {
+        return mDrawStaggered;
+    }
+
+    public void setDrawStaggered(boolean drawStaggered) {
+        mDrawStaggered = drawStaggered;
+    }
+
     public long getStartMillis() {
         return startMillis;
     }
@@ -725,6 +931,14 @@ public class Event implements Cloneable {
 
     public void setEndMillis(long endMillis) {
         this.endMillis = endMillis;
+    }
+
+    public long getTextOffsetMillis() {
+        return mTextOffsetMillis;
+    }
+
+    public void setTextOffsetMillis(long textOffsetMillis) {
+        mTextOffsetMillis = textOffsetMillis;
     }
 
     public boolean drawAsAllday() {

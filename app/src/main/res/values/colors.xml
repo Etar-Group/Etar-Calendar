@@ -37,6 +37,7 @@
     <color name="event_background">#ffc3d9ff</color>
     <color name="panel_text_foreground">#ffffffff</color>
     <color name="calendar_event_text_color">#ffFFFFFF</color>
+    <color name="staggered_event_shadow_color">#f0141414</color>
 
     <color name="calendar_owner_text_color">#777777</color>
     <color name="calendar_date_range_color">#80000000</color>
@@ -236,6 +237,7 @@
     <color name="day_event_clicked_background_color_black">#8033B5E5</color>
     <color name="calendar_event_text_color_black">#ffFFFFFF</color>
     <color name="month_event_other_color_black">#FF666666</color>
+    <color name="staggered_event_shadow_color_black">#f0000000</color>
 
     <!-- Black Color MonthView -->
     <color name="month_day_number_black">#ffffff</color>
@@ -339,6 +341,7 @@
     <color name="day_event_clicked_background_color_dark">#8033B5E5</color>
     <color name="calendar_event_text_color_dark">#ffFFFFFF</color>
     <color name="month_event_other_color_dark">#FF666666</color>
+    <color name="staggered_event_shadow_color_dark">#f0141414</color>
 
     <!-- Dark Color MonthView -->
     <color name="month_day_number_dark">#ffffff</color>
