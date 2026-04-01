@@ -88,6 +88,9 @@ public class EventGeometry {
         event.top += (int) (startTime * cellMinuteHeight);
         event.top += startHour * mHourGap;
 
+        final float millisPerMin = DayView.MILLIS_PER_MINUTE;
+        event.textTop = event.top + event.getTextOffsetMillis() / millisPerMin * cellMinuteHeight;
+
         event.bottom = top;
         event.bottom += (int) (endTime * cellMinuteHeight);
         event.bottom += endHour * mHourGap - 1;
@@ -97,9 +100,22 @@ public class EventGeometry {
             event.bottom = event.top + mMinEventHeight;
         }
 
-        float colWidth = (float) (cellWidth - (maxCols + 1) * mCellMargin) / (float) maxCols;
-        event.left = left + col * (colWidth + mCellMargin);
-        event.right = event.left + colWidth;
+        if (event.isDrawStaggered()) {
+            float colWidth = (float) (cellWidth - 2 * mCellMargin);
+            // Compute offset of staggered events based on maxCols
+            float offset = colWidth / (maxCols * 2 + 4);
+            event.left = left + mCellMargin + col * offset;
+            if (col == 0) {
+                // Draw events in column 0 at full width
+                event.right = left + mCellMargin + colWidth;
+            } else {
+                event.right = left + mCellMargin + colWidth - (maxCols - 1 - col) * offset;
+            }
+        } else {
+            float colWidth = (float) (cellWidth - (maxCols + 1) * mCellMargin) / (float) maxCols;
+            event.left = left + col * (colWidth + mCellMargin);
+            event.right = event.left + colWidth;
+        }
         return true;
     }
 

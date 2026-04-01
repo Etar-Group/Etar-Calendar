@@ -46,6 +46,11 @@
             app:defaultValue="false"
             app:title="@string/preferences_hide_declined_title" />
         <SwitchPreference
+            app:key="preferences_staggered_display"
+            app:defaultValue="false"
+            app:title="@string/preferences_staggered_display_title"
+            app:summary="@string/preferences_staggered_display_summary" />
+        <SwitchPreference
             app:key="preferences_show_week_num"
             app:defaultValue="false"
             app:title="@string/preferences_show_week_num_title" />
