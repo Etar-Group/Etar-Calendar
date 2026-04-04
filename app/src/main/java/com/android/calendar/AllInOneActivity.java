@@ -1235,7 +1235,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         MaterialPickerOnPositiveButtonClickListener<Long> materialPickerOnPositiveButtonClickListener = new MaterialPickerOnPositiveButtonClickListener<>() {
             @Override
             public void onPositiveButtonClick(Long selection) {
-                Calendar calendar = Calendar.getInstance();
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTime(new Date(selection));
 
                 Time selectedTime = new Time(mTimeZone);
