@@ -1,0 +1,5 @@
+- Behebung eines UTC-Fehlers in „Goto“
+- Laden von Terminen beim Scrollen in der Monatsansicht
+- Termine welche sich überscheiden werden nun überlappend angezeigt
+- Hinzufügen der Berechtigung „WRITE_SYNC_SETTINGS“, um eine doppelte Speicherung des Kalenders beim Umschalten der Synchronisierung zu verhindern
+- Fehlerbehebungen
