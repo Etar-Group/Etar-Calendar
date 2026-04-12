@@ -79,7 +79,6 @@ public class EventGeometry {
         }
 
         int col = event.getColumn();
-        int maxCols = event.getMaxColumns();
         int startHour = startTime / 60;
         int endHour = endTime / 60;
 
@@ -102,10 +101,8 @@ public class EventGeometry {
             event.bottom = event.top + mMinEventHeight;
         }
 
-
-        float colWidth = (float) (cellWidth - (maxCols) * mCellMargin) - (float) (col * mPerColMargin);
         event.left = left + (col) * mPerColMargin;
-        event.right = event.left + colWidth;
+        event.right = left + cellWidth - mCellMargin;
         return true;
     }
 
