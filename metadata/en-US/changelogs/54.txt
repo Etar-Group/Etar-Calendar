@@ -1,0 +1,5 @@
+- Fix UTC bug in goto
+- Load events when scrolling in month view
+- Add stacked events
+- Add WRITE_SYNC_SETTINGS permission to prevent calendar duplication on sync toggle
+- Bugfixes
