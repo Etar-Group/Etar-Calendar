@@ -306,8 +306,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
             long instanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
             boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
             if (allDay) {
-                startTime = Utils.convertAlldayUtcToLocal(tempTime, startTime, mTimeZone);
-                endTime = Utils.convertAlldayUtcToLocal(tempTime, endTime, mTimeZone);
+                startTime = Utils.convertAlldayUtcToLocal(null, startTime, mTimeZone);
+                endTime = Utils.convertAlldayUtcToLocal(null, endTime, mTimeZone);
             }
             // Skip over the days outside of the adapter's range
             startDay = Math.max(startDay, dayAdapterInfo.start);
