@@ -1,0 +1,5 @@
+- Git işlevindeki UTC hatası düzeltildi
+- Ay görünümünde kaydırma yapıldığında etkinlikler yüklenir
+- Üst üste binen etkinlikler eklendi
+- Eşzamanlama geçişinde takvimin iki kez kaydedilmesini önlemek için WRITE_SYNC_SETTINGS izni eklendi
+- Hata düzeltmeleri
