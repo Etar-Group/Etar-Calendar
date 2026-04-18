@@ -1,0 +1,5 @@
+- UTC-bug in goto gerepareerd
+- Laad gebeurtenissen bij het scrollen in maandweergave
+- Gestapelde gebeurtenissen toevoegen
+- Voeg WRITE_SYNC_SETTINGS-toestemming toe om dubbel werk van agenda's bij het synchroniseren van de schakelaar te voorkomen
+- Bugfixes
