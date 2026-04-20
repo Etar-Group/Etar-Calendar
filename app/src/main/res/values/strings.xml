@@ -18,7 +18,6 @@
     <string name="standalone_app_label" translatable="false">Etar</string>
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
-
     <!-- Shared Labels. These labels are shared among the activities. -->
     <skip/>
     <!-- This is the label for the time of an event [CHAR LIMIT=30] -->
@@ -858,4 +857,18 @@
     <string name="chips_action_cancel">Cancel</string>
     <!-- Text displayed on the drop down item that is shown when app doesn't have Contact permission. This item will open dialog to request permission. [CHAR LIMIT=50] -->
     <string name="chips_permission_text">Allow contacts suggestions</string>
+
+    <!-- Widget labels -->
+    <!-- Label for the month view widget in the widget picker -->
+    <string name="month_widget_label">Calendar Month View</string>
+    <!-- Description for the month view widget shown in the widget picker on Android 12+ -->
+    <string name="month_widget_description">Displays the current month with event indicators</string>
+    <!-- Label for the week view widget in the widget picker -->
+    <string name="week_widget_label">Calendar Week View</string>
+    <!-- Description for the week view widget shown in the widget picker on Android 12+ -->
+    <string name="week_widget_description">Displays the current week with event times and details</string>
+    <!-- Fallback title for events with no title -->
+    <string name="widget_no_title">(No title)</string>
+    <!-- Overflow indicator when more events exist than can be displayed. %d is the number of additional events. -->
+    <string name="widget_event_overflow">+%d more</string>
 </resources>

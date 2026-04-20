@@ -22,6 +22,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -64,8 +65,11 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.widget.CalendarAppWidgetProvider;
+import com.android.calendar.widget.MonthAppWidgetProvider;
+import com.android.calendar.widget.WeekAppWidgetProvider;
 import com.android.calendar.calendarcommon2.Time;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -307,6 +311,7 @@ public class Utils {
     public static String getWidgetScheduledUpdateAction(Context context) {
         return "com.android.calendar.APPWIDGET_SCHEDULED_UPDATE";
     }
+
     /**
      * Send Broadcast to update widget.
      */
@@ -314,6 +319,52 @@ public class Utils {
         Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(context));
         updateIntent.setClass(context, CalendarAppWidgetProvider.class);
         context.sendBroadcast(updateIntent);
+
+        Intent monthUpdateIntent = new Intent(MonthAppWidgetProvider.ACTION_MONTH_WIDGET_UPDATE);
+        monthUpdateIntent.setClass(context, MonthAppWidgetProvider.class);
+        context.sendBroadcast(monthUpdateIntent);
+
+        Intent weekUpdateIntent = new Intent(WeekAppWidgetProvider.ACTION_WEEK_WIDGET_UPDATE);
+        weekUpdateIntent.setClass(context, WeekAppWidgetProvider.class);
+        context.sendBroadcast(weekUpdateIntent);
+    }
+
+    /**
+     * Returns abbreviated day-of-week labels starting from the given first day of week.
+     * Labels are truncated to 2 characters and uppercased.
+     */
+    public static String[] getDayOfWeekLabels(int firstDayOfWeek) {
+        String[] labels = new String[7];
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE", Locale.getDefault());
+        for (int i = 0; i < 7; i++) {
+            int dow = ((firstDayOfWeek - 1 + i) % 7) + 1;
+            cal.set(Calendar.DAY_OF_WEEK, dow);
+            String label = sdf.format(cal.getTime());
+            if (label.length() > 2) {
+                label = label.substring(0, 2);
+            }
+            labels[i] = label.toUpperCase(Locale.getDefault());
+        }
+        return labels;
+    }
+
+    /**
+     * Schedules an alarm to fire at midnight to update a widget.
+     *
+     * @param context       the context
+     * @param updateIntent  the PendingIntent to fire at midnight
+     */
+    public static void scheduleMidnightUpdate(Context context, PendingIntent updateIntent) {
+        Calendar midnight = Calendar.getInstance();
+        midnight.set(Calendar.HOUR_OF_DAY, 0);
+        midnight.set(Calendar.MINUTE, 0);
+        midnight.set(Calendar.SECOND, 0);
+        midnight.set(Calendar.MILLISECOND, 0);
+        midnight.add(Calendar.DAY_OF_YEAR, 1);
+
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.set(AlarmManager.RTC, midnight.getTimeInMillis(), updateIntent);
     }
 
     /**
