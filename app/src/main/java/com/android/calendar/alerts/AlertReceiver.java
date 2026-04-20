@@ -379,6 +379,9 @@ public class AlertReceiver extends BroadcastReceiver {
         }
 
         Notification.Builder notificationBuilder = new Notification.Builder(context);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationBuilder.setChannelId(UtilsKt.channelId(notificationInfos.get(0).calendarId));
+        }
         notificationBuilder.setContentText(digestTitle);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar_multiple);
         notificationBuilder.setContentIntent(pendingClickIntent);
