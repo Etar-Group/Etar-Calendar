@@ -1,0 +1,3 @@
+- Vrácení událostí načtení při skrolování v zobrazení měsíců
+- Vrácení přidání hromadných událostí
+- Opravy chyb
