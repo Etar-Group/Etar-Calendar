@@ -1,0 +1,3 @@
+- Terugdraaien gebeurtenissen laden bij het scrollen in maandweergave
+- Terugdraaien Gestapelde gebeurtenissen toevoegen
+- Bugfixes
