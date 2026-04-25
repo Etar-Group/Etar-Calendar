@@ -252,7 +252,7 @@
     <string name="preferences_default_snooze_delay_dialog">Waktu tunda baku</string>
     <string name="error_generating_ics">Terjadi kesalahan saat berbagi acara</string>
     <string name="cal_share_intent_title">Kirim acara ke:</string>
-    <string name="cal_export_event_sdcard_title">Ekspor ke kartu SD</string>
+    <string name="cal_export_event_title">Ekspor ke kartu SD</string>
     <string name="cal_export_succ_msg">Acara berhasil diekspor: %1$s</string>
     <string name="cal_import_menu_title">Impor acara</string>
     <string name="cal_nothing_to_import">Tidak ada yang diimpor</string>

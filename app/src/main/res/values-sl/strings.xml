@@ -260,7 +260,7 @@
     <string name="goto_date">Pojdi na…</string>
     <string name="share_label">Delite</string>
     <string name="two_hours">2 uri</string>
-    <string name="cal_export_event_sdcard_title">Izvozi na kartico SD</string>
+    <string name="cal_export_event_title">Izvozi na kartico SD</string>
     <string name="foreground_notification_title">Načrtovanje novih opomnikov…</string>
     <string name="no_map">Nameščene ni nobene aplikacije z zemljevidi</string>
     <string name="user_rejected_calendar_write_permission">Etar za pravilno delovanje potrebuje dovoljenja za branje in pisanje koledarja. Prosimo, poskusite znova.</string>

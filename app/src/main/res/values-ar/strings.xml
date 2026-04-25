@@ -374,7 +374,7 @@
     <string name="cal_import_error_date_msg">تعذر فهم التاريخ المحدد: %s</string>
     <string name="cal_import_error_time_zone_msg">تعذر فهم الوقت المحدد: %s</string>
     <string name="cal_import_error_msg">فشل الاستيراد إلى التقويم</string>
-    <string name="cal_export_event_sdcard_title">تصدير إلى بطاقة SD</string>
+    <string name="cal_export_event_title">تصدير إلى بطاقة SD</string>
     <string name="cal_share_intent_title">أرسل الحدث إلى:</string>
     <string name="error_generating_ics">حدثت مشاكل أثناء مشاركة الحدث</string>
     <string name="one_and_a_half_hours">ساعة ونصف</string>

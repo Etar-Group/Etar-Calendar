@@ -288,7 +288,7 @@
     <string name="two_hours">2 மணி நேரம்</string>
     <string name="error_generating_ics">நிகழ்வைப் பகிரும்போது சிக்கல்கள் ஏற்பட்டன</string>
     <string name="cal_share_intent_title">நிகழ்வை இதற்கு அனுப்பவும்:</string>
-    <string name="cal_export_event_sdcard_title">எச்டி கார்டுக்கு ஏற்றுமதி</string>
+    <string name="cal_export_event_title">எச்டி கார்டுக்கு ஏற்றுமதி</string>
     <string name="cal_export_succ_msg">நிகழ்வு வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டது: %1$s</string>
     <string name="cal_import_menu_title">இறக்குமதி நிகழ்வு</string>
     <string name="cal_nothing_to_import">இறக்குமதி செய்ய எதுவும் இல்லை</string>

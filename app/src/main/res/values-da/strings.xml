@@ -267,7 +267,7 @@
     <string name="default_start_title">Standard visning</string>
     <string name="default_start_last">Tidligere brugt visning</string>
     <string name="cal_share_intent_title">Send begivenhed til:</string>
-    <string name="cal_export_event_sdcard_title">Eksportere til SD kort</string>
+    <string name="cal_export_event_title">Eksportere til SD kort</string>
     <string name="cal_export_succ_msg">Begivenhed eksportéret: %1$s</string>
     <string name="cal_import_menu_title">Importere begivenhed</string>
     <string name="cal_nothing_to_import">Intet at importere</string>

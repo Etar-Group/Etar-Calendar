@@ -291,7 +291,7 @@
     <string name="preferences_default_snooze_delay_dialog">Типовий інтервал до повторного нагадування</string>
     <string name="error_generating_ics">Під час надстлання події виникли проблеми</string>
     <string name="cal_share_intent_title">Надіслати подію до:</string>
-    <string name="cal_export_event_sdcard_title">Експортувати на SD-карту</string>
+    <string name="cal_export_event_title">Експортувати на SD-карту</string>
     <string name="cal_export_succ_msg">Подія успішно експортована: %1$s</string>
     <string name="cal_import_menu_title">Імпортувати подію</string>
     <string name="cal_nothing_to_import">Нічого імпортувати</string>

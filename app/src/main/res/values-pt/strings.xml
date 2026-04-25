@@ -289,7 +289,7 @@
     <string name="two_hours">2 horas</string>
     <string name="error_generating_ics">Surgiram erros ao partilhar o evento</string>
     <string name="cal_share_intent_title">Enviar evento para:</string>
-    <string name="cal_export_event_sdcard_title">Exportar para o cartão SD</string>
+    <string name="cal_export_event_title">Exportar para o cartão SD</string>
     <string name="cal_export_succ_msg">Evento exportado com sucesso: %1$s</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada para importar</string>

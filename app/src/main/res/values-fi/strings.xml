@@ -268,7 +268,7 @@
     <string name="default_start_last">Aiemmin käytetty näkymä</string>
     <string name="error_generating_ics">Ongelmia tapahtuman jakamisessa</string>
     <string name="cal_share_intent_title">Lähetä tapahtuma:</string>
-    <string name="cal_export_event_sdcard_title">Vie SD-kortille</string>
+    <string name="cal_export_event_title">Vie SD-kortille</string>
     <string name="cal_export_succ_msg">Tapahtuma vietiin onnistuneesti: %1$s</string>
     <string name="cal_import_menu_title">Tuo tapahtuma</string>
     <string name="cal_nothing_to_import">Ei mitään tuotavaa</string>

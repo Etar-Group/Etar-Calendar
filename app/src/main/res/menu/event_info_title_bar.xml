@@ -38,7 +38,7 @@
         app:showAsAction="ifRoom" />
     <item android:id="@+id/info_action_export"
         android:alphabeticShortcut="x"
-        android:title="@string/cal_export_event_sdcard_title"
+        android:title="@string/cal_export_event_title"
         android:icon="@drawable/outline_save_event"
         app:showAsAction="ifRoom"/>
     <item android:id='@+id/info_action_change_color'

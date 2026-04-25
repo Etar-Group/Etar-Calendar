@@ -268,7 +268,7 @@
     <string name="default_start_title">Standardvisningen</string>
     <string name="default_start_last">Forrige valgte visning</string>
     <string name="cal_share_intent_title">Send aktiviteten til:</string>
-    <string name="cal_export_event_sdcard_title">Eksporter til SD-kortet</string>
+    <string name="cal_export_event_title">Eksporter til SD-kortet</string>
     <string name="cal_export_succ_msg">Eksporteringen av aktiviteten var vellykket: %1$s</string>
     <string name="cal_import_menu_title">Importer aktivitet</string>
     <string name="cal_nothing_to_import">Det er ingenting å importere</string>

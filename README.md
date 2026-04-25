@@ -45,8 +45,6 @@ You can even configure in Etar which ones are to be shown and when adding
 an event to which calendar it should be added.
 
 ### Important permissions Etar requires
-- READ_EXTERNAL_STORAGE & WRITE_EXTERNAL_STORAGE  
-->import and export ics calendar files  
 - READ_CONTACTS(optional)  
   Is queried the first time an appointment is created and can be rejected. But then search and location suggestions no longer work.
 ->allows search and location suggestions when adding guests to an event  

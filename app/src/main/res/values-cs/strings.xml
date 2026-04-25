@@ -336,7 +336,7 @@
     <string name="show_time_start">Pouze čas zahájení</string>
     <string name="show_time_no">Nezobrazovat čas</string>
     <string name="cal_nothing_to_import">Není nic k importu</string>
-    <string name="cal_export_event_sdcard_title">Exportovat na kartu SD</string>
+    <string name="cal_export_event_title">Exportovat na kartu SD</string>
     <string name="zero_minutes">0 minut</string>
     <string name="seven_days">7 dní</string>
     <string name="six_days">6 dní</string>

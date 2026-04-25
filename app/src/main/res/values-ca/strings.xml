@@ -268,7 +268,7 @@
     <string name="default_start_last">Vista utilitzada prèviament</string>
     <string name="error_generating_ics">S\'han trobat problemes mentre es compartia l\'esdeveniment</string>
     <string name="cal_share_intent_title">Envia l\'esdeveniment a:</string>
-    <string name="cal_export_event_sdcard_title">Exporta a la targeta SD</string>
+    <string name="cal_export_event_title">Exporta a la targeta SD</string>
     <string name="cal_export_succ_msg">Esdeveniment exportat satisfactòriament: %1$s</string>
     <string name="cal_import_menu_title">Importar l\'esdeveniment</string>
     <string name="cal_nothing_to_import">No hi ha res per a importar</string>

@@ -308,7 +308,7 @@
     <string name="error_generating_ics">Проблеми, възникнали при споделяне на събитията</string>
     <string name="cal_import_error_time_zone_msg">Не мога да разбера дадената часова зона:%s</string>
     <string name="cal_share_intent_title">Изпрати събитие до:</string>
-    <string name="cal_export_event_sdcard_title">Експортиране в SD карта</string>
+    <string name="cal_export_event_title">Експортиране в SD карта</string>
     <string name="cal_import_menu_title">Импортиране на събитие</string>
     <string name="cal_nothing_to_import">Нищо за импортиране</string>
     <string name="cal_import_error_msg">Импортирането в календара е неуспешно</string>

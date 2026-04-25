@@ -312,7 +312,7 @@
     <string name="preferences_calendar_configure_account">Configurar calendario en %1$s</string>
     <string name="show_time_start_end_below">Hora de inicio y finalización debajo del evento</string>
     <string name="preferences_calendar_no_display_name">Calendario sin nombre</string>
-    <string name="cal_export_event_sdcard_title">Exportar a tarjeta SD</string>
+    <string name="cal_export_event_title">Exportar a tarjeta SD</string>
     <string name="zero_minutes">0 minutos</string>
     <string name="six_days">6 días</string>
     <string name="user_rejected_calendar_write_permission">Etar requiere permisos de lectura y escritura de calendario para funcionar correctamente. Inténtalo de nuevo.</string>

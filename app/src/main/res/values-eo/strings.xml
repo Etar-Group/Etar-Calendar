@@ -176,7 +176,7 @@
     <string name="preferences_calendar_visible">Montri okazaĵoj</string>
     <string name="cal_import_menu_title">Enporti okazaĵon</string>
     <string name="cal_export_succ_msg">Okazaĵo sukcese elportita: %1$s</string>
-    <string name="cal_export_event_sdcard_title">Elport al SD-karto</string>
+    <string name="cal_export_event_title">Elport al SD-karto</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">Por <xliff:g id="event_count">%d</xliff:g> okazaĵo</item>
         <item quantity="other">Por <xliff:g id="event_count">%d</xliff:g> okazaĵoj</item>

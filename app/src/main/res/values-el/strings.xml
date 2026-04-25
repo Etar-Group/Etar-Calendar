@@ -289,7 +289,7 @@
     <string name="cal_nothing_to_import">Δεν υπάρχει τίποτα για εισαγωγή</string>
     <string name="cal_import_menu_title">Εισαγωγή συμβάντος</string>
     <string name="cal_export_succ_msg">Επιτυχής εξαγωγή συμβάντος: %1$s</string>
-    <string name="cal_export_event_sdcard_title">Εξαγωγή σε κάρτα SD</string>
+    <string name="cal_export_event_title">Εξαγωγή σε κάρτα SD</string>
     <string name="cal_share_intent_title">Αποστολή συμβάντος σε:</string>
     <string name="error_generating_ics">Παρουσιάστηκαν προβλήματα κατά την κοινή χρήση συμβάντος</string>
     <string name="two_hours">2 ώρες</string>

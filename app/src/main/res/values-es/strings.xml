@@ -249,7 +249,7 @@
     <string name="no_map">No hay app de mapas instalado</string>
     <string name="error_generating_ics">Problemas encontrados al compartir evento</string>
     <string name="user_rejected_calendar_write_permission">Etar requiere permisos para leer y escribir en el calendario para que funcione adecuadamente. Por favor intenté de nuevo.</string>
-    <string name="cal_export_event_sdcard_title">Exporta a tarjeta SD</string>
+    <string name="cal_export_event_title">Exporta a tarjeta SD</string>
     <string name="cal_export_succ_msg">Evento exportado satisfactoriamente: %1$s</string>
     <string name="cal_import_error_msg">Importando a calendario falló</string>
     <string name="cal_import_menu_title">Importar evento</string>

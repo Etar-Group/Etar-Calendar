@@ -281,7 +281,7 @@
     <string name="one_hour">1 時間</string>
     <string name="one_and_a_half_hours">1 時間 30 分</string>
     <string name="two_hours">2 時間</string>
-    <string name="cal_export_event_sdcard_title">SD カードにエクスポート</string>
+    <string name="cal_export_event_title">SD カードにエクスポート</string>
     <string name="cal_nothing_to_import">インポートするものがありません</string>
     <string name="cal_import_error_msg">カレンダーのインポートに失敗しました</string>
     <string name="error_generating_ics">予定の共有中にエラーが発生しました</string>

@@ -268,7 +268,7 @@
     <string name="preferences_default_snooze_delay_dialog">Öntanımlı erteleme süresi</string>
     <string name="error_generating_ics">Etkinlik paylaşılırken bir hata oluştu</string>
     <string name="cal_share_intent_title">Etkinliği şuna gönder:</string>
-    <string name="cal_export_event_sdcard_title">SD karta aktar</string>
+    <string name="cal_export_event_title">SD karta aktar</string>
     <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı: %1$s</string>
     <string name="cal_import_menu_title">Etkinliği içeri aktar</string>
     <string name="cal_nothing_to_import">İçeri aktarılacak hiçbir şey yok</string>

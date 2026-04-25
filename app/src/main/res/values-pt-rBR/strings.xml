@@ -272,7 +272,7 @@
     <string name="user_rejected_calendar_write_permission">Etar requer permissões de leitura e gravação de calendário para funcionar corretamente. Tente novamente.</string>
     <string name="calendar_permission_not_granted">As permissões necessárias foram negadas. Ative-as nas configurações para editar eventos</string>
     <string name="one_and_a_half_hours">1 hora e meia</string>
-    <string name="cal_export_event_sdcard_title">Exportar para cartão SD</string>
+    <string name="cal_export_event_title">Exportar para cartão SD</string>
     <string name="cal_export_succ_msg">Evento exportado com sucesso: %1$s</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada a importar</string>

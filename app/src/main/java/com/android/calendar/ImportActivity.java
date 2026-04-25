@@ -245,58 +245,6 @@ public class ImportActivity extends Activity {
                 || ContentResolver.SCHEME_FILE.equals(scheme);
     }
 
-    private static class ListFilesTask extends AsyncTask<Void, Void, String[]> {
 
-        private final Activity mActivity;
 
-        public ListFilesTask(Activity activity) {
-            mActivity = activity;
-        }
-
-        @Override
-        protected String[] doInBackground(Void... params) {
-            if (!hasThingsToImport()) {
-                return null;
-            }
-            File folder = EventInfoFragment.EXPORT_SDCARD_DIRECTORY;
-            String[] result = null;
-            if (folder.exists()) {
-                result = folder.list();
-            }
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(final String[] files) {
-            if (files == null || files.length == 0) {
-                Toast.makeText(mActivity, R.string.cal_nothing_to_import,
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mActivity);
-            builder.setTitle(R.string.cal_pick_ics)
-                    .setItems(files, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(mActivity, ImportActivity.class);
-                            File f = new File(EventInfoFragment.EXPORT_SDCARD_DIRECTORY,
-                                    files[which]);
-                            i.setData(Uri.fromFile(f));
-                            mActivity.startActivity(i);
-                        }
-                    });
-            builder.show();
-        }
-
-    }
-
-    public static void pickImportFile(Activity activity) {
-        new ListFilesTask(activity).execute();
-    }
-
-    public static boolean hasThingsToImport() {
-        File folder = EventInfoFragment.EXPORT_SDCARD_DIRECTORY;
-        File[] files = folder.listFiles();
-        return files != null && files.length > 0;
-    }
 }

@@ -49,7 +49,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -96,6 +95,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -131,6 +132,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -176,6 +178,32 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_RESPONSE_WHICH_EVENTS = "key_response_which_events";
     protected static final String BUNDLE_KEY_REMINDER_MINUTES = "key_reminder_minutes";
     protected static final String BUNDLE_KEY_REMINDER_METHODS = "key_reminder_methods";
+
+    private AppCompatActivity mActivity;
+    private Context mContext;
+    private VCalendar mLastCalendarToExport;
+
+    private final ActivityResultLauncher<Intent> mExportLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Uri uri = result.getData().getData();
+                    if (uri != null) {
+                        try (OutputStream outputStream = mActivity.getContentResolver().openOutputStream(uri)) {
+                            if (IcalendarUtils.writeCalendarToStream(mLastCalendarToExport, outputStream)) {
+                                Toast.makeText(mActivity, R.string.cal_export_success, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(mActivity, R.string.cal_export_error, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (IOException e) {
+                            Log.e(TAG, "Error writing ics file", e);
+                            Toast.makeText(mActivity, R.string.cal_export_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+    );
+
     /**
      * These are the corresponding indices into the array of strings
      * "R.array.change_response_labels" in the resource file.
@@ -222,12 +250,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             | TOKEN_QUERY_REMINDERS | TOKEN_QUERY_VISIBLE_CALENDARS | TOKEN_QUERY_COLORS
             | TOKEN_QUERY_EXTENDED;
 
-    public static final File EXPORT_SDCARD_DIRECTORY = new File(
-            Environment.getExternalStorageDirectory(), "CalendarEvents");
-
     private enum ShareType {
-        SDCARD,
-        INTENT
+        INTENT,
+        EXPORT_SAF
     }
 
     private static final String[] EVENT_PROJECTION = new String[] {
@@ -457,8 +482,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mY = -1;
     private int mMinTop;         // Dialog cannot be above this location
     private boolean mIsTabletConfig;
-    private AppCompatActivity mActivity;
-    private Context mContext;
     private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
@@ -1138,7 +1161,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         } else if (itemId == R.id.info_action_share_event) {
             shareEvent(ShareType.INTENT);
         } else if (itemId == R.id.info_action_export) {
-            shareEvent(ShareType.SDCARD);
+            shareEvent(ShareType.EXPORT_SAF);
         } else if (itemId == R.id.info_action_duplicate) {
             duplicateEvent();
         }
@@ -1219,61 +1242,56 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 filePrefix += " ";
             }
 
-            File dir;
-            if (type == ShareType.SDCARD) {
-                dir = EXPORT_SDCARD_DIRECTORY;
-                if (!dir.exists()) {
-                    dir.mkdir();
-                }
-            } else {
-                dir = mActivity.getExternalCacheDir();
+            if (type == ShareType.EXPORT_SAF) {
+                mLastCalendarToExport = calendar;
+                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/calendar");
+                intent.putExtra(Intent.EXTRA_TITLE, filePrefix.trim() + ".ics");
+                mExportLauncher.launch(intent);
+                return;
             }
+
+            File dir = mActivity.getExternalCacheDir();
 
             File inviteFile = IcalendarUtils.createTempFile(filePrefix, ".ics",
                     dir);
 
             if (IcalendarUtils.writeCalendarToFile(calendar, inviteFile)) {
-                if (type == ShareType.INTENT) {
-                    inviteFile.setReadable(true, false);     // Set world-readable
-                    Uri icsFile = FileProvider.getUriForFile(getActivity(),
-                            BuildConfig.APPLICATION_ID + ".provider", inviteFile);
-                    Intent shareIntent = new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, icsFile);
-                    // The ics file is sent as an extra, the receiving application decides whether
-                    // to parse the file to extract calendar events or treat it as a regular file
-                    shareIntent.setType("text/calendar");
+                inviteFile.setReadable(true, false);     // Set world-readable
+                Uri icsFile = FileProvider.getUriForFile(getActivity(),
+                        BuildConfig.APPLICATION_ID + ".provider", inviteFile);
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, icsFile);
+                // The ics file is sent as an extra, the receiving application decides whether
+                // to parse the file to extract calendar events or treat it as a regular file
+                shareIntent.setType("text/calendar");
 
-                    Intent chooserIntent = Intent.createChooser(shareIntent,
-                            getResources().getString(R.string.cal_share_intent_title));
+                Intent chooserIntent = Intent.createChooser(shareIntent,
+                        getResources().getString(R.string.cal_share_intent_title));
 
-                    // The MMS app only responds to "text/x-vcalendar" so we create a chooser intent
-                    // that includes the targeted mms intent + any that respond to the above general
-                    // purpose "application/octet-stream" intent.
-                    File vcsInviteFile = File.createTempFile(filePrefix, ".vcs",
-                            mActivity.getExternalCacheDir());
+                // The MMS app only responds to "text/x-vcalendar" so we create a chooser intent
+                // that includes the targeted mms intent + any that respond to the above general
+                // purpose "application/octet-stream" intent.
+                File vcsInviteFile = File.createTempFile(filePrefix, ".vcs",
+                        mActivity.getExternalCacheDir());
 
-                    // For now, we are duplicating ics file and using that as the vcs file
-                    // TODO: revisit above
-                    if (IcalendarUtils.copyFile(inviteFile, vcsInviteFile)) {
-                        Uri vcsFile = FileProvider.getUriForFile(getActivity(),
-                                BuildConfig.APPLICATION_ID + ".provider", vcsInviteFile);
-                        Intent mmsShareIntent = new Intent();
-                        mmsShareIntent.setAction(Intent.ACTION_SEND);
-                        mmsShareIntent.setPackage("com.android.mms");
-                        mmsShareIntent.putExtra(Intent.EXTRA_STREAM, vcsFile);
-                        mmsShareIntent.setType("text/x-vcalendar");
-                        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
-                                new Intent[]{mmsShareIntent});
-                    }
-                    startActivity(chooserIntent);
-                } else {
-                    String msg = getString(R.string.cal_export_succ_msg);
-                    Toast.makeText(mActivity, String.format(msg, inviteFile),
-                            Toast.LENGTH_SHORT).show();
+                // For now, we are duplicating ics file and using that as the vcs file
+                // TODO: revisit above
+                if (IcalendarUtils.copyFile(inviteFile, vcsInviteFile)) {
+                    Uri vcsFile = FileProvider.getUriForFile(getActivity(),
+                            BuildConfig.APPLICATION_ID + ".provider", vcsInviteFile);
+                    Intent mmsShareIntent = new Intent();
+                    mmsShareIntent.setAction(Intent.ACTION_SEND);
+                    mmsShareIntent.setPackage("com.android.mms");
+                    mmsShareIntent.putExtra(Intent.EXTRA_STREAM, vcsFile);
+                    mmsShareIntent.setType("text/x-vcalendar");
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                            new Intent[]{mmsShareIntent});
                 }
+                startActivity(chooserIntent);
                 isShareSuccessful = true;
-
             } else {
                 // Error writing event info to file
                 isShareSuccessful = false;

@@ -99,7 +99,7 @@
     <string name="thirty_minutes">30 minutt</string>
     <string name="one_hour">1 time</string>
     <string name="cal_share_intent_title">Send hendet til:</string>
-    <string name="cal_export_event_sdcard_title">Før ut til ytre gøyme</string>
+    <string name="cal_export_event_title">Før ut til ytre gøyme</string>
     <string name="cal_export_succ_msg">Hendet ført ut: %1$s</string>
     <string name="cal_import_menu_title">Før inn hende</string>
     <string name="cal_nothing_to_import">Det er ingenting å føre inn</string>

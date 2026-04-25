@@ -284,7 +284,7 @@
     <string name="preferences_default_snooze_delay_dialog">Standardna odgoda</string>
     <string name="error_generating_ics">Došlo je do problema tijekom dijeljenja događaja</string>
     <string name="cal_share_intent_title">Pošalji događaj za:</string>
-    <string name="cal_export_event_sdcard_title">Prebaci na SD karticu</string>
+    <string name="cal_export_event_title">Prebaci na SD karticu</string>
     <string name="cal_export_succ_msg">Događaj je uspješno izvezen: %1$s</string>
     <string name="cal_import_menu_title">Uvezi događaj</string>
     <string name="cal_nothing_to_import">Nema se što uvesti</string>

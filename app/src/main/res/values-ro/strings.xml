@@ -333,7 +333,7 @@
     <string name="one_and_a_half_hours">1.5 ore</string>
     <string name="error_generating_ics">Problemele apărute în timpul partajării evenimentului</string>
     <string name="cal_share_intent_title">Trimite evenimentul către:</string>
-    <string name="cal_export_event_sdcard_title">Exportă pe cardul SD</string>
+    <string name="cal_export_event_title">Exportă pe cardul SD</string>
     <string name="cal_export_succ_msg">Evenimentul a fost exportat cu succes: %1$s</string>
     <string name="cal_import_menu_title">Importă eveniment</string>
     <string name="visibility_confidential">Secret</string>
