@@ -45,7 +45,7 @@
     <string name="cal_nothing_to_import">Nada que importar</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_export_succ_msg">Evento exportado con éxito: %1$s</string>
-    <string name="cal_export_event_sdcard_title">Exportar a tarxeta SD</string>
+    <string name="cal_export_event_title">Exportar a tarxeta SD</string>
     <string name="cal_share_intent_title">Enviar evento a:</string>
     <string name="error_generating_ics">Atopáronse problemas ao compartir o evento</string>
     <string name="two_hours">2 horas</string>

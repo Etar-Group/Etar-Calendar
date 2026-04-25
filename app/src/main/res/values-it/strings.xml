@@ -290,7 +290,7 @@
     <string name="two_hours">2 ore</string>
     <string name="error_generating_ics">Si sono verificati dei problemi durante la condivisione dell\'evento</string>
     <string name="cal_share_intent_title">Invia evento a:</string>
-    <string name="cal_export_event_sdcard_title">Esporta sulla scheda SD</string>
+    <string name="cal_export_event_title">Esporta sulla scheda SD</string>
     <string name="cal_export_succ_msg">Evento esportato con successo: %1$s</string>
     <string name="cal_import_menu_title">Importa evento</string>
     <string name="cal_nothing_to_import">Niente da importare</string>

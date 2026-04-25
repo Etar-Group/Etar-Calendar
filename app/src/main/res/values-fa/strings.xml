@@ -284,7 +284,7 @@
     <string name="one_hour">۱ ساعت</string>
     <string name="one_and_a_half_hours">۱.۵ ساعت</string>
     <string name="two_hours">۲ ساعت</string>
-    <string name="cal_export_event_sdcard_title">خروجی گرفتن در کارت حافظه</string>
+    <string name="cal_export_event_title">خروجی گرفتن در کارت حافظه</string>
     <string name="cal_export_succ_msg">رویدادها با موفقیت خروجی گرفته شدند: %1$s</string>
     <string name="cal_import_menu_title">وارد کردن رویداد</string>
     <string name="cal_nothing_to_import">موردی برای وارد کردن وجود ندارد</string>

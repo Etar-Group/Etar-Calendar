@@ -130,7 +130,7 @@
     <string name="alert_title">Powiadōmiynia kalyndorza</string>
     <string name="saving_event_with_guest">Aktualizacyje bydōm wysłane.</string>
     <string name="hint_attendees">Goście</string>
-    <string name="cal_export_event_sdcard_title">Eksportuj na karta SD</string>
+    <string name="cal_export_event_title">Eksportuj na karta SD</string>
     <string name="dismiss_all_label">Zawrzij</string>
     <string name="modify_all">Zmiyń wszyjske zdarzynia we seryji</string>
     <string name="agenda_yesterday">wczorej, <xliff:g id="DATE">%1$s</xliff:g>
