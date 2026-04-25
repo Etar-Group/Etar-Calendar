@@ -299,7 +299,7 @@
     <string name="preferences_default_snooze_delay_dialog">הפרש נודניק כבררת מחדל</string>
     <string name="error_generating_ics">חלו תקלות בעת שיתוף אירוע</string>
     <string name="cal_share_intent_title">שליחת אירוע אל:</string>
-    <string name="cal_export_event_sdcard_title">ייצוא לכרטיס SD</string>
+    <string name="cal_export_event_title">ייצוא לכרטיס SD</string>
     <string name="cal_export_succ_msg">האירוע ייוצא בהצלחה: %1$s</string>
     <string name="cal_import_menu_title">ייבוא אירוע</string>
     <string name="cal_nothing_to_import">אין מה לייבא</string>

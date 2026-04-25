@@ -275,7 +275,7 @@
     <string name="cal_nothing_to_import">Nincs mit importálni</string>
     <string name="cal_import_menu_title">Esemény importálása</string>
     <string name="cal_export_succ_msg">Esemény sikeresen exportálva: %1$s</string>
-    <string name="cal_export_event_sdcard_title">Exportálás SD kártyára</string>
+    <string name="cal_export_event_title">Exportálás SD kártyára</string>
     <string name="cal_share_intent_title">Esemény küldése:</string>
     <string name="error_generating_ics">Problémák merültek fel az esemény megosztásakor</string>
     <string name="two_hours">2 óra</string>

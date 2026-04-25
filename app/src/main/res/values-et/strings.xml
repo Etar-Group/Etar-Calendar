@@ -315,7 +315,7 @@
     <string name="preferences_calendar_color_warning_button">Saan aru</string>
     <string name="error_generating_ics">Sündmuse jagamisel ilmnesid probleemid</string>
     <string name="cal_share_intent_title">Saada sündmus:</string>
-    <string name="cal_export_event_sdcard_title">Ekspordi SD-kaardile</string>
+    <string name="cal_export_event_title">Ekspordi SD-kaardile</string>
     <string name="cal_export_succ_msg">Sündmuse eksportimine õnnestus: %1$s</string>
     <string name="cal_import_menu_title">Impordi sündmus</string>
     <string name="cal_nothing_to_import">Pole midagi importida</string>

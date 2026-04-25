@@ -299,7 +299,7 @@
     <string name="default_start_last">Poprzednio używany widok</string>
     <string name="error_generating_ics">Podczas udostępniania wydarzenia wystąpiły problemy</string>
     <string name="cal_share_intent_title">Wyślij wydarzenie do:</string>
-    <string name="cal_export_event_sdcard_title">Eksportuj na kartę SD</string>
+    <string name="cal_export_event_title">Eksportuj na kartę SD</string>
     <string name="cal_import_menu_title">Importuj wydarzenie</string>
     <string name="cal_nothing_to_import">Nic do zaimportowania</string>
     <string name="cal_import_error_msg">Importowanie do kalendarza nie powiodło się</string>

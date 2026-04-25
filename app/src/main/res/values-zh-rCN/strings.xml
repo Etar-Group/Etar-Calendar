@@ -252,7 +252,7 @@
     <string name="default_start_last">先前使用视图</string>
     <string name="error_generating_ics">分享事件时遇到问题</string>
     <string name="cal_share_intent_title">发送事件到：</string>
-    <string name="cal_export_event_sdcard_title">导出至SD卡</string>
+    <string name="cal_export_event_title">导出至SD卡</string>
     <string name="cal_export_succ_msg">成功导出事件: %1$s</string>
     <string name="cal_import_menu_title">导入事件</string>
     <string name="cal_nothing_to_import">无可导入事件</string>

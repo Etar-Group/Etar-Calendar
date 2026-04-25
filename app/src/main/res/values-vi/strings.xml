@@ -266,7 +266,7 @@
     <string name="cal_nothing_to_import">Không có gì để nhập</string>
     <string name="cal_import_menu_title">Nhập sự kiện</string>
     <string name="cal_export_succ_msg">Xuất sự kiện thành công: %1$s</string>
-    <string name="cal_export_event_sdcard_title">Xuất ra thẻ SD</string>
+    <string name="cal_export_event_title">Xuất ra thẻ SD</string>
     <string name="cal_share_intent_title">Gửi sự kiện đến:</string>
     <string name="error_generating_ics">Đã gặp vấn đề khi chia sẻ sự kiện</string>
     <string name="two_hours">2 tiếng</string>

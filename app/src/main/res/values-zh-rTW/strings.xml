@@ -258,7 +258,7 @@
     <string name="zero_minutes">0 分鐘</string>
     <string name="fifteen_minutes">15 分鐘</string>
     <string name="visibility_confidential">機密</string>
-    <string name="cal_export_event_sdcard_title">匯出至 SD 卡</string>
+    <string name="cal_export_event_title">匯出至 SD 卡</string>
     <string name="preferences_calendar_account">%1$s 帳戶</string>
     <string name="preferences_pure_black_night_mode">純黑夜間模式</string>
     <string name="maximum_number_of_lines">事件的最大行數</string>

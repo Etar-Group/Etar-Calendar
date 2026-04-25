@@ -188,7 +188,7 @@
     <string name="two_hours">2 ordu</string>
     <string name="error_generating_ics">Arazoak gertatu dira gertaera partekatzerakoan</string>
     <string name="cal_share_intent_title">Bidali gertaera honi:</string>
-    <string name="cal_export_event_sdcard_title">Esportatu SD txartelara</string>
+    <string name="cal_export_event_title">Esportatu SD txartelara</string>
     <string name="cal_export_succ_msg">Gertaera behar bezala esportatu da: %1$s</string>
     <string name="cal_import_menu_title">Inportatu gertaera</string>
     <string name="cal_nothing_to_import">Ezer ez inportatzeko</string>

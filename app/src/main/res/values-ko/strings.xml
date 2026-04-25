@@ -252,7 +252,7 @@
     <string name="preferences_default_snooze_delay_dialog">기본 스누즈 딜레이</string>
     <string name="error_generating_ics">이 이벤트를 공유하는데 문제가있습니다</string>
     <string name="cal_share_intent_title">이벤트 전송 대상:</string>
-    <string name="cal_export_event_sdcard_title">sd카드로 보내기</string>
+    <string name="cal_export_event_title">sd카드로 보내기</string>
     <string name="cal_export_succ_msg">일정 내보내기 완료: %1$s</string>
     <string name="cal_import_menu_title">이벤트 가져오기</string>
     <string name="cal_nothing_to_import">가져올것이 없습니다</string>

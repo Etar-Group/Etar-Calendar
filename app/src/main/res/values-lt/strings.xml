@@ -289,7 +289,7 @@
     <string name="cal_nothing_to_import">Nėra ką importuoti</string>
     <string name="cal_import_menu_title">Importuoti įvykį</string>
     <string name="cal_export_succ_msg">Įvykis sėkmingai eksportuotas: %1$s</string>
-    <string name="cal_export_event_sdcard_title">Eksportuoti į SD kortelę</string>
+    <string name="cal_export_event_title">Eksportuoti į SD kortelę</string>
     <string name="cal_share_intent_title">Siųsti įvykį:</string>
     <string name="error_generating_ics">Dalijantis įvykiu iškilo problemų</string>
     <string name="two_hours">2 valandos</string>
