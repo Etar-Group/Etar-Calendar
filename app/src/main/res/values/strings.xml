@@ -15,7 +15,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- This is the app label used for alert notifications -->
-    <string name="standalone_app_label" translatable="false">Etar</string>
+    <string name="standalone_app_label" translatable="false">ShineFlow</string>
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
 
