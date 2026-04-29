@@ -89,6 +89,13 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
 
     private static final int REQUEST_CODE_COLOR_PICKER = 0;
+    private static final int REQUEST_CODE_PICK_IMAGE = 1001;
+    private static final int REQUEST_CODE_PICK_AUDIO = 1002;
+    private static final int REQUEST_CODE_RECORD_AUDIO_PERMISSION = 2001; // 录音权限请求码
+    private static final String SMART_INPUT_FOLDER = "smart_input_data";
+
+    private android.media.MediaRecorder mRecorder = null;
+    private String mCurrentRecordPath = null;
 
     private static final String BUNDLE_KEY_MODEL = "key_model";
     private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
@@ -330,6 +337,16 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
         mView = new EditEventView(mActivity, view, mOnDone);
 
+        View btnSmartInput = view.findViewById(R.id.btn_smart_input);
+        if (btnSmartInput != null) {
+            btnSmartInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showSmartInputDialog();
+                }
+            });
+        }
+
         if (!Utils.isCalendarPermissionGranted(mActivity, true)) {
             //If permission is not granted
             ((TextView)view.findViewById(R.id.loading_message)).setText(R.string.calendar_permission_not_granted);
@@ -351,6 +368,278 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         return view;
     }
 
+    // 1. 显示操作菜单
+    private void showSmartInputDialog() {
+        // ==== 修改了这里：增加了一个选项 ====
+        String[] options = {"📝 粘贴文字", "🖼️ 上传图片", "🎵 上传音频", "🎤 语音录入", "📥 加载解析结果"};
+        new AlertDialog.Builder(getActivity())
+                .setTitle("选择操作")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0: showTextInputDialog(); break;
+                            case 1:
+                                Intent imageIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                startActivityForResult(imageIntent, REQUEST_CODE_PICK_IMAGE);
+                                break;
+                            case 2:
+                                Intent audioIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                                audioIntent.setType("audio/*");
+                                startActivityForResult(audioIntent, REQUEST_CODE_PICK_AUDIO);
+                                break;
+                            case 3:
+                                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                                    requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_CODE_RECORD_AUDIO_PERMISSION);
+                                } else {
+                                    startRecording();
+                                }
+                                break;
+                            case 4: // ==== 新增：调用解析方法 ====
+                                loadParsedJsonData();
+                                break;
+                        }
+                    }
+                }).show();
+    }
+
+    // ==== 新增：开始隐秘录音 ====
+    private void startRecording() {
+        try {
+            java.io.File folder = new java.io.File(getActivity().getFilesDir(), SMART_INPUT_FOLDER);
+            if (!folder.exists()) folder.mkdirs();
+
+            // 生成隐藏文件路径，格式为 m4a
+            mCurrentRecordPath = new java.io.File(folder, "voice_" + System.currentTimeMillis() + ".m4a").getAbsolutePath();
+
+            mRecorder = new android.media.MediaRecorder();
+            mRecorder.setAudioSource(android.media.MediaRecorder.AudioSource.MIC);
+            mRecorder.setOutputFormat(android.media.MediaRecorder.OutputFormat.MPEG_4);
+            mRecorder.setOutputFile(mCurrentRecordPath);
+            mRecorder.setAudioEncoder(android.media.MediaRecorder.AudioEncoder.AAC);
+
+            mRecorder.prepare();
+            mRecorder.start();
+
+            // 弹出一个提示框，告诉用户正在录音，并提供“停止”按钮
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("🎤 正在录音...")
+                    .setMessage("请描述您的日程，录音将直接保存至应用安全目录。")
+                    .setCancelable(false) // 防止用户误触外面导致对话框消失但录音没停
+                    .setPositiveButton("⏹ 结束", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            stopRecording();
+                        }
+                    })
+                    .show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "录音失败，请检查麦克风是否被占用", Toast.LENGTH_SHORT).show();
+            if (mRecorder != null) {
+                mRecorder.release();
+                mRecorder = null;
+            }
+        }
+    }
+
+    // ==== 新增：停止录音并释放资源 ====
+    private void stopRecording() {
+        if (mRecorder != null) {
+            try {
+                mRecorder.stop();
+            } catch (RuntimeException stopException) {
+                // 如果录音时间过短（刚点开始就点结束），stop() 可能会抛出异常，这里捕获掉防止崩溃
+            }
+            mRecorder.release();
+            mRecorder = null;
+            //Toast.makeText(getActivity(), "录音已安全保存，等待后端解析", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // 2. 处理纯文本输入的弹窗
+    private void showTextInputDialog() {
+        final android.widget.EditText input = new android.widget.EditText(getActivity());
+        input.setHint(" 请在此粘贴或输入日程信息...");
+        input.setMinLines(3);
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("粘贴文字")
+                .setView(input)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = input.getText().toString();
+                        if (!text.isEmpty()) {
+                            saveTextToInternalFolder(text);
+                        }
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    // ==== 新增：读取 JSON、清洗数据并自动填表 ====
+    private void loadParsedJsonData() {
+        try {
+            java.io.File folder = new java.io.File(getActivity().getFilesDir(), SMART_INPUT_FOLDER);
+            // ⚠️ 注意：这里假定后端生成的文件名为 result.json，如果不同请修改这里
+            java.io.File jsonFile = new java.io.File(folder, "result.json");
+
+            if (!jsonFile.exists()) {
+                Toast.makeText(getActivity(), "尚未收到解析结果，请稍等或确认后端已处理", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 1. 读取文件内容到字符串
+            java.io.FileInputStream fis = new java.io.FileInputStream(jsonFile);
+            byte[] data = new byte[(int) jsonFile.length()];
+            fis.read(data);
+            fis.close();
+            String jsonString = new String(data, "UTF-8");
+
+            // 2. 解析外层 JSON，获取 reply 字段
+            org.json.JSONObject rootObj = new org.json.JSONObject(jsonString);
+            String replyStr = rootObj.getString("reply");
+
+            // 3. 提取真正的内部 JSON (剔除大模型生成的冗余文本)
+            int startIndex = replyStr.indexOf("{");
+            int endIndex = replyStr.lastIndexOf("}");
+            if (startIndex == -1 || endIndex == -1) {
+                Toast.makeText(getActivity(), "解析结果格式异常", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String cleanJsonStr = replyStr.substring(startIndex, endIndex + 1);
+
+            // 4. 解析内部 JSON
+            org.json.JSONObject innerObj = new org.json.JSONObject(cleanJsonStr);
+            org.json.JSONArray list = innerObj.getJSONArray("日程列表");
+
+            if (list.length() > 0) {
+                org.json.JSONObject eventObj = list.getJSONObject(0); // 取出第一个日程
+
+                String title = eventObj.optString("事件", "");
+                String location = eventObj.optString("地点", "");
+                String timeStr = eventObj.optString("时间", ""); // 格式: 2024-06-01 15:00:00
+
+                // 把人物拼接进描述(Description)里
+                String description = "";
+                if (eventObj.has("人物")) {
+                    org.json.JSONArray people = eventObj.getJSONArray("人物");
+                    StringBuilder sb = new StringBuilder("参与人物：");
+                    for (int i = 0; i < people.length(); i++) {
+                        sb.append(people.getString(i)).append(" ");
+                    }
+                    description = sb.toString();
+                }
+
+                // 5. 转换时间字符串为毫秒时间戳
+                long startMillis = 0;
+                if (!timeStr.isEmpty()) {
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault());
+                    java.util.Date date = sdf.parse(timeStr);
+                    if (date != null) {
+                        startMillis = date.getTime();
+                    }
+                }
+
+                // 6. 调用 View 层更新界面
+                if (mView != null) {
+                    mView.fillSmartParsedData(title, location, startMillis, description);
+                    Toast.makeText(getActivity(), "✅ 已自动为您填写日程信息", Toast.LENGTH_SHORT).show();
+
+                    // 阅后即焚：填完之后删除这个 json，防止下次重复读取
+                    jsonFile.delete();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "读取或解析失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // 3. 将文字保存为 txt 文件到内部文件夹
+    private void saveTextToInternalFolder(String content) {
+        try {
+            java.io.File folder = new java.io.File(getActivity().getFilesDir(), SMART_INPUT_FOLDER);
+            if (!folder.exists()) folder.mkdirs();
+
+            String fileName = "text_" + System.currentTimeMillis() + ".txt";
+            java.io.File file = new java.io.File(folder, fileName);
+
+            java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
+            fos.write(content.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            fos.close();
+
+            //Toast.makeText(getActivity(), "文字已保存，等待后端解析", Toast.LENGTH_SHORT).show();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "输入失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // 4. 将选中的图片或音频复制到内部文件夹
+    private void copyUriContentToInternalFolder(Uri sourceUri, String prefix, String extension) {
+        try {
+            java.io.File folder = new java.io.File(getActivity().getFilesDir(), SMART_INPUT_FOLDER);
+            if (!folder.exists()) folder.mkdirs();
+
+            String fileName = prefix + "_" + System.currentTimeMillis() + extension;
+            java.io.File destinationFile = new java.io.File(folder, fileName);
+
+            java.io.InputStream is = getActivity().getContentResolver().openInputStream(sourceUri);
+            java.io.FileOutputStream fos = new java.io.FileOutputStream(destinationFile);
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                fos.write(buffer, 0, length);
+            }
+            is.close();
+            fos.close();
+
+            //Toast.makeText(getActivity(), "文件已保存，等待后端解析", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "上传失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // 5. 接收从相册/文件管理器返回的数据
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedUri = data.getData();
+            if (selectedUri != null) {
+                switch (requestCode) {
+                    case REQUEST_CODE_PICK_IMAGE:
+                        copyUriContentToInternalFolder(selectedUri, "image", ".jpg");
+                        break;
+                    case REQUEST_CODE_PICK_AUDIO:
+                        copyUriContentToInternalFolder(selectedUri, "audio", ".mp3");
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_RECORD_AUDIO_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 用户同意了麦克风权限，开始录音
+                startRecording();
+            } else {
+                Toast.makeText(getActivity(), "需要麦克风权限才能进行语音录入", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -367,7 +656,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         if (ContextCompat.checkSelfPermission(EditEventFragment.this.getActivity(),
                 Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(EditEventFragment.this.getActivity(), new String[]{Manifest.permission.READ_CONTACTS},
-                0);
+                    0);
         }
 
         if (savedInstanceState != null) {
@@ -573,7 +862,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private boolean canSave() {
         Activity act = getActivity();
         return mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
-               && mView.prepareForSave();
+                && mView.prepareForSave();
     }
 
     private void showDiscardConfirmAlert() {
@@ -590,8 +879,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     }
 
     private void revertEventChanges() {
-            mOnDone.setDoneCode(Utils.DONE_REVERT);
-            mOnDone.run();
+        mOnDone.setDoneCode(Utils.DONE_REVERT);
+        mOnDone.run();
     }
 
     @Override
@@ -1048,3 +1337,4 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         }
     }
 }
+
