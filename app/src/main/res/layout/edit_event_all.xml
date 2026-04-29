@@ -32,13 +32,27 @@
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="timezone_icon,timezone_button" />
 
+        <Button
+            android:id="@+id/btn_smart_input"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="智能导入日程"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!-- CALENDARS SELECTOR for new events -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:background="@null"
             android:focusable="true"
@@ -49,7 +63,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_smart_input" />
 
         <View
             android:id="@+id/view"
