@@ -17,20 +17,24 @@
 
 package com.android.calendar.settings
 
+import android.accounts.Account
+import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
+import android.net.Uri
 import android.provider.CalendarContract
-import androidx.core.database.getStringOrNull
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceDataStore
+import com.android.calendar.persistence.ICalendarRepository
 
 /**
  * Custom data store for preferences that saves/retrieves settings of an individual calendar
  * from Android's calendar database.
  */
 class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : PreferenceDataStore() {
-    private var contentResolver = activity.contentResolver
-    private var calendarUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarId)
+    private val contentResolver = activity.contentResolver
+    private val calendarUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarId)
+    private val account = ICalendarRepository.get(activity.application).queryAccount(calendarId)
 
     companion object {
         private val PROJECTION = arrayOf(
@@ -52,17 +56,32 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         }
     }
 
+    private fun getSyncAdapterUri(account: Account): Uri {
+        return calendarUri.buildUpon()
+            .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
+            .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_NAME, account.name)
+            .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_TYPE, account.type)
+            .build()
+    }
+
+    private fun updateDatabase(key: String, values: ContentValues, booleanValue: Boolean? = null) {
+        val updateUri = if (account != null) getSyncAdapterUri(account) else calendarUri
+        contentResolver.update(updateUri, values, null, null)
+
+        if (account != null && key == CalendarPreferences.SYNCHRONIZE_KEY && booleanValue != null) {
+            ContentResolver.setSyncAutomatically(account, CalendarContract.AUTHORITY, booleanValue)
+        }
+    }
+
     override fun putBoolean(key: String, value: Boolean) {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
-
         val values = ContentValues()
         values.put(databaseKey, if (value) 1 else 0)
-        contentResolver.update(calendarUri, values, null, null)
+        updateDatabase(key, values, value)
     }
 
     override fun getBoolean(key: String, defValue: Boolean): Boolean {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
-
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
             val columnIndex = it.getColumnIndexOrThrow(databaseKey)
             if (it.moveToFirst()) {
@@ -74,15 +93,13 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
 
     override fun putInt(key: String, value: Int) {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
-
         val values = ContentValues()
         values.put(databaseKey, value)
-        contentResolver.update(calendarUri, values, null, null)
+        updateDatabase(key, values)
     }
 
     override fun getInt(key: String, defValue: Int): Int {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
-
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
             val columnIndex = it.getColumnIndexOrThrow(databaseKey)
             if (it.moveToFirst()) {
@@ -94,15 +111,13 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
 
     override fun putString(key: String, value: String?) {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
-
         val values = ContentValues()
         values.put(databaseKey, value)
-        contentResolver.update(calendarUri, values, null, null)
+        updateDatabase(key, values)
     }
 
     override fun getString(key: String, defValue: String?): String? {
         val databaseKey = mapPreferenceKeyToDatabaseKey(key)
-
         contentResolver.query(calendarUri, PROJECTION, null, null, null)?.use {
             val columnIndex = it.getColumnIndexOrThrow(databaseKey)
             if (it.moveToFirst()) {
@@ -111,5 +126,4 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
         }
         return defValue
     }
-
 }
