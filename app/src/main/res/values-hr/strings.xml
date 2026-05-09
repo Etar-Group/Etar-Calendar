@@ -127,7 +127,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Odbaci sve"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Odgodi alarm"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Jednokratni događaj"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; do <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">; do <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; jedanput</item>
         <item quantity="few">; <xliff:g id="number">%d</xliff:g> puta</item>
@@ -153,7 +153,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Novi događaj"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Novi događaj"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Izbrisati ovaj događaj?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Izbrisati <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">Izbrisati <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Promijeni odgovor"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Postavke"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">Postavka prikaza kalendara</string>
@@ -238,7 +238,7 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">istog dana svakog mjeseca</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Zauvijek"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do datuma"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">Do <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Ovoliko puta</string>
     <plurals name="recurrence_end_count">
         <item quantity="one"><xliff:g id="event_count">%d</xliff:g> događaj</item>
@@ -377,14 +377,13 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Izbriši upit"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Nisu pronađeni rezultati"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
-
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"Kopiranje e-adrese"</string>
     <string name="copy_number" msgid="8860802152973030914">"Kopiranje telefonskog broja"</string>
     <string name="action_label" msgid="7172664623795021857">"Natrag"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Prijedlozi za kontakt otvoreni"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Nema dostupnih prijedloga"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Ukloni kontakt <xliff:g id="CONTACT">%s</xliff:g> iz primatelja"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Ukloni kontakt <xliff:g id="contact">%s</xliff:g> iz primatelja</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Kopiraj"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Odustani"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Dopusti predlaganje kontakata"</string>
