@@ -73,10 +73,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         val currentColor = preferenceManager.preferenceDataStore!!.getInt(COLOR_KEY, -1)
         val authenticatorInfo = getAuthenticatorInfo(account)
 
-        val synchronizePreference = SwitchPreference(context).apply {
-            key = SYNCHRONIZE_KEY
-            title = getString(R.string.preferences_calendar_synchronize)
-        }
         val visiblePreference = SwitchPreference(context).apply {
             key = VISIBLE_KEY
             title = getString(R.string.preferences_calendar_visible)
@@ -131,10 +127,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         val localAccountInfoPreference = Preference(context).apply {
             title = getString(R.string.preferences_list_add_offline_message)
             isSelectable = false
-        }
-
-        if (!isLocalAccount) {
-            screen.addPreference(synchronizePreference)
         }
 
         screen.addPreference(visiblePreference)
@@ -249,7 +241,6 @@ class CalendarPreferences : PreferenceFragmentCompat() {
 
         const val ARG_CALENDAR_ID = "calendarId"
 
-        const val SYNCHRONIZE_KEY = "synchronize"
         const val VISIBLE_KEY = "visible"
         const val COLOR_KEY = "color"
         const val DISPLAY_NAME_KEY = "displayName"
