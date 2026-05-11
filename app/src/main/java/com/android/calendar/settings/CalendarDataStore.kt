@@ -20,7 +20,6 @@ package com.android.calendar.settings
 import android.content.ContentUris
 import android.content.ContentValues
 import android.provider.CalendarContract
-import androidx.core.database.getStringOrNull
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceDataStore
 
@@ -44,7 +43,6 @@ class CalendarDataStore(activity: FragmentActivity, calendarId: Long) : Preferen
 
     private fun mapPreferenceKeyToDatabaseKey(key: String): String {
         return when (key) {
-            CalendarPreferences.SYNCHRONIZE_KEY -> CalendarContract.Calendars.SYNC_EVENTS
             CalendarPreferences.VISIBLE_KEY -> CalendarContract.Calendars.VISIBLE
             CalendarPreferences.COLOR_KEY -> CalendarContract.Calendars.CALENDAR_COLOR
             CalendarPreferences.DISPLAY_NAME_KEY -> CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
