@@ -273,7 +273,7 @@
     <string name="calendar_permission_not_granted">As permissões necessárias foram negadas. Ative-as nas configurações para editar eventos</string>
     <string name="one_and_a_half_hours">1 hora e meia</string>
     <string name="cal_export_event_title">Exportar para cartão SD</string>
-    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1$s</string>
+    <string name="cal_export_succ_msg">Evento exportado com êxito</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada a importar</string>
     <string name="cal_import_error_msg">Falha na importação para o calendário</string>
@@ -366,4 +366,6 @@
     <string name="searchview_description_clear">Limpar a consulta</string>
     <string name="no_results_found">Nenhum resultado encontrado</string>
     <string name="palestine_display_name">Palestina</string>
+    <string name="cal_export_success">Evento exportado com êxito</string>
+    <string name="cal_export_error">Falha ao exportar o evento</string>
 </resources>
