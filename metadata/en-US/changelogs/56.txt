@@ -1,0 +1,4 @@
+- Use SAF to avoid external storage permissions
+- Prevent Etar from overriding external calendar sync settings
+- Add missing channel_ID
+- Bugfixes
