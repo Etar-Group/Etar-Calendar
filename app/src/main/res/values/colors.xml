@@ -69,6 +69,8 @@
     <color name="month_week_num_color">#41c3b1</color>
     <color name="month_day_names_color">#757575</color>
     <color name="month_today_number">#FF555555</color>
+    <color name="month_widget_today_bg">#FF3F51B5</color>
+    <color name="month_widget_today_text">#FFFFFFFF</color>
     <color name="month_event_color">#FF333333</color>
     <color name="month_event_extra_color">#FF666666</color>
     <color name="month_event_other_color">#FF666666</color>
@@ -241,6 +243,8 @@
     <color name="month_day_number_black">#ffffff</color>
     <color name="month_day_number_other_black">#616161</color>
     <color name="month_today_number_black">#ffffff</color>
+    <color name="month_widget_today_bg_black">#FF5C6BC0</color>
+    <color name="month_widget_today_text_black">#FFFFFFFF</color>
     <color name="month_event_color_black">#ffffff</color>
     <color name="month_event_extra_color_black">#ffffff</color>
     <color name="month_event_extra_other_color_black">#000000</color>
@@ -344,6 +348,8 @@
     <color name="month_day_number_dark">#ffffff</color>
     <color name="month_day_number_other_dark">#616161</color>
     <color name="month_today_number_dark">#ffffff</color>
+    <color name="month_widget_today_bg_dark">#FF5C6BC0</color>
+    <color name="month_widget_today_text_dark">#FFFFFFFF</color>
     <color name="month_event_color_dark">#ffffff</color>
     <color name="month_event_extra_color_dark">#ffffff</color>
     <color name="month_event_extra_other_color_dark">#000000</color>

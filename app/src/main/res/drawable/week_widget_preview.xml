@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2026 The Etar Project
+  Licensed under the Apache License, Version 2.0
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/colorPrimary" />
+    <corners android:radius="8dip" />
+    <size
+        android:width="250dip"
+        android:height="110dip" />
+</shape>
