@@ -375,7 +375,6 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Borrar consulta"</string>
     <string name="no_results_found" msgid="5475293015394772651">"No se han encontrado resultados"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
-
     <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
     <string name="copy_email" msgid="1084563757174121331">"Copiar dirección de correo electrónico"</string>
     <string name="copy_number" msgid="8860802152973030914">"Copiar número de teléfono"</string>
