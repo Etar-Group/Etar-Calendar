@@ -316,8 +316,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                         } else {
                             mAvailabilityCurrentlySelected = position;
                             mAllDayChangingAvailability = false;
-                }
-            }
+                        }
+                    }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> arg0) {
@@ -513,7 +513,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return false;
         }
         mModel.mReminders = EventViewUtils.reminderItemsToReminders(
-                    mReminderItems, mReminderMinuteValues, mReminderMethodValues);
+                mReminderItems, mReminderMinuteValues, mReminderMethodValues);
         mModel.mReminders.addAll(mUnsupportedReminders);
         mModel.normalizeReminders();
         int status = EventInfoFragment.getResponseFromButtonId(
@@ -1026,7 +1026,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void sendAccessibilityEvent() {
         AccessibilityManager am =
-            (AccessibilityManager) mActivity.getSystemService(Service.ACCESSIBILITY_SERVICE);
+                (AccessibilityManager) mActivity.getSystemService(Service.ACCESSIBILITY_SERVICE);
         if (!am.isEnabled() || mModel == null) {
             return;
         }
@@ -1140,7 +1140,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         // populate the calendars spinner
         CalendarsAdapter adapter = new CalendarsAdapter(mActivity,
-            R.layout.calendars_spinner_item, cursor);
+                R.layout.calendars_spinner_item, cursor);
         mCalendarsSpinner.setAdapter(adapter);
         mCalendarsSpinner.setOnItemSelectedListener(this);
         mCalendarsSpinner.setSelection(selection);
@@ -1407,7 +1407,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     protected void resetToDefaultDuration() {
         mEndTime.setDay(mEndTime.getDay() - 1);
         mEndTime.set(mStartTime.normalize() +
-                     Utils.getDefaultEventDurationInMillis(mActivity));
+                Utils.getDefaultEventDurationInMillis(mActivity));
         long endMillis = mEndTime.normalize();
         setDate(mEndDateButton, endMillis);
         setTime(mEndTimeButton, endMillis);
@@ -1521,7 +1521,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // Update the UI elements.
         mReminderItems.clear();
         LinearLayout reminderLayout =
-            (LinearLayout) mScrollView.findViewById(R.id.reminder_items_container);
+                (LinearLayout) mScrollView.findViewById(R.id.reminder_items_container);
         reminderLayout.removeAllViews();
 
         prepareReminders();
@@ -1552,7 +1552,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
             mSB.setLength(0);
             time.append(DateUtils
-                    .formatDateRange(mActivity, mF, millisStart, millisStart, flags, tz))
+                            .formatDateRange(mActivity, mF, millisStart, millisStart, flags, tz))
                     .append(" ").append(tzDisplay);
             mStartTimeHome.setText(time.toString());
 
@@ -1580,7 +1580,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY;
             mSB.setLength(0);
             mEndDateHome.setText(DateUtils.formatDateRange(
-                            mActivity, mF, millisEnd, millisEnd, flags, tz).toString());
+                    mActivity, mF, millisEnd, millisEnd, flags, tz).toString());
 
             mStartHomeGroup.setVisibility(View.VISIBLE);
             mEndHomeGroup.setVisibility(View.VISIBLE);
@@ -1770,6 +1770,40 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     accountName.setVisibility(TextView.VISIBLE);
                 }
             }
+        }
+    }
+    public void fillSmartParsedData(String title, String location, long startMillis, String description) {
+        if (!TextUtils.isEmpty(title)) {
+            mTitleTextView.setText(title);
+        }
+        if (!TextUtils.isEmpty(location)) {
+            mLocationTextView.setText(location);
+        }
+        if (!TextUtils.isEmpty(description)) {
+            mDescriptionTextView.setText(description);
+        }
+
+        if (startMillis > 0) {
+            // 更新开始时间
+            mStartTime.set(startMillis);
+            mStartTime.normalize();
+
+            // 默认结束时间为：开始时间 + 1小时
+            mEndTime.set(startMillis + android.text.format.DateUtils.HOUR_IN_MILLIS);
+            mEndTime.normalize();
+
+            // 转换为毫秒用于更新 UI 按钮
+            long startMs = mStartTime.toMillis();
+            long endMs = mEndTime.toMillis();
+
+            // 更新日期和时间按钮的显示文本
+            setDate(mStartDateButton, startMs);
+            setTime(mStartTimeButton, startMs);
+            setDate(mEndDateButton, endMs);
+            setTime(mEndTimeButton, endMs);
+
+            // 刷新 Home 时区（如果有的话）
+            updateHomeTime();
         }
     }
 }
