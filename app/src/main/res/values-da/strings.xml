@@ -39,7 +39,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Uge <xliff:g id="COUNT">%d</xliff:g></item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Opdater"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Vis dag"</string>
@@ -335,7 +335,6 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Ryd forespørgslen"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Der blev ikke fundet nogen resultater"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palæstina"</string>
-
     <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
     <string name="copy_email" msgid="1084563757174121331">"Kopiér mailadressen"</string>
     <string name="copy_number" msgid="8860802152973030914">"Kopiér telefonnummeret"</string>
