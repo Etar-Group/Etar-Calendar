@@ -268,8 +268,8 @@
     <string name="default_start_last">Eerder gebruikte weergave</string>
     <string name="error_generating_ics">Het delen van de gebeurtenis is mislukt</string>
     <string name="cal_share_intent_title">Gebeurtenis delen met:</string>
-    <string name="cal_export_event_title">Naar SD-kaart exporteren</string>
-    <string name="cal_export_succ_msg">Gebeurtenis is geëxporteerd: %1$s</string>
+    <string name="cal_export_event_title">Gebeurtenis exporteren</string>
+    <string name="cal_export_succ_msg">Gebeurtenis is geëxporteerd</string>
     <string name="cal_import_menu_title">Gebeurtenis importeren</string>
     <string name="cal_nothing_to_import">Niets te importeren</string>
     <string name="cal_import_error_msg">Agenda-import niet gelukt</string>
@@ -370,4 +370,6 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Kopiëren"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Annuleren"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Contactsuggesties toestaan"</string>
+    <string name="cal_export_success">Gebeurtenis met succes geëxporteerd</string>
+    <string name="cal_export_error">Exporteren van gebeurtenis is mislukt</string>
 </resources>
