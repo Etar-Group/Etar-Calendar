@@ -1,0 +1,4 @@
+- Gebruik SAF om externe opslagrechten te vermijden
+- Voorkom dat Etar externe agenda-synchronisatie-instellingen overschrijft
+- Ontbrekend channel_ID toevoegen
+- Bugfixes
