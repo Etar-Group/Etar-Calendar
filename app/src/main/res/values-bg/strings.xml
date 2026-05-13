@@ -294,7 +294,7 @@
     <string name="preferences_month_view_portrait">Оформление на месечен изглед (портрет)</string>
     <string name="preferences_days_per_week_title">Дни в седмицата</string>
     <string name="one_and_a_half_hours">1.5 часа</string>
-    <string name="cal_export_succ_msg">Събитието е експортирано успешно:%1$s</string>
+    <string name="cal_export_succ_msg">Събитието е изнесено</string>
     <string name="preferences_calendar_account">%1$s акаунт</string>
     <string name="cal_pick_ics">Изберете файл за импортиране</string>
     <string name="preferences_calendar_color_warning_title">Внимание</string>
@@ -370,4 +370,6 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Копиране"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Отказ"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Разрешаване на предложенията за контакти"</string>
+    <string name="cal_export_success">Събитието е изнесено</string>
+    <string name="cal_export_error">Грешка при изнасяне на събитие</string>
 </resources>
