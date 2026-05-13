@@ -269,7 +269,7 @@
     <string name="error_generating_ics">Etkinlik paylaşılırken bir hata oluştu</string>
     <string name="cal_share_intent_title">Etkinliği şuna gönder:</string>
     <string name="cal_export_event_title">SD karta aktar</string>
-    <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı: %1$s</string>
+    <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı</string>
     <string name="cal_import_menu_title">Etkinliği içeri aktar</string>
     <string name="cal_nothing_to_import">İçeri aktarılacak hiçbir şey yok</string>
     <string name="cal_import_error_msg">Takvime aktarma başarısız oldu</string>
@@ -370,4 +370,6 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Kopyala"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"İptal"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Kişi önerilerine izin ver"</string>
+    <string name="cal_export_success">Etkinlik başarıyla dışarıya aktarıldı</string>
+    <string name="cal_export_error">Etkinlik dışa aktarılamadı</string>
 </resources>
