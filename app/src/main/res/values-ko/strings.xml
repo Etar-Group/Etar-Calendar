@@ -253,7 +253,7 @@
     <string name="error_generating_ics">이 이벤트를 공유하는데 문제가있습니다</string>
     <string name="cal_share_intent_title">이벤트 전송 대상:</string>
     <string name="cal_export_event_title">sd카드로 보내기</string>
-    <string name="cal_export_succ_msg">일정 내보내기 완료: %1$s</string>
+    <string name="cal_export_succ_msg">이벤트 내보내기 완료</string>
     <string name="cal_import_menu_title">이벤트 가져오기</string>
     <string name="cal_nothing_to_import">가져올것이 없습니다</string>
     <string name="cal_import_error_msg">달력을 가져오는데 실패하였습니다</string>
@@ -351,4 +351,6 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"복사"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"취소"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"주소록 제안 허용"</string>
+    <string name="cal_export_success">이벤트 내보내기 완료</string>
+    <string name="cal_export_error">이벤트 내보내기 실패</string>
 </resources>
