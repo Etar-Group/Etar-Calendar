@@ -1,0 +1,13 @@
+Funkciók:
+- Hónap nézet.
+- Hét, nap és napirend nézet.
+- Az egységes Android naptár tárolót használja, hogy az összes szinkronizált naptárat megjelenítse.
+- Material Dizájn.
+- Sötét és világos téma.
+- Offline naptár támogatás.
+- Napirend widget.
+- Naptár bejegyzések megosztási lehetősége ICS-sel, sd kártyáról való importálás/exportálás.
+- Többnyelvű felület.
+
+Hibák és visszajelzések: https://github.com/Etar-Group/Etar-Calendar/issues
+Forráskód: https://github.com/Etar-Group/Etar-Calendar

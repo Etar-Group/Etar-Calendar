@@ -1,1 +1,1 @@
-Az alap androidos naptár leszármazottja, Material Design használatával
+Egy mindenki számára elérhető material dizájn stílusban készült nyílt forráskódú naptár!

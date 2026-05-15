@@ -1,0 +1,3 @@
+- Hetenkénti napok választási lehetősége.
+- Induláskori alap nézet választása.
+- HibajavításokBug fixes.
