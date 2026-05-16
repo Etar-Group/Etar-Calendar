@@ -51,9 +51,9 @@
     <string name="view_event_calendar_label">Agenda:</string>
     <string name="view_event_organizer_label">Organizador:</string>
     <string name="choose_event_color_label">Escolher cor do evento</string>
-    <string name="event_color_picker_dialog_title">Cor do Evento</string>
+    <string name="event_color_picker_dialog_title">Cor do evento</string>
     <string name="event_color_set_to_default">Definir como cor padrão de agenda</string>
-    <string name="calendar_color_picker_dialog_title">Cor da Agenda</string>
+    <string name="calendar_color_picker_dialog_title">Cor da agenda</string>
     <string name="calendar_square_color_picker_description">Seletor de cores</string>
     <string name="view_event_response_label">Você vai\?</string>
     <string name="response_yes">Sim</string>
@@ -144,15 +144,15 @@
     <string name="preferences_issues">Relatar erros</string>
     <string name="gadget_no_events">Não há eventos futuros na agenda</string>
     <string name="preferences_experimental_category">Experimentais</string>
-    <string name="preferences_reminders_responded_label">Ignorar Lembretes</string>
-    <string name="preferences_reminders_responded_dialog">Ignorar Lembretes</string>
+    <string name="preferences_reminders_responded_label">Ignorar lembretes</string>
+    <string name="preferences_reminders_responded_dialog">Ignorar lembretes</string>
     <string name="copy_db">Enviar banco de dados</string>
     <string name="directory_searching_fmt">Pesquisando <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee">Remover participante</string>
     <string name="accessibility_pick_start_date">Data de início</string>
-    <string name="accessibility_pick_start_time">Horário de início</string>
+    <string name="accessibility_pick_start_time">Hora de início</string>
     <string name="accessibility_pick_end_date">Data de término</string>
-    <string name="accessibility_pick_end_time">Horário de término</string>
+    <string name="accessibility_pick_end_time">Hora de término</string>
     <string name="accessibility_pick_time_zone">Fuso horário</string>
     <string name="accessibility_pick_recurrence">Repetir evento</string>
     <string name="accessibility_add_reminder">Adicionar lembrete</string>
@@ -185,23 +185,23 @@
     <string name="cal_share_intent_title">Enviar evento para:</string>
     <string name="show_time_no">Não mostrar o horário</string>
     <plurals name="Nminutes">
-        <item quantity="one">1 minuto</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> minuto</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> de minutos</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one">%d min</item>
-        <item quantity="many">%d de mins</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> min</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> de mins</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="one">%d hora</item>
-        <item quantity="many">%d de horas</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> hora</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> de horas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one">%d dia</item>
-        <item quantity="many">%d de dias</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> dia</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> de dias</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="weekN">
@@ -212,7 +212,7 @@
     <string name="goto_date">Ir para…</string>
     <string name="no_map">Não existe nenhum aplicativo de mapas instalado</string>
     <plurals name="endByCount">
-        <item quantity="one">; uma vez</item>
+        <item quantity="one">; <xliff:g id="number">%d</xliff:g> vez</item>
         <item quantity="many">; <xliff:g id="number">%d</xliff:g> de vezes</item>
         <item quantity="other">; <xliff:g id="number">%d</xliff:g> vezes</item>
     </plurals>
@@ -230,17 +230,17 @@
     <string name="default_start_last">Visualização usada anteriormente</string>
     <string name="preferences_default_event_duration_title">Duração padrão dos eventos</string>
     <plurals name="month_more_events">
-        <item quantity="one">+1</item>
+        <item quantity="one">+<xliff:g id="number">%d</xliff:g></item>
         <item quantity="many">+<xliff:g id="number">%d</xliff:g></item>
         <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <plurals name="Nevents">
-        <item quantity="one">1 evento</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> evento</item>
         <item quantity="many"><xliff:g id="count">%d</xliff:g> de eventos</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> eventos</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one">+1 evento</item>
+        <item quantity="one">+<xliff:g id="count">%d</xliff:g> evento</item>
         <item quantity="many">+<xliff:g id="count">%d</xliff:g> de eventos</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> eventos</item>
     </plurals>
@@ -332,8 +332,8 @@
     <string name="app_copyright">© 2015-<xliff:g>%1$s</xliff:g> The Etar Project. Portions © 2005-<xliff:g>%1$s</xliff:g> The Android Open Source Project.</string>
     <string name="no_reminder_label">Nenhum</string>
     <plurals name="Nweeks">
-        <item quantity="one">%d semana</item>
-        <item quantity="many">%d de semanas</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> semana</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> de semanas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <string name="foreground_notification_title">Agendando novos lembretes…</string>
@@ -343,7 +343,7 @@
     <string name="hint_url">URL</string>
     <string name="menu_info">Informação</string>
     <string name="add_calendar">Adicionar calendário</string>
-    <string name="no_calendars_found">Antes que você possa adicionar um evento, você deve adicionar pelo menos um calendário no seu dispositivo</string>
+    <string name="no_calendars_found">Antes de adicionar um evento, você precisa adicionar pelo menos um calendário ao seu dispositivo</string>
     <string name="preferences_manage_notifications">Gerenciar notificações</string>
     <string name="preferences_do_not_check_battery_optimization">Não verifique a otimização da bateria</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Use por sua própria conta e risco! Notificações não funcionarão mais, o widget não atualizará mais, e serviços em segundo plano irão quebrar. Você não será perguntado novamente se você quer ativar o serviço em segundo plano.</string>
@@ -352,13 +352,13 @@
     <string name="discard_event_changes">Você gostaria de descartar as alterações?</string>
     <string name="discard">Descartar</string>
     <string name="cancel">Cancelar</string>
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"Copiar endereço de e-mail"</string>
     <string name="copy_number" msgid="8860802152973030914">"Copiar número de telefone"</string>
     <string name="action_label" msgid="7172664623795021857">"Enter"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Sugestões de contato ativadas"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Nenhuma sugestão disponível"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Remover <xliff:g id="CONTACT">%s</xliff:g> dos destinatários"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Remover <xliff:g id="contact">%s</xliff:g> dos destinatários</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Copiar"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Cancelar"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Permitir sugestões de contatos"</string>
