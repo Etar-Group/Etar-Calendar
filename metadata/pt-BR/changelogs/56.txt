@@ -1,0 +1,4 @@
+- Usar o SAF para evitar permissões de armazenamento externo
+- Impedir que o Etar substitua as configurações de sincronização de calendários externos
+- Adicionar o channel_ID que faltava
+- Correções de bugs
