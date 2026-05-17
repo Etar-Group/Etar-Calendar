@@ -284,8 +284,8 @@
     <string name="preferences_default_snooze_delay_dialog">Standardna odgoda</string>
     <string name="error_generating_ics">Došlo je do problema tijekom dijeljenja događaja</string>
     <string name="cal_share_intent_title">Pošalji događaj za:</string>
-    <string name="cal_export_event_title">Prebaci na SD karticu</string>
-    <string name="cal_export_succ_msg">Događaj je uspješno izvezen: %1$s</string>
+    <string name="cal_export_event_title">Izvezi događaj</string>
+    <string name="cal_export_succ_msg">Događaj je uspješno izvezen</string>
     <string name="cal_import_menu_title">Uvezi događaj</string>
     <string name="cal_nothing_to_import">Nema se što uvesti</string>
     <string name="cal_import_error_msg">Uvoz u kalendar nije uspio</string>
@@ -387,4 +387,6 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Kopiraj"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Odustani"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Dopusti predlaganje kontakata"</string>
+    <string name="cal_export_success">Događaj je uspješno izvezen</string>
+    <string name="cal_export_error">Izvoz događaja nije uspio</string>
 </resources>
