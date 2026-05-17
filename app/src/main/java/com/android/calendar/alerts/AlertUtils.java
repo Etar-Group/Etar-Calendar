@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
@@ -256,10 +257,36 @@ public class AlertUtils {
         return context.getSharedPreferences(ALERTS_SHARED_PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    private static String getFiredAlertsKey(long eventId, long beginTime,
+    static String getStableEventId(Context context, long eventId) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            return "e:" + eventId;
+        }
+        Cursor cursor = null;
+        try {
+            cursor = context.getContentResolver().query(
+                    ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId),
+                    new String[] { CalendarContract.Events._SYNC_ID }, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                String syncId = cursor.getString(0);
+                if (syncId != null && !syncId.isEmpty()) {
+                    return "s:" + syncId;
+                }
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to look up sync id for event " + eventId, e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return "e:" + eventId;
+    }
+
+    private static String getFiredAlertsKey(String stableEventId, long beginTime,
             long alarmTime) {
         StringBuilder sb = new StringBuilder(KEY_FIRED_ALERT_PREFIX);
-        sb.append(eventId);
+        sb.append(stableEventId);
         sb.append("_");
         sb.append(beginTime);
         sb.append("_");
@@ -270,22 +297,22 @@ public class AlertUtils {
     /**
      * Returns whether the SharedPrefs storage indicates we have fired the alert before.
      */
-    static boolean hasAlertFiredInSharedPrefs(Context context, long eventId, long beginTime,
-            long alarmTime) {
+    static boolean hasAlertFiredInSharedPrefs(Context context, String stableEventId,
+            long beginTime, long alarmTime) {
         SharedPreferences prefs = getFiredAlertsTable(context);
-        return prefs.contains(getFiredAlertsKey(eventId, beginTime, alarmTime));
+        return prefs.contains(getFiredAlertsKey(stableEventId, beginTime, alarmTime));
     }
 
     /**
      * Store fired alert info in the SharedPrefs.
      */
-    static void setAlertFiredInSharedPrefs(Context context, long eventId, long beginTime,
+    static void setAlertFiredInSharedPrefs(Context context, String stableEventId, long beginTime,
             long alarmTime) {
         // Store alarm time as the value too so we don't have to parse all the keys to flush
         // old alarms out of the table later.
         SharedPreferences prefs = getFiredAlertsTable(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong(getFiredAlertsKey(eventId, beginTime, alarmTime), alarmTime);
+        editor.putLong(getFiredAlertsKey(stableEventId, beginTime, alarmTime), alarmTime);
         editor.apply();
     }
 
