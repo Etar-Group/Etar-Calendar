@@ -22,12 +22,6 @@
     <item msgid="2658001219380695677">"Sms"</item>
     <item msgid="7926918288165444873">"Påmindelse"</item>
   </string-array>
-  <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Landestandard"</item>
-    <item msgid="134027225275475280">"lørdag"</item>
-    <item msgid="95029346069903091">"søndag"</item>
-    <item msgid="5840983116375063739">"mandag"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Optaget"</item>
     <item msgid="6228387173725732140">"Ledig"</item>

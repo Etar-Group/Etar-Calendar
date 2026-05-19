@@ -42,7 +42,6 @@ import com.android.calendar.calendarcommon2.Time;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 
 import ws.xsoh.etar.R;
 
@@ -292,9 +291,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * preference space.
      */
     protected void doResumeUpdates() {
-        // Get default week start based on locale, subtracting one for use with android Time.
-        Calendar cal = Calendar.getInstance(Locale.getDefault());
-        mFirstDayOfWeek = cal.getFirstDayOfWeek() - 1;
+        mFirstDayOfWeek = Utils.getFirstDayOfWeek(getContext());
 
         mShowWeekNumber = false;
 

@@ -22,12 +22,6 @@
     <item msgid="2658001219380695677">"Tekstiviesti"</item>
     <item msgid="7926918288165444873">"Hälytys"</item>
   </string-array>
-  <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Oletussijainti"</item>
-    <item msgid="134027225275475280">"lauantai"</item>
-    <item msgid="95029346069903091">"sunnuntai"</item>
-    <item msgid="5840983116375063739">"maanantai"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Varattu"</item>
     <item msgid="6228387173725732140">"Tavoitettavissa"</item>

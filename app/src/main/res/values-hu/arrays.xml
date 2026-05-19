@@ -22,12 +22,6 @@
     <item msgid="2658001219380695677">"SMS"</item>
     <item msgid="7926918288165444873">"Ébresztő"</item>
   </string-array>
-  <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Helyi alapértelmezett"</item>
-    <item msgid="134027225275475280">"Szombat"</item>
-    <item msgid="95029346069903091">"Vasárnap"</item>
-    <item msgid="5840983116375063739">"Hétfő"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Elfoglalt"</item>
     <item msgid="6228387173725732140">"Elérhető"</item>

@@ -499,6 +499,7 @@
     <string name="preferences_week_start_day_dialog">Week starts on</string>
     <!-- DO NOT TRANSLATE -->
     <string name="preferences_week_start_day_default" translatable="false">-1</string>
+    <string name="week_start_locale_default">Locale default</string>
 
     <string name="preferences_days_per_week_title">Days per week</string>
     <string name="preferences_days_per_week_dialog">Days per week</string>
