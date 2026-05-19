@@ -53,7 +53,6 @@
             app:key="preferences_week_start_day"
             app:defaultValue="@string/preferences_week_start_day_default"
             app:title="@string/preferences_week_start_day_title"
-            app:entries="@array/preferences_week_start_day_labels"
             app:entryValues="@array/preferences_week_start_day_values"
             app:dialogTitle="@string/preferences_week_start_day_dialog" />
         <ListPreference

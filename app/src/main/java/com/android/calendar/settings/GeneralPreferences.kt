@@ -34,6 +34,9 @@ import android.provider.CalendarContract.CalendarCache
 import android.provider.SearchRecentSuggestions
 import android.provider.Settings
 import android.text.TextUtils
+import java.text.DateFormatSymbols
+import java.util.Calendar
+import java.util.Locale
 import android.util.SparseIntArray
 import android.widget.Toast
 import androidx.preference.CheckBoxPreference
@@ -153,6 +156,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
             preferenceScreen.removePreferenceRecursively(KEY_PURE_BLACK_NIGHT_MODE)
         }
 
+        buildWeekStartEntries()
         buildSnoozeDelayEntries()
         buildDefaultReminderPrefEntries()
         handleUseCustomSnoozeDelayVisibility()
@@ -353,6 +357,22 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         return ring?.getTitle(context)
     }
 
+    private fun buildWeekStartEntries() {
+        val symbols = DateFormatSymbols.getInstance(Locale.getDefault())
+        val weekdays = symbols.weekdays
+        val entries = arrayOf(
+            getString(R.string.week_start_locale_default),
+            weekdays[Calendar.SUNDAY],
+            weekdays[Calendar.MONDAY],
+            weekdays[Calendar.TUESDAY],
+            weekdays[Calendar.WEDNESDAY],
+            weekdays[Calendar.THURSDAY],
+            weekdays[Calendar.FRIDAY],
+            weekdays[Calendar.SATURDAY]
+        )
+        weekStartPref.entries = entries
+    }
+
     private fun buildSnoozeDelayEntries() {
         val values = snoozeDelayPref.entryValues
         val count = values.size
@@ -523,9 +543,13 @@ class GeneralPreferences : PreferenceFragmentCompat(),
 
         // These must be in sync with the array preferences_week_start_day_values
         const val WEEK_START_DEFAULT = "-1"
-        const val WEEK_START_SATURDAY = "7"
         const val WEEK_START_SUNDAY = "1"
         const val WEEK_START_MONDAY = "2"
+        const val WEEK_START_TUESDAY = "3"
+        const val WEEK_START_WEDNESDAY = "4"
+        const val WEEK_START_THURSDAY = "5"
+        const val WEEK_START_FRIDAY = "6"
+        const val WEEK_START_SATURDAY = "7"
         // Default preference values
         const val DEFAULT_DEFAULT_START = "-2"
         const val DEFAULT_START_VIEW = CalendarController.ViewType.WEEK
