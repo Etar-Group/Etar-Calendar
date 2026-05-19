@@ -675,13 +675,11 @@ public class Utils {
             startDay = Integer.parseInt(pref);
         }
 
-        if (startDay == Calendar.SATURDAY) {
-            return Time.SATURDAY;
-        } else if (startDay == Calendar.MONDAY) {
-            return Time.MONDAY;
-        } else {
-            return Time.SUNDAY;
-        }
+        return convertCalendarDayToTimeDay(startDay);
+    }
+
+    private static int convertCalendarDayToTimeDay(int calendarDay) {
+        return calendarDay - 1;
     }
 
     /**
@@ -774,9 +772,7 @@ public class Utils {
      * @return true if the column is Saturday position
      */
     public static boolean isSaturday(int column, int firstDayOfWeek) {
-        return (firstDayOfWeek == Time.SUNDAY && column == 6)
-                || (firstDayOfWeek == Time.MONDAY && column == 5)
-                || (firstDayOfWeek == Time.SATURDAY && column == 0);
+        return column == (6 - firstDayOfWeek + 7) % 7;
     }
 
     /**
@@ -787,9 +783,7 @@ public class Utils {
      * @return true if the column is Sunday position
      */
     public static boolean isSunday(int column, int firstDayOfWeek) {
-        return (firstDayOfWeek == Time.SUNDAY && column == 0)
-                || (firstDayOfWeek == Time.MONDAY && column == 6)
-                || (firstDayOfWeek == Time.SATURDAY && column == 1);
+        return column == (-firstDayOfWeek + 7) % 7;
     }
 
     /**
@@ -1434,16 +1428,23 @@ public class Utils {
         weekTime.set(millisSinceEpoch);
         weekTime.normalize();
         int firstDayOfWeek = getFirstDayOfWeek(context);
-        // if the date is on Saturday or Sunday and the start of the week
-        // isn't Monday we may need to shift the date to be in the correct
-        // week
-        if (weekTime.getWeekDay() == Time.SUNDAY
-                && (firstDayOfWeek == Time.SUNDAY || firstDayOfWeek == Time.SATURDAY)) {
-            weekTime.setDay(weekTime.getDay() + 1);
-            weekTime.normalize();
-        } else if (weekTime.getWeekDay() == Time.SATURDAY && firstDayOfWeek == Time.SATURDAY) {
-            weekTime.setDay(weekTime.getDay() + 2);
-            weekTime.normalize();
+        // Time.getWeekNumber() uses ISO 8601 (Monday-based). When the user's
+        // firstDayOfWeek differs from Monday, shift dates that fall between
+        // the user's week-start and the ISO Monday so they get the correct
+        // week number.
+        if (firstDayOfWeek != Time.MONDAY) {
+            int weekDay = weekTime.getWeekDay();
+            boolean needShift;
+            if (firstDayOfWeek <= Time.MONDAY) {
+                needShift = (weekDay >= firstDayOfWeek && weekDay < Time.MONDAY);
+            } else {
+                needShift = (weekDay >= firstDayOfWeek || weekDay < Time.MONDAY);
+            }
+            if (needShift) {
+                int shift = (Time.MONDAY - weekDay + 7) % 7;
+                weekTime.setDay(weekTime.getDay() + shift);
+                weekTime.normalize();
+            }
         }
         return weekTime.getWeekNumber();
     }
