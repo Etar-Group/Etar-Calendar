@@ -359,4 +359,6 @@
     <string name="cancel">取消</string>
     <string name="discard_event_changes">你要捨棄變更嗎？</string>
     <string name="discard">捨棄</string>
+    <string name="cal_export_success">活動已成功匯出</string>
+    <string name="cal_export_error">未能匯出活動</string>
 </resources>
