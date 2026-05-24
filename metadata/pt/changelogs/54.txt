@@ -1,0 +1,5 @@
+- Corrigido bug relacionado ao UTC no goto
+- Carregamento de eventos durante a rolagem na visualização mensal
+- Adicionados eventos sobrepostos
+- Adicionada a permissão WRITE_SYNC_SETTINGS para evitar a duplicação do calendário ao ativar/desativar a sincronização
+- Correções de bugs

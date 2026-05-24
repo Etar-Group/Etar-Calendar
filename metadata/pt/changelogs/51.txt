@@ -1,0 +1,4 @@
+- Melhorar o estilo de seleção de convidados e a legibilidade
+- Corrigir o seletor de datas do evento para que a data final não selecione sempre a data inicial
+- Remover a preferência PrimaryColor
+- Correções de bugs

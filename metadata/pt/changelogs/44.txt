@@ -1,0 +1,2 @@
+- Adicionar permissão ausente
+- Corrigir falha na compilação

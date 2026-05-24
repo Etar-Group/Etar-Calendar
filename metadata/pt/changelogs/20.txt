@@ -1,0 +1,5 @@
+- Notificações extras necessárias para sincronização de alertas internos. Por favor, silencie.
+- Permissões que já não são necessárias foram removidas.
+- Ícone de notificação colorido.
+- Correções de bugs.
+- Novas traduções.

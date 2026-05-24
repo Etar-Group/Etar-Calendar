@@ -1,0 +1,4 @@
+- Adicionar apoio a idiomas por app (Android 13+)
+- Adicionar deslize para a esquerda/direita à visualização mensal
+- Correções de bugs
+- Novas traduções
