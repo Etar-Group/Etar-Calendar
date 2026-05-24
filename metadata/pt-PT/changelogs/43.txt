@@ -1,0 +1,4 @@
+- Adicionar caixa de diálogo de confirmação ao descartar um evento
+- Adicionar opção sem soneca
+- Melhorar o deslize para a esquerda/direita e para cima/baixo na visualização mensal
+- Pequenas correções de bugs

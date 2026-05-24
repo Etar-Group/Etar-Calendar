@@ -1,0 +1,2 @@
+- Esperamos ter finalmente corrigido uma falha na visualização mensal e semanal devido a uma regra inválida.
+- Correções de bugs

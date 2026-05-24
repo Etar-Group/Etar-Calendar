@@ -1,0 +1,5 @@
+- Pedir permissões em runtime no Android 6 em diante.
+- Suportar display lunar/festival quando idioma é chinês.
+- Atualizar traduções.
+- Correções menores de layout.
+- Várias correções de bugs.

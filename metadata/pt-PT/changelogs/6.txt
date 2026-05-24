@@ -1,0 +1,3 @@
+- Remoção da permissão de acesso à Internet, mantendo a mesma funcionalidade.
+- Adição de "Ir para…".
+- Correção: o widget Agenda não atualiza diariamente.
