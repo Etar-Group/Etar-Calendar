@@ -290,7 +290,7 @@
     <string name="error_generating_ics">Surgiram erros ao partilhar o evento</string>
     <string name="cal_share_intent_title">Enviar evento para:</string>
     <string name="cal_export_event_title">Exportar para o cartão SD</string>
-    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1$s</string>
+    <string name="cal_export_succ_msg">Evento exportado com êxito</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_import_error_msg">Falha ao importar para o calendário</string>
@@ -386,4 +386,6 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Copiar"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Cancelar"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Permitir sugestões de contatos"</string>
+    <string name="cal_export_success">Evento exportado com êxito</string>
+    <string name="cal_export_error">Falha ao exportar o evento</string>
 </resources>
