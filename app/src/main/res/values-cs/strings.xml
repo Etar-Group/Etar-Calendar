@@ -389,4 +389,5 @@
     <string name="chips_permission_text" msgid="5601284803674008863">"Povolit návrhy kontaktů"</string>
     <string name="cal_export_success">Událost úspěšně exportována</string>
     <string name="cal_export_error">Nepodařilo se exportovat událost</string>
+    <string name="week_start_locale_default">Podle lokálního prostředí</string>
 </resources>
