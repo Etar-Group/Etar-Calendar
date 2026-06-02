@@ -372,4 +372,5 @@
     <string name="chips_permission_text" msgid="5601284803674008863">"Kişi önerilerine izin ver"</string>
     <string name="cal_export_success">Etkinlik başarıyla dışarıya aktarıldı</string>
     <string name="cal_export_error">Etkinlik dışa aktarılamadı</string>
+    <string name="week_start_locale_default">Öntanımlı yerel ayar</string>
 </resources>
