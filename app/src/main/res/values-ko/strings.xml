@@ -353,4 +353,5 @@
     <string name="chips_permission_text" msgid="5601284803674008863">"주소록 제안 허용"</string>
     <string name="cal_export_success">이벤트 내보내기 완료</string>
     <string name="cal_export_error">이벤트 내보내기 실패</string>
+    <string name="week_start_locale_default">로케일 기본값</string>
 </resources>
