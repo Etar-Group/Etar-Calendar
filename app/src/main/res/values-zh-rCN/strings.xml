@@ -355,4 +355,5 @@
     <string name="chips_permission_text" msgid="5601284803674008863">"允许推荐联系人"</string>
     <string name="cal_export_success">成功导出了活动</string>
     <string name="cal_export_error">未能导出活动</string>
+    <string name="week_start_locale_default">使用当地默认值</string>
 </resources>
