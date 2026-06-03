@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">"Kad"</string>
     <string name="today" msgid="8577375020252453006">"Šodien"</string>
     <string name="tomorrow" msgid="614434811813859237">"Rīt"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Šodien plkst. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Rīt plkst. <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Šodien <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Rīt <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484">
         <xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g>
     </string>
@@ -29,8 +29,9 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minūtes</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="one" msgid="9191090668359663663">"1 min"</item>
-        <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> min.</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> min.</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="zero"><xliff:g id="count">%d</xliff:g> stundas</item>
@@ -38,11 +39,14 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> stundas</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="one" msgid="5988137255732166573">"1 diena"</item>
-        <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> diena(-as)"</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> dienu</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> diena</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> dienas</item>
     </plurals>
     <plurals name="weekN">
-        <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g>. nedēļa"</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g>. nedēļa</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g>. nedēļa</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g>. nedēļa</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atsvaidzināt"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Rādīt dienu"</string>
@@ -75,9 +79,9 @@
     <string name="event_info_title_invite" msgid="9160326363769403865">"Ielūgums uz sapulci"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Visu dienu"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendārs"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Rādīt mani ar šādu statusu:"</string>
+    <string name="presence_label" msgid="6169724148441175862">Rādīt mani kā</string>
     <string name="privacy_label" msgid="9215031965259597335">"Konfidencialitāte"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Pievienot atgādin."</string>
+    <string name="reminders_label" msgid="7292389181815525676">Pievienot atgādinājumu</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nav kalendāru"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendārs:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Rīkotājs:"</string>
@@ -100,7 +104,7 @@
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Mainīt atbildes"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Ātrā atbilde"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Ātrās atbildes izvēle"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Neizdevās atrast e-pasta programmu."</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">Neizdevās atrast e-pasta programmu</string>
     <string-array name="quick_response_defaults">
         <item msgid="1524421198348168403">"Kavēšu dažas minūtes."</item>
         <item msgid="6215158751728689832">"Būšu pēc aptuveni 10 minūtēm."</item>
@@ -110,12 +114,12 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Rakstīt savu…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Rīkotājs:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Atgādinājumi"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"šodien, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"vakar, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"RĪT: <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">šodien, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">vakar, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Rīt, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Notiek ielāde…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Pieskarieties, lai skatītu notikumus pirms diapazona <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Pieskarieties, lai skatītu notikumus pēc diapazona <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">Jāpieskaras, lai apskatītu notikumus pirms <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Jāpieskaras, lai apskatītu notikumus pēc <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">"Meklēt manus kalendārus"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Plašāka informācija"</string>
     <string name="edit_label" msgid="8934331258435656534">"Rediģēt"</string>
@@ -125,19 +129,22 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Noraidīt visus"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Atlikt"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Vienreizējs pasākums"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; līdz šādam datumam: <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">; līdz <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; vienu reizi"</item>
-        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> reizes"</item>
+        <item quantity="zero">; <xliff:g id="number">%d</xliff:g> reižu</item>
+        <item quantity="one">; <xliff:g id="number">%d</xliff:g> reizi</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> reizes</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Katru dienu"</item>
-        <item quantity="other" msgid="5455230727715859264">"Ik pēc <xliff:g id="NUMBER">%d</xliff:g> dienām"</item>
+        <item quantity="zero">Katru <xliff:g id="number">%d</xliff:g>. dienu</item>
+        <item quantity="one">Katru <xliff:g id="number">%d</xliff:g>. dienu</item>
+        <item quantity="other">Katru <xliff:g id="number">%d</xliff:g>. dienu</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Katru darbadienu (Pr–Pk)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Reizi nedēļā, katru <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Reizi <xliff:g id="NUMBER">%1$d</xliff:g> nedēļās, katru <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="zero">Katru <xliff:g id="number">%1$d</xliff:g>. nedēļu <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="one">Katru nedēļu <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Katru <xliff:g id="number">%1$d</xliff:g>. nedēļu <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Reizi mēnesī"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Reizi gadā"</string>
@@ -148,7 +155,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Jauns notikums"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Jauns notikums"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Vai dzēst šo pasākumu?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Vai dzēst pasākumu <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">Izdzēst <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Atbildes maiņa"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Iestatījumi"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Kalendāra skatījuma iestatījums"</string>
@@ -167,20 +174,21 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Atgādinājuma noklusējuma laiks"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Sākuma laika josla"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Kalendāri un pasākumu laiks sākuma laika joslā, kad ceļojat."</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">Ceļošanas laikā attēlo kalendārus un notikumu laikus māju laika zonā</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Sākuma laika josla"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Rādīt nedēļas numuru"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Būvējuma versija"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="zero">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="one">+<xliff:g id="number">%d</xliff:g></item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"Kalendārā nav plānotu pasākumu."</string>
+    <string name="gadget_no_events" msgid="5209110911088302855">Nav gaidāmu kalendāra notikumu</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">Izmēģinājuma</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Izlaist atgādinājumus"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Atgādinājumu izlaišana"</string>
     <string name="copy_db" msgid="437691290566699292">"Nosūtīt datu bāzi"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Notiek domēna <xliff:g id="DOMAIN">%s</xliff:g> meklēšana…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Meklē <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Noņemt dalībnieku"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Sākuma datums"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Sākuma laiks"</string>
@@ -194,62 +202,73 @@
     <string name="accessibility_all_day" msgid="4146955438811915282">"Pasākums visas dienas garumā"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Atgādinājuma laiks"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Atgādinājuma veids"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Rādīt man šādu statusu:"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Rādīt mani kā</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Konfidencialitāte"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Jauns notikums"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_INDEX">%1$s</xliff:g>. notikums no <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110"><xliff:g id="item_index">%1$s</xliff:g>. notikums no <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 pasākums"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> pasākumi"</item>
+        <item quantity="zero"><xliff:g id="count">%d</xliff:g> notikumu</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> notikums</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> notikumi</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"Vēl 1 pasākums"</item>
-        <item quantity="other" msgid="3609243840882275136">"Vēl <xliff:g id="COUNT">%d</xliff:g> pasākums(-i)"</item>
+        <item quantity="zero">+<xliff:g id="count">%d</xliff:g> notikumi</item>
+        <item quantity="one">+<xliff:g id="count">%d</xliff:g> pasākums</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> pasākumi</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Atlasītais pasākums"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> dienas"</item>
-        <item quantity="other" msgid="707566499994398250">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> dienas(-ām)"</item>
+        <item quantity="zero">Katru <xliff:g id="count">%d</xliff:g>. dienu</item>
+        <item quantity="one">Katru <xliff:g id="count">%d</xliff:g>. dienu</item>
+        <item quantity="other">Katru <xliff:g id="count">%d</xliff:g>. dienu</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> nedēļas"</item>
-        <item quantity="other" msgid="7094801039989237061">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> nedēļas(-ām)"</item>
+        <item quantity="zero">Katru <xliff:g id="count">%d</xliff:g>. nedēļu</item>
+        <item quantity="one">Katru <xliff:g id="count">%d</xliff:g>. nedēļu</item>
+        <item quantity="other">Katru <xliff:g id="count">%d</xliff:g>. nedēļu</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> mēneša"</item>
-        <item quantity="other" msgid="5419723710346646523">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> mēneša(-iem)"</item>
+        <item quantity="zero">Katru <xliff:g id="count">%d</xliff:g>. mēnesi</item>
+        <item quantity="one">Katru <xliff:g id="count">%d</xliff:g>. mēnesi</item>
+        <item quantity="other">Katru <xliff:g id="count">%d</xliff:g>. mēnesi</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> gada"</item>
-        <item quantity="other" msgid="5678653649746562060">"Ik pēc <xliff:g id="COUNT">%d</xliff:g> gada(-iem)"</item>
+        <item quantity="zero">Katru <xliff:g id="count">%d</xliff:g>. gadu</item>
+        <item quantity="one">Katru <xliff:g id="count">%d</xliff:g>. gadu</item>
+        <item quantity="other">Katru <xliff:g id="count">%d</xliff:g>. gadu</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"Katru mēnesi"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Bezgalīgi"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Līdz noteiktam datumam"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"Līdz  šādam datumam: <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">Līdz <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Noteiktu reižu skaitu"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> notikumā"</item>
-        <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> notikumos"</item>
+        <item quantity="zero"><xliff:g id="event_count">%d</xliff:g> reižu</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> reizi</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> reizes</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"mainīt beigu datumu"</string>
     <string name="visibility_default">Noklusējums</string>
     <string name="visibility_private">Privāts</string>
     <string name="visibility_public">Publisks</string>
     <string name="no_reminder_label">Nav</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">pēc notikuma sākuma</string>
     <string name="hint_time_zone_search" msgid="804776560897143016">Ievadīt valsts nosaukumu</string>
     <string name="searchview_description_clear" msgid="1603860069305867810">"Notīrīt vaicājumu"</string>
     <string name="no_results_found" msgid="5475293015394772651">Nekas netika atrasts</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestīna"</string>
-    <string name="more_string" msgid="643992135011109762">+<xliff:g id="COUNT">%1$d</xliff:g></string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">Ievietot e-pasta adresi starpliktuvē</string>
     <string name="copy_number" msgid="8860802152973030914">Ievietot tālruņa numuru starpliktuvē</string>
     <string name="action_label" msgid="7172664623795021857">"Atgriezties"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">Atvērti kontaktpersonu ieteikumi</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">Nav pieejams neviens ieteikums</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Noņemt <xliff:g id="CONTACT">%s</xliff:g> no saņēmēju saraksta</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Noņemt <xliff:g id="contact">%s</xliff:g> no saņēmēju saraksta</string>
     <string name="chips_action_copy" msgid="6984158516334578792">Ievietot starpliktuvē</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Atcelt"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Atļaut kontaktpersonu ieteikumus"</string>
+    <string name="week_start_locale_default">Vietas noklusējums</string>
+    <string name="preferences_days_per_week_title">Dienas nedēļā</string>
+    <string name="preferences_days_per_week_dialog">Dienas nedēļā</string>
+    <string name="preferences_default_event_duration_title">Notikumu noklusējuma ilgums</string>
 </resources>
