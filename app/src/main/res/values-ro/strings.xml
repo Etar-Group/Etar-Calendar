@@ -389,4 +389,5 @@
     <string name="cancel">Anulează</string>
     <string name="cal_export_success">Evenimentul a fost exportat cu succes</string>
     <string name="cal_export_error">Evenimentul nu a putut fi exportat</string>
+    <string name="week_start_locale_default">Setări regionale</string>
 </resources>
