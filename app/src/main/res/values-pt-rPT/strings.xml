@@ -23,22 +23,27 @@
     <string name="no_title_label" msgid="302177118061368042">(sem título)</string>
     <plurals name="Nminutes">
         <item quantity="one">1 minuto</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> minutos</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 min</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> min</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> mins</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mins</item>
     </plurals>
     <plurals name="Nhours">
         <item quantity="one">1 hora</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> horas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 dia</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> dias</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="weekN">
         <item quantity="one">Semana <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="many">Semanas <xliff:g id="count">%d</xliff:g></item>
         <item quantity="other">Semanas <xliff:g id="count">%d</xliff:g></item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Atualizar"</string>
@@ -125,15 +130,18 @@
     <string name="endByDate" msgid="7654221304929538201">; até <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; uma vez</item>
+        <item quantity="many">; <xliff:g id="number">%d</xliff:g> vezes</item>
         <item quantity="other">; <xliff:g id="number">%d</xliff:g> vezes</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one">Diariamente</item>
+        <item quantity="many">A cada <xliff:g id="number">%d</xliff:g> dias</item>
         <item quantity="other">A cada <xliff:g id="number">%d</xliff:g> dias</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">Todos os dias úteis (seg-sex)</string>
     <plurals name="weekly">
         <item quantity="one">Semanalmente às <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="many">A cada <xliff:g id="number">%1$d</xliff:g> semanas, às <xliff:g id="days_of_week">%2$s</xliff:g></item>
         <item quantity="other">A cada <xliff:g id="number">%1$d</xliff:g> semanas, às <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Mensalmente"</string>
@@ -170,6 +178,7 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
+        <item quantity="many">+<xliff:g id="number">%d</xliff:g></item>
         <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Sem eventos futuros no calendário"</string>
@@ -197,27 +206,33 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">Evento <xliff:g id="item_index">%1$s</xliff:g> de <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 evento</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> eventos</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> eventos</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 evento</item>
+        <item quantity="many">+<xliff:g id="count">%d</xliff:g> eventos</item>
         <item quantity="other">+<xliff:g id="count">%d</xliff:g> eventos</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento selecionado"</string>
     <plurals name="recurrence_interval_daily">
         <item quantity="one">A cada <xliff:g id="count">%d</xliff:g> dia</item>
+        <item quantity="many">A cada <xliff:g id="count">%d</xliff:g> dias</item>
         <item quantity="other">A cada <xliff:g id="count">%d</xliff:g> dias</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
         <item quantity="one">A cada <xliff:g id="count">%d</xliff:g> semana</item>
+        <item quantity="many">A cada <xliff:g id="count">%d</xliff:g> semanas</item>
         <item quantity="other">A cada <xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
         <item quantity="one">A cada <xliff:g id="count">%d</xliff:g> mês</item>
+        <item quantity="many">A cada <xliff:g id="count">%d</xliff:g> meses</item>
         <item quantity="other">A cada <xliff:g id="count">%d</xliff:g> meses</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
         <item quantity="one">A cada <xliff:g id="count">%d</xliff:g> ano</item>
+        <item quantity="many">A cada <xliff:g id="count">%d</xliff:g> anos</item>
         <item quantity="other">A cada <xliff:g id="count">%d</xliff:g> anos</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"no mesmo dia de cada mês"</string>
@@ -227,6 +242,7 @@
     <string name="recurrence_end_count_label" msgid="1233883668293087977">Por um número de eventos</string>
     <plurals name="recurrence_end_count">
         <item quantity="one">Durante <xliff:g id="event_count">%d</xliff:g> evento</item>
+        <item quantity="many">Durante <xliff:g id="event_count">%d</xliff:g> eventos</item>
         <item quantity="other">Durante <xliff:g id="event_count">%d</xliff:g> eventos</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">alterar data de término</string>
@@ -274,8 +290,8 @@
     <string name="two_hours">2 horas</string>
     <string name="error_generating_ics">Surgiram erros ao partilhar o evento</string>
     <string name="cal_share_intent_title">Enviar evento a:</string>
-    <string name="cal_export_event_title">Exportar para o cartão SD</string>
-    <string name="cal_export_succ_msg">Evento exportado com sucesso: %1$s</string>
+    <string name="cal_export_event_title">Exportar evento</string>
+    <string name="cal_export_succ_msg">Evento exportado com sucesso</string>
     <string name="cal_import_menu_title">Importar evento</string>
     <string name="cal_nothing_to_import">Nada para importar</string>
     <string name="cal_import_error_msg">Falha ao importar para o calendário</string>
@@ -338,15 +354,16 @@
     <string name="no_reminder_label">Nenhum</string>
     <plurals name="Nweeks">
         <item quantity="one">1 semana</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> semanas</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> semanas</item>
     </plurals>
     <string name="foreground_notification_title">A agendar novos lembretes…</string>
-    <string name="after_start_of_event">after start of event</string>
+    <string name="after_start_of_event">após o começar do evento</string>
     <string name="menu_info">Info</string>
     <string name="duplicate_label">Duplicado</string>
     <string name="preferences_real_event_colors">Usar cores de eventos reais</string>
     <string name="hint_url">URL</string>
-    <string name="no_calendars_found">Antes de poder adicionar um evento, tem de adicionar pelo menos um calendário no seu dispositivo.</string>
+    <string name="no_calendars_found">Antes de poder adicionar um evento, tem de adicionar pelo menos um calendário no seu dispositivo</string>
     <string name="add_calendar">Adicionar calendário</string>
     <string name="preferences_do_not_check_battery_optimization">Não verificar otimização de bateria</string>
     <string name="no_snooze_label">Nenhum</string>
@@ -360,14 +377,20 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Limpar consulta"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Não foram encontrados resultados"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Palestina"</string>
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"Copiar endereço de email"</string>
     <string name="copy_number" msgid="8860802152973030914">"Copiar número de telefone"</string>
     <string name="action_label" msgid="7172664623795021857">"Voltar"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Sugestões de contactos abertas"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Sem sugestões disponíveis"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Remover <xliff:g id="CONTACT">%s</xliff:g> dos destinatários"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Remover <xliff:g id="contact">%s</xliff:g> dos destinatários</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Copiar"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Cancelar"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Permitir sugestões de contactos"</string>
+    <string name="week_start_locale_default">Predefinição da locale</string>
+    <string name="cal_export_success">Evento exportado com sucesso</string>
+    <string name="cal_export_error">Falha ao exportar evento</string>
+    <string name="discard_event_changes">Deseja descartar as alterações?</string>
+    <string name="discard">Descartar</string>
+    <string name="cancel">Cancelar</string>
 </resources>
