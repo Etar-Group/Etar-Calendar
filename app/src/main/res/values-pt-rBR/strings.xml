@@ -368,4 +368,5 @@
     <string name="palestine_display_name">Palestina</string>
     <string name="cal_export_success">Evento exportado com êxito</string>
     <string name="cal_export_error">Falha ao exportar o evento</string>
+    <string name="week_start_locale_default">Padrão da localização</string>
 </resources>
