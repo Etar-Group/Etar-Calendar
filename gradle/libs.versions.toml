@@ -2,7 +2,7 @@
 agp = "9.2.1"
 compat = "1.7.1"
 constraint = "2.2.1"
-core = "1.18.0"
+core = "1.19.0"
 desugar = "2.1.5"
 junit = "4.13.2"
 editorconfig = "0.1.0"
