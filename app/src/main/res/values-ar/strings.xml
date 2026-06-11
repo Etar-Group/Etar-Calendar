@@ -14,7 +14,7 @@
      limitations under the License.
      --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"التقويم"</string>
-    <string name="when_label" msgid="894636567327261599">"الموعد"</string>
+    <string name="when_label" msgid="894636567327261599">متى</string>
     <string name="today" msgid="8577375020252453006">"اليوم"</string>
     <string name="tomorrow" msgid="614434811813859237">"غدًا"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"اليوم في <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
@@ -22,7 +22,7 @@
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(بلا عنوان)"</string>
     <plurals name="Nminutes">
-        <item quantity="zero">٠ دقيقة</item>
+        <item quantity="zero">أقل من دقيقة</item>
         <item quantity="one">دقيقة واحدة</item>
         <item quantity="two">دقيقتين</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> دقائق</item>
@@ -30,7 +30,7 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> دقيقة</item>
     </plurals>
     <plurals name="Nmins">
-        <item quantity="zero">٠ دقيقة</item>
+        <item quantity="zero">أقل من دقيقة</item>
         <item quantity="one">دقيقة واحدة</item>
         <item quantity="two">دقيقتين</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> دقائق</item>
@@ -38,7 +38,7 @@
         <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> دقيقة</item>
     </plurals>
     <plurals name="Nhours">
-        <item quantity="zero">٠ ساعه</item>
+        <item quantity="zero">أقل من ساعة</item>
         <item quantity="one">ساعة واحدة</item>
         <item quantity="two">ساعتين</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> ساعات</item>
@@ -46,7 +46,7 @@
         <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> ساعة</item>
     </plurals>
     <plurals name="Ndays">
-        <item quantity="zero">٠ يوم</item>
+        <item quantity="zero">أقل من يوم</item>
         <item quantity="one">يوم واحد</item>
         <item quantity="two">يومين</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> أيام</item>
@@ -415,12 +415,12 @@
     <string name="discard_event_changes">هل تريد تجاهل هذه التغييرات؟</string>
     <string name="discard">تجاهل</string>
     <plurals name="Nweeks">
-        <item quantity="zero">٠ اسبوع</item>
-        <item quantity="one">اسبوع واحد</item>
-        <item quantity="two">اسبوعين</item>
+        <item quantity="zero">أقل من أسبوع</item>
+        <item quantity="one">أسبوع واحد</item>
+        <item quantity="two">أسبوعين</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> أسابيع</item>
-        <item quantity="many"><xliff:g id="count">%d</xliff:g> اسبوع</item>
-        <item quantity="other"><xliff:g id="count">%d</xliff:g> اسبوع</item>
+        <item quantity="many"><xliff:g id="count">%d</xliff:g> أسبوعًا</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> أسبوع</item>
     </plurals>
     <string name="menu_info">المعلومات</string>
     <string name="preferences_real_event_colors">إستعمل لون الحدث الحقيقي</string>
