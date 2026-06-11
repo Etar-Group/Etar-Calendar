@@ -1,0 +1,4 @@
+- Verwendung von SAF um Berechtigung für externen Speicherzugriff zu vermeiden
+- Verhindern, dass Etar externe Kalender-Synchronisierungs-Einstellungen überschreibt
+- Hinzufügen einer fehlenden channel_ID
+- Fehlerbehebungen
