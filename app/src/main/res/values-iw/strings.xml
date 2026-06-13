@@ -23,9 +23,8 @@
     <string name="no_title_label" msgid="302177118061368042">"(אין כותרת)"</string>
     <plurals name="Nminutes">
         <item quantity="one">דקה אחת</item>
-        <item quantity="two"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
-        <item quantity="many"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
-        <item quantity="other"><xliff:g id="COUNT">%d</xliff:g> דקות</item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> דקות</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> דקות</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">דקה אחת</item>
@@ -47,7 +46,7 @@
     </plurals>
     <plurals name="weekN">
         <item quantity="one">שבוע <xliff:g id="count">%d</xliff:g></item>
-        <item quantity="two"><xliff:g id="count">שבועיים</xliff:g></item>
+        <item quantity="two"><xliff:g id="count">%d</xliff:g> שבועות</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> שבועות</item>
     </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">רענן</string>
@@ -131,7 +130,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"דחה הכל"</string>
     <string name="snooze_label" msgid="1515893621063224666">"נודניק"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"אירוע חד-פעמי"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; עד <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">; עד <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; פעם אחת</item>
         <item quantity="two">; for <xliff:g id="number">%d</xliff:g> פעמים</item>
@@ -146,10 +145,9 @@
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"כל יום חול (ראשון-חמישי)"</string>
     <plurals name="weekly">
-        <item quantity="one">פעם בשבוע ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="two">כל שבועיים ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="many">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="other">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="one">פעם בשבוע ב <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="two">כל שבועיים ב <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"כל חודש"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
@@ -160,7 +158,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"אירוע חדש"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"אירוע חדש"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"למחוק אירוע זה?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"האם למחוק את <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">האם למחוק את <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title" msgid="7704714776070974984">"שנה תגובה"</string>
     <string name="preferences_title" msgid="8045855493262131773">"הגדרות"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"הגדרות תצוגה של יומן"</string>
@@ -211,7 +209,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">להציג אותי בתור</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"פרטיות"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ אירוע חדש"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">אירוע <xliff:g id="item_index">%1$s</xliff:g> מתוך <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">אירוע אחד</item>
         <item quantity="two"><xliff:g id="count">%d</xliff:g> אירועים</item>
@@ -299,8 +297,8 @@
     <string name="preferences_default_snooze_delay_dialog">הפרש נודניק כבררת מחדל</string>
     <string name="error_generating_ics">חלו תקלות בעת שיתוף אירוע</string>
     <string name="cal_share_intent_title">שליחת אירוע אל:</string>
-    <string name="cal_export_event_title">ייצוא לכרטיס SD</string>
-    <string name="cal_export_succ_msg">האירוע ייוצא בהצלחה: %1$s</string>
+    <string name="cal_export_event_title">ייצוא אירוע</string>
+    <string name="cal_export_succ_msg">האירוע ייוצא בהצלחה</string>
     <string name="cal_import_menu_title">ייבוא אירוע</string>
     <string name="cal_nothing_to_import">אין מה לייבא</string>
     <string name="cal_import_error_msg">הייבוא ללוח השנה נכשל</string>
@@ -393,14 +391,17 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"מחיקת השאילתה"</string>
     <string name="no_results_found" msgid="5475293015394772651">"לא נמצאו תוצאות"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"הרשות הפלסטינית"</string>
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"העתקת כתובת אימייל"</string>
     <string name="copy_number" msgid="8860802152973030914">"העתקת מספר טלפון"</string>
     <string name="action_label" msgid="7172664623795021857">"חזרה"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"נפתחו הצעות לאנשי קשר"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"אין הצעות זמינות"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"הסרה של <xliff:g id="CONTACT">%s</xliff:g> מהנמענים"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">הסרה של <xliff:g id="contact">%s</xliff:g> מהנמענים</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"העתקה"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"ביטול"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"אישור הצעות לאנשי קשר"</string>
+    <string name="week_start_locale_default">מיקום ברירת מחדל</string>
+    <string name="cal_export_success">אירוע יוצא בהצלחה</string>
+    <string name="cal_export_error">ייצוא אירוע נכשל</string>
 </resources>
