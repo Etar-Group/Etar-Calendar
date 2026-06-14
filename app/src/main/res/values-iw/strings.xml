@@ -145,9 +145,9 @@
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"כל יום חול (ראשון-חמישי)"</string>
     <plurals name="weekly">
-        <item quantity="one">פעם בשבוע ב <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="two">כל שבועיים ב <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="other">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="one">פעם בשבוע ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="two">כל שבועיים ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">כל <xliff:g id="number">%1$d</xliff:g> שבועות ב<xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"כל חודש"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
