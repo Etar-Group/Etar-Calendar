@@ -143,7 +143,7 @@
     <string name="every_weekday" msgid="5896574838353902978">"Katru darbadienu (Pr–Pk)"</string>
     <plurals name="weekly">
         <item quantity="zero">Katru <xliff:g id="number">%1$d</xliff:g>. nedēļu <xliff:g id="days_of_week">%2$s</xliff:g></item>
-        <item quantity="one">Katru nedēļu <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="one">Katru <xliff:g id="number">%1$d</xliff:g>. nedēļu <xliff:g id="days_of_week">%2$s</xliff:g></item>
         <item quantity="other">Katru <xliff:g id="number">%1$d</xliff:g>. nedēļu <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Reizi mēnesī"</string>
