@@ -99,7 +99,8 @@ public class EditEventHelper {
             Events.ACCOUNT_NAME, // 25
             Events.ACCOUNT_TYPE, // 26
             Events.EXDATE, // 27
-            Events.ORIGINAL_INSTANCE_TIME // 28
+            Events.ORIGINAL_INSTANCE_TIME, // 28
+            Events.EVENT_END_TIMEZONE // 29
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -130,6 +131,7 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_ACCOUNT_TYPE = 26;
     protected static final int EVENT_INDEX_EXDATE = 27;
     protected static final int EVENT_INDEX_ORIGINAL_INSTANCE_TIME = 28;
+    protected static final int EVENT_INDEX_END_TIMEZONE = 29;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -781,23 +783,27 @@ public class EditEventHelper {
         boolean oldAllDay = originalModel.mAllDay;
         String oldRrule = originalModel.mRrule;
         String oldTimezone = originalModel.mTimezone;
+        String oldEndTimezone = originalModel.getEndTimezone();
 
         long newBegin = model.mStart;
         long newEnd = model.mEnd;
         boolean newAllDay = model.mAllDay;
         String newRrule = model.mRrule;
         String newTimezone = model.mTimezone;
+        String newEndTimezone = model.getEndTimezone();
 
         // If none of the time-dependent fields changed, then remove them.
         if (oldBegin == newBegin && oldEnd == newEnd && oldAllDay == newAllDay
                 && TextUtils.equals(oldRrule, newRrule)
-                && TextUtils.equals(oldTimezone, newTimezone)) {
+                && TextUtils.equals(oldTimezone, newTimezone)
+                && TextUtils.equals(oldEndTimezone, newEndTimezone)) {
             values.remove(Events.DTSTART);
             values.remove(Events.DTEND);
             values.remove(Events.DURATION);
             values.remove(Events.ALL_DAY);
             values.remove(Events.RRULE);
             values.remove(Events.EVENT_TIMEZONE);
+            values.remove(Events.EVENT_END_TIMEZONE);
             return;
         }
 
@@ -1208,6 +1214,8 @@ public class EditEventHelper {
         } else {
             model.mTimezone = tz;
         }
+        String endTz = cursor.getString(EVENT_INDEX_END_TIMEZONE);
+        model.mTimezone2 = TextUtils.isEmpty(endTz) ? null : endTz;
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
         model.mExDate = cursor.getString(EVENT_INDEX_EXDATE);
@@ -1397,6 +1405,7 @@ public class EditEventHelper {
 
         values.put(Events.CALENDAR_ID, calendarId);
         values.put(Events.EVENT_TIMEZONE, timezone);
+        values.put(Events.EVENT_END_TIMEZONE, isAllDay ? Time.TIMEZONE_UTC : model.getEndTimezone());
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);
