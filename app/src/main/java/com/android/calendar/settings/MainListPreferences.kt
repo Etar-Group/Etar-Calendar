@@ -23,7 +23,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -193,14 +192,16 @@ class MainListPreferences : PreferenceFragmentCompat() {
     }
 
     /**
-     * Based on https://www.davx5.com/manual/technical_information.html#api-integration
+     * Based on https://manual.davx5.com/integration.html
      */
     private fun launchDavX5Login() {
-        val davX5Intent = Intent()
-        davX5Intent.setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity")
+        val davX5Intent = Intent().apply {
+            setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
 
         if (requireActivity().packageManager.resolveActivity(davX5Intent, 0) != null) {
-            startActivityForResult(davX5Intent, ACTION_REQUEST_CODE_DAVX5_SETUP)
+            startActivity(davX5Intent)
         } else {
             // DAVx5 is not installed
             val installIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=at.bitfire.davdroid"))
@@ -268,15 +269,4 @@ class MainListPreferences : PreferenceFragmentCompat() {
         })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == ACTION_REQUEST_CODE_DAVX5_SETUP && resultCode == AppCompatActivity.RESULT_OK) {
-            Toast.makeText(activity, "CalDAV account added!", Toast.LENGTH_LONG).show()
-        }
-    }
-
-    companion object {
-        private const val ACTION_REQUEST_CODE_DAVX5_SETUP = 10
-    }
 }
