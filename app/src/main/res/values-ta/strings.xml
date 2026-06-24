@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">நாட்காட்டி</string>
-    <string name="tomorrow_at_time_fmt">நாளை <xliff:g id="time_interval">%s </xliff:g></string>
+    <string name="tomorrow_at_time_fmt">நாளை <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="calendar_refresh">புதுப்பிப்பு</string>
     <string name="show_day_view">நாள் காட்டு</string>
     <string name="event_delete">நிகழ்வை நீக்கு</string>
@@ -32,10 +32,10 @@
     <string name="when_label">எப்போது</string>
     <string name="today">இன்று</string>
     <string name="tomorrow">நாளை</string>
-    <string name="today_at_time_fmt">இன்று <xliff:g id="time_interval">%s </xliff:g></string>
+    <string name="today_at_time_fmt">இன்று <xliff:g id="time_interval">%s</xliff:g></string>
     <plurals name="Nhours">
-        <item quantity="one">1 மணி நேரம்</item>
-        <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; மணிநேரம்</item>
+        <item quantity="one">1 மணிநேரம்</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> மணிநேரம்</item>
     </plurals>
     <string name="date_time_fmt">&lt;xliff: g ஐடி = \"தேதி\"&gt;%1$s &lt;/xliff: g&gt;, &lt;xliff: g ஐடி = \"time_interval\"&gt;%2$s &lt;/xliff: g&gt;</string>
     <string name="no_title_label">(தலைப்பு இல்லை)</string>
@@ -43,19 +43,19 @@
     <string name="no_snooze_label">எதுவுமில்லை</string>
     <plurals name="Nminutes">
         <item quantity="one">1 மணித்துளி</item>
-        <item quantity="other"><xliff:g id="count">%d </xliff:g> நிமிடங்கள்</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> நிமிடங்கள்</item>
     </plurals>
     <plurals name="Nmins">
         <item quantity="one">1 மணித்துளி</item>
-        <item quantity="other"><xliff:g id="count">%d </xliff:g> நிமிடங்கள்</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> நிமிடங்கள்</item>
     </plurals>
     <plurals name="Ndays">
         <item quantity="one">1 நாள்</item>
-        <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; நாட்கள்</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> நாட்கள்</item>
     </plurals>
     <plurals name="Nweeks">
         <item quantity="one">1 வாரம்</item>
-        <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; வாரங்கள்</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> வாரங்கள்</item>
     </plurals>
     <string name="agenda_view">நிகழ்ச்சி நிரல்</string>
     <string name="day_view">நாள்</string>
@@ -144,15 +144,15 @@
     <string name="endByDate">; &lt;xliff வரை: g ஐடி = \"தேதி\"&gt;%s &lt;/xliff: g&gt;</string>
     <plurals name="endByCount">
         <item quantity="one">; ஒரு முறை</item>
-        <item quantity="other">; &lt;xliff க்கு: g ஐடி = \"எண்\"&gt;%d &lt;/xliff: g&gt; முறை</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> முறை</item>
     </plurals>
     <plurals name="daily">
         <item quantity="one">நாள்தோறும்</item>
-        <item quantity="other">ஒவ்வொரு &lt;xliff: g ஐடி = \"எண்\"&gt;%d &lt;/xliff: g&gt; நாட்கள்</item>
+        <item quantity="other">ஒவ்வொரு <xliff:g id="number">%d</xliff:g> நாட்களுக்கும்</item>
     </plurals>
     <plurals name="weekly">
-        <item quantity="one">&lt;Xliff இல் வாராந்திர: g ஐடி = \"days_of_week\"&gt;%2$s &lt;/xliff: g&gt;</item>
-        <item quantity="other">ஒவ்வொரு &lt;xliff: g ஐடி = \"number\"&gt;%1$d &lt;/xliff: g&gt; &lt;xliff இல் வாரங்கள்: g ஐடி = \"days_of_week\"&gt;%2$s &lt;/xliff: g&gt;</item>
+        <item quantity="one">வாரந்தோறும் <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">ஒவ்வொரு <xliff:g id="number">%1$d</xliff:g> வாரங்களுக்கு <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="modify_event">இந்த நிகழ்வை மட்டுமே மாற்றவும்</string>
     <string name="modify_all">தொடரின் அனைத்து நிகழ்வுகளையும் மாற்றவும்</string>
@@ -210,7 +210,7 @@
     <string name="source_code">மூலம்</string>
     <plurals name="month_more_events">
         <item quantity="one">+1</item>
-        <item quantity="other">+&lt;xliff: g ஐடி = \"எண்\"&gt;%d &lt;/xliff: g&gt;</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events">வரவிருக்கும் காலண்டர் நிகழ்வுகள் இல்லை</string>
     <string name="preferences_reminders_responded_label">நினைவூட்டல்களைத் தவிர்க்கவும்</string>
@@ -234,28 +234,28 @@
     <string name="template_announce_item_index">நிகழ்வு &lt;xliff: g ஐடி = \"item_index\"&gt;%1$s &lt;/xliff: g&gt; of &lt;xliff: g ஐடி = \"item_count\"&gt;%2$s &lt;/xliff: g&gt;.</string>
     <string name="acessibility_selected_marker_description">தேர்ந்தெடுக்கப்பட்ட நிகழ்வு</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; நாள்</item>
-        <item quantity="other">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; நாட்கள்</item>
+        <item quantity="one">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> நாளுக்கும்</item>
+        <item quantity="other">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> நாட்களுக்கும்</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; வாரம்</item>
-        <item quantity="other">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; வாரங்கள்</item>
+        <item quantity="one">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> வாரமும்</item>
+        <item quantity="other">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> வாரங்கள்</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; மாதம்</item>
-        <item quantity="other">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; மாதங்கள்</item>
+        <item quantity="one">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> மாதமும்</item>
+        <item quantity="other">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> மாதங்களுக்கும்</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; ஆண்டு</item>
-        <item quantity="other">ஒவ்வொரு &lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; ஆண்டுகள்</item>
+        <item quantity="one">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> வருடமும்</item>
+        <item quantity="other">ஒவ்வொரு <xliff:g id="count">%d</xliff:g> வருடங்களுக்கும்</item>
     </plurals>
     <plurals name="Nevents">
         <item quantity="one">1 நிகழ்வு</item>
-        <item quantity="other">&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; நிகழ்வுகள்</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> நிகழ்வுகள்</item>
     </plurals>
     <plurals name="N_remaining_events">
         <item quantity="one">+1 நிகழ்வு</item>
-        <item quantity="other">+&lt;xliff: g ஐடி = \"count\"&gt;%d &lt;/xliff: g&gt; நிகழ்வுகள்</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> நிகழ்வுகள்</item>
     </plurals>
     <string name="user_rejected_calendar_write_permission">ETAR க்கு முறையாக வேலை செய்ய காலெண்டர் படித்து எழுத அனுமதிகள் தேவை. மீண்டும் முயற்சிக்கவும்.</string>
     <string name="calendar_permission_not_granted">தேவையான அனுமதிகள் மறுக்கப்பட்டன, நிகழ்வுகளைத் திருத்த அமைப்புகள் பயன்பாட்டிலிருந்து அவற்றை இயக்கவும்</string>
@@ -267,8 +267,8 @@
     <string name="recurrence_end_date">&lt;Xliff வரை: g ஐடி = \"தேதி\"&gt;%s &lt;/xliff: g&gt;</string>
     <string name="recurrence_end_count_label">பல நிகழ்வுகளுக்கு</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">&lt;Xliff க்கு: g ஐடி = \"event_count\"&gt;%d &lt;/xliff: g&gt; நிகழ்வு</item>
-        <item quantity="other">&lt;Xliff க்கு: g ஐடி = \"event_count\"&gt;%d &lt;/xliff: g&gt; நிகழ்வுகள்</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> நிகழ்வுக்கு</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> நிகழ்வுகளுக்கு</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description">இறுதி தேதியை மாற்றவும்</string>
     <string name="visibility_private">தனிப்பட்ட</string>
@@ -289,7 +289,7 @@
     <string name="error_generating_ics">நிகழ்வைப் பகிரும்போது சிக்கல்கள் ஏற்பட்டன</string>
     <string name="cal_share_intent_title">நிகழ்வை இதற்கு அனுப்பவும்:</string>
     <string name="cal_export_event_title">எச்டி கார்டுக்கு ஏற்றுமதி</string>
-    <string name="cal_export_succ_msg">நிகழ்வு வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டது: %1$s</string>
+    <string name="cal_export_succ_msg">நிகழ்வு வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டது</string>
     <string name="cal_import_menu_title">இறக்குமதி நிகழ்வு</string>
     <string name="cal_nothing_to_import">இறக்குமதி செய்ய எதுவும் இல்லை</string>
     <string name="cal_import_error_msg">காலெண்டருக்கு இறக்குமதி செய்வது தோல்வியடைந்தது</string>
@@ -349,7 +349,10 @@
     <string name="chips_action_cancel" msgid="2582257014578396781">"ரத்துசெய்"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"தொடர்புகளின் பரிந்துரைகளை அனுமதிக்கவும்"</string>
     <plurals name="weekN">
-        <item quantity="one">வாரம் <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="one">வாரம்ND</item>
         <item quantity="other">வாரம் <xliff:g id="count">%d</xliff:g></item>
     </plurals>
+    <string name="week_start_locale_default">மொழி இயல்புநிலை</string>
+    <string name="cal_export_success">நிகழ்வு வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டது</string>
+    <string name="cal_export_error">நிகழ்வை ஏற்றுமதி செய்ய முடியவில்லை</string>
 </resources>
