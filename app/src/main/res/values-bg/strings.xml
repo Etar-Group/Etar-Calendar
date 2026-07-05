@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">"Кога"</string>
     <string name="today" msgid="8577375020252453006">"Днес"</string>
     <string name="tomorrow" msgid="614434811813859237">"Утре"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Днес от <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Утре от <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Днес от <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Утре от <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Без заглавие)"</string>
     <plurals name="Nminutes">
@@ -107,12 +107,12 @@
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Напишете свой собствен…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напомняния"</string>
-    <string name="agenda_today" msgid="5965841338467422191">"ДНЕС, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_yesterday" msgid="4170964206728599693">"ВЧЕРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"УТРЕ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">Днес, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">Вчера, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">Утре, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Зарежда се…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Докоснете, за да видите събитията преди <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Докоснете, за да видите събитията след <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">Докоснете, за да видите събитията преди <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Докоснете, за да видите събитията след <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">"Търсене в моите календари"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Подробности"</string>
     <string name="edit_label" msgid="8934331258435656534">Променяне</string>
@@ -122,19 +122,19 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Отхвърляне на всички"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Отлагане"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Еднократно събитие"</string>
-    <string name="endByDate" msgid="7654221304929538201">"– до <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">– до <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"– по един път"</item>
-        <item quantity="other" msgid="4855496837834652446">"– по <xliff:g id="NUMBER">%d</xliff:g> пъти"</item>
+        <item quantity="one">– по един път</item>
+        <item quantity="other">– по <xliff:g id="number">%d</xliff:g> пъти</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Ежедневно"</item>
-        <item quantity="other" msgid="5455230727715859264">"На всеки <xliff:g id="NUMBER">%d</xliff:g> дни"</item>
+        <item quantity="one">Ежедневно</item>
+        <item quantity="other">На всеки <xliff:g id="number">%d</xliff:g> дни</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Всеки делничен ден (пн – пт)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Ежеседмично в/ъв <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"На всеки <xliff:g id="NUMBER">%1$d</xliff:g> седмици в/ъв <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Ежеседмично в/ъв <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">На всеки <xliff:g id="number">%1$d</xliff:g> седмици в/ъв <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Всеки месец"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Всяка година"</string>
@@ -145,7 +145,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Ново събитие"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Ново събитие"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Да се изтрие ли това събитие?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Да се изтрие ли „<xliff:g id="EVENTTITLE">%s</xliff:g>“?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">Да се изтрие ли „<xliff:g id="eventtitle">%s</xliff:g>“?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Промяна на отговор"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Настройки за преглед на календар"</string>
@@ -169,15 +169,15 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показване на номера на седмицата"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версия"</string>
     <plurals name="month_more_events">
-        <item quantity="one" msgid="8971334808414201327">"+1"</item>
-        <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
     </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Няма предстоящи събития от календара"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Експериментални"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Напомняния: Пропускане"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Напомняния: Пропускане"</string>
     <string name="copy_db" msgid="437691290566699292">"Изпращане на базата от данни"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Търси се <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Търсене на <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Премахване на участник"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Начална дата"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Начален час"</string>
@@ -194,40 +194,40 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Показване като"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Поверителност"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Ново събитие"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Събитие <xliff:g id="ITEM_INDEX">%1$s</xliff:g> от <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">Събитие <xliff:g id="item_index">%1$s</xliff:g> от <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
-        <item quantity="one" msgid="5230907142214104485">"1 събитие"</item>
-        <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> събития"</item>
+        <item quantity="one">1 събитие</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> събития</item>
     </plurals>
     <plurals name="N_remaining_events">
-        <item quantity="one" msgid="431585781647034528">"+ 1 събитие"</item>
-        <item quantity="other" msgid="3609243840882275136">"+ <xliff:g id="COUNT">%d</xliff:g> събития"</item>
+        <item quantity="one">+ 1 събитие</item>
+        <item quantity="other">+ <xliff:g id="count">%d</xliff:g> събития</item>
     </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Избрано събитие"</string>
     <plurals name="recurrence_interval_daily">
-        <item quantity="one" msgid="1205422710088692631">"На <xliff:g id="COUNT">%d</xliff:g> ден"</item>
-        <item quantity="other" msgid="707566499994398250">"На <xliff:g id="COUNT">%d</xliff:g> дни"</item>
+        <item quantity="one">На <xliff:g id="count">%d</xliff:g> ден</item>
+        <item quantity="other">На <xliff:g id="count">%d</xliff:g> дни</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one" msgid="4948681635464488351">"На <xliff:g id="COUNT">%d</xliff:g> седмица"</item>
-        <item quantity="other" msgid="7094801039989237061">"На <xliff:g id="COUNT">%d</xliff:g> седмици"</item>
+        <item quantity="one">На <xliff:g id="count">%d</xliff:g> седмица</item>
+        <item quantity="other">На <xliff:g id="count">%d</xliff:g> седмици</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one" msgid="4768178401603139718">"На <xliff:g id="COUNT">%d</xliff:g> месец"</item>
-        <item quantity="other" msgid="5419723710346646523">"На <xliff:g id="COUNT">%d</xliff:g> месеца"</item>
+        <item quantity="one">На <xliff:g id="count">%d</xliff:g> месец</item>
+        <item quantity="other">На <xliff:g id="count">%d</xliff:g> месеца</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one" msgid="5819562634008179102">"На <xliff:g id="COUNT">%d</xliff:g> година"</item>
-        <item quantity="other" msgid="5678653649746562060">"На <xliff:g id="COUNT">%d</xliff:g> години"</item>
+        <item quantity="one">На <xliff:g id="count">%d</xliff:g> година</item>
+        <item quantity="other">На <xliff:g id="count">%d</xliff:g> години</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"на същия ден всеки месец"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Винаги"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"До дадена дата"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"До <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">До <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"За даден брой събития"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"За <xliff:g id="EVENT_COUNT">%d</xliff:g> събитие"</item>
-        <item quantity="other" msgid="8779598489398048259">"За <xliff:g id="EVENT_COUNT">%d</xliff:g> събития"</item>
+        <item quantity="one">За <xliff:g id="event_count">%d</xliff:g> събитие</item>
+        <item quantity="other">За <xliff:g id="event_count">%d</xliff:g> събития</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"промяна на крайната дата"</string>
     <string name="visibility_default">Стандартно</string>
@@ -308,7 +308,7 @@
     <string name="error_generating_ics">Проблеми, възникнали при споделяне на събитията</string>
     <string name="cal_import_error_time_zone_msg">Не мога да разбера дадената часова зона:%s</string>
     <string name="cal_share_intent_title">Изпрати събитие до:</string>
-    <string name="cal_export_event_title">Експортиране в SD карта</string>
+    <string name="cal_export_event_title">Изнасяне на събитие</string>
     <string name="cal_import_menu_title">Импортиране на събитие</string>
     <string name="cal_nothing_to_import">Нищо за импортиране</string>
     <string name="cal_import_error_msg">Импортирането в календара е неуспешно</string>
@@ -360,16 +360,17 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Изчистване на заявката"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Няма намерени резултати"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Палестина"</string>
-    <string name="more_string" msgid="643992135011109762">"+ <xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+ <xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"Копиране на имейл адреса"</string>
     <string name="copy_number" msgid="8860802152973030914">"Копиране на телефонния номер"</string>
     <string name="action_label" msgid="7172664623795021857">"Enter"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Предложенията за контакти са отворени"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Няма налични предложения"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Премахване на <xliff:g id="CONTACT">%s</xliff:g> от получателите"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Премахване на <xliff:g id="contact">%s</xliff:g> от получателите</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Копиране"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Отказ"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Разрешаване на предложенията за контакти"</string>
     <string name="cal_export_success">Събитието е изнесено</string>
     <string name="cal_export_error">Грешка при изнасяне на събитие</string>
+    <string name="week_start_locale_default">Регионални настройки</string>
 </resources>
