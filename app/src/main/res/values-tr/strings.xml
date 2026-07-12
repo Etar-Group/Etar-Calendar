@@ -373,4 +373,6 @@
     <string name="cal_export_success">Etkinlik başarıyla dışarıya aktarıldı</string>
     <string name="cal_export_error">Etkinlik dışa aktarılamadı</string>
     <string name="week_start_locale_default">Öntanımlı yerel ayar</string>
+    <string name="preferences_staggered_display_title">Kademeli görüntüle</string>
+    <string name="preferences_staggered_display_summary">Üst üste binen etkinlikleri kademeli bir düzenle görüntüle</string>
 </resources>
