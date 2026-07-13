@@ -373,4 +373,6 @@
     <string name="cal_export_success">Gebeurtenis met succes geëxporteerd</string>
     <string name="cal_export_error">Exporteren van gebeurtenis is mislukt</string>
     <string name="week_start_locale_default">Regiostandaard</string>
+    <string name="preferences_staggered_display_title">Gespreide weergave</string>
+    <string name="preferences_staggered_display_summary">Overlappende items gespreid weergeven</string>
 </resources>
