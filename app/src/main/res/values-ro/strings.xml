@@ -390,4 +390,6 @@
     <string name="cal_export_success">Evenimentul a fost exportat cu succes</string>
     <string name="cal_export_error">Evenimentul nu a putut fi exportat</string>
     <string name="week_start_locale_default">Setări regionale</string>
+    <string name="preferences_staggered_display_title">Afișare eșalonată</string>
+    <string name="preferences_staggered_display_summary">Afișează evenimentele care se suprapun într-un aspect eșalonat</string>
 </resources>
