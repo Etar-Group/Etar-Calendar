@@ -1,5 +1,5 @@
 [versions]
-agp = "9.2.1"
+agp = "9.3.0"
 compat = "1.7.1"
 constraint = "2.2.1"
 core = "1.18.0"
