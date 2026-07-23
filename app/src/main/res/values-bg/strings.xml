@@ -373,4 +373,6 @@
     <string name="cal_export_success">Събитието е изнесено</string>
     <string name="cal_export_error">Грешка при изнасяне на събитие</string>
     <string name="week_start_locale_default">Регионални настройки</string>
+    <string name="preferences_staggered_display_summary">Показва застъпващите се събития разположени шахматно</string>
+    <string name="preferences_staggered_display_title">Шахматно разположение</string>
 </resources>
