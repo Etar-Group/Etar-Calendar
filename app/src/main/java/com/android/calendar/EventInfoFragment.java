@@ -1313,6 +1313,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         final Intent intent = new Intent(mContext, EditEventActivity.class);
         intent.setType("vnd.android.cursor.item/event");
+        // Default the duplicate to the source event's calendar, but only when it is writeable;
+        // otherwise fall back to the default calendar so we never preselect a read-only one.
+        if (mCanModifyCalendar) {
+            intent.putExtra(CalendarContract.Events.CALENDAR_ID, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
+        }
         intent.putExtra(CalendarContract.Events.TITLE, mEventCursor.getString(EVENT_INDEX_TITLE));
         intent.putExtra(CalendarContract.Events.DESCRIPTION, mEventCursor.getString(EVENT_INDEX_DESCRIPTION));
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION));
