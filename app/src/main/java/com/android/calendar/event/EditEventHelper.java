@@ -495,27 +495,34 @@ public class EditEventHelper {
 
         ContentProviderOperation.Builder b;
 
-        if (model.mUrl != null && !model.mUrl.isBlank()) {
+        boolean hasUrl = model.mUrl != null && !model.mUrl.isBlank();
+        if (hasUrl || !newEvent) {
             Uri extendedPropUri = ExtendedProperty.contentUri(model.mCalendarAccountName, model.mCalendarAccountType);
-            values.clear();
-            values.put(ExtendedProperties.NAME, ExtendedProperty.URL_NAME);
-            values.put(ExtendedProperties.VALUE, model.mUrl);
 
-            if (newEvent) {
-                b = ContentProviderOperation.newInsert(extendedPropUri)
-                        .withValues(values);
-                b.withValueBackReference(ExtendedProperties.EVENT_ID, eventIdIndex);
-            } else {
-                values.put(ExtendedProperties.EVENT_ID, model.mId);
-                // First delete the URL extended properties associated with the event
+            if (!newEvent) {
+                // First delete any URL extended property associated with the event so that
+                // clearing the URL removes it and re-saving does not duplicate it.
                 b = ContentProviderOperation.newDelete(extendedPropUri)
                         .withSelection(EXTENDED_WHERE_EVENT_NAME, new String[] { Long.toString(model.mId), ExtendedProperty.URL_NAME });
                 ops.add(b.build());
-                // And then, insert the new url
-                b = ContentProviderOperation.newInsert(extendedPropUri)
-                        .withValues(values);
             }
-            ops.add(b.build());
+
+            if (hasUrl) {
+                values.clear();
+                values.put(ExtendedProperties.NAME, ExtendedProperty.URL_NAME);
+                values.put(ExtendedProperties.VALUE, model.mUrl);
+
+                if (newEvent) {
+                    b = ContentProviderOperation.newInsert(extendedPropUri)
+                            .withValues(values);
+                    b.withValueBackReference(ExtendedProperties.EVENT_ID, eventIdIndex);
+                } else {
+                    values.put(ExtendedProperties.EVENT_ID, model.mId);
+                    b = ContentProviderOperation.newInsert(extendedPropUri)
+                            .withValues(values);
+                }
+                ops.add(b.build());
+            }
         }
 
         boolean hasAttendeeData = model.mHasAttendeeData;
