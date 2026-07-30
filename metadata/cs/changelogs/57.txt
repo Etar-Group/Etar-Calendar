@@ -1,0 +1,3 @@
+- Přidána možnost střídavého zobrazení překrývajících se událostí
+- Možnost nastavit jako první den týdne libovolný den v týdnu
+- Opravy chyb
