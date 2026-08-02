@@ -1,7 +1,7 @@
 [versions]
 agp = "9.3.1"
 compat = "1.7.1"
-constraint = "2.2.1"
+constraint = "2.2.2"
 core = "1.19.0"
 desugar = "2.1.5"
 junit = "4.13.2"
