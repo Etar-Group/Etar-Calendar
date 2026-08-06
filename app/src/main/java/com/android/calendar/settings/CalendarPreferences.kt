@@ -26,6 +26,10 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -34,8 +38,15 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.android.calendar.Utils
 import com.android.calendar.alerts.channelId
+import com.android.calendar.icalendar.IcalExporter
+import com.android.calendar.icalendar.IcalendarUtils
+import com.android.calendar.icalendar.VCalendar
 import com.android.calendar.persistence.ICalendarRepository
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ws.xsoh.etar.R
 
 
@@ -45,6 +56,34 @@ class CalendarPreferences : PreferenceFragmentCompat() {
     private lateinit var calendarRepository: ICalendarRepository
     private lateinit var account: Account
     private var numberOfEvents: Long = -1
+
+    private var mLastCalendarToExport: VCalendar? = null
+    private val mExportLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK && result.data != null) {
+            val uri = result.data?.data
+            if (uri != null) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val success = try {
+                        activity?.contentResolver?.openOutputStream(uri)?.use { outputStream ->
+                            IcalendarUtils.writeCalendarToStream(mLastCalendarToExport, outputStream)
+                        } ?: false
+                    } catch (e: Exception) {
+                        Log.e("CalendarPreferences", "Error exporting calendar", e)
+                        false
+                    }
+                    withContext(Dispatchers.Main) {
+                        if (success) {
+                            Toast.makeText(activity, R.string.cal_export_success, Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(activity, R.string.cal_export_error, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         calendarId = requireArguments().getLong(ARG_CALENDAR_ID)
@@ -102,6 +141,14 @@ class CalendarPreferences : PreferenceFragmentCompat() {
             deleteCalendar()
             true
         }
+        val exportPreference = Preference(context).apply {
+            title = getString(R.string.cal_export_calendar_title)
+            summary = getString(R.string.cal_export_calendar_summary)
+        }
+        exportPreference.setOnPreferenceClickListener {
+            startExport()
+            true
+        }
         val configurePreference = Preference(context).apply {
             title = getString(R.string.preferences_calendar_configure_account, authenticatorInfo?.label)
             intent = authenticatorInfo?.intent
@@ -145,6 +192,9 @@ class CalendarPreferences : PreferenceFragmentCompat() {
         screen.addPreference(colorPreference)
         if (isLocalAccount) {
             screen.addPreference(displayNamePreference)
+        }
+        screen.addPreference(exportPreference)
+        if (isLocalAccount) {
             screen.addPreference(deletePreference)
         }
         if (authenticatorInfo?.intent != null && !isLocalAccount) {
@@ -234,6 +284,28 @@ class CalendarPreferences : PreferenceFragmentCompat() {
                 }
                 .create()
         warningDialog.show()
+    }
+
+    private fun startExport() {
+        val displayName = preferenceManager.preferenceDataStore!!.getString(DISPLAY_NAME_KEY, "calendar")!!
+        CoroutineScope(Dispatchers.IO).launch {
+            val exporter = IcalExporter(requireContext())
+            mLastCalendarToExport = exporter.exportCalendar(calendarId)
+
+            withContext(Dispatchers.Main) {
+                if (mLastCalendarToExport != null) {
+                    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = "text/calendar"
+                        val fileName = displayName.replace("\\W+".toRegex(), "_") + ".ics"
+                        putExtra(Intent.EXTRA_TITLE, fileName)
+                    }
+                    mExportLauncher.launch(intent)
+                } else {
+                    Toast.makeText(activity, R.string.cal_export_error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     companion object {

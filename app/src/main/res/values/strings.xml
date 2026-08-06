@@ -756,6 +756,9 @@
     <!-- Sharing calendar event -->
     <string name="cal_share_intent_title">Send event to:</string>
     <string name="cal_export_event_title">Export event</string>
+    <string name="cal_export_calendar_title">Export calendar</string>
+    <string name="cal_export_calendar_summary">Export all events from a calendar to an .ics file</string>
+    <string name="cal_export_select_calendar_title">Select calendar to export</string>
     <string name="cal_export_success">Event exported successfully</string>
     <string name="cal_export_error">Failed to export event</string>
     <string name="cal_export_succ_msg">Event exported successfully</string>
