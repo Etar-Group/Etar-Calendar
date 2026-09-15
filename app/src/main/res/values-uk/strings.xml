@@ -395,4 +395,5 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Копіювати"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Скасувати"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Увімкнути пропозиції контактів"</string>
+    <string name="cal_export_error">Не вдалося експортувати подію</string>
 </resources>
