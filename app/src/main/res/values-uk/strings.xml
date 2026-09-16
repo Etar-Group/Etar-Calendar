@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">"Коли"</string>
     <string name="today" msgid="8577375020252453006">"Сьогодні"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Сьогодні о <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Завтра о <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Сьогодні о <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Завтра о <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Без назви)"</string>
     <plurals name="Nminutes">
@@ -120,8 +120,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">Вчора, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Завтра, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Завантаження…</string>
-    <string name="show_older_events" msgid="5140647493681439926">Торкніться, щоб переглянути події до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g></string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Торкн., щоб див. події після <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">Торкніться, щоб переглянути події до <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Торкніться, щоб переглянути події після <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">"Пошук у моїх календарях"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Деталі"</string>
     <string name="edit_label" msgid="8934331258435656534">"Редагувати"</string>
@@ -131,7 +131,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Припинити всі"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Відкласти"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Одноразова подія"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; до <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">; до <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
         <item quantity="one">; один раз</item>
         <item quantity="few">; <xliff:g id="number">%d</xliff:g> рази</item>
@@ -160,7 +160,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Нова подія"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Нова подія"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Видалити цю подію?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Видалити <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">Видалити <xliff:g id="eventtitle">%s</xliff:g>\?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Змінити відповідь"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Налаштування"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">Налаштування перегляду календаря</string>
@@ -193,7 +193,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Пропускати нагадування"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Пропускати нагадування"</string>
     <string name="copy_db" msgid="437691290566699292">"Надіслати базу даних"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Пошук <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">Пошук <xliff:g id="domain">%s</xliff:g>…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Видалити учасника"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Дата початку"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Час початку"</string>
@@ -210,7 +210,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Мій стан</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">Приватність</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Нова подія"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Подія <xliff:g id="ITEM_INDEX">%1$s</xliff:g> з <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">Подія <xliff:g id="item_index">%1$s</xliff:g> із <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 подія</item>
         <item quantity="few"><xliff:g id="count">%d</xliff:g> події</item>
@@ -228,29 +228,33 @@
         <item quantity="many">Кожні <xliff:g id="count">%d</xliff:g> дні</item>
     </plurals>
     <plurals name="recurrence_interval_weekly">
-        <item quantity="one">Кожен <xliff:g id="COUNT">%d</xliff:g> тиждень</item>
-        <item quantity="few">Кожні <xliff:g id="COUNT">%d</xliff:g> тижні</item>
-        <item quantity="many">Кожні <xliff:g id="COUNT">%d</xliff:g> тижнів</item>
+        <item quantity="one">Кожен <xliff:g id="count">%d</xliff:g> тиждень</item>
+        <item quantity="few">Кожні <xliff:g id="count">%d</xliff:g> тижні</item>
+        <item quantity="many">Кожні <xliff:g id="count">%d</xliff:g> тижнів</item>
+        <item quantity="other">Кожні <xliff:g id="count">%d</xliff:g> тижнів</item>
     </plurals>
     <plurals name="recurrence_interval_monthly">
-        <item quantity="one">Кожен <xliff:g id="COUNT">%d</xliff:g> місяць</item>
-        <item quantity="few">Кожні <xliff:g id="COUNT">%d</xliff:g> місяці</item>
-        <item quantity="many">Кожні <xliff:g id="COUNT">%d</xliff:g> місяців</item>
+        <item quantity="one">Кожен <xliff:g id="count">%d</xliff:g> місяць</item>
+        <item quantity="few">Кожні <xliff:g id="count">%d</xliff:g> місяці</item>
+        <item quantity="many">Кожні <xliff:g id="count">%d</xliff:g> місяців</item>
+        <item quantity="other">Кожні <xliff:g id="count">%d</xliff:g> місяців</item>
     </plurals>
     <plurals name="recurrence_interval_yearly">
-        <item quantity="one">Кожен <xliff:g id="COUNT">%d</xliff:g> рік</item>
-        <item quantity="few">Кожні <xliff:g id="COUNT">%d</xliff:g> роки</item>
-        <item quantity="many">Кожні <xliff:g id="COUNT">%d</xliff:g> років</item>
+        <item quantity="one">Кожен <xliff:g id="count">%d</xliff:g> рік</item>
+        <item quantity="few">Кожні <xliff:g id="count">%d</xliff:g> роки</item>
+        <item quantity="many">Кожні <xliff:g id="count">%d</xliff:g> років</item>
+        <item quantity="other">Кожні <xliff:g id="count">%d</xliff:g> років</item>
     </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"певного дня щомісяця"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Постійно"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"До певної дати"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"До <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">До <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Для ряду подій"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> події</item>
-        <item quantity="few">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> подій</item>
-        <item quantity="many">Для <xliff:g id="EVENT_COUNT">%d</xliff:g> подій</item>
+        <item quantity="one">Для <xliff:g id="event_count">%d</xliff:g> події</item>
+        <item quantity="few">Для <xliff:g id="event_count">%d</xliff:g> подій</item>
+        <item quantity="many">Для <xliff:g id="event_count">%d</xliff:g> подій</item>
+        <item quantity="other">Для <xliff:g id="event_count">%d</xliff:g> подій</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"змінити дату завершення"</string>
     <string name="visibility_default">Типово</string>
@@ -385,15 +389,19 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Очистити запит"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Нічого не знайдено"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Палестина"</string>
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"Копіювати електронну адресу"</string>
     <string name="copy_number" msgid="8860802152973030914">"Копіювати номер телефону"</string>
     <string name="action_label" msgid="7172664623795021857">"Назад"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Пропозиції контактів увімкнено"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Немає доступних пропозицій"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"Видалити отримувача: <xliff:g id="CONTACT">%s</xliff:g>"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">Прибрати <xliff:g id="contact">%s</xliff:g> з отримувачів</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Копіювати"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Скасувати"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Увімкнути пропозиції контактів"</string>
     <string name="cal_export_error">Не вдалося експортувати подію</string>
+    <string name="week_start_locale_default">Локальні налаштування</string>
+    <string name="preferences_staggered_display_title">Почергові зображення</string>
+    <string name="preferences_staggered_display_summary">Показувати події, що перекриваються, у шаховому порядку</string>
+    <string name="cal_export_success">Подію успішно експортовано</string>
 </resources>
