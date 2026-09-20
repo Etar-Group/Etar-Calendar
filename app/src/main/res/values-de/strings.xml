@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">"Wann"</string>
     <string name="today" msgid="8577375020252453006">"Heute"</string>
     <string name="tomorrow" msgid="614434811813859237">"Morgen"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Heute, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Morgen, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Heute um <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Morgen um <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Kein Titel)"</string>
     <plurals name="Nminutes">
@@ -115,8 +115,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">Gestern, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Morgen, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">Wird geladen…</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Antippen für Termine vor dem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Antippen für Termine nach dem <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">Antippen zum Ansehen von Terminen vor dem <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
+    <string name="show_newer_events" msgid="2604638815440163080">Antippen zum Ansehen von Terminen nach dem <xliff:g id="newest_search_range">%1$s</xliff:g></string>
     <string name="search_title" msgid="8898015280250716254">"In meinen Kalendern suchen"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Bearbeiten"</string>
@@ -126,19 +126,19 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Alle schließen"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Später erinnern"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Einmaliger Termin"</string>
-    <string name="endByDate" msgid="7654221304929538201">", bis <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="endByDate" msgid="7654221304929538201">; bis <xliff:g id="date">%s</xliff:g></string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">", ein Mal"</item>
-        <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g> Mal"</item>
+        <item quantity="one">; ein Mal</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> Mal</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Täglich"</item>
-        <item quantity="other" msgid="5455230727715859264">"Alle <xliff:g id="NUMBER">%d</xliff:g> Tage"</item>
+        <item quantity="one">Täglich</item>
+        <item quantity="other">Alle <xliff:g id="number">%d</xliff:g> Tage</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Jeden Werktag (Mo. - Fr.)"</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Wöchentlich am <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"Alle <xliff:g id="NUMBER">%1$d</xliff:g> Wochen am <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Wöchentlich am <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Alle <xliff:g id="number">%1$d</xliff:g> weeks on <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Monatlich"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Jährlich"</string>
@@ -149,7 +149,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Neuer Termin"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Neuer Termin"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Diesen Termin löschen?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g> löschen?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206"><xliff:g id="eventtitle">%s</xliff:g> löschen?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Antwort ändern"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
@@ -181,7 +181,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Erinnerungen überspringen"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Erinnerungen überspringen"</string>
     <string name="copy_db" msgid="437691290566699292">"Datenbank senden"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> wird durchsucht…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687"><xliff:g id="domain">%s</xliff:g> wird durchsucht…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Teilnehmer entfernen"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Startdatum"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Startzeit"</string>
@@ -198,7 +198,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mein Status"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Datenschutz"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ neuer Termin"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">Termin <xliff:g id="ITEM_INDEX">%1$s</xliff:g> von <xliff:g id="ITEM_COUNT">%2$s</xliff:g>.</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">Termin <xliff:g id="item_index">%1$s</xliff:g> von <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 Ereignis</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> Ereignisse</item>
@@ -227,11 +227,11 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"am gleichen Tag des Monats"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Dauerhaft"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Bis zu bestimmtem Datum"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"Bis <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">Bis <xliff:g id="date">%s</xliff:g></string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Mehrere Wiederholungen"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one"><xliff:g id="EVENT_COUNT">%d</xliff:g>-einmal</item>
-        <item quantity="other"><xliff:g id="EVENT_COUNT">%d</xliff:g>-male</item>
+        <item quantity="one">Für <xliff:g id="event_count">%d</xliff:g> Termin</item>
+        <item quantity="other">Für <xliff:g id="event_count">%d</xliff:g> Termine</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"Enddatum ändern"</string>
     <string name="preferences_theme">"Darstellung"</string>
@@ -373,4 +373,6 @@
     <string name="week_start_locale_default">Gebietsschema - Standard</string>
     <string name="cal_export_success">Termin erfolgreich exportiert</string>
     <string name="cal_export_error">Termin konnte nicht exportiert werden</string>
+    <string name="preferences_staggered_display_title">Versetzte Anzeige</string>
+    <string name="preferences_staggered_display_summary">Überlappende Termine in einer versetzten Anordnung anzeigen</string>
 </resources>
