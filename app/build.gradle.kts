@@ -40,6 +40,7 @@ android {
 			isMinifyEnabled = false
 
 			applicationIdSuffix = ".debug"
+            versionNameSuffix = "-test" //TODO : Remove this after the tests
 			resValue(
 				"string",
 				"search_authority",

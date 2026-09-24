@@ -387,4 +387,52 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Copier"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Annuler"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Autoriser les suggestions de contacts"</string>
+    <!-- Couleurs des catégories (issue #491) -->
+    <string name="preferences_category_colors_title">Couleurs des catégories</string>
+    <string name="preferences_category_colors_summary">Colorer les évènements selon leurs catégories</string>
+    <string name="preferences_category_colors_enable">Colorer les évènements par catégorie</string>
+    <string name="preferences_category_colors_enable_summary">Les évènements prennent la couleur de leur première catégorie. Les catégories ne sont disponibles que pour les agendas dont l’application de synchronisation les conserve (par ex. DAVx⁵).</string>
+    <string name="preferences_category_colors_no_category">Couleur des évènements sans catégorie</string>
+    <string name="preferences_category_colors_no_category_summary">Utilisée aussi pour les catégories sans couleur configurée</string>
+    <string name="preferences_category_colors_list">Catégories</string>
+    <string name="preferences_category_colors_loading">Chargement…</string>
+    <string name="preferences_category_colors_empty">Aucune catégorie trouvée dans vos agendas</string>
+    <string name="preferences_category_colors_not_set">Non configurée : couleur par défaut</string>
+    <string name="category_color_dialog_preview">Exemple d’évènement</string>
+    <string name="category_color_dialog_hex_hint">Couleur hexadécimale (#RRGGBB)</string>
+    <string name="category_color_dialog_reset">Par défaut</string>
+    <string name="preferences_category_colors_add">Ajouter une catégorie</string>
+    <string name="category_name_dialog_title">Nouvelle catégorie</string>
+    <string name="category_name_dialog_hint">Nom de la catégorie</string>
+    <string name="event_categories_label">Catégories</string>
+    <string name="event_categories_hint">Ajouter une catégorie</string>
+    <string name="event_categories_add">Ajouter cette catégorie</string>
+    <string name="preferences_category_colors_details_header">Couleur de catégorie dans le détail</string>
+    <string name="preferences_category_colors_details_header_summary">Utiliser la couleur de la première catégorie au lieu de celle de l’agenda dans l’en-tête d’un évènement</string>
+    <string name="preferences_category_colors_hidden">Masquée des suggestions</string>
+    <string name="preferences_category_colors_unused">Non utilisée</string>
+    <string name="preferences_category_colors_deleted">Catégorie « %s » supprimée</string>
+    <string name="category_color_dialog_delete">Supprimer la catégorie</string>
+    <string name="category_delete_confirm_title">Supprimer « %s » ?</string>
+    <string name="category_delete_confirm_message">Aucun évènement n’utilise cette catégorie. Sa couleur et ses réglages seront supprimés.</string>
+    <string name="category_color_dialog_suggested">Proposer dans les suggestions de l’éditeur</string>
+    <string name="preferences_category_colors_backup">Sauvegarde</string>
+    <string name="preferences_category_colors_export">Exporter les couleurs</string>
+    <string name="preferences_category_colors_export_summary">Enregistrer les couleurs des catégories dans un fichier JSON</string>
+    <string name="preferences_category_colors_export_done">Couleurs des catégories exportées</string>
+    <string name="preferences_category_colors_export_failed">Échec de l’export</string>
+    <string name="preferences_category_colors_import">Importer des couleurs</string>
+    <string name="preferences_category_colors_import_summary">Charger les couleurs des catégories depuis un fichier JSON</string>
+    <string name="preferences_category_colors_import_failed">Échec de l’import : fichier invalide</string>
+    <plurals name="preferences_category_colors_import_done">
+        <item quantity="one">%d couleur de catégorie importée</item>
+        <item quantity="many">%d couleurs de catégories importées</item>
+        <item quantity="other">%d couleurs de catégories importées</item>
+    </plurals>
+    <string name="category_filter_menu">Filtrer</string>
+    <string name="category_filter_menu_active">Filtrer (actif)</string>
+    <string name="category_filter_title">Catégories à afficher</string>
+    <string name="category_filter_all">Toutes</string>
+    <string name="category_filter_none">Aucune</string>
+    <string name="category_filter_uncategorized">Sans catégorie</string>
 </resources>

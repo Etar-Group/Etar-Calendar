@@ -16,6 +16,9 @@
 
 package com.android.calendar.agenda;
 
+import android.text.TextUtils;
+import android.os.Message;
+import android.os.Looper;
 import android.app.Activity;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
@@ -40,6 +43,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import com.android.calendar.categories.CategoryColors;
+import com.android.calendar.categories.CategoryFilter;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
@@ -47,6 +52,9 @@ import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
 import com.android.calendar.calendarcommon2.Time;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
@@ -1064,6 +1072,86 @@ public class AgendaWindowAdapter extends BaseAdapter
     }
 
     private class QueryHandler extends AsyncQueryHandler {
+
+        @Override
+        protected Handler createHandler(Looper looper) {
+            return new CategoryWorkerHandler(looper);
+        }
+
+        /**
+         * Runs on the query worker thread, just before each query: reads the categories so
+         * that colors, the category filter and the category search are consistent with the
+         * events being loaded, without querying on the UI thread.
+         */
+        private class CategoryWorkerHandler extends WorkerHandler {
+            CategoryWorkerHandler(Looper looper) {
+                super(looper);
+            }
+
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.obj instanceof WorkerArgs && ((WorkerArgs) msg.obj).cookie instanceof QuerySpec) {
+                    try {
+                        prepareCategoryQuery((WorkerArgs) msg.obj, (QuerySpec) ((WorkerArgs) msg.obj).cookie);
+                    } catch (RuntimeException e) {
+                        Log.w(TAG, "Cannot apply the categories to the query", e);
+                    }
+                }
+                super.handleMessage(msg);
+            }
+        }
+
+        private void prepareCategoryQuery(WorkerArgs args, QuerySpec spec) {
+            boolean search = spec.searchQuery != null;
+            if (!search && !CategoryColors.needsCategories(mContext)) {
+                return;
+            }
+            CategoryColors.refreshEventCategories(mContext);
+
+            if (search) {
+                // The provider applies the search terms in a HAVING clause that can't be OR-ed
+                // with our selection: when some categories match, search ourselves in the title,
+                // description and location, or in the categories.
+                Set<Long> ids = CategoryColors.findEventIdsByCategory(mContext, spec.searchQuery);
+                if (ids.isEmpty()) {
+                    return;
+                }
+                ArrayList<String> searchArgs = new ArrayList<>();
+                StringBuilder where = new StringBuilder("(")
+                        .append(Instances.EVENT_ID).append(" IN (")
+                        .append(TextUtils.join(",", ids)).append(")");
+                String[] tokens = spec.searchQuery.trim().split("\\s+");
+                if (tokens.length > 0 && !tokens[0].isEmpty()) {
+                    where.append(" OR (");
+                    for (int i = 0; i < tokens.length; i++) {
+                        if (i > 0) {
+                            where.append(" AND ");
+                        }
+                        where.append("(").append(Instances.TITLE).append(" LIKE ? ESCAPE '\\' OR ")
+                                .append(Instances.DESCRIPTION).append(" LIKE ? ESCAPE '\\' OR ")
+                                .append(Instances.EVENT_LOCATION).append(" LIKE ? ESCAPE '\\')");
+                        String like = "%" + tokens[i].replace("\\", "\\\\")
+                                .replace("%", "\\%").replace("_", "\\_") + "%";
+                        searchArgs.add(like);
+                        searchArgs.add(like);
+                        searchArgs.add(like);
+                    }
+                    where.append(")");
+                }
+                where.append(")");
+                args.uri = buildQueryUri(spec.start, spec.end, null);
+                args.selection = "(" + args.selection + ") AND " + where;
+                if (args.selectionArgs != null) {
+                    searchArgs.addAll(0, Arrays.asList(args.selectionArgs));
+                }
+                args.selectionArgs = searchArgs.toArray(new String[0]);
+            } else {
+                String filter = CategoryFilter.buildSelection(mContext, Instances.EVENT_ID);
+                if (filter != null) {
+                    args.selection = "(" + args.selection + ") AND " + filter;
+                }
+            }
+        }
 
         public QueryHandler(ContentResolver cr) {
             super(cr);

@@ -486,13 +486,70 @@
                 android:minHeight="48dip" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- CATEGORIES -->
+        <ImageView
+            android:id="@+id/categories_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/event_categories_label"
+            android:src="@drawable/ic_outline_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/categories_row" />
+
+        <LinearLayout
+            android:id="@+id/categories_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/categories_icon"
+            app:layout_constraintTop_toBottomOf="@+id/url_row">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/categories_chips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/category_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:endIconContentDescription="@string/event_categories_add"
+                app:endIconDrawable="@drawable/ic_add"
+                app:endIconMode="custom">
+
+                <!-- Same look as the other fields: the EditText style of the theme (padding, text size),
+                     which is the one applied to the other EditTexts, and the
+                     hint on the field itself rather than as a floating label. -->
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/category_input"
+                    style="?attr/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:hint="@string/event_categories_hint"
+                    android:completionThreshold="1"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:minHeight="48dip" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
         <View
             android:id="@+id/view3"
             style="@style/EditEventSeparator"
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/url_row" />
+            app:layout_constraintTop_toBottomOf="@+id/categories_row" />
 
         <!-- REPEATS -->
         <ImageView

@@ -31,6 +31,11 @@
             app:key="pref_real_event_colors"
             app:defaultValue="false"
             app:title="@string/preferences_real_event_colors" />
+        <Preference
+            app:key="pref_category_colors"
+            app:title="@string/preferences_category_colors_title"
+            app:summary="@string/preferences_category_colors_summary"
+            app:fragment="com.android.calendar.settings.CategoryColorsPreferences" />
         <ListPreference
             app:key="preferences_default_start"
             app:defaultValue="-2"

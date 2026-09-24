@@ -75,6 +75,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.calendar.categories.CategoryFilter;
+import com.android.calendar.categories.CategoryFilterDialog;
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -267,6 +269,14 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         super.onCreate(icicle);
         DynamicThemeKt.applyTheme(this);
         mActivity = this;
+
+        // The category filter changed: reload the views and the widget
+        getSupportFragmentManager().setFragmentResultListener(
+                CategoryFilterDialog.REQUEST_KEY, this, (requestKey, result) -> {
+                    eventsChanged();
+                    Utils.sendUpdateWidgetIntent(this);
+                    invalidateOptionsMenu();
+                });
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
 
@@ -832,6 +842,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             item.setVisible(true);
         }
 
+        MenuItem filterItem = menu.findItem(R.id.action_category_filter);
+        if (filterItem != null) {
+            filterItem.setTitle(CategoryFilter.isActive(this)
+                    ? R.string.category_filter_menu_active : R.string.category_filter_menu);
+        }
+
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         if (mSearchView != null) {
@@ -919,6 +935,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             return true;
         } else if (itemId == R.id.action_search) {
             return false;
+        } else if (itemId == R.id.action_category_filter) {
+            if (getSupportFragmentManager().findFragmentByTag(CategoryFilterDialog.TAG) == null) {
+                new CategoryFilterDialog().show(getSupportFragmentManager(), CategoryFilterDialog.TAG);
+            }
+            return true;
         } else if (itemId == R.id.action_import) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);

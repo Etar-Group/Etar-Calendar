@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.categories.CategoryColors;
 import com.android.calendar.ColorChipView;
 import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.Utils;
@@ -165,7 +166,9 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         holder.instanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
 
         /* Calendar Color */
-        int color = Utils.getDisplayColorFromColor(context, cursor.getInt(AgendaWindowAdapter.INDEX_COLOR));
+        int color = CategoryColors.getDisplayColor(context,
+                cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID),
+                cursor.getInt(AgendaWindowAdapter.INDEX_COLOR));
         holder.colorChip.setColor(color);
 
         // What
