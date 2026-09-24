@@ -152,6 +152,10 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private ContentResolver mContentResolver;
     private int mPreviousView;
     private int mCurrentView;
+    /** Number of weeks displayed by the month view. */
+    private static final int MONTH_VIEW_WEEKS = 6;
+    /** Month shown by the month view (from its title updates), 0 if unknown. */
+    private long mMonthViewDisplayedMillis;
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
     private boolean mHideControls = false;
@@ -907,6 +911,44 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         }
     }
 
+    /**
+     * Switches to another view. Leaving the month view, the current week (today) is shown when
+     * it is visible in the month, rather than the first week displayed on screen.
+     */
+    private void switchToView(int viewType) {
+        Time start = null;
+        if (mCurrentView == ViewType.MONTH && viewType != ViewType.MONTH) {
+            start = todayIfVisibleInMonthView();
+        }
+        mController.sendEvent(this, EventType.GO_TO, start, null, -1, viewType);
+    }
+
+    /** Today, if it is part of the weeks displayed by the month view; null otherwise. */
+    private Time todayIfVisibleInMonthView() {
+        if (mMonthViewDisplayedMillis <= 0) {
+            return null;
+        }
+        Time today = new Time(mTimeZone);
+        today.set(System.currentTimeMillis());
+        int todayJulianDay = Time.getJulianDay(today.toMillis(), today.getGmtOffset());
+
+        // The month view starts with the week containing the 1st of the displayed month
+        Time firstOfMonth = new Time(mTimeZone);
+        firstOfMonth.set(mMonthViewDisplayedMillis);
+        firstOfMonth.setDay(1);
+        firstOfMonth.normalize();
+        int firstOfMonthJulianDay = Time.getJulianDay(firstOfMonth.toMillis(),
+                firstOfMonth.getGmtOffset());
+        int offset = (firstOfMonth.getWeekDay() - Utils.getFirstDayOfWeek(this) + 7) % 7;
+        int firstVisibleJulianDay = firstOfMonthJulianDay - offset;
+        int lastVisibleJulianDay = firstVisibleJulianDay + MONTH_VIEW_WEEKS * 7 - 1;
+
+        if (todayJulianDay >= firstVisibleJulianDay && todayJulianDay <= lastVisibleJulianDay) {
+            return today;
+        }
+        return null;
+    }
+
     private void setViewSwitchButton(int itemId, boolean visible) {
         MenuItem item = mOptionsMenu.findItem(itemId);
         if (item != null) {
@@ -931,13 +973,13 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
             return true;
         } else if (itemId == R.id.action_view_day) {
-            mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+            switchToView(ViewType.DAY);
             return true;
         } else if (itemId == R.id.action_view_week) {
-            mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+            switchToView(ViewType.WEEK);
             return true;
         } else if (itemId == R.id.action_view_month) {
-            mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
+            switchToView(ViewType.MONTH);
             return true;
         } else if (itemId == R.id.action_goto) {
             goToDate();
@@ -998,11 +1040,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         final int itemId = item.getItemId();
         if (itemId == R.id.day_menu_item) {
             if (mCurrentView != ViewType.DAY) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+                switchToView(ViewType.DAY);
             }
         } else if (itemId == R.id.week_menu_item) {
             if (mCurrentView != ViewType.WEEK) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+                switchToView(ViewType.WEEK);
             }
         } else if (itemId == R.id.month_menu_item) {
             if (mCurrentView != ViewType.MONTH) {
@@ -1010,7 +1052,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }
         } else if (itemId == R.id.agenda_menu_item) {
             if (mCurrentView != ViewType.AGENDA) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
+                switchToView(ViewType.AGENDA);
             }
         } else if (itemId == R.id.action_settings) {
             mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
@@ -1459,6 +1501,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }
             displayTime = event.startTime.toMillis();
         } else if (event.eventType == EventType.UPDATE_TITLE) {
+            if (mCurrentView == ViewType.MONTH && event.startTime != null) {
+                mMonthViewDisplayedMillis = event.startTime.toMillis();
+            }
             setTitleInActionBar(event);
             if (!mIsTabletConfig) {
                 refreshActionbarTitle(mController.getTime());
