@@ -1,0 +1,11 @@
+<!-- Toolbar version of outline_calendar_view_day: tinted like the other toolbar icons -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M3,17h18v2L3,19zM19,12v1L5,13v-1h14m2,-2L3,10v5h18v-5zM3,6h18v2L3,8z" />
+</vector>

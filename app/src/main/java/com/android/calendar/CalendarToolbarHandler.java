@@ -14,6 +14,7 @@ import java.util.Formatter;
 import java.util.Locale;
 
 import ws.xsoh.etar.R;
+import com.android.calendar.settings.GeneralPreferences;
 
 /**
  * Created by xsoh64 on 7/21/15.
@@ -155,8 +156,18 @@ public class CalendarToolbarHandler {
     private String buildFullDate() {
         mStringBuilder.setLength(0);
         String date = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR, mTimeZone).toString();
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | abbrevMonthFlag(),
+                mTimeZone).toString();
         return date;
+    }
+
+    /**
+     * With the view buttons in the toolbar, the month is abbreviated ("23 Sept 2026") so that
+     * the title still fits next to them.
+     */
+    private int abbrevMonthFlag() {
+        return Utils.getSharedPreference(mContext, GeneralPreferences.KEY_VIEW_SWITCH_BUTTONS, false)
+                ? DateUtils.FORMAT_ABBREV_MONTH : 0;
     }
 
     private String buildMonthYearDate() {
@@ -167,7 +178,7 @@ public class CalendarToolbarHandler {
                 mMilliTime,
                 mMilliTime,
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
-                        | DateUtils.FORMAT_SHOW_YEAR, mTimeZone).toString();
+                        | DateUtils.FORMAT_SHOW_YEAR | abbrevMonthFlag(), mTimeZone).toString();
         return date;
     }
 
