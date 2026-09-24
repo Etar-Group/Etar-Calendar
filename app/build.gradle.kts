@@ -76,7 +76,7 @@ android {
 		println("Found sign properties in gradle.properties! Signing build…")
 
 		signingConfigs {
-			named("release").configure {
+            create("release") {
 				storeFile = File(signingStoreLocation!!)
 				storePassword = signingStorePassword
 				keyAlias = signingKeyAlias
