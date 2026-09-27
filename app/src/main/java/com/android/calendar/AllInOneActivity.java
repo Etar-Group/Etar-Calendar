@@ -96,6 +96,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
+import java.time.DateTimeException;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -923,30 +929,48 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.sendEvent(this, EventType.GO_TO, start, null, -1, viewType);
     }
 
-    /** Today, if it is part of the weeks displayed by the month view; null otherwise. */
+    /**
+     * Today, if it is part of the weeks displayed by the month view; null otherwise.
+     * The date arithmetic is done with java.time; only the result is converted to a Time.
+     */
     private Time todayIfVisibleInMonthView() {
         if (mMonthViewDisplayedMillis <= 0) {
             return null;
         }
-        Time today = new Time(mTimeZone);
-        today.set(System.currentTimeMillis());
-        int todayJulianDay = Time.getJulianDay(today.toMillis(), today.getGmtOffset());
+        ZoneId zone = getZoneId();
+        LocalDate today = LocalDate.now(zone);
 
         // The month view starts with the week containing the 1st of the displayed month
-        Time firstOfMonth = new Time(mTimeZone);
-        firstOfMonth.set(mMonthViewDisplayedMillis);
-        firstOfMonth.setDay(1);
-        firstOfMonth.normalize();
-        int firstOfMonthJulianDay = Time.getJulianDay(firstOfMonth.toMillis(),
-                firstOfMonth.getGmtOffset());
-        int offset = (firstOfMonth.getWeekDay() - Utils.getFirstDayOfWeek(this) + 7) % 7;
-        int firstVisibleJulianDay = firstOfMonthJulianDay - offset;
-        int lastVisibleJulianDay = firstVisibleJulianDay + MONTH_VIEW_WEEKS * 7 - 1;
+        LocalDate firstOfMonth = Instant.ofEpochMilli(mMonthViewDisplayedMillis)
+                .atZone(zone).toLocalDate().withDayOfMonth(1);
+        LocalDate firstVisibleDay = firstOfMonth.with(
+                TemporalAdjusters.previousOrSame(getFirstDayOfWeek()));
+        LocalDate lastVisibleDay = firstVisibleDay.plusWeeks(MONTH_VIEW_WEEKS).minusDays(1);
 
-        if (todayJulianDay >= firstVisibleJulianDay && todayJulianDay <= lastVisibleJulianDay) {
-            return today;
+        if (today.isBefore(firstVisibleDay) || today.isAfter(lastVisibleDay)) {
+            return null;
         }
-        return null;
+        Time now = new Time(mTimeZone);
+        now.setToNow();
+        return now;
+    }
+
+    /** Time zone of the calendar views, falling back to the device one. */
+    private ZoneId getZoneId() {
+        try {
+            if (mTimeZone != null) {
+                return ZoneId.of(mTimeZone);
+            }
+        } catch (DateTimeException e) {
+            Log.w(TAG, "Unknown time zone " + mTimeZone + ", using the device one", e);
+        }
+        return ZoneId.systemDefault();
+    }
+
+    /** First day of the week setting, as a DayOfWeek (Utils returns Time.SUNDAY = 0 … SATURDAY = 6). */
+    private DayOfWeek getFirstDayOfWeek() {
+        int timeDay = Utils.getFirstDayOfWeek(this);
+        return timeDay == Time.SUNDAY ? DayOfWeek.SUNDAY : DayOfWeek.of(timeDay);
     }
 
     private void setViewSwitchButton(int itemId, boolean visible) {

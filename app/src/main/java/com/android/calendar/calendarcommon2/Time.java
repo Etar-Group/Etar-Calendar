@@ -169,6 +169,11 @@ public class Time {
         readFieldsFromCalendar();
     }
 
+    /** Sets the time to the current time, in this Time's time zone. */
+    public void setToNow() {
+        set(System.currentTimeMillis());
+    }
+
     public long setJulianDay(int julianDay) {
         long millis = (julianDay - EPOCH_JULIAN_DAY) * DAY_IN_MILLIS;
         mCalendar.setTimeInMillis(millis);
