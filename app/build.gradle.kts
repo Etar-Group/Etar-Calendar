@@ -76,7 +76,7 @@ android {
 		println("Found sign properties in gradle.properties! Signing build…")
 
 		signingConfigs {
-            create("release") {
+            register("release") {
 				storeFile = File(signingStoreLocation!!)
 				storePassword = signingStorePassword
 				keyAlias = signingKeyAlias
@@ -84,10 +84,14 @@ android {
 			}
 		}
 
-		buildTypes.named("release").get().signingConfig = signingConfigs.named("release").get()
-	} else {
-		buildTypes.named("release").get().signingConfig = null
-	}
+        buildTypes.named("release") {
+            signingConfig = signingConfigs.getByName("release")
+        }
+    } else {
+        buildTypes.named("release") {
+            signingConfig = null
+        }
+    }
 
 	lint {
 		lintConfig = file("lint.xml")
