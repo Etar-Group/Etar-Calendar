@@ -1,0 +1,4 @@
+-Ics හරහා Calendars share කිරීමටත්, Sd Card එකෙන් Calendars Import/Export කිරීමටත් සහය ලබා දෙන්න.
+-භාවිතා නොකරන Permissions ඉවත් කරන්න.
+-Android 6 හි Sound Settings සම්බන්ධ දෝෂය නිවැරදි කරන්න.
+-බොහෝ දෝෂ (Bugs) නිවැරදි කරන්න.

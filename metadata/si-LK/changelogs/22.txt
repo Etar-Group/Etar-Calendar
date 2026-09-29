@@ -1,0 +1,7 @@
+-Offline Calendar පහසුකම එක් කර ඇත.
+-නව Event එකක් නිර්මාණය කිරීමට Shortcut එකක් එක් කර ඇත.
+-නව Preferences Design එකක් එක් කර ඇත.
+-නව Date & Time Picker එකක් එක් කර ඇත.
+-License එක GPLv3 වෙත මාරු කර ඇත.
+-දෝෂ (Bugs) නිවැරදි කර ඇත.
+-නව පරිවර්තන (Translations) එක් කර ඇත.

@@ -1,0 +1,5 @@
+-Internal Alert Sync සඳහා අවශ්‍ය අමතර Notifications ඇත. කරුණාකර ඒවා Mute කරන්න.
+-තවදුරටත් අවශ්‍ය නොවන Permissions ඉවත් කර ඇත.
+-වර්ණවත් Notification Icon එකක් එක් කර ඇත.
+-දෝෂ (Bugs) නිවැරදි කර ඇත.
+-නව පරිවර්තන (Translations) එක් කර ඇත.

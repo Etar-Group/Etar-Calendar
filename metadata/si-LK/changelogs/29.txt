@@ -1,0 +1,5 @@
+-Android 12 සඳහා සහය ලබාදීම
+-Material You Design සඳහා සහය ලබාදීම
+-Database Backup සඳහා Android Service සමඟ තිබූ සම්බන්ධතාවය ඉවත් කිරීම (බොහෝ Android versions වල එය ක්‍රියා නොකරන නිසා)
+-සාමාන්‍ය දෝෂ නිවැරදි කිරීම්
+-නව පරිවර්තන

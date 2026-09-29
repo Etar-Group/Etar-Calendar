@@ -1,0 +1,5 @@
+-Android 6 සහ ඊට ඉහළ versions වලදී Runtime Permissions ඉල්ලා සිටීමට සහය ලබා දෙන්න.
+-භාෂාව Chinese ලෙස තෝරා ඇති විට Lunar Calendar / උත්සව දින පෙන්වීමට සහය ලබා දෙන්න.
+-පරිවර්තන (Translations) යාවත්කාලීන කරන්න.
+-සුළු Layout දෝෂ නිවැරදි කරන්න.
+-බොහෝ දෝෂ (Bugs) නිවැරදි කරන්න.

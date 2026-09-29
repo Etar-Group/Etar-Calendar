@@ -1,0 +1,7 @@
+-Week View එකේ Event නාමයන්ගේ Font Size එක අඩු කර ඇත.
+-මෑතකදී භාවිත කළ Search Suggestions සක්‍රීය කර ඇත.
+-Sd Card වෙත Export කිරීමේ දෝෂය නිවැරදි කර ඇත.
+-අවලංගු කළ (Canceled) Events වල Title එක මැදින් ඉරක් යෙදෙන ලෙස සකසා ඇත.
+-Android 10 හි System Theme Setting එක භාවිතා කිරීමට සහය ලබා දී ඇත.
+-නව පරිවර්තන (Translations) එක් කර ඇත.
+-දෝෂ (Bugs) නිවැරදි කර ඇත
