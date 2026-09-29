@@ -375,4 +375,7 @@
     <string name="week_start_locale_default">Regiostandaard</string>
     <string name="preferences_staggered_display_title">Gespreide weergave</string>
     <string name="preferences_staggered_display_summary">Overlappende items gespreid weergeven</string>
+    <string name="cal_export_calendar_title">Agenda exporteren</string>
+    <string name="cal_export_calendar_summary">Alle gebeurtenissen uit een agenda exporteren naar een.ics-bestand</string>
+    <string name="cal_export_select_calendar_title">Selecteer de te exporteren agenda</string>
 </resources>
