@@ -1,0 +1,2 @@
+-Invalid rrule එකක් නිසා Month View සහ Week View වලදී App එක Crash වීම නිවැරදි කිරීම
+-දෝෂ නිවැරදි කිරීම්
