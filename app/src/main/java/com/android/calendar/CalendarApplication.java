@@ -18,14 +18,19 @@ package com.android.calendar;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 
 import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.settings.ViewDetailsPreferences;
 
 public class CalendarApplication extends Application {
+    private int mCurrentNightMode;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        mCurrentNightMode = getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
 
         /*
          * Ensure the default values are set for any receiver, activity,
@@ -49,5 +54,15 @@ public class CalendarApplication extends Application {
 
         // Initialize the registry mapping some custom behavior.
         ExtensionsFactory.init(getAssets());
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int newNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (newNightMode != mCurrentNightMode) {
+            mCurrentNightMode = newNightMode;
+            Utils.sendUpdateWidgetIntent(this);
+        }
     }
 }
