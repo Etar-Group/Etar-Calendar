@@ -24,6 +24,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.android.calendar.categories.CategoryFilter;
 import com.android.calendar.Utils;
 import com.android.calendar.calendarcommon2.Time;
 
@@ -72,9 +73,13 @@ class CalendarAppWidgetModel {
 
         cursor.moveToPosition(-1);
         String tz = Utils.getTimeZone(mContext, null);
+        final boolean filterActive = CategoryFilter.isActive(mContext);
         while (cursor.moveToNext()) {
             final int rowId = cursor.getPosition();
             final long eventId = cursor.getLong(CalendarAppWidgetService.INDEX_EVENT_ID);
+            if (filterActive && !CategoryFilter.isEventVisible(mContext, eventId)) {
+                continue;
+            }
             final boolean allDay = cursor.getInt(CalendarAppWidgetService.INDEX_ALL_DAY) != 0;
             long start = cursor.getLong(CalendarAppWidgetService.INDEX_BEGIN);
             long end = cursor.getLong(CalendarAppWidgetService.INDEX_END);

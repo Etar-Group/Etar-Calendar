@@ -47,6 +47,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.android.calendar.categories.CategoryColors;
+import com.android.calendar.categories.CategoryFilter;
+
 import ws.xsoh.etar.R;
 
 // TODO: should Event be Parcelable so it can be passed via Intents?
@@ -237,6 +240,10 @@ public class Event implements Cloneable {
                 return;
             }
 
+            if (CategoryColors.needsCategories(context)) {
+                // Read in the same background pass as the events, so both are consistent
+                CategoryColors.refreshEventCategories(context);
+            }
             buildEventsFromCursor(events, cEvents, context, startDay, endDay);
             buildEventsFromCursor(events, cAllday, context, startDay, endDay);
 
@@ -324,10 +331,14 @@ public class Event implements Cloneable {
         mNoColorColor = res.getColor(R.color.event_center);
         // Sort events in two passes so we ensure the allday and standard events
         // get sorted in the correct order
+        boolean filterActive = CategoryFilter.isActive(context);
         cEvents.moveToPosition(-1);
         while (cEvents.moveToNext()) {
             Event e = generateEventFromCursor(cEvents, context);
             if (e.startDay > endDay || e.endDay < startDay) {
+                continue;
+            }
+            if (filterActive && !CategoryFilter.isEventVisible(context, e.id)) {
                 continue;
             }
             events.add(e);
@@ -352,7 +363,10 @@ public class Event implements Cloneable {
             e.title = mNoTitleString;
         }
 
-        if (!cEvents.isNull(PROJECTION_COLOR_INDEX)) {
+        if (CategoryColors.isEnabled(context)) {
+            // Color given by the first category of the event (or the "no category" color)
+            e.color = CategoryColors.getColorForEvent(context, e.id);
+        } else if (!cEvents.isNull(PROJECTION_COLOR_INDEX)) {
             // Read the color from the database
             e.color = Utils.getDisplayColorFromColor(context, cEvents.getInt(PROJECTION_COLOR_INDEX));
         } else {

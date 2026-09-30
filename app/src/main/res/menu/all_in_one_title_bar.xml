@@ -53,6 +53,11 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="never|collapseActionView" />
     <item
+        android:id="@+id/action_category_filter"
+        android:orderInCategory="5"
+        android:title="@string/category_filter_menu"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_import"
         android:alphabeticShortcut="i"
         android:title="@string/cal_import_menu_title"

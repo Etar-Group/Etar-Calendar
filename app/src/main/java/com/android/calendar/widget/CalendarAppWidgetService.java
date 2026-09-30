@@ -40,6 +40,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.android.calendar.categories.CategoryColors;
 import com.android.calendar.Utils;
 import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
@@ -288,7 +289,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 } else {
                     views = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
                 }
-                int displayColor = Utils.getDisplayColorFromColor(mContext, eventInfo.color);
+                int displayColor = CategoryColors.getDisplayColor(mContext, eventInfo.id,
+                        eventInfo.color);
                 int adaptiveTextColor = Utils.getAdaptiveTextColor(mContext, mStandardColor, displayColor);
                 int adaptiveAllDayTextColor = Utils.getAdaptiveTextColor(mContext, mAllDayColor, displayColor);
 
@@ -428,7 +430,18 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             // Search for events from now until some time in the future
             Uri uri = createLoaderUri();
             mLoader = new CursorLoader(mContext, uri, EVENT_PROJECTION, selection, null,
-                    EVENT_SORT_ORDER);
+                    EVENT_SORT_ORDER) {
+                @Override
+                public Cursor loadInBackground() {
+                    Cursor cursor = super.loadInBackground();
+                    // Read the categories in the same background pass as the events, so that
+                    // colors and the category filter match the events just loaded
+                    if (CategoryColors.needsCategories(getContext())) {
+                        CategoryColors.refreshEventCategories(getContext());
+                    }
+                    return cursor;
+                }
+            };
             mLoader.setUpdateThrottle(WIDGET_UPDATE_THROTTLE);
             synchronized (mLock) {
                 mLastSerialNum = ++mSerialNum;

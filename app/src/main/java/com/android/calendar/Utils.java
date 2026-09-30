@@ -59,6 +59,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
+import com.android.calendar.categories.CategoryColors;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
@@ -924,11 +925,30 @@ public class Utils {
      * @return
      */
     public static int getAdaptiveTextAlpha(Context context, int alpha, int color) {
-        if (Utils.getSharedPreference(context, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
-            return (int) (Utils.getBrightnessFromColor(color) > BRIGHTNESS_THRESHOLD?
+        Boolean darkText = shouldUseDarkText(context, color);
+        if (darkText != null) {
+            return (int) (darkText ?
                 alpha * ADAPTIVE_DARK_TEXT_ALPHA_FACTOR : alpha * ADAPTIVE_LIGHT_TEXT_ALPHA_FACTOR);
         }
         return alpha;
+    }
+
+    /**
+     * Whether text drawn on top of the given event color should be dark (true) or light (false).
+     * Returns null when text colors are not adaptive (neither "real event colors" nor category
+     * colors are enabled). With category colors, which are user-chosen and can be very light,
+     * the choice follows the WCAG contrast ratio.
+     */
+    private static Boolean shouldUseDarkText(Context context, int eventColor) {
+        if (CategoryColors.isEnabled(context)) {
+            int opaque = ColorUtils.setAlphaComponent(eventColor, 0xFF);
+            return ColorUtils.calculateContrast(Color.BLACK, opaque)
+                    > ColorUtils.calculateContrast(Color.WHITE, opaque);
+        }
+        if (Utils.getSharedPreference(context, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
+            return Utils.getBrightnessFromColor(eventColor) > BRIGHTNESS_THRESHOLD;
+        }
+        return null;
     }
 
     /**
@@ -941,8 +961,9 @@ public class Utils {
      * @return
      */
     public static int getAdaptiveTextColor(Context context, int color, int eventColor) {
-        if (Utils.getSharedPreference(context, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
-            if (Utils.getBrightnessFromColor(eventColor) > BRIGHTNESS_THRESHOLD) {
+        Boolean darkText = shouldUseDarkText(context, eventColor);
+        if (darkText != null) {
+            if (darkText) {
                 color = ColorUtils.setAlphaComponent(Color.BLACK,
                     (int) Math.round(Color.alpha(color) * ADAPTIVE_DARK_TEXT_ALPHA_FACTOR));
             }

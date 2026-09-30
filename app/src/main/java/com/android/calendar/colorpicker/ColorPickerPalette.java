@@ -72,6 +72,17 @@ public class ColorPickerPalette extends TableLayout {
         mDescriptionSelected = res.getString(R.string.color_swatch_description_selected);
     }
 
+    /**
+     * Initialize with explicit swatch and margin sizes (in pixels), for dialogs that need a
+     * more compact palette than the predefined sizes.
+     */
+    public void init(int swatchLength, int marginSize, int columns,
+            OnColorSelectedListener listener) {
+        init(ColorPickerDialog.SIZE_SMALL, columns, listener);
+        mSwatchLength = swatchLength;
+        mMarginSize = marginSize;
+    }
+
     private TableRow createTableRow() {
         TableRow row = new TableRow(getContext());
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,

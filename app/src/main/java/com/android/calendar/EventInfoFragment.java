@@ -105,6 +105,9 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.chip.ChipGroup;
+import com.android.calendar.categories.CategoryChips;
+import com.android.calendar.categories.CategoryColors;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -375,6 +378,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Cursor mRemindersCursor;
     private Cursor mExtendedCursor;
     private String mEventUrl;
+    private final ArrayList<String> mEventCategories = new ArrayList<>();
+    private ChipGroup mCategoriesChips;
     private long mStartMillis;
     private long mEndMillis;
     private boolean mAllDay;
@@ -838,6 +843,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         mDesc =  mView.findViewById(R.id.description);
         mUrl =  mView.findViewById(R.id.url);
+        mCategoriesChips = mView.findViewById(R.id.categories_chips);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
 
@@ -1332,6 +1338,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         intent.putExtra(EditEventActivity.EXTRA_EVENT_REMINDERS, mReminders);
         intent.putExtra(EditEventActivity.EXTRA_EVENT_COLOR, mCurrentColor);
         intent.putExtra(ExtendedProperty.URL, mEventUrl);
+        if (!mEventCategories.isEmpty()) {
+            intent.putExtra(CategoryColors.EXTRA_CATEGORIES,
+                    CategoryColors.joinCategories(mEventCategories));
+        }
 
         final String allAttendees = Stream.of(mAcceptedAttendees, mDeclinedAttendees, mTentativeAttendees, mNoResponseAttendees)
                 .flatMap(Collection::stream)
@@ -1573,7 +1583,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
 
-        mHeadlines.setBackgroundColor(mCurrentColor);
+        mHeadlines.setBackgroundColor(getHeaderColor());
 
         // What
         if (eventName != null) {
@@ -1620,7 +1630,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (textView != null) {
                 textView.setAutoLinkMask(0);
                 final int textColor = Utils.getAdaptiveTextColor(context,
-                        getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
+                        getResources().getColor(R.color.event_info_headline_color), getHeaderColor());
                 textView.setTextColor(textColor);
                 textView.setLinkTextColor(textColor);
                 textView.setText(location.trim());
@@ -1671,6 +1681,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (mEventUrl != null && !mEventUrl.isBlank()) {
             mUrl.setText(mEventUrl);
         }
+
+        // Categories, as read-only colored badges
+        if (mCategoriesChips != null) {
+            CategoryChips.fill(mCategoriesChips, mEventCategories, null);
+            mCategoriesChips.setVisibility(mEventCategories.isEmpty() ? View.GONE : View.VISIBLE);
+        }
+
+        // Categories are loaded after the event: apply their color to the header if needed
+        if (mHeadlines != null && CategoryColors.isDetailsHeaderEnabled(mContext)) {
+            mHeadlines.setBackgroundColor(getHeaderColor());
+            updateAdaptiveTextAndIconColors();
+        }
     }
 
     private void updateWhenTextView(View view) {
@@ -1696,30 +1718,44 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             SpannableStringBuilder sb = new SpannableStringBuilder(displayedDatetime);
             ForegroundColorSpan transparentColorSpan = new ForegroundColorSpan(
                     Utils.getAdaptiveTextColor(context,
-                            context.getResources().getColor(R.color.event_info_headline_transparent_color), mCurrentColor));
+                            context.getResources().getColor(R.color.event_info_headline_transparent_color), getHeaderColor()));
             sb.setSpan(transparentColorSpan, timezoneIndex, displayedDatetime.length(),
                     Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             setTextCommon(view, R.id.when_datetime, sb);
         }
     }
 
+    /**
+     * Color of the header: the event color, or the color of its first category when the
+     * "category color in event details" option is enabled.
+     */
+    private int getHeaderColor() {
+        if (mContext != null && CategoryColors.isDetailsHeaderEnabled(mContext)) {
+            return mEventCategories.isEmpty()
+                    ? CategoryColors.getNoCategoryColor(mContext)
+                    : CategoryColors.getBadgeColor(mContext, mEventCategories.get(0));
+        }
+        return mCurrentColor;
+    }
+
     private void updateAdaptiveTextAndIconColors() {
-        if (Utils.getSharedPreference(mContext, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)) {
+        if (Utils.getSharedPreference(mContext, GeneralPreferences.KEY_REAL_EVENT_COLORS, false)
+                || CategoryColors.isEnabled(mContext)) {
             // TextViews
             int color = Utils.getAdaptiveTextColor(mContext,
-                    mContext.getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
+                    mContext.getResources().getColor(R.color.event_info_headline_color), getHeaderColor());
 
             mWhenDateTime.setTextColor(color);
             mTitle.setTextColor(color);
             mWhere.setTextColor(color);
             mWhenRepeat.setTextColor(color);
             color = Utils.getAdaptiveTextColor(mContext,
-                    mContext.getResources().getColor(R.color.event_info_headline_link_color), mCurrentColor);
+                    mContext.getResources().getColor(R.color.event_info_headline_link_color), getHeaderColor());
             mWhere.setLinkTextColor(color);
 
             // Icons on Tablet
             if (mWindowStyle == DIALOG_WINDOW_STYLE) {
-                color = Utils.getAdaptiveTextColor(mContext, Color.WHITE, mCurrentColor);
+                color = Utils.getAdaptiveTextColor(mContext, Color.WHITE, getHeaderColor());
                 ((ImageButton) mView.findViewById(R.id.edit)).setColorFilter(color);
                 ((ImageButton) mView.findViewById(R.id.delete)).setColorFilter(color);
                 ((ImageButton) mView.findViewById(R.id.change_color)).setColorFilter(color);
@@ -2077,6 +2113,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     public void initExtended(@NotNull Cursor cursor) {
+        mEventCategories.clear();
         while (cursor.moveToNext()) {
             String name = cursor.getString(EXTENDED_INDEX_NAME);
             String value = cursor.getString(EXTENDED_INDEX_VALUE);
@@ -2088,7 +2125,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mEventUrl = value;
                     break;
                 default:
-                    Log.i(TAG, "Got an unhandled extended property: " + name);
+                    if (CategoryColors.isCategoriesProperty(name)) {
+                        mEventCategories.addAll(CategoryColors.parseCategories(value));
+                    } else {
+                        Log.i(TAG, "Got an unhandled extended property: " + name);
+                    }
                     break;
             }
         }
@@ -2139,7 +2180,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             return;
 
         final int textColor = Utils.getAdaptiveTextColor(mContext,
-                getResources().getColor(R.color.event_info_headline_color), mCurrentColor);
+                getResources().getColor(R.color.event_info_headline_color), getHeaderColor());
         textView.setTextColor(textColor);
         textView.setLinkTextColor(textColor);
         textView.setText(text);
@@ -2404,7 +2445,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onColorSelected(int color) {
         mCurrentColor = color;
         mCurrentColorKey = mDisplayColorKeyMap.get(color);
-        mHeadlines.setBackgroundColor(color);
+        mHeadlines.setBackgroundColor(getHeaderColor());
 
         updateAdaptiveTextAndIconColors();
 

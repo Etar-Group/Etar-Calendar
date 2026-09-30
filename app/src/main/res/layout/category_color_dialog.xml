@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dialog used to pick the color of a category: preview, palette and hexadecimal input. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/category_color_preview"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="@string/category_color_dialog_preview"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <com.android.calendar.colorpicker.ColorPickerPalette
+            android:id="@+id/color_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center" />
+
+        <com.android.calendar.settings.HsvColorPickerView
+            android:id="@+id/hsv_color_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/category_color_dialog_hex_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/category_color_hex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="#0123456789abcdefABCDEF"
+                android:inputType="textNoSuggestions|textCapCharacters"
+                android:maxLength="7"
+                android:maxLines="1"
+                android:typeface="monospace" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/category_suggested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            android:text="@string/category_color_dialog_suggested" />
+
+        <Button
+            android:id="@+id/category_delete"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="@string/category_color_dialog_delete"
+            android:textColor="?attr/colorError"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

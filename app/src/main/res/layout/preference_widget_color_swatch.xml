@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Color swatch shown at the end of a category color preference row. -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/color_swatch"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:layout_gravity="center_vertical"
+    android:importantForAccessibility="no" />

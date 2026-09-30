@@ -62,6 +62,9 @@
     <dimen name="color_swatch_small">48dip</dimen>
     <dimen name="color_swatch_margins_large">8dip</dimen>
     <dimen name="color_swatch_margins_small">4dip</dimen>
+    <!-- Compact palette of the category color dialog -->
+    <dimen name="category_color_swatch">32dip</dimen>
+    <dimen name="category_color_swatch_margin">3dip</dimen>
 
     <!-- override default padding values, -1dp if it's not set to override -->
     <dimen name="chip_padding_start">-1dp</dimen>

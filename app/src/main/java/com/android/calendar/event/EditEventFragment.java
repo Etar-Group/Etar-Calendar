@@ -63,6 +63,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.android.calendar.categories.CategoryColors;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventHandler;
@@ -924,6 +925,14 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                                 mOriginalModel.mUrl = value;
                                 if (value != null) {
                                     mView.mUrlTextView.setTextKeepState(mModel.mUrl);
+                                }
+                                break;
+                            default:
+                                if (CategoryColors.isCategoriesProperty(name)) {
+                                    mModel.mCategories =
+                                            new ArrayList<>(CategoryColors.parseCategories(value));
+                                    mOriginalModel.mCategories = new ArrayList<>(mModel.mCategories);
+                                    mView.setCategories(mModel.mCategories);
                                 }
                                 break;
                         }

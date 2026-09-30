@@ -45,6 +45,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
+import com.android.calendar.categories.CategoryColors;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -350,7 +351,18 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
             loader = new CursorLoader(
                     requireActivity(), mEventUri, Event.EVENT_PROJECTION, where,
-                    null /* WHERE_CALENDARS_SELECTED_ARGS */, INSTANCES_SORT_ORDER);
+                    null /* WHERE_CALENDARS_SELECTED_ARGS */, INSTANCES_SORT_ORDER) {
+                @Override
+                public Cursor loadInBackground() {
+                    Cursor cursor = super.loadInBackground();
+                    // Read the categories in the same background pass as the events, so that
+                    // onLoadFinished() colors them consistently without querying on the UI thread
+                    if (CategoryColors.needsCategories(getContext())) {
+                        CategoryColors.refreshEventCategories(getContext());
+                    }
+                    return cursor;
+                }
+            };
             loader.setUpdateThrottle(LOADER_THROTTLE_DELAY);
         }
         if (Log.isLoggable(TAG, Log.DEBUG)) {
