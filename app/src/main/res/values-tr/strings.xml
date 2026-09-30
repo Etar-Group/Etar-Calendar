@@ -375,4 +375,7 @@
     <string name="week_start_locale_default">Öntanımlı yerel ayar</string>
     <string name="preferences_staggered_display_title">Kademeli görüntüle</string>
     <string name="preferences_staggered_display_summary">Üst üste binen etkinlikleri kademeli bir düzenle görüntüle</string>
+    <string name="cal_export_calendar_title">Takvimi dışa aktar</string>
+    <string name="cal_export_calendar_summary">Bir takvimdeki tüm etkinlikleri bir .ics dosyasına aktarın</string>
+    <string name="cal_export_select_calendar_title">Dışa aktarılacak takvimi seçin</string>
 </resources>
