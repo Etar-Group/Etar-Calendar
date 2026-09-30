@@ -620,6 +620,16 @@
     <string name="accessibility_pick_end_time">End time</string>
     <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_time_zone">Time zone</string>
+    <!-- Select the end time zone for an event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_end_time_zone">End time zone</string>
+    <!-- Label on the event start time zone button; %1$s is the zone name [CHAR LIMIT=NONE]-->
+    <string name="start_time_zone">Start zone: %1$s</string>
+    <!-- Label on the event end time zone button; %1$s is the zone name [CHAR LIMIT=NONE]-->
+    <string name="end_time_zone">End zone: %1$s</string>
+    <!-- Action button that reveals the separate end time zone picker [CHAR LIMIT=30]-->
+    <string name="add_end_time_zone">Add end time zone</string>
+    <!-- Description of the button that removes a separately-set end time zone [CHAR LIMIT=NONE]-->
+    <string name="accessibility_clear_end_time_zone">Remove end time zone</string>
     <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_recurrence">Repeat event</string>
     <!-- Add a reminder to an event [CHAR LIMIT = NONE]-->
