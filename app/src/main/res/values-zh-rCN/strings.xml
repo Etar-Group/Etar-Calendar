@@ -358,4 +358,7 @@
     <string name="week_start_locale_default">使用当地默认值</string>
     <string name="preferences_staggered_display_title">交错显示</string>
     <string name="preferences_staggered_display_summary">以交错布局显示重叠活动</string>
+    <string name="cal_export_calendar_title">导出日历</string>
+    <string name="cal_export_calendar_summary">导出日历所有活动到 .ics 文件</string>
+    <string name="cal_export_select_calendar_title">选择要导出的日历</string>
 </resources>
