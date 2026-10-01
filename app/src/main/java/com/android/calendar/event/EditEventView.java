@@ -641,13 +641,22 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
             String calendarOwner = mCalendarsCursor.getString(
                     EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
+            if (!Utils.isValidEmail(calendarOwner)) {
+                String accountName = mCalendarsCursor.getString(
+                        EditEventHelper.CALENDARS_INDEX_ACCOUNT_NAME);
+                if (Utils.isValidEmail(accountName)) {
+                    calendarOwner = accountName;
+                }
+            }
             String calendarName = mCalendarsCursor.getString(
                     EditEventHelper.CALENDARS_INDEX_DISPLAY_NAME);
             String defaultCalendar = calendarOwner + "/" + calendarName;
             Utils.setSharedPreference(
                     mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
             mModel.mOwnerAccount = calendarOwner;
-            mModel.mOrganizer = calendarOwner;
+            if (TextUtils.isEmpty(mModel.mOrganizer) || mModel.mIsOrganizer) {
+                mModel.mOrganizer = calendarOwner;
+            }
             mModel.mCalendarId = mCalendarsCursor.getLong(EditEventHelper.CALENDARS_INDEX_ID);
         }
 

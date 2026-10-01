@@ -530,7 +530,7 @@ public class EditEventHelper {
         if (hasAttendeeData && model.mOwnerAttendeeId == -1) {
             // Organizer is not an attendee
 
-            String ownerEmail = model.mOwnerAccount;
+            String ownerEmail = !TextUtils.isEmpty(model.mOrganizer) ? model.mOrganizer : model.mOwnerAccount;
             if (model.mAttendeesList.size() != 0 && Utils.isValidEmail(ownerEmail)) {
                 // Add organizer as attendee since we got some attendees
 
@@ -1229,7 +1229,10 @@ public class EditEventHelper {
         model.mOriginalId = cursor.getLong(EVENT_INDEX_ORIGINAL_ID);
         model.mOriginalTime = cursor.getLong(EVENT_INDEX_ORIGINAL_INSTANCE_TIME);
         model.mOrganizer = cursor.getString(EVENT_INDEX_ORGANIZER);
-        model.mIsOrganizer = model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
+        if (TextUtils.isEmpty(model.mOrganizer)) {
+            model.mOrganizer = model.mOwnerAccount;
+        }
+        model.mIsOrganizer = TextUtils.isEmpty(model.mOwnerAccount) || model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
         model.mGuestsCanModify = cursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0;
 
         int rawEventColor;
@@ -1437,6 +1440,12 @@ public class EditEventHelper {
             } else {
                 values.put(Events.EVENT_COLOR_KEY, model.getEventColorKey());
             }
+        }
+
+        if (!TextUtils.isEmpty(model.mOrganizer)) {
+            values.put(Events.ORGANIZER, model.mOrganizer);
+        } else if (!TextUtils.isEmpty(model.mOwnerAccount)) {
+            values.put(Events.ORGANIZER, model.mOwnerAccount);
         }
         return values;
     }

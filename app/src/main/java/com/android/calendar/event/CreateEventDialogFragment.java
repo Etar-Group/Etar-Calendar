@@ -205,6 +205,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         mModel.mAllDay = true;
         mModel.mCalendarId = mCalendarId;
         mModel.mOwnerAccount = mCalendarOwner;
+        mModel.mOrganizer = mCalendarOwner;
 
         if (mEditEventHelper.saveEvent(mModel, null, 0)) {
             Toast.makeText(getActivity(), R.string.creating_event, Toast.LENGTH_SHORT).show();
@@ -299,7 +300,14 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         int calendarOwnerIndex = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
 
         mCalendarId = cursor.getLong(calendarIdIndex);
-        mCalendarOwner = cursor.getString(calendarOwnerIndex);
+        String owner = cursor.getString(calendarOwnerIndex);
+        if (!Utils.isValidEmail(owner)) {
+            String accountNameStr = cursor.getString(accountNameIndex);
+            if (Utils.isValidEmail(accountNameStr)) {
+                owner = accountNameStr;
+            }
+        }
+        mCalendarOwner = owner;
         mColor.setBackgroundColor(Utils.getDisplayColorFromColor(getActivity(), cursor
                 .getInt(colorIndex)));
         String accountName = cursor.getString(accountNameIndex);
