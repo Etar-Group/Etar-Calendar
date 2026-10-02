@@ -96,6 +96,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
+import java.time.DateTimeException;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -152,6 +158,10 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private ContentResolver mContentResolver;
     private int mPreviousView;
     private int mCurrentView;
+    /** Number of weeks displayed by the month view. */
+    private static final int MONTH_VIEW_WEEKS = 6;
+    /** Month shown by the month view (from its title updates), 0 if unknown. */
+    private long mMonthViewDisplayedMillis;
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
     private boolean mHideControls = false;
@@ -820,6 +830,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         super.onCreateOptionsMenu(menu);
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
+        updateViewSwitchButtons();
 
         // Add additional options (if any).
         Integer extensionMenuRes = mExtensions.getExtensionMenuResource(menu);
@@ -883,6 +894,93 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     private static final int REQUEST_CODE_IMPORT = 101;
 
+    /**
+     * Shows, in the toolbar, one button for each of the day, week and month views other than
+     * the current one, when the "View buttons in the toolbar" setting is enabled.
+     */
+    private void updateViewSwitchButtons() {
+        if (mOptionsMenu == null) {
+            return;
+        }
+        boolean enabled = Utils.getSharedPreference(this,
+                GeneralPreferences.KEY_VIEW_SWITCH_BUTTONS, false);
+        setViewSwitchButton(R.id.action_view_day, enabled && mCurrentView != ViewType.DAY);
+        setViewSwitchButton(R.id.action_view_week, enabled && mCurrentView != ViewType.WEEK);
+        setViewSwitchButton(R.id.action_view_month, enabled && mCurrentView != ViewType.MONTH);
+
+        // On phones, Android only keeps two "if room" icons next to the overflow menu: force the
+        // "Today" icon so that it is not pushed into the overflow menu by the view buttons.
+        MenuItem today = mOptionsMenu.findItem(R.id.action_today);
+        if (today != null) {
+            today.setShowAsAction(enabled
+                    ? MenuItem.SHOW_AS_ACTION_ALWAYS : MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        }
+    }
+
+    /**
+     * Switches to another view. Leaving the month view, the current week (today) is shown when
+     * it is visible in the month, rather than the first week displayed on screen.
+     */
+    private void switchToView(int viewType) {
+        Time start = null;
+        if (mCurrentView == ViewType.MONTH && viewType != ViewType.MONTH) {
+            start = todayIfVisibleInMonthView();
+        }
+        mController.sendEvent(this, EventType.GO_TO, start, null, -1, viewType);
+    }
+
+    /**
+     * Today, if it is part of the weeks displayed by the month view; null otherwise.
+     * The date arithmetic is done with java.time; only the result is converted to a Time.
+     */
+    private Time todayIfVisibleInMonthView() {
+        if (mMonthViewDisplayedMillis <= 0) {
+            return null;
+        }
+        ZoneId zone = getZoneId();
+        LocalDate today = LocalDate.now(zone);
+
+        // The month view starts with the week containing the 1st of the displayed month
+        LocalDate firstOfMonth = Instant.ofEpochMilli(mMonthViewDisplayedMillis)
+                .atZone(zone).toLocalDate().withDayOfMonth(1);
+        LocalDate firstVisibleDay = firstOfMonth.with(
+                TemporalAdjusters.previousOrSame(getFirstDayOfWeek()));
+        LocalDate lastVisibleDay = firstVisibleDay.plusWeeks(MONTH_VIEW_WEEKS).minusDays(1);
+
+        if (today.isBefore(firstVisibleDay) || today.isAfter(lastVisibleDay)) {
+            return null;
+        }
+        Time now = new Time(mTimeZone);
+        now.setToNow();
+        return now;
+    }
+
+    /** Time zone of the calendar views, falling back to the device one. */
+    private ZoneId getZoneId() {
+        try {
+            if (mTimeZone != null) {
+                return ZoneId.of(mTimeZone);
+            }
+        } catch (DateTimeException e) {
+            Log.w(TAG, "Unknown time zone " + mTimeZone + ", using the device one", e);
+        }
+        return ZoneId.systemDefault();
+    }
+
+    /** First day of the week setting, as a DayOfWeek (Utils returns Time.SUNDAY = 0 … SATURDAY = 6). */
+    private DayOfWeek getFirstDayOfWeek() {
+        int timeDay = Utils.getFirstDayOfWeek(this);
+        return timeDay == Time.SUNDAY ? DayOfWeek.SUNDAY : DayOfWeek.of(timeDay);
+    }
+
+    private void setViewSwitchButton(int itemId, boolean visible) {
+        MenuItem item = mOptionsMenu.findItem(itemId);
+        if (item != null) {
+            item.setVisible(visible);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Time t = null;
@@ -897,6 +995,15 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             t.set(System.currentTimeMillis());
             extras |= CalendarController.EXTRA_GOTO_TODAY;
             mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
+            return true;
+        } else if (itemId == R.id.action_view_day) {
+            switchToView(ViewType.DAY);
+            return true;
+        } else if (itemId == R.id.action_view_week) {
+            switchToView(ViewType.WEEK);
+            return true;
+        } else if (itemId == R.id.action_view_month) {
+            switchToView(ViewType.MONTH);
             return true;
         } else if (itemId == R.id.action_goto) {
             goToDate();
@@ -957,11 +1064,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         final int itemId = item.getItemId();
         if (itemId == R.id.day_menu_item) {
             if (mCurrentView != ViewType.DAY) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+                switchToView(ViewType.DAY);
             }
         } else if (itemId == R.id.week_menu_item) {
             if (mCurrentView != ViewType.WEEK) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+                switchToView(ViewType.WEEK);
             }
         } else if (itemId == R.id.month_menu_item) {
             if (mCurrentView != ViewType.MONTH) {
@@ -969,7 +1076,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }
         } else if (itemId == R.id.agenda_menu_item) {
             if (mCurrentView != ViewType.AGENDA) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
+                switchToView(ViewType.AGENDA);
             }
         } else if (itemId == R.id.action_settings) {
             mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
@@ -1046,6 +1153,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 mPreviousView = mCurrentView;
             }
             mCurrentView = viewType;
+            updateViewSwitchButtons();
         }
         // Create new fragment
         Fragment frag = null;
@@ -1417,6 +1525,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }
             displayTime = event.startTime.toMillis();
         } else if (event.eventType == EventType.UPDATE_TITLE) {
+            if (mCurrentView == ViewType.MONTH && event.startTime != null) {
+                mMonthViewDisplayedMillis = event.startTime.toMillis();
+            }
             setTitleInActionBar(event);
             if (!mIsTabletConfig) {
                 refreshActionbarTitle(mController.getTime());

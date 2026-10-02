@@ -266,6 +266,8 @@
     <string name="preferences_default_snooze_delay_title">Délai de répétition par défaut</string>
     <string name="preferences_default_snooze_delay_dialog">Délai par défaut</string>
     <string name="default_start_title">Vue par défaut</string>
+    <string name="preferences_view_switch_buttons">Boutons de vue dans la barre d’outils</string>
+    <string name="preferences_view_switch_buttons_summary">Passer d’un geste entre les vues Jour, Semaine et Mois (le mois est abrégé dans le titre)</string>
     <string name="default_start_last">Dernière vue utilisée</string>
     <string name="share_label">Partager</string>
     <string name="view_settings">Paramètres d’affichage</string>

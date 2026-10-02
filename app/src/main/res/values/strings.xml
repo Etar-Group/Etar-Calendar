@@ -487,6 +487,8 @@
     <string name="preferences_hide_declined_title">Hide declined events</string>
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>
+    <string name="preferences_view_switch_buttons">View buttons in the toolbar</string>
+    <string name="preferences_view_switch_buttons_summary">Switch between the day, week and month views in one tap (months are abbreviated in the title)</string>
     <string name="display_options">Display options</string>
     <string name="display_time">Display time</string>
     <string name="display_location">Display location</string>
