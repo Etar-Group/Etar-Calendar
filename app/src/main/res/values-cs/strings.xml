@@ -392,4 +392,7 @@
     <string name="week_start_locale_default">Podle lokálního prostředí</string>
     <string name="preferences_staggered_display_title">Stupňovité zobrazení</string>
     <string name="preferences_staggered_display_summary">Zobrazit překrývající se události ve stupňovitém rozložení</string>
+    <string name="cal_export_calendar_title">Exportovat kalendář</string>
+    <string name="cal_export_calendar_summary">Exportovat všechny události z kalendáře do souboru .ics</string>
+    <string name="cal_export_select_calendar_title">Vyberte kalendář k exportu</string>
 </resources>
