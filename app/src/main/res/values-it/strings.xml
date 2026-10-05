@@ -390,4 +390,7 @@
     <string name="cal_export_success">Evento esportato correttamente</string>
     <string name="cal_export_error">Esportazione evento fallita</string>
     <string name="week_start_locale_default">Predefinito della lingua</string>
+    <string name="cal_export_calendar_title">Esporta calendario</string>
+    <string name="cal_export_calendar_summary">Esporta tutti gli eventi da un calendario in un file .ics</string>
+    <string name="cal_export_select_calendar_title">Seleziona il calendario da esportare</string>
 </resources>
