@@ -510,6 +510,8 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         // Preference keys
         const val KEY_THEME_PREF = "pref_theme"
         const val KEY_REAL_EVENT_COLORS = "pref_real_event_colors"
+        /** Show buttons to switch between the day, week and month views in the toolbar. */
+        const val KEY_VIEW_SWITCH_BUTTONS = "pref_view_switch_buttons"
         const val KEY_DO_NOT_CHECK_BATTERY_OPTIMIZATION = "pref_do_not_check_battery_optimization"
         const val KEY_PURE_BLACK_NIGHT_MODE = "pref_pure_black_night_mode"
         const val KEY_DEFAULT_START = "preferences_default_start"
