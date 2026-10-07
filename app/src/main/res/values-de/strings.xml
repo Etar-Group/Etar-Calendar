@@ -375,4 +375,7 @@
     <string name="cal_export_error">Termin konnte nicht exportiert werden</string>
     <string name="preferences_staggered_display_title">Versetzte Anzeige</string>
     <string name="preferences_staggered_display_summary">Überlappende Termine in einer versetzten Anordnung anzeigen</string>
+    <string name="cal_export_calendar_title">Kalender exportieren</string>
+    <string name="cal_export_calendar_summary">Alle Termine aus einem Kalender in eine .ics-Datei exportieren</string>
+    <string name="cal_export_select_calendar_title">Zu exportierenden Kalender auswählen</string>
 </resources>
