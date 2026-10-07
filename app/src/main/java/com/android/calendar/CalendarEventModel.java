@@ -238,6 +238,17 @@ public class CalendarEventModel implements Serializable {
         return true;
     }
 
+    /**
+     * The zone the event's end time is interpreted in. A null or empty {@link #mTimezone2}
+     * means "same as the start zone" so existing events are unaffected.
+     */
+    public String getEndTimezone() {
+        if (mTimezone2 == null || mTimezone2.isEmpty()) {
+            return mTimezone;
+        }
+        return mTimezone2;
+    }
+
     public void clear() {
         mUri = null;
         mId = -1;

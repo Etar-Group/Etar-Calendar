@@ -32,6 +32,12 @@
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="timezone_icon,timezone_button" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/timezone_end_button_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="timezone_end_icon,timezone_end_button,timezone_end_clear" />
+
         <!-- CALENDARS SELECTOR for new events -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/title"
@@ -240,13 +246,64 @@
             app:layout_constraintStart_toEndOf="@+id/timezone_icon"
             app:layout_constraintTop_toBottomOf="@+id/end_date" />
 
+        <!-- Reveal-on-demand affordance for a separate end time zone (shown when none is set) -->
+        <Button
+            android:id="@+id/timezone_add_end_button"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/add_end_time_zone"
+            app:icon="@drawable/ic_add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timezone_button" />
+
+        <ImageView
+            android:id="@+id/timezone_end_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/ic_outline_public"
+            app:layout_constraintBottom_toBottomOf="@+id/timezone_end_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/timezone_end_button" />
+
+        <Button
+            android:id="@+id/timezone_end_button"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/accessibility_pick_end_time_zone"
+            android:gravity="start|center_vertical"
+            android:lineSpacingExtra="4dp"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/timezone_end_clear"
+            app:layout_constraintStart_toEndOf="@+id/timezone_end_icon"
+            app:layout_constraintTop_toBottomOf="@+id/timezone_add_end_button" />
+
+        <ImageView
+            android:id="@+id/timezone_end_clear"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/accessibility_clear_end_time_zone"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@+id/timezone_end_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/timezone_end_button" />
+
         <View
             android:id="@+id/view7"
             style="@style/EditEventSeparator"
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timezone_button" />
+            app:layout_constraintTop_toBottomOf="@+id/timezone_end_button" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/response_group"
@@ -736,6 +793,26 @@
 
         <TextView
             android:id="@+id/timezone_textView"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dip"
+            android:layout_marginRight="24dip" />
+    </LinearLayout>
+
+    <!-- END TIME ZONE - Read-only textview version -->
+    <LinearLayout
+        android:id="@+id/timezone_end_textview_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dip"
+        android:focusable="true"
+        android:minHeight="48dip"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/timezone_end_textView"
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
