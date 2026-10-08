@@ -867,4 +867,8 @@
     <string name="chips_action_cancel">Cancel</string>
     <!-- Text displayed on the drop down item that is shown when app doesn't have Contact permission. This item will open dialog to request permission. [CHAR LIMIT=50] -->
     <string name="chips_permission_text">Allow contacts suggestions</string>
+    <!-- Event categories (issue #491) -->
+    <string name="event_categories_label">Categories</string>
+    <string name="event_categories_hint">Add a category</string>
+    <string name="event_categories_add">Add this category</string>
 </resources>

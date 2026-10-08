@@ -387,4 +387,8 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Copier"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Annuler"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Autoriser les suggestions de contacts"</string>
+    <!-- Event categories (issue #491) -->
+    <string name="event_categories_label">Catégories</string>
+    <string name="event_categories_hint">Ajouter une catégorie</string>
+    <string name="event_categories_add">Ajouter cette catégorie</string>
 </resources>

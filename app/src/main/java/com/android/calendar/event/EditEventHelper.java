@@ -39,6 +39,7 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.View;
 
+import com.android.calendar.categories.EventCategories;
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
@@ -511,6 +512,37 @@ public class EditEventHelper {
                 values.clear();
                 values.put(ExtendedProperties.NAME, ExtendedProperty.URL_NAME);
                 values.put(ExtendedProperties.VALUE, model.mUrl);
+
+                if (newEvent) {
+                    b = ContentProviderOperation.newInsert(extendedPropUri)
+                            .withValues(values);
+                    b.withValueBackReference(ExtendedProperties.EVENT_ID, eventIdIndex);
+                } else {
+                    values.put(ExtendedProperties.EVENT_ID, model.mId);
+                    b = ContentProviderOperation.newInsert(extendedPropUri)
+                            .withValues(values);
+                }
+                ops.add(b.build());
+            }
+        }
+
+        // Categories, stored like ical4android (DAVx5) does: one extended property
+        boolean hasCategories = model.mCategories != null && !model.mCategories.isEmpty();
+        if (hasCategories || !newEvent) {
+            Uri extendedPropUri = ExtendedProperty.contentUri(model.mCalendarAccountName, model.mCalendarAccountType);
+
+            if (!newEvent) {
+                // Delete the previous value so that removing every category clears it and
+                // re-saving does not duplicate it.
+                b = ContentProviderOperation.newDelete(extendedPropUri)
+                        .withSelection(EXTENDED_WHERE_EVENT_NAME, new String[] { Long.toString(model.mId), EventCategories.CATEGORIES_PROPERTY_NAME });
+                ops.add(b.build());
+            }
+
+            if (hasCategories) {
+                values.clear();
+                values.put(ExtendedProperties.NAME, EventCategories.CATEGORIES_PROPERTY_NAME);
+                values.put(ExtendedProperties.VALUE, EventCategories.joinCategories(model.mCategories));
 
                 if (newEvent) {
                     b = ContentProviderOperation.newInsert(extendedPropUri)
