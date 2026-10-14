@@ -146,6 +146,11 @@ public class Time {
         readFieldsFromCalendar();
     }
 
+    /** Sets the time to the current time, in this Time's timezone */
+    public void setToNow() {
+        set(System.currentTimeMillis());
+    }
+
     public void set(Time other) {
         if (this == other) {
             // no-op when being called on itself, see Etar-Group/Etar-Calendar#1151

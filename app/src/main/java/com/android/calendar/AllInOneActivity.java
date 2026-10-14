@@ -96,6 +96,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
+import java.time.DateTimeException;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -152,6 +158,10 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private ContentResolver mContentResolver;
     private int mPreviousView;
     private int mCurrentView;
+    /** Number of weeks displayed by the month view */
+    private static final int MONTH_VIEW_WEEKS = 6;
+    /** Month shown by the month view (from its title updates), 0 if unknown */
+    private long mMonthViewDisplayedMillis;
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
     private boolean mHideControls = false;
@@ -957,11 +967,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         final int itemId = item.getItemId();
         if (itemId == R.id.day_menu_item) {
             if (mCurrentView != ViewType.DAY) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+                switchToView(ViewType.DAY);
             }
         } else if (itemId == R.id.week_menu_item) {
             if (mCurrentView != ViewType.WEEK) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+                switchToView(ViewType.WEEK);
             }
         } else if (itemId == R.id.month_menu_item) {
             if (mCurrentView != ViewType.MONTH) {
@@ -969,7 +979,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }
         } else if (itemId == R.id.agenda_menu_item) {
             if (mCurrentView != ViewType.AGENDA) {
-                mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
+                switchToView(ViewType.AGENDA);
             }
         } else if (itemId == R.id.action_settings) {
             mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
@@ -1417,6 +1427,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             }
             displayTime = event.startTime.toMillis();
         } else if (event.eventType == EventType.UPDATE_TITLE) {
+            if (mCurrentView == ViewType.MONTH && event.startTime != null) {
+                mMonthViewDisplayedMillis = event.startTime.toMillis();
+            }
             setTitleInActionBar(event);
             if (!mIsTabletConfig) {
                 refreshActionbarTitle(mController.getTime());
@@ -1431,6 +1444,62 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, null, 0, 0,
                 CalendarController.EXTRA_GOTO_TIME, null,
                 null);
+    }
+
+    /**
+     * Switches to another view. Leaving the month view, the current week (today) is shown when
+     * it is visible in the month, rather than the first week displayed on screen.
+     */
+    private void switchToView(int viewType) {
+        Time start = null;
+        if (mCurrentView == ViewType.MONTH && viewType != ViewType.MONTH) {
+            start = todayIfVisibleInMonthView();
+        }
+        mController.sendEvent(this, EventType.GO_TO, start, null, -1, viewType);
+    }
+
+    /**
+     * Today, if it is part of the weeks displayed by the month view ; `null` otherwise.
+     * The date arithmetic is done with `java.time` ; only the result is converted to a `Time`.
+     */
+    private Time todayIfVisibleInMonthView() {
+        if (mMonthViewDisplayedMillis <= 0) {
+            return null;
+        }
+        ZoneId zone = getZoneId();
+        LocalDate today = LocalDate.now(zone);
+
+        // The month view starts with the week containing the 1st of the displayed month
+        LocalDate firstOfMonth = Instant.ofEpochMilli(mMonthViewDisplayedMillis)
+                .atZone(zone).toLocalDate().withDayOfMonth(1);
+        LocalDate firstVisibleDay = firstOfMonth.with(
+                TemporalAdjusters.previousOrSame(getFirstDayOfWeek()));
+        LocalDate lastVisibleDay = firstVisibleDay.plusWeeks(MONTH_VIEW_WEEKS).minusDays(1);
+
+        if (today.isBefore(firstVisibleDay) || today.isAfter(lastVisibleDay)) {
+            return null;
+        }
+        Time now = new Time(mTimeZone);
+        now.setToNow();
+        return now;
+    }
+
+    /** Timezone of the calendar views, falling back to the device one */
+    private ZoneId getZoneId() {
+        try {
+            if (mTimeZone != null) {
+                return ZoneId.of(mTimeZone);
+            }
+        } catch (DateTimeException e) {
+            Log.w(TAG, "Unknown time zone " + mTimeZone + ", using the device one", e);
+        }
+        return ZoneId.systemDefault();
+    }
+
+    /** First day of the week setting, as a DayOfWeek (Utils returns Time.SUNDAY = 0, SATURDAY = 6) */
+    private DayOfWeek getFirstDayOfWeek() {
+        int timeDay = Utils.getFirstDayOfWeek(this);
+        return timeDay == Time.SUNDAY ? DayOfWeek.SUNDAY : DayOfWeek.of(timeDay);
     }
 
     @Override
