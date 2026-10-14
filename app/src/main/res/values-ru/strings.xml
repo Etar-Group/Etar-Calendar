@@ -405,4 +405,6 @@
     <string name="cal_export_calendar_title">Экспорт календаря</string>
     <string name="cal_export_calendar_summary">Экспортировать все события из календаря в файл ICS</string>
     <string name="cal_export_select_calendar_title">Выберите календарь для экспорта</string>
+    <string name="preferences_view_switch_buttons_summary">Переключение между режимами отображения \"день\", \"неделя\" и \"месяц\" одним нажатием (названия месяцев указываются сокращённо)</string>
+    <string name="preferences_view_switch_buttons">Кнопки смены вида</string>
 </resources>
