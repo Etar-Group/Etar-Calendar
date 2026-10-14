@@ -105,6 +105,9 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.chip.ChipGroup;
+import com.android.calendar.categories.CategoryChips;
+import com.android.calendar.categories.EventCategories;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -375,6 +378,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Cursor mRemindersCursor;
     private Cursor mExtendedCursor;
     private String mEventUrl;
+    private final ArrayList<String> mEventCategories = new ArrayList<>();
+    private ChipGroup mCategoriesChips;
     private long mStartMillis;
     private long mEndMillis;
     private boolean mAllDay;
@@ -838,6 +843,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         mDesc =  mView.findViewById(R.id.description);
         mUrl =  mView.findViewById(R.id.url);
+        mCategoriesChips = mView.findViewById(R.id.categories_chips);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
 
@@ -1332,6 +1338,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         intent.putExtra(EditEventActivity.EXTRA_EVENT_REMINDERS, mReminders);
         intent.putExtra(EditEventActivity.EXTRA_EVENT_COLOR, mCurrentColor);
         intent.putExtra(ExtendedProperty.URL, mEventUrl);
+        if (!mEventCategories.isEmpty()) {
+            intent.putExtra(EventCategories.EXTRA_CATEGORIES,
+                    EventCategories.joinCategories(mEventCategories));
+        }
 
         final String allAttendees = Stream.of(mAcceptedAttendees, mDeclinedAttendees, mTentativeAttendees, mNoResponseAttendees)
                 .flatMap(Collection::stream)
@@ -1670,6 +1680,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Url
         if (mEventUrl != null && !mEventUrl.isBlank()) {
             mUrl.setText(mEventUrl);
+        }
+
+        // Categories, as read-only badges
+        if (mCategoriesChips != null) {
+            CategoryChips.fill(mCategoriesChips, mEventCategories, null);
+            mCategoriesChips.setVisibility(mEventCategories.isEmpty() ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -2077,6 +2093,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     public void initExtended(@NotNull Cursor cursor) {
+        mEventCategories.clear();
         while (cursor.moveToNext()) {
             String name = cursor.getString(EXTENDED_INDEX_NAME);
             String value = cursor.getString(EXTENDED_INDEX_VALUE);
@@ -2088,7 +2105,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mEventUrl = value;
                     break;
                 default:
-                    Log.i(TAG, "Got an unhandled extended property: " + name);
+                    if (EventCategories.isCategoriesProperty(name)) {
+                        mEventCategories.addAll(EventCategories.parseCategories(value));
+                    } else {
+                        Log.i(TAG, "Got an unhandled extended property: " + name);
+                    }
                     break;
             }
         }

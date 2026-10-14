@@ -28,6 +28,7 @@ import android.text.util.Rfc822Token;
 
 import androidx.annotation.Nullable;
 
+import com.android.calendar.categories.EventCategories;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventColorCache;
 import com.android.calendar.event.ExtendedProperty;
@@ -35,6 +36,7 @@ import com.android.calendar.settings.GeneralPreferences;
 import com.android.calendar.common.Rfc822Validator;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -73,6 +75,8 @@ public class CalendarEventModel implements Serializable {
     public String mLocation = null;
     public String mDescription = null;
     public String mUrl = null;
+    /** iCalendar CATEGORIES, in order (the first one is the main category). */
+    public ArrayList<String> mCategories = new ArrayList<>();
     public String mRrule = null;
     public String mExDate = null;
     public String mOrganizer = null;
@@ -173,6 +177,11 @@ public class CalendarEventModel implements Serializable {
             mUrl = url;
         }
 
+        String categories = intent.getStringExtra(EventCategories.EXTRA_CATEGORIES);
+        if (categories != null) {
+            mCategories = new ArrayList<>(EventCategories.parseCategories(categories));
+        }
+
         int availability = intent.getIntExtra(Events.AVAILABILITY, -1);
         if (availability != -1) {
             mAvailability = availability;
@@ -235,6 +244,10 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
+        if (mCategories != null && !mCategories.isEmpty()) {
+            return false;
+        }
+
         return true;
     }
 
@@ -258,6 +271,7 @@ public class CalendarEventModel implements Serializable {
         mLocation = null;
         mDescription = null;
         mUrl = null;
+        mCategories = new ArrayList<>();
         mRrule = null;
         mOrganizer = null;
         mOrganizerDisplayName = null;
@@ -341,6 +355,7 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + (int) (mCalendarId ^ (mCalendarId >>> 32));
         result = prime * result + ((mDescription == null) ? 0 : mDescription.hashCode());
         result = prime * result + ((mUrl == null) ? 0 : mUrl.hashCode());
+        result = prime * result + ((mCategories == null) ? 0 : mCategories.hashCode());
         result = prime * result + ((mDuration == null) ? 0 : mDuration.hashCode());
         result = prime * result + (int) (mEnd ^ (mEnd >>> 32));
         result = prime * result + (mGuestsCanInviteOthers ? 1231 : 1237);
@@ -427,6 +442,10 @@ public class CalendarEventModel implements Serializable {
                 return false;
             }
         } else if (!mUrl.equals(other.mUrl)) {
+            return false;
+        }
+
+        if (!sameCategories(mCategories, other.mCategories)) {
             return false;
         }
 
@@ -524,6 +543,10 @@ public class CalendarEventModel implements Serializable {
                 return false;
             }
         } else if (!mUrl.equals(originalModel.mUrl)) {
+            return false;
+        }
+
+        if (!sameCategories(mCategories, originalModel.mCategories)) {
             return false;
         }
 
@@ -766,6 +789,13 @@ public class CalendarEventModel implements Serializable {
         }
 
         return true;
+    }
+
+    /** Compares categories, order included (the first one is the main one); null equals empty. */
+    private static boolean sameCategories(List<String> a, List<String> b) {
+        List<String> left = a == null ? Collections.emptyList() : a;
+        List<String> right = b == null ? Collections.emptyList() : b;
+        return left.equals(right);
     }
 
     public boolean isCalendarColorInitialized() {

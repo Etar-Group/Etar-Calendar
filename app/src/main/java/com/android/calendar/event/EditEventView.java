@@ -67,6 +67,11 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputLayout;
+
+import com.android.calendar.categories.CategoryChips;
+import com.android.calendar.categories.EventCategories;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
@@ -104,6 +109,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -164,6 +170,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mLocationGroup;
     View mDescriptionGroup;
     View mUrlGroup;
+    View mCategoriesGroup;
+    ChipGroup mCategoriesChips;
+    TextInputLayout mCategoryInputLayout;
+    AutoCompleteTextView mCategoryInput;
+    /** Categories of the event being edited, in a specific order (the first one is the main one, used for coloring). */
+    private final ArrayList<String> mCategories = new ArrayList<>();
+    private boolean mCategoriesEditable = true;
     View mRemindersGroup;
     View mResponseGroup;
     View mOrganizerGroup;
@@ -270,6 +283,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
         mUrlGroup = view.findViewById(R.id.url_row);
+        mCategoriesGroup = view.findViewById(R.id.categories_row);
+        mCategoriesChips = view.findViewById(R.id.categories_chips);
+        mCategoryInputLayout = view.findViewById(R.id.category_input_layout);
+        mCategoryInput = view.findViewById(R.id.category_input);
+        initCategoryInput();
         mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
         mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
         mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
@@ -621,6 +639,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (TextUtils.isEmpty(mModel.mUrl)) {
             mModel.mUrl = null;
         }
+        // A category typed but not validated yet is kept as well.
+        addCategory(mCategoryInput.getText().toString());
+        mModel.mCategories = new ArrayList<>(mCategories);
 
         int status = EventInfoFragment.getResponseFromButtonId(mResponseRadioGroup
                 .getCheckedRadioButtonId());
@@ -982,6 +1003,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (model.mUrl != null) {
             mUrlTextView.setTextKeepState(model.mUrl);
         }
+        setCategories(model.mCategories);
 
         View responseLabel = mView.findViewById(R.id.response_label);
         if (canRespond) {
@@ -1204,6 +1226,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (TextUtils.isEmpty(mUrlTextView.getText())) {
                 mUrlGroup.setVisibility(View.GONE);
             }
+            setCategoriesEditable(false);
             mCalendarsSpinner.setEnabled(false);
         } else {
             for (View v : mViewOnlyList) {
@@ -1231,11 +1254,123 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
             mUrlGroup.setVisibility(View.VISIBLE);
+            setCategoriesEditable(true);
 
             // disallow changing calendar for recurrences when not modifying all instances
             mCalendarsSpinner.setEnabled(mode == Utils.MODIFY_ALL);
         }
         setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
+    }
+
+    // ------------------------------------------------------------------------------------------
+    // Categories
+    // ------------------------------------------------------------------------------------------
+
+    private final CategoryChips.Listener mCategoryChipListener = new CategoryChips.Listener() {
+        @Override
+        public void onRemove(String category) {
+            mCategories.remove(category);
+            refreshCategoryChips();
+        }
+
+        @Override
+        public void onMoveFirst(String category) {
+            if (mCategories.remove(category)) {
+                mCategories.add(0, category);
+                refreshCategoryChips();
+            }
+        }
+    };
+
+    private void initCategoryInput() {
+        // Pick an existing category from the drop-down list...
+        mCategoryInput.setOnItemClickListener((parent, v, position, id) ->
+                addCategory((String) parent.getItemAtPosition(position)));
+        // ...or type a new one, validated with the keyboard or the "+" end icon.
+        mCategoryInput.setOnEditorActionListener((v, actionId, event) -> {
+            boolean enter = event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
+                    && event.getAction() == KeyEvent.ACTION_DOWN;
+            if (actionId == EditorInfo.IME_ACTION_DONE || enter) {
+                addCategory(v.getText().toString());
+                return true;
+            }
+            return false;
+        });
+        mCategoryInputLayout.setEndIconOnClickListener(
+                v -> addCategory(mCategoryInput.getText().toString()));
+        // The first tap only gives the focus to the field (no click event) : opens the list when
+        // the field gains the focus as well, not only on click
+        mCategoryInput.setOnClickListener(v -> showCategorySuggestions());
+        mCategoryInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                v.post(this::showCategorySuggestions);
+            }
+        });
+        loadCategorySuggestions();
+    }
+
+    private void showCategorySuggestions() {
+        // The suggestions are loaded in the background : nothing to show before that
+        if (mCategoryInput.getAdapter() != null && mCategoryInput.hasFocus()
+                && mCategoryInput.isShown()) {
+            mCategoryInput.showDropDown();
+        }
+    }
+
+    /** The suggested categories are read off the UI thread. */
+    private void loadCategorySuggestions() {
+        final Context appContext = mActivity.getApplicationContext();
+        new Thread(() -> {
+            final List<String> known = EventCategories.getUsedCategories(appContext);
+            mActivity.runOnUiThread(() -> {
+                if (mActivity.isFinishing() || mActivity.isDestroyed()) {
+                    return;
+                }
+                mCategoryInput.setAdapter(new ArrayAdapter<>(mActivity,
+                        android.R.layout.simple_dropdown_item_1line, known));
+            });
+        }).start();
+    }
+
+    private void addCategory(String raw) {
+        String name = EventCategories.sanitizeCategoryName(raw);
+        if (!TextUtils.isEmpty(mCategoryInput.getText())) {
+            mCategoryInput.setText("");
+        }
+        mCategoryInput.dismissDropDown();
+        if (name == null) {
+            return;
+        }
+        for (String category : mCategories) {
+            if (category.equalsIgnoreCase(name)) {
+                return;
+            }
+        }
+        mCategories.add(name);
+        refreshCategoryChips();
+    }
+
+    /** Replaces the displayed categories (this is used when the event is loaded). */
+    public void setCategories(List<String> categories) {
+        mCategories.clear();
+        if (categories != null) {
+            mCategories.addAll(categories);
+        }
+        refreshCategoryChips();
+    }
+
+    private void setCategoriesEditable(boolean editable) {
+        mCategoriesEditable = editable;
+        mCategoryInputLayout.setVisibility(editable ? View.VISIBLE : View.GONE);
+        refreshCategoryChips();
+    }
+
+    private void refreshCategoryChips() {
+        CategoryChips.fill(mCategoriesChips, mCategories,
+                mCategoriesEditable ? mCategoryChipListener : null);
+        mCategoriesChips.setVisibility(mCategories.isEmpty() ? View.GONE : View.VISIBLE);
+        mCategoriesGroup.setVisibility(mCategoriesEditable || !mCategories.isEmpty()
+                ? View.VISIBLE : View.GONE);
     }
 
     public void setModification(int modifyWhich) {
