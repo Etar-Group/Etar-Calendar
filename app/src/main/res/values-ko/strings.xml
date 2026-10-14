@@ -359,4 +359,6 @@
     <string name="cal_export_calendar_title">달력 내보내기</string>
     <string name="cal_export_calendar_summary">달력의 모든 이벤트를 .ics 파일로 내보냅니다</string>
     <string name="cal_export_select_calendar_title">내보낼 달력 선택</string>
+    <string name="preferences_view_switch_buttons">툴바 버튼 표시</string>
+    <string name="preferences_view_switch_buttons_summary">하루, 주, 월 보기 사이를 한 번의 탭으로 전환합니다(월은 제목에 약어로 표시)</string>
 </resources>
