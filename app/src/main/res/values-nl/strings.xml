@@ -378,4 +378,6 @@
     <string name="cal_export_calendar_title">Agenda exporteren</string>
     <string name="cal_export_calendar_summary">Alle gebeurtenissen uit een agenda exporteren naar een.ics-bestand</string>
     <string name="cal_export_select_calendar_title">Selecteer de te exporteren agenda</string>
+    <string name="preferences_view_switch_buttons">Knoppen in de werkbalk weergeven</string>
+    <string name="preferences_view_switch_buttons_summary">Schakel met één tik tussen de dag, week - en maandweergave (maanden worden afgekort in de titel)</string>
 </resources>
