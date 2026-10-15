@@ -361,4 +361,6 @@
     <string name="cal_export_calendar_title">导出日历</string>
     <string name="cal_export_calendar_summary">导出日历所有活动到 .ics 文件</string>
     <string name="cal_export_select_calendar_title">选择要导出的日历</string>
+    <string name="preferences_view_switch_buttons">查看工具栏按钮</string>
+    <string name="preferences_view_switch_buttons_summary">一键切换日视图、周视图和月视图（标题中的月份为缩写形式）</string>
 </resources>
