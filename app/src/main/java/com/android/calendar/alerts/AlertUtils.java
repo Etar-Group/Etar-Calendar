@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
@@ -70,11 +71,11 @@ public class AlertUtils {
     // Keyname prefix for the alerts data in SharedPrefs.  The key will contain a combo
     // of event ID, begin time, and alarm time.  The value will be the fired time.
     private static final String KEY_FIRED_ALERT_PREFIX = "preference_alert_";
+    // Version 2 uses a stable event identity and stores the expiry time as its value.
+    private static final String KEY_FIRED_ALERT_V2_PREFIX = KEY_FIRED_ALERT_PREFIX + "v2_";
     // The last time the SharedPrefs was scanned and flushed of old alerts data.
     private static final String KEY_LAST_FLUSH_TIME_MS = "preference_flushTimeMs";
-    // The # of days to save alert states in the shared prefs table, before flushing.  This
-    // can be any value, since AlertService will also check for a recent alertTime before
-    // ringing the alert.
+    // Scan daily, retaining reminder history until at least one day after the event ends.
     private static final int FLUSH_INTERVAL_DAYS = 1;
     private static final int FLUSH_INTERVAL_MS = FLUSH_INTERVAL_DAYS * 24 * 60 * 60 * 1000;
     // A flag for using local storage to save alert state instead of the alerts DB table.
@@ -273,6 +274,81 @@ public class AlertUtils {
     }
 
     /**
+     * Sync adapters can replace an event row, changing its local ID. Use its iCalendar UID
+     * or server ID when available, scoped to the calendar so separate calendars cannot
+     * suppress each other's reminders. Callers may cache this per event during a refresh.
+     */
+    static String getAlertIdentity(Context context, long eventId, long calendarId) {
+        String localIdentity = "e:" + eventId;
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            return localIdentity;
+        }
+
+        try (Cursor cursor = context.getContentResolver().query(
+                ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId),
+                new String[] { CalendarContract.Events.UID_2445,
+                        CalendarContract.Events._SYNC_ID }, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                String uid = cursor.getString(0);
+                if (uid != null && !uid.trim().isEmpty()) {
+                    return "c:" + calendarId + ":u:" + Uri.encode(uid);
+                }
+                String syncId = cursor.getString(1);
+                if (syncId != null && !syncId.trim().isEmpty()) {
+                    return "c:" + calendarId + ":s:" + Uri.encode(syncId);
+                }
+            }
+        } catch (RuntimeException e) {
+            // Some providers do not expose the optional sync columns.
+            Log.w(TAG, "Unable to read stable identity for event " + eventId, e);
+        }
+        return localIdentity;
+    }
+
+    private static String getFiredAlertsKey(String identity, long beginTime, long alarmTime) {
+        return KEY_FIRED_ALERT_V2_PREFIX + identity + "_" + beginTime + "_" + alarmTime;
+    }
+
+    private static long getAlertExpiry(long endTime, long alarmTime) {
+        long lastRelevantTime = Math.max(endTime, alarmTime);
+        return lastRelevantTime > Long.MAX_VALUE - FLUSH_INTERVAL_MS
+                ? Long.MAX_VALUE : lastRelevantTime + FLUSH_INTERVAL_MS;
+    }
+
+    static boolean hasAlertFiredInSharedPrefs(Context context, String identity, long eventId,
+            long beginTime, long endTime, long alarmTime) {
+        SharedPreferences prefs = getFiredAlertsTable(context);
+        String key = getFiredAlertsKey(identity, beginTime, alarmTime);
+        if (prefs.contains(key)) {
+            return true;
+        }
+
+        // A local event can acquire a server identity after its first sync. Preserve a local
+        // alias as well as importing the pre-upgrade key, so that transition stays silent.
+        String localKey = getFiredAlertsKey("e:" + eventId, beginTime, alarmTime);
+        String legacyKey = getFiredAlertsKey(eventId, beginTime, alarmTime);
+        if (prefs.contains(localKey) || prefs.contains(legacyKey)) {
+            long expiry = prefs.contains(localKey)
+                    ? prefs.getLong(localKey, getAlertExpiry(endTime, alarmTime))
+                    : getAlertExpiry(endTime, alarmTime);
+            prefs.edit().putLong(key, expiry).remove(legacyKey).apply();
+            return true;
+        }
+        return false;
+    }
+
+    static void setAlertFiredInSharedPrefs(Context context, String identity, long eventId,
+            long beginTime, long endTime, long alarmTime) {
+        long expiry = getAlertExpiry(endTime, alarmTime);
+        getFiredAlertsTable(context).edit()
+                .putLong(getFiredAlertsKey(identity, beginTime, alarmTime), expiry)
+                .putLong(getFiredAlertsKey("e:" + eventId, beginTime, alarmTime), expiry)
+                .remove(getFiredAlertsKey(eventId, beginTime, alarmTime))
+                .apply();
+    }
+
+    /**
      * Returns whether the SharedPrefs storage indicates we have fired the alert before.
      */
     static boolean hasAlertFiredInSharedPrefs(Context context, long eventId, long beginTime,
@@ -312,7 +388,6 @@ public class AlertUtils {
 
                 // Scan through all fired alert entries, removing old ones.
                 SharedPreferences.Editor editor = prefs.edit();
-                Time timeObj = new Time();
                 for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
                     String key = entry.getKey();
                     Object value = entry.getValue();
@@ -327,19 +402,14 @@ public class AlertUtils {
                             continue;
                         }
 
-                        if (nowTime - alertTime >= FLUSH_INTERVAL_MS) {
+                        boolean expired = key.startsWith(KEY_FIRED_ALERT_V2_PREFIX)
+                                ? nowTime >= alertTime
+                                : nowTime - alertTime >= FLUSH_INTERVAL_MS;
+                        if (expired) {
                             editor.remove(key);
-                            if (DEBUG) {
-                                int ageInDays = getIntervalInDays(alertTime, nowTime, timeObj);
-                                Log.d(TAG, "SharedPrefs key " + key + ": removed (" + ageInDays +
-                                        " days old)");
-                            }
-                        } else {
-                            if (DEBUG) {
-                                int ageInDays = getIntervalInDays(alertTime, nowTime, timeObj);
-                                Log.d(TAG, "SharedPrefs key " + key + ": keep (" + ageInDays +
-                                        " days old)");
-                            }
+                        }
+                        if (DEBUG) {
+                            Log.d(TAG, "SharedPrefs key " + key + (expired ? ": removed" : ": keep"));
                         }
                     }
                 }
@@ -347,13 +417,6 @@ public class AlertUtils {
                 editor.apply();
             }
         }
-    }
-
-    private static int getIntervalInDays(long startMillis, long endMillis, Time timeObj) {
-        timeObj.set(startMillis);
-        int startDay = Time.getJulianDay(startMillis, timeObj.getGmtOffset());
-        timeObj.set(endMillis);
-        return Time.getJulianDay(endMillis, timeObj.getGmtOffset()) - startDay;
     }
 
     /**

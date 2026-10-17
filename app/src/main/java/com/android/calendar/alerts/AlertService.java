@@ -277,7 +277,7 @@ public class AlertService {
             }
 
             // Add options for a quiet update.
-            addNotificationOptions(notification, true, expiredDigestTitle,
+            addNotificationOptions(context, notification, true, expiredDigestTitle,
                     notificationPrefs.getDefaultVibrate(),
                     notificationPrefs.getRingtoneAndSilence(),
                     false); /* Do not show the LED for the expired events. */
@@ -406,7 +406,7 @@ public class AlertService {
             Time t = new Time();
             startAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
                     Utils.getCurrentTimezone());
-            endAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
+            endAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.endMillis,
                     Utils.getCurrentTimezone());
         }
 
@@ -453,6 +453,7 @@ public class AlertService {
 
         ContentResolver cr = context.getContentResolver();
         HashMap<Long, NotificationInfo> eventIds = new HashMap<Long, NotificationInfo>();
+        HashMap<Long, String> alertIdentities = new HashMap<>();
         int numFired = 0;
         try {
             while (alertCursor.moveToNext()) {
@@ -477,6 +478,29 @@ public class AlertService {
                 int state = alertCursor.getInt(ALERT_INDEX_STATE);
                 final boolean allDay = alertCursor.getInt(ALERT_INDEX_ALL_DAY) != 0;
 
+                // Sync can recreate old alert rows as SCHEDULED. Do not revive completed
+                // events, even if their local IDs changed or our delivery history expired.
+                // All-day ends are calendar dates stored in UTC, not UTC instants.
+                long localEnd = allDay ? Utils.convertAlldayUtcToLocal(null, endTime,
+                        TimeZone.getDefault().getID()) : endTime;
+                if (localEnd <= currentTime
+                        && alarmTime < currentTime - MIN_DEPRIORITIZE_GRACE_PERIOD_MS) {
+                    ContentValues expired = new ContentValues();
+                    expired.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
+                    cr.update(alertUri, expired, null, null);
+                    continue;
+                }
+                // Never consume a future reminder (including an explicitly snoozed one).
+                if (alarmTime > currentTime) {
+                    continue;
+                }
+
+                String alertIdentity = alertIdentities.get(eventId);
+                if (alertIdentity == null) {
+                    alertIdentity = AlertUtils.getAlertIdentity(context, eventId, calendarId);
+                    alertIdentities.put(eventId, alertIdentity);
+                }
+
                 // Use app local storage to keep track of fired alerts to fix problem of multiple
                 // installed calendar apps potentially causing missed alarms.
                 boolean newAlertOverride = false;
@@ -485,8 +509,8 @@ public class AlertService {
                     // we can get refires for non-dismissed alerts after app installation, or if the
                     // SharedPrefs was cleared too early.  This means alerts that were timed while
                     // the phone was off may show up silently in the notification bar.
-                    boolean alreadyFired = AlertUtils.hasAlertFiredInSharedPrefs(context, eventId,
-                            beginTime, alarmTime);
+                    boolean alreadyFired = AlertUtils.hasAlertFiredInSharedPrefs(context,
+                            alertIdentity, eventId, beginTime, endTime, alarmTime);
                     if (!alreadyFired) {
                         newAlertOverride = true;
                     }
@@ -517,13 +541,6 @@ public class AlertService {
                 int newState = -1;
                 boolean newAlert = false;
 
-                // Uncomment for the behavior of clearing out alerts after the
-                // events ended. b/1880369
-                //
-                // if (endTime < currentTime) {
-                //     newState = CalendarAlerts.DISMISSED;
-                // } else
-
                 // Remove declined events
                 boolean sendAlert = !declined;
                 // Check for experimental reminder settings.
@@ -544,7 +561,7 @@ public class AlertService {
                         // duplicate notifications with sound/vibrate.
                         boolean alreadyFired = AlertUtils.BYPASS_DB
                                 && AlertUtils.hasAlertFiredInSharedPrefs(
-                                        context, eventId, beginTime, alarmTime);
+                                        context, alertIdentity, eventId, beginTime, endTime, alarmTime);
 
                         if (!alreadyFired) {
                             numFired++;
@@ -570,8 +587,8 @@ public class AlertService {
                     state = newState;
 
                     if (AlertUtils.BYPASS_DB) {
-                        AlertUtils.setAlertFiredInSharedPrefs(context, eventId, beginTime,
-                                alarmTime);
+                        AlertUtils.setAlertFiredInSharedPrefs(context, alertIdentity, eventId,
+                                beginTime, endTime, alarmTime);
                     }
                 }
 
@@ -651,8 +668,9 @@ public class AlertService {
                 long highPriorityCutoff = currentTime -
                         getGracePeriodMs(beginTime, endTime, allDay);
 
-                if (beginTimeAdjustedForAllDay > highPriorityCutoff) {
-                    // High priority = future events or events that just started
+                if (newAlert || beginTimeAdjustedForAllDay > highPriorityCutoff) {
+                    // A newly due reminder (including an explicit snooze) must alert once
+                    // even when the event has already started. Later refreshes are quiet.
                     highPriorityEvents.add(newInfo);
                 } else if (allDay && tz != null && DateUtils.isToday(beginTimeAdjustedForAllDay)) {
                     // Medium priority = in progress all day events
@@ -717,7 +735,7 @@ public class AlertService {
             // 1 sound per group of notifications.
             ringtone = prefs.getRingtoneAndSilence();
         }
-        addNotificationOptions(notification, quietUpdate, tickerText,
+        addNotificationOptions(context, notification, quietUpdate, tickerText,
                 prefs.getDefaultVibrate(), ringtone,
                 true); /* Show the LED for these non-expired events */
 
@@ -740,10 +758,21 @@ public class AlertService {
         return tickerText;
     }
 
-    private static void addNotificationOptions(NotificationWrapper nw, boolean quietUpdate,
+    static void addNotificationOptions(Context context, NotificationWrapper nw, boolean quietUpdate,
             String tickerText, boolean defaultVibrate, String reminderRingtone,
             boolean showLights) {
         Notification notification = nw.mNotification;
+
+        if (quietUpdate) {
+            // On Android O+, clearing Notification.sound does not override the channel.
+            // Silence this individual post, including when notification IDs change as
+            // events move into the digest. Keep the user's channel settings for new alarms.
+            nw.mNotification = new NotificationCompat.Builder(context, notification)
+                    .setSilent(true)
+                    .setFullScreenIntent(null, false)
+                    .build();
+            return;
+        }
 
         if (showLights) {
             notification.flags |= Notification.FLAG_SHOW_LIGHTS;
