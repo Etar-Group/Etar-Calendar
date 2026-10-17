@@ -395,4 +395,6 @@
     <string name="cal_export_calendar_title">Exportovat kalendář</string>
     <string name="cal_export_calendar_summary">Exportovat všechny události z kalendáře do souboru .ics</string>
     <string name="cal_export_select_calendar_title">Vyberte kalendář k exportu</string>
+    <string name="preferences_view_switch_buttons">Zobrazit tlačítka na liště</string>
+    <string name="preferences_view_switch_buttons_summary">Přepnout mezi zobrazením dne, týdne a měsíce jedním klepnutím (měsíce v názvu jsou zkráceny)</string>
 </resources>
