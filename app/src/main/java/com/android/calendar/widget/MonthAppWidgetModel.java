@@ -58,7 +58,7 @@ class MonthAppWidgetModel {
         int firstDow = cal.get(Calendar.DAY_OF_WEEK);
 
         // How many cells from the previous month do we need?
-        int offset = (firstDow - firstDayOfWeek + BaseGridWidgetProvider.DAYS_PER_WEEK) % BaseGridWidgetProvider.DAYS_PER_WEEK;
+        int offset = BaseGridWidgetProvider.getDayOfWeekOffset(firstDow, firstDayOfWeek);
 
         // Calculate total rows needed (round up to full weeks)
         int totalCells = offset + daysInMonth;

@@ -45,7 +45,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         int gridHeightPx = intent.getIntExtra(
-                WeekAppWidgetProvider.EXTRA_GRID_AVAILABLE_HEIGHT_PX, 0);
+                BaseGridWidgetProvider.EXTRA_GRID_AVAILABLE_HEIGHT_PX, 0);
         return new WeekFactory(getApplicationContext(), gridHeightPx);
     }
 
@@ -318,9 +318,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
 
             boolean is24h = DateFormat.is24HourFormat(mContext);
 
-            String selection = Utils.getHideDeclinedEvents(mContext)
-                    ? BaseGridWidgetProvider.SELECTION_HIDE_DECLINED
-                    : BaseGridWidgetProvider.SELECTION_VISIBLE;
+            String selection = BaseGridWidgetProvider.getInstancesSelection(mContext);
 
             Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
                     Long.toString(startMillis) + "/" + Long.toString(endMillis));

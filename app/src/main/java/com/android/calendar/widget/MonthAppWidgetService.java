@@ -44,7 +44,7 @@ public class MonthAppWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         int gridHeightPx = intent.getIntExtra(
-                MonthAppWidgetProvider.EXTRA_GRID_AVAILABLE_HEIGHT_PX, 0);
+                BaseGridWidgetProvider.EXTRA_GRID_AVAILABLE_HEIGHT_PX, 0);
         return new MonthFactory(getApplicationContext(), gridHeightPx);
     }
 
@@ -347,12 +347,10 @@ public class MonthAppWidgetService extends RemoteViewsService {
 
             // Compute grid start for row-boundary span type calculation
             int firstDow = start.get(Calendar.DAY_OF_WEEK);
-            int offset = (firstDow - firstDayOfWeek + BaseGridWidgetProvider.DAYS_PER_WEEK) % BaseGridWidgetProvider.DAYS_PER_WEEK;
+            int offset = BaseGridWidgetProvider.getDayOfWeekOffset(firstDow, firstDayOfWeek);
             int gridStartJulianDay = monthStartJulianDay - offset;
 
-            String selection = Utils.getHideDeclinedEvents(mContext)
-                    ? BaseGridWidgetProvider.SELECTION_HIDE_DECLINED
-                    : BaseGridWidgetProvider.SELECTION_VISIBLE;
+            String selection = BaseGridWidgetProvider.getInstancesSelection(mContext);
 
             Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
                     Long.toString(startMillis) + "/" + Long.toString(endMillis));

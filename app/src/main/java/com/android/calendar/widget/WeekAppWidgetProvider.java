@@ -15,11 +15,7 @@
  */
 package com.android.calendar.widget;
 
-import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.provider.CalendarContract;
 
 import com.android.calendar.Utils;
 
@@ -35,8 +31,6 @@ public class WeekAppWidgetProvider extends BaseGridWidgetProvider {
             "com.android.calendar.WEEK_APPWIDGET_UPDATE";
     public static final String ACTION_WEEK_WIDGET_SCHEDULED_UPDATE =
             "com.android.calendar.WEEK_APPWIDGET_SCHEDULED_UPDATE";
-    public static final String EXTRA_GRID_AVAILABLE_HEIGHT_PX =
-            "com.android.calendar.WEEK_WIDGET_GRID_HEIGHT_PX";
 
     @Override
     protected String getUpdateAction() {
@@ -49,20 +43,6 @@ public class WeekAppWidgetProvider extends BaseGridWidgetProvider {
     }
 
     @Override
-    protected ComponentName getComponentName(Context context) {
-        return new ComponentName(context, WeekAppWidgetProvider.class);
-    }
-
-    @Override
-    protected PendingIntent getUpdateIntent(Context context) {
-        Intent intent = new Intent(ACTION_WEEK_WIDGET_SCHEDULED_UPDATE);
-        intent.setClass(context, WeekAppWidgetProvider.class);
-        intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
-        return PendingIntent.getBroadcast(context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-    }
-
-    @Override
     protected int getWidgetLayoutId() {
         return R.layout.week_appwidget;
     }
@@ -70,39 +50,6 @@ public class WeekAppWidgetProvider extends BaseGridWidgetProvider {
     @Override
     protected Class<?> getServiceClass() {
         return WeekAppWidgetService.class;
-    }
-
-    @Override
-    protected int getHeaderViewId() {
-        return R.id.week_widget_header;
-    }
-
-    @Override
-    protected int getTitleViewId() {
-        return R.id.week_widget_title;
-    }
-
-    @Override
-    protected int getBackgroundViewId() {
-        return R.id.week_widget_background;
-    }
-
-    @Override
-    protected int[] getDowViewIds() {
-        return new int[]{
-                R.id.week_dow_0, R.id.week_dow_1, R.id.week_dow_2, R.id.week_dow_3,
-                R.id.week_dow_4, R.id.week_dow_5, R.id.week_dow_6
-        };
-    }
-
-    @Override
-    protected int getGridViewId() {
-        return R.id.week_grid;
-    }
-
-    @Override
-    protected String getGridHeightExtraKey() {
-        return EXTRA_GRID_AVAILABLE_HEIGHT_PX;
     }
 
     @Override
@@ -117,7 +64,7 @@ public class WeekAppWidgetProvider extends BaseGridWidgetProvider {
 
         // Rewind to first day of week
         int currentDow = cal.get(Calendar.DAY_OF_WEEK);
-        int offset = (currentDow - firstDayOfWeek + DAYS_PER_WEEK) % DAYS_PER_WEEK;
+        int offset = getDayOfWeekOffset(currentDow, firstDayOfWeek);
         cal.add(Calendar.DAY_OF_MONTH, -offset);
 
         Calendar weekStart = (Calendar) cal.clone();
