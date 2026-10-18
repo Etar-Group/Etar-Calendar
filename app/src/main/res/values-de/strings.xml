@@ -378,4 +378,6 @@
     <string name="cal_export_calendar_title">Kalender exportieren</string>
     <string name="cal_export_calendar_summary">Alle Termine aus einem Kalender in eine .ics-Datei exportieren</string>
     <string name="cal_export_select_calendar_title">Zu exportierenden Kalender auswählen</string>
+    <string name="preferences_view_switch_buttons_summary">Zwischen Tag-, Wochen- und Monatsansicht in einem Klick umschalten (Monate werden im Titel abgekürzt)</string>
+    <string name="preferences_view_switch_buttons">Tasten in der Symbolleiste anzeigen</string>
 </resources>
