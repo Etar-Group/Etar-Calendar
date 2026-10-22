@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
+    <string name="app_label" msgid="5452708708398908131">Calendrier</string>
     <string name="when_label" msgid="894636567327261599">"Date"</string>
     <string name="today" msgid="8577375020252453006">Aujourd’hui</string>
     <string name="tomorrow" msgid="614434811813859237">"Demain"</string>
@@ -290,7 +290,7 @@
     <string name="error_generating_ics">Problèmes rencontrés lors du partage de l’évènement</string>
     <string name="cal_share_intent_title">Envoyer l’évènement à :</string>
     <string name="cal_export_event_title">Exporter sur la carte SD</string>
-    <string name="cal_export_succ_msg">Évènement exporté avec succès : %1$s</string>
+    <string name="cal_export_succ_msg">Évènement exporté avec succès</string>
     <string name="cal_import_menu_title">Importer évènement</string>
     <string name="cal_nothing_to_import">Rien à importer</string>
     <string name="cal_import_error_msg">L’importation dans l’agenda a échoué</string>
@@ -389,4 +389,12 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Copier"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Annuler"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Autoriser les suggestions de contacts"</string>
+    <string name="week_start_locale_default">Par défaut (selon la langue choisie)</string>
+    <string name="preferences_staggered_display_title">Affichage embôité</string>
+    <string name="preferences_staggered_display_summary">Affiche les évènements qui se chevauchent en les emboîtant les uns dans les autres</string>
+    <string name="cal_export_calendar_title">Exporter l\'agenda</string>
+    <string name="cal_export_calendar_summary">Exporte tous les évènements de l\'agenda dans un fichier .ics</string>
+    <string name="cal_export_select_calendar_title">Choisir l\'agenda à exporter</string>
+    <string name="cal_export_error">Éched de l\'export de l\'évènement</string>
+    <string name="cal_export_success">Évènement exporté avec succès</string>
 </resources>
