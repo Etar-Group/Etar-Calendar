@@ -397,4 +397,10 @@
     <string name="cal_export_select_calendar_title">Vyberte kalendář k exportu</string>
     <string name="preferences_view_switch_buttons">Zobrazit tlačítka na liště</string>
     <string name="preferences_view_switch_buttons_summary">Přepnout mezi zobrazením dne, týdne a měsíce jedním klepnutím (měsíce v názvu jsou zkráceny)</string>
+    <string name="month_widget_label">Zobrazení měsíce v kalendáři</string>
+    <string name="month_widget_description">Zobrazí aktuální měsíc s indikátory událostí</string>
+    <string name="week_widget_label">Zobrazení týdne v kalendáři</string>
+    <string name="week_widget_description">Zobrazí aktuální týden s časy a podrobnostmi událostí</string>
+    <string name="widget_no_title">(Bez názvu)</string>
+    <string name="widget_event_overflow">+%d dalších</string>
 </resources>
