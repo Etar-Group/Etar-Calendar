@@ -15,10 +15,12 @@
  */
 package com.android.calendar.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.CalendarContract.Instances;
 import android.util.Log;
 import android.view.View;
@@ -43,9 +45,11 @@ public class MonthAppWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
+        int appWidgetId = intent.getIntExtra(
+                AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         int gridHeightPx = intent.getIntExtra(
                 BaseGridWidgetProvider.EXTRA_GRID_AVAILABLE_HEIGHT_PX, 0);
-        return new MonthFactory(getApplicationContext(), gridHeightPx);
+        return new MonthFactory(getApplicationContext(), appWidgetId, gridHeightPx);
     }
 
     static class MonthFactory implements RemoteViewsFactory {
@@ -74,18 +78,23 @@ public class MonthAppWidgetService extends RemoteViewsService {
         private static final int DAY_NUMBER_HEIGHT_DP = 20;
         // Each event chip: 11dp height + 1dp margin
         private static final int EVENT_CHIP_HEIGHT_DP = 12;
+        // Overflow indicator text view height
+        private static final int OVERFLOW_HEIGHT_DP = 11;
         // Default padding for event rows in dp
         private static final int EVENT_ROW_PADDING_DP = 1;
 
         private final Context mContext;
-        private final int mGridHeightPx;
+        private final int mAppWidgetId;
+        private int mGridHeightPx;
         private MonthAppWidgetModel mModel;
         private int mCellHeightPx;
-        private int mMaxVisibleEvents;
+        private int mMaxEventsWithoutOverflow;
+        private int mMaxEventsWithOverflow;
         private int mEventRowPaddingPx;
 
-        MonthFactory(Context context, int gridHeightPx) {
+        MonthFactory(Context context, int appWidgetId, int gridHeightPx) {
             mContext = context;
+            mAppWidgetId = appWidgetId;
             mGridHeightPx = gridHeightPx;
         }
 
@@ -185,7 +194,9 @@ public class MonthAppWidgetService extends RemoteViewsService {
             };
 
             int totalEvents = cell.eventChips.size();
-            int visibleCount = Math.min(totalEvents, mMaxVisibleEvents);
+            boolean showOverflow = totalEvents > mMaxEventsWithoutOverflow;
+            int visibleLimit = showOverflow ? mMaxEventsWithOverflow : mMaxEventsWithoutOverflow;
+            int visibleCount = Math.min(totalEvents, visibleLimit);
             int dayTextColor = DynamicThemeKt.getColor(mContext, "month_day_number");
             int eventTextColor = DynamicThemeKt.getColor(mContext, "calendar_event_text_color");
             int pad = mEventRowPaddingPx;
@@ -239,8 +250,8 @@ public class MonthAppWidgetService extends RemoteViewsService {
             }
 
             // Show overflow indicator if more events than we can display
-            if (totalEvents > mMaxVisibleEvents) {
-                int extra = totalEvents - mMaxVisibleEvents;
+            if (totalEvents > visibleCount) {
+                int extra = totalEvents - visibleCount;
                 views.setTextViewText(R.id.month_cell_overflow,
                         mContext.getString(R.string.widget_event_overflow, extra));
                 views.setTextColor(R.id.month_cell_overflow,
@@ -281,6 +292,15 @@ public class MonthAppWidgetService extends RemoteViewsService {
         }
 
         private void loadData() {
+            if (mAppWidgetId != android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID) {
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mContext);
+                Bundle options = appWidgetManager.getAppWidgetOptions(mAppWidgetId);
+                int dynamicGridHeightPx = BaseGridWidgetProvider.calculateGridHeightPxFromOptions(mContext, options);
+                if (dynamicGridHeightPx > 0) {
+                    mGridHeightPx = dynamicGridHeightPx;
+                }
+            }
+
             Calendar now = Calendar.getInstance();
             int year = now.get(Calendar.YEAR);
             int month = now.get(Calendar.MONTH);
@@ -305,10 +325,11 @@ public class MonthAppWidgetService extends RemoteViewsService {
 
             // Calculate how many event chips fit in the cell
             float density = mContext.getResources().getDisplayMetrics().density;
-            int cellHeightDp = (int) (mCellHeightPx / density);
-            int availableForEventsDp = cellHeightDp - DAY_NUMBER_HEIGHT_DP;
-            mMaxVisibleEvents = Math.max(0,
-                    Math.min(MAX_VISIBLE_EVENTS, availableForEventsDp / EVENT_CHIP_HEIGHT_DP));
+            int[] limits = BaseGridWidgetProvider.calculateMaxVisibleEvents(
+                    mCellHeightPx, density, DAY_NUMBER_HEIGHT_DP,
+                    EVENT_CHIP_HEIGHT_DP, OVERFLOW_HEIGHT_DP, MAX_VISIBLE_EVENTS);
+            mMaxEventsWithoutOverflow = limits[0];
+            mMaxEventsWithOverflow = limits[1];
 
             // Pre-compute event row padding in pixels
             mEventRowPaddingPx = (int) (EVENT_ROW_PADDING_DP * density);

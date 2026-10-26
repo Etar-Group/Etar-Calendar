@@ -131,6 +131,38 @@ abstract class BaseGridWidgetProvider extends AppWidgetProvider {
                 context.getResources().getDisplayMetrics());
     }
 
+    static int getWidgetHeightDpFromOptions(Context context, Bundle options) {
+        if (options == null) {
+            return 0;
+        }
+        boolean isLandscape = context.getResources().getConfiguration().orientation
+                == android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+        int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0);
+        int maxHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0);
+
+        int primaryHeight = isLandscape ? minHeight : maxHeight;
+        if (primaryHeight > 0) {
+            return primaryHeight;
+        }
+        return isLandscape ? maxHeight : minHeight;
+    }
+
+    static int calculateGridHeightPxFromOptions(Context context, Bundle options) {
+        int widgetHeightDp = getWidgetHeightDpFromOptions(context, options);
+        return calculateGridHeightPx(context, widgetHeightDp);
+    }
+
+    static int[] calculateMaxVisibleEvents(int cellHeightPx, float density,
+            int dayNumberHeightDp, int eventRowHeightDp, int overflowHeightDp, int maxSlots) {
+        int cellHeightDp = (int) (cellHeightPx / density);
+        int availableForEventsDp = cellHeightDp - dayNumberHeightDp;
+        int maxWithoutOverflow = Math.max(0,
+                Math.min(maxSlots, availableForEventsDp / eventRowHeightDp));
+        int maxWithOverflow = Math.max(0,
+                Math.min(maxSlots, (availableForEventsDp - overflowHeightDp) / eventRowHeightDp));
+        return new int[]{maxWithoutOverflow, maxWithOverflow};
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
@@ -140,12 +172,26 @@ abstract class BaseGridWidgetProvider extends AppWidgetProvider {
                 || Intent.ACTION_DATE_CHANGED.equals(action)
                 || Intent.ACTION_TIME_CHANGED.equals(action)
                 || Intent.ACTION_LOCALE_CHANGED.equals(action)
+                || Intent.ACTION_CONFIGURATION_CHANGED.equals(action)
                 || "android.intent.action.PROVIDER_CHANGED".equals(action)) {
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            int[] ids = appWidgetManager.getAppWidgetIds(getComponentName(context));
-            if (ids != null && ids.length > 0) {
-                performUpdate(context, appWidgetManager, ids);
-            }
+
+            final PendingResult asyncResult = goAsync();
+            // Wait a brief moment to ensure that SharedPreferences.apply()
+            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                        int[] ids = appWidgetManager.getAppWidgetIds(getComponentName(context));
+                        if (ids != null && ids.length > 0) {
+                            performUpdate(context, appWidgetManager, ids);
+                        }
+                    } finally {
+                        asyncResult.finish();
+                    }
+                }
+            }, 800);
+
         } else {
             super.onReceive(context, intent);
         }
@@ -194,14 +240,12 @@ abstract class BaseGridWidgetProvider extends AppWidgetProvider {
 
         for (int appWidgetId : appWidgetIds) {
             Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
-            int widgetHeightDp = (options != null)
-                    ? options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0) : 0;
-            int gridHeightPx = calculateGridHeightPx(context, widgetHeightDp);
+            int gridHeightPx = calculateGridHeightPxFromOptions(context, options);
 
             Intent serviceIntent = new Intent(context, getServiceClass());
             serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             serviceIntent.putExtra(EXTRA_GRID_AVAILABLE_HEIGHT_PX, gridHeightPx);
-            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME) + "/" + now));
 
             RemoteViews views = new RemoteViews(context.getPackageName(), getWidgetLayoutId());
 
