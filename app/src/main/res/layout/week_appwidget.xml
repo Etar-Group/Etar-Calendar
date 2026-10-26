@@ -15,14 +15,14 @@
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/week_widget_background"
+    android:id="@+id/grid_widget_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!-- Header with week date range title -->
     <LinearLayout
-        android:id="@+id/week_widget_header"
+        android:id="@+id/grid_widget_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -32,7 +32,7 @@
         android:paddingEnd="12dip">
 
         <TextView
-            android:id="@+id/week_widget_title"
+            android:id="@+id/grid_widget_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
@@ -42,7 +42,7 @@
 
     <!-- Day-of-week labels row -->
     <LinearLayout
-        android:id="@+id/week_dow_row"
+        android:id="@+id/grid_dow_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -50,7 +50,7 @@
         android:paddingBottom="4dip">
 
         <TextView
-            android:id="@+id/week_dow_0"
+            android:id="@+id/grid_dow_0"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -58,7 +58,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/week_dow_1"
+            android:id="@+id/grid_dow_1"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -66,7 +66,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/week_dow_2"
+            android:id="@+id/grid_dow_2"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -74,7 +74,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/week_dow_3"
+            android:id="@+id/grid_dow_3"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -82,7 +82,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/week_dow_4"
+            android:id="@+id/grid_dow_4"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,7 +90,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/week_dow_5"
+            android:id="@+id/grid_dow_5"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -98,7 +98,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/week_dow_6"
+            android:id="@+id/grid_dow_6"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -108,7 +108,7 @@
 
     <!-- Grid of day cells (1 row x 7 days) -->
     <GridView
-        android:id="@+id/week_grid"
+        android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"

@@ -15,10 +15,12 @@
  */
 package com.android.calendar.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -44,9 +46,11 @@ public class WeekAppWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
+        int appWidgetId = intent.getIntExtra(
+                AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         int gridHeightPx = intent.getIntExtra(
-                WeekAppWidgetProvider.EXTRA_GRID_AVAILABLE_HEIGHT_PX, 0);
-        return new WeekFactory(getApplicationContext(), gridHeightPx);
+                BaseGridWidgetProvider.EXTRA_GRID_AVAILABLE_HEIGHT_PX, 0);
+        return new WeekFactory(getApplicationContext(), appWidgetId, gridHeightPx);
     }
 
     static class WeekFactory implements RemoteViewsFactory {
@@ -76,15 +80,19 @@ public class WeekAppWidgetService extends RemoteViewsService {
         private static final int DEFAULT_CELL_HEIGHT_PX = 200;
         private static final int DAY_NUMBER_HEIGHT_DP = 20;
         private static final int EVENT_ROW_HEIGHT_DP = 15;
+        private static final int OVERFLOW_HEIGHT_DP = 11;
 
         private final Context mContext;
-        private final int mGridHeightPx;
+        private final int mAppWidgetId;
+        private int mGridHeightPx;
         private WeekAppWidgetModel mModel;
         private int mCellHeightPx;
-        private int mMaxVisibleEvents;
+        private int mMaxEventsWithoutOverflow;
+        private int mMaxEventsWithOverflow;
 
-        WeekFactory(Context context, int gridHeightPx) {
+        WeekFactory(Context context, int appWidgetId, int gridHeightPx) {
             mContext = context;
+            mAppWidgetId = appWidgetId;
             mGridHeightPx = gridHeightPx;
         }
 
@@ -184,7 +192,9 @@ public class WeekAppWidgetService extends RemoteViewsService {
             };
 
             int totalEvents = day.events.size();
-            int visibleCount = Math.min(totalEvents, mMaxVisibleEvents);
+            boolean showOverflow = totalEvents > mMaxEventsWithoutOverflow;
+            int visibleLimit = showOverflow ? mMaxEventsWithOverflow : mMaxEventsWithoutOverflow;
+            int visibleCount = Math.min(totalEvents, visibleLimit);
             int dayTextColor = DynamicThemeKt.getColor(mContext, "month_day_number");
             int eventTextColor = DynamicThemeKt.getColor(mContext, "calendar_event_text_color");
 
@@ -225,8 +235,8 @@ public class WeekAppWidgetService extends RemoteViewsService {
             }
 
             // Overflow indicator
-            if (totalEvents > mMaxVisibleEvents) {
-                int extra = totalEvents - mMaxVisibleEvents;
+            if (totalEvents > visibleCount) {
+                int extra = totalEvents - visibleCount;
                 views.setTextViewText(R.id.week_cell_overflow,
                         mContext.getString(R.string.widget_event_overflow, extra));
                 views.setTextColor(R.id.week_cell_overflow,
@@ -267,6 +277,15 @@ public class WeekAppWidgetService extends RemoteViewsService {
         }
 
         private void loadData() {
+            if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mContext);
+                Bundle options = appWidgetManager.getAppWidgetOptions(mAppWidgetId);
+                int dynamicGridHeightPx = BaseGridWidgetProvider.calculateGridHeightPxFromOptions(mContext, options);
+                if (dynamicGridHeightPx > 0) {
+                    mGridHeightPx = dynamicGridHeightPx;
+                }
+            }
+
             Calendar now = Calendar.getInstance();
             int todayYear = now.get(Calendar.YEAR);
             int todayMonth = now.get(Calendar.MONTH);
@@ -284,10 +303,11 @@ public class WeekAppWidgetService extends RemoteViewsService {
 
             // Calculate max visible events based on cell height
             float density = mContext.getResources().getDisplayMetrics().density;
-            int cellHeightDp = (int) (mCellHeightPx / density);
-            int availableForEventsDp = cellHeightDp - DAY_NUMBER_HEIGHT_DP;
-            mMaxVisibleEvents = Math.max(0,
-                    Math.min(MAX_VISIBLE_EVENTS, availableForEventsDp / EVENT_ROW_HEIGHT_DP));
+            int[] limits = BaseGridWidgetProvider.calculateMaxVisibleEvents(
+                    mCellHeightPx, density, DAY_NUMBER_HEIGHT_DP,
+                    EVENT_ROW_HEIGHT_DP, OVERFLOW_HEIGHT_DP, MAX_VISIBLE_EVENTS);
+            mMaxEventsWithoutOverflow = limits[0];
+            mMaxEventsWithOverflow = limits[1];
 
             // Query events and attach to days
             queryAndAttachEvents();
@@ -318,9 +338,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
 
             boolean is24h = DateFormat.is24HourFormat(mContext);
 
-            String selection = Utils.getHideDeclinedEvents(mContext)
-                    ? BaseGridWidgetProvider.SELECTION_HIDE_DECLINED
-                    : BaseGridWidgetProvider.SELECTION_VISIBLE;
+            String selection = BaseGridWidgetProvider.getInstancesSelection(mContext);
 
             Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
                     Long.toString(startMillis) + "/" + Long.toString(endMillis));

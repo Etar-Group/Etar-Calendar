@@ -55,7 +55,7 @@ class WeekAppWidgetModel {
 
         // Rewind to the first day of the week
         int currentDow = cal.get(Calendar.DAY_OF_WEEK);
-        int offset = (currentDow - firstDayOfWeek + BaseGridWidgetProvider.DAYS_PER_WEEK) % BaseGridWidgetProvider.DAYS_PER_WEEK;
+        int offset = BaseGridWidgetProvider.getDayOfWeekOffset(currentDow, firstDayOfWeek);
         cal.add(Calendar.DAY_OF_MONTH, -offset);
 
         List<DayInfo> days = new ArrayList<>(BaseGridWidgetProvider.DAYS_PER_WEEK);
