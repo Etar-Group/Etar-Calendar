@@ -363,4 +363,10 @@
     <string name="cal_export_select_calendar_title">选择要导出的日历</string>
     <string name="preferences_view_switch_buttons">查看工具栏按钮</string>
     <string name="preferences_view_switch_buttons_summary">一键切换日视图、周视图和月视图（标题中的月份为缩写形式）</string>
+    <string name="month_widget_label">日历月视图</string>
+    <string name="month_widget_description">显示带活动指示器的当前月份</string>
+    <string name="week_widget_label">日历周视图</string>
+    <string name="week_widget_description">显示带活动时间和详情的当前周</string>
+    <string name="widget_no_title">（无标题）</string>
+    <string name="widget_event_overflow">另外 +%d</string>
 </resources>
