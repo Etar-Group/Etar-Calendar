@@ -404,4 +404,17 @@
     <string name="week_start_locale_default">מיקום ברירת מחדל</string>
     <string name="cal_export_success">אירוע יוצא בהצלחה</string>
     <string name="cal_export_error">ייצוא אירוע נכשל</string>
+    <string name="preferences_view_switch_buttons">הצג כפתורים בסרגל הכלים</string>
+    <string name="preferences_view_switch_buttons_summary">לעבור בין תצוגת יום, שבוע וחודש בלחיצה אחת (חודשים מקוצרים בכותרת)</string>
+    <string name="preferences_staggered_display_title">תצוגה חופפת</string>
+    <string name="preferences_staggered_display_summary">הצגת אירועים חופפים בפריסה מדורגת</string>
+    <string name="cal_export_calendar_title">ייצא לוח שנה</string>
+    <string name="cal_export_calendar_summary">ייצא את כל האירועים מלוח שנה לקובץ ics</string>
+    <string name="cal_export_select_calendar_title">בחר לוח שנה לייצוא</string>
+    <string name="month_widget_label">תצוגת חודש של לוח שנה</string>
+    <string name="month_widget_description">מציג את החודש הנוכחי עם סמנים המציינים אירועים</string>
+    <string name="week_widget_label">תצוגת שבוע של לוח שנה</string>
+    <string name="week_widget_description">מציג את השבוע הנוכחי עם זמני אירועים ופרטים</string>
+    <string name="widget_no_title">(אין כותרת)</string>
+    <string name="widget_event_overflow">+%d נוספים</string>
 </resources>
