@@ -330,7 +330,7 @@
     <string name="preferences_list_add_offline_name">Naam</string>
     <string name="preferences_list_add_offline_button">Agenda toevoegen</string>
     <string name="preferences_list_add_offline_message">Offline agenda\'s worden NIET gesynchroniseerd naar een cloud-dienst en zijn alleen beschikbaar op het toestel.</string>
-    <string name="preferences_list_add_offline_error_empty">Agendanaam opgeven!</string>
+    <string name="preferences_list_add_offline_error_empty">Voer een naam in voor de agenda!</string>
     <string name="preferences_list_add_offline_title">Offline agenda toevoegen</string>
     <string name="preferences_list_add_offline">Offline agenda toevoegen</string>
     <string name="preferences_list_general">Algemene instellingen</string>
@@ -380,4 +380,10 @@
     <string name="cal_export_select_calendar_title">Selecteer de te exporteren agenda</string>
     <string name="preferences_view_switch_buttons">Knoppen in de werkbalk weergeven</string>
     <string name="preferences_view_switch_buttons_summary">Schakel met één tik tussen de dag, week - en maandweergave (maanden worden afgekort in de titel)</string>
+    <string name="month_widget_label">Agenda maandweergave</string>
+    <string name="month_widget_description">Geeft de huidige maand weer met indicatie van gebeurtenissen</string>
+    <string name="week_widget_label">Agenda weekweergave</string>
+    <string name="week_widget_description">Geeft de huidige week weer met tijden en details van gebeurtenissen</string>
+    <string name="widget_no_title">(Geen titel)</string>
+    <string name="widget_event_overflow">+%d meer</string>
 </resources>
