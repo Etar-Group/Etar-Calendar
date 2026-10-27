@@ -380,4 +380,10 @@
     <string name="cal_export_select_calendar_title">Dışa aktarılacak takvimi seçin</string>
     <string name="preferences_view_switch_buttons">Araç çubuğunda görünüm düğmeleri</string>
     <string name="preferences_view_switch_buttons_summary">Tek bir dokunuşla gün, hafta ve ay görünümleri arasında geçiş yapın (başlıkta aylar kısaltılır)</string>
+    <string name="month_widget_label">Takvim Aylık Görünümü</string>
+    <string name="month_widget_description">Etkinlik göstergeleriyle birlikte geçerli ayı gösterir</string>
+    <string name="week_widget_label">Takvim Haftalık Görünümü</string>
+    <string name="week_widget_description">Etkinlik saatleri ve ayrıntılarıyla birlikte geçerli haftayı gösterir</string>
+    <string name="widget_no_title">(Başlık yok)</string>
+    <string name="widget_event_overflow">+%d daha</string>
 </resources>
