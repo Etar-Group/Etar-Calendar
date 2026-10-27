@@ -124,7 +124,7 @@
     <string name="edit_label" msgid="8934331258435656534">"Modifier"</string>
     <string name="delete_label" msgid="874742811918030739">"Supprimer"</string>
     <string name="save_label" msgid="2133599104834432589">"OK"</string>
-    <string name="discard_label" msgid="2394623883289782541">"Annuler"</string>
+    <string name="discard_label" msgid="2394623883289782541">Abandonner</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Répéter"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">Évènement ponctuel</string>
@@ -397,4 +397,9 @@
     <string name="cal_export_select_calendar_title">Choisir l\'agenda à exporter</string>
     <string name="cal_export_error">Éched de l\'export de l\'évènement</string>
     <string name="cal_export_success">Évènement exporté avec succès</string>
+    <string name="month_widget_label">Visualisation du mois dans le calendrier</string>
+    <string name="week_widget_label">Affiche le mois en cours avec les indicateurs d’événement</string>
+    <string name="week_widget_description">Affiche la semaine en cours avec les heures et les détails des événements</string>
+    <string name="widget_no_title">(Aucun titre)</string>
+    <string name="widget_event_overflow">+%d supplémentaires</string>
 </resources>
