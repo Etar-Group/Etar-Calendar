@@ -407,4 +407,10 @@
     <string name="cal_export_select_calendar_title">Выберите календарь для экспорта</string>
     <string name="preferences_view_switch_buttons_summary">Переключение между режимами отображения \"день\", \"неделя\" и \"месяц\" одним нажатием (названия месяцев указываются сокращённо)</string>
     <string name="preferences_view_switch_buttons">Кнопки смены вида</string>
+    <string name="widget_event_overflow">+ ещё %d</string>
+    <string name="month_widget_label">Календарь на месяц</string>
+    <string name="week_widget_label">Календарь на неделю</string>
+    <string name="month_widget_description">Показывает текущий месяц с индикаторами событий</string>
+    <string name="week_widget_description">Показывает текущую неделю с указанием времени и подробной информации о событиях</string>
+    <string name="widget_no_title">(Нет заголовка)</string>
 </resources>
