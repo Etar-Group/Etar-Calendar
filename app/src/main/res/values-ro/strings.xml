@@ -397,4 +397,10 @@
     <string name="cal_export_select_calendar_title">Selectează calendarul pentru exportare</string>
     <string name="preferences_view_switch_buttons">Butoanele de vizualizare din bara de instrumente</string>
     <string name="preferences_view_switch_buttons_summary">Comută între vizualizările zilnice, săptămânale și lunare cu o singură atingere (lunile sunt abreviate în titlu)</string>
+    <string name="month_widget_label">Vizualizare lunară</string>
+    <string name="month_widget_description">Afișează luna curentă împreună cu indicatorii de evenimente</string>
+    <string name="week_widget_label">Vizualizare săptămânală</string>
+    <string name="week_widget_description">Afișează săptămâna curentă, împreună cu orele și detaliile evenimentelor</string>
+    <string name="widget_no_title">(Fără titlu)</string>
+    <string name="widget_event_overflow">+%d în plus</string>
 </resources>
