@@ -380,4 +380,10 @@
     <string name="cal_export_select_calendar_title">Zu exportierenden Kalender auswählen</string>
     <string name="preferences_view_switch_buttons_summary">Zwischen Tag-, Wochen- und Monatsansicht in einem Klick umschalten (Monate werden im Titel abgekürzt)</string>
     <string name="preferences_view_switch_buttons">Tasten in der Symbolleiste anzeigen</string>
+    <string name="month_widget_label">Kalender-Monatsansicht</string>
+    <string name="week_widget_label">Kalender-Wochenansicht</string>
+    <string name="month_widget_description">Zeigt den aktuellen Monat mit Terminen an</string>
+    <string name="week_widget_description">Zeigt die aktuelle Woche mit Terminen und Details an</string>
+    <string name="widget_no_title">(Kein Titel)</string>
+    <string name="widget_event_overflow">+%d weitere</string>
 </resources>
