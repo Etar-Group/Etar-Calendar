@@ -393,4 +393,12 @@
     <string name="cal_export_calendar_title">Esporta calendario</string>
     <string name="cal_export_calendar_summary">Esporta tutti gli eventi da un calendario in un file .ics</string>
     <string name="cal_export_select_calendar_title">Seleziona il calendario da esportare</string>
+    <string name="preferences_view_switch_buttons">Mostra pulsanti nella barra strumenti</string>
+    <string name="preferences_view_switch_buttons_summary">Passa tra le viste per giorno, settimana e mese in un tocco (i mesi sono abbreviati nel titolo)</string>
+    <string name="month_widget_label">Vista calendario per mese</string>
+    <string name="month_widget_description">Mostra il mese attuale con gli indicatori di evento</string>
+    <string name="week_widget_label">Vista calendario per settimana</string>
+    <string name="week_widget_description">Mostra la settimana attuale con gli orari e i dettagli degli eventi</string>
+    <string name="widget_no_title">(Nessun titolo)</string>
+    <string name="widget_event_overflow">+ altri %d</string>
 </resources>
