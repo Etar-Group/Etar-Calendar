@@ -528,28 +528,68 @@ public class EditEventHelper {
         boolean hasAttendeeData = model.mHasAttendeeData;
 
         if (hasAttendeeData && model.mOwnerAttendeeId == -1) {
-            // Organizer is not an attendee
-
             String ownerEmail = model.mOwnerAccount;
-            if (model.mAttendeesList.size() != 0 && Utils.isValidEmail(ownerEmail)) {
-                // Add organizer as attendee since we got some attendees
+            if (model.mIsOrganizer) {
+                if (model.mAttendeesList.size() != 0 && Utils.isValidEmail(ownerEmail)) {
+                    values.clear();
+                    values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
+                    values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
+                    values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
+                    values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
 
-                values.clear();
-                values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
-                values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
-                values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
-                values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
-
-                if (newEvent) {
-                    b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
-                            .withValues(values);
-                    b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
-                } else {
-                    values.put(Attendees.EVENT_ID, model.mId);
-                    b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
-                            .withValues(values);
+                    if (newEvent) {
+                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                .withValues(values);
+                        b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
+                    } else {
+                        values.put(Attendees.EVENT_ID, model.mId);
+                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                .withValues(values);
+                    }
+                    ops.add(b.build());
                 }
-                ops.add(b.build());
+            } else {
+                // User is NOT the organizer.
+                if (!TextUtils.isEmpty(model.mOrganizer) && Utils.isValidEmail(model.mOrganizer)
+                        && !model.mOrganizer.equalsIgnoreCase(ownerEmail)) {
+                    values.clear();
+                    values.put(Attendees.ATTENDEE_EMAIL, model.mOrganizer);
+                    values.put(Attendees.ATTENDEE_NAME, !TextUtils.isEmpty(model.mOrganizerDisplayName) ? model.mOrganizerDisplayName : model.mOrganizer);
+                    values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
+                    values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
+                    values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
+
+                    if (newEvent) {
+                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                .withValues(values);
+                        b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
+                    } else {
+                        values.put(Attendees.EVENT_ID, model.mId);
+                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                .withValues(values);
+                    }
+                    ops.add(b.build());
+                }
+
+                if (Utils.isValidEmail(ownerEmail)) {
+                    values.clear();
+                    values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
+                    values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
+                    values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
+                    int status = model.mSelfAttendeeStatus != -1 ? model.mSelfAttendeeStatus : Attendees.ATTENDEE_STATUS_ACCEPTED;
+                    values.put(Attendees.ATTENDEE_STATUS, status);
+
+                    if (newEvent) {
+                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                .withValues(values);
+                        b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
+                    } else {
+                        values.put(Attendees.EVENT_ID, model.mId);
+                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                .withValues(values);
+                    }
+                    ops.add(b.build());
+                }
             }
         } else if (hasAttendeeData &&
                 model.mSelfAttendeeStatus != originalModel.mSelfAttendeeStatus &&
@@ -627,13 +667,19 @@ public class EditEventHelper {
                 if (newAttendees.size() > 0) {
                     // Insert the new attendees
                     for (Attendee attendee : newAttendees.values()) {
+                        if (attendee.mEmail != null &&
+                                (attendee.mEmail.equalsIgnoreCase(model.mOrganizer) ||
+                                 attendee.mEmail.equalsIgnoreCase(model.mOwnerAccount))) {
+                            continue;
+                        }
                         values.clear();
                         values.put(Attendees.ATTENDEE_NAME, attendee.mName);
                         values.put(Attendees.ATTENDEE_EMAIL, attendee.mEmail);
                         values.put(Attendees.ATTENDEE_RELATIONSHIP,
                                 Attendees.RELATIONSHIP_ATTENDEE);
                         values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
-                        values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
+                        int attStatus = attendee.mStatus != 0 ? attendee.mStatus : Attendees.ATTENDEE_STATUS_NONE;
+                        values.put(Attendees.ATTENDEE_STATUS, attStatus);
 
                         if (newEvent) {
                             b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
@@ -1403,6 +1449,9 @@ public class EditEventHelper {
         }
 
         values.put(Events.CALENDAR_ID, calendarId);
+        if (!TextUtils.isEmpty(model.mOrganizer)) {
+            values.put(Events.ORGANIZER, model.mOrganizer);
+        }
         values.put(Events.EVENT_TIMEZONE, timezone);
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
