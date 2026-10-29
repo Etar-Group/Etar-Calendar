@@ -1336,7 +1336,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         final String allAttendees = Stream.of(mAcceptedAttendees, mDeclinedAttendees, mTentativeAttendees, mNoResponseAttendees)
                 .flatMap(Collection::stream)
                 .map(attendee -> attendee.mEmail)
-                .collect(Collectors.joining());
+                .collect(Collectors.joining(","));
         intent.putExtra(Intent.EXTRA_EMAIL, allAttendees);
 
         startActivity(intent);
