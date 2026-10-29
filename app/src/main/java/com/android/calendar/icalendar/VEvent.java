@@ -115,6 +115,9 @@ public class VEvent {
      * Returns the value of the requested event property or null if there isn't one
      */
     public String getProperty(String property) {
+        if (ORGANIZER.equalsIgnoreCase(property) && mOrganizer != null) {
+            return mOrganizer.mEmail;
+        }
         return mProperties.get(property);
     }
 

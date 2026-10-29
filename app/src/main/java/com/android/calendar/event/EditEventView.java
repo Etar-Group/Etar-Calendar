@@ -647,7 +647,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             Utils.setSharedPreference(
                     mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
             mModel.mOwnerAccount = calendarOwner;
-            mModel.mOrganizer = calendarOwner;
+            if (TextUtils.isEmpty(mModel.mOrganizer)) {
+                mModel.mOrganizer = calendarOwner;
+            }
+            mModel.mIsOrganizer = calendarOwner.equalsIgnoreCase(mModel.mOrganizer);
             mModel.mCalendarId = mCalendarsCursor.getLong(EditEventHelper.CALENDARS_INDEX_ID);
         }
 
@@ -969,7 +972,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mView.findViewById(R.id.organizer).setVisibility(View.GONE);
             mOrganizerGroup.setVisibility(View.GONE);
         } else {
-            ((TextView) mView.findViewById(R.id.organizer)).setText(model.mOrganizerDisplayName);
+            mView.findViewById(R.id.organizer_label).setVisibility(View.VISIBLE);
+            mView.findViewById(R.id.organizer).setVisibility(View.VISIBLE);
+            mOrganizerGroup.setVisibility(View.VISIBLE);
+            String displayName = !TextUtils.isEmpty(model.mOrganizerDisplayName)
+                    ? model.mOrganizerDisplayName : model.mOrganizer;
+            ((TextView) mView.findViewById(R.id.organizer)).setText(displayName);
         }
 
         if (model.mLocation != null) {
