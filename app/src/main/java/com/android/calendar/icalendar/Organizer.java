@@ -16,6 +16,8 @@
 
 package com.android.calendar.icalendar;
 
+import java.util.ArrayList;
+
 /**
  * Event Organizer component
  * Fulfils the ORGANIZER property of an Event
@@ -52,15 +54,37 @@ public class Organizer {
     }
 
     public static Organizer populateFromICalString(String iCalFormattedString) {
-        // TODO: Add sanity checks
-        try {
-            String[] organizer = iCalFormattedString.split(";");
-            String[] entries = organizer[1].split(":");
-            String name = entries[0].replace("CN=", "");
-            String email = entries[1].replace("mailto=", "");
-            return new Organizer(name, email);
+        if (iCalFormattedString == null || iCalFormattedString.isEmpty()) {
+            return null;
         }
-        catch (Exception e) {
+        try {
+            ArrayList<String> parts = IcalendarUtils.splitQuoted(iCalFormattedString, ':', 1);
+            if (parts.size() < 2) {
+                return null;
+            }
+            String uri = parts.get(1).trim();
+            String email = uri;
+            if (email.toUpperCase().startsWith("MAILTO:")) {
+                email = email.substring(7).trim();
+            }
+
+            String name = null;
+            ArrayList<String> params = IcalendarUtils.splitQuoted(parts.get(0), ';');
+            for (String param : params) {
+                String[] kv = param.split("=", 2);
+                if (kv.length == 2 && "CN".equalsIgnoreCase(kv[0].trim())) {
+                    name = kv[1].trim();
+                    if (name.startsWith("\"") && name.endsWith("\"") && name.length() >= 2) {
+                        name = name.substring(1, name.length() - 1);
+                    }
+                    break;
+                }
+            }
+            if (name == null || name.isEmpty()) {
+                name = email;
+            }
+            return new Organizer(name, email);
+        } catch (Exception e) {
             return null;
         }
     }
