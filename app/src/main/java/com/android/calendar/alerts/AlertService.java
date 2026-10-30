@@ -406,7 +406,7 @@ public class AlertService {
             Time t = new Time();
             startAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
                     Utils.getCurrentTimezone());
-            endAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
+            endAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.endMillis,
                     Utils.getCurrentTimezone());
         }
 
