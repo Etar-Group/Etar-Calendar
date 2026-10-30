@@ -528,6 +528,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         const val KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate"
         const val KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone"
         const val KEY_ALERTS_POPUP = "preferences_alerts_popup"
+        const val KEY_CLEAR_ENDED_REMINDERS = "preferences_clear_ended_reminders"
         const val KEY_SHOW_CONTROLS = "preferences_show_controls"
         const val KEY_DEFAULT_REMINDER = "preferences_default_reminder"
         const val NO_REMINDER = -2147483648

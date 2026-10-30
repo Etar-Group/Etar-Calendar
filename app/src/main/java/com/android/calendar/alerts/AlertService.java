@@ -399,6 +399,12 @@ public class AlertService {
         }
     }
 
+    /** Whether the event has ended; an all-day event ends at local midnight, not UTC's. */
+    static boolean hasEnded(long endMillis, boolean allDay, long currentTime, String tz) {
+        long end = allDay ? Utils.convertAlldayUtcToLocal(null, endMillis, tz) : endMillis;
+        return end <= currentTime;
+    }
+
     private static long getNextRefreshTime(NotificationInfo info, long currentTime) {
         long startAdjustedForAllDay = info.startMillis;
         long endAdjustedForAllDay = info.endMillis;
@@ -449,6 +455,8 @@ public class AlertService {
         // Note that by default, the first option will be selected, so this will be false.
         boolean remindRespondedOnly = skipRemindersPref.equals(context.getResources().
                 getStringArray(R.array.preferences_skip_reminders_values)[1]);
+        boolean clearEnded = Utils.getSharedPreference(context,
+                GeneralPreferences.KEY_CLEAR_ENDED_REMINDERS, false);
         Time time = new Time();
 
         ContentResolver cr = context.getContentResolver();
@@ -517,15 +525,14 @@ public class AlertService {
                 int newState = -1;
                 boolean newAlert = false;
 
-                // Uncomment for the behavior of clearing out alerts after the
-                // events ended. b/1880369
-                //
-                // if (endTime < currentTime) {
-                //     newState = CalendarAlerts.DISMISSED;
-                // } else
-
-                // Remove declined events
-                boolean sendAlert = !declined;
+                // Remove declined events, and, if the user asked for it, events that
+                // are over (b/1880369). Only a reminder already shown is dropped, so
+                // one due at or after the end (a 0-minute reminder on a zero-length
+                // event) still shows once (#1891).
+                boolean sendAlert = !declined
+                        && !(clearEnded && state == CalendarAlerts.STATE_FIRED
+                                && hasEnded(endTime, allDay, currentTime,
+                                        Utils.getCurrentTimezone()));
                 // Check for experimental reminder settings.
                 if (remindRespondedOnly) {
                     // If the experimental setting is turned on, then only send
