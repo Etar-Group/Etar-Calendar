@@ -521,6 +521,12 @@
     <string name="preferences_alerts_ringtone_title">Sound</string>
     <!-- Title of check box label to enable or disable pop-up notifications -->
     <string name="preferences_alerts_popup_title">Pop-up notification</string>
+    <!-- Title of switch to clear an event's reminder once the event has ended -->
+    <string name="preferences_clear_ended_reminders_title">Clear reminders when events end</string>
+    <!-- Summary of that switch when on -->
+    <string name="preferences_clear_ended_reminders_summary_on">A reminder is removed once its event is over</string>
+    <!-- Summary of that switch when off -->
+    <string name="preferences_clear_ended_reminders_summary_off">A reminder stays until dismissed</string>
     <!-- List item label for setting the default number of reminder minutes -->
     <string name="preferences_default_reminder_title">Default reminder time</string>
     <!-- Title of dialog for setting the default number of reminder minutes -->

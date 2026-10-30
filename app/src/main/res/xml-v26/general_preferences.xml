@@ -106,6 +106,13 @@
             app:title="@string/preferences_alerts_popup_title" />
 
         <SwitchPreference
+            app:key="preferences_clear_ended_reminders"
+            app:defaultValue="false"
+            app:title="@string/preferences_clear_ended_reminders_title"
+            app:summaryOn="@string/preferences_clear_ended_reminders_summary_on"
+            app:summaryOff="@string/preferences_clear_ended_reminders_summary_off" />
+
+        <SwitchPreference
             app:key="preferences_custom_snooze_delay"
             app:defaultValue="false"
             app:title="@string/preferences_alerts_custom_snooze_delay_title"
