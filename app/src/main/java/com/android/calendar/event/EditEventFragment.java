@@ -969,7 +969,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     && mModel.normalizeReminders()
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
                 int stringResource;
-                if (!mModel.mAttendeesList.isEmpty()) {
+                if (mModel.mIsOrganizer && !mModel.mAttendeesList.isEmpty()) {
                     if (mModel.mUri != null) {
                         stringResource = R.string.saving_event_with_guest;
                     } else {
