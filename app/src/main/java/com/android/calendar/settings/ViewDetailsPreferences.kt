@@ -22,6 +22,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.format.DateFormat
+import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -30,6 +32,7 @@ import com.android.calendar.Utils
 import com.android.calendar.Utils.SHARED_PREFS_NAME
 import ws.xsoh.etar.R
 import java.util.Arrays
+import java.util.Calendar
 
 
 class ViewDetailsPreferences : PreferenceFragmentCompat() {
@@ -52,6 +55,39 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
 
         landscapeConf.onCreate(preferenceScreen, activity)
         portraitConf.onCreate(preferenceScreen, activity)
+        initHideHours()
+    }
+
+    private fun initHideHours() {
+        val timeFormat = DateFormat.getTimeFormat(requireContext())
+        val calendar = Calendar.getInstance()
+        val entries = Array(24) { hour ->
+            calendar.set(Calendar.HOUR_OF_DAY, hour)
+            calendar.set(Calendar.MINUTE, 0)
+            timeFormat.format(calendar.time)
+        }
+        val values = Array(24) { it.toString() }
+        val from = preferenceScreen.findPreference<ListPreference>(KEY_HIDE_HOURS_FROM)!!
+        val until = preferenceScreen.findPreference<ListPreference>(KEY_HIDE_HOURS_UNTIL)!!
+        for (pref in listOf(from, until)) {
+            pref.entries = entries
+            pref.entryValues = values
+        }
+        // The two ends of the hidden period must differ so some hours stay hidden and some visible
+        from.setOnPreferenceChangeListener { _, newValue ->
+            rejectEqualHours(newValue as String, until.value)
+        }
+        until.setOnPreferenceChangeListener { _, newValue ->
+            rejectEqualHours(newValue as String, from.value)
+        }
+    }
+
+    private fun rejectEqualHours(newValue: String, otherValue: String?): Boolean {
+        if (newValue == otherValue) {
+            Toast.makeText(context, R.string.hide_hours_must_differ, Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -155,6 +191,11 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
     }
 
     companion object {
+        const val KEY_HIDE_HOURS = "pref_hide_hours"
+        private const val KEY_HIDE_HOURS_FROM = "pref_hide_hours_from"
+        private const val KEY_HIDE_HOURS_UNTIL = "pref_hide_hours_until"
+        private const val DEFAULT_HIDE_HOURS_FROM = 0
+        private const val DEFAULT_HIDE_HOURS_UNTIL = 8
         private const val KEY_DISPLAY_TIME_V_PREF = "pref_display_time_vertical"
         private const val KEY_DISPLAY_TIME_H_PREF = "pref_display_time_horizontal"
         private const val KEY_DISPLAY_LOCATION_V_PREF = "pref_display_location_vertical"
@@ -167,6 +208,14 @@ class ViewDetailsPreferences : PreferenceFragmentCompat() {
 
         private fun getDefaultTimeToShow(context: Context?): Int {
             return if (Utils.getConfigBool(context, R.bool.show_time_in_month)) TimeVisibility.SHOW_TIME_RANGE_BELOW.value else TimeVisibility.SHOW_NONE.value
+        }
+
+        fun getHideHoursFrom(prefs: SharedPreferences): Int {
+            return prefs.getString(KEY_HIDE_HOURS_FROM, null)?.toIntOrNull() ?: DEFAULT_HIDE_HOURS_FROM
+        }
+
+        fun getHideHoursUntil(prefs: SharedPreferences): Int {
+            return prefs.getString(KEY_HIDE_HOURS_UNTIL, null)?.toIntOrNull() ?: DEFAULT_HIDE_HOURS_UNTIL
         }
 
         fun getPreferences(context: Context?): Preferences {
