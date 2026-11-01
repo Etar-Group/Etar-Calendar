@@ -115,12 +115,6 @@
             app:dependency="preferences_alerts" />
 
         <SwitchPreference
-            app:key="preferences_alerts_popup"
-            app:defaultValue="false"
-            app:title="@string/preferences_alerts_popup_title"
-            app:dependency="preferences_alerts" />
-
-        <SwitchPreference
             app:key="preferences_custom_snooze_delay"
             app:defaultValue="false"
             app:title="@string/preferences_alerts_custom_snooze_delay_title"

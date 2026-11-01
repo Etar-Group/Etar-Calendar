@@ -75,7 +75,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private lateinit var defaultEventDurationPref: ListPreference
     private lateinit var useHomeTzPref: CheckBoxPreference
     private lateinit var homeTzPref: Preference
-    private lateinit var popupPref: SwitchPreference
     private lateinit var snoozeDelayPref: ListPreference
     private lateinit var useDefaultCustomSnoozeDelayPref: Preference
     private lateinit var defaultReminderPref: ListPreference
@@ -121,7 +120,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         defaultEventDurationPref = preferenceScreen.findPreference(KEY_DEFAULT_EVENT_DURATION)!!
         useHomeTzPref = preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED)!!
         homeTzPref = preferenceScreen.findPreference(KEY_HOME_TZ)!!
-        popupPref = preferenceScreen.findPreference(KEY_ALERTS_POPUP)!!
         snoozeDelayPref = preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY)!!
         useDefaultCustomSnoozeDelayPref = preferenceScreen.findPreference(KEY_USE_CUSTOM_SNOOZE_DELAY)!!
         defaultReminderPref = preferenceScreen.findPreference(KEY_DEFAULT_REMINDER)!!
@@ -527,7 +525,6 @@ class GeneralPreferences : PreferenceFragmentCompat(),
         const val KEY_NOTIFICATION = "preferences_notification"
         const val KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate"
         const val KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone"
-        const val KEY_ALERTS_POPUP = "preferences_alerts_popup"
         const val KEY_SHOW_CONTROLS = "preferences_show_controls"
         const val KEY_DEFAULT_REMINDER = "preferences_default_reminder"
         const val NO_REMINDER = -2147483648

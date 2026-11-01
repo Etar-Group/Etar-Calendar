@@ -195,11 +195,11 @@ public class AlertReceiver extends BroadcastReceiver {
 
     public static NotificationWrapper makeBasicNotification(Context context, String title,
             String summaryText, long startMillis, long endMillis, long eventId, long calendarId,
-            int notificationId, boolean doPopup, int priority) {
+            int notificationId, int priority) {
         Notification n = buildBasicNotification(new Notification.Builder(context),
                 context, title, summaryText, startMillis, endMillis, eventId, calendarId, notificationId,
-                doPopup, priority, false);
-        return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis, doPopup);
+                priority, false);
+        return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis);
     }
 
     public static boolean isResolveIntent(Context context, Intent intent) {
@@ -211,7 +211,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
     private static Notification buildBasicNotification(Notification.Builder notificationBuilder,
             Context context, String title, String summaryText, long startMillis, long endMillis,
-            long eventId, long calendarId, int notificationId, boolean doPopup, int priority,
+            long eventId, long calendarId, int notificationId, int priority,
             boolean addActionButtons) {
         Resources resources = context.getResources();
         if (title == null || title.isEmpty()) {
@@ -239,10 +239,6 @@ public class AlertReceiver extends BroadcastReceiver {
         // Add setting channel ID for Oreo or later
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(UtilsKt.channelId(calendarId));
-        }
-
-        if (doPopup) {
-            notificationBuilder.setFullScreenIntent(createAlertActivityIntent(context), true);
         }
 
         PendingIntent mapIntent = null, callIntent = null, snoozeIntent = null, emailIntent = null;
@@ -310,10 +306,10 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     public static NotificationWrapper makeExpandingNotification(Context context, String title,
             String summaryText, String description, long startMillis, long endMillis, long eventId,
-            long calendarId, int notificationId, boolean doPopup, int priority) {
+            long calendarId, int notificationId, int priority) {
         Notification.Builder basicBuilder = new Notification.Builder(context);
         Notification notification = buildBasicNotification(basicBuilder, context, title,
-                summaryText, startMillis, endMillis, eventId, calendarId, notificationId, doPopup,
+                summaryText, startMillis, endMillis, eventId, calendarId, notificationId,
                 priority, true);
 
         // Create a new-style expanded notification
@@ -339,7 +335,7 @@ public class AlertReceiver extends BroadcastReceiver {
         notification = basicBuilder.build();
 
         return new NotificationWrapper(notification, notificationId, eventId, startMillis,
-                endMillis, doPopup);
+                endMillis);
     }
 
     /**
@@ -452,7 +448,7 @@ public class AlertReceiver extends BroadcastReceiver {
         if (AlertService.DEBUG) {
             for (AlertService.NotificationInfo info : notificationInfos) {
                 nw.add(new NotificationWrapper(null, 0, info.eventId, info.startMillis,
-                        info.endMillis, false));
+                        info.endMillis));
             }
         }
         return nw;
