@@ -690,7 +690,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         } else {
             eventTextSizeId = R.dimen.week_view_event_text_size;
         }
-        EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(eventTextSizeId);
+        EVENT_TEXT_FONT_SIZE = mResources.getDimension(eventTextSizeId);
         NEW_EVENT_HINT_FONT_SIZE = (int) mResources.getDimension(R.dimen.new_event_hint_text_size);
         EVENT_TEXT_TOP_MARGIN = (int) mResources.getDimension(R.dimen.event_text_vertical_margin);
         EVENT_TEXT_BOTTOM_MARGIN = EVENT_TEXT_TOP_MARGIN;
@@ -749,7 +749,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mEventTextPaint.setAntiAlias(true);
 
         Paint.FontMetrics fm = mEventTextPaint.getFontMetrics();
-        float fontHeight = Math.round(fm.bottom  - fm.top) + 1;
+        Paint.FontMetricsInt fmi = mEventTextPaint.getFontMetricsInt();
+        float fontHeight = Math.max(Math.round(fm.bottom  - fm.top) + 1, fmi.bottom - fmi.top);
         MIN_EVENT_HEIGHT = fontHeight + EVENT_RECT_TOP_MARGIN + EVENT_RECT_BOTTOM_MARGIN
                 + EVENT_ALL_DAY_TEXT_TOP_MARGIN + EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN + ALL_DAY_EVENT_RECT_BOTTOM_MARGIN;
         MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
@@ -3653,7 +3654,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int lineCount = eventLayout.getLineCount();
         for (int i = 0; i < lineCount; i++) {
             int lineBottom = eventLayout.getLineBottom(i);
-            if (lineBottom <= height) {
+            if (lineBottom <= height + 2 || (i == 0 && lineBottom <= height + 4)) {
                 totalLineHeight = lineBottom;
             } else {
                 break;
