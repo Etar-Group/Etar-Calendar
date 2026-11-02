@@ -198,7 +198,7 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     private fun showTimezoneDialog() {
         val arguments = Bundle().apply {
             putLong(TimeZonePickerDialog.BUNDLE_START_TIME_MILLIS, System.currentTimeMillis())
-            putString(TimeZonePickerDialog.BUNDLE_TIME_ZONE, Utils.getTimeZone(activity, null))
+            putString(TimeZonePickerDialog.BUNDLE_TIME_ZONE, timeZoneId ?: Utils.getTimeZone(activity, null))
         }
 
         val fm = requireActivity().supportFragmentManager
@@ -498,9 +498,11 @@ class GeneralPreferences : PreferenceFragmentCompat(),
     }
 
     override fun onTimeZoneSet(tzi: TimeZoneInfo) {
+        timeZoneId = tzi.mTzId
         val timeZoneDisplayName = tzPickerUtils.getGmtDisplayName(
                 activity, tzi.mTzId, System.currentTimeMillis(), false)
         homeTzPref.summary = timeZoneDisplayName
+        useHomeTzPref.isChecked = true
         Utils.setTimeZone(activity, tzi.mTzId)
     }
 
