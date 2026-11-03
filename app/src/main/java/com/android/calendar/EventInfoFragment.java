@@ -2545,8 +2545,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     initReminders(mView, mRemindersCursor);
                     break;
                 case TOKEN_QUERY_EXTENDED:
-                    mExtendedCursor = Utils.matrixCursorFromCursor(cursor);
-                    initExtended(mExtendedCursor);
+                    if (cursor != null) {
+                        mExtendedCursor = Utils.matrixCursorFromCursor(cursor);
+                        initExtended(mExtendedCursor);
+                    }
                     break;
                 case TOKEN_QUERY_VISIBLE_CALENDARS:
                     if (cursor.getCount() > 1) {
@@ -2582,7 +2584,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mCalendarName.setText(sb);
                     break;
             }
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
             sendAccessibilityEventIfQueryDone(token);
 
             // All queries are done, show the view.
