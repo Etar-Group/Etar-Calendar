@@ -81,6 +81,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.settings.GeneralPreferences;
+import com.android.calendar.settings.ViewDetailsPreferences;
 import com.android.calendar.calendarcommon2.Time;
 import com.android.calendar.theme.DynamicThemeKt;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -369,6 +370,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private static final int DAY_GAP = 1;
     private static final int HOUR_GAP = 1;
+    private static final int COLLAPSED_GAP_ALPHA = 40;
     // This is the standard height of an allday event with no restrictions
     private static int SINGLE_ALLDAY_HEIGHT = 34;
     /**
@@ -509,6 +511,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private boolean mHandleActionUp = true;
 
     private int mHoursTextHeight;
+    /** Height of a collapsed gap, which fits two hour labels. */
+    private int mGapHeight;
     /**
      * The height of the area used for allday events
      */
@@ -564,6 +568,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int mFirstCell;
     /** First fully visibile hour */
     private int mFirstHour = -1;
+    private DisplayedHours mDisplayedHours = DisplayedHours.all();
+    private boolean[] mVisibleHours = DisplayedHours.visibleHours(false, 0, 0);
     /** Distance between the mFirstCell and the top of first fully visible hour. */
     private int mFirstHourOffset;
     private String[] mHourStrs;
@@ -1013,7 +1019,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     public void setSelected(Time time, boolean ignoreTime, boolean animateToday) {
         mBaseDate.set(time);
-        setSelectedHour(mBaseDate.getHour());
+        setSelectedHour(mDisplayedHours.nearestDisplayedHour(mBaseDate.getHour()));
         setSelectedEvent(null);
         mPrevSelectedEvent = null;
         long millis = mBaseDate.toMillis();
@@ -1024,29 +1030,31 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int gotoY = Integer.MIN_VALUE;
 
         if (!ignoreTime && mGridAreaHeight != -1) {
-            int lastHour = 0;
+            int targetHour = mDisplayedHours.nearestDisplayedHour(mBaseDate.getHour());
+            int targetRow = mDisplayedHours.rowOfHour(targetHour);
+            float targetMinute = targetHour == mBaseDate.getHour() ? mBaseDate.getMinute() : 0;
+            int firstRow = mDisplayedHours.rowOfHour(mFirstHour);
 
-            if (mBaseDate.getHour() < mFirstHour) {
+            if (targetRow < firstRow) {
                 // Above visible region
-                gotoY = mBaseDate.getHour() * (mCellHeight + HOUR_GAP);
+                gotoY = rowTop(targetRow);
             } else {
-                lastHour = (mGridAreaHeight - mFirstHourOffset) / (mCellHeight + HOUR_GAP)
-                        + mFirstHour;
+                int visibleBottom = rowTop(firstRow) - mFirstHourOffset + mGridAreaHeight;
 
-                if (mBaseDate.getHour() >= lastHour) {
+                if (rowTop(targetRow) + rowPitch() > visibleBottom) {
                     // Below visible region
 
                     // target hour + 1 (to give it room to see the event) -
                     // grid height (to get the y of the top of the visible
                     // region)
-                    gotoY = (int) ((mBaseDate.getHour() + 1 + mBaseDate.getMinute() / 60.0f)
-                            * (mCellHeight + HOUR_GAP) - mGridAreaHeight);
+                    gotoY = (int) (rowTop(targetRow)
+                            + (1 + targetMinute / 60.0f) * rowPitch() - mGridAreaHeight);
                 }
             }
 
             if (DEBUG) {
                 Log.e(TAG, "Go " + gotoY + " 1st " + mFirstHour + ":" + mFirstHourOffset + "CH "
-                        + (mCellHeight + HOUR_GAP) + " lh " + lastHour + " gh " + mGridAreaHeight
+                        + (mCellHeight + HOUR_GAP) + " gh " + mGridAreaHeight
                         + " ymax " + mMaxViewStartY);
             }
 
@@ -1246,12 +1254,38 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Paint p = new Paint();
         p.setTextSize(HOURS_TEXT_SIZE);
         mHoursTextHeight = (int) Math.abs(p.ascent());
+        mGapHeight = mHoursTextHeight * 7 / 2;
+        mEventGeometry.setCollapsedGapHeight(mGapHeight);
         remeasure(width, height);
     }
 
+    private int rowPitch() {
+        return mCellHeight + HOUR_GAP;
+    }
+
+    // Returns the y in the grid of the top of a displayed row.
+    private int rowTop(int row) {
+        return mDisplayedHours.rowTop(row, rowPitch(), mGapHeight);
+    }
+
+    private int gridContentHeight() {
+        return HOUR_GAP + mDisplayedHours.contentHeight(rowPitch(), mGapHeight);
+    }
+
+    // The pinch and drag gestures anchor on a position in slots (rows and collapsed gaps), which
+    // stays put when the row height changes.
+    private float gridPositionAtY(float y) {
+        return mDisplayedHours.positionAtY(y, rowPitch(), mGapHeight);
+    }
+
+    private float gridYAtPosition(float position) {
+        return mDisplayedHours.yAtPosition(position, rowPitch(), mGapHeight);
+    }
+
     private void adjustCellHeight() {
-        // The min is where 24 hours cover the entire visible area
-        int minCellHeight = (getHeight() - mFirstCell) / 24;
+        // The min is where all displayed hours cover the entire visible area
+        int minCellHeight = (getHeight() - mFirstCell
+                - mDisplayedHours.numGaps() * mGapHeight) / mDisplayedHours.numRows();
         mCellHeight = mPreferredCellHeight;
         if (mCellHeight < minCellHeight) {
             mCellHeight = minCellHeight;
@@ -1320,6 +1354,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         } else {
             mSelectionAllday = false;
         }
+        updateDisplayedHours();
         adjustCellHeight();
         mAlldayHeight = allDayHeight;
 
@@ -1335,7 +1370,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mExpandAllDayRect.top = mExpandAllDayRect.bottom
                 - mExpandAlldayDrawable.getIntrinsicHeight();
 
-        mNumHours = mGridAreaHeight / (mCellHeight + HOUR_GAP);
+        mNumHours = Math.max(0, mGridAreaHeight - mDisplayedHours.numGaps() * mGapHeight)
+                / (mCellHeight + HOUR_GAP);
         mEventGeometry.setHourHeight(mCellHeight);
 
         final long minimumDurationMillis = (long)
@@ -1345,7 +1381,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Event.computePositions(mEvents, minimumDurationMillis, mDrawStaggered);
 
         // Compute the top of our reachable view
-        mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        mMaxViewStartY = gridContentHeight() - mGridAreaHeight;
         if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
             mMaxViewStartY = 0;
         }
@@ -1370,10 +1406,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // change and that changes the cell height.  When we switch dates,
         // we use the mFirstHourOffset from the previous view, but that may
         // be too large for the new view if the cell height is smaller.
-        if (mFirstHourOffset >= mCellHeight + HOUR_GAP) {
-            mFirstHourOffset = mCellHeight + HOUR_GAP - 1;
+        final int firstRow = mDisplayedHours.rowOfHour(mFirstHour);
+        final int firstRowPitch = firstRow > 0 ? rowTop(firstRow) - rowTop(firstRow - 1)
+                : mCellHeight + HOUR_GAP;
+        if (mFirstHourOffset >= firstRowPitch) {
+            mFirstHourOffset = firstRowPitch - 1;
         }
-        mViewStartY = mFirstHour * (mCellHeight + HOUR_GAP) - mFirstHourOffset;
+        mViewStartY = rowTop(firstRow) - mFirstHourOffset;
+        if (mViewStartY > mMaxViewStartY) {
+            mViewStartY = mMaxViewStartY;
+            computeFirstHour();
+        }
 
         final int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
         //When we get new events we don't want to dismiss the popup unless the event changes
@@ -1611,7 +1654,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 if (mSelectedEvent == null) {
                     mLastPopupEventID = INVALID_EVENT_ID;
                     if (!mSelectionAllday) {
-                        setSelectedHour(mSelectionHour - 1);
+                        int previousRow = mDisplayedHours.rowOfHour(mSelectionHour) - 1;
+                        setSelectedHour(previousRow < 0 ? -1
+                                : mDisplayedHours.hourOfRow(previousRow));
                         adjustHourSelection();
                         mSelectedEvents.clear();
                         mComputeSelectedEvents = true;
@@ -1629,7 +1674,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     if (mSelectionAllday) {
                         mSelectionAllday = false;
                     } else {
-                        setSelectedHour(mSelectionHour + 1);
+                        int nextRow = mDisplayedHours.rowOfHour(mSelectionHour) + 1;
+                        setSelectedHour(mDisplayedHours.hourOfRow(nextRow));
                         adjustHourSelection();
                         mSelectedEvents.clear();
                         mComputeSelectedEvents = true;
@@ -1927,12 +1973,32 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void initFirstHour() {
-        mFirstHour = mSelectionHour - mNumHours / 5;
-        if (mFirstHour < 0) {
-            mFirstHour = 0;
-        } else if (mFirstHour + mNumHours > 24) {
-            mFirstHour = 24 - mNumHours;
+        int firstRow = mDisplayedHours.rowOfHour(mSelectionHour) - mNumHours / 5;
+        if (firstRow + mNumHours > mDisplayedHours.numRows()) {
+            firstRow = mDisplayedHours.numRows() - mNumHours;
         }
+        mFirstHour = mDisplayedHours.hourOfRow(Math.max(firstRow, 0));
+    }
+
+    private void updateDisplayedHours() {
+        SharedPreferences prefs = GeneralPreferences.Companion.getSharedPreferences(mContext);
+        mVisibleHours = DisplayedHours.visibleHours(
+                prefs.getBoolean(ViewDetailsPreferences.KEY_HIDE_HOURS, false),
+                ViewDetailsPreferences.Companion.getHideHoursFrom(prefs),
+                ViewDetailsPreferences.Companion.getHideHoursUntil(prefs));
+        mDisplayedHours = DisplayedHours.compute(mVisibleHours, mEvents, mFirstJulianDay, mNumDays);
+        mEventGeometry.setDisplayedHours(mDisplayedHours);
+        if (!mDisplayedHours.isDisplayed(mSelectionHour)) {
+            setSelectedHour(mDisplayedHours.nearestDisplayedHour(mSelectionHour));
+        }
+    }
+
+    // Returns the y of the current time in the grid, or the top of the next displayed
+    // hour when the current hour is hidden.
+    private int currentTimeY() {
+        int hour = mCurrentTime.getHour();
+        int minutes = mDisplayedHours.isDisplayed(hour) ? mCurrentTime.getMinute() : 0;
+        return rowTop(mDisplayedHours.rowOfHour(hour)) + ((minutes * mCellHeight) / 60) + 1;
     }
 
     /**
@@ -1941,13 +2007,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      */
     private void computeFirstHour() {
         // Compute the first full hour that is visible on screen
-        mFirstHour = (mViewStartY + mCellHeight + HOUR_GAP - 1) / (mCellHeight + HOUR_GAP);
-        mFirstHourOffset = mFirstHour * (mCellHeight + HOUR_GAP) - mViewStartY;
+        int firstRow = mDisplayedHours.firstRowAtOrBelow(mViewStartY, rowPitch(), mGapHeight);
+        mFirstHour = mDisplayedHours.hourOfRow(firstRow);
+        mFirstHourOffset = rowTop(firstRow) - mViewStartY;
     }
 
     private void adjustHourSelection() {
         if (mSelectionHour < 0) {
-            setSelectedHour(0);
+            setSelectedHour(mDisplayedHours.hourOfRow(0));
             if (mMaxAlldayEvents > 0) {
                 mPrevSelectedEvent = null;
                 mSelectionAllday = true;
@@ -1955,12 +2022,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
 
         if (mSelectionHour > 23) {
-            setSelectedHour(23);
+            setSelectedHour(mDisplayedHours.hourOfRow(mDisplayedHours.numRows() - 1));
         }
+
+        final int numRows = mDisplayedHours.numRows();
+        final int selectionRow = mDisplayedHours.rowOfHour(mSelectionHour);
+        final int firstRow = mDisplayedHours.rowOfHour(mFirstHour);
 
         // If the selected hour is at least 2 time slots from the top and
         // bottom of the screen, then don't scroll the view.
-        if (mSelectionHour < mFirstHour + 1) {
+        if (selectionRow < firstRow + 1) {
             // If there are all-days events for the selected day but there
             // are no more normal events earlier in the day, then jump to
             // the all-day event area.
@@ -1972,16 +2043,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (daynum < mEarliestStartHour.length && daynum >= 0
                     && mMaxAlldayEvents > 0
                     && mEarliestStartHour[daynum] > mSelectionHour
-                    && mFirstHour > 0 && mFirstHour < 8) {
+                    && firstRow > 0 && mFirstHour < 8) {
                 mPrevSelectedEvent = null;
                 mSelectionAllday = true;
-                setSelectedHour(mFirstHour + 1);
+                setSelectedHour(mDisplayedHours.hourOfRow(firstRow + 1));
                 return;
             }
 
-            if (mFirstHour > 0) {
-                mFirstHour -= 1;
-                mViewStartY -= (mCellHeight + HOUR_GAP);
+            if (firstRow > 0) {
+                mFirstHour = mDisplayedHours.hourOfRow(firstRow - 1);
+                mViewStartY -= rowTop(firstRow) - rowTop(firstRow - 1);
                 if (mViewStartY < 0) {
                     mViewStartY = 0;
                 }
@@ -1989,17 +2060,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
 
-        if (mSelectionHour > mFirstHour + mNumHours - 3) {
-            if (mFirstHour < 24 - mNumHours) {
-                mFirstHour += 1;
-                mViewStartY += (mCellHeight + HOUR_GAP);
+        if (selectionRow > firstRow + mNumHours - 3) {
+            if (firstRow < numRows - mNumHours) {
+                mFirstHour = mDisplayedHours.hourOfRow(firstRow + 1);
+                mViewStartY += rowTop(firstRow + 1) - rowTop(firstRow);
                 if (mViewStartY > mMaxViewStartY) {
                     mViewStartY = mMaxViewStartY;
                 }
                 if (mViewStartY < 0) {
                     mViewStartY = 0;
                 }
-            } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
+            } else if (firstRow == numRows - mNumHours && mFirstHourOffset > 0) {
                 mViewStartY = mMaxViewStartY;
             }
         }
@@ -2458,11 +2529,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             drawEvents(cell, day, HOUR_GAP, canvas, p);
             // If this is today
             if (cell == mTodayJulianDay) {
-                int lineY = mCurrentTime.getHour() * (mCellHeight + HOUR_GAP)
-                        + ((mCurrentTime.getMinute() * mCellHeight) / 60) + 1;
+                int lineY = currentTimeY();
 
                 // And the current time shows up somewhere on the screen
-                if (lineY >= mViewStartY && lineY < mViewStartY + mViewHeight - 2) {
+                if (mDisplayedHours.isDisplayed(mCurrentTime.getHour())
+                        && lineY >= mViewStartY && lineY < mViewStartY + mViewHeight - 2) {
                     drawCurrentTimeLine(r, day, lineY, canvas, p);
                 }
             }
@@ -2477,7 +2548,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Draw a highlight on the selected hour (if needed)
         if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllday) {
             int daynum = mSelectionDay - mFirstJulianDay;
-            r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
+            r.top = rowTop(mDisplayedHours.rowOfHour(mSelectionHour));
             r.bottom = r.top + mCellHeight + HOUR_GAP;
             r.left = computeDayLeftPosition(daynum) + 1;
             r.right = computeDayLeftPosition(daynum + 1) + 1;
@@ -2522,19 +2593,41 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         setupHourTextPaint(p);
         int totCellHeight =  mCellHeight + HOUR_GAP;
         int hourStep = (mHoursTextHeight + totCellHeight - 1)/ totCellHeight;
-        int i = Math.max(mFirstHour, 0);
+        int i = mDisplayedHours.rowOfHour(Math.max(mFirstHour, 0));
         if (   (mFirstHourOffset < mHoursTextHeight / 2)
             && (mAlldayHeight == 0)
             && (mNumDays == 1))
         {
             i += hourStep;
         }
-        int deltaY = hourStep * totCellHeight;
-        int y = i * totCellHeight + mHoursTextHeight / 2 - HOUR_GAP;
-        for (; i < 24; i += hourStep) {
-            String time = mHourStrs[i];
-            canvas.drawText(time, HOURS_LEFT_MARGIN, y, p);
-            y += deltaY;
+        for (; i < mDisplayedHours.numRows(); i += hourStep) {
+            // A row below a collapsed gap is labelled by the gap.
+            if (!mDisplayedHours.hasGapAbove(i)) {
+                String time = mHourStrs[mDisplayedHours.hourOfRow(i)];
+                canvas.drawText(time, HOURS_LEFT_MARGIN,
+                        rowTop(i) + mHoursTextHeight / 2 - HOUR_GAP, p);
+            }
+        }
+        drawCollapsedGapLabels(canvas, p);
+    }
+
+    // Labels each collapsed gap with the times at which the skipped hours start and end.
+    private void drawCollapsedGapLabels(Canvas canvas, Paint p) {
+        final int contentHeight = gridContentHeight();
+        for (int gap = 0; gap < mDisplayedHours.numGaps(); gap++) {
+            int top = mDisplayedHours.gapTop(gap, rowPitch(), mGapHeight);
+            int bottom = top + mGapHeight;
+            // Centred on the gap's border lines like the other labels, but kept inside the grid
+            // at its very bottom.
+            float startY = top + mHoursTextHeight / 2 - HOUR_GAP;
+            float endY = Math.min(bottom + mHoursTextHeight / 2 - HOUR_GAP,
+                    contentHeight - 2 * HOUR_GAP);
+            if (mDisplayedHours.gapStartHour(gap) != 0) {
+                canvas.drawText(mHourStrs[mDisplayedHours.gapStartHour(gap) % 24],
+                        HOURS_LEFT_MARGIN, startY, p);
+            }
+            canvas.drawText(mHourStrs[mDisplayedHours.gapEndHour(gap) % 24], HOURS_LEFT_MARGIN,
+                    endY, p);
         }
     }
 
@@ -2624,24 +2717,37 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         final float stopX = computeDayLeftPosition(mNumDays);
         float y = 0;
-        final float deltaY = mCellHeight + HOUR_GAP;
         int linesIndex = 0;
         final float startY = 0;
-        final float stopY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
+        final float stopY = gridContentHeight();
         float x = mHoursWidth;
 
-        // Draw the inner horizontal grid lines
+        drawCollapsedGapBackgrounds(canvas, p, stopX);
+
+        // Draw the inner horizontal grid lines: one on top of every row and collapsed gap, and one
+        // under the last of them.
         p.setColor(mCalendarGridLineInnerHorizontalColor);
         p.setStrokeWidth(GRID_LINE_INNER_WIDTH);
         p.setAntiAlias(false);
-        y = 0;
-        for (int hour = 0; hour <= 24; hour++) {
+        for (int row = 0; row < mDisplayedHours.numRows(); row++) {
+            y = rowTop(row);
             mLines[linesIndex++] = GRID_LINE_LEFT_MARGIN;
             mLines[linesIndex++] = y;
             mLines[linesIndex++] = stopX;
             mLines[linesIndex++] = y;
-            y += deltaY;
         }
+        for (int gap = 0; gap < mDisplayedHours.numGaps(); gap++) {
+            y = mDisplayedHours.gapTop(gap, rowPitch(), mGapHeight);
+            mLines[linesIndex++] = GRID_LINE_LEFT_MARGIN;
+            mLines[linesIndex++] = y;
+            mLines[linesIndex++] = stopX;
+            mLines[linesIndex++] = y;
+        }
+        y = mDisplayedHours.contentHeight(rowPitch(), mGapHeight);
+        mLines[linesIndex++] = GRID_LINE_LEFT_MARGIN;
+        mLines[linesIndex++] = y;
+        mLines[linesIndex++] = stopX;
+        mLines[linesIndex++] = y;
         if (mCalendarGridLineInnerVerticalColor != mCalendarGridLineInnerHorizontalColor) {
             canvas.drawLines(mLines, 0, linesIndex, p);
             linesIndex = 0;
@@ -2661,6 +2767,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Restore the saved style.
         p.setStyle(savedStyle);
         p.setAntiAlias(true);
+    }
+
+    // Shades the collapsed gaps where hours are skipped.
+    private void drawCollapsedGapBackgrounds(Canvas canvas, Paint p, float stopX) {
+        p.setColor(mCalendarHourLabelColor);
+        p.setAlpha(COLLAPSED_GAP_ALPHA);
+        p.setStyle(Style.FILL);
+        for (int gap = 0; gap < mDisplayedHours.numGaps(); gap++) {
+            float top = mDisplayedHours.gapTop(gap, rowPitch(), mGapHeight);
+            canvas.drawRect(mHoursWidth, top, stopX, top + mGapHeight, p);
+        }
+        p.setAlpha(255);
     }
 
     /**
@@ -2683,8 +2801,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Draw background for grid area
         if (mNumDays == 1 && todayIndex == 0) {
             // Draw a white background for the time later than current time
-            int lineY = mCurrentTime.getHour() * (mCellHeight + HOUR_GAP)
-                    + ((mCurrentTime.getMinute() * mCellHeight) / 60) + 1;
+            int lineY = currentTimeY();
             if (lineY < mViewStartY + mViewHeight) {
                 lineY = Math.max(lineY, mViewStartY);
                 r.left = mHoursWidth;
@@ -2696,8 +2813,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         } else if (todayIndex >= 0 && todayIndex < mNumDays) {
             // Draw today with a white background for the time later than current time
-            int lineY = mCurrentTime.getHour() * (mCellHeight + HOUR_GAP)
-                    + ((mCurrentTime.getMinute() * mCellHeight) / 60) + 1;
+            int lineY = currentTimeY();
             if (lineY < mViewStartY + mViewHeight) {
                 lineY = Math.max(lineY, mViewStartY);
                 r.left = computeDayLeftPosition(todayIndex) + 1;
@@ -2782,7 +2898,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private Rect getCurrentSelectionPosition() {
         Rect box = new Rect();
-        box.top = mSelectionHour * (mCellHeight + HOUR_GAP);
+        box.top = rowTop(mDisplayedHours.rowOfHour(mSelectionHour));
         box.bottom = box.top + mCellHeight + HOUR_GAP;
         int daynum = mSelectionDay - mFirstJulianDay;
         box.left = computeDayLeftPosition(daynum) + 1;
@@ -3154,7 +3270,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // Use the selected hour as the selection region
         Rect selectionArea = mSelectionRect;
-        selectionArea.top = top + mSelectionHour * (cellHeight + HOUR_GAP);
+        selectionArea.top = top + rowTop(mDisplayedHours.rowOfHour(mSelectionHour));
         selectionArea.bottom = selectionArea.top + cellHeight;
         selectionArea.left = left;
         selectionArea.right = selectionArea.left + cellWidth;
@@ -4071,8 +4187,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         final float focusY = getAverageY(e2);
         if (mRecalCenterHour) {
             // Calculate the hour that correspond to the average of the Y touch points
-            mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
-                    / (mCellHeight + DAY_GAP);
+            mGestureCenterHour = gridPositionAtY(mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight);
             if (mGestureCenterHour < 0) {
                 mGestureCenterHour = 0;
             }
@@ -4116,7 +4231,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if ((mTouchMode & TOUCH_MODE_VSCROLL) != 0) {
             // Calculate the top of the visible region in the calendar grid.
             // Increasing/decrease this will scroll the calendar grid up/down.
-            mViewStartY = (int) ((mGestureCenterHour * (mCellHeight + DAY_GAP))
+            mViewStartY = (int) (gridYAtPosition(mGestureCenterHour)
                     - focusY + DAY_HEADER_HEIGHT + mAlldayHeight);
 
             // If dragging while already at the end, do a glow
@@ -4142,8 +4257,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
             if (mRecalCenterHour) {
                 // Calculate the hour that correspond to the average of the Y touch points
-                mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
-                        / (mCellHeight + DAY_GAP);
+                mGestureCenterHour = gridPositionAtY(
+                        mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight);
                 if (mGestureCenterHour < 0) {
                     mGestureCenterHour = 0;
                 }
@@ -4256,7 +4371,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     public boolean onScaleBegin(ScaleGestureDetector detector) {
         mHandleActionUp = false;
         float gestureCenterInPixels = detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
-        mGestureCenterHour = (mViewStartY + gestureCenterInPixels) / (mCellHeight + DAY_GAP);
+        mGestureCenterHour = gridPositionAtY(mViewStartY + gestureCenterInPixels);
         if (mGestureCenterHour < 0) {
             mGestureCenterHour = 0;
         }
@@ -4290,20 +4405,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         adjustCellHeight();
 
         int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
-        mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
-        mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
+        mViewStartY = (int) gridYAtPosition(mGestureCenterHour) - gestureCenterInPixels;
+        mMaxViewStartY = gridContentHeight() - mGridAreaHeight;
         if (mMaxViewStartY < mCellHeight + HOUR_GAP) {
             mMaxViewStartY = 0;
         }
 
         if (mViewStartY < 0) {
             mViewStartY = 0;
-            mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
-                    / (float) (mCellHeight + DAY_GAP);
+            mGestureCenterHour = gridPositionAtY(mViewStartY + gestureCenterInPixels);
         } else if (mViewStartY > mMaxViewStartY) {
             mViewStartY = mMaxViewStartY;
-            mGestureCenterHour = (mViewStartY + gestureCenterInPixels)
-                    / (float) (mCellHeight + DAY_GAP);
+            mGestureCenterHour = gridPositionAtY(mViewStartY + gestureCenterInPixels);
         }
         if (mGestureCenterHour < 0) {
             mGestureCenterHour = 0;
@@ -4638,6 +4751,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return ACCESS_LEVEL_DELETE;
     }
 
+    // Whether a y in the scrollable grid falls inside a collapsed gap rather than a row.
+    private boolean isInCollapsedGap(int contentY) {
+        return contentY >= 0 && contentY < mDisplayedHours.contentHeight(rowPitch(), mGapHeight)
+                && mDisplayedHours.rowAtY(contentY, rowPitch(), mGapHeight) < 0;
+    }
+
     /**
      * Sets mSelectionDay and mSelectionHour based on the (x,y) touch position.
      * If the touch position is not within the displayed grid, then this
@@ -4663,6 +4782,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             savedHour = mSelectionHour;
             savedAllDay = mSelectionAllday;
         }
+        if (y >= mFirstCell && isInCollapsedGap(mViewStartY + y - mFirstCell)) {
+            return false;
+        }
+
         if (x < mHoursWidth) {
             x = mHoursWidth;
         }
@@ -4679,20 +4802,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             return false;
         }
 
-        setSelectedHour(mFirstHour); /* First fully visible hour */
+        int firstRow = mDisplayedHours.rowOfHour(mFirstHour); /* First fully visible hour */
+        int selectedRow = firstRow;
+        setSelectedHour(mDisplayedHours.hourOfRow(selectedRow));
 
         if (y < mFirstCell) {
             mSelectionAllday = true;
         } else {
             // y is now offset from top of the scrollable region
-            int adjustedY = y - mFirstCell;
-
-            if (adjustedY < mFirstHourOffset) {
-                setSelectedHour(mSelectionHour - 1); /* In the partially visible hour */
-            } else {
-                setSelectedHour(mSelectionHour +
-                        (adjustedY - mFirstHourOffset) / (mCellHeight + HOUR_GAP));
+            int contentY = mViewStartY + y - mFirstCell;
+            selectedRow = mDisplayedHours.rowAtY(contentY, rowPitch(), mGapHeight);
+            if (selectedRow < 0) {
+                selectedRow = contentY < 0 ? 0 : mDisplayedHours.numRows() - 1;
             }
+            setSelectedHour(mDisplayedHours.hourOfRow(selectedRow));
 
             mSelectionAllday = false;
         }
