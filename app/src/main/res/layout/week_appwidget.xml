@@ -25,7 +25,7 @@
         android:id="@+id/grid_widget_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:minHeight="40dip"
         android:orientation="horizontal"
         android:paddingStart="12dip"
@@ -33,11 +33,21 @@
 
         <TextView
             android:id="@+id/grid_widget_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/appwidget_month"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/grid_widget_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_settings" />
     </LinearLayout>
 
     <!-- Day-of-week labels row -->
@@ -106,14 +116,31 @@
             android:textSize="11sp" />
     </LinearLayout>
 
-    <!-- Grid of day cells (1 row x 7 days) -->
-    <GridView
-        android:id="@+id/grid_view"
+    <!-- Grid of day cells (1 row x 7 days) with FAB -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:numColumns="7"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth" />
+        android:layout_weight="1">
+
+        <GridView
+            android:id="@+id/grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:numColumns="7"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth" />
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:background="@drawable/widget_fab_background"
+            android:src="@drawable/ic_add_event" />
+    </RelativeLayout>
 </LinearLayout>

@@ -38,7 +38,6 @@ import com.android.calendar.AllInOneActivity;
 import com.android.calendar.theme.DynamicThemeKt;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.Utils;
-import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.calendarcommon2.Time;
 
 import ws.xsoh.etar.R;
@@ -170,6 +169,17 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * {@inheritDoc}
      */
     @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+        for (int appWidgetId : appWidgetIds) {
+            WidgetUtils.INSTANCE.deleteWidgetCalendarIds(context, appWidgetId);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         performUpdate(context, appWidgetManager, appWidgetIds, null /* no eventIds */);
     }
@@ -229,24 +239,13 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.events_list);
 
 
-            // Launch calendar app when the user taps on the header
-            final Intent launchCalendarIntent = new Intent(Intent.ACTION_VIEW);
-            launchCalendarIntent.setClass(context, AllInOneActivity.class);
-            launchCalendarIntent
-                    .setData(Uri.parse("content://com.android.calendar/time/" + millis));
-            final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(
-                    context, 0 /* no requestCode */, launchCalendarIntent, PendingIntent.FLAG_IMMUTABLE);
-            views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
-
-            // Open Add event option when user clicks on the add button on widget
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setClass(context, EditEventActivity.class);
-            intent.putExtra(EXTRA_EVENT_ALL_DAY, false);
-            intent.putExtra(CalendarContract.Events.CALENDAR_ID, -1L);
-
-            final PendingIntent addEventPendingIntent = PendingIntent.getActivity(
-                    context, 0 /* no requestCode */, intent, PendingIntent.FLAG_IMMUTABLE);
-            views.setOnClickPendingIntent(R.id.iv_add, addEventPendingIntent);
+            // PendingIntents
+            views.setOnClickPendingIntent(R.id.header,
+                    WidgetUtils.getLaunchCalendarPendingIntent(context, appWidgetId, millis));
+            views.setOnClickPendingIntent(R.id.iv_add,
+                    WidgetUtils.getAddEventPendingIntent(context));
+            views.setOnClickPendingIntent(R.id.iv_settings,
+                    WidgetUtils.getConfigurePendingIntent(context, appWidgetId));
 
             // Each list item will call setOnClickExtra() to let the list know
             // which item

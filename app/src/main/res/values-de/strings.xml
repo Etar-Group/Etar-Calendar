@@ -373,4 +373,7 @@
     <string name="week_start_locale_default">Gebietsschema - Standard</string>
     <string name="cal_export_success">Termin erfolgreich exportiert</string>
     <string name="cal_export_error">Termin konnte nicht exportiert werden</string>
+    <string name="widget_configure_title">Widget-Kalender</string>
+    <string name="widget_configure_description">Wähle die Kalender aus, deren Termine in diesem Widget angezeigt werden sollen:</string>
+    <string name="widget_configure_save">Speichern</string>
 </resources>

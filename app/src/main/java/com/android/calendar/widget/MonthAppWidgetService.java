@@ -371,7 +371,7 @@ public class MonthAppWidgetService extends RemoteViewsService {
             int offset = BaseGridWidgetProvider.getDayOfWeekOffset(firstDow, firstDayOfWeek);
             int gridStartJulianDay = monthStartJulianDay - offset;
 
-            String selection = BaseGridWidgetProvider.getInstancesSelection(mContext);
+            String selection = WidgetUtils.getWidgetSelection(mContext, mAppWidgetId);
 
             Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
                     Long.toString(startMillis) + "/" + Long.toString(endMillis));
