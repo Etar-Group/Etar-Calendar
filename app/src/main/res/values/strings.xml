@@ -878,6 +878,10 @@
     <string name="week_widget_label">Calendar Week View</string>
     <!-- Description for the week view widget shown in the widget picker on Android 12+ -->
     <string name="week_widget_description">Displays the current week with event times and details</string>
+    <!-- Widget configure strings -->
+    <string name="widget_configure_title">Widget Calendars</string>
+    <string name="widget_configure_description">Select the calendars whose events should be displayed in this widget:</string>
+    <string name="widget_configure_save">Save</string>
     <!-- Fallback title for events with no title -->
     <string name="widget_no_title">(No title)</string>
     <!-- Overflow indicator when more events exist than can be displayed. %d is the number of additional events. -->

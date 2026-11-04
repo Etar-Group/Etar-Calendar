@@ -31,7 +31,6 @@ import android.provider.CalendarContract.Instances;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
-import com.android.calendar.AllInOneActivity;
 import com.android.calendar.Utils;
 import com.android.calendar.theme.DynamicThemeKt;
 
@@ -203,6 +202,14 @@ abstract class BaseGridWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+        for (int appWidgetId : appWidgetIds) {
+            WidgetUtils.INSTANCE.deleteWidgetCalendarIds(context, appWidgetId);
+        }
+    }
+
+    @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
             int appWidgetId, Bundle newOptions) {
         performUpdate(context, appWidgetManager, new int[]{appWidgetId});
@@ -263,12 +270,12 @@ abstract class BaseGridWidgetProvider extends AppWidgetProvider {
             views.setPendingIntentTemplate(getGridViewId(),
                     getLaunchPendingIntentTemplate(context));
 
-            Intent launchIntent = new Intent(Intent.ACTION_VIEW);
-            launchIntent.setClass(context, AllInOneActivity.class);
-            launchIntent.setData(Uri.parse("content://com.android.calendar/time/" + now));
-            PendingIntent headerPendingIntent = PendingIntent.getActivity(
-                    context, appWidgetId, launchIntent, PendingIntent.FLAG_IMMUTABLE);
-            views.setOnClickPendingIntent(getHeaderViewId(), headerPendingIntent);
+            views.setOnClickPendingIntent(getHeaderViewId(),
+                    WidgetUtils.getLaunchCalendarPendingIntent(context, appWidgetId, now));
+            views.setOnClickPendingIntent(R.id.grid_widget_settings,
+                    WidgetUtils.getConfigurePendingIntent(context, appWidgetId));
+            views.setOnClickPendingIntent(R.id.iv_add,
+                    WidgetUtils.getAddEventPendingIntent(context));
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, getGridViewId());

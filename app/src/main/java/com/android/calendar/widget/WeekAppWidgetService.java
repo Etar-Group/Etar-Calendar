@@ -338,7 +338,7 @@ public class WeekAppWidgetService extends RemoteViewsService {
 
             boolean is24h = DateFormat.is24HourFormat(mContext);
 
-            String selection = BaseGridWidgetProvider.getInstancesSelection(mContext);
+            String selection = WidgetUtils.getWidgetSelection(mContext, mAppWidgetId);
 
             Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
                     Long.toString(startMillis) + "/" + Long.toString(endMillis));

@@ -134,6 +134,15 @@
         </activity-alias>
 
         <activity
+            android:name="com.android.calendar.widget.CalendarWidgetConfigureActivity"
+            android:exported="true"
+            android:label="@string/widget_configure_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="com.android.calendar.GoogleCalendarUriIntentFilter"
             android:exported="true"
             android:configChanges="orientation|keyboardHidden"

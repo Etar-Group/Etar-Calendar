@@ -20,6 +20,7 @@
     android:minResizeWidth="110dip"
     android:minResizeHeight="110dip"
     android:updatePeriodMillis="0"
+    android:configure="com.android.calendar.widget.CalendarWidgetConfigureActivity"
     android:previewImage="@drawable/calendar_widget_preview"
     android:initialLayout="@layout/appwidget"
     android:resizeMode="horizontal|vertical"
