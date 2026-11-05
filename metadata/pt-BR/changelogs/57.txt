@@ -1,0 +1,3 @@
+- Adicionar opção para exibição escalonada de eventos que se sobrepõem
+- Permitir que qualquer dia da semana seja o dia inicial da semana
+- Correções de bugs

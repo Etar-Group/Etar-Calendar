@@ -1,0 +1,13 @@
+විශේෂාංග:
+මාසික දර්ශනය (Month View).
+සති, දින සහ Agenda දර්ශනය.
+Android හි calendar storage එක භාවිතා කර සමමුහුර්ත (synchronized) කර ඇති සියලුම calendars පෙන්වයි.
+Material Design භාවිතා කර ඇත.
+Dark Theme සහ Light Theme සඳහා සහය දක්වයි.
+Offline calendar භාවිතා කිරීමට සහය දක්වයි.
+Agenda Widget එකක් ඇත.
+ICS හරහා calendars share කිරීමට සහ SD card එකෙන් calendar import/export කිරීමට සහය දක්වයි.
+භාෂා කිහිපයකින් (Multilingual) UI එක භාවිතා කළ හැක.
+Bugs and feedback: https://github.com/Etar-Group/Etar-Calendar/issues
+
+Source code: https://github.com/Etar-Group/Etar-Calendar

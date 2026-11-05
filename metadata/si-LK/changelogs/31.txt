@@ -1,0 +1,2 @@
+-Android 12 හි App එක Crash වීම සහ Notifications සම්බන්ධ දෝෂ නිවැරදි කිරීම
+-Share කරන Event එකේ MIME Type එක නිවැරදි කිරීම

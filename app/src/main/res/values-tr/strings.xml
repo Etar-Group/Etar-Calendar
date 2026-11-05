@@ -17,8 +17,8 @@
     <string name="when_label" msgid="894636567327261599">Ne zaman</string>
     <string name="today" msgid="8577375020252453006">"Bugün"</string>
     <string name="tomorrow" msgid="614434811813859237">"Yarın"</string>
-    <string name="today_at_time_fmt" msgid="1981279213130049736">"Bugün şu saatler arasında: <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"Yarın şu saatler arasında: <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
+    <string name="today_at_time_fmt" msgid="1981279213130049736">Bugün şu saatler arasında: <xliff:g id="time_interval">%s</xliff:g></string>
+    <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">Yarın şu saatler arasında: <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt" msgid="1642972650061946484"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
     <string name="no_title_label" msgid="302177118061368042">"(Başlıksız)"</string>
     <plurals name="Nminutes">
@@ -111,8 +111,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">Dün, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">Yarın, <xliff:g id="date">%1$s</xliff:g></string>
     <string name="loading" msgid="3772533493214331230">"Yükleniyor…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> öncesindeki etkinlikleri görüntülemek için dokunun"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> sonrasındaki etkinlikleri görüntülemek için dokunun"</string>
+    <string name="show_older_events" msgid="5140647493681439926"><xliff:g id="oldest_search_range">%1$s</xliff:g> öncesindeki etkinlikleri görüntülemek için dokunun</string>
+    <string name="show_newer_events" msgid="2604638815440163080"><xliff:g id="newest_search_range">%1$s</xliff:g> sonrasındaki etkinlikleri görüntülemek için dokunun</string>
     <string name="search_title" msgid="8898015280250716254">Takvimlerimde ara</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Ayrıntılar"</string>
     <string name="edit_label" msgid="8934331258435656534">"Düzenle"</string>
@@ -122,19 +122,19 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tümünü kapat"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Ertele"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Bir kerelik etkinlik"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; <xliff:g id="DATE">%s</xliff:g> tarihine kadar"</string>
+    <string name="endByDate" msgid="7654221304929538201">; <xliff:g id="date">%s</xliff:g> tarihine kadar</string>
     <plurals name="endByCount">
-        <item quantity="one" msgid="3727754565990691816">"; bir kerelik"</item>
-        <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> kerelik"</item>
+        <item quantity="one">; bir kerelik</item>
+        <item quantity="other">; <xliff:g id="number">%d</xliff:g> kerelik</item>
     </plurals>
     <plurals name="daily">
-        <item quantity="one" msgid="5169052946627480942">"Günlük"</item>
-        <item quantity="other" msgid="5455230727715859264">"Her <xliff:g id="NUMBER">%d</xliff:g> günde bir"</item>
+        <item quantity="one">Günlük</item>
+        <item quantity="other">Her <xliff:g id="number">%d</xliff:g> günde bir</item>
     </plurals>
     <string name="every_weekday" msgid="5896574838353902978">Hafta içi her gün (Pzt-Cum)</string>
     <plurals name="weekly">
-        <item quantity="one" msgid="5463021019301453273">"Haftalık olarak her <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-        <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g> haftada bir her <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+        <item quantity="one">Haftalık olarak her <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other"><xliff:g id="number">%1$d</xliff:g> haftada bir her <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
     <string name="monthly" msgid="4587116285383048586">"Aylık"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Yılda bir"</string>
@@ -145,7 +145,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Yeni etkinlik"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Yeni etkinlik"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Bu etkinlik silinsin mi?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g> silinsin mi?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206"><xliff:g id="eventtitle">%s</xliff:g> silinsin mi?</string>
     <string name="change_response_title" msgid="7704714776070974984">"Yanıtı değiştir"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Ayarlar"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Takvim görünümü ayarı"</string>
@@ -177,7 +177,7 @@
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Hatırlatıcıları Atla"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Hatırlatıcıları Atla"</string>
     <string name="copy_db" msgid="437691290566699292">Veri tabanını gönder</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> aranıyor…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687"><xliff:g id="domain">%s</xliff:g> aranıyor…</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Katılımcıyı kaldır"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Başlangıç tarihi"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Başlangıç zamanı"</string>
@@ -194,7 +194,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">Bana şunun gibi göster</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Gizlilik"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Yeni etkinlik"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Etkinlik: <xliff:g id="ITEM_INDEX">%1$s</xliff:g> / <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">Etkinlik: <xliff:g id="item_index">%1$s</xliff:g> / <xliff:g id="item_count">%2$s</xliff:g>.</string>
     <plurals name="Nevents">
         <item quantity="one">1 etkinlik</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> etkinlik</item>
@@ -223,11 +223,11 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"her ayın aynı gününde"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Sonsuza kadar"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Belirli bir tarihe kadar"</string>
-    <string name="recurrence_end_date" msgid="3693751578164711701">"<xliff:g id="DATE">%s</xliff:g> tarihine kadar"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701"><xliff:g id="date">%s</xliff:g> tarihine kadar</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Belirli sayıda etkinlik"</string>
     <plurals name="recurrence_end_count">
-        <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> etkinlik için"</item>
-        <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> etkinlik için"</item>
+        <item quantity="one"><xliff:g id="event_count">%d</xliff:g> etkinlik için</item>
+        <item quantity="other"><xliff:g id="event_count">%d</xliff:g> etkinlik için</item>
     </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"bitiş tarihini değiştir"</string>
     <string name="visibility_default">Öntanımlı</string>
@@ -268,7 +268,7 @@
     <string name="preferences_default_snooze_delay_dialog">Öntanımlı erteleme süresi</string>
     <string name="error_generating_ics">Etkinlik paylaşılırken bir hata oluştu</string>
     <string name="cal_share_intent_title">Etkinliği şuna gönder:</string>
-    <string name="cal_export_event_title">SD karta aktar</string>
+    <string name="cal_export_event_title">Etkinliği dışa aktar</string>
     <string name="cal_export_succ_msg">Etkinlik başarıyla dışarıya aktarıldı</string>
     <string name="cal_import_menu_title">Etkinliği içeri aktar</string>
     <string name="cal_nothing_to_import">İçeri aktarılacak hiçbir şey yok</string>
@@ -360,13 +360,13 @@
     <string name="searchview_description_clear" msgid="1603860069305867810">"Sorguyu temizle"</string>
     <string name="no_results_found" msgid="5475293015394772651">"Sonuç bulunamadı"</string>
     <string name="palestine_display_name" msgid="3485026339977302148">"Filistin"</string>
-    <string name="more_string" msgid="643992135011109762">"+<xliff:g id="COUNT">%1$d</xliff:g>"</string>
+    <string name="more_string" msgid="643992135011109762">+<xliff:g id="count">%1$d</xliff:g></string>
     <string name="copy_email" msgid="1084563757174121331">"E-posta adresini kopyala"</string>
     <string name="copy_number" msgid="8860802152973030914">"Telefon numarasını kopyala"</string>
     <string name="action_label" msgid="7172664623795021857">"Enter"</string>
     <string name="accessbility_suggestion_dropdown_opened" msgid="9015267358421989409">"Kişi önerileri açıldı"</string>
     <string name="accessbility_suggestion_dropdown_closed" msgid="91481373431329121">"Kullanılabilir öneri yok"</string>
-    <string name="dropdown_delete_button_desc" msgid="4359394656487762022">"<xliff:g id="CONTACT">%s</xliff:g> adlı kişiyi alıcılardan kaldır"</string>
+    <string name="dropdown_delete_button_desc" msgid="4359394656487762022"><xliff:g id="contact">%s</xliff:g> adlı kişiyi alıcılardan kaldır</string>
     <string name="chips_action_copy" msgid="6984158516334578792">"Kopyala"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"İptal"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Kişi önerilerine izin ver"</string>
@@ -375,4 +375,15 @@
     <string name="week_start_locale_default">Öntanımlı yerel ayar</string>
     <string name="preferences_staggered_display_title">Kademeli görüntüle</string>
     <string name="preferences_staggered_display_summary">Üst üste binen etkinlikleri kademeli bir düzenle görüntüle</string>
+    <string name="cal_export_calendar_title">Takvimi dışa aktar</string>
+    <string name="cal_export_calendar_summary">Bir takvimdeki tüm etkinlikleri bir .ics dosyasına aktarın</string>
+    <string name="cal_export_select_calendar_title">Dışa aktarılacak takvimi seçin</string>
+    <string name="preferences_view_switch_buttons">Araç çubuğunda görünüm düğmeleri</string>
+    <string name="preferences_view_switch_buttons_summary">Tek bir dokunuşla gün, hafta ve ay görünümleri arasında geçiş yapın (başlıkta aylar kısaltılır)</string>
+    <string name="month_widget_label">Takvim Aylık Görünümü</string>
+    <string name="month_widget_description">Etkinlik göstergeleriyle birlikte geçerli ayı gösterir</string>
+    <string name="week_widget_label">Takvim Haftalık Görünümü</string>
+    <string name="week_widget_description">Etkinlik saatleri ve ayrıntılarıyla birlikte geçerli haftayı gösterir</string>
+    <string name="widget_no_title">(Başlık yok)</string>
+    <string name="widget_event_overflow">+%d daha</string>
 </resources>

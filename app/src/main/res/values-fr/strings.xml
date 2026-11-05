@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
+    <string name="app_label" msgid="5452708708398908131">Calendrier</string>
     <string name="when_label" msgid="894636567327261599">"Date"</string>
     <string name="today" msgid="8577375020252453006">Aujourd’hui</string>
     <string name="tomorrow" msgid="614434811813859237">"Demain"</string>
@@ -124,7 +124,7 @@
     <string name="edit_label" msgid="8934331258435656534">"Modifier"</string>
     <string name="delete_label" msgid="874742811918030739">"Supprimer"</string>
     <string name="save_label" msgid="2133599104834432589">"OK"</string>
-    <string name="discard_label" msgid="2394623883289782541">"Annuler"</string>
+    <string name="discard_label" msgid="2394623883289782541">Abandonner</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Répéter"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">Évènement ponctuel</string>
@@ -290,7 +290,7 @@
     <string name="error_generating_ics">Problèmes rencontrés lors du partage de l’évènement</string>
     <string name="cal_share_intent_title">Envoyer l’évènement à :</string>
     <string name="cal_export_event_title">Exporter sur la carte SD</string>
-    <string name="cal_export_succ_msg">Évènement exporté avec succès : %1$s</string>
+    <string name="cal_export_succ_msg">Évènement exporté avec succès</string>
     <string name="cal_import_menu_title">Importer évènement</string>
     <string name="cal_nothing_to_import">Rien à importer</string>
     <string name="cal_import_error_msg">L’importation dans l’agenda a échoué</string>
@@ -389,4 +389,17 @@
     <string name="chips_action_copy" msgid="6984158516334578792">"Copier"</string>
     <string name="chips_action_cancel" msgid="2582257014578396781">"Annuler"</string>
     <string name="chips_permission_text" msgid="5601284803674008863">"Autoriser les suggestions de contacts"</string>
+    <string name="week_start_locale_default">Par défaut (selon la langue choisie)</string>
+    <string name="preferences_staggered_display_title">Affichage embôité</string>
+    <string name="preferences_staggered_display_summary">Affiche les évènements qui se chevauchent en les emboîtant les uns dans les autres</string>
+    <string name="cal_export_calendar_title">Exporter l\'agenda</string>
+    <string name="cal_export_calendar_summary">Exporte tous les évènements de l\'agenda dans un fichier .ics</string>
+    <string name="cal_export_select_calendar_title">Choisir l\'agenda à exporter</string>
+    <string name="cal_export_error">Éched de l\'export de l\'évènement</string>
+    <string name="cal_export_success">Évènement exporté avec succès</string>
+    <string name="month_widget_label">Visualisation du mois dans le calendrier</string>
+    <string name="week_widget_label">Affiche le mois en cours avec les indicateurs d’événement</string>
+    <string name="week_widget_description">Affiche la semaine en cours avec les heures et les détails des événements</string>
+    <string name="widget_no_title">(Aucun titre)</string>
+    <string name="widget_event_overflow">+%d supplémentaires</string>
 </resources>

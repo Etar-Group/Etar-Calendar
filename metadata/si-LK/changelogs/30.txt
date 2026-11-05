@@ -1,0 +1,2 @@
+-Android 12 හි Notifications සම්බන්ධ දෝෂ නිවැරදි කිරීම
+-“Known” Apps වෙත DecSync සහ Birthday Adapter එකතු කිරීම සහ ඒවා නිසා App එක Crash නොවීමට සකස් කිරීම

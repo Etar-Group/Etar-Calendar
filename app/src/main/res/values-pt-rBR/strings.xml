@@ -371,4 +371,7 @@
     <string name="week_start_locale_default">Padrão da localização</string>
     <string name="preferences_staggered_display_summary">Exibir eventos sobrepostos em um leiaute escalonado</string>
     <string name="preferences_staggered_display_title">Exibição escalonada</string>
+    <string name="cal_export_calendar_title">Exportar calendário</string>
+    <string name="cal_export_calendar_summary">Exporte todos os eventos de um calendário para um arquivo .ics</string>
+    <string name="cal_export_select_calendar_title">Selecione o calendário a ser exportado</string>
 </resources>

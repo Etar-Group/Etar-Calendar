@@ -99,4 +99,44 @@
     <string name="today_at_time_fmt">Ass-a ɣef <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="tomorrow_at_time_fmt">Azekka ɣef <xliff:g id="time_interval">%s</xliff:g></string>
     <string name="date_time_fmt"><xliff:g id="date">%1$s</xliff:g>, <xliff:g id="time_interval">%2$s</xliff:g></string>
+    <string name="visibility_default">Amezwer</string>
+    <string name="show_day_view">Sken-d ass</string>
+    <string name="email_picker_label">Azen s yimayl s</string>
+    <string name="quick_response_settings">Tiririyin tirurad</string>
+    <string name="quick_response_settings_edit_title">Tiririt taruradt</string>
+    <string name="more_string">+<xliff:g id="count">%1$d</xliff:g></string>
+    <string name="agenda_today">Ass-a, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="quick_response_dialog_title">Fren tiririt taruradt</string>
+    <string name="quick_response_custom_msg">Tiririt tudmawant…</string>
+    <plurals name="Ndays">
+        <item quantity="one">1 n wass</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> n wussan</item>
+    </plurals>
+    <plurals name="Nweeks">
+        <item quantity="one">1 n umalas</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> n imalasen</item>
+    </plurals>
+    <plurals name="weekN">
+        <item quantity="one">Amalas <xliff:g id="count">%d</xliff:g></item>
+        <item quantity="other">Imalasen <xliff:g id="count">%d</xliff:g></item>
+    </plurals>
+    <string name="calendar_refresh">Smiren</string>
+    <string name="preferences_calendar_delete">Kkes awitay</string>
+    <string name="preferences_calendar_display_name">Beddel isem</string>
+    <string name="preferences_calendar_info_category">Talqayt n uwitay</string>
+    <string name="preferences_manage_notifications">Sefrek tilɣa</string>
+    <string name="agenda_yesterday">Iḍelli, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_tomorrow">Azekka, <xliff:g id="date">%1$s</xliff:g></string>
+    <plurals name="month_more_events">
+        <item quantity="one">+1</item>
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+    </plurals>
+    <string name="directory_searching_fmt">Yettnadi deg <xliff:g id="domain">%s</xliff:g>…</string>
+    <string name="accessibility_all_day">Ass kamel</string>
+    <string name="preferences_calendar_configure_account">Swel awitay deg %1$s</string>
+    <string name="preferences_list_add_offline_error_empty">Sekcem-d isem n uwitay!</string>
+    <plurals name="daily">
+        <item quantity="one">Yal ass</item>
+        <item quantity="other">Yal <xliff:g id="number">%d</xliff:g> n wussan</item>
+    </plurals>
 </resources>

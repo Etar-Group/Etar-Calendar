@@ -1,4 +1,4 @@
-- Unterstützung für das Teilen von Kalendern via ics und den Import/Export von/zur SDkarte.
+- Unterstützung für das Teilen von Kalendern via ics und den Import/Export von/zur SD-Karte.
 - Nicht benötigte Berechtigungen entfernt.
 - Fehlerbehebung für die Klangeinstellungen in Android 6.
-- Fehlerbehebungen.
+- Viele Fehlerbehebungen.

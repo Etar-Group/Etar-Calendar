@@ -375,4 +375,7 @@
     <string name="week_start_locale_default">Регионални настройки</string>
     <string name="preferences_staggered_display_summary">Показва застъпващите се събития разположени шахматно</string>
     <string name="preferences_staggered_display_title">Шахматно разположение</string>
+    <string name="cal_export_calendar_title">Изнасяне</string>
+    <string name="cal_export_calendar_summary">Изнасяне на всички събития от календара във файл ICS</string>
+    <string name="cal_export_select_calendar_title">Изберете календар, който да бъде изнесен</string>
 </resources>

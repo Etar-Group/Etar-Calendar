@@ -1,0 +1,3 @@
+- Üst üste binen etkinliklerin kademeli olarak görüntülenmesi seçeneği eklendi
+- Haftanın başlangıç günü olarak herhangi bir günün seçilebilmesine izin verildi
+- Hata düzeltmeleri

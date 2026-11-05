@@ -1,0 +1,2 @@
+-Options Display සම්බන්ධ දෝෂය (Bug) නිවැරදි කර ඇත.
+-නව පරිවර්තන (Translations) එක් කර ඇත.

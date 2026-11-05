@@ -1,0 +1,7 @@
+-Widget එක ඉවත් කර ඇත. දැනට Calendar Widget භාවිතා කරන්න: https://f-droid.org/de/packages/com.plusonelabs.calendar/.
+-Events සඳහා කැමති Custom Colors තෝරාගැනීමට සහය ලබා දෙන්න.
+-Ics files සඳහා වඩා හොඳ සහයක් ලබා දෙන්න.
+-Grey Theme එකක් එක් කරන්න.
+-Confidential Visibility සඳහා සහය ලබා දෙන්න.
+-නව Android Notification Channels සඳහා සහය ලබා දෙන්න.
+-බොහෝ දෝෂ (Bugs) නිවැරදි කරන්න.

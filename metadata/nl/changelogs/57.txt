@@ -1,0 +1,3 @@
+- Optie toevoegen voor gespreide weergave van overlappende gebeurtenissen
+- Sta elke dag van de week toe als de startdag van de week
+- Bugfixes
