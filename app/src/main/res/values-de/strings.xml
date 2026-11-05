@@ -386,4 +386,7 @@
     <string name="week_widget_description">Zeigt die aktuelle Woche mit Terminen und Details an</string>
     <string name="widget_no_title">(Kein Titel)</string>
     <string name="widget_event_overflow">+%d weitere</string>
+    <string name="widget_configure_title">Widget-Kalender</string>
+    <string name="widget_configure_description">Wähle die Kalender aus, deren Termine in diesem Widget angezeigt werden sollen:</string>
+    <string name="widget_configure_save">Speichern</string>
 </resources>

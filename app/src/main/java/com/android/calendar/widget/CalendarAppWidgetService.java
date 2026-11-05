@@ -131,7 +131,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         // TODO: It seems loadData() is called via onCreate() four times, which should mean
         // unnecessary CalendarFactory object is created and dropped. It is not efficient.
         private static long sLastUpdateTime = UPDATE_TIME_NO_EVENTS;
-        private static CalendarAppWidgetModel mModel;
+        private CalendarAppWidgetModel mModel;
         private static Object mLock = new Object();
         private static volatile int mSerialNum = 0;
         private final Handler mHandler = new Handler();
@@ -224,14 +224,41 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             };
         }
 
+        private void loadData() {
+            if (mContext == null || !Utils.isCalendarPermissionGranted(mContext, true)) {
+                return;
+            }
+            String selection = WidgetUtils.getWidgetSelection(mContext, mAppWidgetId);
+            String tz = Utils.getTimeZone(mContext, mTimezoneChanged);
+
+            long now = System.currentTimeMillis();
+            long begin = now - DateUtils.DAY_IN_MILLIS;
+            long end = now + SEARCH_DURATION + DateUtils.DAY_IN_MILLIS;
+            Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI, Long.toString(begin) + "/" + end);
+
+            Cursor cursor = null;
+            try {
+                cursor = mContext.getContentResolver().query(uri, EVENT_PROJECTION, selection, null, EVENT_SORT_ORDER);
+                if (cursor != null) {
+                    mModel = buildAppWidgetModel(mContext, cursor, tz);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error loading events for widget " + mAppWidgetId, e);
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+
         @Override
         public void onCreate() {
-            String selection = queryForSelection();
-            initLoader(selection);
+            loadData();
         }
 
         @Override
         public void onDataSetChanged() {
+            loadData();
         }
 
         @Override
@@ -443,8 +470,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
          * shared preferences.
          */
         private String queryForSelection() {
-            return Utils.getHideDeclinedEvents(mContext) ? EVENT_SELECTION_HIDE_DECLINED
-                    : EVENT_SELECTION;
+            return WidgetUtils.getWidgetSelection(mContext, mAppWidgetId);
         }
 
         /**
