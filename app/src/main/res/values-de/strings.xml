@@ -71,7 +71,7 @@
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Einladungen werden gesendet."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Updates werden gesendet."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Speichern"</string>
-    <string name="alert_title" msgid="7869592820853066853">"Benachrichtigungen"</string>
+    <string name="alert_title" msgid="7869592820853066853">Kalenderbenachrichtigungen</string>
     <string name="event_info_title" msgid="56024222340421620">"Termin anzeigen"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Einladung zu einer Besprechung"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Ganztägig"</string>
