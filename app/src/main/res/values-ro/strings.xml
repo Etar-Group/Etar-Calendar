@@ -403,4 +403,7 @@
     <string name="week_widget_description">Afișează săptămâna curentă, împreună cu orele și detaliile evenimentelor</string>
     <string name="widget_no_title">(Fără titlu)</string>
     <string name="widget_event_overflow">+%d în plus</string>
+    <string name="widget_configure_title">Widget-uri pentru calendare</string>
+    <string name="widget_configure_description">Selectează calendarele ale căror evenimente să fie afișate în acest widget:</string>
+    <string name="widget_configure_save">Salvează</string>
 </resources>
