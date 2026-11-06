@@ -369,4 +369,7 @@
     <string name="week_widget_description">显示带活动时间和详情的当前周</string>
     <string name="widget_no_title">（无标题）</string>
     <string name="widget_event_overflow">另外 +%d</string>
+    <string name="widget_configure_title">小组件日历</string>
+    <string name="widget_configure_description">选择活动应显示在这个小组件中的日历：</string>
+    <string name="widget_configure_save">保存</string>
 </resources>
