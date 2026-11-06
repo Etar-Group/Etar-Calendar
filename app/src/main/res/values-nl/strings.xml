@@ -386,4 +386,7 @@
     <string name="week_widget_description">Geeft de huidige week weer met tijden en details van gebeurtenissen</string>
     <string name="widget_no_title">(Geen titel)</string>
     <string name="widget_event_overflow">+%d meer</string>
+    <string name="widget_configure_title">Widget Agenda\'s</string>
+    <string name="widget_configure_description">Selecteer de agenda\'s waarvan de gebeurtenissen in deze widget moeten worden weergegeven:</string>
+    <string name="widget_configure_save">Opslaan</string>
 </resources>
