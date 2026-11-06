@@ -127,6 +127,8 @@ dependencies {
     implementation(libs.androidx.concurrent.futures)
     testImplementation(libs.junit)
 	testImplementation(libs.androidx.test.runner)
+	androidTestImplementation(libs.junit)
+	androidTestImplementation(libs.androidx.test.runner)
 
 	coreLibraryDesugaring(libs.android.tools.desugar)
 
