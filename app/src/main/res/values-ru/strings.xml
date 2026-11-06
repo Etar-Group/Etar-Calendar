@@ -413,4 +413,7 @@
     <string name="month_widget_description">Показывает текущий месяц с индикаторами событий</string>
     <string name="week_widget_description">Показывает текущую неделю с указанием времени и подробной информации о событиях</string>
     <string name="widget_no_title">(Нет заголовка)</string>
+    <string name="widget_configure_title">Календари виджета</string>
+    <string name="widget_configure_description">Календари, события которых должны отображаться в этом виджете:</string>
+    <string name="widget_configure_save">Сохранить</string>
 </resources>
