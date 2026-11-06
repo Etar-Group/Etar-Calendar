@@ -386,4 +386,7 @@
     <string name="week_widget_description">Etkinlik saatleri ve ayrıntılarıyla birlikte geçerli haftayı gösterir</string>
     <string name="widget_no_title">(Başlık yok)</string>
     <string name="widget_event_overflow">+%d daha</string>
+    <string name="widget_configure_title">Widget Takvimleri</string>
+    <string name="widget_configure_description">Bu widget\'ta etkinliklerinin görüntülenmesini istediğiniz takvimleri seçin:</string>
+    <string name="widget_configure_save">Kaydet</string>
 </resources>
