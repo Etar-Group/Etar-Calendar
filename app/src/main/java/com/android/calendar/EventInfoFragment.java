@@ -2270,22 +2270,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      * reminder time and method.
      */
     private void addReminder() {
-        // TODO: when adding a new reminder, make it different from the
-        // last one in the list (if any).
-        if (mDefaultReminderMinutes == GeneralPreferences.NO_REMINDER) {
-            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
-                    mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
-                    mReminderMethodLabels,
-                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME), mMaxReminders,
-                    mReminderChangeListener);
-        } else {
-            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
-                    mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
-                    mReminderMethodLabels, ReminderEntry.valueOf(mDefaultReminderMinutes),
-                    mMaxReminders, mReminderChangeListener);
-        }
-
-        EventViewUtils.updateAddReminderButton(mView, mReminderViews, mMaxReminders);
+        EventViewUtils.showAddReminderDialog(mActivity, mView, this, mReminderViews,
+                mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
+                mReminderMethodLabels, mMaxReminders, mReminderChangeListener);
     }
 
     synchronized private void prepareReminders() {
@@ -2303,6 +2290,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // new event that aren't in the default set.
         Resources r = mActivity.getResources();
         mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
+        if (!mReminderMinuteValues.contains(EventViewUtils.CUSTOM_SELECTION_VALUE)) {
+            mReminderMinuteValues.add(EventViewUtils.CUSTOM_SELECTION_VALUE);
+        }
         mReminderMinuteLabels = EventViewUtils.constructReminderLabelsFromValues(mActivity,
                 mReminderMinuteValues, false);
         mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);

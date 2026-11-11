@@ -773,6 +773,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // is mostly relevant for "methods", since we shouldn't have any "minutes" values in a
         // new event that aren't in the default set.
         mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
+        if (!mReminderMinuteValues.contains(EventViewUtils.CUSTOM_SELECTION_VALUE)) {
+            mReminderMinuteValues.add(EventViewUtils.CUSTOM_SELECTION_VALUE);
+        }
         mReminderMinuteLabels = EventViewUtils.constructReminderLabelsFromValues(mActivity,
                 mReminderMinuteValues, false);
         mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
@@ -1334,23 +1337,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      * reminder time and method.
      */
     private void addReminder() {
-        // TODO: when adding a new reminder, make it different from the
-        // last one in the list (if any).
-        if (mDefaultReminderMinutes == GeneralPreferences.NO_REMINDER) {
-            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                    mReminderMinuteValues, mReminderMinuteLabels,
-                    mReminderMethodValues, mReminderMethodLabels,
-                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME),
-                    mModel.mCalendarMaxReminders, null);
-        } else {
-            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                    mReminderMinuteValues, mReminderMinuteLabels,
-                    mReminderMethodValues, mReminderMethodLabels,
-                    ReminderEntry.valueOf(mDefaultReminderMinutes),
-                    mModel.mCalendarMaxReminders, null);
-        }
+        EventViewUtils.showAddReminderDialog(mActivity, mView, this, mReminderItems,
+                mReminderMinuteValues, mReminderMinuteLabels,
+                mReminderMethodValues, mReminderMethodLabels,
+                mModel.mCalendarMaxReminders, null);
         updateRemindersVisibility(mReminderItems.size());
-        EventViewUtils.updateAddReminderButton(mView, mReminderItems, mModel.mCalendarMaxReminders);
     }
 
     // From com.google.android.gm.ComposeActivity

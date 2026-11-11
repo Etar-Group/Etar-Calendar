@@ -18,6 +18,7 @@ package com.android.calendar.event;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.provider.CalendarContract.Reminders;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,13 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 
@@ -38,6 +43,8 @@ import ws.xsoh.etar.R;
 
 public class EventViewUtils {
     private static final String TAG = "EventViewUtils";
+
+    public static final int CUSTOM_SELECTION_VALUE = -1;
 
     private EventViewUtils() {
     }
@@ -100,7 +107,11 @@ public class EventViewUtils {
             ArrayList<Integer> minutes, boolean abbrev) {
         ArrayList<String> labels = new ArrayList<>(minutes.size());
         for (int val: minutes) {
-            labels.add(EventViewUtils.constructReminderLabel(context, val, abbrev));
+            if (val == CUSTOM_SELECTION_VALUE) {
+                labels.add(context.getString(R.string.custom_reminder_label));
+            } else {
+                labels.add(EventViewUtils.constructReminderLabel(context, val, abbrev));
+            }
         }
         return labels;
     }
@@ -152,6 +163,21 @@ public class EventViewUtils {
      * @param reminderMethodValues Maps array index to alert method constant.
      * @return Array with reminder data.
      */
+    public static String getMethodLabel(Context context, int method,
+            ArrayList<Integer> methodValues, ArrayList<String> methodLabels) {
+        if (methodValues != null && methodLabels != null) {
+            int index = methodValues.indexOf(method);
+            if (index >= 0 && index < methodLabels.size()) {
+                return methodLabels.get(index);
+            }
+        }
+        return switch (method) {
+            case Reminders.METHOD_EMAIL -> context.getString(R.string.reminder_email);
+            case Reminders.METHOD_ALARM -> context.getString(R.string.reminder_alarm);
+            default -> context.getString(R.string.reminder_notification);
+        };
+    }
+
     public static ArrayList<ReminderEntry> reminderItemsToReminders(
             ArrayList<ConstraintLayout> reminderItems, ArrayList<Integer> reminderMinuteValues,
             ArrayList<Integer> reminderMethodValues) {
@@ -159,21 +185,14 @@ public class EventViewUtils {
         ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>(len);
         for (int index = 0; index < len; index++) {
             ConstraintLayout layout = reminderItems.get(index);
-            Spinner minuteSpinner = (Spinner) layout.findViewById(R.id.reminder_minutes_value);
-            Spinner methodSpinner = (Spinner) layout.findViewById(R.id.reminder_method_value);
-            CheckBox minuteSign = (CheckBox) layout.findViewById(R.id.reminder_minutes_sign);
-            int sign = minuteSign.isChecked() ? -1:1;
-            int minutes = reminderMinuteValues.get(minuteSpinner.getSelectedItemPosition());
-            int method = reminderMethodValues.get(methodSpinner.getSelectedItemPosition());
-            reminders.add(ReminderEntry.valueOf(sign*minutes, method));
+            Object tag = layout.getTag();
+            if (tag instanceof ReminderEntry) {
+                reminders.add((ReminderEntry) tag);
+            }
         }
         return reminders;
     }
 
-    /**
-     * If "minutes" is not currently present in "values", we add an appropriate new entry
-     * to values and labels.
-     */
     public static void addMinutesToList(Context context, ArrayList<Integer> values,
             ArrayList<String> labels, int minutes) {
         int index = values.indexOf(minutes);
@@ -181,13 +200,16 @@ public class EventViewUtils {
             return;
         }
 
-        // The requested "minutes" does not exist in the list, so insert it
-        // into the list.
-
         String label = constructReminderLabel(context, minutes, false);
         int len = values.size();
         for (int i = 0; i < len; i++) {
-            if (minutes < values.get(i)) {
+            int currentVal = values.get(i);
+            if (currentVal < 0) {
+                values.add(i, minutes);
+                labels.add(i, label);
+                return;
+            }
+            if (minutes < currentVal) {
                 values.add(i, minutes);
                 labels.add(i, label);
                 return;
@@ -198,17 +220,9 @@ public class EventViewUtils {
         labels.add(len, label);
     }
 
-    /**
-     * Remove entries from the method list that aren't allowed for this calendar.
-     *
-     * @param values List of known method values.
-     * @param labels List of known method labels.
-     * @param allowedMethods Has the form "0,1,3", indicating method constants from Reminders.
-     */
     public static void reduceMethodList(ArrayList<Integer> values, ArrayList<String> labels,
             String allowedMethods)
     {
-        // Parse "allowedMethods".
         String[] allowedStrings = allowedMethods.split(",");
         int[] allowedValues = new int[allowedStrings.length];
 
@@ -222,7 +236,6 @@ public class EventViewUtils {
             }
         }
 
-        // Walk through the method list, removing entries that aren't in the allowed list.
         for (int i = values.size() - 1; i >= 0; i--) {
             int val = values.get(i);
             int j;
@@ -239,10 +252,7 @@ public class EventViewUtils {
         }
     }
 
-    /**
-     * Set the list of labels on a reminder spinner.
-     */
-    private static void setReminderSpinnerLabels(Activity activity, Spinner spinner,
+    public static void setReminderSpinnerLabels(Activity activity, Spinner spinner,
             ArrayList<String> labels) {
         Resources res = activity.getResources();
         spinner.setPrompt(res.getString(R.string.reminders_label));
@@ -252,17 +262,6 @@ public class EventViewUtils {
         spinner.setAdapter(adapter);
     }
 
-    /**
-     * Adds a reminder to the displayed list of reminders. The values/labels
-     * arrays must not change after calling here, or the spinners we created
-     * might index into the wrong entry. Returns true if successfully added
-     * reminder, false if no reminders can be added.
-     *
-     * onItemSelected allows a listener to be set for any changes to the
-     * spinners in the reminder. If a listener is set it will store the
-     * initial position of the spinner into the spinner's tag for comparison
-     * with any new position setting.
-     */
     public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
             ArrayList<ConstraintLayout> items, ArrayList<Integer> minuteValues,
             ArrayList<String> minuteLabels, ArrayList<Integer> methodValues,
@@ -274,50 +273,203 @@ public class EventViewUtils {
         }
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        LinearLayout parent = (LinearLayout) view.findViewById(R.id.reminder_items_container);
-        ConstraintLayout reminderItem = (ConstraintLayout) inflater.inflate(R.layout.edit_reminder_item,
-                null);
-        parent.addView(reminderItem);
-
-        ImageButton reminderRemoveButton;
-        reminderRemoveButton = (ImageButton) reminderItem.findViewById(R.id.reminder_remove);
-        reminderRemoveButton.setOnClickListener(listener);
-
-        /*
-         * The spinner has the default set of labels from the string resource file, but we
-         * want to drop in our custom set of labels because it may have additional entries.
-         */
-        Spinner spinner = (Spinner) reminderItem.findViewById(R.id.reminder_minutes_value);
-        setReminderSpinnerLabels(activity, spinner, minuteLabels);
-
-        int index = findMinutesInReminderList(minuteValues, Math.abs(newReminder.getMinutes()));
-        spinner.setSelection(index);
-
-        if (onItemSelected != null) {
-            spinner.setTag(index);
-            spinner.setOnItemSelectedListener(onItemSelected);
+        LinearLayout parent = view.findViewById(R.id.reminder_items_container);
+        if (parent == null) {
+            return false;
         }
 
-        CheckBox checkBox = (CheckBox) reminderItem.findViewById(R.id.reminder_minutes_sign);
-        checkBox.setChecked(newReminder.getMinutes()<0);
-        /*
-         * Configure the alert-method spinner.  Methods not supported by the current Calendar
-         * will not be shown.
-         */
-        spinner = (Spinner) reminderItem.findViewById(R.id.reminder_method_value);
-        setReminderSpinnerLabels(activity, spinner, methodLabels);
+        parent.setVisibility(View.VISIBLE);
 
-        index = findMethodInReminderList(methodValues, newReminder.getMethod());
-        spinner.setSelection(index);
+        ConstraintLayout reminderItem = (ConstraintLayout) inflater.inflate(R.layout.edit_reminder_item, parent, false);
+        reminderItem.setTag(newReminder);
+        parent.addView(reminderItem);
 
-        if (onItemSelected != null) {
-            spinner.setTag(index);
-            spinner.setOnItemSelectedListener(onItemSelected);
+        ImageButton reminderRemoveButton = reminderItem.findViewById(R.id.reminder_remove);
+        if (reminderRemoveButton != null) {
+            reminderRemoveButton.setOnClickListener(listener);
+        }
+
+        TextView reminderTextView = reminderItem.findViewById(R.id.reminder_value);
+        if (reminderTextView != null) {
+            int minutes = Math.abs(newReminder.getMinutes());
+            String durationLabel = constructReminderLabel(activity, minutes, false);
+            String text;
+            if (newReminder.getMinutes() < 0) {
+                text = activity.getString(R.string.reminder_after, durationLabel);
+            } else {
+                text = activity.getString(R.string.reminder_before, durationLabel);
+            }
+            if (newReminder.getMethod() == Reminders.METHOD_EMAIL) {
+                text += " " + activity.getString(R.string.reminder_email_suffix);
+            }
+            reminderTextView.setText(text);
         }
 
         items.add(reminderItem);
-
         return true;
+    }
+
+    public static void showAddReminderDialog(final Activity activity, final View view,
+            final View.OnClickListener removeListener, final ArrayList<ConstraintLayout> items,
+            final ArrayList<Integer> minuteValues, final ArrayList<String> minuteLabels,
+            final ArrayList<Integer> methodValues, final ArrayList<String> methodLabels,
+            final int maxReminders, final OnItemSelectedListener onItemSelected) {
+
+        if (items.size() >= maxReminders) {
+            return;
+        }
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_add_reminder, null);
+
+        final RadioGroup timeRadioGroup = dialogView.findViewById(R.id.reminder_time_radiogroup);
+        final RadioButton rb5 = dialogView.findViewById(R.id.time_5_min);
+        final RadioButton rb10 = dialogView.findViewById(R.id.time_10_min);
+        final RadioButton rb30 = dialogView.findViewById(R.id.time_30_min);
+        final RadioButton rbCustom = dialogView.findViewById(R.id.time_custom);
+
+        if (rb5 != null) rb5.setText(constructReminderLabel(activity, 5, false));
+        if (rb10 != null) rb10.setText(constructReminderLabel(activity, 10, false));
+        if (rb30 != null) rb30.setText(constructReminderLabel(activity, 30, false));
+
+        final androidx.appcompat.app.AlertDialog[] dialogHolder = new androidx.appcompat.app.AlertDialog[1];
+
+        if (rbCustom != null) {
+            rbCustom.setOnClickListener(v -> {
+                if (dialogHolder[0] != null) {
+                    dialogHolder[0].dismiss();
+                }
+                showCustomReminderDialog(activity, view, removeListener, items, minuteValues,
+                        minuteLabels, methodValues, methodLabels, maxReminders, onItemSelected);
+            });
+        }
+
+        dialogHolder[0] = new com.google.android.material.dialog.MaterialAlertDialogBuilder(activity)
+                .setTitle(R.string.reminders_label)
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    int checkedTimeId = timeRadioGroup.getCheckedRadioButtonId();
+                    if (checkedTimeId == R.id.time_custom) {
+                        showCustomReminderDialog(activity, view, removeListener, items, minuteValues,
+                                minuteLabels, methodValues, methodLabels, maxReminders, onItemSelected);
+                    } else {
+                        int minutes = 10;
+                        if (checkedTimeId == R.id.time_5_min) {
+                            minutes = 5;
+                        } else if (checkedTimeId == R.id.time_10_min) {
+                            minutes = 10;
+                        } else if (checkedTimeId == R.id.time_30_min) {
+                            minutes = 30;
+                        }
+
+                        int defaultMethod = Reminders.METHOD_ALERT;
+                        if (methodValues != null && !methodValues.isEmpty()) {
+                            defaultMethod = methodValues.get(0);
+                        }
+
+                        ReminderEntry newReminder = ReminderEntry.valueOf(minutes, defaultMethod);
+                        addReminder(activity, view, removeListener, items, minuteValues, minuteLabels,
+                                methodValues, methodLabels, newReminder, maxReminders, onItemSelected);
+
+                        updateAddReminderButton(view, items, maxReminders);
+
+                        if (onItemSelected != null) {
+                            onItemSelected.onItemSelected(null, null, 0, 0);
+                        }
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    public static void showCustomReminderDialog(final Activity activity, final View view,
+            final View.OnClickListener removeListener, final ArrayList<ConstraintLayout> items,
+            final ArrayList<Integer> minuteValues, final ArrayList<String> minuteLabels,
+            final ArrayList<Integer> methodValues, final ArrayList<String> methodLabels,
+            final int maxReminders, final OnItemSelectedListener onItemSelected) {
+
+        if (items.size() >= maxReminders) {
+            return;
+        }
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_reminder_picker, null);
+
+        final com.google.android.material.textfield.TextInputEditText numberEditText =
+                dialogView.findViewById(R.id.reminder_number);
+        final RadioGroup unitRadioGroup = dialogView.findViewById(R.id.reminder_unit_radiogroup);
+        final CheckBox afterStartCheckBox = dialogView.findViewById(R.id.reminder_after_start);
+        final RadioGroup methodRadioGroup = dialogView.findViewById(R.id.reminder_method_radiogroup);
+
+        numberEditText.setText("10");
+
+        methodRadioGroup.removeAllViews();
+        if (methodValues != null && methodLabels != null) {
+            for (int i = 0; i < methodValues.size(); i++) {
+                RadioButton rb = new RadioButton(activity);
+                rb.setId(View.generateViewId());
+                rb.setText(methodLabels.get(i));
+                rb.setTag(methodValues.get(i));
+                methodRadioGroup.addView(rb);
+                if (i == 0) {
+                    rb.setChecked(true);
+                }
+            }
+        }
+
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(activity)
+                .setTitle(R.string.custom_reminder_title)
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    String numStr = numberEditText.getText() != null ? numberEditText.getText().toString().trim() : "";
+                    int amount = 10;
+                    if (!numStr.isEmpty()) {
+                        try {
+                            amount = Integer.parseInt(numStr);
+                        } catch (NumberFormatException ignored) {
+                        }
+                    }
+                    if (amount < 0) {
+                        amount = 0;
+                    }
+
+                    int checkedUnitId = unitRadioGroup.getCheckedRadioButtonId();
+                    int multiplier;
+                    if (checkedUnitId == R.id.unit_hours) {
+                        multiplier = 60;
+                    } else if (checkedUnitId == R.id.unit_days) {
+                        multiplier = 24 * 60;
+                    } else if (checkedUnitId == R.id.unit_weeks) {
+                        multiplier = 7 * 24 * 60;
+                    } else {
+                        multiplier = 1;
+                    }
+
+                    boolean isAfterStart = afterStartCheckBox != null && afterStartCheckBox.isChecked();
+                    int customMinutes = amount * multiplier;
+                    if (isAfterStart) {
+                        customMinutes = -customMinutes;
+                    }
+
+                    int selectedMethod = Reminders.METHOD_ALERT;
+                    int checkedMethodId = methodRadioGroup.getCheckedRadioButtonId();
+                    View checkedMethodRb = methodRadioGroup.findViewById(checkedMethodId);
+                    if (checkedMethodRb != null && checkedMethodRb.getTag() instanceof Integer) {
+                        selectedMethod = (Integer) checkedMethodRb.getTag();
+                    }
+
+                    ReminderEntry newReminder = ReminderEntry.valueOf(customMinutes, selectedMethod);
+                    addReminder(activity, view, removeListener, items, minuteValues, minuteLabels,
+                            methodValues, methodLabels, newReminder, maxReminders, onItemSelected);
+
+                    updateAddReminderButton(view, items, maxReminders);
+
+                    if (onItemSelected != null) {
+                        onItemSelected.onItemSelected(null, null, 0, 0);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     /**
@@ -334,6 +486,27 @@ public class EventViewUtils {
             } else {
                 reminderAddButton.setEnabled(true);
                 reminderAddButton.setVisibility(View.VISIBLE);
+
+                View parentView = (View) reminderAddButton.getParent();
+                if (parentView instanceof ConstraintLayout) {
+                    ConstraintLayout constraintLayout = (ConstraintLayout) parentView;
+                    ConstraintSet constraintSet = new ConstraintSet();
+                    constraintSet.clone(constraintLayout);
+
+                    if (reminders.isEmpty()) {
+                        constraintSet.connect(R.id.reminder_add, ConstraintSet.TOP,
+                                R.id.reminder_icon, ConstraintSet.TOP, 0);
+                        constraintSet.connect(R.id.reminder_add, ConstraintSet.BOTTOM,
+                                R.id.reminder_icon, ConstraintSet.BOTTOM, 0);
+                    } else {
+                        constraintSet.connect(R.id.reminder_add, ConstraintSet.TOP,
+                                R.id.reminder_items_container, ConstraintSet.BOTTOM,
+                                (int) (12 * view.getResources().getDisplayMetrics().density));
+                        constraintSet.clear(R.id.reminder_add, ConstraintSet.BOTTOM);
+                    }
+
+                    constraintSet.applyTo(constraintLayout);
+                }
             }
         }
     }

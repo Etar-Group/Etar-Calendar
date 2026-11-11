@@ -886,4 +886,17 @@
     <string name="widget_no_title">(No title)</string>
     <!-- Overflow indicator when more events exist than can be displayed. %d is the number of additional events. -->
     <string name="widget_event_overflow">+%d more</string>
+    <!-- Custom reminder picker -->
+    <string name="custom_reminder_label">Custom…</string>
+    <string name="custom_reminder_title">Set reminder time</string>
+    <string name="reminder_unit_minutes">Minutes</string>
+    <string name="reminder_unit_hours">Hours</string>
+    <string name="reminder_unit_days">Days</string>
+    <string name="reminder_unit_weeks">Weeks</string>
+    <string name="reminder_notification">Notification</string>
+    <string name="reminder_email">Email</string>
+    <string name="reminder_alarm">Alarm</string>
+    <string name="reminder_before">%1$s before</string>
+    <string name="reminder_after">%1$s after</string>
+    <string name="reminder_email_suffix">as email</string>
 </resources>

@@ -33,7 +33,6 @@
     <string-array name="reminder_methods_labels">
         <item>Notification</item>
         <item>Email</item>
-        <item>SMS</item>
         <item>Alarm</item>
     </string-array>
 
@@ -41,31 +40,13 @@
     <integer-array name="reminder_methods_values" translatable="false">
         <item>1</item>  <!-- METHOD_ALERT -->
         <item>2</item>  <!-- METHOD_EMAIL -->
-        <item>3</item>  <!-- METHOD_SMS -->
         <item>4</item>  <!-- METHOD_ALARM -->
     </integer-array>
 
     <integer-array name="reminder_minutes_values" translatable="false">
-        <item>0</item>
-        <item>1</item>
         <item>5</item>
         <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>25</item>
         <item>30</item>
-        <item>45</item>
-        <item>60</item>
-        <item>120</item>
-        <item>180</item>
-        <item>360</item>
-        <item>540</item>
-        <item>720</item> <!-- 12 hours -->
-        <item>1440</item> <!-- 24 hours -->
-        <item>2880</item> <!-- 2 days -->
-        <item>10080</item> <!-- 1 week -->
-        <item>20160</item> <!-- 2 weeks -->
-        <item>40320</item> <!-- 4 weeks -->
     </integer-array>
 
     <string-array name="preferences_default_reminder_values" translatable="false">

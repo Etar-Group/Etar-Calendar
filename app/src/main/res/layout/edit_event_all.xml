@@ -544,15 +544,13 @@
             android:id="@+id/reminder_items_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="12dp"
             android:layout_marginEnd="24dp"
             android:focusable="true"
             android:orientation="vertical"
-            android:translationY="-6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/reminder_icon"
-            app:layout_constraintTop_toBottomOf="@+id/view4" />
+            app:layout_constraintTop_toTopOf="@+id/reminder_icon" />
 
         <Button
             android:id="@+id/reminder_add"
@@ -560,12 +558,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
             android:paddingHorizontal="12dp"
             android:contentDescription="@string/accessibility_add_reminder"
             android:text="@string/reminders_label"
+            app:layout_constraintBottom_toBottomOf="@+id/reminder_icon"
             app:layout_constraintStart_toEndOf="@+id/reminder_icon"
-            app:layout_constraintTop_toBottomOf="@+id/reminder_items_container" />
+            app:layout_constraintTop_toTopOf="@+id/reminder_icon" />
 
         <View
             android:id="@+id/view5"
