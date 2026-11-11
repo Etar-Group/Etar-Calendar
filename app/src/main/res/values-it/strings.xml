@@ -401,4 +401,7 @@
     <string name="week_widget_description">Mostra la settimana attuale con gli orari e i dettagli degli eventi</string>
     <string name="widget_no_title">(Nessun titolo)</string>
     <string name="widget_event_overflow">+ altri %d</string>
+    <string name="widget_configure_title">Calendari del widget</string>
+    <string name="widget_configure_description">Seleziona i calendari i cui eventi devono essere mostrati nel widget:</string>
+    <string name="widget_configure_save">Salva</string>
 </resources>
