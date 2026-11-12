@@ -222,6 +222,24 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private EventRecurrence mEventRecurrence = new EventRecurrence();
     private ArrayList<ConstraintLayout> mReminderItems = new ArrayList<ConstraintLayout>(0);
     private ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
+    /** The start of the event as currently entered, for custom reminder times. */
+    private final CustomReminderDialog.EventTime mReminderEventTime =
+            new CustomReminderDialog.EventTime() {
+                @Override
+                public long getStartMillis() {
+                    return mStartTime.toMillis();
+                }
+
+                @Override
+                public boolean isAllDay() {
+                    return mAllDayCheckBox.isChecked();
+                }
+
+                @Override
+                public String getTimeZone() {
+                    return mTimezone;
+                }
+            };
     private String mRrule;
 
     public EditEventView(AppCompatActivity activity, View view, EditDoneRunnable done) {
@@ -513,7 +531,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return false;
         }
         mModel.mReminders = EventViewUtils.reminderItemsToReminders(
-                    mReminderItems, mReminderMinuteValues, mReminderMethodValues);
+                    mReminderItems, mReminderMethodValues);
         mModel.mReminders.addAll(mUnsupportedReminders);
         mModel.normalizeReminders();
         int status = EventInfoFragment.getResponseFromButtonId(
@@ -603,7 +621,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return false;
         }
         mModel.mReminders = EventViewUtils.reminderItemsToReminders(mReminderItems,
-                mReminderMinuteValues, mReminderMethodValues);
+                mReminderMethodValues);
         mModel.mReminders.addAll(mUnsupportedReminders);
         mModel.normalizeReminders();
         mModel.mHasAlarm = mReminderItems.size() > 0;
@@ -793,7 +811,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             for (ReminderEntry re : reminders) {
                 if (mReminderMethodValues.contains(re.getMethod())) {
                     EventViewUtils.addMinutesToList(mActivity, mReminderMinuteValues,
-                            mReminderMinuteLabels, re.getMinutes());
+                            mReminderMinuteLabels, Math.abs(re.getMinutes()));
                 }
             }
 
@@ -806,7 +824,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                         || re.getMethod() == Reminders.METHOD_DEFAULT) {
                     EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                             mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
-                            mReminderMethodLabels, re, Integer.MAX_VALUE, null);
+                            mReminderMethodLabels, re, Integer.MAX_VALUE, null, mReminderEventTime);
                 } else {
                     // TODO figure out a way to display unsupported reminders
                     mUnsupportedReminders.add(re);
@@ -1341,13 +1359,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     mReminderMinuteValues, mReminderMinuteLabels,
                     mReminderMethodValues, mReminderMethodLabels,
                     ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME),
-                    mModel.mCalendarMaxReminders, null);
+                    mModel.mCalendarMaxReminders, null, mReminderEventTime);
         } else {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                     mReminderMinuteValues, mReminderMinuteLabels,
                     mReminderMethodValues, mReminderMethodLabels,
                     ReminderEntry.valueOf(mDefaultReminderMinutes),
-                    mModel.mCalendarMaxReminders, null);
+                    mModel.mCalendarMaxReminders, null, mReminderEventTime);
         }
         updateRemindersVisibility(mReminderItems.size());
         EventViewUtils.updateAddReminderButton(mView, mReminderItems, mModel.mCalendarMaxReminders);
