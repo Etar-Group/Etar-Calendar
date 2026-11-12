@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -39,50 +40,76 @@ import ws.xsoh.etar.R;
 public class EventViewUtils {
     private static final String TAG = "EventViewUtils";
 
+    /**
+     * Pseudo value of the entry in the list of reminder minutes that opens the dialog to enter
+     * a custom time. Real entries are never negative, the direction is a separate check box.
+     */
+    private static final int CUSTOM_REMINDER_MINUTES = -1;
+
+    /**
+     * State of the minutes spinner of one reminder item, kept as the tag of the item's layout.
+     * Each item has its own list of choices so that adding a custom time to one of them does
+     * not shift the entries the other spinners point at.
+     */
+    private static class ReminderItemState {
+        final ArrayList<Integer> minuteValues;
+        /** The selected position, never the one of the "custom" entry. */
+        int position;
+
+        ReminderItemState(ArrayList<Integer> minuteValues, int position) {
+            this.minuteValues = minuteValues;
+            this.position = position;
+        }
+    }
+
     private EventViewUtils() {
     }
 
     // Constructs a label given an arbitrary number of minutes. For example,
-    // if the given minutes is 63, then this returns the string "63 minutes".
+    // if the given minutes is 45, then this returns the string "45 minutes".
     // As another example, if the given minutes is 120, then this returns
-    // "2 hours".
+    // "2 hours". Minutes that are not a whole number of one unit are split up,
+    // 1545 minutes gives "1 day 1 hour 45 minutes".
     // if minute is < 0, returns `None`
     public static String constructReminderLabel(Context context, int minutes, boolean abbrev) {
         Resources resources = context.getResources();
 
+        if (minutes == Integer.MIN_VALUE) {
+            return resources.getString(R.string.no_reminder_label);
+        }
         if (minutes < 0) {
             return resources.getString(R.string.no_snooze_label);
         }
 
-        int value, resId;
-
-        if (minutes == Integer.MIN_VALUE) {
-            value = 0;
-            resId = R.string.no_reminder_label;
-
-            String format = resources.getString(resId, value);
-            return String.format(format, value);
-
-        } else if (minutes % 60 != 0 || minutes == 0) {
-            value = minutes;
-            if (abbrev) {
-                resId = R.plurals.Nmins;
-            } else {
-                resId = R.plurals.Nminutes;
-            }
-        } else if (minutes % (24 * 60) != 0) {
-            value = minutes / 60;
-            resId = R.plurals.Nhours;
-        } else if (minutes % (7 * 24 * 60) != 0) {
-            value = minutes / (24 * 60);
-            resId = R.plurals.Ndays;
-        } else {
-            value = minutes / (7 * 24 * 60);
-            resId = R.plurals.Nweeks;
+        int minutesResId = abbrev ? R.plurals.Nmins : R.plurals.Nminutes;
+        if (minutes == 0) {
+            return resources.getQuantityString(minutesResId, 0, 0);
+        }
+        if (minutes % (7 * 24 * 60) == 0) {
+            int weeks = minutes / (7 * 24 * 60);
+            return resources.getQuantityString(R.plurals.Nweeks, weeks, weeks);
         }
 
-        String format = resources.getQuantityString(resId, value);
-        return String.format(format, value);
+        int days = minutes / (24 * 60);
+        int hours = minutes / 60 % 24;
+        int mins = minutes % 60;
+        StringBuilder label = new StringBuilder();
+        if (days > 0) {
+            label.append(resources.getQuantityString(R.plurals.Ndays, days, days));
+        }
+        if (hours > 0) {
+            if (label.length() > 0) {
+                label.append(' ');
+            }
+            label.append(resources.getQuantityString(R.plurals.Nhours, hours, hours));
+        }
+        if (mins > 0) {
+            if (label.length() > 0) {
+                label.append(' ');
+            }
+            label.append(resources.getQuantityString(minutesResId, mins, mins));
+        }
+        return label.toString();
     }
 
     /**
@@ -148,22 +175,21 @@ public class EventViewUtils {
      * Extracts reminder minutes info from UI elements.
      *
      * @param reminderItems UI elements (layouts with spinners) that hold array indices.
-     * @param reminderMinuteValues Maps array index to time in minutes.
      * @param reminderMethodValues Maps array index to alert method constant.
      * @return Array with reminder data.
      */
     public static ArrayList<ReminderEntry> reminderItemsToReminders(
-            ArrayList<ConstraintLayout> reminderItems, ArrayList<Integer> reminderMinuteValues,
+            ArrayList<ConstraintLayout> reminderItems,
             ArrayList<Integer> reminderMethodValues) {
         int len = reminderItems.size();
         ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>(len);
         for (int index = 0; index < len; index++) {
             ConstraintLayout layout = reminderItems.get(index);
-            Spinner minuteSpinner = (Spinner) layout.findViewById(R.id.reminder_minutes_value);
+            ReminderItemState state = (ReminderItemState) layout.getTag();
             Spinner methodSpinner = (Spinner) layout.findViewById(R.id.reminder_method_value);
             CheckBox minuteSign = (CheckBox) layout.findViewById(R.id.reminder_minutes_sign);
             int sign = minuteSign.isChecked() ? -1:1;
-            int minutes = reminderMinuteValues.get(minuteSpinner.getSelectedItemPosition());
+            int minutes = state.minuteValues.get(state.position);
             int method = reminderMethodValues.get(methodSpinner.getSelectedItemPosition());
             reminders.add(ReminderEntry.valueOf(sign*minutes, method));
         }
@@ -242,14 +268,15 @@ public class EventViewUtils {
     /**
      * Set the list of labels on a reminder spinner.
      */
-    private static void setReminderSpinnerLabels(Activity activity, Spinner spinner,
-            ArrayList<String> labels) {
+    private static ArrayAdapter<String> setReminderSpinnerLabels(Activity activity,
+            Spinner spinner, ArrayList<String> labels) {
         Resources res = activity.getResources();
         spinner.setPrompt(res.getString(R.string.reminders_label));
         int resource = android.R.layout.simple_spinner_item;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, resource, labels);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        return adapter;
     }
 
     /**
@@ -262,12 +289,14 @@ public class EventViewUtils {
      * spinners in the reminder. If a listener is set it will store the
      * initial position of the spinner into the spinner's tag for comparison
      * with any new position setting.
+     *
+     * eventTime supplies the start of the event for the dialog to enter a custom reminder time.
      */
     public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
             ArrayList<ConstraintLayout> items, ArrayList<Integer> minuteValues,
             ArrayList<String> minuteLabels, ArrayList<Integer> methodValues,
             ArrayList<String> methodLabels, ReminderEntry newReminder, int maxReminders,
-            OnItemSelectedListener onItemSelected) {
+            OnItemSelectedListener onItemSelected, CustomReminderDialog.EventTime eventTime) {
 
         if (items.size() >= maxReminders) {
             return false;
@@ -286,20 +315,75 @@ public class EventViewUtils {
         /*
          * The spinner has the default set of labels from the string resource file, but we
          * want to drop in our custom set of labels because it may have additional entries.
+         * The entry to enter a custom time always comes first.
          */
+        ArrayList<Integer> itemMinuteValues = new ArrayList<>(minuteValues);
+        ArrayList<String> itemMinuteLabels = new ArrayList<>(minuteLabels);
+        addMinutesToList(activity, itemMinuteValues, itemMinuteLabels,
+                Math.abs(newReminder.getMinutes()));
+        itemMinuteValues.add(0, CUSTOM_REMINDER_MINUTES);
+        itemMinuteLabels.add(0, activity.getString(R.string.custom_reminder_label));
+
         Spinner spinner = (Spinner) reminderItem.findViewById(R.id.reminder_minutes_value);
-        setReminderSpinnerLabels(activity, spinner, minuteLabels);
+        ArrayAdapter<String> minuteAdapter =
+                setReminderSpinnerLabels(activity, spinner, itemMinuteLabels);
 
-        int index = findMinutesInReminderList(minuteValues, Math.abs(newReminder.getMinutes()));
+        int index = findMinutesInReminderList(itemMinuteValues,
+                Math.abs(newReminder.getMinutes()));
         spinner.setSelection(index);
-
-        if (onItemSelected != null) {
-            spinner.setTag(index);
-            spinner.setOnItemSelectedListener(onItemSelected);
-        }
 
         CheckBox checkBox = (CheckBox) reminderItem.findViewById(R.id.reminder_minutes_sign);
         checkBox.setChecked(newReminder.getMinutes()<0);
+
+        ReminderItemState state = new ReminderItemState(itemMinuteValues, index);
+        reminderItem.setTag(state);
+        if (onItemSelected != null) {
+            spinner.setTag(index);
+        }
+        final Spinner minuteSpinner = spinner;
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View selected, int position,
+                    long id) {
+                if (state.minuteValues.get(position) != CUSTOM_REMINDER_MINUTES) {
+                    state.position = position;
+                    if (onItemSelected != null) {
+                        onItemSelected.onItemSelected(parent, selected, position, id);
+                    }
+                    return;
+                }
+                // Keep showing the previous time unless a custom one is confirmed.
+                minuteSpinner.setSelection(state.position);
+                int minutes = state.minuteValues.get(state.position);
+                CustomReminderDialog.show(activity, checkBox.isChecked() ? -minutes : minutes,
+                        eventTime, customMinutes -> {
+                            int magnitude = Math.abs(customMinutes);
+                            int customIndex = state.minuteValues.indexOf(magnitude);
+                            if (customIndex == -1) {
+                                // Keep the times sorted behind the "custom" entry.
+                                customIndex = 1;
+                                while (customIndex < state.minuteValues.size()
+                                        && state.minuteValues.get(customIndex) < magnitude) {
+                                    customIndex++;
+                                }
+                                state.minuteValues.add(customIndex, magnitude);
+                                minuteAdapter.insert(
+                                        constructReminderLabel(activity, magnitude, false),
+                                        customIndex);
+                            }
+                            checkBox.setChecked(customMinutes < 0);
+                            minuteSpinner.setSelection(customIndex);
+                        });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (onItemSelected != null) {
+                    onItemSelected.onNothingSelected(parent);
+                }
+            }
+        });
+
         /*
          * Configure the alert-method spinner.  Methods not supported by the current Calendar
          * will not be shown.

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="8dp">
+
+        <RadioButton
+            android:id="@+id/custom_reminder_mode_span"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_reminder_mode_span" />
+
+        <LinearLayout
+            android:id="@+id/custom_reminder_span_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/custom_reminder_span_count"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:hint="@string/custom_reminder_span_count"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="4"
+                android:selectAllOnFocus="true" />
+
+            <Spinner
+                android:id="@+id/custom_reminder_span_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:entries="@array/custom_reminder_units" />
+        </LinearLayout>
+
+        <RadioButton
+            android:id="@+id/custom_reminder_mode_day_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/custom_reminder_mode_day_time" />
+
+        <LinearLayout
+            android:id="@+id/custom_reminder_day_time_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:labelFor="@+id/custom_reminder_days_before"
+                    android:text="@string/custom_reminder_days_before"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@id/custom_reminder_days_before"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:selectAllOnFocus="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:labelFor="@+id/custom_reminder_time"
+                    android:text="@string/custom_reminder_time"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Button
+                    android:id="@id/custom_reminder_time"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="72dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

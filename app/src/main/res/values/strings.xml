@@ -813,6 +813,28 @@
     <string name="offline_account_name">Offline Calendar</string>
     <string name="after_start_of_event">after start of event</string>
 
+    <!-- Last entry in the list of reminder times, opens a dialog to enter any time -->
+    <string name="custom_reminder_label">Custom…</string>
+    <!-- Title of the dialog to enter a custom reminder time -->
+    <string name="custom_reminder_title">Custom reminder</string>
+    <!-- Option to enter the reminder as a time span relative to the start of the event, e.g. 3 days -->
+    <string name="custom_reminder_mode_span">Time span</string>
+    <!-- Option to enter the reminder as a time of day, e.g. 2 days before the event at 9:00 -->
+    <string name="custom_reminder_mode_day_time">Time of day</string>
+    <!-- Label of the number field for a time span, followed by a unit like "hours" -->
+    <string name="custom_reminder_span_count">Amount</string>
+    <!-- Label of the field for the number of days before the event; 0 is the day of the event -->
+    <string name="custom_reminder_days_before">Days before the event</string>
+    <!-- Label of the button to pick the time of day of the reminder -->
+    <string name="custom_reminder_time">Time</string>
+    <!-- Units of a custom reminder time span. Do not change the order. -->
+    <string-array name="custom_reminder_units">
+        <item>minutes</item>
+        <item>hours</item>
+        <item>days</item>
+        <item>weeks</item>
+    </string-array>
+
     <string name="pref_theme_default" translatable="false">light</string>
     <string name="preferences_do_not_check_battery_optimization">Don\'t check battery optimization</string>
     <string name="preferences_do_not_check_battery_optimization_summary">Use at your own risk! Notifications will no longer work, widget will no longer update and background services will crash. But you won\'t get asked again if you want to enable the background service.</string>
