@@ -232,8 +232,8 @@
     <string name="preferences_light_theme">亮</string>
     <string name="preferences_dark_theme">暗</string>
     <string name="preferences_black_theme">黑</string>
-    <string name="preferences_color">原色</string>
-    <string name="preferences_color_pick">基础色</string>
+    <string name="preferences_color">强调色</string>
+    <string name="preferences_color_pick">强调色</string>
     <string name="preferences_days_per_week_title">每周天数</string>
     <string name="preferences_days_per_week_dialog">每周天数</string>
     <string name="preferences_default_event_duration_title">默认活动持续时间</string>
@@ -317,7 +317,7 @@
     <string name="two_days">2天</string>
     <string name="preferences_system_theme">系统默认</string>
     <string name="preferences_list_add_remote_etesync">添加 EteSync 日历</string>
-    <string name="preferences_list_add_remote">添加 CalDAV日历</string>
+    <string name="preferences_list_add_remote">添加 CalDAV 日历</string>
     <string name="preferences_pure_black_night_mode">纯黑夜间模式</string>
     <string name="no_reminder_label">无</string>
     <plurals name="Nweeks">
@@ -325,7 +325,7 @@
     </plurals>
     <string name="foreground_notification_title">安排新提醒中…</string>
     <string name="after_start_of_event">在活动开始后</string>
-    <string name="preferences_real_event_colors">使用真实活动颜色</string>
+    <string name="preferences_real_event_colors">使用真实的事件颜色</string>
     <string name="menu_info">信息</string>
     <string name="duplicate_label">复制</string>
     <string name="hint_url">URL</string>
