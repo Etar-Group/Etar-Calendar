@@ -403,4 +403,7 @@
     <string name="week_widget_description">Zobrazí aktuální týden s časy a podrobnostmi událostí</string>
     <string name="widget_no_title">(Bez názvu)</string>
     <string name="widget_event_overflow">+%d dalších</string>
+    <string name="widget_configure_title">Kalendáře ve widgetu</string>
+    <string name="widget_configure_description">Vyberte kalendáře, jejichž události mají být zobrazeny v tomto widgetu:</string>
+    <string name="widget_configure_save">Uložit</string>
 </resources>
