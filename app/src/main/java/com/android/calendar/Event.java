@@ -516,7 +516,9 @@ public class Event implements Cloneable {
             }
 
             groupList.add(event);
-            currentGroupEndMillis = Math.max(currentGroupEndMillis, event.getEndMillis());
+            long eventEndMillis = Math.max(event.getEndMillis(),
+                    event.getStartMillis() + minimumDurationMillis);
+            currentGroupEndMillis = Math.max(currentGroupEndMillis, eventEndMillis);
         }
         computeGroupLayout(groupList, minimumDurationMillis, doAlldayEvents, drawStaggered);
     }
