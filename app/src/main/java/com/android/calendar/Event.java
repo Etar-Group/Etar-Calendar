@@ -504,21 +504,32 @@ public class Event implements Cloneable {
         drawStaggered = drawStaggered && !doAlldayEvents;
 
         long currentGroupEndMillis = -1;
+        int currentGroupEndDay = -1;
         for (Event event : eventsList) {
             // Process all-day events separately
             if (event.drawAsAllday() != doAlldayEvents)
                 continue;
 
-            if (!groupList.isEmpty() && event.getStartMillis() >= currentGroupEndMillis) {
+            boolean newGroup;
+            if (doAlldayEvents) {
+                newGroup = event.startDay > currentGroupEndDay;
+            } else {
+                newGroup = event.getStartMillis() >= currentGroupEndMillis;
+            }
+            if (!groupList.isEmpty() && newGroup) {
                 // This event is not part of the current group, start new group
                 computeGroupLayout(groupList, minimumDurationMillis, doAlldayEvents, drawStaggered);
                 groupList.clear();
             }
 
             groupList.add(event);
-            long eventEndMillis = Math.max(event.getEndMillis(),
-                    event.getStartMillis() + minimumDurationMillis);
-            currentGroupEndMillis = Math.max(currentGroupEndMillis, eventEndMillis);
+            if (doAlldayEvents) {
+                currentGroupEndDay = Math.max(currentGroupEndDay, event.endDay);
+            } else {
+                long eventEndMillis = Math.max(event.getEndMillis(),
+                        event.getStartMillis() + minimumDurationMillis);
+                currentGroupEndMillis = Math.max(currentGroupEndMillis, eventEndMillis);
+            }
         }
         computeGroupLayout(groupList, minimumDurationMillis, doAlldayEvents, drawStaggered);
     }
