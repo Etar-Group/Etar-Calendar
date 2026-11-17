@@ -404,4 +404,16 @@
     <string name="widget_configure_title">Calendari del widget</string>
     <string name="widget_configure_description">Seleziona i calendari i cui eventi devono essere mostrati nel widget:</string>
     <string name="widget_configure_save">Salva</string>
+    <string name="custom_reminder_label">Personalizza…</string>
+    <string name="custom_reminder_title">Imposta tempo promemoria</string>
+    <string name="reminder_unit_minutes">Minuti</string>
+    <string name="reminder_unit_hours">Ore</string>
+    <string name="reminder_unit_days">Giorni</string>
+    <string name="reminder_unit_weeks">Settimane</string>
+    <string name="reminder_notification">Notifica</string>
+    <string name="reminder_email">Email</string>
+    <string name="reminder_alarm">Sveglia</string>
+    <string name="reminder_before">%1$s prima</string>
+    <string name="reminder_after">%1$s dopo</string>
+    <string name="reminder_email_suffix">come email</string>
 </resources>
