@@ -389,4 +389,16 @@
     <string name="widget_configure_title">Widget Takvimleri</string>
     <string name="widget_configure_description">Bu widget\'ta etkinliklerinin görüntülenmesini istediğiniz takvimleri seçin:</string>
     <string name="widget_configure_save">Kaydet</string>
+    <string name="custom_reminder_label">Özel…</string>
+    <string name="custom_reminder_title">Hatırlatıcı zamanını ayarla</string>
+    <string name="reminder_unit_minutes">Dakika</string>
+    <string name="reminder_unit_hours">Saat</string>
+    <string name="reminder_unit_days">Gün</string>
+    <string name="reminder_unit_weeks">Hafta</string>
+    <string name="reminder_notification">Bildirim</string>
+    <string name="reminder_email">E-posta</string>
+    <string name="reminder_alarm">Alarm</string>
+    <string name="reminder_before">%1$s önce</string>
+    <string name="reminder_after">%1$s sonra</string>
+    <string name="reminder_email_suffix">e-posta olarak</string>
 </resources>
