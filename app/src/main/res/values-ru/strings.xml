@@ -416,4 +416,16 @@
     <string name="widget_configure_title">Календари виджета</string>
     <string name="widget_configure_description">Календари, события которых должны отображаться в этом виджете:</string>
     <string name="widget_configure_save">Сохранить</string>
+    <string name="custom_reminder_label">Особое…</string>
+    <string name="custom_reminder_title">Время напоминания</string>
+    <string name="reminder_unit_minutes">Минуты</string>
+    <string name="reminder_unit_hours">Часы</string>
+    <string name="reminder_unit_days">Дни</string>
+    <string name="reminder_unit_weeks">Недели</string>
+    <string name="reminder_notification">Уведомление</string>
+    <string name="reminder_email">Эл. почта</string>
+    <string name="reminder_alarm">Сигнал</string>
+    <string name="reminder_before">За %1$s</string>
+    <string name="reminder_after">После %1$s</string>
+    <string name="reminder_email_suffix">эл. почта</string>
 </resources>
