@@ -406,4 +406,16 @@
     <string name="widget_configure_title">Widget-uri pentru calendare</string>
     <string name="widget_configure_description">Selectează calendarele ale căror evenimente să fie afișate în acest widget:</string>
     <string name="widget_configure_save">Salvează</string>
+    <string name="custom_reminder_label">Personalizat…</string>
+    <string name="custom_reminder_title">Setează ora mementoului</string>
+    <string name="reminder_unit_minutes">Minute</string>
+    <string name="reminder_unit_hours">Ore</string>
+    <string name="reminder_unit_days">Zile</string>
+    <string name="reminder_unit_weeks">Săptămâni</string>
+    <string name="reminder_notification">Notificare</string>
+    <string name="reminder_email">E-mail</string>
+    <string name="reminder_alarm">Alarmă</string>
+    <string name="reminder_before">%1$s înainte</string>
+    <string name="reminder_after">%1$s după</string>
+    <string name="reminder_email_suffix">ca email</string>
 </resources>
