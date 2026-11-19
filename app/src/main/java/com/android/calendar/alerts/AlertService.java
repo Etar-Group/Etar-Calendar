@@ -453,11 +453,17 @@ public class AlertService {
 
         ContentResolver cr = context.getContentResolver();
         HashMap<Long, NotificationInfo> eventIds = new HashMap<Long, NotificationInfo>();
+        HashMap<Long, String> stableEventIdCache = new HashMap<Long, String>();
         int numFired = 0;
         try {
             while (alertCursor.moveToNext()) {
                 final long alertId = alertCursor.getLong(ALERT_INDEX_ID);
                 final long eventId = alertCursor.getLong(ALERT_INDEX_EVENT_ID);
+                String stableEventId = stableEventIdCache.get(eventId);
+                if (stableEventId == null) {
+                    stableEventId = AlertUtils.getStableEventId(context, eventId);
+                    stableEventIdCache.put(eventId, stableEventId);
+                }
                 final long calendarId = alertCursor.getLong(ALERT_INDEX_CALENDAR_ID);
                 final int minutes = alertCursor.getInt(ALERT_INDEX_MINUTES);
                 final String eventName = alertCursor.getString(ALERT_INDEX_TITLE);
@@ -485,8 +491,8 @@ public class AlertService {
                     // we can get refires for non-dismissed alerts after app installation, or if the
                     // SharedPrefs was cleared too early.  This means alerts that were timed while
                     // the phone was off may show up silently in the notification bar.
-                    boolean alreadyFired = AlertUtils.hasAlertFiredInSharedPrefs(context, eventId,
-                            beginTime, alarmTime);
+                    boolean alreadyFired = AlertUtils.hasAlertFiredInSharedPrefs(context,
+                            stableEventId, beginTime, alarmTime);
                     if (!alreadyFired) {
                         newAlertOverride = true;
                     }
@@ -510,6 +516,7 @@ public class AlertService {
                     if (AlertUtils.BYPASS_DB) {
                         msgBuilder.append(" newAlertOverride: " + newAlertOverride);
                     }
+                    msgBuilder.append(" stableEventId:").append(stableEventId);
                     Log.d(TAG, msgBuilder.toString());
                 }
 
@@ -535,7 +542,7 @@ public class AlertService {
                 if (sendAlert) {
                     if (state == CalendarAlerts.STATE_SCHEDULED || newAlertOverride) {
                         newState = CalendarAlerts.STATE_FIRED;
-
+                    
                         // When using local storage to track alert state (BYPASS_DB),
                         // check if this alert was already fired previously.  The
                         // calendar provider may re-insert SCHEDULED alert entries
@@ -544,7 +551,7 @@ public class AlertService {
                         // duplicate notifications with sound/vibrate.
                         boolean alreadyFired = AlertUtils.BYPASS_DB
                                 && AlertUtils.hasAlertFiredInSharedPrefs(
-                                        context, eventId, beginTime, alarmTime);
+                                        context, stableEventId, beginTime, alarmTime);
 
                         if (!alreadyFired) {
                             numFired++;
@@ -570,7 +577,7 @@ public class AlertService {
                     state = newState;
 
                     if (AlertUtils.BYPASS_DB) {
-                        AlertUtils.setAlertFiredInSharedPrefs(context, eventId, beginTime,
+                        AlertUtils.setAlertFiredInSharedPrefs(context, stableEventId, beginTime,
                                 alarmTime);
                     }
                 }
