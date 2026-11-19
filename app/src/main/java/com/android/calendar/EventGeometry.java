@@ -25,6 +25,8 @@ public class EventGeometry {
     private float mMinuteHeight;
 
     private float mHourGap;
+    private float mCollapsedGapHeight;
+    private DisplayedHours mDisplayedHours = DisplayedHours.all();
     private float mMinEventHeight;
 
     void setCellMargin(int cellMargin) {
@@ -35,12 +37,25 @@ public class EventGeometry {
         mHourGap = gap;
     }
 
+    public void setCollapsedGapHeight(float height) {
+        mCollapsedGapHeight = height;
+    }
+
     public void setMinEventHeight(float height) {
         mMinEventHeight = height;
     }
 
+    public void setDisplayedHours(DisplayedHours displayedHours) {
+        mDisplayedHours = displayedHours;
+    }
+
     public void setHourHeight(float height) {
         mMinuteHeight = height / 60.0f;
+    }
+
+    // Converts minutes since midnight to minutes counted only over displayed hours.
+    private int displayedMinutes(int minutes) {
+        return mDisplayedHours.rowOfHour(minutes / 60) * 60 + minutes % 60;
     }
 
     // Computes the rectangle coordinates of the given event on the screen.
@@ -85,15 +100,19 @@ public class EventGeometry {
             endHour -= 1;
 
         event.top = top;
-        event.top += (int) (startTime * cellMinuteHeight);
-        event.top += startHour * mHourGap;
+        event.top += (int) (displayedMinutes(startTime) * cellMinuteHeight);
+        event.top += mDisplayedHours.rowOfHour(startHour) * mHourGap;
+        event.top += mDisplayedHours.gapsAbove(mDisplayedHours.rowOfHour(startHour))
+                * mCollapsedGapHeight;
 
         final float millisPerMin = DayView.MILLIS_PER_MINUTE;
         event.textTop = event.top + event.getTextOffsetMillis() / millisPerMin * cellMinuteHeight;
 
         event.bottom = top;
-        event.bottom += (int) (endTime * cellMinuteHeight);
-        event.bottom += endHour * mHourGap - 1;
+        event.bottom += (int) (displayedMinutes(endTime) * cellMinuteHeight);
+        event.bottom += mDisplayedHours.rowOfHour(endHour) * mHourGap - 1;
+        event.bottom += mDisplayedHours.gapsAbove(mDisplayedHours.rowOfHour(endHour))
+                * mCollapsedGapHeight;
 
         // Make the rectangle be at least mMinEventHeight pixels high
         if (event.bottom < event.top + mMinEventHeight) {
