@@ -1,0 +1,8 @@
+- Added month and week view widgets
+- Adds view icons in the toolbar for quick access to Month, Week and Day
+- Prevent sending invitations when importing ICS events
+- Add per-widget calendar selection
+- Add calendar ics export
+- Preserve guest addresses when duplicating an event
+- Add custom reminder picker
+- Bugfixes

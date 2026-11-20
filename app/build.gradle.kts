@@ -19,8 +19,8 @@ android {
 	defaultConfig {
 		minSdk = 24
 		targetSdk = 37
-		versionCode = 57
-		versionName = "1.0.57"
+		versionCode = 58
+		versionName = "1.0.58"
 		applicationId = "ws.xsoh.etar"
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
