@@ -135,7 +135,6 @@ public class Utils {
     private static final float SATURATION_ADJUST = 1.3f;
     private static final float INTENSITY_ADJUST = 0.8f;
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
-    private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
 
     private static final float BRIGHTNESS_THRESHOLD = 130;
     private static final float ADAPTIVE_DARK_TEXT_ALPHA_FACTOR = 0.7f;
@@ -1924,7 +1923,7 @@ public class Utils {
             spanText = SpannableString.valueOf(text);
             // If lastDitchGeo is true, default the entire string to geo.
             if (lastDitchGeo && !text.isEmpty()) {
-                Linkify.addLinks(spanText, mWildcardPattern, "geo:0,0?q=");
+                addGeoLink(spanText);
             }
             return spanText;
         }
@@ -2031,10 +2030,19 @@ public class Utils {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "No linkification matches, using geo default");
             }
-            Linkify.addLinks(spanText, mWildcardPattern, "geo:0,0?q=");
+            addGeoLink(spanText);
         }
 
         return spanText;
+    }
+
+    private static void addGeoLink(Spannable text) {
+        // Preserve the displayed address, including line breaks, but search for it as one query.
+        String query = text.toString().replaceAll("\\r\\n|\\r|\\n", " ").trim();
+        if (!query.isEmpty()) {
+            URLSpan span = new URLSpan("geo:0,0?q=" + Uri.encode(query));
+            text.setSpan(span, 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
     }
 
     private static int indexFirstNonWhitespaceChar(CharSequence str) {
