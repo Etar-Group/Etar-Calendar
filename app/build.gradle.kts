@@ -115,6 +115,14 @@ android {
 
 }
 
+// Dependencies shared by local and instrumented tests.
+val sharedTestImplementation by configurations.creating {
+	isCanBeConsumed = false
+	isCanBeResolved = false
+}
+configurations.named("testImplementation") { extendsFrom(sharedTestImplementation) }
+configurations.named("androidTestImplementation") { extendsFrom(sharedTestImplementation) }
+
 dependencies {
 
 	// Core
@@ -125,8 +133,8 @@ dependencies {
 	implementation(libs.google.android.material)
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.concurrent.futures)
-    testImplementation(libs.junit)
-	testImplementation(libs.androidx.test.runner)
+	add(sharedTestImplementation.name, libs.junit)
+	add(sharedTestImplementation.name, libs.androidx.test.runner)
 
 	coreLibraryDesugaring(libs.android.tools.desugar)
 
