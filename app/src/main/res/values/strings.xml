@@ -488,6 +488,12 @@
     <string name="default_start_title">Default view</string>
     <string name="preferences_view_switch_buttons">View buttons in the toolbar</string>
     <string name="preferences_view_switch_buttons_summary">Switch between the day, week and month views in one tap (months are abbreviated in the title)</string>
+    <string name="preferences_day_week_view">Day and week view</string>
+    <string name="hide_part_of_day">Hide part of the day</string>
+    <string name="hide_part_of_day_summary">Hours in the chosen period are left out. Hours with events are always shown.</string>
+    <string name="hide_hours_from">Hide from</string>
+    <string name="hide_hours_until">Hide until</string>
+    <string name="hide_hours_must_differ">The start and end of the hidden period must differ</string>
     <string name="display_options">Display options</string>
     <string name="display_time">Display time</string>
     <string name="display_location">Display location</string>

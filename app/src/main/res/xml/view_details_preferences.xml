@@ -38,4 +38,23 @@
             android:title="@string/display_location"
             android:defaultValue="false" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preferences_day_week_view">
+        <SwitchPreference
+            android:key="pref_hide_hours"
+            android:title="@string/hide_part_of_day"
+            android:summary="@string/hide_part_of_day_summary"
+            android:defaultValue="false" />
+        <ListPreference
+            android:key="pref_hide_hours_from"
+            android:dependency="pref_hide_hours"
+            android:title="@string/hide_hours_from"
+            android:summary="%s"
+            android:defaultValue="0" />
+        <ListPreference
+            android:key="pref_hide_hours_until"
+            android:dependency="pref_hide_hours"
+            android:title="@string/hide_hours_until"
+            android:summary="%s"
+            android:defaultValue="8" />
+    </PreferenceCategory>
 </PreferenceScreen>
