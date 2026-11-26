@@ -65,9 +65,6 @@ public class EditEventHelper {
 
     private static final boolean DEBUG = false;
 
-    // Used for parsing rrules for special cases.
-    private EventRecurrence mEventRecurrence = new EventRecurrence();
-
     private static final String NO_EVENT_COLOR = "";
 
     public static final String[] EVENT_PROJECTION = new String[] {
@@ -1109,7 +1106,7 @@ public class EditEventHelper {
     }
 
     // Adds an rRule and duration to a set of content values
-    void addRecurrenceRule(ContentValues values, CalendarEventModel model) {
+    static void addRecurrenceRule(ContentValues values, CalendarEventModel model) {
         String rrule = model.mRrule;
 
         values.put(Events.RRULE, rrule);
@@ -1412,7 +1409,7 @@ public class EditEventHelper {
      * @param model The complete model of the event you want to save
      * @return values
      */
-    ContentValues getContentValuesFromModel(CalendarEventModel model) {
+    static ContentValues getContentValuesFromModel(CalendarEventModel model) {
         String title = model.mTitle;
         boolean isAllDay = model.mAllDay;
         String rrule = model.mRrule;
@@ -1505,35 +1502,36 @@ public class EditEventHelper {
      * If the recurrence rule is such that the event start date doesn't actually fall in one of the
      * recurrences, then push the start date up to the first actual instance of the event.
      */
-    private void offsetStartTimeIfNecessary(Time startTime, Time endTime, String rrule,
+    private static void offsetStartTimeIfNecessary(Time startTime, Time endTime, String rrule,
             CalendarEventModel model) {
         if (rrule == null || rrule.isEmpty()) {
             // No need to waste any time with the parsing if the rule is empty.
             return;
         }
 
-        mEventRecurrence.parse(rrule);
+        EventRecurrence eventRecurrence = new EventRecurrence();
+        eventRecurrence.parse(rrule);
         // Check if we meet the specific special case. It has to:
         //  * be weekly
         //  * not recur on the same day of the week that the startTime falls on
         // In this case, we'll need to push the start time to fall on the first day of the week
         // that is part of the recurrence.
-        if (mEventRecurrence.freq != EventRecurrence.WEEKLY) {
+        if (eventRecurrence.freq != EventRecurrence.WEEKLY) {
             // Not weekly so nothing to worry about.
             return;
         }
-        if (mEventRecurrence.byday == null ||
-                mEventRecurrence.byday.length > mEventRecurrence.bydayCount) {
+        if (eventRecurrence.byday == null ||
+                eventRecurrence.byday.length > eventRecurrence.bydayCount) {
             // This shouldn't happen, but just in case something is weird about the recurrence.
             return;
         }
 
         // Start to figure out what the nearest weekday is.
         int closestWeekday = Integer.MAX_VALUE;
-        int weekstart = EventRecurrence.day2TimeDay(mEventRecurrence.wkst);
+        int weekstart = EventRecurrence.day2TimeDay(eventRecurrence.wkst);
         int startDay = startTime.getWeekDay();
-        for (int i = 0; i < mEventRecurrence.bydayCount; i++) {
-            int day = EventRecurrence.day2TimeDay(mEventRecurrence.byday[i]);
+        for (int i = 0; i < eventRecurrence.bydayCount; i++) {
+            int day = EventRecurrence.day2TimeDay(eventRecurrence.byday[i]);
             if (day == startDay) {
                 // Our start day is one of the recurring days, so we're good.
                 return;
