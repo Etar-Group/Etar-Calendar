@@ -111,7 +111,7 @@ public class CalendarEventModel implements Serializable {
     public boolean mGuestsCanSeeGuests = false;
     public boolean mOrganizerCanRespond = false;
     public int mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
-    public int mEventStatus = Events.STATUS_CONFIRMED;
+    public Integer mEventStatus = null;
     public int mAccessLevel = 0;
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mDefaultReminders;
@@ -292,7 +292,7 @@ public class CalendarEventModel implements Serializable {
         mGuestsCanInviteOthers = false;
         mGuestsCanSeeGuests = false;
         mAccessLevel = 0;
-        mEventStatus = Events.STATUS_CONFIRMED;
+        mEventStatus = null;
         mOrganizerCanRespond = false;
         mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
         mCalendarAllowedReminders = null;
@@ -382,7 +382,7 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + (mAvailability);
         result = prime * result + ((mUri == null) ? 0 : mUri.hashCode());
         result = prime * result + mAccessLevel;
-        result = prime * result + mEventStatus;
+        result = prime * result + ((mEventStatus == null) ? 0 : mEventStatus);
         return result;
     }
 
@@ -732,7 +732,11 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mEventStatus != originalModel.mEventStatus) {
+        if (mEventStatus == null) {
+            if (originalModel.mEventStatus != null) {
+                return false;
+            }
+        } else if (!mEventStatus.equals(originalModel.mEventStatus)) {
             return false;
         }
 

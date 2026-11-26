@@ -1489,7 +1489,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         ContentValues values = new ContentValues();
         values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
         values.put(Events.SELF_ATTENDEE_STATUS, status);
-        values.put(Events.STATUS, Events.STATUS_CONFIRMED);
 
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         Uri exceptionUri = Uri.withAppendedPath(Events.CONTENT_EXCEPTION_URI,
