@@ -363,7 +363,6 @@ public class EditEventHelper {
         if (uri == null) {
             // Add hasAttendeeData for a new event
             values.put(Events.HAS_ATTENDEE_DATA, 1);
-            values.put(Events.STATUS, Events.STATUS_CONFIRMED);
             eventIdIndex = ops.size();
             ContentProviderOperation.Builder b = ContentProviderOperation.newInsert(
                     Events.CONTENT_URI).withValues(values);
