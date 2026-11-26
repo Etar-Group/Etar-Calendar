@@ -403,7 +403,9 @@ public class EditEventHelper {
             values.put(Events.ORIGINAL_INSTANCE_TIME, begin);
             boolean allDay = originalModel.mAllDay;
             values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
-            values.put(Events.STATUS, originalModel.mEventStatus);
+            if (originalModel.mEventStatus != null) {
+                values.put(Events.STATUS, originalModel.mEventStatus);
+            }
 
             eventIdIndex = ops.size();
             ContentProviderOperation.Builder b = ContentProviderOperation.newInsert(
@@ -426,7 +428,9 @@ public class EditEventHelper {
                     updatePastEvents(ops, originalModel, model.mOriginalStart);
                 }
                 eventIdIndex = ops.size();
-                values.put(Events.STATUS, originalModel.mEventStatus);
+                if (originalModel.mEventStatus != null) {
+                    values.put(Events.STATUS, originalModel.mEventStatus);
+                }
                 ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values)
                         .build());
             } else {
@@ -449,7 +453,9 @@ public class EditEventHelper {
 
                     // Create a new event with the user-modified fields
                     eventIdIndex = ops.size();
-                    values.put(Events.STATUS, originalModel.mEventStatus);
+                    if (originalModel.mEventStatus != null) {
+                        values.put(Events.STATUS, originalModel.mEventStatus);
+                    }
                     ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(
                             values).build());
                 }
@@ -1287,7 +1293,11 @@ public class EditEventHelper {
         model.setEventColor(Utils.getDisplayColorFromColor(context, rawEventColor));
 
         model.mAccessLevel = accessLevel;
-        model.mEventStatus = cursor.getInt(EVENT_INDEX_EVENT_STATUS);
+        if (cursor.isNull(EVENT_INDEX_EVENT_STATUS)) {
+            model.mEventStatus = null;
+        } else {
+            model.mEventStatus = cursor.getInt(EVENT_INDEX_EVENT_STATUS);
+        }
 
         boolean hasRRule = !TextUtils.isEmpty(rRule);
 
@@ -1479,7 +1489,9 @@ public class EditEventHelper {
 
         int accessLevel = model.mAccessLevel;
         values.put(Events.ACCESS_LEVEL, accessLevel);
-        values.put(Events.STATUS, model.mEventStatus);
+        if (model.mEventStatus != null) {
+            values.put(Events.STATUS, model.mEventStatus);
+        }
         if (model.isEventColorInitialized()) {
             if (model.getEventColor() == model.getCalendarColor()) {
                 values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
