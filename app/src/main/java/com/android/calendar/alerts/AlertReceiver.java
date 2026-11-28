@@ -231,8 +231,8 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar_events);
-        int color = DynamicThemeKt.getColorId(DynamicThemeKt.getPrimaryColor(context));
-        notificationBuilder.setColor(ContextCompat.getColor(context, color));
+        notificationBuilder.setColor(
+                ContextCompat.getColor(context, DynamicThemeKt.themedPrimaryRes(context)));
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
 

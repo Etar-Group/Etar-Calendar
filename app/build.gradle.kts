@@ -23,6 +23,10 @@ android {
 		versionName = "1.0.58"
 		applicationId = "ws.xsoh.etar"
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+		// When true, Utils.isMonetAvailable() reports false so the static teal palette is used
+		// even on Material You devices. Flip it in the debug block below to test the fallback.
+		buildConfigField("boolean", "FORCE_STATIC_PALETTE", "false")
 	}
 
 	buildTypes {
@@ -40,6 +44,7 @@ android {
 			isMinifyEnabled = false
 
 			applicationIdSuffix = ".debug"
+			buildConfigField("boolean", "FORCE_STATIC_PALETTE", "false")
 			resValue(
 				"string",
 				"search_authority",

@@ -26,6 +26,27 @@
     <color name="titleTextColor">@android:color/white</color>
     <color name="app_bar">@color/colorPrimary</color>
 
+    <!--
+        Themed primary / on-primary pairs for surfaces drawn outside the app theme
+        (home-screen widgets, notifications). Tones of the teal seed #41c3b1 following the
+        Material You tonal mapping: light = tone 40 on white, dark/black = tone 80 with tone 20,
+        so text and icons on top always meet contrast requirements.
+        Looked up by name via DynamicThemeKt.getColorResId(); the _monet variants are
+        overridden in values-v31 with the system palette.
+    -->
+    <color name="themed_primary">#006b5f</color>
+    <color name="themed_on_primary">#ffffff</color>
+    <color name="themed_primary_dark">#5cdac8</color>
+    <color name="themed_on_primary_dark">#003731</color>
+    <color name="themed_primary_black">@color/themed_primary_dark</color>
+    <color name="themed_on_primary_black">@color/themed_on_primary_dark</color>
+    <color name="themed_primary_monet">@color/themed_primary</color>
+    <color name="themed_on_primary_monet">@color/themed_on_primary</color>
+    <color name="themed_primary_monet_dark">@color/themed_primary_dark</color>
+    <color name="themed_on_primary_monet_dark">@color/themed_on_primary_dark</color>
+    <color name="themed_primary_monet_black">@color/themed_primary_dark</color>
+    <color name="themed_on_primary_monet_black">@color/themed_on_primary_dark</color>
+
     <color name="pressed">#330066ff</color>
 
     <color name="selection">@android:color/holo_blue_light</color>

@@ -243,7 +243,7 @@ public class Utils {
      * exist but cannot be configured by the user.
      */
     public static boolean isMonetAvailable(Context context) {
-        if (Build.VERSION.SDK_INT < 31) {
+        if (Build.VERSION.SDK_INT < 31 || BuildConfig.FORCE_STATIC_PALETTE) {
             return false;
         }
 
@@ -252,11 +252,12 @@ public class Utils {
         // normal application.
         //
         // To determine whether Material You is available on the device, we use a naive heuristic which
-        // is to compare the palette against known default values in AOSP.
+        // is to compare the palette against known default values in AOSP. Only accent1 is checked:
+        // some devices report the default accent1 with a different accent2, and accent1 is what
+        // we draw with, so treating those as "no Material You" avoids the low-contrast AOSP blue.
         Resources resources = context.getResources();
-        int probe1 = resources.getColor(android.R.color.system_accent1_500, context.getTheme());
-        int probe2 = resources.getColor(android.R.color.system_accent2_500, context.getTheme());
-        if (probe1 == Color.parseColor("#007fac") && probe2 == Color.parseColor("#657985")) {
+        int probe = resources.getColor(android.R.color.system_accent1_500, context.getTheme());
+        if (probe == Color.parseColor("#007fac")) {
             // AOSP palette
             Log.d(TAG, "Material You not available - Detected AOSP palette");
             return false;

@@ -8,6 +8,8 @@ import android.graphics.Color
 import android.os.Build
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -20,9 +22,6 @@ import com.android.calendar.theme.ThemeUtils.getSuffix
 import com.android.calendar.theme.ThemeUtils.isPureBlackModeEnabled
 import com.android.calendar.theme.model.Theme
 import ws.xsoh.etar.R
-
-private const val TEAL: String = "teal"
-private const val MONET: String = "monet"
 
 fun AppCompatActivity.applyTheme() {
     val selectedTheme = ThemeUtils.getTheme(this)
@@ -126,20 +125,42 @@ fun getWidgetBackgroundStyle(context: Context): Int {
     }
 }
 
-fun getPrimaryColor(context: Context?): String {
-    if (Utils.isMonetAvailable(context)) {
-        return MONET
-    } else {
-        return TEAL
-    }
-}
+private const val MONET_INFIX: String = "_monet"
 
-fun getColorId(name: String): Int {
-    return when (name) {
-        TEAL -> R.color.colorPrimary
-        MONET -> android.R.color.system_accent1_500
-        else -> throw java.lang.UnsupportedOperationException("Unknown color name : " + name)
-    }
+/**
+ * Resolves the resource id of a theme-dependent color named `<name>[_monet]<suffix>`, where the
+ * suffix follows the app theme setting ([ThemeUtils.getSuffix]) and `_monet` is inserted when the
+ * system palette is usable ([Utils.isMonetAvailable]).
+ *
+ * Returns a resource id rather than a color value so that RemoteViews (widgets) can let the
+ * launcher resolve it, which keeps system-palette colors live across wallpaper changes.
+ */
+@ColorRes
+fun getColorResId(context: Context, name: String): Int =
+    getThemedResId(context, name, "color")
+
+/** Drawable counterpart of [getColorResId]. */
+@DrawableRes
+fun getDrawableResId(context: Context, name: String): Int =
+    getThemedResId(context, name, "drawable")
+
+/** Themed primary color for surfaces outside the app theme (widget header, notifications). */
+@ColorRes
+fun themedPrimaryRes(context: Context): Int = getColorResId(context, "themed_primary")
+
+/** Color for text and icons drawn on [themedPrimaryRes]. */
+@ColorRes
+fun themedOnPrimaryRes(context: Context): Int = getColorResId(context, "themed_on_primary")
+
+private fun getThemedResId(context: Context, name: String, type: String): Int {
+    val infix = if (Utils.isMonetAvailable(context)) MONET_INFIX else ""
+    val res = context.resources
+    // See getColor(): resources keep the original package name with --rename-manifest-package.
+    val packageName = res.getResourcePackageName(R.string.app_label)
+    val fullName = name + infix + getSuffix(context)
+    val id = res.getIdentifier(fullName, type, packageName)
+    require(id != 0) { "Missing $type resource: $fullName" }
+    return id
 }
 
 fun getColor(context: Context, id: String?): Int {
