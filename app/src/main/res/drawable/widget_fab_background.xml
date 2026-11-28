@@ -14,8 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!-- Selected at runtime via DynamicThemeKt.getDrawableResId(ctx, "widget_fab_background"). -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="12dp" />
-    <solid android:color="@color/colorAccent" />
+    <solid android:color="@color/themed_primary" />
 </shape>

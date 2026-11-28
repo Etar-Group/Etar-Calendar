@@ -21,19 +21,68 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.provider.CalendarContract
 import android.provider.CalendarContract.Attendees
 import android.provider.CalendarContract.Calendars
 import android.provider.CalendarContract.Instances
+import android.widget.RemoteViews
+import androidx.annotation.ColorRes
+import androidx.annotation.IdRes
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import com.android.calendar.AllInOneActivity
 import com.android.calendar.CalendarUtils
 import com.android.calendar.Utils
 import com.android.calendar.event.EditEventActivity
+import com.android.calendar.theme.themedOnPrimaryRes
+import com.android.calendar.theme.themedPrimaryRes
+import com.android.calendar.theme.getDrawableResId
+import ws.xsoh.etar.R
 
 object WidgetUtils {
 
     private const val PREF_KEY_PREFIX = "widget_calendars_"
+
+    /**
+     * Colors the widget header and the add-event button with the themed primary / on-primary
+     * pair, so text and icons on top always have enough contrast.
+     *
+     * On API 31+ the colors are passed as resource ids and resolved by the launcher, which keeps
+     * system-palette colors in sync after a wallpaper change. Below 31 they are static anyway.
+     */
+    @JvmStatic
+    fun applyThemedColors(
+        context: Context,
+        views: RemoteViews,
+        @IdRes headerId: Int,
+        headerTextIds: IntArray,
+        headerIconIds: IntArray,
+    ) {
+        views.setInt(headerId, "setBackgroundResource", themedPrimaryRes(context))
+        views.setInt(
+            R.id.iv_add, "setBackgroundResource",
+            getDrawableResId(context, "widget_fab_background")
+        )
+
+        val onPrimary = themedOnPrimaryRes(context)
+        for (id in headerTextIds) {
+            setColor(context, views, id, "setTextColor", onPrimary)
+        }
+        for (id in headerIconIds + R.id.iv_add) {
+            setColor(context, views, id, "setColorFilter", onPrimary)
+        }
+    }
+
+    private fun setColor(
+        context: Context, views: RemoteViews, @IdRes id: Int, method: String, @ColorRes color: Int
+    ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            views.setColor(id, method, color)
+        } else {
+            views.setInt(id, method, ContextCompat.getColor(context, color))
+        }
+    }
 
     fun getWidgetCalendarIds(context: Context, appWidgetId: Int): Set<String>? {
         if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {

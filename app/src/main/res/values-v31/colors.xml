@@ -2,4 +2,13 @@
 <resources>
     <color name="colorAccent">@android:color/system_accent1_500</color>
     <color name="colorSecondaryContainer">@android:color/system_accent1_200</color>
+
+    <!-- Material You tonal mapping of the system palette: primary = accent1 600 / 200,
+         on-primary = accent1 0 / 800. Used only when Utils.isMonetAvailable() is true. -->
+    <color name="themed_primary_monet">@android:color/system_accent1_600</color>
+    <color name="themed_on_primary_monet">@android:color/system_accent1_0</color>
+    <color name="themed_primary_monet_dark">@android:color/system_accent1_200</color>
+    <color name="themed_on_primary_monet_dark">@android:color/system_accent1_800</color>
+    <color name="themed_primary_monet_black">@android:color/system_accent1_200</color>
+    <color name="themed_on_primary_monet_black">@android:color/system_accent1_800</color>
 </resources>

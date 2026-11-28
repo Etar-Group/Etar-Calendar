@@ -561,7 +561,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             canvas.drawRect(r, p);
         }
         if (mHasToday) {
-            int selectedColor = ContextCompat.getColor(mContext, DynamicThemeKt.getColorId(DynamicThemeKt.getPrimaryColor(mContext)));
+            int selectedColor = ContextCompat.getColor(mContext, DynamicThemeKt.themedPrimaryRes(mContext));
 
             if (Utils.getSharedPreference(mContext, "pref_theme", "light").equals("light")) {
                 p.setColor(selectedColor);
